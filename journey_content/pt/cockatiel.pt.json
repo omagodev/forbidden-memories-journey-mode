@@ -1,0 +1,70 @@
+{
+ "id": "cockatiel",
+ "name": "Cockatiel",
+ "legal_note": "Fictional Forbidden-Memories-style character. The name is only the bird; it uses no real person's name, face, voice or catchphrases.",
+ "role": "Optional wandering duelist, Temple Crossroads, from chapter 6 on (stage 7+). Story script ids: side_cockatiel_pre / _win / _lose / _done / _epilogue.",
+ "bio": "A bird tamer who walks from oasis to oasis with a flock that follows the wind. Speaks in cheerful chirps, hates losing, never hurts a bird. The little cockatiel on the shoulder is called Pip and only talks when it wants snacks.",
+ "personality": [
+  "cheerful",
+  "competitive",
+  "a little vain about the crest",
+  "loyal to the flock"
+ ],
+ "portrait_description": "Bust portrait, 48x48 final (draw at 192x192). A lean young traveler with a tall swept-up crest of yellow-blond hair like a bird crest, two round orange cheek marks painted on the face, a grey-and-yellow feathered cloak over a sand-colored tunic, a small grey cockatiel with a yellow face and orange cheek patch perched on the left shoulder. Big confident grin, one eyebrow raised. Palette: warm yellow, soft grey, orange, sand. Style: matches the game's hand-painted PS1 duelist portraits, 64 colors, dark outline, plain dark background. No text, no logos, not a likeness of any real person.",
+ "model_hint": "Quaternius Hoodie or Punk character, yellow-tinted hair, plus a tiny grey bird prop on the shoulder (CC0).",
+ "portrait_slot": {
+  "proposed": "cports slot 6 / portrait id 0xF1",
+  "file": "portraits/cockatiel.png"
+ },
+ "port_duelist": {
+  "id": "cockatiel",
+  "json": {
+   "copy": "High Mage Kepura",
+   "name": "Cockatiel",
+   "slot": 40
+  },
+  "note": "copy gives AI and drop pools; deck is replaced by decks.json['Cockatiel'] (fixed 40)."
+ },
+ "drops": {
+  "pow": {
+   "replace": true,
+   "Crimson Sunbird": 2,
+   "Punished Eagle": 2,
+   "Queen Bird": 1,
+   "Harpie Lady": 2
+  },
+  "bcd": {
+   "replace": true,
+   "Droll Bird": 3,
+   "Faith Bird": 3,
+   "Tyhone": 2,
+   "Takuhee": 2
+  },
+  "tec": {
+   "replace": true,
+   "Winged Trumpeter": 2,
+   "Follow Wind": 2,
+   "Silver Bow and Arrow": 2,
+   "Parrot Dragon": 1
+  }
+ },
+ "items": [
+  "cockatiel_feather"
+ ],
+ "script_ids": [
+  "side_cockatiel_pre",
+  "side_cockatiel_win",
+  "side_cockatiel_lose",
+  "side_cockatiel_done",
+  "side_cockatiel_epilogue"
+ ],
+ "deck": "Cockatiel",
+ "play_style": "Fast Winged Beasts and Wind Dragons; plays Mountain early. Weak to Raigeki and to high-DEF walls.",
+ "extra_lines": {
+  "free_duel_taunt_win": "Piu! Voe mais alto da proxima vez!",
+  "free_duel_taunt_lose": "O Pip diz que voce trapaceou. O Pip esta errado.",
+  "idle_1": "Pip, para de comer as cartas.",
+  "idle_2": "O vento trouxe voce ate aqui. Nao desperdice."
+ },
+ "translation_note": "pt-BR: only extra_lines (the in-game lines) are translated; the character sheet fields stay English (art/design briefs)."
+}

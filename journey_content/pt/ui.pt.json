@@ -1,0 +1,218 @@
+{
+ "language": {
+  "name": "Portugues (Brasil)",
+  "label": "Idioma"
+ },
+ "mod": {
+  "name": "Modo Jornada",
+  "description": "Um modo historia com um mundo 3D para explorar: criacao de personagem, 30 pessoas em 16 areas ao longo de oito capitulos, as caixas de texto do proprio jogo e duelos com um deck para cada duelista, musica por area, um menu START, um arquivo de save e dois finais. Personagens: Quaternius (CC0); cenario: PSX Nature Free por heyheythere (CC BY 4.0).",
+  "title_button": "MODO JORNADA"
+ },
+ "choose": {
+  "heading": "MODO JORNADA",
+  "continue": "Continuar",
+  "new_journey": "Nova jornada",
+  "language": "Idioma: %s"
+ },
+ "hud": {
+  "status_line": "%s  -  %s    Objetivo: %s",
+  "objective_label": "Objetivo:"
+ },
+ "hint": {
+  "talk": "X: falar com %s",
+  "examine": "X: examinar",
+  "controls": "Setas: andar   Circulo: correr   X: falar   Start: menu"
+ },
+ "ask": {
+  "yes": "Sim",
+  "no": "Nao"
+ },
+ "messages": {
+  "progress_saved": "Progresso salvo",
+  "save_failed": "Falha ao salvar"
+ },
+ "creation": {
+  "heading": "CRIE O SEU PERSONAGEM",
+  "rows": {
+   "name": "Nome",
+   "gender": "Genero",
+   "hair": "Cabelo",
+   "hair_colour": "Cor do cabelo",
+   "skin": "Pele",
+   "outfit_colour": "Cor da roupa",
+   "portrait": "Retrato",
+   "start": "Comecar"
+  },
+  "gender": {
+   "male": "Masculino",
+   "female": "Feminino"
+  },
+  "hair_styles": [
+   "Curto",
+   "Para tras",
+   "Arrumado"
+  ],
+  "hair_colours": [
+   "Violeta",
+   "Preto",
+   "Castanho",
+   "Loiro",
+   "Ruivo"
+  ],
+  "skins": [
+   "Clara",
+   "Morena",
+   "Escura"
+  ],
+  "outfit_colours": [
+   "Azul",
+   "Vermelho",
+   "Verde",
+   "Preto",
+   "Branco"
+  ],
+  "portraits": [
+   "Retrato 1",
+   "Retrato 2",
+   "Retrato 3",
+   "Retrato 4"
+  ],
+  "hint_name": "X: digitar o nome",
+  "hint_begin": "X: comecar",
+  "hint_change": "Esquerda/Direita: mudar"
+ },
+ "menu": {
+  "items": [
+   "Editor de deck",
+   "Itens",
+   "Status",
+   "Salvar",
+   "Voltar ao titulo",
+   "Fechar"
+  ],
+  "items_empty": "Nada ainda",
+  "objective": "Objetivo: %s",
+  "status": "Duelos %d    Vitorias %d    Derrotas %d",
+  "deck": "Deck %d / 40 cartas",
+  "saved": "Progresso salvo.",
+  "save_failed": "Falha ao salvar.",
+  "quit_title": "Voltar a tela de titulo?",
+  "quit_warn": "(o progresso nao salvo sera perdido)",
+  "yes": "Sim",
+  "no": "Nao"
+ },
+ "defaults": {
+  "player_name": "Heroi"
+ },
+ "areas": [
+  "Vila",
+  "Campos",
+  "Rio Nilo",
+  "Ruinas de Areia",
+  "Cidade Real",
+  "Salao do Trono",
+  "Ilha do Torneio",
+  "Templo do Deserto",
+  "Cruzamento dos Templos",
+  "Templo do Mar",
+  "Templo da Floresta",
+  "Templo da Montanha",
+  "Templo do Deserto",
+  "Templo da Campina",
+  "Labirinto",
+  "Templo Final"
+ ],
+ "chapters": [
+  "Capitulo 1: A Vila",
+  "Capitulo 2: Ruinas de Areia",
+  "Capitulo 3: O Palacio e o Principe",
+  "Capitulo 4: O Golpe de Heishin",
+  "Capitulo 6: Os Sete Itens",
+  "Capitulo 7: O Labirinto e os Guardioes",
+  "Capitulo 8: Nitemare",
+  "Capitulo 5: O Torneio Fora do Tempo",
+  "Epilogo"
+ ],
+ "objectives": [
+  "Fale com Simon Muran",
+  "Cruze o rio ao norte",
+  "Entre no portal de pedra",
+  "Venca Weevil Underwood",
+  "Venca Rex Raptor",
+  "Venca Rex Raptor e Weevil",
+  "Entre no palacio",
+  "Duele com Seto na frente do palacio",
+  "Toque o trono brilhante",
+  "Derrote Heishin",
+  "Entre no portal do castelo",
+  "Enfrente Pegasus",
+  "Venca Mai, Bandit Keith e Shadi",
+  "Abra o portao do Labirinto",
+  "Enfrente o High Mage Secmeton",
+  "Ganhe os cinco Itens dos templos",
+  "Desca a escada escura",
+  "Acorde o Principe no altar",
+  "Venca Seto na terceira porta",
+  "Enfrente o Guardian Neku",
+  "Enfrente o Guardian Sebek",
+  "Cruze o Labirinto",
+  "Escolha o seu final",
+  "Enfrente Nitemare",
+  "Venca DarkNite",
+  "Liberte Seto da sombra",
+  "Historia completa!",
+  "Capitulo 5 completo!"
+ ],
+ "items": [
+  "Cantil",
+  "Fragmento da Pedra Temporal 1",
+  "Tocha",
+  "Selo Real",
+  "Colar do Milenio",
+  "Fragmento da Pedra Temporal 2",
+  "Olho do Milenio",
+  "Tablete do Mar",
+  "Chave do Milenio",
+  "Bastao do Milenio",
+  "Anel do Milenio",
+  "Balanca do Milenio",
+  "Fragmento da Pedra Temporal 3",
+  "Pedra Temporal"
+ ],
+ "npc_names": {
+  "simon": "Simon Muran",
+  "teana": "Teana",
+  "jono": "Jono",
+  "guard": "Guarda",
+  "rex": "Rex Raptor",
+  "weevil": "Weevil",
+  "seto": "Seto",
+  "prince": "Principe",
+  "mage_soldier": "Mage Soldier",
+  "heishin": "Heishin",
+  "mai": "Mai",
+  "keith": "Bandit Keith",
+  "shadi": "Shadi",
+  "pegasus": "Pegasus",
+  "simon_crossroads": "Simon Muran",
+  "ocean_mage": "Ocean Mage",
+  "secmeton": "High Mage Secmeton",
+  "anubisius": "High Mage Anubisius",
+  "atenza": "High Mage Atenza",
+  "martis": "High Mage Martis",
+  "kepura": "High Mage Kepura",
+  "labyrinth_mage": "Labyrinth Mage",
+  "sebek": "Guardian Sebek",
+  "neku": "Guardian Neku",
+  "seto2": "Seto",
+  "heishin2": "Heishin",
+  "prince_labyrinth": "Principe",
+  "seto3": "Seto",
+  "darknite": "DarkNite",
+  "nitemare": "Nitemare"
+ },
+ "speaker_names": {
+  "prince": "Principe",
+  "isis": "Isis"
+ }
+}

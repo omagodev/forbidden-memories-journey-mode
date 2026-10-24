@@ -1,0 +1,24 @@
+{
+    "id": "js-scripts",
+    "name": "JS Card Scripts (PoC)",
+    "version": "0.1",
+    "author": "Atos Vinicius",
+    "description": "YGOPro-style card scripts in JavaScript (QuickJS). A card's notes carry <script: name>; scripts/<name>.js defines onSummon(ctx), onFlip, onTurnStart, onCombat, onDestroyed, onDestroyOpponent.",
+    "min_api": 10,
+    "library": "js-scripts",
+    "enabled": true,
+    "cards": [
+        {
+            "id": "boletos",
+            "copy": "Feral Imp",
+            "name": "Boletos",
+            "art": "art/boletos.png",
+            "description": "When summoned, your opponent loses 500 LP for each card in their hand.",
+            "attack": 1200,
+            "defense": 900,
+            "attribute": "Dark",
+            "level": 4,
+            "notes": "JS card. <script: boletos>"
+        }
+    ]
+}
