@@ -1,0 +1,47 @@
+{
+ "hud": {
+  "objective_label": "Objetivo:",
+  "stars": "Estrelas: %d",
+  "chapter_label": "Capitulo %d"
+ },
+ "menu": {
+  "journal": "Diario",
+  "rumors": "Boatos",
+  "backpack": "Mochila",
+  "stamp_card": "Cartao de Selos"
+ },
+ "stamp_card": {
+  "slots": [
+   "Perdido",
+   "Ganho",
+   "Dado"
+  ],
+  "empty": "Vazio"
+ },
+ "star_ui": {
+  "wager": "Apostar 1 estrela?",
+  "gain": "Voce tomou uma estrela! Estrelas: %d",
+  "loss": "Voce perdeu uma estrela. Estrelas: %d",
+  "eliminated": "Sem estrelas! A equipe de Pegasus da mais uma chance."
+ },
+ "time": {
+  "night": "Noite",
+  "day": "Dia"
+ },
+ "areas": {
+  "village": "Vila do Oasis",
+  "cistern": "Cisterna Antiga",
+  "harbor": "Porto do Poente",
+  "ship_deck": "O Olho Dourado (convez)",
+  "kingdom_beach": "Costa das Ilusoes"
+ },
+ "notebook": [
+  "Boato 1: um homem de capuz paga com estrelas douradas e fala de um Reino.",
+  "Boato 2: um navio branco leva duelistas a uma ilha. Campeoes ganham qualquer coisa.",
+  "Boato 3: um cartaz rasgado diz Passagem Estelar. Tres tesouros. Um duelista."
+ ],
+ "ask_yes_no": [
+  "Sim",
+  "Nao"
+ ]
+}

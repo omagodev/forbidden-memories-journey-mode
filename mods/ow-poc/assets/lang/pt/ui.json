@@ -1,0 +1,328 @@
+{
+  "language": {
+    "name": "Portugues (Brasil)",
+    "label": "Idioma",
+    "hint": "Cima/Baixo: escolher   X: confirmar   Triangulo: voltar"
+  },
+  "mod": {
+    "name": "Modo Jornada",
+    "description": "Um modo historia com um mundo 3D para explorar: criacao de personagem, 30 pessoas em 16 areas ao longo de oito capitulos, as caixas de texto do proprio jogo e duelos com um deck para cada duelista, musica por area, um menu START, um arquivo de save e dois finais. Personagens: Quaternius (CC0); cenario: PSX Nature Free por heyheythere (CC BY 4.0).",
+    "title_button": "MODO JORNADA"
+  },
+  "choose": {
+    "heading": "MODO JORNADA",
+    "continue": "Continuar",
+    "new_journey": "Nova jornada",
+    "language": "Idioma: %s"
+  },
+  "hud": {
+    "status_line": "%s  -  %s    Objetivo: %s",
+    "objective_label": "Objetivo:"
+  },
+  "hint": {
+    "talk": "X: falar com %s",
+    "examine": "X: examinar",
+    "talk_short": "Falar",
+    "examine_short": "Examinar",
+    "controls": "Setas: andar   Circulo: correr   X: falar   Start: menu",
+    "painted": "Setas: andar   Circulo: correr   X: falar   Triangulo: diario   Select: mapa liga/desliga   Start: menu"
+  },
+  "ask": {
+    "yes": "Sim",
+    "no": "Nao"
+  },
+  "messages": {
+    "progress_saved": "Progresso salvo",
+    "save_failed": "Falha ao salvar",
+    "part_end": "A estrada do porto abre na parte 4."
+  },
+  "creation": {
+    "heading": "CRIE O SEU PERSONAGEM",
+    "rows": {
+      "name": "Nome",
+      "gender": "Genero",
+      "hair": "Cabelo",
+      "hair_colour": "Cor do cabelo",
+      "skin": "Pele",
+      "outfit_colour": "Cor da roupa",
+      "portrait": "Retrato",
+      "start": "Comecar"
+    },
+    "gender": {
+      "male": "Masculino",
+      "female": "Feminino"
+    },
+    "hair_styles": [
+      "Curto",
+      "Para tras",
+      "Arrumado"
+    ],
+    "hair_colours": [
+      "Violeta",
+      "Preto",
+      "Castanho",
+      "Loiro",
+      "Ruivo"
+    ],
+    "skins": [
+      "Clara",
+      "Morena",
+      "Escura"
+    ],
+    "outfit_colours": [
+      "Azul",
+      "Vermelho",
+      "Verde",
+      "Preto",
+      "Branco"
+    ],
+    "portraits": [
+      "Retrato 1",
+      "Retrato 2",
+      "Retrato 3",
+      "Retrato 4"
+    ],
+    "hint_name": "X: digitar o nome",
+    "hint_begin": "X: comecar",
+    "hint_change": "Esquerda/Direita: mudar"
+  },
+  "menu": {
+    "items": [
+      "Editor de deck",
+      "Itens",
+      "Status",
+      "Salvar",
+      "Voltar ao titulo",
+      "Fechar"
+    ],
+    "dev": "Modo dev: %s",
+    "dev_on": "LIGADO",
+    "dev_off": "DESLIGADO",
+    "items_empty": "Nada ainda",
+    "objective": "Objetivo: %s",
+    "status": "Duelos %d    Vitorias %d    Derrotas %d",
+    "deck": "Deck %d / 40 cartas",
+    "saved": "Progresso salvo.",
+    "save_failed": "Falha ao salvar.",
+    "quit_title": "Voltar a tela de titulo?",
+    "quit_warn": "(o progresso nao salvo sera perdido)",
+    "yes": "Sim",
+    "no": "Nao"
+  },
+  "defaults": {
+    "player_name": "Heroi"
+  },
+  "areas": [
+    "Vila do Oasis",
+    "Campos",
+    "Rio Nilo",
+    "Ruinas de Areia",
+    "Cidade Real",
+    "Salao do Trono",
+    "Ilha do Torneio",
+    "Templo do Deserto",
+    "Cruzamento dos Templos",
+    "Templo do Mar",
+    "Templo da Floresta",
+    "Templo da Montanha",
+    "Templo do Deserto",
+    "Templo da Campina",
+    "Labirinto",
+    "Templo Final"
+  ],
+  "chapters": [
+    "A Vila dos Cochichos"
+  ],
+  "objectives": [
+    "Duele com Bakura, o fantasma solitario",
+    "Conte ao Simon o que ouviu",
+    "Pergunte a Teana sobre os cochichos",
+    "Pergunte a Jono sobre os cochichos",
+    "Pergunte ao Guarda sobre os cochichos",
+    "Pergunte a Teana e a Jono sobre os cochichos",
+    "Pergunte a Teana e ao Guarda sobre os cochichos",
+    "Pergunte a Jono e ao Guarda sobre os cochichos",
+    "Pergunte a Teana e a Jono e ao Guarda sobre os cochichos",
+    "Fale com Simon",
+    "Fale com o homem encapuzado",
+    "Sente no banco da praca e espere anoitecer",
+    "Leve os ingredientes para a Teana",
+    "Bolinhos da Teana - mel, agua do rio, tamaras",
+    "Venca o Rex na estrada leste",
+    "Abra a escotilha da piramidezinha",
+    "Ganhe a lanterna do Kemet",
+    "Ache um tesouro Perdido, um Ganho e um Dado",
+    "Cruze a ponte ate o porto",
+    "Venca o Inspetor no portao do porto",
+    "Encontre o Mensageiro no fim do cais",
+    "Despeca-se dos amigos e embarque",
+    "Fale com a dama no convez",
+    "Va ate a proa do navio"
+  ],
+  "items": [
+    "Cartao de Selos",
+    "Lanterna",
+    "Jarra de Agua",
+    "Pote de Mel",
+    "Agua do Rio",
+    "Tamaras",
+    "Escaravelho do Fundador",
+    "Bandana do Jono",
+    "Amuleto da Sorte"
+  ],
+  "npc_names": {
+    "simon": "Simon Muran",
+    "teana": "Teana",
+    "jono": "Jono",
+    "guard": "Guarda",
+    "baker": "Hakim",
+    "farmer": "Kemet",
+    "hooded_man": "Homem Encapuzado",
+    "rex": "Rex Raptor",
+    "bakura": "Bakura"
+  },
+  "speaker_names": {
+    "simon": "Simon Muran",
+    "teana": "Teana",
+    "jono": "Jono",
+    "guard": "Guarda",
+    "baker": "Hakim",
+    "farmer": "Kemet",
+    "hooded_man": "Homem Encapuzado",
+    "bakura": "Bakura",
+    "rex": "Rex Raptor",
+    "soldier": "Soldado Mago",
+    "shadi": "Shadi",
+    "mai": "Mai",
+    "inseto": "InsetoKaiba",
+    "mago_dev": "Mago.dev",
+    "mago_dev_tee": "Mago.dev",
+    "mago_hidden": "???",
+    "isis": "Isis"
+  },
+  "map": {
+    "title": "MAPA",
+    "close": "Triangulo: fechar",
+    "hint": "Triangulo: mapa   Select: minimapa"
+  },
+  "confirm": {
+    "heading": "Comecar um novo jogo?",
+    "saved": "Jornada salva: %s  -  %s",
+    "warning": "Um novo jogo substitui este save quando a historia comecar a salvar.",
+    "start": "Comecar um novo jogo",
+    "cancel": "Cancelar"
+  },
+  "chargen": {
+    "rows": {
+      "skin": "Pele",
+      "outfit": "Roupa",
+      "outfit_colour": "Cor da roupa",
+      "hair": "Cabelo",
+      "hair_colour": "Cor do cabelo",
+      "accessory": "Acessorio",
+      "accessory_colour": "Cor do acessorio"
+    },
+    "names": {
+      "fair": "Clara",
+      "tan": "Morena",
+      "brown": "Castanha",
+      "deep": "Escura",
+      "black": "Preto",
+      "blond": "Loiro",
+      "red": "Ruivo",
+      "silver": "Prata",
+      "tunic": "Tunica",
+      "jacket": "Jaqueta",
+      "cloak": "Capa",
+      "uniform": "Uniforme",
+      "linen": "Linho",
+      "forest": "Floresta",
+      "indigo": "Indigo",
+      "crimson": "Carmesim",
+      "navy": "Marinho",
+      "violet": "Violeta",
+      "moss": "Musgo",
+      "plum": "Ameixa",
+      "sand": "Areia",
+      "maroon": "Vinho",
+      "short": "Curto",
+      "spiky": "Espetado",
+      "long": "Longo",
+      "ponytail": "Rabo de cavalo",
+      "bob": "Chanel",
+      "hood_down": "Capuz",
+      "none": "Nenhum",
+      "headband": "Faixa",
+      "scarf": "Cachecol",
+      "duel_disk": "Duel disk",
+      "cap": "Bone",
+      "white": "Branco",
+      "blue": "Azul",
+      "teal": "Verde-agua",
+      "mustard": "Mostarda",
+      "gold": "Dourado",
+      "green": "Verde"
+    }
+  },
+  "quest_titles": [
+    "Cochichos na Praca",
+    "O Teste do Sabio",
+    "Meia-noite no Banco",
+    "O Perdido: Escaravelho do Fundador",
+    "O Ganho: A Bandana do Jono",
+    "O Dado: Os Bolinhos da Teana"
+  ],
+  "quest_objectives": [
+    "Pergunte a Teana, Jono e ao Guarda",
+    "Conte ao Simon e aceite o duelo",
+    "Sente no banco da praca ate anoitecer",
+    "Pergunte ao Hakim sobre tesouros perdidos",
+    "Encontre o Rex ou o Jono, em qualquer ordem",
+    "Pegue a Jarra de Agua com a Teana"
+  ],
+  "quest_steps": [
+    "Sente no banco da praca ate anoitecer",
+    "Fale com o homem encapuzado",
+    "Pergunte ao Hakim sobre tesouros perdidos",
+    "Ganhe a lanterna do Kemet num duelo",
+    "Abra a escotilha e entre na cisterna",
+    "Duele com Bakura, o fantasma solitario",
+    "Encontre o Rex ou o Jono, em qualquer ordem",
+    "Venca o Rex na estrada leste",
+    "Pegue a Jarra de Agua com a Teana",
+    "Mel do Hakim",
+    "Encha a jarra no rio",
+    "Colha tamaras na palmeira",
+    "Volte a Teana e duele"
+  ],
+  "quest_rewards": [
+    "Caderno de Cochichos completo (3 cochichos)",
+    "carta Magician of Faith; a lenda do Reino",
+    "Cartao de Selos com tres espacos de selo",
+    "Escaravelho do Fundador, cartas Killer Needle e The 13th Grave, selo Perdido",
+    "Bandana do Jono, cartas Uraby e Dragon Treasure, selo Ganho",
+    "Amuleto da Sorte, carta Kuriboh, selo Dado"
+  ],
+  "journal": {
+    "heading": "DIARIO",
+    "reward": "Recompensa:",
+    "empty": "Nenhuma missao ainda.",
+    "more": "Mais missoes chegam nas proximas partes da historia.",
+    "close": "Triangulo: fechar",
+    "items": "Itens:",
+    "stamp": "Cartao de Selos:",
+    "stamp_lost": "Perdido",
+    "stamp_won": "Ganho",
+    "stamp_given": "Dado"
+  },
+  "notify": {
+    "objective": "NOVO OBJETIVO",
+    "item": "ITEM OBTIDO",
+    "complete": "MISSAO CUMPRIDA",
+    "caption": "",
+    "press": "X: continuar"
+  },
+  "painted": {
+    "cistern": "Cisterna Antiga"
+  }
+}

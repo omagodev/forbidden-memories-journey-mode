@@ -1,0 +1,785 @@
+{
+ "format": "journey-chargen-1",
+ "frame": {
+  "w": 48,
+  "h": 62,
+  "anchor": [
+   24,
+   56
+  ],
+  "frames_per_direction": 5,
+  "directions": [
+   "down",
+   "left",
+   "right",
+   "up"
+  ],
+  "frame_meaning": "0 idle, 1 step A, 2 idle, 3 step B, 4 idle (walk cycle = frames 1..4, same as every SPR1 character)",
+  "page_layout": "assembled character = one 256x256 RGB555 page: frame f at x=f*48, direction d (down,left,right,up) at y=d*64"
+ },
+ "draw_order": [
+  "body",
+  "outfit",
+  "hair",
+  "accessory"
+ ],
+ "outline_rgb": [
+  34,
+  24,
+  30
+ ],
+ "format_notes": {
+  "texel_formula": "solid texel colour = clip(rgb + sum_q W_q/100 * palette[q], 0, 255); same as spr_bake() in jm_painted.c",
+  "composite": "draw the layers in draw_order; kind 255 leaves the texel below untouched, kind 254 writes outline_rgb, kind 0 writes the colour",
+  "packed": "CGP1: same data, bounding-box cropped and de-duplicated into at most 253 texel descriptors (see tools/build.py write_cgp1 and compose.py load_cgp1)",
+  "right_direction": "the right row is the exact mirror (x -> 47-x) of the left row, already baked into every file"
+ },
+ "palettes": {
+  "skin": [
+   {
+    "name": "fair",
+    "rgb": [
+     248,
+     208,
+     176
+    ]
+   },
+   {
+    "name": "tan",
+    "rgb": [
+     240,
+     184,
+     124
+    ]
+   },
+   {
+    "name": "brown",
+    "rgb": [
+     192,
+     132,
+     88
+    ]
+   },
+   {
+    "name": "deep",
+    "rgb": [
+     128,
+     84,
+     56
+    ]
+   }
+  ],
+  "hair": [
+   {
+    "name": "brown",
+    "rgb": [
+     104,
+     68,
+     42
+    ]
+   },
+   {
+    "name": "black",
+    "rgb": [
+     74,
+     70,
+     88
+    ]
+   },
+   {
+    "name": "blond",
+    "rgb": [
+     244,
+     204,
+     92
+    ]
+   },
+   {
+    "name": "red",
+    "rgb": [
+     206,
+     84,
+     44
+    ]
+   },
+   {
+    "name": "silver",
+    "rgb": [
+     214,
+     218,
+     232
+    ]
+   }
+  ]
+ },
+ "slot_sources": {
+  "skin": "palettes.skin[i]",
+  "hair": "palettes.hair[i]",
+  "outfit.main/trim/trousers": "parts.outfit[style].colourways[i]",
+  "accessory.a/b": "parts.accessory[style].colourways[i]"
+ },
+ "parts": {
+  "body": {
+   "base": {
+    "packed": "packed/body_base.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "skin",
+     "2": "hair"
+    },
+    "ring_over_body": true,
+    "bytes_packed": 23657
+   }
+  },
+  "outfit": {
+   "tunic": {
+    "packed": "packed/outfit_tunic.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "outfit.main",
+     "2": "outfit.trim",
+     "3": "skin",
+     "4": "outfit.trousers"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 13801,
+    "colourways": [
+     {
+      "name": "linen",
+      "main": [
+       214,
+       170,
+       100
+      ],
+      "trim": [
+       170,
+       40,
+       40
+      ],
+      "trousers": [
+       112,
+       84,
+       50
+      ]
+     },
+     {
+      "name": "forest",
+      "main": [
+       96,
+       148,
+       84
+      ],
+      "trim": [
+       124,
+       80,
+       40
+      ],
+      "trousers": [
+       76,
+       58,
+       42
+      ]
+     },
+     {
+      "name": "indigo",
+      "main": [
+       84,
+       120,
+       176
+      ],
+      "trim": [
+       226,
+       184,
+       64
+      ],
+      "trousers": [
+       92,
+       92,
+       104
+      ]
+     }
+    ]
+   },
+   "jacket": {
+    "packed": "packed/outfit_jacket.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "outfit.main",
+     "2": "outfit.trim",
+     "3": "skin",
+     "4": "outfit.trousers"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 13861,
+    "colourways": [
+     {
+      "name": "crimson",
+      "main": [
+       184,
+       44,
+       54
+      ],
+      "trim": [
+       232,
+       192,
+       72
+      ],
+      "trousers": [
+       46,
+       42,
+       54
+      ]
+     },
+     {
+      "name": "navy",
+      "main": [
+       48,
+       70,
+       150
+      ],
+      "trim": [
+       240,
+       240,
+       250
+      ],
+      "trousers": [
+       58,
+       58,
+       70
+      ]
+     },
+     {
+      "name": "violet",
+      "main": [
+       116,
+       56,
+       156
+      ],
+      "trim": [
+       206,
+       208,
+       224
+      ],
+      "trousers": [
+       40,
+       36,
+       48
+      ]
+     }
+    ]
+   },
+   "cloak": {
+    "packed": "packed/outfit_cloak.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "outfit.main",
+     "2": "outfit.trim",
+     "3": "skin",
+     "4": "outfit.trousers"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 15045,
+    "colourways": [
+     {
+      "name": "moss",
+      "main": [
+       72,
+       124,
+       86
+      ],
+      "trim": [
+       232,
+       192,
+       80
+      ],
+      "trousers": [
+       100,
+       76,
+       50
+      ]
+     },
+     {
+      "name": "plum",
+      "main": [
+       104,
+       60,
+       120
+      ],
+      "trim": [
+       86,
+       200,
+       190
+      ],
+      "trousers": [
+       60,
+       50,
+       70
+      ]
+     },
+     {
+      "name": "sand",
+      "main": [
+       196,
+       156,
+       104
+      ],
+      "trim": [
+       120,
+       72,
+       44
+      ],
+      "trousers": [
+       84,
+       64,
+       48
+      ]
+     }
+    ]
+   },
+   "uniform": {
+    "packed": "packed/outfit_uniform.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "outfit.main",
+     "2": "outfit.trim",
+     "3": "skin",
+     "4": "outfit.trousers"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 13423,
+    "colourways": [
+     {
+      "name": "navy",
+      "main": [
+       46,
+       58,
+       112
+      ],
+      "trim": [
+       186,
+       42,
+       44
+      ],
+      "trousers": [
+       92,
+       92,
+       102
+      ]
+     },
+     {
+      "name": "black",
+      "main": [
+       52,
+       52,
+       62
+      ],
+      "trim": [
+       236,
+       196,
+       64
+      ],
+      "trousers": [
+       52,
+       52,
+       62
+      ]
+     },
+     {
+      "name": "maroon",
+      "main": [
+       122,
+       36,
+       56
+      ],
+      "trim": [
+       240,
+       240,
+       244
+      ],
+      "trousers": [
+       86,
+       86,
+       98
+      ]
+     }
+    ]
+   }
+  },
+  "hair": {
+   "short": {
+    "packed": "packed/hair_short.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "hair",
+     "2": "outfit.main",
+     "3": "outfit.trim",
+     "4": "skin"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 9409
+   },
+   "spiky": {
+    "packed": "packed/hair_spiky.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "hair",
+     "2": "outfit.main",
+     "3": "outfit.trim",
+     "4": "skin"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 11339
+   },
+   "long": {
+    "packed": "packed/hair_long.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "hair",
+     "2": "outfit.main",
+     "3": "outfit.trim",
+     "4": "skin"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 17346
+   },
+   "ponytail": {
+    "packed": "packed/hair_ponytail.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "hair",
+     "2": "outfit.main",
+     "3": "outfit.trim",
+     "4": "skin"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 13207
+   },
+   "bob": {
+    "packed": "packed/hair_bob.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "hair",
+     "2": "outfit.main",
+     "3": "outfit.trim",
+     "4": "skin"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 12999
+   },
+   "hood_down": {
+    "packed": "packed/hair_hood_down.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "hair",
+     "2": "outfit.main",
+     "3": "outfit.trim",
+     "4": "skin"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 16745
+   }
+  },
+  "accessory": {
+   "headband": {
+    "packed": "packed/accessory_headband.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "accessory.a",
+     "2": "accessory.b",
+     "3": "skin"
+    },
+    "ring_over_body": false,
+    "bytes_packed": 5857,
+    "colourways": [
+     {
+      "name": "red",
+      "a": [
+       214,
+       52,
+       56
+      ],
+      "b": [
+       240,
+       220,
+       200
+      ]
+     },
+     {
+      "name": "blue",
+      "a": [
+       60,
+       110,
+       200
+      ],
+      "b": [
+       240,
+       220,
+       200
+      ]
+     },
+     {
+      "name": "white",
+      "a": [
+       236,
+       236,
+       240
+      ],
+      "b": [
+       200,
+       60,
+       64
+      ]
+     }
+    ]
+   },
+   "scarf": {
+    "packed": "packed/accessory_scarf.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "accessory.a",
+     "2": "accessory.b",
+     "3": "skin"
+    },
+    "ring_over_body": true,
+    "bytes_packed": 5049,
+    "colourways": [
+     {
+      "name": "red",
+      "a": [
+       206,
+       52,
+       60
+      ],
+      "b": [
+       244,
+       214,
+       120
+      ]
+     },
+     {
+      "name": "teal",
+      "a": [
+       54,
+       160,
+       164
+      ],
+      "b": [
+       244,
+       240,
+       230
+      ]
+     },
+     {
+      "name": "mustard",
+      "a": [
+       226,
+       176,
+       56
+      ],
+      "b": [
+       120,
+       60,
+       40
+      ]
+     }
+    ]
+   },
+   "duel_disk": {
+    "packed": "packed/accessory_duel_disk.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "accessory.a",
+     "2": "accessory.b",
+     "3": "skin"
+    },
+    "ring_over_body": true,
+    "bytes_packed": 3345,
+    "colourways": [
+     {
+      "name": "white",
+      "a": [
+       214,
+       218,
+       228
+      ],
+      "b": [
+       196,
+       52,
+       62
+      ]
+     },
+     {
+      "name": "black",
+      "a": [
+       62,
+       62,
+       76
+      ],
+      "b": [
+       230,
+       190,
+       70
+      ]
+     },
+     {
+      "name": "gold",
+      "a": [
+       232,
+       186,
+       72
+      ],
+      "b": [
+       60,
+       60,
+       76
+      ]
+     }
+    ]
+   },
+   "cap": {
+    "packed": "packed/accessory_cap.cgp1",
+    "offset": [
+     0,
+     0
+    ],
+    "slots": {
+     "1": "accessory.a",
+     "2": "accessory.b",
+     "3": "skin"
+    },
+    "ring_over_body": true,
+    "bytes_packed": 7711,
+    "colourways": [
+     {
+      "name": "blue",
+      "a": [
+       58,
+       100,
+       176
+      ],
+      "b": [
+       232,
+       192,
+       72
+      ]
+     },
+     {
+      "name": "red",
+      "a": [
+       196,
+       50,
+       54
+      ],
+      "b": [
+       236,
+       236,
+       240
+      ]
+     },
+     {
+      "name": "green",
+      "a": [
+       64,
+       140,
+       84
+      ],
+      "b": [
+       60,
+       60,
+       70
+      ]
+     }
+    ]
+   },
+   "none": {
+    "slots": {},
+    "offset": [
+     0,
+     0
+    ],
+    "colourways": [
+     {
+      "name": "none"
+     }
+    ]
+   }
+  }
+ },
+ "avoid_combinations": [
+  {
+   "hair": "spiky",
+   "accessory": "cap",
+   "why": "the cap crown is smaller than the spikes, they stick out of it"
+  },
+  {
+   "hair": "hood_down",
+   "accessory": "scarf",
+   "why": "scarf and the hood roll sit on the same neck area"
+  },
+  {
+   "hair": "long",
+   "accessory": "scarf",
+   "why": "long hair is hidden under the scarf in the back view"
+  }
+ ],
+ "totals": {
+  "layer_files": 15,
+  "bytes_packed": 182794
+ },
+ "budget": {
+  "assembled_character": "1 page of 256x256 RGB555 = 131072 bytes in a sprite bank (5 frames x 4 dirs fit one page)",
+  "layers_in_ram_spr1": "4 selected layers x 476174 bytes = 1904696 bytes (SPR1 files are 8 bytes/texel); the packed CGP1 form is about 12 KB per layer",
+  "all_layers_on_disk": "bin 7142610 bytes (76 KB deflated), packed ~183 KB"
+ },
+ "selection_example": {
+  "skin": 1,
+  "outfit": "jacket",
+  "outfit_colour": 0,
+  "hair": "spiky",
+  "hair_colour": 3,
+  "accessory": "headband",
+  "accessory_colour": 0
+ }
+}

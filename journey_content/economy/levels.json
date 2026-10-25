@@ -1,0 +1,606 @@
+{
+ "schema": "journey-levels/1",
+ "cap": 30,
+ "xp_curve": "xp_to_next(L) = 10*L + L^2 (level 1 -> 2 needs 11 xp, level 29 -> 30 needs 1131 xp), total 12,951 xp to reach 30. Level is derived from the saved xp total: no level field in the save.",
+ "perks": {
+  "shop_tier": "Which stock tier is visible: rotating A cards, rare packs and grand packs have their own min_level, tier is the summary shown in the status screen.",
+  "drop_shift": "Percentage points moved from C to B, A and S in every drop roll (before context odds are applied as a base).",
+  "coin_bonus_pct": "+2% duel win coins per 3 levels (max +18%).",
+  "gang_tier_weights": "Which Jackal tier ambushes the player (see gang.json).",
+  "arena_unlock": "Arenas ask level_min (arenas.json).",
+  "deck_power_cap": "OPTIONAL (disabled by default, see economy.json features.deck_power_cap): Forbidden Memories has no deck cost; if enabled the deck editor's exit checks C=1, B=2, A=4, S=8 points per card against this cap."
+ },
+ "ranks": [
+  "Rookie",
+  "Duelist",
+  "Challenger",
+  "Veteran",
+  "Expert",
+  "Master",
+  "Legend"
+ ],
+ "table": [
+  {
+   "level": 1,
+   "xp_total": 0,
+   "xp_to_next": 11,
+   "rank": 1,
+   "shop_tier": 1,
+   "drop_shift": {
+    "B": 0.0,
+    "A": 0.0,
+    "S": 0.0
+   },
+   "coin_bonus_pct": 0,
+   "gang_tier_weights": {
+    "1": 100
+   },
+   "deck_power_cap": 55,
+   "events": []
+  },
+  {
+   "level": 2,
+   "xp_total": 11,
+   "xp_to_next": 24,
+   "rank": 1,
+   "shop_tier": 1,
+   "drop_shift": {
+    "B": 0.4,
+    "A": 0.25,
+    "S": 0.04
+   },
+   "coin_bonus_pct": 0,
+   "gang_tier_weights": {
+    "1": 100
+   },
+   "deck_power_cap": 58,
+   "events": [
+    "arena:village",
+    "arena:harbor"
+   ]
+  },
+  {
+   "level": 3,
+   "xp_total": 35,
+   "xp_to_next": 39,
+   "rank": 1,
+   "shop_tier": 1,
+   "drop_shift": {
+    "B": 0.8,
+    "A": 0.5,
+    "S": 0.08
+   },
+   "coin_bonus_pct": 0,
+   "gang_tier_weights": {
+    "1": 100
+   },
+   "deck_power_cap": 61,
+   "events": [
+    "arena:beach"
+   ]
+  },
+  {
+   "level": 4,
+   "xp_total": 74,
+   "xp_to_next": 56,
+   "rank": 1,
+   "shop_tier": 1,
+   "drop_shift": {
+    "B": 1.2,
+    "A": 0.75,
+    "S": 0.12
+   },
+   "coin_bonus_pct": 2,
+   "gang_tier_weights": {
+    "1": 100
+   },
+   "deck_power_cap": 64,
+   "events": [
+    "arena:forest"
+   ]
+  },
+  {
+   "level": 5,
+   "xp_total": 130,
+   "xp_to_next": 75,
+   "rank": 2,
+   "shop_tier": 1,
+   "drop_shift": {
+    "B": 1.6,
+    "A": 1.0,
+    "S": 0.16
+   },
+   "coin_bonus_pct": 2,
+   "gang_tier_weights": {
+    "1": 70,
+    "2": 30
+   },
+   "deck_power_cap": 67,
+   "events": [
+    "gang_tier"
+   ]
+  },
+  {
+   "level": 6,
+   "xp_total": 205,
+   "xp_to_next": 96,
+   "rank": 2,
+   "shop_tier": 2,
+   "drop_shift": {
+    "B": 2.0,
+    "A": 1.25,
+    "S": 0.2
+   },
+   "coin_bonus_pct": 2,
+   "gang_tier_weights": {
+    "1": 70,
+    "2": 30
+   },
+   "deck_power_cap": 70,
+   "events": [
+    "arena:mountain",
+    "shop_tier:2"
+   ]
+  },
+  {
+   "level": 7,
+   "xp_total": 301,
+   "xp_to_next": 119,
+   "rank": 2,
+   "shop_tier": 2,
+   "drop_shift": {
+    "B": 2.4,
+    "A": 1.5,
+    "S": 0.24
+   },
+   "coin_bonus_pct": 4,
+   "gang_tier_weights": {
+    "1": 70,
+    "2": 30
+   },
+   "deck_power_cap": 73,
+   "events": [
+    "arena:meadow"
+   ]
+  },
+  {
+   "level": 8,
+   "xp_total": 420,
+   "xp_to_next": 144,
+   "rank": 2,
+   "shop_tier": 2,
+   "drop_shift": {
+    "B": 2.8,
+    "A": 1.75,
+    "S": 0.28
+   },
+   "coin_bonus_pct": 4,
+   "gang_tier_weights": {
+    "1": 30,
+    "2": 70
+   },
+   "deck_power_cap": 76,
+   "events": [
+    "gang_tier"
+   ]
+  },
+  {
+   "level": 9,
+   "xp_total": 564,
+   "xp_to_next": 171,
+   "rank": 2,
+   "shop_tier": 2,
+   "drop_shift": {
+    "B": 3.2,
+    "A": 2.0,
+    "S": 0.32
+   },
+   "coin_bonus_pct": 4,
+   "gang_tier_weights": {
+    "1": 30,
+    "2": 70
+   },
+   "deck_power_cap": 79,
+   "events": [
+    "arena:desert"
+   ]
+  },
+  {
+   "level": 10,
+   "xp_total": 735,
+   "xp_to_next": 200,
+   "rank": 3,
+   "shop_tier": 3,
+   "drop_shift": {
+    "B": 3.6,
+    "A": 2.25,
+    "S": 0.36
+   },
+   "coin_bonus_pct": 6,
+   "gang_tier_weights": {
+    "1": 30,
+    "2": 70
+   },
+   "deck_power_cap": 82,
+   "events": [
+    "arena:fair",
+    "shop_tier:3"
+   ]
+  },
+  {
+   "level": 11,
+   "xp_total": 935,
+   "xp_to_next": 231,
+   "rank": 3,
+   "shop_tier": 3,
+   "drop_shift": {
+    "B": 4.0,
+    "A": 2.5,
+    "S": 0.4
+   },
+   "coin_bonus_pct": 6,
+   "gang_tier_weights": {
+    "2": 80,
+    "3": 20
+   },
+   "deck_power_cap": 85,
+   "events": [
+    "gang_tier"
+   ]
+  },
+  {
+   "level": 12,
+   "xp_total": 1166,
+   "xp_to_next": 264,
+   "rank": 3,
+   "shop_tier": 3,
+   "drop_shift": {
+    "B": 4.4,
+    "A": 2.75,
+    "S": 0.44
+   },
+   "coin_bonus_pct": 6,
+   "gang_tier_weights": {
+    "2": 80,
+    "3": 20
+   },
+   "deck_power_cap": 88,
+   "events": []
+  },
+  {
+   "level": 13,
+   "xp_total": 1430,
+   "xp_to_next": 299,
+   "rank": 3,
+   "shop_tier": 3,
+   "drop_shift": {
+    "B": 4.8,
+    "A": 3.0,
+    "S": 0.48
+   },
+   "coin_bonus_pct": 8,
+   "gang_tier_weights": {
+    "2": 80,
+    "3": 20
+   },
+   "deck_power_cap": 91,
+   "events": []
+  },
+  {
+   "level": 14,
+   "xp_total": 1729,
+   "xp_to_next": 336,
+   "rank": 3,
+   "shop_tier": 4,
+   "drop_shift": {
+    "B": 5.2,
+    "A": 3.25,
+    "S": 0.52
+   },
+   "coin_bonus_pct": 8,
+   "gang_tier_weights": {
+    "2": 40,
+    "3": 60
+   },
+   "deck_power_cap": 94,
+   "events": [
+    "shop_tier:4",
+    "gang_tier"
+   ]
+  },
+  {
+   "level": 15,
+   "xp_total": 2065,
+   "xp_to_next": 375,
+   "rank": 4,
+   "shop_tier": 4,
+   "drop_shift": {
+    "B": 5.6,
+    "A": 3.5,
+    "S": 0.56
+   },
+   "coin_bonus_pct": 8,
+   "gang_tier_weights": {
+    "2": 40,
+    "3": 60
+   },
+   "deck_power_cap": 97,
+   "events": []
+  },
+  {
+   "level": 16,
+   "xp_total": 2440,
+   "xp_to_next": 416,
+   "rank": 4,
+   "shop_tier": 4,
+   "drop_shift": {
+    "B": 6.0,
+    "A": 3.75,
+    "S": 0.6
+   },
+   "coin_bonus_pct": 10,
+   "gang_tier_weights": {
+    "2": 40,
+    "3": 60
+   },
+   "deck_power_cap": 100,
+   "events": []
+  },
+  {
+   "level": 17,
+   "xp_total": 2856,
+   "xp_to_next": 459,
+   "rank": 4,
+   "shop_tier": 4,
+   "drop_shift": {
+    "B": 6.4,
+    "A": 4.0,
+    "S": 0.64
+   },
+   "coin_bonus_pct": 10,
+   "gang_tier_weights": {
+    "2": 40,
+    "3": 60
+   },
+   "deck_power_cap": 103,
+   "events": []
+  },
+  {
+   "level": 18,
+   "xp_total": 3315,
+   "xp_to_next": 504,
+   "rank": 4,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 6.8,
+    "A": 4.25,
+    "S": 0.68
+   },
+   "coin_bonus_pct": 10,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 106,
+   "events": [
+    "shop_tier:5",
+    "gang_tier"
+   ]
+  },
+  {
+   "level": 19,
+   "xp_total": 3819,
+   "xp_to_next": 551,
+   "rank": 4,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 7.2,
+    "A": 4.5,
+    "S": 0.72
+   },
+   "coin_bonus_pct": 12,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 109,
+   "events": []
+  },
+  {
+   "level": 20,
+   "xp_total": 4370,
+   "xp_to_next": 600,
+   "rank": 5,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 7.6,
+    "A": 4.75,
+    "S": 0.76
+   },
+   "coin_bonus_pct": 12,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 112,
+   "events": []
+  },
+  {
+   "level": 21,
+   "xp_total": 4970,
+   "xp_to_next": 651,
+   "rank": 5,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 8.0,
+    "A": 5.0,
+    "S": 0.8
+   },
+   "coin_bonus_pct": 12,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 115,
+   "events": []
+  },
+  {
+   "level": 22,
+   "xp_total": 5621,
+   "xp_to_next": 704,
+   "rank": 5,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 8.4,
+    "A": 5.25,
+    "S": 0.84
+   },
+   "coin_bonus_pct": 14,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 118,
+   "events": []
+  },
+  {
+   "level": 23,
+   "xp_total": 6325,
+   "xp_to_next": 759,
+   "rank": 5,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 8.8,
+    "A": 5.5,
+    "S": 0.88
+   },
+   "coin_bonus_pct": 14,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 121,
+   "events": []
+  },
+  {
+   "level": 24,
+   "xp_total": 7084,
+   "xp_to_next": 816,
+   "rank": 5,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 9.2,
+    "A": 5.75,
+    "S": 0.92
+   },
+   "coin_bonus_pct": 14,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 124,
+   "events": []
+  },
+  {
+   "level": 25,
+   "xp_total": 7900,
+   "xp_to_next": 875,
+   "rank": 6,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 9.6,
+    "A": 6.0,
+    "S": 0.96
+   },
+   "coin_bonus_pct": 16,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 127,
+   "events": []
+  },
+  {
+   "level": 26,
+   "xp_total": 8775,
+   "xp_to_next": 936,
+   "rank": 6,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 10.0,
+    "A": 6.25,
+    "S": 1.0
+   },
+   "coin_bonus_pct": 16,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 130,
+   "events": []
+  },
+  {
+   "level": 27,
+   "xp_total": 9711,
+   "xp_to_next": 999,
+   "rank": 6,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 10.4,
+    "A": 6.5,
+    "S": 1.04
+   },
+   "coin_bonus_pct": 16,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 133,
+   "events": []
+  },
+  {
+   "level": 28,
+   "xp_total": 10710,
+   "xp_to_next": 1064,
+   "rank": 6,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 10.8,
+    "A": 6.75,
+    "S": 1.08
+   },
+   "coin_bonus_pct": 18,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 136,
+   "events": []
+  },
+  {
+   "level": 29,
+   "xp_total": 11774,
+   "xp_to_next": 1131,
+   "rank": 6,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 11.2,
+    "A": 7.0,
+    "S": 1.12
+   },
+   "coin_bonus_pct": 18,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 139,
+   "events": []
+  },
+  {
+   "level": 30,
+   "xp_total": 12905,
+   "xp_to_next": 0,
+   "rank": 7,
+   "shop_tier": 5,
+   "drop_shift": {
+    "B": 11.6,
+    "A": 7.25,
+    "S": 1.16
+   },
+   "coin_bonus_pct": 18,
+   "gang_tier_weights": {
+    "3": 100
+   },
+   "deck_power_cap": 142,
+   "events": []
+  }
+ ]
+}

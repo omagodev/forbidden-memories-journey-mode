@@ -1,0 +1,353 @@
+{
+ "schema": "journey-gang/1",
+ "gang": {
+  "id": "dune_jackals",
+  "name": "Dune Jackals",
+  "name_id": "gang.name",
+  "lore_id": "gang.lore",
+  "sprite_hint": "Street duelists in sand-colored rags with a tin jackal-head amulet. Seven looks: dusty pup, scrap junker, fang brute, viper, hex lady, granite brute, old boss."
+ },
+ "members": [
+  {
+   "id": "dusty",
+   "name": "Dusty",
+   "gang_tier": 1,
+   "difficulty_tier": 1,
+   "deck": "Dusty",
+   "duelist": {
+    "id": "eco_dusty",
+    "copy": "Villager 2",
+    "name": "Dusty",
+    "slot": 43
+   },
+   "sprite": "gang_dusty",
+   "appears": "ambush",
+   "taunt_id": "gang_taunt.dusty",
+   "win_id": "gang_win.dusty",
+   "lose_id": "gang_lose.dusty"
+  },
+  {
+   "id": "scrap",
+   "name": "Scrap",
+   "gang_tier": 1,
+   "difficulty_tier": 1,
+   "deck": "Scrap",
+   "duelist": {
+    "id": "eco_scrap",
+    "copy": "Villager 3",
+    "name": "Scrap",
+    "slot": 44
+   },
+   "sprite": "gang_scrap",
+   "appears": "ambush",
+   "taunt_id": "gang_taunt.scrap",
+   "win_id": "gang_win.scrap",
+   "lose_id": "gang_lose.scrap"
+  },
+  {
+   "id": "fang",
+   "name": "Fang",
+   "gang_tier": 2,
+   "difficulty_tier": 2,
+   "deck": "Fang",
+   "duelist": {
+    "id": "eco_fang",
+    "copy": "Mage Soldier",
+    "name": "Fang",
+    "slot": 45
+   },
+   "sprite": "gang_fang",
+   "appears": "ambush",
+   "taunt_id": "gang_taunt.fang",
+   "win_id": "gang_win.fang",
+   "lose_id": "gang_lose.fang"
+  },
+  {
+   "id": "viper",
+   "name": "Viper",
+   "gang_tier": 2,
+   "difficulty_tier": 2,
+   "deck": "Viper",
+   "duelist": {
+    "id": "eco_viper",
+    "copy": "Desert Mage",
+    "name": "Viper",
+    "slot": 46
+   },
+   "sprite": "gang_viper",
+   "appears": "ambush",
+   "taunt_id": "gang_taunt.viper",
+   "win_id": "gang_win.viper",
+   "lose_id": "gang_lose.viper"
+  },
+  {
+   "id": "madame_hex",
+   "name": "Madame Hex",
+   "gang_tier": 3,
+   "difficulty_tier": 3,
+   "deck": "Madame Hex",
+   "duelist": {
+    "id": "eco_madame_hex",
+    "copy": "High Mage Secmeton",
+    "name": "Madame Hex",
+    "slot": 47
+   },
+   "sprite": "gang_madame_hex",
+   "appears": "ambush",
+   "taunt_id": "gang_taunt.madame_hex",
+   "win_id": "gang_win.madame_hex",
+   "lose_id": "gang_lose.madame_hex"
+  },
+  {
+   "id": "granite",
+   "name": "Granite",
+   "gang_tier": 3,
+   "difficulty_tier": 3,
+   "deck": "Granite",
+   "duelist": {
+    "id": "eco_granite",
+    "copy": "Labyrinth Mage",
+    "name": "Granite",
+    "slot": 48
+   },
+   "sprite": "gang_granite",
+   "appears": "ambush",
+   "taunt_id": "gang_taunt.granite",
+   "win_id": "gang_win.granite",
+   "lose_id": "gang_lose.granite"
+  },
+  {
+   "id": "old_jackal",
+   "name": "Old Jackal",
+   "gang_tier": 4,
+   "difficulty_tier": 7,
+   "deck": "Old Jackal",
+   "duelist": {
+    "id": "eco_old_jackal",
+    "copy": "Guardian Sebek",
+    "name": "Old Jackal",
+    "slot": 49
+   },
+   "sprite": "gang_old_jackal",
+   "appears": "arena_boss_only",
+   "taunt_id": "gang_taunt.old_jackal",
+   "win_id": "gang_win.old_jackal",
+   "lose_id": "gang_lose.old_jackal"
+  }
+ ],
+ "tier_by_level": [
+  {
+   "level": [
+    1,
+    4
+   ],
+   "weights": {
+    "1": 100
+   }
+  },
+  {
+   "level": [
+    5,
+    7
+   ],
+   "weights": {
+    "1": 70,
+    "2": 30
+   }
+  },
+  {
+   "level": [
+    8,
+    10
+   ],
+   "weights": {
+    "1": 30,
+    "2": 70
+   }
+  },
+  {
+   "level": [
+    11,
+    13
+   ],
+   "weights": {
+    "2": 80,
+    "3": 20
+   }
+  },
+  {
+   "level": [
+    14,
+    17
+   ],
+   "weights": {
+    "2": 40,
+    "3": 60
+   }
+  },
+  {
+   "level": [
+    18,
+    30
+   ],
+   "weights": {
+    "3": 100
+   }
+  }
+ ],
+ "stakes": {
+  "percent_by_gang_tier": {
+   "1": 0.1,
+   "2": 0.15,
+   "3": 0.2
+  },
+  "min_by_gang_tier": {
+   "1": 10,
+   "2": 25,
+   "3": 60
+  },
+  "max_by_gang_tier": {
+   "1": 120,
+   "2": 400,
+   "3": 1500
+  },
+  "formula": "stolen = min(coins, clamp(round(coins * pct), min, max)); never negative, never more than the player holds",
+  "first_three_ambushes_factor": 0.5,
+  "loss_streak_relief": {
+   "after_losses": 2,
+   "stolen_factor": 0.5,
+   "cooldown_factor": 1.5
+  },
+  "truce_factor": 0.5,
+  "recover_on_win": 0.5,
+  "win_reward": {
+   "coins_mult": 1.25,
+   "drops_context": "ambush_win",
+   "xp": "as a normal duel win of the member's difficulty tier"
+  }
+ },
+ "ambush": {
+  "who_approaches": "The gang approaches the player, never the other way round: members spawn off the edge of the view and run in at 6.5 units/frame, faster than the player's run (4.4).",
+  "min_purse": 25,
+  "min_purse_note": "A player with fewer coins than min_purse is never ambushed (nothing to steal); the countdown waits at zero.",
+  "cooldown_walk_seconds": {
+   "min": 75,
+   "max": 150
+  },
+  "cooldown_note": "Counts only while the player walks (running counts by distance, so it advances 1.7x faster per second but the distance is the same). Rolled uniformly in [min,max] / area frequency.",
+  "walk_speed_units_per_frame": 2.6,
+  "run_speed_units_per_frame": 4.4,
+  "tutorial": {
+   "no_ambush_before_stage": 3,
+   "warmup_walk_seconds": 300,
+   "first_ambush": {
+    "member": "dusty",
+    "stake_cap_coins": 20,
+    "note": "The first ambush is always Dusty with a coin cap of 20 and a one-page explanation."
+   }
+  },
+  "grace_walk_seconds": {
+   "after_win": 45,
+   "after_loss": 90,
+   "after_area_change": 20,
+   "after_scene_or_menu": 10
+  },
+  "frequency_by_area": {
+   "village": 1.0,
+   "kingdom_beach": 1.0,
+   "kingdom_forest": 1.1,
+   "kingdom_mountain": 1.1,
+   "kingdom_meadow": 1.0,
+   "kingdom_desert": 1.2
+  },
+  "eligible_areas": [
+   "village",
+   "kingdom_beach",
+   "kingdom_forest",
+   "kingdom_mountain",
+   "kingdom_meadow",
+   "kingdom_desert"
+  ],
+  "never_in": [
+   "cistern",
+   "harbor",
+   "ship_deck",
+   "kingdom_fair",
+   "castle_gate",
+   "castle_hall",
+   "castle_top",
+   "every arena_* interior",
+   "every shop screen"
+  ],
+  "suppressed_while": [
+   "a dialogue, banner or scene is on screen",
+   "a menu or shop is open",
+   "the quest arrow's target is within 150 units (a scripted beat is about to happen)",
+   "the player is within the safe radius of an anchor in safe_zones",
+   "the player is on a stage window listed in blocked_stage_windows",
+   "a duel just ended (grace)"
+  ],
+  "safe_zones": [
+   {
+    "anchor": "village.teana_stall",
+    "radius": 140
+   },
+   {
+    "anchor": "village.bakery_door",
+    "radius": 120
+   },
+   {
+    "anchor": "village.house_ne_door",
+    "radius": 110
+   },
+   {
+    "anchor": "village.mini_pyramid_hatch",
+    "radius": 120
+   },
+   {
+    "anchor": "village.bridge_north",
+    "radius": 120
+   },
+   {
+    "anchor": "village.hero_start",
+    "radius": 120
+   },
+   {
+    "anchor": "*.shop_stall",
+    "radius": 150
+   },
+   {
+    "anchor": "*.arena_door",
+    "radius": 130
+   },
+   {
+    "anchor": "*.spawn",
+    "radius": 150
+   },
+   {
+    "anchor": "kingdom_beach.camp",
+    "radius": 200
+   }
+  ],
+  "blocked_stage_windows": [
+   {
+    "area": "village",
+    "stage": [
+     0,
+     2
+    ],
+    "reason": "tutorial and first quests"
+   }
+  ],
+  "sequence": [
+   "1. countdown hits 0 and every eligibility rule holds -> state AMBUSH_WARN",
+   "2. player input is locked (no walk, no run, no menu): the player turns toward the nearest view edge, a red '!' pops over the head, banner 'AMBUSH!' (alert banner, 1.2 s) and the sting sound plays",
+   "3. the chosen member runs in from the edge and stops 24 units from the player (about 0.7 s at 60 fps, 1.4 s at 30 fps)",
+   "4. one taunt page (speaker name in yellow) and the stake line 'They want N coins!'",
+   "5. the game's own duel starts at once; the duel's quit/forfeit option is disabled (it would count as a loss)",
+   "6. win: coins x1.25, ambush_win drop, xp, recover 50% of the coins stolen last time, grace 45 s; loss: stolen coins taken, 'They took N coins!', member runs away, grace 90 s, never a game over"
+  ],
+  "cannot_flee": "Movement is locked from the banner on; the gang is faster than a runner; the duel cannot be abandoned; the countdown only starts again after the duel."
+ },
+ "decks_file": "decks_economy.json"
+}

@@ -1,0 +1,490 @@
+{
+ "schema": "journey-dk-outline/1",
+ "star_rules": {
+  "start_stars": 1,
+  "castle_threshold": 10,
+  "max_stars": 12,
+  "min_stars": 0,
+  "win": "+1 star (taken from the loser's pool). Zone masters and bosses give +2.",
+  "lose": "-1 star. Zone masters take 1 as well.",
+  "zero_stars": "Eliminated: the hero wakes at the Shore Camp with 1 star ('Pegasus's staff is generous once'), eliminations counter +1. Never a game over.",
+  "each_duelist_once": "Every named duelist can be beaten for stars once. Their rematch is free (no star change) for cards only.",
+  "wager": "A star duel starts with a 'Wager 1 star?' Yes/No page after the normal pre-duel ask. Practice duels (no wager) exist for tutorial duels like the ship.",
+  "star_budget": "Mandatory + optional duels give 15 stars including the start, the castle needs 10: about 5 stars of slack for losses.",
+  "variables": {
+   "stars": "int 0..12",
+   "eliminations": "int",
+   "kflags": "second 31-bit flag word used from stage 10 on (home-town flags are frozen)"
+  },
+  "hud": "A star icon with the number next to the objective line."
+ },
+ "areas": [
+  {
+   "id": "kingdom_beach",
+   "name_en": "Shore of Illusions",
+   "name_pt": "Costa das Ilusoes",
+   "setting": "Sandy beach, a pier, tents of duelists, a sign 'Welcome, bugs and champions'."
+  },
+  {
+   "id": "kingdom_forest",
+   "name_en": "Forest of Whispers",
+   "name_pt": "Floresta dos Sussurros",
+   "setting": "Dense forest, star-shaped cuts on tree trunks, a hidden clearing."
+  },
+  {
+   "id": "kingdom_mountain",
+   "name_en": "Mountain Pass",
+   "name_pt": "Passagem da Montanha",
+   "setting": "Rocky pass, a gambler's tent, a cliff overlook."
+  },
+  {
+   "id": "kingdom_meadow",
+   "name_en": "Meadow Maze",
+   "name_pt": "Labirinto da Campina",
+   "setting": "Hedge maze in a flowery meadow."
+  },
+  {
+   "id": "kingdom_desert",
+   "name_en": "Desert of Lost Stars",
+   "name_pt": "Deserto das Estrelas Perdidas",
+   "setting": "Dunes, a fortune teller's tent, a half-buried stone star."
+  },
+  {
+   "id": "kingdom_fair",
+   "name_en": "Star Fair",
+   "name_pt": "Feira das Estrelas",
+   "setting": "Festival plaza at the island's center: stalls, banners, a duel ring. Hub."
+  },
+  {
+   "id": "castle_gate",
+   "name_en": "Castle Gate",
+   "name_pt": "Portao do Castelo",
+   "setting": "Huge gate with a star-shaped lock that counts stars."
+  },
+  {
+   "id": "castle_hall",
+   "name_en": "Castle Hall",
+   "name_pt": "Salao do Castelo",
+   "setting": "Illusion-filled halls: shifting stairs, portraits that wink."
+  },
+  {
+   "id": "castle_top",
+   "name_en": "Dream Room",
+   "name_pt": "Sala dos Sonhos",
+   "setting": "Pegasus's top room: cards pinned like butterflies, a big window to the sea."
+  }
+ ],
+ "chapters": [
+  {
+   "n": 2,
+   "id": "k1_shore",
+   "area": "kingdom_beach",
+   "title_en": "The Shore of Illusions",
+   "title_pt": "A Costa das Ilusoes",
+   "summary_en": "Landing. A recorded Pegasus welcomes everyone through a mirror. Weevil ambushes the rookie with loaded dice: the first wagered duel. First lesson: stars are real, the Shore Camp is the safety net.",
+   "summary_pt": "Desembarque. Um Pegasus gravado da boas-vindas por um espelho. Weevil embosca o novato com dados viciados: o primeiro duelo com aposta. Primeira licao: estrelas sao reais, o Acampamento da Costa e a rede de seguranca.",
+   "duelists": [
+    {
+     "name": "Weevil Underwood",
+     "duelist_id": 10,
+     "tier": 2,
+     "stars": 1,
+     "role": "ambusher"
+    }
+   ],
+   "beat": "Pegasus's mirror hello. 'The Hooded Man' reappears for one line: Shadi watches from the pier.",
+   "stars_after": "2"
+  },
+  {
+   "n": 3,
+   "id": "k2_forest",
+   "area": "kingdom_forest",
+   "title_en": "Forest of Whispers",
+   "title_pt": "Floresta dos Sussurros",
+   "summary_en": "Star-shaped cuts mark the trees. Follow three Star Marks to open the hidden clearing. Rex Raptor is lost in the forest and furious about it.",
+   "summary_pt": "Cortes em forma de estrela marcam as arvores. Siga tres Marcas de Estrela para abrir a clareira. Rex Raptor esta perdido na floresta e furioso.",
+   "duelists": [
+    {
+     "name": "Rex Raptor",
+     "duelist_id": 9,
+     "tier": 3,
+     "stars": 1,
+     "role": "rival, comic"
+    },
+    {
+     "name": "Forest Mage",
+     "duelist_id": 23,
+     "tier": 4,
+     "stars": 2,
+     "role": "zone master"
+    }
+   ],
+   "beat": "Mystery: who carves the stars? (Answer in chapter 7: eliminated duelists' chips are being collected.)",
+   "stars_after": "5"
+  },
+  {
+   "n": 4,
+   "id": "k3_mountain",
+   "area": "kingdom_mountain",
+   "title_en": "Mountain Pass of Gamblers",
+   "title_pt": "Passagem dos Apostadores",
+   "summary_en": "A tent where Bandit Keith runs 'Double or Nothing' (bet 2 stars, optional). Mai blocks the cliff path for a proper rival duel. The Mountain Mage guards the summit.",
+   "summary_pt": "Uma tenda onde Bandit Keith comanda o 'Dobro ou Nada' (aposte 2 estrelas, opcional). Mai bloqueia o penhasco para um duelo de rivais. O Mago da Montanha guarda o topo.",
+   "duelists": [
+    {
+     "name": "Bandit Keith",
+     "duelist_id": 12,
+     "tier": 5,
+     "stars": 1,
+     "role": "gambler, optional double-or-nothing"
+    },
+    {
+     "name": "Mai Valentine",
+     "duelist_id": 11,
+     "tier": 5,
+     "stars": 1,
+     "role": "rival"
+    },
+    {
+     "name": "Mountain Mage",
+     "duelist_id": 25,
+     "tier": 5,
+     "stars": 2,
+     "role": "zone master"
+    }
+   ],
+   "beat": "Mai warms up to the hero after the duel.",
+   "stars_after": "9 (if no losses)"
+  },
+  {
+   "n": 5,
+   "id": "k4_meadow",
+   "area": "kingdom_meadow",
+   "title_en": "Meadow Maze",
+   "title_pt": "Labirinto da Campina",
+   "summary_en": "A hedge maze. The giggling barrel from the ship was Teana: she stowed away! She joins as a helper who gives hints, after a friendly duel. The Meadow Mage hides in the center.",
+   "summary_pt": "Um labirinto de cercas vivas. O barril que ria no navio era a Teana: ela fugiu escondida! Ela vira ajudante que da dicas, depois de um duelo amistoso. A Maga da Campina fica no centro.",
+   "duelists": [
+    {
+     "name": "Teana 2nd",
+     "duelist_id": 20,
+     "tier": 4,
+     "stars": 1,
+     "role": "friendly duel, becomes a helper"
+    },
+    {
+     "name": "Meadow Mage",
+     "duelist_id": 29,
+     "tier": 5,
+     "stars": 2,
+     "role": "zone master"
+    }
+   ],
+   "beat": "Pay-off of the barrel gag; Teana carries her golden star from the hooded man: it matches the Kingdom's star shape.",
+   "stars_after": "12 (cap)"
+  },
+  {
+   "n": 6,
+   "id": "k5_desert",
+   "area": "kingdom_desert",
+   "title_en": "Desert of Lost Stars",
+   "title_pt": "Deserto das Estrelas Perdidas",
+   "summary_en": "A fortune teller reads the hero's cards and drops a clue: someone upstairs collects stars of eliminated duelists. Bakura floats in, bored of the cistern, and challenges the hero for fun.",
+   "summary_pt": "Uma cartomante le as cartas do heroi e solta uma pista: alguem la em cima junta as estrelas dos eliminados. Bakura aparece flutuando, entediado da cisterna, e desafia o heroi por diversao.",
+   "duelists": [
+    {
+     "name": "Isis",
+     "duelist_id": 16,
+     "tier": 6,
+     "stars": 1,
+     "role": "fortune teller"
+    },
+    {
+     "name": "Desert Mage",
+     "duelist_id": 27,
+     "tier": 6,
+     "stars": 2,
+     "role": "zone master"
+    },
+    {
+     "name": "Yami Bakura",
+     "duelist_id": 14,
+     "tier": 3,
+     "stars": 0,
+     "role": "comic cameo, cards only"
+    }
+   ],
+   "beat": "Clue: the star collector. Bakura callback to the home cistern. MAGO.DEV glimpse 5: Isis senses a watcher in the cards.",
+   "stars_after": "-"
+  },
+  {
+   "n": 7,
+   "id": "k6_fair",
+   "area": "kingdom_fair",
+   "title_en": "The Star Fair",
+   "title_pt": "A Feira das Estrelas",
+   "summary_en": "Midpoint hub: festival, shops that sell cards for star chips earned in practice duels, ring duels. Jono arrives on his raft, soaked, and duels as a friendly rival. InsetoKaiba lands by dragonfly-shaped helicopter and swears he will take the hero's stars.",
+   "summary_pt": "Hub do meio: festival, lojas, duelos no ringue. Jono chega na sua jangada, encharcado, e duela como rival amigo. InsetoKaiba pousa num helicoptero em forma de libelula e jura tomar as estrelas do heroi.",
+   "duelists": [
+    {
+     "name": "Jono 2nd",
+     "duelist_id": 19,
+     "tier": 6,
+     "stars": 1,
+     "role": "friendly rival"
+    },
+    {
+     "name": "InsetoKaiba (taunts only)",
+     "duelist_id": "inseto_kaiba",
+     "tier": 0,
+     "stars": 0,
+     "role": "foreshadow"
+    }
+   ],
+   "beat": "Heishin's agents are seen herding eliminated duelists to the castle cellars. MAGO.DEV glimpse 6: still silhouette in the crowd, first (hidden) line.",
+   "stars_after": "10 reachable here"
+  },
+  {
+   "n": 8,
+   "id": "k7_gate",
+   "area": "castle_gate",
+   "title_en": "The Castle Gate",
+   "title_pt": "O Portao do Castelo",
+   "summary_en": "The gate counts stars: 10 needed. The gate guardian is InsetoKaiba, rematch of the ship: bigger deck, bigger ego, same bugs (Great Moth and Javelin Beetle). Reward: the Crown Beetle card and the gate key.",
+   "summary_pt": "O portao conta estrelas: sao necessarias 10. O guardiao e InsetoKaiba, revanche do navio: baralho maior, ego maior, mesmos insetos (Great Moth e Javelin Beetle). Premio: a carta Crown Beetle e a chave do portao.",
+   "duelists": [
+    {
+     "name": "InsetoKaiba",
+     "duelist_id": "inseto_kaiba",
+     "tier": 8,
+     "stars": 2,
+     "role": "gate guardian, memorable rematch"
+    }
+   ],
+   "beat": "He loses, then declares the hero 'a worthy bug' and holds the gate open, grumbling.",
+   "stars_after": "10+ to enter"
+  },
+  {
+   "n": 9,
+   "id": "k8_hall",
+   "area": "castle_hall",
+   "title_en": "The Castle Hall",
+   "title_pt": "O Salao do Castelo",
+   "summary_en": "Illusion halls. Chamberlain Heishin was harvesting lost stars for a 'Star Crown' to rule the island. Beat him, free the eliminated duelists' stars, and they go home happy.",
+   "summary_pt": "Salas de ilusao. O Camareiro Heishin juntava estrelas perdidas para uma 'Coroa Estelar' que governaria a ilha. Venca-o, liberte as estrelas dos eliminados e eles voltam felizes.",
+   "duelists": [
+    {
+     "name": "Heishin 2nd",
+     "duelist_id": 35,
+     "tier": 8,
+     "stars": 2,
+     "role": "chamberlain, twist villain"
+    }
+   ],
+   "beat": "Twist: Pegasus knew and wanted to see whether a rookie would stop it. MAGO.DEV glimpse 7: mirror, he could delete Heishin and does not.",
+   "stars_after": "-"
+  },
+  {
+   "n": 10,
+   "id": "k9_dream",
+   "area": "castle_top",
+   "title_en": "Pegasus's Dream",
+   "title_pt": "O Sonho de Pegasus",
+   "summary_en": "Final duel with Pegasus, who plays with 'hidden-hand' flavor. Win: choose a wish (a Dream Card, return everyone's stars, or a Festival for everyone). Canon wish: a festival. Epilogue: the home-town painted village on festival day with every rival as a sprite. Simon's message is delivered: 'you still owe me a card'.",
+   "summary_pt": "Duelo final com Pegasus, com sabor de 'mao escondida'. Vencer: escolha um desejo (uma Carta dos Sonhos, devolver as estrelas de todos, ou um Festival para todos). Desejo canonico: um festival. Epilogo: a vila pintada em dia de festa com todos os rivais como sprites. A mensagem do Simon e entregue: 'voce ainda me deve uma carta'.",
+   "duelists": [
+    {
+     "name": "Pegasus",
+     "duelist_id": 15,
+     "tier": 9,
+     "stars": 2,
+     "role": "final boss (needs a tier 9 deck; base deck is tier 6)"
+    }
+   ],
+   "beat": "Shadi's last cameo. Ending 'festival': everyone visits the village. MAGO.DEV payoff on the plaza bench: the hero finally notices him.",
+   "stars_after": "-"
+  }
+ ],
+ "mago_dev": {
+  "rules": "Mago.dev programs reality, but never interferes: he never fights, trades, opens doors, gives items or solves anything. He is seen as a robed silhouette in a green aura, or only as green glitch writing. He speaks only three times in the whole story.",
+  "appearances": [
+   {
+    "n": 5,
+    "chapter": 6,
+    "area": "kingdom_desert",
+    "id": "isis_reading",
+    "note": "Isis senses him in the cards. No sprite.",
+    "pages_en": [
+     {
+      "speaker": "isis",
+      "text": "The cards show a watcher. Not from this island. Not from this world."
+     },
+     {
+      "speaker": "isis",
+      "text": "He writes reality, yet today he only reads. Do not seek him."
+     }
+    ],
+    "pages_pt": [
+     {
+      "speaker": "isis",
+      "text": "As cartas mostram um observador. Nao e desta ilha. Nao e deste mundo."
+     },
+     {
+      "speaker": "isis",
+      "text": "Ele escreve a realidade, mas hoje so le. Nao o procure."
+     }
+    ]
+   },
+   {
+    "n": 6,
+    "chapter": 7,
+    "area": "kingdom_fair",
+    "id": "fair_crowd",
+    "note": "Silhouette in the crowd at the Star Fair ring during the Jono duel. First line, still hidden as '???'.",
+    "pages_en": [
+     {
+      "speaker": "narrator",
+      "text": "In the crowd, one figure stands perfectly still in a green shimmer.",
+      "label": "Crowd"
+     },
+     {
+      "speaker": "mago_hidden",
+      "text": "Take your time. I have all of it."
+     },
+     {
+      "speaker": "narrator",
+      "text": "A glitch, and the spot is empty.",
+      "label": "Crowd"
+     }
+    ],
+    "pages_pt": [
+     {
+      "speaker": "narrator",
+      "text": "Na multidao, uma figura fica perfeitamente parada num brilho verde.",
+      "label": "Multidao"
+     },
+     {
+      "speaker": "mago_hidden",
+      "text": "Leve o tempo que precisar. Eu tenho todo ele."
+     },
+     {
+      "speaker": "narrator",
+      "text": "Um glitch, e o lugar esta vazio.",
+      "label": "Multidao"
+     }
+    ]
+   },
+   {
+    "n": 7,
+    "chapter": 9,
+    "area": "castle_hall",
+    "id": "hall_mirror",
+    "note": "In a hall mirror, behind the hero's reflection, while Heishin's star harvest is exposed. He could end it with one line of code, and does not.",
+    "pages_en": [
+     {
+      "speaker": "narrator",
+      "text": "In the hall mirror, behind your reflection, a robed figure in green light watches Heishin.",
+      "label": "Mirror"
+     },
+     {
+      "speaker": "mago_hidden",
+      "text": "I could delete him. I won't. It is your duel."
+     },
+     {
+      "speaker": "narrator",
+      "text": "The mirror shows only you again.",
+      "label": "Mirror"
+     }
+    ],
+    "pages_pt": [
+     {
+      "speaker": "narrator",
+      "text": "No espelho do salao, atras do seu reflexo, uma figura de manto em luz verde observa Heishin.",
+      "label": "Espelho"
+     },
+     {
+      "speaker": "mago_hidden",
+      "text": "Eu poderia apaga-lo. Nao vou. E o seu duelo."
+     },
+     {
+      "speaker": "narrator",
+      "text": "O espelho mostra so voce de novo.",
+      "label": "Espelho"
+     }
+    ]
+   }
+  ],
+  "payoff": {
+   "chapter": 10,
+   "area": "village",
+   "anchor": "plaza_bench",
+   "when": "Epilogue, festival day in the painted village, after the Pegasus wish. He sits on the old bench in the plain tee (robe off). First time he is talkable.",
+   "pages_en": [
+    {
+     "speaker": "narrator",
+     "text": "Festival day. Every rival fills the plaza. On the old bench sits a boy in a tee.",
+     "label": "Festival Day"
+    },
+    {
+     "speaker": "atos",
+     "text": "You were on the roof. In the cistern. On the mast. It was you."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Green letters flicker above his head. They read Mago.dev.",
+     "label": "Name"
+    },
+    {
+     "speaker": "atos",
+     "text": "You could have helped me. Many times."
+    },
+    {
+     "speaker": "mago_dev_tee",
+     "text": "You did not need me. Good game."
+    },
+    {
+     "speaker": "atos",
+     "text": "Thanks for watching."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A soft green flicker, and the bench is empty. The palms sway a little faster.",
+     "label": "Glitch"
+    }
+   ],
+   "pages_pt": [
+    {
+     "speaker": "narrator",
+     "text": "Dia de festa. Todos os rivais lotam a praca. No velho banco senta um rapaz de camiseta.",
+     "label": "Dia de Festa"
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce estava no telhado. Na cisterna. No mastro. Era voce."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Letras verdes piscam sobre a cabeca dele. Dizem Mago.dev.",
+     "label": "Nome"
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce poderia ter me ajudado. Muitas vezes."
+    },
+    {
+     "speaker": "mago_dev_tee",
+     "text": "Voce nao precisou de mim. Bom jogo."
+    },
+    {
+     "speaker": "atos",
+     "text": "Obrigado por assistir."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um leve piscar verde, e o banco esta vazio. As palmeiras balancam um pouco mais rapido.",
+     "label": "Glitch"
+    }
+   ]
+  }
+ }
+}

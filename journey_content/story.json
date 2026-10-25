@@ -1,0 +1,6092 @@
+{
+ "schema": "journey-story/1",
+ "language": "en",
+ "title": "JOURNEY MODE: The Duelist From Another Time",
+ "text_rules": {
+  "charset": "ASCII letters, digits, space and . , ! ? ' - only (the retail font; accents, quotes and emoji are not drawn). '{', '}', '|' appear only in tokens.",
+  "box": "Dialogue box (Tower_CreateBox 0x10,0xB0,0x120,0x30): 8 px per glyph, text area 268 px = 33 glyphs per line, 3 lines per page (see ow_poc.c say()).",
+  "limit": "Every page must wrap (greedy, word boundary) into at most 3 lines of 32 glyphs; a {name} token counts as 10 glyphs, {a|b} as the longer option. Checked by tools/check_story.py.",
+  "speaker_prefix": "The speaker is a separate field. If the engine prints 'Name: ' in front (like ow_poc.c does) a long page may spill onto one automatic extra page; that is harmless."
+ },
+ "tokens": {
+  "{name}": "Player name (default 'Atos').",
+  "{a|b}": "Gender choice: a for a male character, b for a female one. Example: '{lad|lass}', '{name}-{boy|girl}'. The engine picks one side, then fits the page."
+ },
+ "speakers": {
+  "atos": {
+   "name": "{name}",
+   "short": "{name}",
+   "portrait": 39,
+   "note": "Player. Portrait 39 is the custom Atos face (duelist 39 is Duel Master K in the port, so it needs a custom slot)."
+  },
+  "simon": {
+   "name": "Simon Muran",
+   "short": "Simon",
+   "portrait": 1
+  },
+  "teana": {
+   "name": "Teana",
+   "short": "Teana",
+   "portrait": 2
+  },
+  "jono": {
+   "name": "Jono",
+   "short": "Jono",
+   "portrait": 3
+  },
+  "guard": {
+   "name": "Guard",
+   "short": "Guard",
+   "portrait": 5
+  },
+  "rex": {
+   "name": "Rex Raptor",
+   "short": "Rex",
+   "portrait": 9
+  },
+  "weevil": {
+   "name": "Weevil",
+   "short": "Weevil",
+   "portrait": 10
+  },
+  "seto": {
+   "name": "Seto",
+   "short": "Seto",
+   "portrait": 7
+  },
+  "mage_soldier": {
+   "name": "Mage Soldier",
+   "short": "Soldier",
+   "portrait": 18
+  },
+  "heishin": {
+   "name": "Heishin",
+   "short": "Heishin",
+   "portrait": 8
+  },
+  "mai": {
+   "name": "Mai",
+   "short": "Mai",
+   "portrait": 11
+  },
+  "keith": {
+   "name": "Bandit Keith",
+   "short": "Keith",
+   "portrait": 12
+  },
+  "shadi": {
+   "name": "Shadi",
+   "short": "Shadi",
+   "portrait": 13
+  },
+  "pegasus": {
+   "name": "Pegasus",
+   "short": "Pegasus",
+   "portrait": 15
+  },
+  "isis": {
+   "name": "Isis",
+   "short": "Isis",
+   "portrait": 16
+  },
+  "prince": {
+   "name": "Prince",
+   "short": "Prince",
+   "portrait": 240,
+   "note": "Custom portrait (cports slot 5), not a game duelist."
+  },
+  "ocean_mage": {
+   "name": "Ocean Mage",
+   "short": "Ocean Mage",
+   "portrait": 21
+  },
+  "secmeton": {
+   "name": "High Mage Secmeton",
+   "short": "H.M. Secmeton",
+   "portrait": 22
+  },
+  "anubisius": {
+   "name": "High Mage Anubisius",
+   "short": "H.M. Anubisius",
+   "portrait": 24
+  },
+  "atenza": {
+   "name": "High Mage Atenza",
+   "short": "H.M. Atenza",
+   "portrait": 26
+  },
+  "martis": {
+   "name": "High Mage Martis",
+   "short": "H.M. Martis",
+   "portrait": 28
+  },
+  "kepura": {
+   "name": "High Mage Kepura",
+   "short": "H.M. Kepura",
+   "portrait": 30
+  },
+  "labyrinth_mage": {
+   "name": "Labyrinth Mage",
+   "short": "Labyrinth",
+   "portrait": 31
+  },
+  "sebek": {
+   "name": "Guardian Sebek",
+   "short": "G. Sebek",
+   "portrait": 33
+  },
+  "neku": {
+   "name": "Guardian Neku",
+   "short": "G. Neku",
+   "portrait": 34
+  },
+  "seto2": {
+   "name": "Seto",
+   "short": "Seto",
+   "portrait": 32,
+   "note": "Seto 2nd face; falls back to 7."
+  },
+  "heishin2": {
+   "name": "Heishin",
+   "short": "Heishin",
+   "portrait": 35,
+   "note": "Heishin 2nd face; falls back to 8."
+  },
+  "seto3": {
+   "name": "Seto",
+   "short": "Seto",
+   "portrait": 36,
+   "note": "Seto 3rd face (shadow-touched); falls back to 7."
+  },
+  "darknite": {
+   "name": "DarkNite",
+   "short": "DarkNite",
+   "portrait": 37
+  },
+  "nitemare": {
+   "name": "Nitemare",
+   "short": "Nitemare",
+   "portrait": 38
+  },
+  "cockatiel": {
+   "name": "Cockatiel",
+   "short": "Cockatiel",
+   "portrait": 241,
+   "note": "New custom portrait (cports slot 6). See cockatiel.json."
+  },
+  "mirror": {
+   "name": "Atos Vinicius",
+   "short": "Atos V.",
+   "portrait": 242,
+   "note": "Mirror duelist; custom portrait (cports slot 7), may reuse the Atos face."
+  },
+  "narrator": {
+   "name": "(label)",
+   "short": "(label)",
+   "portrait": 254,
+   "note": "No portrait. Every narrator page carries its own 'label'."
+  }
+ },
+ "flags": [
+  {
+   "name": "jono_won",
+   "bit": 0,
+   "value": 1,
+   "note": "Legacy beat bit 1."
+  },
+  {
+   "name": "teana_won",
+   "bit": 1,
+   "value": 2,
+   "note": "Legacy beat bit 2."
+  },
+  {
+   "name": "rex_won",
+   "bit": 2,
+   "value": 4,
+   "note": "Legacy beat bit 4."
+  },
+  {
+   "name": "weevil_won",
+   "bit": 3,
+   "value": 8,
+   "note": "Legacy beat bit 8."
+  },
+  {
+   "name": "seto_won",
+   "bit": 4,
+   "value": 16,
+   "note": "Legacy beat bit 16 (also unlocks the palace door)."
+  },
+  {
+   "name": "mage_soldier_won",
+   "bit": 5,
+   "value": 32,
+   "note": "Legacy beat bit 32."
+  },
+  {
+   "name": "heishin_won",
+   "bit": 6,
+   "value": 64,
+   "note": "Legacy beat bit 64 (also unlocks the throne)."
+  },
+  {
+   "name": "mai_won",
+   "bit": 7,
+   "value": 128,
+   "note": "Legacy beat bit 128."
+  },
+  {
+   "name": "keith_won",
+   "bit": 8,
+   "value": 256,
+   "note": "Legacy beat bit 256."
+  },
+  {
+   "name": "shadi_won",
+   "bit": 9,
+   "value": 512,
+   "note": "Legacy beat bit 512."
+  },
+  {
+   "name": "pegasus_won",
+   "bit": 10,
+   "value": 1024,
+   "note": "Legacy beat bit 1024 (also unlocks the castle gate)."
+  },
+  {
+   "name": "ocean_mage_won",
+   "bit": 11,
+   "value": 2048,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "secmeton_won",
+   "bit": 12,
+   "value": 4096,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "anubisius_won",
+   "bit": 13,
+   "value": 8192,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "atenza_won",
+   "bit": 14,
+   "value": 16384,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "martis_won",
+   "bit": 15,
+   "value": 32768,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "kepura_won",
+   "bit": 16,
+   "value": 65536,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "labyrinth_mage_won",
+   "bit": 17,
+   "value": 131072,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "sebek_won",
+   "bit": 18,
+   "value": 262144,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "neku_won",
+   "bit": 19,
+   "value": 524288,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "seto2_won",
+   "bit": 20,
+   "value": 1048576,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "altar_scene_seen",
+   "bit": 21,
+   "value": 2097152,
+   "note": "Set when the altar scene c7_altar_wake has played once (so a lost duel does not replay it)."
+  },
+  {
+   "name": "heishin2_won",
+   "bit": 22,
+   "value": 4194304,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "seto3_won",
+   "bit": 23,
+   "value": 8388608,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "darknite_won",
+   "bit": 24,
+   "value": 16777216,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "nitemare_won",
+   "bit": 25,
+   "value": 33554432,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "cockatiel_won",
+   "bit": 26,
+   "value": 67108864,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "mirror_won",
+   "bit": 27,
+   "value": 134217728,
+   "note": "New in chapters 6-8."
+  },
+  {
+   "name": "ending_home",
+   "bit": 28,
+   "value": 268435456,
+   "note": "Chosen ending A."
+  },
+  {
+   "name": "ending_stay",
+   "bit": 29,
+   "value": 536870912,
+   "note": "Chosen ending B."
+  }
+ ],
+ "stages": [
+  {
+   "stage": 0,
+   "chapter": 0,
+   "title": "Character creation",
+   "note": "Legacy mode 3; ends by running c1_intro and setting stage 1."
+  },
+  {
+   "stage": 1,
+   "chapter": 1,
+   "title": "The Sand That Swallowed the Tournament",
+   "note": "Before Simon is beaten."
+  },
+  {
+   "stage": 2,
+   "chapter": 1,
+   "title": "The Sand That Swallowed the Tournament",
+   "note": "Simon beaten; river ford is open until the player crosses north."
+  },
+  {
+   "stage": 3,
+   "chapter": 2,
+   "title": "Visitors From the Future (Sand Ruins)"
+  },
+  {
+   "stage": 4,
+   "chapter": 3,
+   "title": "The Palace and the Prince"
+  },
+  {
+   "stage": 5,
+   "chapter": 4,
+   "title": "Heishin's Coup"
+  },
+  {
+   "stage": 6,
+   "chapter": 5,
+   "title": "The Tournament Out of Time"
+  },
+  {
+   "stage": 7,
+   "chapter": 6,
+   "title": "The Seven Items"
+  },
+  {
+   "stage": 8,
+   "chapter": 7,
+   "title": "The Labyrinth and the Guardians"
+  },
+  {
+   "stage": 9,
+   "chapter": 8,
+   "title": "Nitemare"
+  },
+  {
+   "stage": 10,
+   "chapter": 9,
+   "title": "Epilogue / post-game",
+   "note": "Story finished. Side duelists stay available."
+  }
+ ],
+ "chapters": [
+  {
+   "n": 1,
+   "title": "The Sand That Swallowed the Tournament",
+   "hud": "Chapter 1",
+   "region": "Oasis Village and Fields",
+   "stage": [
+    1,
+    2
+   ],
+   "duels": [
+    "simon",
+    "teana",
+    "jono"
+   ],
+   "reward": "Mystical Elf, Canteen",
+   "unlock": "Road to the Royal City (bridge/ford)"
+  },
+  {
+   "n": 2,
+   "title": "Sand Ruins",
+   "design_title": "Visitors From the Future",
+   "hud": "Chapter 2",
+   "region": "Sand Ruins",
+   "stage": [
+    3,
+    3
+   ],
+   "duels": [
+    "rex",
+    "weevil"
+   ],
+   "reward": "Time Stone Fragment 1, Torch",
+   "unlock": "Stone portal to the Royal City"
+  },
+  {
+   "n": 3,
+   "title": "The Palace and the Prince",
+   "hud": "Chapter 3",
+   "region": "Royal City",
+   "stage": [
+    4,
+    4
+   ],
+   "duels": [
+    "seto",
+    "mage_soldier"
+   ],
+   "reward": "Royal Seal, Dark Magician",
+   "unlock": "Palace door"
+  },
+  {
+   "n": 4,
+   "title": "Heishin's Coup",
+   "hud": "Chapter 4",
+   "region": "Throne Hall",
+   "stage": [
+    5,
+    5
+   ],
+   "duels": [
+    "heishin"
+   ],
+   "reward": "Millennium Necklace, Gaia the Fierce Knight",
+   "unlock": "Time rift at the throne"
+  },
+  {
+   "n": 5,
+   "title": "The Tournament Out of Time",
+   "hud": "Chapter 5",
+   "region": "Tournament Island",
+   "stage": [
+    6,
+    6
+   ],
+   "duels": [
+    "mai",
+    "keith",
+    "shadi",
+    "pegasus"
+   ],
+   "reward": "Time Stone Fragment 2, Millennium Eye",
+   "unlock": "Isis' portal back to Egypt"
+  },
+  {
+   "n": 6,
+   "title": "The Seven Items",
+   "hud": "Chapter 6",
+   "region": "Temple Crossroads and the five temples (Sea, Forest, Mountain, Desert, Meadow)",
+   "stage": [
+    7,
+    7
+   ],
+   "duels": [
+    "ocean_mage",
+    "secmeton",
+    "anubisius",
+    "atenza",
+    "martis",
+    "kepura",
+    "cockatiel"
+   ],
+   "reward": "Millennium Puzzle (from Simon), Sea Tablet, Key, Rod, Ring, Scales",
+   "unlock": "Labyrinth gate"
+  },
+  {
+   "n": 7,
+   "title": "The Labyrinth and the Guardians",
+   "hud": "Chapter 7",
+   "region": "Labyrinth",
+   "stage": [
+    8,
+    8
+   ],
+   "duels": [
+    "labyrinth_mage",
+    "sebek",
+    "neku",
+    "seto2",
+    "heishin2"
+   ],
+   "reward": "Prince freed, Time Stone Fragment 3",
+   "unlock": "Final Temple"
+  },
+  {
+   "n": 8,
+   "title": "Nitemare",
+   "hud": "Chapter 8",
+   "region": "Final Temple (Shadow Realm)",
+   "stage": [
+    9,
+    9
+   ],
+   "duels": [
+    "seto3",
+    "darknite",
+    "nitemare"
+   ],
+   "reward": "Complete Time Stone, legendary card Workers' Rights",
+   "unlock": "Ending A/B and post-game (stage 10): Cockatiel and Atos Vinicius"
+  }
+ ],
+ "areas": [
+  {
+   "id": 0,
+   "name": "Village",
+   "legacy": true,
+   "music": {
+    "id": "0x7360",
+    "title": "Town Plaza"
+   }
+  },
+  {
+   "id": 1,
+   "name": "Fields",
+   "legacy": true,
+   "music": {
+    "id": "0x7150",
+    "title": "Meadow Shrine"
+   }
+  },
+  {
+   "id": 2,
+   "name": "Nile River",
+   "legacy": true,
+   "music": {
+    "id": "0x7120",
+    "title": "Sea Shrine"
+   }
+  },
+  {
+   "id": 3,
+   "name": "Sand Ruins",
+   "legacy": true,
+   "music": {
+    "id": "0x71a0",
+    "title": "Forbidden Ruins"
+   }
+  },
+  {
+   "id": 4,
+   "name": "Royal City",
+   "legacy": true,
+   "music": {
+    "id": "0x70d0",
+    "title": "Pharaoh's Palace"
+   }
+  },
+  {
+   "id": 5,
+   "name": "Throne Hall",
+   "legacy": true,
+   "music": {
+    "id": "0x73a0",
+    "title": "Pharaoh's Palace 2"
+   }
+  },
+  {
+   "id": 6,
+   "name": "Tournament Island",
+   "legacy": true,
+   "music": {
+    "id": "0x71e0",
+    "title": "Preliminaries"
+   }
+  },
+  {
+   "id": 7,
+   "name": "Temple",
+   "legacy": true,
+   "music": {
+    "id": "0x7140",
+    "title": "Desert Shrine"
+   }
+  },
+  {
+   "id": 8,
+   "name": "Temple Crossroads",
+   "legacy": false,
+   "hub": true,
+   "music": {
+    "id": "0x7360",
+    "title": "Town Plaza"
+   },
+   "setting": "Old crossroads with a broken well and a sealed stone gate with five sockets (the Labyrinth gate). Road signs to the five temples."
+  },
+  {
+   "id": 9,
+   "name": "Sea Temple",
+   "legacy": false,
+   "music": {
+    "id": "0x7120",
+    "title": "Sea Shrine"
+   },
+   "setting": "Shore with a wall of water in front of an inner door; tide pools; blue stone."
+  },
+  {
+   "id": 10,
+   "name": "Forest Temple",
+   "legacy": false,
+   "music": {
+    "id": null,
+    "title": "Forest Shrine (pick from the disc list)"
+   },
+   "setting": "Giant roots, moss, dim green light."
+  },
+  {
+   "id": 11,
+   "name": "Mountain Temple",
+   "legacy": false,
+   "music": {
+    "id": null,
+    "title": "Mountain Shrine (pick from the disc list)"
+   },
+   "setting": "Switchback path to a cold summit shrine."
+  },
+  {
+   "id": 12,
+   "name": "Desert Temple",
+   "legacy": false,
+   "music": {
+    "id": "0x7140",
+    "title": "Desert Shrine"
+   },
+   "setting": "Dune ridge, half-buried columns, wind."
+  },
+  {
+   "id": 13,
+   "name": "Meadow Temple",
+   "legacy": false,
+   "music": {
+    "id": "0x7150",
+    "title": "Meadow Shrine"
+   },
+   "setting": "Flower fields, a small white shrine."
+  },
+  {
+   "id": 14,
+   "name": "Labyrinth",
+   "legacy": false,
+   "music": {
+    "id": null,
+    "title": "Labyrinth (pick from the disc list)"
+   },
+   "setting": "Stone corridors with torches, narrow camera, three hieroglyph doors, the altar room at the end."
+  },
+  {
+   "id": 15,
+   "name": "Final Temple",
+   "legacy": false,
+   "music": {
+    "id": null,
+    "title": "Dark shrine (pick from the disc list)"
+   },
+   "setting": "Dark pyramid floating in a purple sky; black stone floor."
+  }
+ ],
+ "npcs": [
+  {
+   "id": "simon",
+   "name": "Simon Muran",
+   "portrait_speaker": "simon",
+   "area": 0,
+   "tile": {
+    "tile_x": 14,
+    "tile_z": 28
+   },
+   "duelist_id": 1,
+   "model_hint": "Simon model of the PoC",
+   "stages": [
+    0,
+    6
+   ],
+   "legacy_talk_target": 9,
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       1
+      ]
+     },
+     "script": "c1_simon_pre",
+     "duel": "simon"
+    },
+    {
+     "when": {
+      "stage": [
+       2,
+       99
+      ]
+     },
+     "script": "c1_simon_after"
+    }
+   ]
+  },
+  {
+   "id": "jono",
+   "name": "Jono",
+   "area": 0,
+   "tile": {
+    "tile_x": 19,
+    "tile_z": 32
+   },
+   "duelist_id": 3,
+   "model_hint": "Quaternius Ninja_Sand",
+   "stages": [
+    0,
+    6
+   ],
+   "legacy_npc_index": 0,
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       1
+      ]
+     },
+     "script": "c1_jono_wait"
+    },
+    {
+     "when": {
+      "flags_all": [
+       "jono_won"
+      ]
+     },
+     "script": "c2_jono_done"
+    },
+    {
+     "when": {},
+     "script": "c1_jono_pre",
+     "duel": "jono"
+    }
+   ]
+  },
+  {
+   "id": "teana",
+   "name": "Teana",
+   "area": 0,
+   "tile": {
+    "tile_x": 9,
+    "tile_z": 32
+   },
+   "duelist_id": 2,
+   "model_hint": "Quaternius Ninja_Female",
+   "stages": [
+    0,
+    6
+   ],
+   "legacy_npc_index": 1,
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       1
+      ]
+     },
+     "script": "c1_teana_wait"
+    },
+    {
+     "when": {
+      "flags_all": [
+       "teana_won"
+      ]
+     },
+     "script": "c2_teana_done"
+    },
+    {
+     "when": {},
+     "script": "c1_teana_pre",
+     "duel": "teana"
+    }
+   ]
+  },
+  {
+   "id": "guard",
+   "name": "Guard",
+   "area": 2,
+   "tile": {
+    "tile_x": 24,
+    "tile_z": 23
+   },
+   "after_simon_won_tile": {
+    "tile_x": 26,
+    "tile_z": 23
+   },
+   "duelist_id": null,
+   "model_hint": "Guard",
+   "stages": [
+    0,
+    6
+   ],
+   "legacy_npc_index": 3,
+   "note": "Moves one tile east when Simon is beaten (opens the ford).",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       1
+      ]
+     },
+     "script": "c1_guard_block"
+    },
+    {
+     "when": {},
+     "script": "c1_guard_ok"
+    }
+   ]
+  },
+  {
+   "id": "rex",
+   "name": "Rex Raptor",
+   "area": 3,
+   "tile": {
+    "tile_x": 18,
+    "tile_z": 10
+   },
+   "duelist_id": 9,
+   "model_hint": "Quaternius Kimono",
+   "stages": [
+    3,
+    3
+   ],
+   "legacy_npc_index": 4,
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "rex_won"
+      ]
+     },
+     "script": "c2_rex_done"
+    },
+    {
+     "when": {},
+     "script": "c2_rex_pre",
+     "duel": "rex"
+    }
+   ]
+  },
+  {
+   "id": "weevil",
+   "name": "Weevil",
+   "area": 3,
+   "tile": {
+    "tile_x": 31,
+    "tile_z": 11
+   },
+   "duelist_id": 10,
+   "model_hint": "Quaternius OldClassy",
+   "stages": [
+    3,
+    3
+   ],
+   "legacy_npc_index": 5,
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "weevil_won"
+      ]
+     },
+     "script": "c2_weevil_done"
+    },
+    {
+     "when": {},
+     "script": "c2_weevil_pre",
+     "duel": "weevil"
+    }
+   ]
+  },
+  {
+   "id": "seto",
+   "name": "Seto",
+   "area": 4,
+   "tile": {
+    "tile_x": 55,
+    "tile_z": 6
+   },
+   "hall_tile": {
+    "tile_x": 57,
+    "tile_z": 31
+   },
+   "hall_area": 5,
+   "duelist_id": 7,
+   "model_hint": "Quaternius Wizard",
+   "stages": [
+    4,
+    6
+   ],
+   "legacy_npc_index": 2,
+   "note": "Moves to the throne hall at stage 5 and stays there.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       5,
+       99
+      ],
+      "flags_all": [
+       "heishin_won"
+      ]
+     },
+     "script": "c4_seto_after"
+    },
+    {
+     "when": {
+      "stage": [
+       5,
+       99
+      ]
+     },
+     "script": "c4_seto_before"
+    },
+    {
+     "when": {
+      "flags_all": [
+       "seto_won"
+      ]
+     },
+     "script": "c3_seto_done"
+    },
+    {
+     "when": {},
+     "script": "c3_seto_pre",
+     "duel": "seto"
+    }
+   ]
+  },
+  {
+   "id": "prince",
+   "name": "Prince",
+   "area": 4,
+   "tile": {
+    "tile_x": 57,
+    "tile_z": 6
+   },
+   "tile_offset_px": 24,
+   "hall_tile": {
+    "tile_x": 53,
+    "tile_z": 31
+   },
+   "hall_area": 5,
+   "duelist_id": null,
+   "model_hint": "Quaternius Elf",
+   "stages": [
+    4,
+    5
+   ],
+   "legacy_npc_index": 6,
+   "note": "Removed from the hall once Heishin is beaten (sealed in the Puzzle). Custom portrait.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       5,
+       99
+      ]
+     },
+     "script": "c4_prince_hall"
+    },
+    {
+     "when": {
+      "flags_all": [
+       "seto_won"
+      ]
+     },
+     "script": "c3_prince_after"
+    },
+    {
+     "when": {},
+     "script": "c3_prince_before"
+    }
+   ]
+  },
+  {
+   "id": "mage_soldier",
+   "name": "Mage Soldier",
+   "area": 4,
+   "tile": {
+    "tile_x": 51,
+    "tile_z": 14
+   },
+   "duelist_id": 18,
+   "model_hint": "Quaternius Knight",
+   "stages": [
+    4,
+    5
+   ],
+   "legacy_npc_index": 7,
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "mage_soldier_won"
+      ]
+     },
+     "script": "c3_soldier_done"
+    },
+    {
+     "when": {},
+     "script": "c3_soldier_pre",
+     "duel": "mage_soldier"
+    }
+   ]
+  },
+  {
+   "id": "heishin",
+   "name": "Heishin",
+   "area": 5,
+   "tile": {
+    "tile_x": 55,
+    "tile_z": 27
+   },
+   "duelist_id": 8,
+   "model_hint": "Quaternius Doctor_Old",
+   "stages": [
+    5,
+    5
+   ],
+   "legacy_npc_index": 8,
+   "note": "Only present at stage 5 until beaten.",
+   "dialogue_rules": [
+    {
+     "when": {},
+     "script": "c4_heishin_pre",
+     "duel": "heishin"
+    }
+   ]
+  },
+  {
+   "id": "mai",
+   "name": "Mai",
+   "area": 6,
+   "tile": {
+    "tile_x": 19,
+    "tile_z": 68
+   },
+   "duelist_id": 11,
+   "model_hint": "Quaternius Casual2_Female",
+   "stages": [
+    6,
+    6
+   ],
+   "legacy_npc_index": 9,
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "mai_won"
+      ]
+     },
+     "script": "c5_mai_done"
+    },
+    {
+     "when": {},
+     "script": "c5_mai_pre",
+     "duel": "mai"
+    }
+   ]
+  },
+  {
+   "id": "keith",
+   "name": "Bandit Keith",
+   "area": 6,
+   "tile": {
+    "tile_x": 29,
+    "tile_z": 68
+   },
+   "duelist_id": 12,
+   "model_hint": "Quaternius Cowboy_Male",
+   "stages": [
+    6,
+    6
+   ],
+   "legacy_npc_index": 10,
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "keith_won"
+      ]
+     },
+     "script": "c5_keith_done"
+    },
+    {
+     "when": {},
+     "script": "c5_keith_pre",
+     "duel": "keith"
+    }
+   ]
+  },
+  {
+   "id": "shadi",
+   "name": "Shadi",
+   "area": 6,
+   "tile": {
+    "tile_x": 28,
+    "tile_z": 63
+   },
+   "duelist_id": 13,
+   "model_hint": "Quaternius Doctor_Young",
+   "stages": [
+    6,
+    6
+   ],
+   "legacy_npc_index": 11,
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "shadi_won"
+      ]
+     },
+     "script": "c5_shadi_done"
+    },
+    {
+     "when": {},
+     "script": "c5_shadi_pre",
+     "duel": "shadi"
+    }
+   ]
+  },
+  {
+   "id": "pegasus",
+   "name": "Pegasus",
+   "area": 6,
+   "tile": {
+    "tile_x": 21,
+    "tile_z": 60
+   },
+   "duelist_id": 15,
+   "model_hint": "Quaternius Suit_Male",
+   "stages": [
+    6,
+    6
+   ],
+   "legacy_npc_index": 12,
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "pegasus_won"
+      ]
+     },
+     "script": "c5_pegasus_done"
+    },
+    {
+     "when": {
+      "flags_all": [
+       "mai_won",
+       "keith_won",
+       "shadi_won"
+      ]
+     },
+     "script": "c5_pegasus_pre",
+     "duel": "pegasus"
+    },
+    {
+     "when": {},
+     "script": "c5_pegasus_locked"
+    }
+   ]
+  },
+  {
+   "id": "simon_crossroads",
+   "name": "Simon Muran",
+   "portrait_speaker": "simon",
+   "area": 8,
+   "placement": "beside the broken well",
+   "duelist_id": null,
+   "model_hint": "same as simon",
+   "stages": [
+    7,
+    7
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_all": [
+       "ocean_mage_won",
+       "secmeton_won",
+       "anubisius_won",
+       "atenza_won",
+       "martis_won",
+       "kepura_won"
+      ]
+     },
+     "script": "c6_simon_hub_done"
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ]
+     },
+     "script": "c6_simon_hub"
+    }
+   ]
+  },
+  {
+   "id": "ocean_mage",
+   "name": "Ocean Mage",
+   "area": 9,
+   "placement": "on the shore, in front of the tide wall",
+   "duelist_id": 21,
+   "model_hint": "Quaternius Wizard (blue tint)",
+   "stages": [
+    7,
+    7
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "ocean_mage_won"
+      ]
+     },
+     "script": "c6_ocean_done"
+    },
+    {
+     "when": {},
+     "script": "c6_ocean_pre",
+     "duel": "ocean_mage"
+    }
+   ]
+  },
+  {
+   "id": "secmeton",
+   "name": "High Mage Secmeton",
+   "area": 9,
+   "placement": "inside the inner door",
+   "duelist_id": 22,
+   "model_hint": "Quaternius OldClassy (blue robe)",
+   "stages": [
+    7,
+    7
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "secmeton_won"
+      ]
+     },
+     "script": "c6_secmeton_done"
+    },
+    {
+     "when": {},
+     "script": "c6_secmeton_pre",
+     "duel": "secmeton"
+    }
+   ]
+  },
+  {
+   "id": "anubisius",
+   "name": "High Mage Anubisius",
+   "area": 10,
+   "placement": "at the shrine under the big root",
+   "duelist_id": 24,
+   "model_hint": "Quaternius Wizard (green tint)",
+   "stages": [
+    7,
+    7
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "anubisius_won"
+      ]
+     },
+     "script": "c6_anubisius_done"
+    },
+    {
+     "when": {},
+     "script": "c6_anubisius_pre",
+     "duel": "anubisius"
+    }
+   ]
+  },
+  {
+   "id": "atenza",
+   "name": "High Mage Atenza",
+   "area": 11,
+   "placement": "at the summit shrine",
+   "duelist_id": 26,
+   "model_hint": "Quaternius Viking or Knight",
+   "stages": [
+    7,
+    7
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "atenza_won"
+      ]
+     },
+     "script": "c6_atenza_done"
+    },
+    {
+     "when": {},
+     "script": "c6_atenza_pre",
+     "duel": "atenza"
+    }
+   ]
+  },
+  {
+   "id": "martis",
+   "name": "High Mage Martis",
+   "area": 12,
+   "placement": "at the half-buried columns",
+   "duelist_id": 28,
+   "model_hint": "Quaternius Wizard (sand tint)",
+   "stages": [
+    7,
+    7
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "martis_won"
+      ]
+     },
+     "script": "c6_martis_done"
+    },
+    {
+     "when": {},
+     "script": "c6_martis_pre",
+     "duel": "martis"
+    }
+   ]
+  },
+  {
+   "id": "kepura",
+   "name": "High Mage Kepura",
+   "area": 13,
+   "placement": "in the middle of the flowers",
+   "duelist_id": 30,
+   "model_hint": "Quaternius Casual or Witch",
+   "stages": [
+    7,
+    7
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "kepura_won"
+      ]
+     },
+     "script": "c6_kepura_done"
+    },
+    {
+     "when": {},
+     "script": "c6_kepura_pre",
+     "duel": "kepura"
+    }
+   ]
+  },
+  {
+   "id": "cockatiel",
+   "name": "Cockatiel",
+   "portrait_speaker": "cockatiel",
+   "area": 8,
+   "placement": "perched on the roof of the old well",
+   "duelist_id": "cockatiel",
+   "model_hint": "Quaternius Hoodie or Punk with a small grey-and-yellow bird prop on the shoulder",
+   "stages": [
+    7,
+    10
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       10,
+       99
+      ],
+      "flags_all": [
+       "cockatiel_won"
+      ]
+     },
+     "script": "side_cockatiel_epilogue"
+    },
+    {
+     "when": {
+      "flags_all": [
+       "cockatiel_won"
+      ]
+     },
+     "script": "side_cockatiel_done"
+    },
+    {
+     "when": {},
+     "script": "side_cockatiel_pre",
+     "duel": "cockatiel"
+    }
+   ]
+  },
+  {
+   "id": "labyrinth_mage",
+   "name": "Labyrinth Mage",
+   "area": 14,
+   "placement": "first junction, beside a moving wall",
+   "duelist_id": 31,
+   "model_hint": "Quaternius Wizard",
+   "stages": [
+    8,
+    8
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "labyrinth_mage_won"
+      ]
+     },
+     "script": "c7_lmage_done"
+    },
+    {
+     "when": {},
+     "script": "c7_lmage_pre",
+     "duel": "labyrinth_mage"
+    }
+   ]
+  },
+  {
+   "id": "sebek",
+   "name": "Guardian Sebek",
+   "area": 14,
+   "placement": "in front of door 1",
+   "duelist_id": 33,
+   "model_hint": "Quaternius Soldier or Zombie (green)",
+   "stages": [
+    8,
+    8
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "sebek_won"
+      ]
+     },
+     "script": "c7_sebek_done"
+    },
+    {
+     "when": {},
+     "script": "c7_sebek_pre",
+     "duel": "sebek"
+    }
+   ]
+  },
+  {
+   "id": "neku",
+   "name": "Guardian Neku",
+   "area": 14,
+   "placement": "in front of door 2",
+   "duelist_id": 34,
+   "model_hint": "Quaternius Ninja or Knight",
+   "stages": [
+    8,
+    8
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "neku_won"
+      ]
+     },
+     "script": "c7_neku_done"
+    },
+    {
+     "when": {},
+     "script": "c7_neku_pre",
+     "duel": "neku"
+    }
+   ]
+  },
+  {
+   "id": "seto2",
+   "name": "Seto",
+   "portrait_speaker": "seto2",
+   "area": 14,
+   "placement": "in front of door 3 / the altar room",
+   "duelist_id": 32,
+   "model_hint": "same as seto",
+   "stages": [
+    8,
+    8
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "heishin2_won"
+      ]
+     },
+     "script": "c7_seto2_after_altar"
+    },
+    {
+     "when": {
+      "flags_all": [
+       "seto2_won"
+      ]
+     },
+     "script": "c7_seto2_done"
+    },
+    {
+     "when": {},
+     "script": "c7_seto2_pre",
+     "duel": "seto2"
+    }
+   ]
+  },
+  {
+   "id": "heishin2",
+   "name": "Heishin",
+   "portrait_speaker": "heishin2",
+   "area": 14,
+   "placement": "appears at the altar when the Items are placed",
+   "duelist_id": 35,
+   "model_hint": "same as heishin",
+   "stages": [
+    8,
+    8
+   ],
+   "dialogue_rules": []
+  },
+  {
+   "id": "prince_labyrinth",
+   "name": "Prince",
+   "portrait_speaker": "prince",
+   "area": 14,
+   "placement": "altar, after the Puzzle is opened; then follows the player",
+   "duelist_id": null,
+   "model_hint": "same as prince",
+   "stages": [
+    8,
+    9
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "heishin2_won"
+      ]
+     },
+     "script": "c7_prince_free"
+    }
+   ]
+  },
+  {
+   "id": "seto3",
+   "name": "Seto",
+   "portrait_speaker": "seto3",
+   "area": 15,
+   "placement": "in front of the Final Temple gate",
+   "duelist_id": 36,
+   "model_hint": "same as seto (dark tint / black mist prop)",
+   "stages": [
+    9,
+    9
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "seto3_won"
+      ]
+     },
+     "script": "c8_seto3_done"
+    },
+    {
+     "when": {},
+     "script": "c8_seto3_pre",
+     "duel": "seto3"
+    }
+   ]
+  },
+  {
+   "id": "darknite",
+   "name": "DarkNite",
+   "area": 15,
+   "placement": "in the hall of shadows",
+   "duelist_id": 37,
+   "model_hint": "Quaternius Wizard (black) or the game's DarkNite model",
+   "stages": [
+    9,
+    9
+   ],
+   "dialogue_rules": [
+    {
+     "when": {},
+     "script": "c8_darknite_pre",
+     "duel": "darknite"
+    }
+   ]
+  },
+  {
+   "id": "nitemare",
+   "name": "Nitemare",
+   "area": 15,
+   "placement": "top of the stairs",
+   "duelist_id": 38,
+   "model_hint": "the game's Nitemare model",
+   "stages": [
+    9,
+    9
+   ],
+   "dialogue_rules": [
+    {
+     "when": {},
+     "script": "c8_nitemare_pre",
+     "duel": "nitemare"
+    }
+   ]
+  },
+  {
+   "id": "mirror",
+   "name": "Atos Vinicius",
+   "portrait_speaker": "mirror",
+   "area": 8,
+   "placement": "standing near the Labyrinth gate",
+   "duelist_id": "atos-vinicius",
+   "model_hint": "player model with a different outfit color",
+   "stages": [
+    10,
+    10
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_all": [
+       "mirror_won"
+      ]
+     },
+     "script": "side_mirror_done"
+    },
+    {
+     "when": {},
+     "script": "side_mirror_pre",
+     "duel": "mirror"
+    }
+   ]
+  }
+ ],
+ "objects": [
+  {
+   "id": "portal_ruins",
+   "name": "Stone portal",
+   "area": 3,
+   "tile": {
+    "tile_x": 24,
+    "tile_z": 3
+   },
+   "legacy_talk_target": 7,
+   "solid_until": [
+    "rex_won",
+    "weevil_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_none": [
+       "rex_won"
+      ]
+     },
+     "script": "c2_portal_locked"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_none": [
+       "weevil_won"
+      ]
+     },
+     "script": "c2_portal_locked"
+    }
+   ]
+  },
+  {
+   "id": "palace_door",
+   "name": "Palace door",
+   "area": 4,
+   "tile": {
+    "tile_x": 55,
+    "tile_z": 4
+   },
+   "legacy_talk_target": 8,
+   "solid_until": [
+    "seto_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       4,
+       4
+      ],
+      "flags_none": [
+       "seto_won"
+      ]
+     },
+     "script": "c3_door_locked"
+    }
+   ]
+  },
+  {
+   "id": "throne",
+   "name": "Throne",
+   "area": 5,
+   "tile": {
+    "tile_x": 55,
+    "tile_z": 25
+   },
+   "legacy_talk_target": 12,
+   "solid_until": [
+    "heishin_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       5,
+       5
+      ],
+      "flags_none": [
+       "heishin_won"
+      ]
+     },
+     "script": "c4_throne_locked"
+    }
+   ]
+  },
+  {
+   "id": "castle_gate",
+   "name": "Castle gate / Isis portal",
+   "area": 6,
+   "tile": {
+    "tile_x": 24,
+    "tile_z": 59
+   },
+   "legacy_talk_target": 24,
+   "solid_until": [
+    "pegasus_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       6,
+       6
+      ],
+      "flags_none": [
+       "pegasus_won"
+      ]
+     },
+     "script": "c5_gate_locked"
+    }
+   ]
+  },
+  {
+   "id": "labyrinth_gate",
+   "name": "Labyrinth gate",
+   "area": 8,
+   "placement": "stone gate with five sockets",
+   "solid_until": [
+    "ocean_mage_won",
+    "secmeton_won",
+    "anubisius_won",
+    "atenza_won",
+    "martis_won",
+    "kepura_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "ocean_mage_won"
+      ]
+     },
+     "script": "c6_gate_locked"
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "secmeton_won"
+      ]
+     },
+     "script": "c6_gate_locked"
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "anubisius_won"
+      ]
+     },
+     "script": "c6_gate_locked"
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "atenza_won"
+      ]
+     },
+     "script": "c6_gate_locked"
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "martis_won"
+      ]
+     },
+     "script": "c6_gate_locked"
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "kepura_won"
+      ]
+     },
+     "script": "c6_gate_locked"
+    }
+   ]
+  },
+  {
+   "id": "sea_inner_door",
+   "name": "Tide wall",
+   "area": 9,
+   "placement": "inner door of the Sea Temple",
+   "solid_until": [
+    "ocean_mage_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_none": [
+       "ocean_mage_won"
+      ]
+     },
+     "script": "c6_secmeton_locked"
+    }
+   ]
+  },
+  {
+   "id": "door1",
+   "name": "First door",
+   "area": 14,
+   "solid_until": [
+    "labyrinth_mage_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_none": [
+       "labyrinth_mage_won"
+      ]
+     },
+     "script": "c7_door1_locked"
+    }
+   ]
+  },
+  {
+   "id": "door2",
+   "name": "Second door",
+   "area": 14,
+   "solid_until": [
+    "sebek_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_none": [
+       "sebek_won"
+      ]
+     },
+     "script": "c7_door2_locked"
+    }
+   ]
+  },
+  {
+   "id": "door3",
+   "name": "Third door",
+   "area": 14,
+   "solid_until": [
+    "neku_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_none": [
+       "neku_won"
+      ]
+     },
+     "script": "c7_door3_locked"
+    }
+   ]
+  },
+  {
+   "id": "altar",
+   "name": "Altar",
+   "area": 14,
+   "solid_until": [
+    "seto2_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_none": [
+       "seto2_won"
+      ]
+     },
+     "script": "c7_altar_locked"
+    },
+    {
+     "when": {
+      "flags_all": [
+       "altar_scene_seen"
+      ],
+      "flags_none": [
+       "heishin2_won"
+      ]
+     },
+     "script": "c7_heishin2_retry",
+     "duel": "heishin2",
+     "note": "Talking to the altar again after a lost duel."
+    },
+    {
+     "when": {
+      "flags_all": [
+       "seto2_won"
+      ],
+      "flags_none": [
+       "altar_scene_seen"
+      ]
+     },
+     "script": "c7_altar_wake",
+     "duel": "heishin2",
+     "note": "Plays once; last page asks Duel?."
+    }
+   ]
+  },
+  {
+   "id": "dark_stairs",
+   "name": "Dark stairs",
+   "area": 14,
+   "solid_until": [
+    "heishin2_won"
+   ],
+   "dialogue_rules": []
+  },
+  {
+   "id": "hall_mist",
+   "name": "Mist wall",
+   "area": 15,
+   "solid_until": [
+    "seto3_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_none": [
+       "seto3_won"
+      ]
+     },
+     "script": "c8_hall_locked"
+    }
+   ]
+  },
+  {
+   "id": "boss_stairs",
+   "name": "Stairs to Nitemare",
+   "area": 15,
+   "solid_until": [
+    "darknite_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "flags_none": [
+       "darknite_won"
+      ]
+     },
+     "script": "c8_stairs_locked"
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "canteen",
+   "name": "Canteen",
+   "source": "Simon (c1_simon_win)",
+   "legacy": "cantil"
+  },
+  {
+   "id": "time_fragment_1",
+   "name": "Time Stone Fragment 1",
+   "source": "Rex Raptor",
+   "flag": "rex_won"
+  },
+  {
+   "id": "torch",
+   "name": "Torch",
+   "source": "Weevil",
+   "flag": "weevil_won"
+  },
+  {
+   "id": "royal_seal",
+   "name": "Royal Seal",
+   "source": "Seto",
+   "flag": "seto_won"
+  },
+  {
+   "id": "millennium_necklace",
+   "name": "Millennium Necklace",
+   "source": "Simon, after Heishin",
+   "flag": "heishin_won"
+  },
+  {
+   "id": "time_fragment_2",
+   "name": "Time Stone Fragment 2",
+   "source": "Shadi",
+   "flag": "shadi_won"
+  },
+  {
+   "id": "millennium_eye",
+   "name": "Millennium Eye",
+   "source": "Pegasus",
+   "flag": "pegasus_won"
+  },
+  {
+   "id": "millennium_puzzle",
+   "name": "Millennium Puzzle",
+   "source": "Simon (c6_arrival)",
+   "note": "Holds the Prince's soul."
+  },
+  {
+   "id": "sea_tablet",
+   "name": "Sea Tablet",
+   "source": "High Mage Secmeton",
+   "flag": "secmeton_won"
+  },
+  {
+   "id": "millennium_key",
+   "name": "Millennium Key",
+   "source": "High Mage Anubisius",
+   "flag": "anubisius_won"
+  },
+  {
+   "id": "millennium_rod",
+   "name": "Millennium Rod",
+   "source": "High Mage Atenza",
+   "flag": "atenza_won"
+  },
+  {
+   "id": "millennium_ring",
+   "name": "Millennium Ring",
+   "source": "High Mage Martis",
+   "flag": "martis_won"
+  },
+  {
+   "id": "millennium_scales",
+   "name": "Millennium Scales",
+   "source": "High Mage Kepura",
+   "flag": "kepura_won"
+  },
+  {
+   "id": "time_fragment_3",
+   "name": "Time Stone Fragment 3",
+   "source": "Heishin 2nd",
+   "flag": "heishin2_won"
+  },
+  {
+   "id": "time_stone",
+   "name": "Time Stone",
+   "source": "Nitemare",
+   "flag": "nitemare_won",
+   "note": "Replaces the three fragments in the Backpack."
+  },
+  {
+   "id": "cockatiel_feather",
+   "name": "Cockatiel Feather",
+   "source": "Cockatiel",
+   "flag": "cockatiel_won",
+   "note": "Cosmetic keepsake."
+  }
+ ],
+ "new_duelists": [
+  {
+   "id": "cockatiel",
+   "copy": "High Mage Kepura",
+   "name": "Cockatiel",
+   "slot": 40,
+   "portrait_file": "portraits/cockatiel.png",
+   "definition": "cockatiel.json"
+  },
+  {
+   "id": "atos-vinicius",
+   "copy": "Seto 3rd",
+   "name": "Atos Vinicius",
+   "slot": 41,
+   "portrait_file": "portraits/atos-vinicius.png",
+   "note": "Uses the player's Atos face; deck in decks.json['Atos Vinicius']."
+  }
+ ],
+ "duels": [
+  {
+   "id": "simon",
+   "npc": "simon",
+   "duelist_id": 1,
+   "chapter": 1,
+   "pre_script": "c1_simon_pre",
+   "win_script": "c1_simon_win",
+   "lose_script": "c1_simon_lose",
+   "win_flag": null,
+   "on_win": [
+    {
+     "give_card": "Mystical Elf"
+    },
+    {
+     "give_item": "canteen"
+    },
+    {
+     "set_stage": 2
+    },
+    {
+     "move_npc": {
+      "npc": "guard",
+      "to": {
+       "tile_x": 26,
+       "tile_z": 23
+      }
+     }
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Simon Muran",
+   "difficulty_tier": 1,
+   "note": "Win sets stage 2 (no flag). Rewards only the first time."
+  },
+  {
+   "id": "teana",
+   "npc": "teana",
+   "duelist_id": 2,
+   "chapter": 1,
+   "pre_script": "c1_teana_pre",
+   "win_script": "c1_teana_win",
+   "lose_script": "c1_teana_lose",
+   "win_flag": "teana_won",
+   "on_win": [
+    {
+     "give_card": "Feral Imp"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Teana",
+   "difficulty_tier": 1,
+   "note": "Optional."
+  },
+  {
+   "id": "jono",
+   "npc": "jono",
+   "duelist_id": 3,
+   "chapter": 1,
+   "pre_script": "c1_jono_pre",
+   "win_script": "c1_jono_win",
+   "lose_script": "c1_jono_lose",
+   "win_flag": "jono_won",
+   "on_win": [
+    {
+     "give_card": "Baby Dragon"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Jono",
+   "difficulty_tier": 1,
+   "note": "Optional."
+  },
+  {
+   "id": "rex",
+   "npc": "rex",
+   "duelist_id": 9,
+   "chapter": 2,
+   "pre_script": "c2_rex_pre",
+   "win_script": "c2_rex_win",
+   "lose_script": "c2_rex_lose",
+   "win_flag": "rex_won",
+   "on_win": [
+    {
+     "give_item": "time_fragment_1"
+    },
+    {
+     "give_card": "Ryu-kishin"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Rex Raptor",
+   "difficulty_tier": 2
+  },
+  {
+   "id": "weevil",
+   "npc": "weevil",
+   "duelist_id": 10,
+   "chapter": 2,
+   "pre_script": "c2_weevil_pre",
+   "win_script": "c2_weevil_win",
+   "lose_script": "c2_weevil_lose",
+   "win_flag": "weevil_won",
+   "on_win": [
+    {
+     "give_item": "torch"
+    },
+    {
+     "give_card": "Hitotsu-me Giant"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Weevil Underwood",
+   "difficulty_tier": 2
+  },
+  {
+   "id": "seto",
+   "npc": "seto",
+   "duelist_id": 7,
+   "chapter": 3,
+   "pre_script": "c3_seto_pre",
+   "win_script": "c3_seto_win",
+   "lose_script": "c3_seto_lose",
+   "win_flag": "seto_won",
+   "on_win": [
+    {
+     "give_item": "royal_seal"
+    },
+    {
+     "give_card": "Dark Magician"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Seto",
+   "difficulty_tier": 3
+  },
+  {
+   "id": "mage_soldier",
+   "npc": "mage_soldier",
+   "duelist_id": 18,
+   "chapter": 3,
+   "pre_script": "c3_soldier_pre",
+   "win_script": "c3_soldier_win",
+   "lose_script": "c3_soldier_lose",
+   "win_flag": "mage_soldier_won",
+   "on_win": [
+    {
+     "give_card": "Celtic Guardian"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Mage Soldier",
+   "difficulty_tier": 3,
+   "note": "Optional."
+  },
+  {
+   "id": "heishin",
+   "npc": "heishin",
+   "duelist_id": 8,
+   "chapter": 4,
+   "pre_script": "c4_heishin_pre",
+   "win_script": "c4_heishin_win",
+   "lose_script": "c4_heishin_lose",
+   "win_flag": "heishin_won",
+   "on_win": [
+    {
+     "give_item": "millennium_necklace"
+    },
+    {
+     "give_card": "Gaia the Fierce Knight"
+    },
+    {
+     "remove_npc": "heishin"
+    },
+    {
+     "remove_npc": "prince"
+    },
+    {
+     "place_npcs": "stage5"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Heishin",
+   "difficulty_tier": 4
+  },
+  {
+   "id": "mai",
+   "npc": "mai",
+   "duelist_id": 11,
+   "chapter": 5,
+   "pre_script": "c5_mai_pre",
+   "win_script": "c5_mai_win",
+   "lose_script": "c5_mai_lose",
+   "win_flag": "mai_won",
+   "on_win": [
+    {
+     "give_card": "Harpie Lady"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Mai Valentine",
+   "difficulty_tier": 5
+  },
+  {
+   "id": "keith",
+   "npc": "keith",
+   "duelist_id": 12,
+   "chapter": 5,
+   "pre_script": "c5_keith_pre",
+   "win_script": "c5_keith_win",
+   "lose_script": "c5_keith_lose",
+   "win_flag": "keith_won",
+   "on_win": [
+    {
+     "give_card": "Great White"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Bandit Keith",
+   "difficulty_tier": 5
+  },
+  {
+   "id": "shadi",
+   "npc": "shadi",
+   "duelist_id": 13,
+   "chapter": 5,
+   "pre_script": "c5_shadi_pre",
+   "win_script": "c5_shadi_win",
+   "lose_script": "c5_shadi_lose",
+   "win_flag": "shadi_won",
+   "on_win": [
+    {
+     "give_item": "time_fragment_2"
+    },
+    {
+     "give_card": "Illusionist Faceless Mage"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Shadi",
+   "difficulty_tier": 5
+  },
+  {
+   "id": "pegasus",
+   "npc": "pegasus",
+   "duelist_id": 15,
+   "chapter": 5,
+   "pre_script": "c5_pegasus_pre",
+   "win_script": "c5_pegasus_win",
+   "lose_script": "c5_pegasus_lose",
+   "win_flag": "pegasus_won",
+   "on_win": [
+    {
+     "give_item": "millennium_eye"
+    },
+    {
+     "give_card": "Thousand Dragon"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Pegasus",
+   "difficulty_tier": 6,
+   "note": "Boss. Requires mai_won, keith_won and shadi_won."
+  },
+  {
+   "id": "ocean_mage",
+   "npc": "ocean_mage",
+   "duelist_id": 21,
+   "chapter": 6,
+   "pre_script": "c6_ocean_pre",
+   "win_script": "c6_ocean_win",
+   "lose_script": "c6_ocean_lose",
+   "win_flag": "ocean_mage_won",
+   "on_win": [
+    {
+     "give_card": "Aqua Dragon"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Ocean Mage",
+   "difficulty_tier": 6
+  },
+  {
+   "id": "secmeton",
+   "npc": "secmeton",
+   "duelist_id": 22,
+   "chapter": 6,
+   "pre_script": "c6_secmeton_pre",
+   "win_script": "c6_secmeton_win",
+   "lose_script": "c6_secmeton_lose",
+   "win_flag": "secmeton_won",
+   "on_win": [
+    {
+     "give_item": "sea_tablet"
+    },
+    {
+     "give_card": "Suijin"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "High Mage Secmeton",
+   "difficulty_tier": 7
+  },
+  {
+   "id": "anubisius",
+   "npc": "anubisius",
+   "duelist_id": 24,
+   "chapter": 6,
+   "pre_script": "c6_anubisius_pre",
+   "win_script": "c6_anubisius_win",
+   "lose_script": "c6_anubisius_lose",
+   "win_flag": "anubisius_won",
+   "on_win": [
+    {
+     "give_item": "millennium_key"
+    },
+    {
+     "give_card": "Ancient One of the Deep Forest"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "High Mage Anubisius",
+   "difficulty_tier": 7
+  },
+  {
+   "id": "atenza",
+   "npc": "atenza",
+   "duelist_id": 26,
+   "chapter": 6,
+   "pre_script": "c6_atenza_pre",
+   "win_script": "c6_atenza_win",
+   "lose_script": "c6_atenza_lose",
+   "win_flag": "atenza_won",
+   "on_win": [
+    {
+     "give_item": "millennium_rod"
+    },
+    {
+     "give_card": "Thunder Dragon"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "High Mage Atenza",
+   "difficulty_tier": 7
+  },
+  {
+   "id": "martis",
+   "npc": "martis",
+   "duelist_id": 28,
+   "chapter": 6,
+   "pre_script": "c6_martis_pre",
+   "win_script": "c6_martis_win",
+   "lose_script": "c6_martis_lose",
+   "win_flag": "martis_won",
+   "on_win": [
+    {
+     "give_item": "millennium_ring"
+    },
+    {
+     "give_card": "Mystical Sand"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "High Mage Martis",
+   "difficulty_tier": 7
+  },
+  {
+   "id": "kepura",
+   "npc": "kepura",
+   "duelist_id": 30,
+   "chapter": 6,
+   "pre_script": "c6_kepura_pre",
+   "win_script": "c6_kepura_win",
+   "lose_script": "c6_kepura_lose",
+   "win_flag": "kepura_won",
+   "on_win": [
+    {
+     "give_item": "millennium_scales"
+    },
+    {
+     "give_card": "Queen of Autumn Leaves"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "High Mage Kepura",
+   "difficulty_tier": 7
+  },
+  {
+   "id": "cockatiel",
+   "npc": "cockatiel",
+   "duelist_id": "cockatiel",
+   "chapter": 6,
+   "pre_script": "side_cockatiel_pre",
+   "win_script": "side_cockatiel_win",
+   "lose_script": "side_cockatiel_lose",
+   "win_flag": "cockatiel_won",
+   "on_win": [
+    {
+     "give_item": "cockatiel_feather"
+    },
+    {
+     "give_card": "Crimson Sunbird"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Cockatiel",
+   "difficulty_tier": 7,
+   "note": "Optional side duelist, available from stage 7 on."
+  },
+  {
+   "id": "labyrinth_mage",
+   "npc": "labyrinth_mage",
+   "duelist_id": 31,
+   "chapter": 7,
+   "pre_script": "c7_lmage_pre",
+   "win_script": "c7_lmage_win",
+   "lose_script": "c7_lmage_lose",
+   "win_flag": "labyrinth_mage_won",
+   "on_win": [
+    {
+     "give_card": "Guardian of the Labyrinth"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Labyrinth Mage",
+   "difficulty_tier": 8
+  },
+  {
+   "id": "sebek",
+   "npc": "sebek",
+   "duelist_id": 33,
+   "chapter": 7,
+   "pre_script": "c7_sebek_pre",
+   "win_script": "c7_sebek_win",
+   "lose_script": "c7_sebek_lose",
+   "win_flag": "sebek_won",
+   "on_win": [
+    {
+     "give_card": "Guardian of the Throne Room"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Guardian Sebek",
+   "difficulty_tier": 8
+  },
+  {
+   "id": "neku",
+   "npc": "neku",
+   "duelist_id": 34,
+   "chapter": 7,
+   "pre_script": "c7_neku_pre",
+   "win_script": "c7_neku_win",
+   "lose_script": "c7_neku_lose",
+   "win_flag": "neku_won",
+   "on_win": [
+    {
+     "give_card": "Rude Kaiser"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Guardian Neku",
+   "difficulty_tier": 8
+  },
+  {
+   "id": "seto2",
+   "npc": "seto2",
+   "duelist_id": 32,
+   "chapter": 7,
+   "pre_script": "c7_seto2_pre",
+   "win_script": "c7_seto2_win",
+   "lose_script": "c7_seto2_lose",
+   "win_flag": "seto2_won",
+   "on_win": [
+    {
+     "give_card": "Blue-eyes White Dragon"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Seto 2nd",
+   "difficulty_tier": 9
+  },
+  {
+   "id": "heishin2",
+   "npc": "heishin2",
+   "duelist_id": 35,
+   "chapter": 7,
+   "pre_script": "c7_altar_wake",
+   "win_script": "c7_heishin2_win",
+   "lose_script": "c7_heishin2_lose",
+   "win_flag": "heishin2_won",
+   "on_win": [
+    {
+     "give_item": "time_fragment_3"
+    },
+    {
+     "give_card": "Summoned Skull"
+    },
+    {
+     "place_npc": {
+      "npc": "prince_labyrinth",
+      "state": "follows_player"
+     }
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Heishin 2nd",
+   "difficulty_tier": 9,
+   "note": "Pre script is c7_altar_wake the first time, c7_heishin2_retry after a loss.",
+   "pre_effects": [
+    {
+     "set_flag": "altar_scene_seen"
+    }
+   ]
+  },
+  {
+   "id": "seto3",
+   "npc": "seto3",
+   "duelist_id": 36,
+   "chapter": 8,
+   "pre_script": "c8_seto3_pre",
+   "win_script": "c8_seto3_win",
+   "lose_script": "c8_seto3_lose",
+   "win_flag": "seto3_won",
+   "on_win": [
+    {
+     "give_card": "Red-eyes B. Dragon"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Seto 3rd",
+   "difficulty_tier": 9
+  },
+  {
+   "id": "darknite",
+   "npc": "darknite",
+   "duelist_id": 37,
+   "chapter": 8,
+   "pre_script": "c8_darknite_pre",
+   "win_script": "c8_darknite_win",
+   "lose_script": "c8_darknite_lose",
+   "win_flag": "darknite_won",
+   "on_win": [
+    {
+     "give_card": "Zoa"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "DarkNite",
+   "difficulty_tier": 10
+  },
+  {
+   "id": "nitemare",
+   "npc": "nitemare",
+   "duelist_id": 38,
+   "chapter": 8,
+   "pre_script": "c8_nitemare_pre",
+   "win_script": "c8_nitemare_win",
+   "lose_script": "c8_nitemare_lose",
+   "win_flag": "nitemare_won",
+   "on_win": [
+    {
+     "give_item": "time_stone"
+    },
+    {
+     "give_card_custom": "Workers' Rights",
+     "fallback_card": "Dian Keto the Cure Master"
+    },
+    {
+     "play_script": "c8_choice"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Nitemare",
+   "difficulty_tier": 10,
+   "note": "Final boss. After win_script the engine plays c8_choice (Yes -> ending_home, No -> ending_stay)."
+  },
+  {
+   "id": "mirror",
+   "npc": "mirror",
+   "duelist_id": "atos-vinicius",
+   "chapter": 9,
+   "pre_script": "side_mirror_pre",
+   "win_script": "side_mirror_win",
+   "lose_script": "side_mirror_lose",
+   "win_flag": "mirror_won",
+   "on_win": [
+    {
+     "give_card": "Hero of the East"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "deck": "Atos Vinicius",
+   "difficulty_tier": 10,
+   "note": "Optional post-game duelist (stage 10)."
+  }
+ ],
+ "transitions": [
+  {
+   "id": "start",
+   "when": {
+    "stage": [
+     0,
+     0
+    ]
+   },
+   "trigger": {
+    "kind": "character_creation_done"
+   },
+   "effects": [
+    {
+     "set_stage": 1
+    }
+   ],
+   "script": "c1_intro"
+  },
+  {
+   "id": "c1_end",
+   "when": {
+    "stage": [
+     2,
+     2
+    ]
+   },
+   "trigger": {
+    "kind": "walk_north_of_tile_row",
+    "tile_z": 20
+   },
+   "effects": [
+    {
+     "set_stage": 3
+    }
+   ],
+   "script": "c1_end__c2_intro",
+   "note": "Legacy: pz < (4+16)*32."
+  },
+  {
+   "id": "c2_end",
+   "when": {
+    "flags_all": [
+     "rex_won",
+     "weevil_won"
+    ],
+    "stage": [
+     3,
+     3
+    ]
+   },
+   "trigger": {
+    "kind": "walk_north_of_tile_row",
+    "tile_z": 3,
+    "object": "portal_ruins"
+   },
+   "effects": [
+    {
+     "set_stage": 4
+    },
+    {
+     "teleport": {
+      "area": 4,
+      "tile": {
+       "tile_x": 55,
+       "tile_z": 17
+      }
+     }
+    }
+   ],
+   "script": "c2_end__c3_intro"
+  },
+  {
+   "id": "c3_end",
+   "when": {
+    "flags_all": [
+     "seto_won"
+    ],
+    "stage": [
+     4,
+     4
+    ]
+   },
+   "trigger": {
+    "kind": "walk_north_of_tile_row",
+    "tile_z": 4,
+    "object": "palace_door"
+   },
+   "effects": [
+    {
+     "set_stage": 5
+    },
+    {
+     "teleport": {
+      "area": 5,
+      "tile": {
+       "tile_x": 55,
+       "tile_z": 39
+      }
+     }
+    },
+    {
+     "place_npcs": "stage5"
+    }
+   ],
+   "script": "c3_end__c4_intro"
+  },
+  {
+   "id": "c4_end",
+   "when": {
+    "flags_all": [
+     "heishin_won"
+    ],
+    "stage": [
+     5,
+     5
+    ]
+   },
+   "trigger": {
+    "kind": "walk_north_of_tile_row",
+    "tile_z": 25,
+    "object": "throne"
+   },
+   "effects": [
+    {
+     "set_stage": 6
+    },
+    {
+     "teleport": {
+      "area": 6,
+      "tile": {
+       "tile_x": 24,
+       "tile_z": 68
+      }
+     }
+    }
+   ],
+   "script": "c4_end__c5_intro"
+  },
+  {
+   "id": "c5_end",
+   "when": {
+    "flags_all": [
+     "pegasus_won"
+    ],
+    "stage": [
+     6,
+     6
+    ]
+   },
+   "trigger": {
+    "kind": "walk_between_tile_rows",
+    "tile_z_min": 56,
+    "tile_z_max": 59,
+    "object": "castle_gate"
+   },
+   "effects": [
+    {
+     "set_stage": 7
+    },
+    {
+     "teleport": {
+      "area": 8,
+      "spawn": "crossroads_portal"
+     }
+    },
+    {
+     "play_script_after": "c6_arrival"
+    }
+   ],
+   "script": "c5_end__c6_intro",
+   "note": "Legacy script 66 ended the game with 'Coming soon'; it now chains into c6_arrival."
+  },
+  {
+   "id": "c6_end",
+   "when": {
+    "flags_all": [
+     "ocean_mage_won",
+     "secmeton_won",
+     "anubisius_won",
+     "atenza_won",
+     "martis_won",
+     "kepura_won"
+    ],
+    "stage": [
+     7,
+     7
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "labyrinth_gate"
+   },
+   "effects": [
+    {
+     "set_stage": 8
+    },
+    {
+     "teleport": {
+      "area": 14,
+      "spawn": "labyrinth_entrance"
+     }
+    }
+   ],
+   "script": "c6_end__c7_intro"
+  },
+  {
+   "id": "c7_end",
+   "when": {
+    "flags_all": [
+     "heishin2_won"
+    ],
+    "stage": [
+     8,
+     8
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "dark_stairs"
+   },
+   "effects": [
+    {
+     "set_stage": 9
+    },
+    {
+     "teleport": {
+      "area": 15,
+      "spawn": "final_temple_gate"
+     }
+    }
+   ],
+   "script": "c7_end__c8_intro"
+  },
+  {
+   "id": "ending_home",
+   "when": {
+    "flags_all": [
+     "nitemare_won"
+    ],
+    "stage": [
+     9,
+     9
+    ]
+   },
+   "trigger": {
+    "kind": "choice",
+    "script": "c8_choice",
+    "answer": "yes"
+   },
+   "effects": [
+    {
+     "set_flag": "ending_home"
+    },
+    {
+     "set_stage": 10
+    },
+    {
+     "teleport": {
+      "area": 8,
+      "spawn": "crossroads_portal"
+     }
+    }
+   ],
+   "script": "ending_home",
+   "note": "After the ending the game keeps running in stage 10 with all side duelists."
+  },
+  {
+   "id": "ending_stay",
+   "when": {
+    "flags_all": [
+     "nitemare_won"
+    ],
+    "stage": [
+     9,
+     9
+    ]
+   },
+   "trigger": {
+    "kind": "choice",
+    "script": "c8_choice",
+    "answer": "no"
+   },
+   "effects": [
+    {
+     "set_flag": "ending_stay"
+    },
+    {
+     "set_stage": 10
+    },
+    {
+     "teleport": {
+      "area": 8,
+      "spawn": "crossroads_portal"
+     }
+    }
+   ],
+   "script": "ending_stay"
+  }
+ ],
+ "hud_objectives": [
+  {
+   "when": {
+    "stage": [
+     0,
+     1
+    ]
+   },
+   "text": "Talk to Simon Muran"
+  },
+  {
+   "when": {
+    "stage": [
+     2,
+     2
+    ]
+   },
+   "text": "Cross the river to the north"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ],
+    "flags_all": [
+     "rex_won",
+     "weevil_won"
+    ]
+   },
+   "text": "Enter the portal"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ],
+    "flags_any": [
+     "rex_won",
+     "weevil_won"
+    ]
+   },
+   "text": "Beat the other duelist"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ]
+   },
+   "text": "Beat Rex and Weevil"
+  },
+  {
+   "when": {
+    "stage": [
+     4,
+     4
+    ],
+    "flags_all": [
+     "seto_won"
+    ]
+   },
+   "text": "Enter the palace"
+  },
+  {
+   "when": {
+    "stage": [
+     4,
+     4
+    ]
+   },
+   "text": "Duel Seto"
+  },
+  {
+   "when": {
+    "stage": [
+     5,
+     5
+    ],
+    "flags_all": [
+     "heishin_won"
+    ]
+   },
+   "text": "Touch the glowing throne"
+  },
+  {
+   "when": {
+    "stage": [
+     5,
+     5
+    ]
+   },
+   "text": "Defeat Heishin"
+  },
+  {
+   "when": {
+    "stage": [
+     6,
+     6
+    ],
+    "flags_all": [
+     "pegasus_won"
+    ]
+   },
+   "text": "Enter the castle portal"
+  },
+  {
+   "when": {
+    "stage": [
+     6,
+     6
+    ],
+    "flags_all": [
+     "mai_won",
+     "keith_won",
+     "shadi_won"
+    ]
+   },
+   "text": "Face Pegasus"
+  },
+  {
+   "when": {
+    "stage": [
+     6,
+     6
+    ]
+   },
+   "text": "Beat Mai, Keith and Shadi"
+  },
+  {
+   "when": {
+    "stage": [
+     7,
+     7
+    ],
+    "flags_all": [
+     "ocean_mage_won",
+     "secmeton_won",
+     "anubisius_won",
+     "atenza_won",
+     "martis_won",
+     "kepura_won"
+    ]
+   },
+   "text": "Open the Labyrinth gate"
+  },
+  {
+   "when": {
+    "stage": [
+     7,
+     7
+    ],
+    "flags_all": [
+     "ocean_mage_won"
+    ],
+    "flags_none": [
+     "secmeton_won"
+    ]
+   },
+   "text": "Face High Mage Secmeton"
+  },
+  {
+   "when": {
+    "stage": [
+     7,
+     7
+    ]
+   },
+   "text": "Win the five temple Items"
+  },
+  {
+   "when": {
+    "stage": [
+     8,
+     8
+    ],
+    "flags_all": [
+     "heishin2_won"
+    ]
+   },
+   "text": "Take the dark stairs"
+  },
+  {
+   "when": {
+    "stage": [
+     8,
+     8
+    ],
+    "flags_all": [
+     "seto2_won"
+    ]
+   },
+   "text": "Wake the Prince at the altar"
+  },
+  {
+   "when": {
+    "stage": [
+     8,
+     8
+    ],
+    "flags_all": [
+     "neku_won"
+    ]
+   },
+   "text": "Beat Seto at the third door"
+  },
+  {
+   "when": {
+    "stage": [
+     8,
+     8
+    ],
+    "flags_all": [
+     "sebek_won"
+    ]
+   },
+   "text": "Face Guardian Neku"
+  },
+  {
+   "when": {
+    "stage": [
+     8,
+     8
+    ],
+    "flags_all": [
+     "labyrinth_mage_won"
+    ]
+   },
+   "text": "Face Guardian Sebek"
+  },
+  {
+   "when": {
+    "stage": [
+     8,
+     8
+    ]
+   },
+   "text": "Cross the Labyrinth"
+  },
+  {
+   "when": {
+    "stage": [
+     9,
+     9
+    ],
+    "flags_all": [
+     "nitemare_won"
+    ]
+   },
+   "text": "Choose your ending"
+  },
+  {
+   "when": {
+    "stage": [
+     9,
+     9
+    ],
+    "flags_all": [
+     "darknite_won"
+    ]
+   },
+   "text": "Face Nitemare"
+  },
+  {
+   "when": {
+    "stage": [
+     9,
+     9
+    ],
+    "flags_all": [
+     "seto3_won"
+    ]
+   },
+   "text": "Beat DarkNite"
+  },
+  {
+   "when": {
+    "stage": [
+     9,
+     9
+    ]
+   },
+   "text": "Free Seto from the shadow"
+  },
+  {
+   "when": {
+    "stage": [
+     10,
+     10
+    ]
+   },
+   "text": "Story complete!"
+  }
+ ],
+ "ui_strings": {
+  "backpack_title": "Backpack",
+  "backpack_empty": "Empty",
+  "objective_label": "Objective:",
+  "chapter_label": "Chapter %d",
+  "area_names": [
+   "Village",
+   "Fields",
+   "Nile River",
+   "Sand Ruins",
+   "Royal City",
+   "Throne Hall",
+   "Tournament Island",
+   "Temple",
+   "Temple Crossroads",
+   "Sea Temple",
+   "Forest Temple",
+   "Mountain Temple",
+   "Desert Temple",
+   "Meadow Temple",
+   "Labyrinth",
+   "Final Temple"
+  ],
+  "backpack_item_labels": {
+   "canteen": "Canteen",
+   "time_fragment_1": "Fragment 1",
+   "torch": "Torch",
+   "royal_seal": "Royal Seal",
+   "millennium_necklace": "Millennium Necklace",
+   "time_fragment_2": "Fragment 2",
+   "millennium_eye": "Millennium Eye"
+  },
+  "ask_yes_no": [
+   "Yes",
+   "No"
+  ]
+ },
+ "scripts": [
+  {
+   "id": "c1_intro",
+   "legacy_id": 0,
+   "chapter": 1,
+   "desc": "Opening, right after character creation.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Ugh... my head. I was in a Duel Monsters tournament a second ago."
+    },
+    {
+     "speaker": "atos",
+     "text": "A portal of light opened in the middle of the arena and pulled me in."
+    },
+    {
+     "speaker": "atos",
+     "text": "Sand, palm trees, a river... This looks like ancient Egypt!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Only my deck came with me. I need someone who knows the way home."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Talk to Simon Muran, the old sage waiting at the golden arena."
+    }
+   ]
+  },
+  {
+   "id": "c1_simon_pre",
+   "legacy_id": 1,
+   "chapter": 1,
+   "desc": "Simon, first talk. Last page asks Duel? Yes/No.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Strange clothes, {lad|lass}... But those cards are as old as our magic."
+    },
+    {
+     "speaker": "atos",
+     "text": "I fell out of a portal. Do you know how I get back to my own time?"
+    },
+    {
+     "speaker": "simon",
+     "text": "Maybe. Show me how you duel and I will tell you where you came from. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c1_simon_win",
+   "legacy_id": 2,
+   "chapter": 1,
+   "desc": "Simon beaten.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Impressive! You duel like a master."
+    },
+    {
+     "speaker": "simon",
+     "text": "The portal that brought you is a rift in time. Only the Time Stone can close it."
+    },
+    {
+     "speaker": "simon",
+     "text": "The Stone's pieces lie beyond the river, to the north. I told the bridge guard."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Mystical Elf and a Canteen. Check your Backpack."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Cross the river to the north. Teana and Jono want a duel too."
+    }
+   ]
+  },
+  {
+   "id": "c1_simon_lose",
+   "legacy_id": 3,
+   "chapter": 1,
+   "desc": "Simon wins.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Not bad, but you need more practice. Rest and try again."
+    }
+   ]
+  },
+  {
+   "id": "c1_simon_after",
+   "legacy_id": 4,
+   "chapter": 1,
+   "desc": "Simon, after he was beaten.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "The bridge is up the road to the north. Good luck, traveler."
+    }
+   ]
+  },
+  {
+   "id": "c1_teana_pre",
+   "legacy_id": 5,
+   "chapter": 1,
+   "desc": "Teana asks for a duel.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Hi! Are you the stranger who beat Simon? Duel me?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c1_teana_win",
+   "legacy_id": 6,
+   "chapter": 1,
+   "desc": "Teana beaten.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Wow, you're really good! Take this card."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Feral Imp."
+    }
+   ]
+  },
+  {
+   "id": "c1_jono_pre",
+   "legacy_id": 7,
+   "chapter": 1,
+   "desc": "Jono asks for a duel.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Hey, rookie! I bet my deck is stronger. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c1_jono_win",
+   "legacy_id": 8,
+   "chapter": 1,
+   "desc": "Jono beaten.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Fine, fine... you won. Here, it's yours."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Baby Dragon."
+    }
+   ]
+  },
+  {
+   "id": "c1_teana_lose",
+   "legacy_id": 9,
+   "chapter": 1,
+   "desc": "Teana wins.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Hehe, I won! Come back anytime."
+    }
+   ]
+  },
+  {
+   "id": "c1_jono_lose",
+   "legacy_id": 10,
+   "chapter": 1,
+   "desc": "Jono wins.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ha! Train some more and come back."
+    }
+   ]
+  },
+  {
+   "id": "c1_teana_wait",
+   "legacy_id": 11,
+   "chapter": 1,
+   "desc": "Teana, before Simon was beaten.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Old Simon is waiting for you at the arena."
+    }
+   ]
+  },
+  {
+   "id": "c1_jono_wait",
+   "legacy_id": 12,
+   "chapter": 1,
+   "desc": "Jono, before Simon was beaten.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Talk to Simon first, then we duel."
+    }
+   ]
+  },
+  {
+   "id": "c1_guard_block",
+   "legacy_id": 13,
+   "chapter": 1,
+   "desc": "Bridge guard, before Simon's permission.",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Halt! Nobody crosses the river without the sage Simon Muran's permission."
+    }
+   ]
+  },
+  {
+   "id": "c1_guard_ok",
+   "legacy_id": 14,
+   "chapter": 1,
+   "desc": "Bridge guard, after Simon was beaten.",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Simon allowed it? Then you may pass, traveler."
+    }
+   ]
+  },
+  {
+   "id": "c1_end__c2_intro",
+   "legacy_id": 15,
+   "chapter": 2,
+   "desc": "Crossing the river: end of chapter 1, chapter 2 intro.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The Royal City is far to the north. First I have to get past these ruins."
+    },
+    {
+     "speaker": "narrator",
+     "label": "End of Chapter 1",
+     "text": "Chapter 2 - Sand Ruins"
+    },
+    {
+     "speaker": "atos",
+     "text": "Broken columns, an obelisk... and a glowing stone portal in the back!"
+    },
+    {
+     "speaker": "atos",
+     "text": "There are people here. Those two are from the tournament! Did they fall into the past too?"
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Beat Rex Raptor and Weevil. Then enter the stone portal to the north."
+    }
+   ]
+  },
+  {
+   "id": "c2_teana_done",
+   "legacy_id": 16,
+   "chapter": 2,
+   "desc": "Teana, after her duel.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Safe travels, stranger!"
+    }
+   ]
+  },
+  {
+   "id": "c2_jono_done",
+   "legacy_id": 17,
+   "chapter": 2,
+   "desc": "Jono, after his duel.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Next time I win!"
+    }
+   ]
+  },
+  {
+   "id": "c2_rex_pre",
+   "legacy_id": 18,
+   "chapter": 2,
+   "desc": "Rex asks for a duel.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "You fell here too? Great. Beating you puts me closer to going home."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then let's duel. The winner gets a clear path."
+    },
+    {
+     "speaker": "rex",
+     "text": "My dinosaurs will crush you! Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c2_rex_win",
+   "legacy_id": 19,
+   "chapter": 2,
+   "desc": "Rex beaten.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "I can't believe it... I lost to a rookie!"
+    },
+    {
+     "speaker": "rex",
+     "text": "Here, I found this shiny stone in the ruins. Maybe it helps you."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got Time Stone Fragment 1 and the card Ryu-kishin."
+    }
+   ]
+  },
+  {
+   "id": "c2_rex_lose",
+   "legacy_id": 20,
+   "chapter": 2,
+   "desc": "Rex wins.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Hahaha! Come back when you have real dinosaurs."
+    }
+   ]
+  },
+  {
+   "id": "c2_weevil_pre",
+   "legacy_id": 21,
+   "chapter": 2,
+   "desc": "Weevil asks for a duel.",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hehehe. In this world nobody checks if we cheat."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then I'll win the right way, so you remember it."
+    },
+    {
+     "speaker": "weevil",
+     "text": "My bugs disagree. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c2_weevil_win",
+   "legacy_id": 22,
+   "chapter": 2,
+   "desc": "Weevil beaten.",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Impossible! My strategy was perfect!"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Fine, fine... take this old torch and leave me alone."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got a Torch and the card Hitotsu-me Giant."
+    }
+   ]
+  },
+  {
+   "id": "c2_weevil_lose",
+   "legacy_id": 23,
+   "chapter": 2,
+   "desc": "Weevil wins.",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hehehe! I knew you'd fall into my trap."
+    }
+   ]
+  },
+  {
+   "id": "c2_rex_done",
+   "legacy_id": 24,
+   "chapter": 2,
+   "desc": "Rex, after his duel.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Go on to the portal. I will still get my rematch."
+    }
+   ]
+  },
+  {
+   "id": "c2_weevil_done",
+   "legacy_id": 25,
+   "chapter": 2,
+   "desc": "Weevil, after his duel.",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hmpf. Get lost before I change my mind."
+    }
+   ]
+  },
+  {
+   "id": "c2_portal_locked",
+   "legacy_id": 26,
+   "chapter": 2,
+   "desc": "Stone portal, before both duels are won.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The portal does not react. I think I must beat Rex and Weevil first."
+    }
+   ]
+  },
+  {
+   "id": "c2_end__c3_intro",
+   "legacy_id": 27,
+   "chapter": 3,
+   "desc": "Entering the portal: end of chapter 2, chapter 3 intro (teleport to the Royal City).",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The portal glows brighter now. I'm going in!"
+    },
+    {
+     "speaker": "narrator",
+     "label": "End of Chapter 2",
+     "text": "Chapter 3 - The Palace and the Prince"
+    },
+    {
+     "speaker": "atos",
+     "text": "Wow! The portal took me inside the Royal City. What a huge palace!"
+    },
+    {
+     "speaker": "atos",
+     "text": "In front of the palace stand a priest and a young man who looks like a king. The Prince!"
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Talk to the priest Seto in front of the palace."
+    }
+   ]
+  },
+  {
+   "id": "c3_seto_pre",
+   "legacy_id": 28,
+   "chapter": 3,
+   "desc": "Seto asks for a duel.",
+   "pages": [
+    {
+     "speaker": "seto",
+     "text": "A stranger with cards nobody knows. Are you a threat or a gift?"
+    },
+    {
+     "speaker": "prince",
+     "text": "Seto, let him prove himself. If he loses, I will send him away myself."
+    },
+    {
+     "speaker": "atos",
+     "text": "If I win, I want to know why these time rifts keep opening."
+    },
+    {
+     "speaker": "seto",
+     "text": "Agreed. Prepare your deck. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c3_seto_win",
+   "legacy_id": 29,
+   "chapter": 3,
+   "desc": "Seto beaten.",
+   "pages": [
+    {
+     "speaker": "seto",
+     "text": "Hmpf... you won. If the Prince trusts you, so will I."
+    },
+    {
+     "speaker": "prince",
+     "text": "The rifts began when the priest Heishin opened the vault of the Millennium Items."
+    },
+    {
+     "speaker": "prince",
+     "text": "Take the Royal Seal. It opens the palace, so you can find out what Heishin wants."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Royal Seal and the card Dark Magician."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Enter the palace and investigate Heishin. The Mage Soldier offers a duel."
+    }
+   ]
+  },
+  {
+   "id": "c3_seto_lose",
+   "legacy_id": 30,
+   "chapter": 3,
+   "desc": "Seto wins.",
+   "pages": [
+    {
+     "speaker": "seto",
+     "text": "That was it? Come back when you are ready, stranger."
+    }
+   ]
+  },
+  {
+   "id": "c3_seto_done",
+   "legacy_id": 31,
+   "chapter": 3,
+   "desc": "Seto, after his duel.",
+   "pages": [
+    {
+     "speaker": "seto",
+     "text": "The palace is open to you. Do not disappoint me."
+    }
+   ]
+  },
+  {
+   "id": "c3_prince_before",
+   "legacy_id": 32,
+   "chapter": 3,
+   "desc": "Prince, before Seto was beaten.",
+   "pages": [
+    {
+     "speaker": "prince",
+     "text": "Welcome to the Royal City, traveler. Show Seto what you can do."
+    }
+   ]
+  },
+  {
+   "id": "c3_prince_after",
+   "legacy_id": 33,
+   "chapter": 3,
+   "desc": "Prince, after Seto was beaten.",
+   "pages": [
+    {
+     "speaker": "prince",
+     "text": "Beware of Heishin. He roams the palace halls at night."
+    }
+   ]
+  },
+  {
+   "id": "c3_soldier_pre",
+   "legacy_id": 34,
+   "chapter": 3,
+   "desc": "Mage Soldier asks for a duel (optional).",
+   "pages": [
+    {
+     "speaker": "mage_soldier",
+     "text": "I train the palace guards. Want to test your deck against me? Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c3_soldier_win",
+   "legacy_id": 35,
+   "chapter": 3,
+   "desc": "Mage Soldier beaten.",
+   "pages": [
+    {
+     "speaker": "mage_soldier",
+     "text": "Good duel! Take this card on your journey."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Celtic Guardian."
+    }
+   ]
+  },
+  {
+   "id": "c3_soldier_lose",
+   "legacy_id": 36,
+   "chapter": 3,
+   "desc": "Mage Soldier wins.",
+   "pages": [
+    {
+     "speaker": "mage_soldier",
+     "text": "Train a bit more and come back."
+    }
+   ]
+  },
+  {
+   "id": "c3_soldier_done",
+   "legacy_id": 37,
+   "chapter": 3,
+   "desc": "Mage Soldier, after his duel.",
+   "pages": [
+    {
+     "speaker": "mage_soldier",
+     "text": "The guards speak highly of you."
+    }
+   ]
+  },
+  {
+   "id": "c3_door_locked",
+   "legacy_id": 38,
+   "chapter": 3,
+   "desc": "Palace door, before Seto was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The palace door is shut. I need Seto's permission first."
+    }
+   ]
+  },
+  {
+   "id": "c3_end__c4_intro",
+   "legacy_id": 39,
+   "chapter": 4,
+   "desc": "Entering the palace: end of chapter 3, chapter 4 intro (teleport to the throne hall).",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "With the Royal Seal the door opened. Heishin is hiding something in here."
+    },
+    {
+     "speaker": "narrator",
+     "label": "End of Chapter 3",
+     "text": "Chapter 4 - Heishin's Coup"
+    },
+    {
+     "speaker": "narrator",
+     "label": "That Night",
+     "text": "Heishin attacked the city with his guards. The sky turned red with fire."
+    },
+    {
+     "speaker": "atos",
+     "text": "This is the throne hall! Heishin is up on the throne and the Prince is surrounded!"
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Defeat Heishin in the throne hall."
+    }
+   ]
+  },
+  {
+   "id": "c4_heishin_pre",
+   "legacy_id": 40,
+   "chapter": 4,
+   "desc": "Heishin asks for a duel.",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "The Millennium Items give power to those with the courage to take them. And I had it."
+    },
+    {
+     "speaker": "atos",
+     "text": "You attacked the whole city for seven pieces of gold?"
+    },
+    {
+     "speaker": "heishin",
+     "text": "For seven keys. And now you hand me your deck. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c4_heishin_win",
+   "legacy_id": 41,
+   "chapter": 4,
+   "desc": "Heishin beaten; Simon seals the Prince in the Puzzle.",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "Impossible! A stranger beat me? This is not over!"
+    },
+    {
+     "speaker": "narrator",
+     "label": "What Happened",
+     "text": "Heishin fled through the window and took the Millennium Items with him."
+    },
+    {
+     "speaker": "simon",
+     "text": "{name}! Heishin will come back for the Prince. There is only one way to protect him."
+    },
+    {
+     "speaker": "simon",
+     "text": "I will keep the Prince's soul in the Millennium Puzzle. He sleeps until the time is right."
+    },
+    {
+     "speaker": "prince",
+     "text": "{name}, I trust you. Find the Items and wake me when the time comes."
+    },
+    {
+     "speaker": "simon",
+     "text": "Take the Millennium Necklace. It shows the future and can open a rift to your time."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Millennium Necklace and the card Gaia the Fierce Knight."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Touch the glowing throne to travel through time."
+    }
+   ]
+  },
+  {
+   "id": "c4_heishin_lose",
+   "legacy_id": 42,
+   "chapter": 4,
+   "desc": "Heishin wins.",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "Hahaha! Too weak. Come back when you have real courage."
+    }
+   ]
+  },
+  {
+   "id": "c4_prince_hall",
+   "legacy_id": 43,
+   "chapter": 4,
+   "desc": "Prince in the throne hall.",
+   "pages": [
+    {
+     "speaker": "prince",
+     "text": "{name}! Heishin wants the Millennium Items. Please, stop him!"
+    }
+   ]
+  },
+  {
+   "id": "c4_seto_before",
+   "legacy_id": 44,
+   "chapter": 4,
+   "desc": "Seto in the hall, before Heishin was beaten.",
+   "pages": [
+    {
+     "speaker": "seto",
+     "text": "I protect the Prince. Go, stranger, face Heishin!"
+    }
+   ]
+  },
+  {
+   "id": "c4_seto_after",
+   "legacy_id": 45,
+   "chapter": 4,
+   "desc": "Seto in the hall, after Heishin was beaten.",
+   "pages": [
+    {
+     "speaker": "seto",
+     "text": "The Prince is kept in the Puzzle. Find the Items and bring him back."
+    }
+   ]
+  },
+  {
+   "id": "c4_throne_locked",
+   "legacy_id": 46,
+   "chapter": 4,
+   "desc": "Throne, before Heishin was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The throne is not glowing. I must defeat Heishin first."
+    }
+   ]
+  },
+  {
+   "id": "c4_end__c5_intro",
+   "legacy_id": 47,
+   "chapter": 5,
+   "desc": "Touching the throne: end of chapter 4, chapter 5 intro (teleport to the tournament island).",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The Necklace is glowing with the throne. A time rift is opening!"
+    },
+    {
+     "speaker": "narrator",
+     "label": "End of Chapter 4",
+     "text": "Chapter 5 - The Tournament Out of Time"
+    },
+    {
+     "speaker": "atos",
+     "text": "Wait... this is Pegasus's tournament island! Did I come back to my own time?"
+    },
+    {
+     "speaker": "atos",
+     "text": "No... the sky still has rifts. The tournament got stuck between two eras."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Beat Mai, Bandit Keith and Shadi. Then face Pegasus in front of the castle."
+    }
+   ]
+  },
+  {
+   "id": "c5_mai_pre",
+   "legacy_id": 48,
+   "chapter": 5,
+   "desc": "Mai asks for a duel.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Honey, strategy is what counts here. And a little perfume."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then let's see which strategy is better."
+    },
+    {
+     "speaker": "mai",
+     "text": "My Harpies are ready. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c5_mai_win",
+   "legacy_id": 49,
+   "chapter": 5,
+   "desc": "Mai beaten.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Not bad, honey. You won fair and square."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Harpie Lady."
+    }
+   ]
+  },
+  {
+   "id": "c5_mai_lose",
+   "legacy_id": 50,
+   "chapter": 5,
+   "desc": "Mai wins.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Hihi, come back when you learn to play."
+    }
+   ]
+  },
+  {
+   "id": "c5_mai_done",
+   "legacy_id": 51,
+   "chapter": 5,
+   "desc": "Mai, after her duel.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Good luck with Pegasus. He is very weird."
+    }
+   ]
+  },
+  {
+   "id": "c5_keith_pre",
+   "legacy_id": 52,
+   "chapter": 5,
+   "desc": "Keith asks for a duel.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "This tournament is mine. You're just another name on my list."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then try to cross my name out, if you can."
+    },
+    {
+     "speaker": "keith",
+     "text": "We'll see, rookie. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c5_keith_win",
+   "legacy_id": 53,
+   "chapter": 5,
+   "desc": "Keith beaten.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Grr... beginner's luck!"
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Great White."
+    }
+   ]
+  },
+  {
+   "id": "c5_keith_lose",
+   "legacy_id": 54,
+   "chapter": 5,
+   "desc": "Keith wins.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Hah! Go home, rookie."
+    }
+   ]
+  },
+  {
+   "id": "c5_keith_done",
+   "legacy_id": 55,
+   "chapter": 5,
+   "desc": "Keith, after his duel.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Don't talk to me now, rookie."
+    }
+   ]
+  },
+  {
+   "id": "c5_shadi_pre",
+   "legacy_id": 56,
+   "chapter": 5,
+   "desc": "Shadi asks for a duel.",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "I am Shadi, guardian of the Millennium Items. I see you carry the Necklace."
+    },
+    {
+     "speaker": "shadi",
+     "text": "Show me that your heart is worthy of it. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c5_shadi_win",
+   "legacy_id": 57,
+   "chapter": 5,
+   "desc": "Shadi beaten.",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Your heart is pure. Take this piece of the Time Stone."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got Time Stone Fragment 2 and the card Illusionist Faceless Mage."
+    }
+   ]
+  },
+  {
+   "id": "c5_shadi_lose",
+   "legacy_id": 58,
+   "chapter": 5,
+   "desc": "Shadi wins.",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Your heart still holds doubts. Come back later."
+    }
+   ]
+  },
+  {
+   "id": "c5_shadi_done",
+   "legacy_id": 59,
+   "chapter": 5,
+   "desc": "Shadi, after his duel.",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Pegasus has the Millennium Eye. Be careful with him."
+    }
+   ]
+  },
+  {
+   "id": "c5_pegasus_locked",
+   "legacy_id": 60,
+   "chapter": 5,
+   "desc": "Pegasus, before the other three are beaten.",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Hello, {name}-{boy|girl}! First beat the other three duelists. Then I duel you."
+    }
+   ]
+  },
+  {
+   "id": "c5_pegasus_pre",
+   "legacy_id": 61,
+   "chapter": 5,
+   "desc": "Pegasus asks for a duel (boss).",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "I already read your fate, {name}-{boy|girl}. Why not find out if I am right?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Nobody reads my fate. I write it in the duel!"
+    },
+    {
+     "speaker": "pegasus",
+     "text": "How fun! Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c5_pegasus_win",
+   "legacy_id": 62,
+   "chapter": 5,
+   "desc": "Pegasus beaten; Isis opens the way back to Egypt.",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Impossible! The Millennium Eye could not read your mind!"
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Keep the Eye. Maybe it will help you save the Prince."
+    },
+    {
+     "speaker": "isis",
+     "text": "I am Isis. I saw you in a vision. I will open a portal back to Egypt."
+    },
+    {
+     "speaker": "isis",
+     "text": "The Temple Mages guard the other Items. The Prince needs them."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Millennium Eye and the card Thousand Dragon."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Enter the castle portal to return to Egypt."
+    }
+   ]
+  },
+  {
+   "id": "c5_pegasus_lose",
+   "legacy_id": 63,
+   "chapter": 5,
+   "desc": "Pegasus wins.",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Hahaha! I told you I had read your fate."
+    }
+   ]
+  },
+  {
+   "id": "c5_pegasus_done",
+   "legacy_id": 64,
+   "chapter": 5,
+   "desc": "Pegasus, after his duel.",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Isis's portal is open at the castle. Goodbye, {name}-{boy|girl}!"
+    }
+   ]
+  },
+  {
+   "id": "c5_gate_locked",
+   "legacy_id": 65,
+   "chapter": 5,
+   "desc": "Castle gate, before Pegasus was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The castle gate is shut. I have to beat Pegasus first."
+    }
+   ]
+  },
+  {
+   "id": "c5_end__c6_intro",
+   "legacy_id": 66,
+   "chapter": 6,
+   "desc": "Entering the castle portal: end of chapter 5, then chapter 6 starts (arrival is script c6_arrival).",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Isis's portal is open. Time to go back to Egypt!"
+    },
+    {
+     "speaker": "narrator",
+     "label": "End of Chapter 5",
+     "text": "Chapter 6 - The Seven Items"
+    }
+   ]
+  },
+  {
+   "id": "c6_arrival",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Arrival at the Temple Crossroads (plays right after c5_end__c6_intro). Simon hands over the Puzzle.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Hot sand again! The portal dropped me at an old crossroads."
+    },
+    {
+     "speaker": "simon",
+     "text": "{name}! Isis sent word that you were coming. I kept the Puzzle safe."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Millennium Puzzle. The Prince sleeps inside it."
+    },
+    {
+     "speaker": "simon",
+     "text": "Heishin only emptied the vault. The real Items were hidden in five temples."
+    },
+    {
+     "speaker": "simon",
+     "text": "Each temple has a Mage who guards one. Beat the Mages and they will let you take it."
+    },
+    {
+     "speaker": "atos",
+     "text": "Sea, forest, mountain, desert and meadow. Got it. Let's go."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Visit the five temples and win their Items. Then open the Labyrinth gate."
+    }
+   ]
+  },
+  {
+   "id": "c6_simon_hub",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Simon at the crossroads while temples remain.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Heishin's men were seen near the temples. Hurry, but do not rush your duels."
+    }
+   ]
+  },
+  {
+   "id": "c6_simon_hub_done",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Simon at the crossroads once all five temples are won.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "You have all five Items! Go to the Labyrinth gate. I will guard the crossroads."
+    }
+   ]
+  },
+  {
+   "id": "c6_ocean_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Ocean Mage, Sea Temple shore (first Sea duel).",
+   "pages": [
+    {
+     "speaker": "ocean_mage",
+     "text": "Halt, stranger! The sea does not open its temple to dry-footed visitors."
+    },
+    {
+     "speaker": "atos",
+     "text": "I only want to borrow what the temple guards. Duel me."
+    },
+    {
+     "speaker": "ocean_mage",
+     "text": "The tide will decide. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c6_ocean_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Ocean Mage beaten.",
+   "pages": [
+    {
+     "speaker": "ocean_mage",
+     "text": "The tide has turned... Go in. High Mage Secmeton waits inside."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Aqua Dragon."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Enter the Sea Temple and face High Mage Secmeton."
+    }
+   ]
+  },
+  {
+   "id": "c6_ocean_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Ocean Mage wins.",
+   "pages": [
+    {
+     "speaker": "ocean_mage",
+     "text": "The sea washes you back to shore. Try again."
+    }
+   ]
+  },
+  {
+   "id": "c6_ocean_done",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Ocean Mage, after his duel.",
+   "pages": [
+    {
+     "speaker": "ocean_mage",
+     "text": "Secmeton waits inside. The sea lets you pass."
+    }
+   ]
+  },
+  {
+   "id": "c6_secmeton_locked",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Sea Temple inner door, before the Ocean Mage was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "A wall of water blocks the inner door. The Ocean Mage must let me in first."
+    }
+   ]
+  },
+  {
+   "id": "c6_secmeton_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Secmeton asks for a duel.",
+   "pages": [
+    {
+     "speaker": "secmeton",
+     "text": "So you are the one who walks through time. The waters whispered about you."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then you know why I am here. I need the Sea Tablet."
+    },
+    {
+     "speaker": "secmeton",
+     "text": "Words are shallow. Show me with cards. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c6_secmeton_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Secmeton beaten.",
+   "pages": [
+    {
+     "speaker": "secmeton",
+     "text": "You swim well, traveler. The Sea Tablet is yours."
+    },
+    {
+     "speaker": "secmeton",
+     "text": "It fits the Labyrinth gate. Heishin's men want it badly."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Sea Tablet and the card Suijin."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Four temples remain - Forest, Mountain, Desert and Meadow."
+    }
+   ]
+  },
+  {
+   "id": "c6_secmeton_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Secmeton wins.",
+   "pages": [
+    {
+     "speaker": "secmeton",
+     "text": "Too shallow. Dive deeper and come back."
+    }
+   ]
+  },
+  {
+   "id": "c6_secmeton_done",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Secmeton, after his duel.",
+   "pages": [
+    {
+     "speaker": "secmeton",
+     "text": "Guard the Tablet well. The sea remembers."
+    }
+   ]
+  },
+  {
+   "id": "c6_anubisius_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Anubisius asks for a duel (Forest Temple).",
+   "pages": [
+    {
+     "speaker": "anubisius",
+     "text": "Quiet, stranger. The old trees do not like noise."
+    },
+    {
+     "speaker": "atos",
+     "text": "I came for the Millennium Key. The Prince's life is at stake."
+    },
+    {
+     "speaker": "anubisius",
+     "text": "The forest gives nothing for free. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c6_anubisius_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Anubisius beaten.",
+   "pages": [
+    {
+     "speaker": "anubisius",
+     "text": "The roots yield to you. Take the Millennium Key."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Millennium Key and the card Ancient One of the Deep Forest."
+    }
+   ]
+  },
+  {
+   "id": "c6_anubisius_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Anubisius wins.",
+   "pages": [
+    {
+     "speaker": "anubisius",
+     "text": "The forest swallowed your cards. Try again."
+    }
+   ]
+  },
+  {
+   "id": "c6_anubisius_done",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Anubisius, after his duel.",
+   "pages": [
+    {
+     "speaker": "anubisius",
+     "text": "The Key is in good hands. The trees approve."
+    }
+   ]
+  },
+  {
+   "id": "c6_atenza_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Atenza asks for a duel (Mountain Temple).",
+   "pages": [
+    {
+     "speaker": "atenza",
+     "text": "The path is steep and so is my price. Only the strong may take the Rod."
+    },
+    {
+     "speaker": "atos",
+     "text": "I came through time. A mountain will not stop me."
+    },
+    {
+     "speaker": "atenza",
+     "text": "Then climb! Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c6_atenza_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Atenza beaten.",
+   "pages": [
+    {
+     "speaker": "atenza",
+     "text": "You reached the peak. The Millennium Rod is yours."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Millennium Rod and the card Thunder Dragon."
+    }
+   ]
+  },
+  {
+   "id": "c6_atenza_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Atenza wins.",
+   "pages": [
+    {
+     "speaker": "atenza",
+     "text": "The mountain is cold and so am I. Climb again."
+    }
+   ]
+  },
+  {
+   "id": "c6_atenza_done",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Atenza, after his duel.",
+   "pages": [
+    {
+     "speaker": "atenza",
+     "text": "Use the Rod wisely. Power is not wisdom."
+    }
+   ]
+  },
+  {
+   "id": "c6_martis_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Martis asks for a duel (Desert Temple).",
+   "pages": [
+    {
+     "speaker": "martis",
+     "text": "The sand buries those who rush. Slow down, time traveler."
+    },
+    {
+     "speaker": "atos",
+     "text": "Slow down? I just crossed five thousand years."
+    },
+    {
+     "speaker": "martis",
+     "text": "Then let the dunes judge you. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c6_martis_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Martis beaten.",
+   "pages": [
+    {
+     "speaker": "martis",
+     "text": "The dunes bow to you. Take the Millennium Ring."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Millennium Ring and the card Mystical Sand."
+    }
+   ]
+  },
+  {
+   "id": "c6_martis_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Martis wins.",
+   "pages": [
+    {
+     "speaker": "martis",
+     "text": "The sand covers your footprints. Come back."
+    }
+   ]
+  },
+  {
+   "id": "c6_martis_done",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Martis, after his duel.",
+   "pages": [
+    {
+     "speaker": "martis",
+     "text": "Heishin's men came by. They left empty-handed."
+    }
+   ]
+  },
+  {
+   "id": "c6_kepura_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Kepura asks for a duel (Meadow Temple).",
+   "pages": [
+    {
+     "speaker": "kepura",
+     "text": "Welcome to the meadow, little traveler! The flowers said you were coming."
+    },
+    {
+     "speaker": "atos",
+     "text": "Flowers? ...Okay. I need the Millennium Scales."
+    },
+    {
+     "speaker": "kepura",
+     "text": "Gently or fiercely, a duel decides. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c6_kepura_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Kepura beaten.",
+   "pages": [
+    {
+     "speaker": "kepura",
+     "text": "How lovely! You duel with a kind heart. The Scales are yours."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Millennium Scales and the card Queen of Autumn Leaves."
+    }
+   ]
+  },
+  {
+   "id": "c6_kepura_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Kepura wins.",
+   "pages": [
+    {
+     "speaker": "kepura",
+     "text": "Oh dear. Rest among the flowers, then try again."
+    }
+   ]
+  },
+  {
+   "id": "c6_kepura_done",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Kepura, after her duel.",
+   "pages": [
+    {
+     "speaker": "kepura",
+     "text": "Keep your heart balanced and the Scales will do the rest."
+    }
+   ]
+  },
+  {
+   "id": "c6_gate_locked",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Labyrinth gate at the crossroads, before all five Items are won.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The gate has five empty sockets. I need the Items from all five temples."
+    }
+   ]
+  },
+  {
+   "id": "c6_end__c7_intro",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Opening the Labyrinth gate: end of chapter 6, chapter 7 intro (teleport into the Labyrinth).",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Tablet, Key, Rod, Ring and Scales... the sockets are glowing!"
+    },
+    {
+     "speaker": "narrator",
+     "label": "End of Chapter 6",
+     "text": "Chapter 7 - The Labyrinth and the Guardians"
+    },
+    {
+     "speaker": "atos",
+     "text": "The gate opens onto stairs going down into the dark. Here goes nothing."
+    },
+    {
+     "speaker": "simon",
+     "text": "Careful! I felt Heishin pass here. Seto went ahead to guard the way."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Cross the Labyrinth. Beat its guardians to reach the altar."
+    }
+   ]
+  },
+  {
+   "id": "c7_lmage_pre",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Labyrinth Mage asks for a duel.",
+   "pages": [
+    {
+     "speaker": "labyrinth_mage",
+     "text": "A new face in the maze. Few ever walk back out."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then I will be one of the few."
+    },
+    {
+     "speaker": "labyrinth_mage",
+     "text": "The walls shift here. So do the odds. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c7_lmage_win",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Labyrinth Mage beaten.",
+   "pages": [
+    {
+     "speaker": "labyrinth_mage",
+     "text": "You read the maze well. Take this and move on."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Guardian of the Labyrinth."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Go on to the first door and face Guardian Sebek."
+    }
+   ]
+  },
+  {
+   "id": "c7_lmage_lose",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Labyrinth Mage wins.",
+   "pages": [
+    {
+     "speaker": "labyrinth_mage",
+     "text": "Lost already? The maze loves new faces."
+    }
+   ]
+  },
+  {
+   "id": "c7_lmage_done",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Labyrinth Mage, after his duel.",
+   "pages": [
+    {
+     "speaker": "labyrinth_mage",
+     "text": "Straight on, then left. Or right. Who knows?"
+    }
+   ]
+  },
+  {
+   "id": "c7_door1_locked",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "First door, before the Labyrinth Mage was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The walls keep moving. The Mage who controls them must be near."
+    }
+   ]
+  },
+  {
+   "id": "c7_sebek_pre",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Sebek asks for a duel.",
+   "pages": [
+    {
+     "speaker": "sebek",
+     "text": "No living soul passes this door without the judgment of the gods."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then judge me."
+    },
+    {
+     "speaker": "sebek",
+     "text": "The scales are ready. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c7_sebek_win",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Sebek beaten.",
+   "pages": [
+    {
+     "speaker": "sebek",
+     "text": "The gods find you... acceptable. The door is open."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Guardian of the Throne Room."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Next door - Guardian Neku."
+    }
+   ]
+  },
+  {
+   "id": "c7_sebek_lose",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Sebek wins.",
+   "pages": [
+    {
+     "speaker": "sebek",
+     "text": "Judged and found lacking. Return when you are worthy."
+    }
+   ]
+  },
+  {
+   "id": "c7_sebek_done",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Sebek, after his duel.",
+   "pages": [
+    {
+     "speaker": "sebek",
+     "text": "Go. Neku waits at the next door."
+    }
+   ]
+  },
+  {
+   "id": "c7_door2_locked",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Second door, before Sebek was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Another door, but Sebek's judgment comes first."
+    }
+   ]
+  },
+  {
+   "id": "c7_neku_pre",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Neku asks for a duel.",
+   "pages": [
+    {
+     "speaker": "neku",
+     "text": "I am Neku, keeper of the second door. Sebek judges the body. I judge the heart."
+    },
+    {
+     "speaker": "atos",
+     "text": "My heart is fine. It is the rest of me that is tired."
+    },
+    {
+     "speaker": "neku",
+     "text": "We will see. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c7_neku_win",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Neku beaten.",
+   "pages": [
+    {
+     "speaker": "neku",
+     "text": "Your heart is steady. Pass, traveler."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Rude Kaiser."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Seto stands beyond the second door."
+    }
+   ]
+  },
+  {
+   "id": "c7_neku_lose",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Neku wins.",
+   "pages": [
+    {
+     "speaker": "neku",
+     "text": "Your heart wavers. Rest, then return."
+    }
+   ]
+  },
+  {
+   "id": "c7_neku_done",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Neku, after his duel.",
+   "pages": [
+    {
+     "speaker": "neku",
+     "text": "Seto waits beyond. Do not keep him waiting."
+    }
+   ]
+  },
+  {
+   "id": "c7_door3_locked",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Third door (Seto), before Neku was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "This door will not budge. I must beat Neku first."
+    }
+   ]
+  },
+  {
+   "id": "c7_seto2_pre",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Seto asks for a duel (altar guard).",
+   "pages": [
+    {
+     "speaker": "seto2",
+     "text": "You came. I had my doubts."
+    },
+    {
+     "speaker": "atos",
+     "text": "I said I would find the Items."
+    },
+    {
+     "speaker": "seto2",
+     "text": "I serve the Prince, not you. But today we fight on the same side."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then why duel?"
+    },
+    {
+     "speaker": "seto2",
+     "text": "The altar will test you. I will not let the Prince rest in untested hands. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c7_seto2_win",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Seto beaten.",
+   "pages": [
+    {
+     "speaker": "seto2",
+     "text": "Enough. I was wrong to doubt you."
+    },
+    {
+     "speaker": "seto2",
+     "text": "Take the White Dragon. It chose to fight beside you."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Blue-eyes White Dragon."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Reach the altar and wake the Prince."
+    }
+   ]
+  },
+  {
+   "id": "c7_seto2_lose",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Seto wins.",
+   "pages": [
+    {
+     "speaker": "seto2",
+     "text": "Not yet. Come back stronger."
+    }
+   ]
+  },
+  {
+   "id": "c7_seto2_done",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Seto, after his duel.",
+   "pages": [
+    {
+     "speaker": "seto2",
+     "text": "The altar is ahead. I will guard your back."
+    }
+   ]
+  },
+  {
+   "id": "c7_altar_locked",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Altar, before Seto was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Seto stands in front of the altar. He will not let me through yet."
+    }
+   ]
+  },
+  {
+   "id": "c7_altar_wake",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Placing the Items on the altar; Heishin ambushes.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Ring, Rod, Key, Scales, Necklace, Eye... and the Puzzle."
+    },
+    {
+     "speaker": "narrator",
+     "label": "The Altar",
+     "text": "The seven Items glow. The Prince's soul rises from the Puzzle."
+    },
+    {
+     "speaker": "prince",
+     "text": "{name}... Seto... I heard everything in my sleep. Thank you."
+    },
+    {
+     "speaker": "seto2",
+     "text": "My Prince! You are free."
+    },
+    {
+     "speaker": "heishin2",
+     "text": "Hahaha! You did the hard work for me. All seven Items in one room!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Heishin! You never give up."
+    },
+    {
+     "speaker": "heishin2",
+     "text": "I gave up nothing. Duel, if you dare!",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c7_heishin2_retry",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Heishin asks again after Atos lost (the altar scene does not replay).",
+   "pages": [
+    {
+     "speaker": "heishin2",
+     "text": "Back for more? Hand over the Items!",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c7_heishin2_win",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Heishin beaten; the Prince is free.",
+   "pages": [
+    {
+     "speaker": "heishin2",
+     "text": "No... the Items! The shadow promised me..."
+    },
+    {
+     "speaker": "narrator",
+     "label": "The Shadow",
+     "text": "Heishin fades into black smoke. Something deeper stirs below."
+    },
+    {
+     "speaker": "prince",
+     "text": "That was not Heishin's own power. Something older has woken."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got Time Stone Fragment 3 and the card Summoned Skull."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Take the dark stairs behind the altar with the Prince."
+    }
+   ]
+  },
+  {
+   "id": "c7_heishin2_lose",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Heishin wins.",
+   "pages": [
+    {
+     "speaker": "heishin2",
+     "text": "Hahaha! The Items are mine!"
+    }
+   ]
+  },
+  {
+   "id": "c7_prince_free",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Prince, after the altar.",
+   "pages": [
+    {
+     "speaker": "prince",
+     "text": "Let us go. Whatever waits below, we face it together."
+    }
+   ]
+  },
+  {
+   "id": "c7_seto2_after_altar",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Seto, after the altar.",
+   "pages": [
+    {
+     "speaker": "seto2",
+     "text": "Heishin was a pawn. The real enemy is below. Go, I will follow."
+    }
+   ]
+  },
+  {
+   "id": "c7_end__c8_intro",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Taking the dark stairs: end of chapter 7, chapter 8 intro (teleport to the Final Temple).",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The Fragments and the Items are all pulling toward the dark stairs."
+    },
+    {
+     "speaker": "narrator",
+     "label": "End of Chapter 7",
+     "text": "Chapter 8 - Nitemare"
+    },
+    {
+     "speaker": "prince",
+     "text": "The Final Temple. It floats in the Shadow Realm."
+    },
+    {
+     "speaker": "atos",
+     "text": "Last duel. After this, I go home."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Reach the Final Temple and defeat Nitemare."
+    }
+   ]
+  },
+  {
+   "id": "c8_seto3_pre",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Shadow-touched Seto guards the Final Temple gate.",
+   "pages": [
+    {
+     "speaker": "seto3",
+     "text": "Turn back... The night does not forgive."
+    },
+    {
+     "speaker": "atos",
+     "text": "Seto! That is not you talking."
+    },
+    {
+     "speaker": "prince",
+     "text": "The shadow holds him. Break it with a duel, {name}!"
+    },
+    {
+     "speaker": "seto3",
+     "text": "...Duel.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c8_seto3_win",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Seto freed.",
+   "pages": [
+    {
+     "speaker": "seto3",
+     "text": "Argh... what have I done? Prince?"
+    },
+    {
+     "speaker": "seto3",
+     "text": "I saw it. DarkNite wears Heishin's grudge. Nitemare sleeps above."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Red-eyes B. Dragon."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Beat DarkNite in the hall of shadows."
+    }
+   ]
+  },
+  {
+   "id": "c8_seto3_lose",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Seto wins.",
+   "pages": [
+    {
+     "speaker": "seto3",
+     "text": "...Leave. Come back stronger."
+    }
+   ]
+  },
+  {
+   "id": "c8_seto3_done",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Seto, after his duel.",
+   "pages": [
+    {
+     "speaker": "seto3",
+     "text": "Go on. I will hold the door behind you."
+    }
+   ]
+  },
+  {
+   "id": "c8_hall_locked",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Hall of shadows, before Seto was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "A wall of black mist. Seto stands in my way."
+    }
+   ]
+  },
+  {
+   "id": "c8_darknite_pre",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "DarkNite asks for a duel.",
+   "pages": [
+    {
+     "speaker": "darknite",
+     "text": "The seven Items called me. Thank you for bringing them."
+    },
+    {
+     "speaker": "prince",
+     "text": "{name}, I duel beside you. This world is not only mine."
+    },
+    {
+     "speaker": "atos",
+     "text": "Let's finish this."
+    },
+    {
+     "speaker": "darknite",
+     "text": "Two hearts against one night? Duel!",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c8_darknite_win",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "DarkNite beaten.",
+   "pages": [
+    {
+     "speaker": "darknite",
+     "text": "Impossible... the dark cannot lose to the light!"
+    },
+    {
+     "speaker": "nitemare",
+     "text": "You amused me, DarkNite. Now step aside."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Zoa."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Climb to the top and face Nitemare."
+    }
+   ]
+  },
+  {
+   "id": "c8_darknite_lose",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "DarkNite wins.",
+   "pages": [
+    {
+     "speaker": "darknite",
+     "text": "Nothing is lost in the dark. Not even you."
+    }
+   ]
+  },
+  {
+   "id": "c8_stairs_locked",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Stairs to Nitemare, before DarkNite was beaten.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The stairs are sealed by shadow. DarkNite is guarding them."
+    }
+   ]
+  },
+  {
+   "id": "c8_nitemare_pre",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Nitemare asks for a duel (final boss).",
+   "pages": [
+    {
+     "speaker": "nitemare",
+     "text": "I am Nitemare. I was here before the first Item."
+    },
+    {
+     "speaker": "nitemare",
+     "text": "Heishin was a puppet. The rifts, the Items... all of it was mine."
+    },
+    {
+     "speaker": "atos",
+     "text": "You opened the rifts? You pulled me from my own time?"
+    },
+    {
+     "speaker": "nitemare",
+     "text": "I opened every door. Close the last one yourself, if you can."
+    },
+    {
+     "speaker": "prince",
+     "text": "Together, {name}! Light the way through the night!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Last duel. Then I am going home."
+    },
+    {
+     "speaker": "nitemare",
+     "text": "Come, then. Duel!",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "c8_nitemare_win",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Nitemare beaten; the Time Stone is complete.",
+   "pages": [
+    {
+     "speaker": "nitemare",
+     "text": "No... the light of seven Items..."
+    },
+    {
+     "speaker": "narrator",
+     "label": "The Time Stone",
+     "text": "The three Fragments fly together and form the complete Time Stone."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Time Stone and the legendary card Workers' Rights."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Objective",
+     "text": "Choose how your journey ends."
+    }
+   ]
+  },
+  {
+   "id": "c8_nitemare_lose",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Nitemare wins.",
+   "pages": [
+    {
+     "speaker": "nitemare",
+     "text": "The dark takes everything. Even hope."
+    }
+   ]
+  },
+  {
+   "id": "c8_choice",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Ending choice. Yes -> ending_home, No -> ending_stay.",
+   "pages": [
+    {
+     "speaker": "prince",
+     "text": "The Stone can send you home, {name}. Or you can stay beside us."
+    },
+    {
+     "speaker": "atos",
+     "text": "Use the Time Stone to go home?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "ending_home",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Ending A: go home.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Goodbye, Seto. Goodbye, Prince. Thank you for everything."
+    },
+    {
+     "speaker": "prince",
+     "text": "Take this card as a memory. We will not forget you."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Mystical Elf as a keepsake."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Epilogue",
+     "text": "The Stone's light carries {name} back to the arena, one second after leaving."
+    },
+    {
+     "speaker": "atos",
+     "text": "...Same arena. Same crowd. And I still have the Prince's card."
+    },
+    {
+     "speaker": "narrator",
+     "label": "The End",
+     "text": "Thank you for playing JOURNEY MODE."
+    }
+   ]
+  },
+  {
+   "id": "ending_stay",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Ending B: stay in Egypt.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "I think my story is here now. I will stay."
+    },
+    {
+     "speaker": "seto3",
+     "text": "Then serve beside me, priest. The Prince will need you."
+    },
+    {
+     "speaker": "prince",
+     "text": "Welcome home, {name}. Egypt is your time too."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Epilogue",
+     "text": "{name} became a priest of the Royal City and kept the Time Stone safe forever."
+    },
+    {
+     "speaker": "narrator",
+     "label": "The End",
+     "text": "Thank you for playing JOURNEY MODE."
+    }
+   ]
+  },
+  {
+   "id": "side_cockatiel_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Cockatiel asks for a duel (optional, Temple Crossroads, from chapter 6).",
+   "pages": [
+    {
+     "speaker": "cockatiel",
+     "text": "Tweet-tweet! Welcome, time traveler. I am Cockatiel, wandering duelist."
+    },
+    {
+     "speaker": "atos",
+     "text": "Nice crest. Does your bird bite?"
+    },
+    {
+     "speaker": "cockatiel",
+     "text": "Only sore losers. My flock is eager for a duel. Ready?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "side_cockatiel_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Cockatiel beaten.",
+   "pages": [
+    {
+     "speaker": "cockatiel",
+     "text": "Ha! Not bad. My flock is impressed."
+    },
+    {
+     "speaker": "cockatiel",
+     "text": "Keep this feather. It brings luck to those who fly high."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the Cockatiel Feather and the card Crimson Sunbird."
+    }
+   ]
+  },
+  {
+   "id": "side_cockatiel_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Cockatiel wins.",
+   "pages": [
+    {
+     "speaker": "cockatiel",
+     "text": "Chirp! Come back after some seeds and practice."
+    }
+   ]
+  },
+  {
+   "id": "side_cockatiel_done",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Cockatiel, after the duel.",
+   "pages": [
+    {
+     "speaker": "cockatiel",
+     "text": "Fly high, traveler. The wind remembers you."
+    }
+   ]
+  },
+  {
+   "id": "side_cockatiel_epilogue",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Cockatiel, after the main story ends.",
+   "pages": [
+    {
+     "speaker": "cockatiel",
+     "text": "I heard what you did out there. The whole flock is singing about it."
+    }
+   ]
+  },
+  {
+   "id": "side_mirror_pre",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Atos Vinicius (mirror duelist) asks for a duel (post-game, Temple Crossroads).",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Wait... that is my face! And that looks like my deck!"
+    },
+    {
+     "speaker": "mirror",
+     "text": "I am the Atos who stayed home. The rift pulled the wrong one, or maybe the right one."
+    },
+    {
+     "speaker": "atos",
+     "text": "Then let's see which of us is the better duelist."
+    },
+    {
+     "speaker": "mirror",
+     "text": "Fine by me. My deck works overtime. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "side_mirror_win",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Mirror Atos beaten.",
+   "pages": [
+    {
+     "speaker": "mirror",
+     "text": "Not bad... you work harder than I do."
+    },
+    {
+     "speaker": "narrator",
+     "label": "Reward",
+     "text": "You got the card Hero of the East."
+    }
+   ]
+  },
+  {
+   "id": "side_mirror_lose",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Mirror Atos wins.",
+   "pages": [
+    {
+     "speaker": "mirror",
+     "text": "Overtime pays off. Try again."
+    }
+   ]
+  },
+  {
+   "id": "side_mirror_done",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Mirror Atos, after the duel.",
+   "pages": [
+    {
+     "speaker": "mirror",
+     "text": "Go on. I will keep the arena warm."
+    }
+   ]
+  }
+ ],
+ "legacy_script_index": {
+  "0": "c1_intro",
+  "1": "c1_simon_pre",
+  "2": "c1_simon_win",
+  "3": "c1_simon_lose",
+  "4": "c1_simon_after",
+  "5": "c1_teana_pre",
+  "6": "c1_teana_win",
+  "7": "c1_jono_pre",
+  "8": "c1_jono_win",
+  "9": "c1_teana_lose",
+  "10": "c1_jono_lose",
+  "11": "c1_teana_wait",
+  "12": "c1_jono_wait",
+  "13": "c1_guard_block",
+  "14": "c1_guard_ok",
+  "15": "c1_end__c2_intro",
+  "16": "c2_teana_done",
+  "17": "c2_jono_done",
+  "18": "c2_rex_pre",
+  "19": "c2_rex_win",
+  "20": "c2_rex_lose",
+  "21": "c2_weevil_pre",
+  "22": "c2_weevil_win",
+  "23": "c2_weevil_lose",
+  "24": "c2_rex_done",
+  "25": "c2_weevil_done",
+  "26": "c2_portal_locked",
+  "27": "c2_end__c3_intro",
+  "28": "c3_seto_pre",
+  "29": "c3_seto_win",
+  "30": "c3_seto_lose",
+  "31": "c3_seto_done",
+  "32": "c3_prince_before",
+  "33": "c3_prince_after",
+  "34": "c3_soldier_pre",
+  "35": "c3_soldier_win",
+  "36": "c3_soldier_lose",
+  "37": "c3_soldier_done",
+  "38": "c3_door_locked",
+  "39": "c3_end__c4_intro",
+  "40": "c4_heishin_pre",
+  "41": "c4_heishin_win",
+  "42": "c4_heishin_lose",
+  "43": "c4_prince_hall",
+  "44": "c4_seto_before",
+  "45": "c4_seto_after",
+  "46": "c4_throne_locked",
+  "47": "c4_end__c5_intro",
+  "48": "c5_mai_pre",
+  "49": "c5_mai_win",
+  "50": "c5_mai_lose",
+  "51": "c5_mai_done",
+  "52": "c5_keith_pre",
+  "53": "c5_keith_win",
+  "54": "c5_keith_lose",
+  "55": "c5_keith_done",
+  "56": "c5_shadi_pre",
+  "57": "c5_shadi_win",
+  "58": "c5_shadi_lose",
+  "59": "c5_shadi_done",
+  "60": "c5_pegasus_locked",
+  "61": "c5_pegasus_pre",
+  "62": "c5_pegasus_win",
+  "63": "c5_pegasus_lose",
+  "64": "c5_pegasus_done",
+  "65": "c5_gate_locked",
+  "66": "c5_end__c6_intro"
+ },
+ "editor_notes": [
+  "Chapters 1-5 translate ow4/story.py page by page. Portuguese gender forms ({rapaz/moca}, {o/a} {estrangeiro/estrangeira}) became English where English has no gender: only 'lad|lass' and 'boy|girl' survive.",
+  "c5_pegasus_win: Isis said 'my Necklace showed you' in Portuguese, but the player already owns the Necklace since chapter 4. English says 'I saw you in a vision'.",
+  "c5_end__c6_intro (legacy 66) used to end with 'Continues in Chapter 6. Coming soon!'. It now announces Chapter 6 and chains into c6_arrival.",
+  "Legacy script ids 0-66 keep their numeric order in legacy_script_index so the old SCRP block builder can be reused.",
+  "Chapter 6-8 reward cards are normal (non-ritual) cards; the Time Stone and Workers' Rights are the only custom things (see decks.json custom_cards)."
+ ]
+}

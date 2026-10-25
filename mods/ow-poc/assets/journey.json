@@ -1,0 +1,2364 @@
+{
+ "flags": [
+  "heard_teana",
+  "heard_jono",
+  "heard_guard",
+  "read_notice",
+  "simon_won",
+  "courier_met",
+  "baker_hint",
+  "farmer_won",
+  "treasure_lost",
+  "jono_asked",
+  "treasure_won",
+  "jono_thanked",
+  "teana_asked",
+  "jug_taken",
+  "got_honey",
+  "got_water",
+  "got_dates",
+  "treasure_given",
+  "baker_won",
+  "inspector_won",
+  "shadi_won",
+  "simon_farewell",
+  "teana_farewell",
+  "jono_farewell",
+  "mai_met",
+  "inseto_won",
+  "mago_roof",
+  "mago_glyph",
+  "mago_passage",
+  "mago_mast"
+ ],
+ "areas": [
+  {
+   "name": "Oasis Village",
+   "track": 54
+  },
+  {
+   "name": "Fields",
+   "track": 21
+  },
+  {
+   "name": "Nile River",
+   "track": 18
+  },
+  {
+   "name": "Sand Ruins",
+   "track": 26
+  },
+  {
+   "name": "Royal City",
+   "track": 13
+  },
+  {
+   "name": "Throne Hall",
+   "track": 58
+  },
+  {
+   "name": "Tournament Island",
+   "track": 30
+  },
+  {
+   "name": "Desert Temple",
+   "track": 20
+  },
+  {
+   "name": "Temple Crossroads",
+   "track": 54,
+   "late": 1
+  },
+  {
+   "name": "Sea Temple",
+   "track": 18,
+   "late": 1
+  },
+  {
+   "name": "Forest Temple",
+   "track": 21,
+   "late": 1
+  },
+  {
+   "name": "Mountain Temple",
+   "track": 26,
+   "late": 1
+  },
+  {
+   "name": "Desert Temple",
+   "track": 20,
+   "late": 1
+  },
+  {
+   "name": "Meadow Temple",
+   "track": 21,
+   "late": 1
+  },
+  {
+   "name": "Labyrinth",
+   "track": 13,
+   "late": 1
+  },
+  {
+   "name": "Final Temple",
+   "track": 58,
+   "late": 1
+  }
+ ],
+ "start": [
+  14.5,
+  33.5
+ ],
+ "locks": [
+  {
+   "tile": "portal",
+   "needs": [
+    "rex_won",
+    "weevil_won"
+   ]
+  },
+  {
+   "tile": "door",
+   "needs": [
+    "seto_won"
+   ]
+  },
+  {
+   "tile": "throne",
+   "needs": [
+    "heishin_won"
+   ]
+  },
+  {
+   "tile": "gate",
+   "needs": [
+    "pegasus_won"
+   ]
+  },
+  {
+   "rect": [
+    24,
+    20,
+    25,
+    22
+   ],
+   "when": {
+    "stage_lt": 2
+   }
+  },
+  {
+   "rect": [
+    0,
+    92,
+    31,
+    92
+   ],
+   "when": {
+    "lacks_any": [
+     "ocean_mage_won",
+     "secmeton_won",
+     "anubisius_won",
+     "atenza_won",
+     "martis_won",
+     "kepura_won"
+    ]
+   },
+   "late": 1
+  },
+  {
+   "rect": [
+    47,
+    81,
+    48,
+    81
+   ],
+   "when": {
+    "lacks": [
+     "ocean_mage_won"
+    ]
+   },
+   "late": 1
+  },
+  {
+   "rect": [
+    15,
+    160,
+    16,
+    160
+   ],
+   "when": {
+    "lacks": [
+     "labyrinth_mage_won"
+    ]
+   },
+   "late": 1
+  },
+  {
+   "rect": [
+    15,
+    156,
+    16,
+    156
+   ],
+   "when": {
+    "lacks": [
+     "sebek_won"
+    ]
+   },
+   "late": 1
+  },
+  {
+   "rect": [
+    15,
+    152,
+    16,
+    152
+   ],
+   "when": {
+    "lacks": [
+     "neku_won"
+    ]
+   },
+   "late": 1
+  },
+  {
+   "rect": [
+    15,
+    148,
+    16,
+    148
+   ],
+   "when": {
+    "lacks": [
+     "heishin2_won"
+    ]
+   },
+   "late": 1
+  },
+  {
+   "rect": [
+    46,
+    156,
+    49,
+    156
+   ],
+   "when": {
+    "lacks": [
+     "seto3_won"
+    ]
+   },
+   "late": 1
+  },
+  {
+   "rect": [
+    46,
+    150,
+    49,
+    150
+   ],
+   "when": {
+    "lacks": [
+     "darknite_won"
+    ]
+   },
+   "late": 1
+  }
+ ],
+ "items": [
+  {
+   "name": "Stamp Card",
+   "flag": "courier_met"
+  },
+  {
+   "name": "Lantern",
+   "flag": "farmer_won"
+  },
+  {
+   "name": "Water Jug",
+   "flag": "jug_taken",
+   "until": "got_water"
+  },
+  {
+   "name": "Honey Jar",
+   "flag": "got_honey",
+   "until": "treasure_given"
+  },
+  {
+   "name": "River Water",
+   "flag": "got_water",
+   "until": "treasure_given"
+  },
+  {
+   "name": "Dates",
+   "flag": "got_dates",
+   "until": "treasure_given"
+  },
+  {
+   "name": "Founder's Scarab",
+   "flag": "treasure_lost",
+   "icon": "assets/icon_founders_scarab.bin"
+  },
+  {
+   "name": "Jono's Bandana",
+   "flag": "treasure_won",
+   "icon": "assets/icon_jonos_bandana.bin"
+  },
+  {
+   "name": "Lucky Charm",
+   "flag": "treasure_given",
+   "icon": "assets/icon_lucky_charm.bin"
+  }
+ ],
+ "chapters": [
+  {
+   "text": "The Whispering Village"
+  }
+ ],
+ "objectives": [
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "area": 1,
+    "lacks": [
+     "treasure_lost"
+    ]
+   },
+   "text": "Duel Bakura the lonely ghost"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "needs": [
+     "heard_teana",
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "text": "Tell Simon what you heard"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "needs": [
+     "heard_jono",
+     "heard_guard"
+    ],
+    "lacks": [
+     "heard_teana"
+    ]
+   },
+   "text": "Ask Teana about the whispers"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "needs": [
+     "heard_teana",
+     "heard_guard"
+    ],
+    "lacks": [
+     "heard_jono"
+    ]
+   },
+   "text": "Ask Jono about the whispers"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "needs": [
+     "heard_teana",
+     "heard_jono"
+    ],
+    "lacks": [
+     "heard_guard"
+    ]
+   },
+   "text": "Ask the Guard about the whispers"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "needs": [
+     "heard_guard"
+    ],
+    "lacks": [
+     "heard_teana",
+     "heard_jono"
+    ]
+   },
+   "text": "Ask Teana and Jono about the whispers"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "needs": [
+     "heard_jono"
+    ],
+    "lacks": [
+     "heard_teana",
+     "heard_guard"
+    ]
+   },
+   "text": "Ask Teana and the Guard about the whispers"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "needs": [
+     "heard_teana"
+    ],
+    "lacks": [
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "text": "Ask Jono and the Guard about the whispers"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "lacks": [
+     "heard_teana",
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "text": "Ask Teana and Jono and the Guard about the whispers"
+  },
+  {
+   "when": {
+    "stage_ge": 2,
+    "stage_lt": 3,
+    "lacks": [
+     "simon_won"
+    ]
+   },
+   "text": "Talk to Simon"
+  },
+  {
+   "when": {
+    "stage_ge": 2,
+    "stage_lt": 3,
+    "needs": [
+     "mago_roof"
+    ]
+   },
+   "text": "Talk to the hooded man"
+  },
+  {
+   "when": {
+    "stage_ge": 2,
+    "stage_lt": 3
+   },
+   "text": "Sit on the plaza bench and wait for night"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "teana_asked",
+     "got_honey",
+     "got_water",
+     "got_dates"
+    ],
+    "lacks": [
+     "treasure_given"
+    ]
+   },
+   "text": "Bring the ingredients to Teana"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "teana_asked"
+    ],
+    "lacks": [
+     "treasure_given"
+    ]
+   },
+   "text": "Teana's cakes - honey, river water, dates"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "jono_asked"
+    ],
+    "lacks": [
+     "treasure_won"
+    ]
+   },
+   "text": "Beat Rex on the east road"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "farmer_won"
+    ],
+    "lacks": [
+     "treasure_lost"
+    ]
+   },
+   "text": "Open the little pyramid hatch"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "baker_hint"
+    ],
+    "lacks": [
+     "farmer_won"
+    ]
+   },
+   "text": "Win Kemet's lantern"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4
+   },
+   "text": "Find a Lost, a Won and a Given treasure"
+  },
+  {
+   "when": {
+    "stage_ge": 4,
+    "stage_lt": 5
+   },
+   "text": "Cross the bridge to the harbor"
+  },
+  {
+   "when": {
+    "stage_ge": 5,
+    "stage_lt": 6,
+    "lacks": [
+     "inspector_won"
+    ]
+   },
+   "text": "Beat the Inspector at the harbor gate"
+  },
+  {
+   "when": {
+    "stage_ge": 5,
+    "stage_lt": 6
+   },
+   "text": "Meet the Courier at the end of the pier"
+  },
+  {
+   "when": {
+    "stage_ge": 6,
+    "stage_lt": 7
+   },
+   "text": "Say goodbye to your friends, then board"
+  },
+  {
+   "when": {
+    "stage_ge": 7,
+    "stage_lt": 8,
+    "lacks": [
+     "mai_met"
+    ]
+   },
+   "text": "Talk to the lady on deck"
+  },
+  {
+   "when": {
+    "stage_ge": 7,
+    "stage_lt": 8
+   },
+   "text": "Go to the bow of the ship"
+  }
+ ],
+ "triggers": [],
+ "spots": [],
+ "npcs": [
+  {
+   "id": "simon",
+   "name": "Simon Muran",
+   "mesh": "Wizard",
+   "anchor": "house_ne_door",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2,
+      "needs": [
+       "heard_teana",
+       "heard_jono",
+       "heard_guard"
+      ],
+      "lacks": [
+       "simon_won"
+      ]
+     },
+     "scene": "dk1_simon_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       428
+      ],
+      "stage": 2,
+      "flags": [
+       "simon_won"
+      ],
+      "scene": "dk1_simon_win"
+     },
+     "lose": {
+      "scene": "dk1_simon_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_lt": 2
+     },
+     "scene": "dk1_simon_wait"
+    },
+    {
+     "when": {
+      "stage_ge": 2,
+      "stage_lt": 3
+     },
+     "scene": "dk1_simon_stage2"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 6
+     },
+     "scene": "dk1_simon_treasures"
+    },
+    {
+     "when": {
+      "stage_ge": 6,
+      "stage_lt": 7,
+      "lacks": [
+       "simon_farewell"
+      ]
+     },
+     "scene": "dk1_simon_farewell",
+     "effects": {
+      "cards": [
+       2
+      ],
+      "flags": [
+       "simon_farewell"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 6
+     },
+     "scene": "dk1_simon_after"
+    }
+   ],
+   "duelist_id": 1,
+   "portrait_id": 1,
+   "tile": [
+    14.5,
+    28.5
+   ]
+  },
+  {
+   "id": "teana",
+   "name": "Teana",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "teana_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2,
+      "lacks": [
+       "heard_teana"
+      ]
+     },
+     "scene": "dk1_teana_rumor",
+     "effects": {
+      "flags": [
+       "heard_teana"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2,
+      "needs": [
+       "heard_teana",
+       "heard_jono",
+       "heard_guard"
+      ]
+     },
+     "scene": "dk1_teana_tell_simon"
+    },
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2
+     },
+     "scene": "dk1_teana_rumor_after"
+    },
+    {
+     "when": {
+      "stage_ge": 2,
+      "stage_lt": 3
+     },
+     "scene": "dk1_teana_stage2"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 4,
+      "lacks": [
+       "teana_asked"
+      ]
+     },
+     "scene": "dk1_teana_ask",
+     "effects": {
+      "flags": [
+       "teana_asked",
+       "jug_taken"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "needs": [
+       "teana_asked",
+       "got_honey",
+       "got_water",
+       "got_dates"
+      ],
+      "lacks": [
+       "treasure_given"
+      ]
+     },
+     "scene": "dk1_teana_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       58
+      ],
+      "flags": [
+       "treasure_given"
+      ],
+      "scene": "dk1_teana_win"
+     },
+     "lose": {
+      "scene": "dk1_teana_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "needs": [
+       "teana_asked"
+      ],
+      "lacks": [
+       "treasure_given"
+      ]
+     },
+     "scene": "dk1_teana_waiting"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 6
+     },
+     "scene": "dk1_teana_after"
+    },
+    {
+     "when": {
+      "stage_ge": 6,
+      "stage_lt": 7,
+      "lacks": [
+       "teana_farewell"
+      ]
+     },
+     "scene": "dk1_teana_farewell",
+     "effects": {
+      "flags": [
+       "teana_farewell"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 6
+     },
+     "scene": "dk1_teana_after_farewell"
+    }
+   ],
+   "duelist_id": 2,
+   "portrait_id": 2,
+   "tile": [
+    9.5,
+    32.5
+   ]
+  },
+  {
+   "id": "jono",
+   "name": "Jono",
+   "mesh": "Ninja_Sand",
+   "anchor": "plaza_center",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2,
+      "lacks": [
+       "heard_jono"
+      ]
+     },
+     "scene": "dk1_jono_rumor",
+     "effects": {
+      "flags": [
+       "heard_jono"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2,
+      "needs": [
+       "heard_teana",
+       "heard_jono",
+       "heard_guard"
+      ]
+     },
+     "scene": "dk1_jono_tell_simon"
+    },
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2
+     },
+     "scene": "dk1_jono_rumor_after"
+    },
+    {
+     "when": {
+      "stage_ge": 2,
+      "stage_lt": 3
+     },
+     "scene": "dk1_jono_stage2"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "needs": [
+       "treasure_won"
+      ],
+      "lacks": [
+       "jono_thanked"
+      ]
+     },
+     "scene": "dk1_jono_thanks",
+     "effects": {
+      "cards": [
+       315
+      ],
+      "flags": [
+       "jono_thanked"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 4,
+      "lacks": [
+       "jono_asked"
+      ]
+     },
+     "scene": "dk1_jono_ask",
+     "effects": {
+      "flags": [
+       "jono_asked"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "needs": [
+       "jono_asked"
+      ],
+      "lacks": [
+       "treasure_won"
+      ]
+     },
+     "scene": "dk1_jono_waiting"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 6
+     },
+     "scene": "dk1_jono_after"
+    },
+    {
+     "when": {
+      "stage_ge": 6,
+      "stage_lt": 7,
+      "lacks": [
+       "jono_farewell"
+      ]
+     },
+     "scene": "dk1_jono_farewell",
+     "effects": {
+      "flags": [
+       "jono_farewell"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 6
+     },
+     "scene": "dk1_jono_after_farewell"
+    }
+   ],
+   "duelist_id": 3,
+   "portrait_id": 3,
+   "tile": [
+    19.5,
+    32.5
+   ]
+  },
+  {
+   "id": "guard",
+   "name": "Guard",
+   "mesh": "Knight_Male",
+   "anchor": "bridge_north",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2,
+      "lacks": [
+       "heard_guard"
+      ]
+     },
+     "scene": "dk1_guard_rumor",
+     "effects": {
+      "flags": [
+       "heard_guard"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2,
+      "needs": [
+       "heard_teana",
+       "heard_jono",
+       "heard_guard"
+      ]
+     },
+     "scene": "dk1_guard_tell_simon"
+    },
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 2
+     },
+     "scene": "dk1_guard_rumor_after"
+    },
+    {
+     "when": {
+      "stage_ge": 2,
+      "stage_lt": 3
+     },
+     "scene": "dk1_guard_stage2"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 4
+     },
+     "scene": "dk1_guard_block"
+    },
+    {
+     "when": {
+      "stage_ge": 4
+     },
+     "scene": "dk1_guard_open"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 5,
+   "tile": [
+    24.5,
+    23.5
+   ]
+  },
+  {
+   "id": "baker",
+   "name": "Hakim",
+   "mesh": "Worker_Male",
+   "anchor": "bakery_door",
+   "talk": [
+    {
+     "when": {
+      "stage_lt": 3
+     },
+     "scene": "dk1_baker_hello"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 4,
+      "needs": [
+       "teana_asked"
+      ],
+      "lacks": [
+       "got_honey"
+      ]
+     },
+     "scene": "dk1_baker_honey",
+     "effects": {
+      "flags": [
+       "got_honey"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 4,
+      "lacks": [
+       "baker_hint"
+      ]
+     },
+     "scene": "dk1_baker_hint",
+     "effects": {
+      "flags": [
+       "baker_hint"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 6,
+      "needs": [
+       "baker_hint"
+      ],
+      "lacks": [
+       "baker_won"
+      ]
+     },
+     "scene": "dk1_baker_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       338
+      ],
+      "flags": [
+       "baker_won"
+      ],
+      "scene": "dk1_baker_win"
+     },
+     "lose": {
+      "scene": "dk1_baker_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3
+     },
+     "scene": "dk1_baker_after"
+    }
+   ],
+   "duelist_id": 4,
+   "portrait_id": 4,
+   "tile": [
+    30.5,
+    30.5
+   ]
+  },
+  {
+   "id": "farmer",
+   "name": "Kemet",
+   "mesh": "Ninja_Sand",
+   "anchor": "farmer_field",
+   "talk": [
+    {
+     "when": {
+      "stage_lt": 3
+     },
+     "scene": "dk1_farmer_hello"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "needs": [
+       "baker_hint"
+      ],
+      "lacks": [
+       "farmer_won"
+      ]
+     },
+     "scene": "dk1_farmer_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       53
+      ],
+      "flags": [
+       "farmer_won"
+      ],
+      "scene": "dk1_farmer_win"
+     },
+     "lose": {
+      "scene": "dk1_farmer_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "lacks": [
+       "farmer_won"
+      ]
+     },
+     "scene": "dk1_farmer_nohint"
+    },
+    {
+     "when": {
+      "stage_ge": 3
+     },
+     "scene": "dk1_farmer_after"
+    }
+   ],
+   "duelist_id": 6,
+   "portrait_id": 6,
+   "tile": [
+    21.5,
+    34.5
+   ]
+  },
+  {
+   "id": "hooded_man",
+   "name": "Hooded Man",
+   "mesh": "Wizard",
+   "anchor": "plaza_center",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 2,
+      "stage_lt": 3,
+      "lacks": [
+       "courier_met"
+      ]
+     },
+     "scene": "dk1_hooded_riddle",
+     "effects": {
+      "flags": [
+       "courier_met"
+      ],
+      "stage": 3
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 2,
+      "stage_lt": 3,
+      "needs": [
+       "mago_roof"
+      ],
+      "lacks": [
+       "courier_met"
+      ]
+     },
+     "tile": [
+      18.5,
+      30.5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "rex",
+   "name": "Rex Raptor",
+   "mesh": "Suit_Male",
+   "anchor": "east_road",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 4,
+      "lacks": [
+       "jono_asked"
+      ]
+     },
+     "scene": "dk1_rex_first"
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "needs": [
+       "jono_asked"
+      ],
+      "lacks": [
+       "treasure_won"
+      ]
+     },
+     "scene": "dk1_rex_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       80
+      ],
+      "flags": [
+       "treasure_won"
+      ],
+      "scene": "dk1_rex_win"
+     },
+     "lose": {
+      "scene": "dk1_rex_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3
+     },
+     "scene": "dk1_rex_after"
+    }
+   ],
+   "duelist_id": 9,
+   "portrait_id": 9,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 3
+     },
+     "tile": [
+      37.5,
+      29.5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bakura",
+   "name": "Bakura",
+   "mesh": "Wizard",
+   "anchor": "bakura_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 3,
+      "lacks": [
+       "treasure_lost"
+      ]
+     },
+     "scene": "dk1_bakura_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       132
+      ],
+      "flags": [
+       "treasure_lost"
+      ],
+      "scene": "dk1_bakura_win"
+     },
+     "lose": {
+      "scene": "dk1_bakura_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3,
+      "needs": [
+       "treasure_lost",
+       "mago_glyph"
+      ]
+     },
+     "scene": "dk1_bakura_glyph"
+    },
+    {
+     "when": {
+      "stage_ge": 3
+     },
+     "scene": "dk1_bakura_after"
+    }
+   ],
+   "duelist_id": 14,
+   "portrait_id": 14,
+   "tile": [
+    2.5,
+    2.5
+   ]
+  }
+ ],
+ "speakers": {
+  "atos": {
+   "portrait": "player"
+  },
+  "simon": {
+   "portrait_id": 1
+  },
+  "teana": {
+   "portrait_id": 2
+  },
+  "jono": {
+   "portrait_id": 3
+  },
+  "guard": {
+   "portrait_id": 5
+  },
+  "baker": {
+   "portrait_id": 4
+  },
+  "farmer": {
+   "portrait_id": 6
+  },
+  "hooded_man": {
+   "portrait_id": 0
+  },
+  "bakura": {
+   "portrait_id": 14
+  },
+  "rex": {
+   "portrait_id": 9
+  },
+  "soldier": {
+   "portrait_id": 18
+  },
+  "shadi": {
+   "portrait_id": 13
+  },
+  "mai": {
+   "portrait_id": 11
+  },
+  "inseto": {
+   "portrait_id": 0
+  },
+  "mago_dev": {
+   "portrait_id": 0
+  },
+  "mago_dev_tee": {
+   "portrait_id": 0
+  },
+  "mago_hidden": {
+   "portrait_id": 0
+  },
+  "isis": {
+   "portrait_id": 16
+  },
+  "narrator": {
+   "portrait_id": 0
+  }
+ },
+ "guide": [
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "lacks": [
+     "heard_teana"
+    ]
+   },
+   "npc": "teana"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "lacks": [
+     "heard_jono"
+    ]
+   },
+   "npc": "jono"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "lacks": [
+     "heard_guard"
+    ]
+   },
+   "npc": "guard"
+  },
+  {
+   "when": {
+    "stage_ge": 1,
+    "stage_lt": 2,
+    "needs": [
+     "heard_teana",
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "npc": "simon"
+  },
+  {
+   "when": {
+    "stage_ge": 2,
+    "stage_lt": 3,
+    "lacks": [
+     "simon_won"
+    ]
+   },
+   "npc": "simon"
+  },
+  {
+   "when": {
+    "stage_ge": 2,
+    "stage_lt": 3,
+    "needs": [
+     "simon_won"
+    ],
+    "lacks": [
+     "mago_roof"
+    ]
+   },
+   "anchor": "plaza_bench"
+  },
+  {
+   "when": {
+    "stage_ge": 2,
+    "stage_lt": 3,
+    "needs": [
+     "mago_roof"
+    ]
+   },
+   "npc": "hooded_man"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "area": 1,
+    "lacks": [
+     "treasure_lost"
+    ]
+   },
+   "npc": "bakura"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "area": 1
+   },
+   "anchor": "exit_stairs"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "teana_asked",
+     "got_honey",
+     "got_water",
+     "got_dates"
+    ],
+    "lacks": [
+     "treasure_given"
+    ]
+   },
+   "npc": "teana"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "teana_asked"
+    ],
+    "lacks": [
+     "got_honey",
+     "treasure_given"
+    ]
+   },
+   "npc": "baker"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "teana_asked",
+     "got_honey"
+    ],
+    "lacks": [
+     "got_water",
+     "treasure_given"
+    ]
+   },
+   "anchor": "river_bank"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "teana_asked",
+     "got_honey",
+     "got_water"
+    ],
+    "lacks": [
+     "got_dates",
+     "treasure_given"
+    ]
+   },
+   "anchor": "date_palm"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "jono_asked"
+    ],
+    "lacks": [
+     "treasure_won"
+    ]
+   },
+   "npc": "rex"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "farmer_won"
+    ],
+    "lacks": [
+     "treasure_lost"
+    ]
+   },
+   "anchor": "hatch_prop"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "baker_hint"
+    ],
+    "lacks": [
+     "farmer_won"
+    ]
+   },
+   "npc": "farmer"
+  },
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "lacks": [
+     "baker_hint"
+    ]
+   },
+   "npc": "baker"
+  },
+  {
+   "when": {
+    "stage_ge": 4,
+    "stage_lt": 5
+   }
+  }
+ ],
+ "journal": [
+  {
+   "id": "q01_whispers",
+   "active": {
+    "stage_ge": 1
+   },
+   "done": {
+    "needs": [
+     "heard_teana",
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "lines": [
+    {
+     "npc": "teana",
+     "done": {
+      "needs": [
+       "heard_teana"
+      ]
+     }
+    },
+    {
+     "npc": "jono",
+     "done": {
+      "needs": [
+       "heard_jono"
+      ]
+     }
+    },
+    {
+     "npc": "guard",
+     "done": {
+      "needs": [
+       "heard_guard"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "q02_sage",
+   "active": {
+    "stage_ge": 1,
+    "needs": [
+     "heard_teana",
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "done": {
+    "needs": [
+     "simon_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q03_stakeout",
+   "active": {
+    "stage_ge": 2,
+    "needs": [
+     "simon_won"
+    ]
+   },
+   "done": {
+    "needs": [
+     "courier_met"
+    ]
+   },
+   "lines": [
+    {
+     "text": 0,
+     "done": {
+      "needs": [
+       "mago_roof"
+      ]
+     }
+    },
+    {
+     "text": 1,
+     "done": {
+      "needs": [
+       "courier_met"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "q04_lost",
+   "active": {
+    "stage_ge": 3
+   },
+   "done": {
+    "needs": [
+     "treasure_lost"
+    ]
+   },
+   "hide_done": 1,
+   "lines": [
+    {
+     "text": 2,
+     "active": {
+      "lacks": [
+       "baker_hint"
+      ]
+     },
+     "done": {
+      "needs": [
+       "baker_hint"
+      ]
+     }
+    },
+    {
+     "text": 3,
+     "active": {
+      "needs": [
+       "baker_hint"
+      ],
+      "lacks": [
+       "farmer_won"
+      ]
+     },
+     "done": {
+      "needs": [
+       "farmer_won"
+      ]
+     }
+    },
+    {
+     "text": 4,
+     "active": {
+      "needs": [
+       "farmer_won"
+      ],
+      "lacks": [
+       "treasure_lost"
+      ],
+      "area": 0
+     }
+    },
+    {
+     "text": 5,
+     "active": {
+      "needs": [
+       "farmer_won"
+      ],
+      "lacks": [
+       "treasure_lost"
+      ],
+      "area": 1
+     },
+     "done": {
+      "needs": [
+       "treasure_lost"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "q05_won",
+   "active": {
+    "stage_ge": 3
+   },
+   "done": {
+    "needs": [
+     "treasure_won"
+    ]
+   },
+   "hide_done": 1,
+   "lines": [
+    {
+     "text": 6,
+     "active": {
+      "lacks": [
+       "jono_asked"
+      ]
+     },
+     "done": {
+      "needs": [
+       "jono_asked"
+      ]
+     }
+    },
+    {
+     "text": 7,
+     "active": {
+      "needs": [
+       "jono_asked"
+      ],
+      "lacks": [
+       "treasure_won"
+      ]
+     },
+     "done": {
+      "needs": [
+       "treasure_won"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "q06_given",
+   "active": {
+    "stage_ge": 3
+   },
+   "done": {
+    "needs": [
+     "treasure_given"
+    ]
+   },
+   "hide_done": 1,
+   "lines": [
+    {
+     "text": 8,
+     "active": {
+      "lacks": [
+       "teana_asked"
+      ]
+     },
+     "done": {
+      "needs": [
+       "teana_asked"
+      ]
+     }
+    },
+    {
+     "text": 9,
+     "active": {
+      "needs": [
+       "teana_asked"
+      ],
+      "lacks": [
+       "got_honey"
+      ]
+     },
+     "done": {
+      "needs": [
+       "got_honey"
+      ]
+     }
+    },
+    {
+     "text": 10,
+     "active": {
+      "needs": [
+       "teana_asked"
+      ],
+      "lacks": [
+       "got_water"
+      ]
+     },
+     "done": {
+      "needs": [
+       "got_water"
+      ]
+     }
+    },
+    {
+     "text": 11,
+     "active": {
+      "needs": [
+       "teana_asked"
+      ],
+      "lacks": [
+       "got_dates"
+      ]
+     },
+     "done": {
+      "needs": [
+       "got_dates"
+      ]
+     }
+    },
+    {
+     "text": 12,
+     "active": {
+      "needs": [
+       "teana_asked",
+       "got_honey",
+       "got_water",
+       "got_dates"
+      ],
+      "lacks": [
+       "treasure_given"
+      ]
+     },
+     "done": {
+      "needs": [
+       "treasure_given"
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "objects": [
+  {
+   "id": "notice_sign",
+   "anchor": "notice_sign",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 1,
+      "lacks": [
+       "read_notice"
+      ]
+     },
+     "scene": "dk1_notice",
+     "effects": {
+      "flags": [
+       "read_notice"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 1
+     },
+     "scene": "dk1_notice_after"
+    }
+   ]
+  },
+  {
+   "id": "plaza_bench",
+   "anchor": "plaza_bench",
+   "talk": [
+    {
+     "when": {
+      "stage_lt": 2
+     },
+     "scene": "dk1_bench_early"
+    },
+    {
+     "when": {
+      "stage_ge": 2,
+      "stage_lt": 3,
+      "lacks": [
+       "courier_met",
+       "mago_roof"
+      ]
+     },
+     "scene": "dk1_bench",
+     "effects": {
+      "flags": [
+       "mago_roof"
+      ]
+     },
+     "pose": "sit"
+    },
+    {
+     "when": {
+      "stage_ge": 2
+     },
+     "scene": "dk1_bench_after"
+    }
+   ],
+   "prop": "bench",
+   "reach": 78
+  },
+  {
+   "id": "date_palm",
+   "anchor": "date_palm",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 4,
+      "needs": [
+       "teana_asked"
+      ],
+      "lacks": [
+       "got_dates"
+      ]
+     },
+     "scene": "dk1_date_palm",
+     "effects": {
+      "flags": [
+       "got_dates"
+      ]
+     }
+    },
+    {
+     "scene": "dk1_date_palm_idle"
+    }
+   ]
+  },
+  {
+   "id": "river_bank",
+   "anchor": "river_bank",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 3,
+      "stage_lt": 4,
+      "needs": [
+       "jug_taken"
+      ],
+      "lacks": [
+       "got_water"
+      ]
+     },
+     "scene": "dk1_river_fill",
+     "effects": {
+      "flags": [
+       "got_water"
+      ]
+     }
+    },
+    {
+     "scene": "dk1_river_idle"
+    }
+   ]
+  },
+  {
+   "id": "pyramid_hatch",
+   "anchor": "mini_pyramid_hatch",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 3,
+      "needs": [
+       "farmer_won"
+      ]
+     },
+     "scene": "dk1_cistern_enter",
+     "effects": {
+      "warp": [
+       "cistern",
+       "spawn_stairs"
+      ]
+     }
+    },
+    {
+     "when": {
+      "lacks": [
+       "farmer_won"
+      ]
+     },
+     "scene": "dk1_hatch_locked"
+    }
+   ],
+   "prop": "hatch",
+   "prop_anchor": "hatch_prop",
+   "open_when": {
+    "needs": [
+     "farmer_won"
+    ]
+   },
+   "reach": 62
+  },
+  {
+   "id": "cistern_glyph",
+   "anchor": "wall_glyph",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 3,
+      "lacks": [
+       "mago_glyph"
+      ]
+     },
+     "scene": "dk1_mago_glyph",
+     "effects": {
+      "flags": [
+       "mago_glyph"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 3
+     },
+     "scene": "dk1_mago_glyph_after"
+    }
+   ],
+   "reach": 90
+  },
+  {
+   "id": "cistern_exit",
+   "anchor": "exit_stairs",
+   "talk": [
+    {
+     "scene": "dk1_cistern_exit",
+     "effects": {
+      "warp": [
+       "village",
+       "mini_pyramid_hatch"
+      ]
+     }
+    }
+   ],
+   "reach": 80
+  }
+ ],
+ "intro": "dk1_intro",
+ "painted": {
+  "bridge_open": {
+   "stage_ge": 4
+  },
+  "music": {
+   "day": 10,
+   "night": 25,
+   "cistern": 26
+  },
+  "night": {
+   "stage_ge": 2,
+   "stage_lt": 3,
+   "needs": [
+    "mago_roof"
+   ],
+   "lacks": [
+    "courier_met"
+   ]
+  },
+  "time_events": [
+   {
+    "script": "dk1_bench",
+    "page": 1,
+    "time": "night"
+   },
+   {
+    "script": "dk1_hooded_riddle",
+    "page": 11,
+    "time": "auto"
+   }
+  ],
+  "observers": [
+   {
+    "npc": "mago_dev",
+    "sprite": "robe",
+    "overlay": "aura",
+    "anchor": "mago_roof",
+    "script": "dk1_bench",
+    "pages": [
+     3,
+     4
+    ],
+    "vanish": "glitch"
+   },
+   {
+    "npc": "mago_dev",
+    "glyph": 1,
+    "overlay": "aura",
+    "anchor": "wall_glyph",
+    "script": "dk1_mago_glyph",
+    "pages": [
+     0,
+     1
+    ],
+    "vanish": "glitch"
+   }
+  ]
+ },
+ "debug": [
+  {
+   "name": "1 home door",
+   "stage": 1,
+   "flags": [],
+   "anchor": "hero_start",
+   "time": "auto"
+  },
+  {
+   "name": "2 rumors heard (Simon next)",
+   "stage": 1,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard"
+   ],
+   "anchor": "plaza_center",
+   "time": "auto"
+  },
+  {
+   "name": "3 Simon won (bench next)",
+   "stage": 2,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won"
+   ],
+   "anchor": "plaza_bench",
+   "time": "auto"
+  },
+  {
+   "name": "4 night, hooded man waits",
+   "stage": 2,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof"
+   ],
+   "anchor": "plaza_center",
+   "time": "auto"
+  },
+  {
+   "name": "5 Stamp Card (Hakim next)",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met"
+   ],
+   "anchor": "bakery_door",
+   "time": "auto"
+  },
+  {
+   "name": "6 Hakim's hint (Kemet next)",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint"
+   ],
+   "anchor": "farmer_field",
+   "time": "auto"
+  },
+  {
+   "name": "7 Lantern won (hatch next)",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won"
+   ],
+   "anchor": "mini_pyramid_hatch",
+   "time": "auto"
+  },
+  {
+   "name": "8 in the cistern (Bakura)",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won"
+   ],
+   "anchor": "spawn_stairs",
+   "time": "auto"
+  },
+  {
+   "name": "9 Lost stamp (glyph, stairs)",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "treasure_lost"
+   ],
+   "anchor": "wall_glyph",
+   "time": "auto"
+  },
+  {
+   "name": "10 Jono asked (Rex next)",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "jono_asked"
+   ],
+   "anchor": "plaza_center",
+   "time": "auto"
+  },
+  {
+   "name": "11 Teana's errands",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "teana_asked",
+    "jug_taken"
+   ],
+   "anchor": "teana_stall",
+   "time": "auto"
+  },
+  {
+   "name": "12 errands done (Teana next)",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates"
+   ],
+   "anchor": "teana_stall",
+   "time": "auto"
+  },
+  {
+   "name": "13 two stamps (Teana last)",
+   "stage": 3,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates"
+   ],
+   "anchor": "teana_stall",
+   "time": "auto"
+  }
+ ],
+ "auto": [
+  {
+   "when": {
+    "stage_ge": 3,
+    "stage_lt": 4,
+    "needs": [
+     "treasure_lost",
+     "treasure_won",
+     "treasure_given"
+    ]
+   },
+   "result": {
+    "stage": 4
+   },
+   "scene": "dk1_treasures_done",
+   "then": "dk_part3_end"
+  }
+ ],
+ "story": "duelist_kingdom part 3"
+}
