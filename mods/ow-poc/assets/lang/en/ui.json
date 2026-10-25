@@ -32,7 +32,7 @@
   "messages": {
     "progress_saved": "Progress saved",
     "save_failed": "Save failed",
-    "part_end": "The harbor road opens in part 3."
+    "part_end": "The harbor road opens in part 4."
   },
   "creation": {
     "heading": "CREATE YOUR CHARACTER",
@@ -129,6 +129,7 @@
     "The Whispering Village"
   ],
   "objectives": [
+    "Duel Bakura the lonely ghost",
     "Tell Simon what you heard",
     "Ask Teana about the whispers",
     "Ask Jono about the whispers",
@@ -155,7 +156,14 @@
   ],
   "items": [
     "Stamp Card",
-    "Lantern"
+    "Lantern",
+    "Water Jug",
+    "Honey Jar",
+    "River Water",
+    "Dates",
+    "Founder's Scarab",
+    "Jono's Bandana",
+    "Lucky Charm"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -164,7 +172,9 @@
     "guard": "Guard",
     "baker": "Hakim",
     "farmer": "Kemet",
-    "hooded_man": "Hooded Man"
+    "hooded_man": "Hooded Man",
+    "rex": "Rex Raptor",
+    "bakura": "Bakura"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -201,25 +211,40 @@
     "Whispers in the Square",
     "The Sage's Test",
     "Midnight at the Bench",
-    "The Lost: Founder's Scarab"
+    "The Lost: Founder's Scarab",
+    "The Won: Jono's Bandana",
+    "The Given: Teana's Cakes"
   ],
   "quest_objectives": [
     "Ask Teana, Jono and the Guard",
     "Tell Simon what you heard, accept his duel",
     "Sit on the plaza bench until night",
-    "Ask Hakim about lost treasures"
+    "Ask Hakim about lost treasures",
+    "Meet Rex or Jono, any order",
+    "Take the Water Jug from Teana"
   ],
   "quest_steps": [
     "Sit on the plaza bench until night",
     "Talk to the hooded man",
     "Ask Hakim about lost treasures",
-    "Win Kemet's lantern in a duel"
+    "Win Kemet's lantern in a duel",
+    "Open the pyramid hatch, enter the cistern",
+    "Duel Bakura the lonely ghost",
+    "Meet Rex or Jono, any order",
+    "Beat Rex on the east road",
+    "Take the Water Jug from Teana",
+    "Honey from Hakim",
+    "Fill the jug at the river",
+    "Pick dates from the palm",
+    "Return to Teana and duel her"
   ],
   "quest_rewards": [
     "Rumor Notebook filled (3 rumors)",
     "card Magician of Faith; the legend of the Kingdom",
     "Stamp Card with three stamp slots",
-    "card Killer Needle, a Lantern (more in part 3)"
+    "Founder's Scarab, cards Killer Needle and The 13th Grave, stamp Lost",
+    "Jono's Bandana, cards Uraby and Dragon Treasure, stamp Won",
+    "Lucky Charm, card Kuriboh, stamp Given"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -239,5 +264,8 @@
     "complete": "QUEST COMPLETE",
     "caption": "",
     "press": "X: continue"
+  },
+  "painted": {
+    "cistern": "Old Cistern"
   }
 }

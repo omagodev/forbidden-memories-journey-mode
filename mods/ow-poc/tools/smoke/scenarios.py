@@ -30,19 +30,19 @@ SCENARIOS = {
                ("until", "saved (stage 3", 1500), ("wait", 60), ("snap", "after_baker")],
         expect=["scene dk1_baker", "saved (stage 3"]),
     "dk_part2_kemet_duel": dict(
-        desc="quest 4: Kemet's duel is skipped as won (debug), the Lantern, 'Part 2 complete'",
+        desc="quest 4: Kemet's duel is skipped as won (debug), the Lantern and the objective to open the hatch",
         preset="6 Hakim's hint (Kemet next)", debug={"skip_dialogue": True, "win_duels": True},
         steps=[("press", "cross"), ("until", "debug: duel against Kemet", 1500), ("wait", 20), ("snap", "after_win"),
                ("until", "saved (stage 3", 2500), ("wait", 60), ("snap", "end"),
                ("press", "triangle"), ("wait", 30), ("snap", "journal")],
-        expect=["debug: duel against Kemet", "duel over, won", "scene dk_part2_end", ("journey: music 10 (day)", 2)]),
+        expect=["debug: duel against Kemet", "duel over, won", "scene dk1_farmer_win", ("journey: music 10 (day)", 2)]),
     "dk_part2_kemet_real_duel": dict(
         slow=True,   # not in "all": the LP poke (duel_win) does not end the duel under this harness yet; the debug win_duels covers the flow
         desc="quest 4 with the real duel: the game's duel screens, then back in the village (experimental)",
         preset="6 Hakim's hint (Kemet next)", debug={"skip_dialogue": True},
         steps=[("press", "cross"), ("until", "duel against Kemet", 1500), ("wait", 300), ("duel_win",), ("wait", 250), ("snap", "back"),
                ("until", "saved (stage 3", 2500), ("wait", 60), ("snap", "end")],
-        expect=["duel against Kemet", "duel over, won", "scene dk_part2_end", ("journey: music 10 (day)", 2)]),
+        expect=["duel against Kemet", "duel over, won", "scene dk1_farmer_win", ("journey: music 10 (day)", 2)]),
     "ui_dialog_en": dict(
         desc="dialogue UI (EN): speaker name in yellow at the start of the box text, banners for item / objective / complete",
         preset="6 Hakim's hint (Kemet next)", debug={"win_duels": True}, lang=0,
@@ -50,8 +50,8 @@ SCENARIOS = {
                ("until", "scene dk1_farmer_win", 600), ("wait", 120), ("snap", "win_speech"), ("press", "cross", 5, 40), ("wait", 100), ("snap", "win_speech2"),
                ("press", "cross", 5, 6), ("wait", 6), ("snap", "banner_item_anim"), ("wait", 60), ("snap", "banner_item"),
                ("press", "cross", 5, 6), ("wait", 8), ("snap", "banner_objective_anim"), ("wait", 60), ("snap", "banner_objective"),
-               ("press", "cross", 5, 6), ("wait", 60), ("snap", "banner_complete")],
-        expect=["scene dk1_farmer_win", "scene dk_part2_end", "audio: sfx 0x2F plays"]),
+               ("press", "cross", 5, 6), ("wait", 60), ("snap", "after_scene")],
+        expect=["scene dk1_farmer_win", "audio: sfx 0x2F plays"]),
     "ui_dialog_pt": dict(
         desc="dialogue UI (PT): speaker name in yellow at the start of the box text, banners for item / objective / complete",
         preset="6 Hakim's hint (Kemet next)", debug={"win_duels": True}, lang=1,
@@ -59,8 +59,8 @@ SCENARIOS = {
                ("until", "scene dk1_farmer_win", 600), ("wait", 120), ("snap", "win_speech"), ("press", "cross", 5, 40), ("wait", 100), ("snap", "win_speech2"),
                ("press", "cross", 5, 6), ("wait", 6), ("snap", "banner_item_anim"), ("wait", 60), ("snap", "banner_item"),
                ("press", "cross", 5, 6), ("wait", 8), ("snap", "banner_objective_anim"), ("wait", 60), ("snap", "banner_objective"),
-               ("press", "cross", 5, 6), ("wait", 60), ("snap", "banner_complete")],
-        expect=["scene dk1_farmer_win", "scene dk_part2_end", "audio: sfx 0x2F plays"]),
+               ("press", "cross", 5, 6), ("wait", 60), ("snap", "after_scene")],
+        expect=["scene dk1_farmer_win", "audio: sfx 0x2F plays"]),
     "ui_ask_en": dict(
         desc="Yes/No choice page with the coloured speaker name: the ask page shows the choices, Cross accepts and the duel intro starts",
         preset="6 Hakim's hint (Kemet next)", debug={"win_duels": True}, lang=0,
@@ -101,3 +101,96 @@ SCENARIOS = {
         steps=[("press", "cross"), ("until", "scene dk1_bench", 300), ("wait", 120), ("snap", "pt_page0"), ("mash", "observer", 1500), ("wait", 20), ("snap", "pt_observer")],
         expect=["scene dk1_bench"]),
 }
+
+# ---------------------------------------------------------------- part 3: the cistern, Rex, Teana
+H = "7 Lantern won (hatch next)"
+SCENARIOS.update({
+    "dk_part3_hatch_locked": dict(
+        desc="part 3: the hatch of the little pyramid is shut without the lantern",
+        preset="6 Hakim's hint (Kemet next)", debug={"skip_dialogue": True, "teleport": "mini_pyramid_hatch"},
+        steps=[("wait", 30), ("snap", "hatch_closed"), ("press", "cross"), ("until", "scene dk1_hatch_locked", 300), ("wait", 60), ("snap", "locked_text"), ("wait", 200)],
+        expect=["scene dk1_hatch_locked"], forbid=["now in the cistern"]),
+    "dk_part3_cistern": dict(
+        desc="part 3, the Lost: the open hatch, down into the cistern (fade, music), Bakura's duel (won by debug), the Founder's Scarab, journal",
+        preset=H, debug={"skip_dialogue": True, "win_duels": True},
+        steps=[("wait", 30), ("snap", "hatch_open"), ("press", "cross"), ("until", "scene dk1_cistern_enter", 300), ("until", "now in the cistern", 900), ("wait", 12), ("snap", "fade_in"),
+               ("wait", 120), ("snap", "cistern_arrival"), ("hold", "down", 24), ("wait", 20), ("snap", "ghost_near"),
+               ("hold", "down", 20), ("press", "cross"), ("until", "scene dk1_bakura_pre", 300), ("until", "debug: duel against Bakura", 1500), ("wait", 20),
+               ("until", "scene dk1_bakura_win", 600), ("until", "saved (stage 3", 2500), ("wait", 60), ("snap", "after_win"),
+               ("press", "triangle"), ("wait", 30), ("snap", "journal")],
+        expect=["scene dk1_cistern_enter", "painted: now in the cistern", "scene dk1_bakura_pre", "debug: duel against Bakura", "duel over, won", "scene dk1_bakura_win",
+                "journey: music 26 (cistern)", "painted: cistern, 1280x720 picture"]),
+    "dk_part3_glyph": dict(
+        desc="part 3: the glyphs on the cistern wall (observer without a figure), they glitch away, Bakura mentions them afterwards",
+        preset="9 Lost stamp (glyph, stairs)", lang=0,
+        steps=[("wait", 30), ("snap", "wall_before"), ("press", "cross"), ("until", "scene dk1_mago_glyph", 300), ("wait", 260), ("snap", "glyph_p0"), ("press", "cross", 5, 200), ("snap", "glyph_p1"),
+               ("press", "cross", 5, 200), ("snap", "glyph_p2"), ("until", "observer vanishes", 600), ("wait", 8), ("snap", "glyph_glitch"), ("wait", 120), ("snap", "wall_after")],
+        expect=["scene dk1_mago_glyph", "painted: observer mago_dev appears", "observer vanishes"]),
+    "dk_part3_exit": dict(
+        desc="part 3: the stairs up take the player back to the hatch in the village",
+        preset="9 Lost stamp (glyph, stairs)", debug={"skip_dialogue": True, "teleport": "exit_stairs"},
+        steps=[("wait", 30), ("snap", "stairs"), ("press", "cross"), ("until", "scene dk1_cistern_exit", 300), ("until", "now in the village", 900), ("wait", 120), ("snap", "village_hatch")],
+        expect=["scene dk1_cistern_exit", "painted: now in the village", "journey: music 26 (cistern)", "journey: music 10 (day)"]),
+    "dk_part3_rex": dict(
+        desc="part 3, the Won: Rex Raptor on the east road, the duel (won by debug), Jono's Bandana",
+        preset="10 Jono asked (Rex next)", debug={"skip_dialogue": True, "win_duels": True, "teleport": "rex_approach"},
+        steps=[("wait", 40), ("snap", "near_rex"), ("hold", "right", 12), ("wait", 10), ("snap", "rex_close"), ("press", "cross"),
+               ("until", "scene dk1_rex_pre", 300), ("until", "debug: duel against Rex", 1500), ("until", "scene dk1_rex_win", 600), ("until", "saved (stage 3", 2500), ("wait", 60), ("snap", "after_win")],
+        expect=["scene dk1_rex_pre", "debug: duel against Rex", "duel over, won", "scene dk1_rex_win"]),
+    "dk_part3_honey": dict(
+        desc="part 3, the Given: honey from Hakim for Teana's cakes",
+        preset="11 Teana's errands", debug={"skip_dialogue": True, "teleport": "bakery_door"},
+        steps=[("press", "cross"), ("until", "scene dk1_baker_honey", 300), ("until", "saved (stage 3", 1500), ("wait", 60), ("snap", "honey")],
+        expect=["scene dk1_baker_honey"]),
+    "dk_part3_water": dict(
+        desc="part 3, the Given: fill the jug at the river",
+        preset="11 Teana's errands", debug={"skip_dialogue": True, "teleport": "river_bank"},
+        steps=[("wait", 30), ("snap", "river"), ("press", "cross"), ("until", "scene dk1_river_fill", 300), ("until", "saved (stage 3", 1500), ("wait", 60), ("snap", "water")],
+        expect=["scene dk1_river_fill"]),
+    "dk_part3_dates": dict(
+        desc="part 3, the Given: shake the date palm",
+        preset="11 Teana's errands", debug={"skip_dialogue": True, "teleport": "date_palm"},
+        steps=[("wait", 30), ("snap", "palm"), ("press", "cross"), ("until", "scene dk1_date_palm", 300), ("until", "saved (stage 3", 1500), ("wait", 60), ("snap", "dates")],
+        expect=["scene dk1_date_palm"]),
+    "dk_part3_teana_end": dict(
+        desc="part 3, the Given: Teana's duel (won by debug), the Lucky Charm, the third stamp, stage 4 and 'Part 3 complete'",
+        preset="13 two stamps (Teana last)", debug={"skip_dialogue": True, "win_duels": True},
+        steps=[("wait", 30), ("press", "cross"), ("until", "scene dk1_teana_pre", 300), ("until", "debug: duel against Teana", 1500), ("until", "scene dk1_teana_win", 600),
+               ("until", "scene dk1_treasures_done", 2500), ("until", "scene dk_part3_end", 2500), ("wait", 120), ("snap", "part_end"), ("until", "saved (stage 4", 2500), ("wait", 120), ("snap", "village_end"),
+               ("press", "triangle"), ("wait", 30), ("snap", "journal")],
+        expect=["scene dk1_teana_pre", "debug: duel against Teana", "scene dk1_teana_win", "scene dk1_treasures_done", "scene dk_part3_end", "saved (stage 4"]),
+    "dk_part3_journal_en": dict(
+        desc="the journal with the three treasure quests open (EN), then with the errands done and at the end of part 3",
+        preset="10 Jono asked (Rex next)", lang=0,
+        steps=[("wait", 30), ("press", "triangle"), ("wait", 20), ("snap", "j10"), ("press", "triangle"), ("wait", 20),
+               ("press", ["r1", "l1", "up"], 4, 40), ("press", ["r1", "l1", "up"], 4, 40), ("press", ["r1", "l1", "up"], 4, 40), ("wait", 30), ("press", "triangle"), ("wait", 20), ("snap", "j13"),
+               ("press", "triangle"), ("wait", 20), ("press", ["r1", "l1", "down"], 4, 40), ("press", ["r1", "l1", "down"], 4, 40), ("press", ["r1", "l1", "down"], 4, 40), ("press", ["r1", "l1", "down"], 4, 40),
+               ("press", ["r1", "l1", "down"], 4, 40), ("wait", 30), ("press", "triangle"), ("wait", 20), ("snap", "j8")],
+        expect=[]),
+    "dk_part3_journal_pt": dict(
+        desc="the journal (PT) with the three treasure quests open and with the errands (preset 12)",
+        preset="12 errands done (Teana next)", lang=1,
+        steps=[("wait", 30), ("press", "triangle"), ("wait", 20), ("snap", "j12"), ("press", "triangle"), ("wait", 20), ("press", ["r1", "l1", "down"], 4, 40), ("wait", 30),
+               ("press", "triangle"), ("wait", 20), ("snap", "j11")],
+        expect=[]),
+    "ui_banners_p3_en": dict(
+        desc="banners of part 3 (EN): Teana's win scene - item banner with the Lucky Charm icon, stamp banner, the three stamps, complete",
+        preset="13 two stamps (Teana last)", debug={"win_duels": True}, lang=0,
+        steps=[("press", "cross"), ("until", "scene dk1_teana_pre", 300), ("mash", "debug: duel against Teana", 1500), ("until", "page dk1_teana_win 0", 600), ("wait", 150), ("snap", "win_speech"),
+               ("mash", "page dk1_teana_win 3 kind 2", 2500), ("wait", 6), ("snap", "banner_item_anim"), ("wait", 60), ("snap", "banner_item"),
+               ("mash", "page dk1_teana_win 4 kind 2", 600), ("wait", 60), ("snap", "banner_stamp"),
+               ("mash", "page dk1_treasures_done 0", 600), ("wait", 150), ("snap", "all_stamps"),
+               ("mash", "page dk1_treasures_done 2 kind 1", 2500), ("wait", 60), ("snap", "banner_objective"),
+               ("mash", "page dk_part3_end 0 kind 3", 1500), ("wait", 70), ("snap", "banner_complete")],
+        expect=["scene dk1_teana_win", "scene dk_part3_end"]),
+    "ui_banners_p3_pt": dict(
+        desc="banners of part 3 (PT): Teana's win scene - item banner with the Lucky Charm icon, stamp banner, the three stamps, complete",
+        preset="13 two stamps (Teana last)", debug={"win_duels": True}, lang=1,
+        steps=[("press", "cross"), ("until", "scene dk1_teana_pre", 300), ("mash", "debug: duel against Teana", 1500), ("until", "page dk1_teana_win 0", 600), ("wait", 150), ("snap", "win_speech"),
+               ("mash", "page dk1_teana_win 3 kind 2", 2500), ("wait", 6), ("snap", "banner_item_anim"), ("wait", 60), ("snap", "banner_item"),
+               ("mash", "page dk1_teana_win 4 kind 2", 600), ("wait", 60), ("snap", "banner_stamp"),
+               ("mash", "page dk1_treasures_done 0", 600), ("wait", 150), ("snap", "all_stamps"),
+               ("mash", "page dk1_treasures_done 2 kind 1", 2500), ("wait", 60), ("snap", "banner_objective"),
+               ("mash", "page dk_part3_end 0 kind 3", 1500), ("wait", 70), ("snap", "banner_complete")],
+        expect=["scene dk1_teana_win", "scene dk_part3_end"]),
+})

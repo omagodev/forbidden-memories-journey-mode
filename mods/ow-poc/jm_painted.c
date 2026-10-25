@@ -23,7 +23,18 @@
 #define WATER_TICKS 9               /* game frames a water frame stays (about 6.7 a second at 60 fps) */
 
 static int loaded, load_failed;
-static unsigned char *col;         /* 160 x 90, 8 texels a cell */
+int paint_area;                    /* 0 the village, 1 the old cistern (journey.json "area" of anchors, objects and people) */
+enum { AREA_VILLAGE, AREA_CISTERN, AREA_COUNT };
+static const struct { const char *name, *pic, *col, *occ; int cw, ch, cell; } parea[AREA_COUNT] = {
+    {"village", "assets/painted.raw", "assets/painted_col.bin", NULL, 160, 90, 8},
+    {"cistern", "assets/painted_cistern.raw", "assets/painted_cistern_col.bin", "assets/painted_cistern_occ.bin", 320, 180, 4},
+};
+static unsigned char *col;         /* the collision mask: col_w x col_h cells of col_cell texels (the village 160 x 90 of 8, the cistern 320 x 180 of 4) */
+static int col_w = 160, col_h = 90, col_cell = 8;
+#define MAX_OCC 64
+static short occ_t[MAX_OCC][4];    /* the occluder cells: x0, y0, cell, base_y */
+static int nocc;
+static int fade_in;                /* frames of fade from black after entering an area */
 float pt_x = 640, pt_y = 450;      /* the player's feet, in texels of the picture */
 static float scr_x, scr_y;         /* the scroll, in game units */
 static float yaw = 3.14159265f;
@@ -58,16 +69,17 @@ static int bench_at(float *x, float *y);
 #define SPR_CH 62
 #define SPR_FX 24
 #define SPR_FY 56
-enum { SPR_KENNEY_M, SPR_PLAYER_MESH, SPR_AI, SPR_SIMON, SPR_TEANA, SPR_JONO, SPR_GUARD, SPR_RIVAL, SPR_MAGO, SPR_BAKER, SPR_FARMER, SPR_COUNT };
+enum { SPR_KENNEY_M, SPR_PLAYER_MESH, SPR_AI, SPR_SIMON, SPR_TEANA, SPR_JONO, SPR_GUARD, SPR_RIVAL, SPR_MAGO, SPR_BAKER, SPR_FARMER, SPR_REX, SPR_BAKURA, SPR_COUNT };
 typedef struct { const char *file; int recolour; int nf; unsigned char *kind, *wt, *rgb; int ok; int bank, page; } Spr;
 static Spr spr[SPR_COUNT] = {
     {"assets/spr_kenney_m.bin", 0}, {"assets/spr_player.bin", 1}, {"assets/spr_ai.bin", 0},
     {"assets/spr_simon.bin", 0}, {"assets/spr_teana.bin", 0}, {"assets/spr_jono.bin", 0}, {"assets/spr_guard.bin", 0},
     {"assets/spr_rival.bin", 0}, {"assets/spr_mago_robe.bin", 0}, {"assets/spr_baker.bin", 0}, {"assets/spr_farmer.bin", 0},
+    {"assets/spr_rex.bin", 0}, {"assets/spr_bakura.bin", 0},
 };
 /* Where each sheet lives: bank 13 has eight 256x256 pages. A 7-frame sheet takes two pages, a 5-frame sheet one. Bank 15 is still free. */
-static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15};
-static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3};   /* bank 15: pages 0-3 the DK people, page 4 the bench, page 5 the aura */
+static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15};
+static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7};   /* bank 15: pages 0-3 the DK people, 4 the bench and the hatch, 5 the aura and the torch glow, 6 Rex, 7 the ghost */
 int paint_sprite = 3;               /* 0 3D mesh, 1 Kenney sprite, 2 sprite baked from the player's mesh, 3 painted (AI) sprite, 4 all side by side */
 static int spr_baked[SPR_COUNT];   /* cleared when the painted scene is entered: banks are reloaded then */
 static int face = 0;              /* 0 down, 1 left, 2 right, 3 up */
@@ -108,6 +120,28 @@ static unsigned short rgb555(int r, int g, int b)
     return (unsigned short)(0x8000 | (r >> 3) | (g >> 3) << 5 | (b >> 3) << 10);
 }
 
+/* The ghost's see-through body is baked as a 1-texel dither, but sprites are drawn at 2 texels to a screen pixel with point sampling, so a
+ * 1-texel checker keeps only one parity of texels and the whole body vanishes.  So the dither is redone at the drawn resolution: each aligned 2x2
+ * block takes the average colour of its opaque texels and is kept, whole, where its opacity beats an ordered 2x2 threshold. */
+static void ghost_blocks(uint16_t *bank, int ox, int oy)
+{
+    static const float thr[2][2] = {{0.125f, 0.625f}, {0.875f, 0.375f}};
+    int bx, by, x, y;
+    for (by = 0; by < SPR_CH / 2; by++)
+        for (bx = 0; bx < SPR_CW / 2; bx++) {
+            int n = 0, r = 0, g = 0, b = 0;
+            unsigned short out = 0;
+            for (y = 0; y < 2; y++)
+                for (x = 0; x < 2; x++) {
+                    unsigned short v = bank[(size_t)(oy + by * 2 + y) * 1024 + ox + bx * 2 + x];
+                    if (v) { n++; r += (v & 31); g += (v >> 5) & 31; b += (v >> 10) & 31; }
+                }
+            if (n && n / 4.0f > thr[by & 1][bx & 1]) out = (unsigned short)(0x8000 | (r / n) | (g / n) << 5 | (b / n) << 10);
+            for (y = 0; y < 2; y++)
+                for (x = 0; x < 2; x++) bank[(size_t)(oy + by * 2 + y) * 1024 + ox + bx * 2 + x] = out;
+        }
+}
+
 /* write the colours of one character into its bank pages (outline colour 34,24,30) */
 static void spr_bake(int i, const int pal[5])
 {
@@ -139,6 +173,7 @@ static void spr_bake(int i, const int pal[5])
                     }
                     bank[(size_t)(oy + y) * 1024 + ox + x] = v;
                 }
+            if (strstr(s->file, "bakura")) ghost_blocks(bank, ox, oy);
         }
 }
 
@@ -152,7 +187,7 @@ static int spr_dir_from_yaw(float yw)
     return 3;
 }
 
-static void draw_spr(int i, float tx, float ty, int dir, int frame, float shadow)
+static void draw_spr_lift(int i, float tx, float ty, int dir, int frame, float shadow, float lift)
 {
     Spr *s = &spr[i];
     float sx = tx / TPU - scr_x, sy = ty / TPU - scr_y, wx, wz, z;
@@ -162,9 +197,10 @@ static void draw_spr(int i, float tx, float ty, int dir, int frame, float shadow
     if (shadow > 0) Gfx_Shadow(wx, wz, shadow);
     f = frame < s->nf ? frame : 0;
     page = s->page + (f >= 5); col = f % 5;
-    Gfx_SpriteQuad((int)floorf(sx + 0.5f) - SPR_FX / 2, (int)floorf(sy + 0.5f) - SPR_FY / 2, SPR_CW / 2, SPR_CH / 2, s->bank, page,
+    Gfx_SpriteQuad((int)floorf(sx + 0.5f) - SPR_FX / 2, (int)floorf(sy + 0.5f - lift) - SPR_FY / 2, SPR_CW / 2, SPR_CH / 2, s->bank, page,
                    col * SPR_CW, dir * 64, SPR_CW, SPR_CH, z);
 }
+static void draw_spr(int i, float tx, float ty, int dir, int frame, float shadow) { draw_spr_lift(i, tx, ty, dir, frame, shadow, 0); }
 
 static int spr_frame_of(int i, int moving)
 {
@@ -199,7 +235,7 @@ const char *Paint_ModeName(void)
 
 /* The village people (Journey Mode's chapter 1 cast): a sprite sheet (painted from the character's Forbidden Memories portrait) and the
  * 3D mesh the comparison mode (Z, "3D mesh") still shows. A patrol is a back and forth walk along one axis around the anchor. */
-typedef struct { const char *mesh; int spr; float x, y, yaw; int patrol_axis; float range; float ax, ay; int dirn; int pause; int moving; int gathered; } PNpc;
+typedef struct { const char *mesh; int spr; float x, y, yaw; int patrol_axis; float range; float ax, ay; int dirn; int pause; int moving; int gathered; int area; float hover; } PNpc;
 static PNpc pnpc[] = {
     {"Wizard", SPR_SIMON, 560, 250, 0.5f, 0, 0},              /* Simon Muran, standing */
     {"Ninja_Sand_Female", SPR_TEANA, 300, 392, -0.7f, 2, 36},   /* Teana, a short stroll up and down */
@@ -208,23 +244,36 @@ static PNpc pnpc[] = {
     {"Wizard", SPR_RIVAL, 600, 300, 0.0f, 0, 0},            /* the hooded man (placed by the story at night) */
     {"Worker_Male", SPR_BAKER, 950, 585, 0.0f, 0, 0},           /* Hakim the baker */
     {"Ninja_Sand", SPR_FARMER, 700, 470, 1.5708f, 1, 40},       /* Kemet the farmer, a short stroll */
+    {"Suit_Male", SPR_REX, 1215, 425, 4.7124f, 0, 0},            /* Rex Raptor on the east road (the story places him) */
+    {"Wizard", SPR_BAKURA, 638, 365, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0, AREA_CISTERN, 1.2f},   /* the ghost Bakura on the dais of the cistern: he hovers */
 };
 #define NPN ((int)(sizeof(pnpc) / sizeof(pnpc[0])))
 static int npc_init;
 /* Which journey.json person each villager is (the order of pnpc[]), and the talk state. */
-static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_man", "baker", "farmer"};
+static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_man", "baker", "farmer", "rex", "bakura"};
 #define GUARD 2
 static short guard_home[2] = {652, 168};   /* the bridge_north anchor (set from the table below) */
 static const short guard_aside[2] = {566, 176};   /* he steps aside once the bridge is open */
 /* The symbolic places of journey.json ("anchor") bound to picture texels (the 1280 x 720 painted village). */
-static const struct { const char *name; short x, y; } anchors[] = {
-    {"hero_start", 184, 273}, {"plaza_center", 600, 300}, {"plaza_bench", 500, 292}, {"house_ne_door", 1150, 262},
-    {"teana_stall", 252, 676}, {"bakery_door", 950, 585}, {"bridge_north", 652, 168},
-    {"farmer_field", 700, 470}, {"mago_roof", 1205, 128}, {"notice_sign", 1094, 340},
+static const struct { const char *name; short x, y; unsigned char area; } anchors[] = {
+    {"hero_start", 184, 273, 0}, {"plaza_center", 600, 300, 0}, {"plaza_bench", 500, 292, 0}, {"house_ne_door", 1150, 262, 0},
+    {"teana_stall", 252, 676, 0}, {"bakery_door", 950, 585, 0}, {"bridge_north", 652, 168, 0},
+    {"farmer_field", 700, 470, 0}, {"mago_roof", 1205, 128, 0}, {"notice_sign", 1094, 340, 0},
+    {"mini_pyramid_hatch", 182, 278, 0}, {"hatch_prop", 148, 262, 0}, {"date_palm", 840, 345, 0}, {"river_bank", 480, 114, 0}, {"east_road", 1215, 425, 0}, {"rex_approach", 1128, 432, 0},
+    {"spawn_stairs", 638, 222, 1}, {"exit_stairs", 639, 50, 1}, {"bakura_spot", 638, 365, 1}, {"wall_glyph", 388, 200, 1},
 };
 const char *Paint_AnchorName(int i) { return i >= 0 && i < (int)(sizeof(anchors) / sizeof(anchors[0])) ? anchors[i].name : NULL; }
 static int time_ov = -1;
 int Paint_ForcedTime(void) { return time_ov; }
+int Paint_AnchorArea(const char *name)
+{
+    int i;
+    for (i = 0; name && i < (int)(sizeof(anchors) / sizeof(anchors[0])); i++)
+        if (!strcmp(anchors[i].name, name)) return anchors[i].area;
+    return -1;
+}
+int Paint_Area(void) { return paint_area; }
+int paint_area_now(void) { return paint_area; }
 int Paint_Anchor(const char *name, float *x, float *y)
 {
     int i;
@@ -253,9 +302,25 @@ static int load(void)
     int b;
     if (loaded) return 1;
     if (load_failed) return 0;
-    col = Jm_Slurp("assets/painted_col.bin", &size);
-    d = Jm_Slurp("assets/painted.raw", &size);
+    free(col);
+    col_w = parea[paint_area].cw; col_h = parea[paint_area].ch; col_cell = parea[paint_area].cell;
+    col = Jm_Slurp(parea[paint_area].col, &size);
+    if (col && size < (long)col_w * col_h) { free(col); col = NULL; }
+    d = Jm_Slurp(parea[paint_area].pic, &size);
     if (!col || !d || size < 8 + (long)PB_BANKS * 1024 * 512 * 2) { LOG("painted: assets missing"); load_failed = 1; return 0; }
+    nocc = 0;
+    if (parea[paint_area].occ) {
+        long osz;
+        unsigned char *o = Jm_Slurp(parea[paint_area].occ, &osz);
+        int n = o && osz >= 2 ? o[0] | o[1] << 8 : 0, i;
+        if (n > MAX_OCC || osz < 2 + 8L * n) n = 0;
+        for (i = 0; i < n; i++) for (b = 0; b < 4; b++) occ_t[i][b] = (short)(o[2 + i * 8 + b * 2] | o[3 + i * 8 + b * 2] << 8);
+        nocc = n;
+        free(o);
+    } else {
+        for (b = 0; b < PB_OCC; b++) { occ_t[b][0] = pb_occ[b][0]; occ_t[b][1] = pb_occ[b][1]; occ_t[b][2] = pb_occ[b][2]; occ_t[b][3] = pb_occ[b][3]; }
+        nocc = PB_OCC;
+    }
     for (b = 0; b < PB_BANKS; b++) {
         uint16_t *bank = SoftGpu_Bank(PB_BANK0 + b);
         if (!bank) { LOG("painted: no bank %d", PB_BANK0 + b); load_failed = 1; return 0; }
@@ -265,7 +330,7 @@ static int load(void)
     free(d);
     wframes = wn = 0;
     memset(wslot, -1, sizeof(wslot));
-    d = Jm_Slurp("assets/painted_water.raw", &size);
+    d = paint_area == AREA_VILLAGE ? Jm_Slurp("assets/painted_water.raw", &size) : NULL;
     if (d && size >= 4) {
         int nf = d[0] | d[1] << 8, nc = d[2] | d[3] << 8, k, nb;
         long need = 4 + 2L * nc + (long)nf * nc * 128 * 128 * 2;
@@ -288,7 +353,7 @@ static int load(void)
         free(d);
     }
     npalm = pframes = 0;
-    d = Jm_Slurp("assets/painted_palms.raw", &size);
+    d = paint_area == AREA_VILLAGE ? Jm_Slurp("assets/painted_palms.raw", &size) : NULL;
     if (d && size >= 8) {
         int nf = d[0] | d[1] << 8, np = d[2] | d[3] << 8, nc = d[4] | d[5] << 8, i, k, ok = (nf == 5 && np <= MAXPALM);
         const unsigned char *p = d + 8;
@@ -321,7 +386,7 @@ static int load(void)
     }
     props_load();
     loaded = 1;
-    LOG("painted: %dx%d picture, %d banks, %d occluder cells", PB_W, PB_H, PB_BANKS, PB_OCC);
+    LOG("painted: %s, %dx%d picture, %d banks, %d occluder cells", parea[paint_area].name, PB_W, PB_H, PB_BANKS, nocc);
     return 1;
 }
 
@@ -351,15 +416,17 @@ static void mini_build(const unsigned char *banks)
 
 static int blocked_at(float x, float y)
 {
-    int cx = (int)(x / 8), cy = (int)(y / 8);
-    if (cx < 0 || cy < 0 || cx >= 160 || cy >= 90) return 1;
-    return col[cy * 160 + cx];
+    int cx = (int)(x / col_cell), cy = (int)(y / col_cell);
+    if (x < 0 || y < 0 || cx >= col_w || cy >= col_h) return 1;
+    return col[cy * col_w + cx];
 }
 static int blocked(float x, float y)
 {
-    if (guard_block && x >= EXIT_X0 && x <= EXIT_X1 && y >= 96 && y <= 150) return 1;   /* the Guard's bar across the bridge */
-    {   float bx, by;      /* the stone bench is a wall the width of its seat */
-        if (bench_at(&bx, &by) && x >= bx - 37 && x <= bx + 37 && y >= by - 9 && y <= by + 2 && !sitting) return 1;
+    if (paint_area == AREA_VILLAGE) {
+        if (guard_block && x >= EXIT_X0 && x <= EXIT_X1 && y >= 96 && y <= 150) return 1;   /* the Guard's bar across the bridge */
+        {   float bx, by;      /* the stone bench is a wall the width of its seat */
+            if (bench_at(&bx, &by) && x >= bx - 37 && x <= bx + 37 && y >= by - 9 && y <= by + 2 && !sitting) return 1;
+        }
     }
     return blocked_at(x - 5, y) || blocked_at(x + 5, y) || blocked_at(x, y - 3) || blocked_at(x, y + 2);
 }
@@ -395,7 +462,7 @@ static int ow_of(int i)
 }
 /* at night the villagers who live in the picture's houses are indoors (Teana, Jono, Hakim, Kemet): the plaza is empty for the hooded man */
 static int night_away(int i) { return night_t > 0.6f && (i == 1 || i == 3 || i == 5 || i == 6); }
-static int npc_here(int i) { int k = ow_of(i); return k >= 0 && !npcs[k].hidden && !night_away(i); }
+static int npc_here(int i) { int k = ow_of(i); return k >= 0 && pnpc[i].area == paint_area && !npcs[k].hidden && !night_away(i); }
 /* the bridge is open: journey.json's "painted": {"bridge_open": cond} holds (without it: the Guard has been moved) */
 static int npc_moved(int i);
 static int bridge_open(void)
@@ -431,6 +498,7 @@ static void npcs_update(void)
             float ax, ay;
             if (k >= 0 && Paint_Anchor(npcs[k].anchor, &ax, &ay)) { n->x = n->ax = ax; n->y = n->ay = ay; if (i == GUARD) { guard_home[0] = (short)ax; guard_home[1] = (short)ay; } }
         }
+        if (n->area != paint_area) continue;
         if (i == GUARD) {   /* the Guard bars the bridge until the story opens it; then he steps aside */
             int mv = bridge_open();
             float gx = mv ? guard_aside[0] : guard_home[0], gy = mv ? guard_aside[1] : guard_home[1];
@@ -467,7 +535,8 @@ static void npcs_update(void)
 #define NIGHT_B 138
 #define GLITCH_FRAMES 48
 static int bench_w, bench_h, aura_w, aura_h, obs_age;
-static int prop_blit(const char *file, int page, int *w, int *h)
+static int hatch_w, hatch_h, glow_w, glow_h;
+static int prop_blit(const char *file, int page, int ox, int oy, int *w, int *h)
 {
     long size;
     unsigned char *d = Jm_Slurp(file, &size);
@@ -475,30 +544,69 @@ static int prop_blit(const char *file, int page, int *w, int *h)
     int pw, ph, y;
     if (!d || !bank || size < 4) { free(d); return 0; }
     pw = d[0] | d[1] << 8; ph = d[2] | d[3] << 8;
-    if (pw < 1 || ph < 1 || pw > 256 || ph > 256 || size < 4 + 2L * pw * ph) { free(d); return 0; }
+    if (pw < 1 || ph < 1 || ox + pw > 255 || oy + ph > 256 || size < 4 + 2L * pw * ph) { free(d); return 0; }
     for (y = 0; y < ph; y++)
-        memcpy(bank + (size_t)((page >> 2) * 256 + y) * 1024 + (page & 3) * 256, d + 4 + (size_t)y * pw * 2, (size_t)pw * 2);
+        memcpy(bank + (size_t)((page >> 2) * 256 + oy + y) * 1024 + (page & 3) * 256 + ox, d + 4 + (size_t)y * pw * 2, (size_t)pw * 2);
     *w = pw; *h = ph;
     free(d);
     return 1;
 }
 static void props_load(void)
 {
-    bench_w = bench_h = aura_w = aura_h = 0;
-    prop_blit("assets/prop_bench.raw", 4, &bench_w, &bench_h);
-    prop_blit("assets/prop_aura.raw", 5, &aura_w, &aura_h);
+    bench_w = bench_h = aura_w = aura_h = hatch_w = hatch_h = glow_w = glow_h = 0;
+    prop_blit("assets/prop_bench.raw", 4, 0, 0, &bench_w, &bench_h);
+    prop_blit("assets/prop_aura.raw", 5, 0, 0, &aura_w, &aura_h);
+    prop_blit("assets/prop_hatch_closed.raw", 4, 0, 48, &hatch_w, &hatch_h);          /* page 4: the bench on top, the two hatches below it */
+    prop_blit("assets/prop_hatch_open.raw", 4, 56, 48, &hatch_w, &hatch_h);
+    prop_blit("assets/prop_torch_glow.raw", 5, 130, 0, &glow_w, &glow_h);              /* page 5: the aura (128 wide), the torch glow beside it */
 }
 static const JsonNode *objects(void) { return Json_Get(jm_rules, "objects"); }
-static int bench_at(float *x, float *y)
+/* the object that shows a prop of this kind in the current area ("prop": "bench" | "hatch"); its position is "prop_anchor" or "anchor" */
+static const JsonNode *prop_object(const char *kind, float *x, float *y)
 {
     const JsonNode *o = objects(), *n;
     for (n = o ? o->child : NULL; n; n = n->next)
-        if (!strcmp(Json_Str(n, "prop", ""), "bench") && Paint_Anchor(Json_Str(n, "anchor", ""), x, y)) return bench_w > 0;
-    return 0;
+        if (!strcmp(Json_Str(n, "prop", ""), kind) && Paint_AnchorArea(Json_Str(n, "anchor", "")) == paint_area
+            && Paint_Anchor(Json_Str(n, "prop_anchor", Json_Str(n, "anchor", "")), x, y)) return n;
+    return NULL;
+}
+static int bench_at(float *x, float *y) { return prop_object("bench", x, y) && bench_w > 0; }
+/* the hatch of the little pyramid: shut until the object's "open_when" holds */
+static void draw_hatch(void)
+{
+    float hx, hy, sx, sy, wx, wz, z;
+    const JsonNode *o = prop_object("hatch", &hx, &hy);
+    int w, h, open;
+    if (!o || hatch_w <= 0) return;
+    sx = hx / TPU - scr_x; sy = hy / TPU - scr_y;
+    if (sx < -60 || sx > VIEW_W + 60 || sy < -20 || sy > VIEW_H + 40) return;
+    open = Json_Get(o, "open_when") ? Story_Cond(Json_Get(o, "open_when")) : 0;
+    unproject(sx, sy, &wx, &wz, &z);
+    w = hatch_w / 2; h = hatch_h / 2;      /* drawn smaller than painted: the little pyramid's face is 45 texels wide */
+    Gfx_SpriteQuad((int)floorf(sx + 0.5f) - w / 2, (int)floorf(sy + 0.5f) - h + 2, w, h, 15, 4, open ? 56 : 0, 48, hatch_w, hatch_h, z);
+}
+/* the wall torches of the cistern: a flickering orange glow added over each flame of the picture */
+static void draw_torches(void)
+{
+    static const short torch[8][2] = {{271, 125}, {516, 125}, {759, 125}, {965, 125}, {121, 206}, {1155, 206}, {25, 469}, {1250, 469}};
+    int i;
+    if (paint_area != AREA_CISTERN || glow_w <= 0) return;
+    for (i = 0; i < 8; i++) {
+        float sx = torch[i][0] / (float)TPU - scr_x, sy = torch[i][1] / (float)TPU - scr_y, f;
+        int g, sz;
+        unsigned char c[3];
+        if (sx < -40 || sx > VIEW_W + 40 || sy < -40 || sy > VIEW_H + 40) continue;
+        f = 0.62f + 0.22f * sinf((float)gfx_frame * 0.21f + i * 2.1f) + 0.16f * sinf((float)gfx_frame * 0.53f + i * 5.3f);
+        g = (int)(f * 120.0f);
+        c[0] = (unsigned char)g; c[1] = (unsigned char)(g * 62 / 100); c[2] = (unsigned char)(g * 22 / 100);
+        sz = 40 + (int)(6.0f * f);
+        Gfx_SpriteQuadEx((int)floorf(sx + 0.5f) - sz / 2, (int)floorf(sy + 0.5f) - sz / 2 - 4, sz, sz, 15, 5, 130, 0, glow_w, glow_h, 100000.0f, c, 1);
+    }
 }
 static int night_cond(void)
 {
     const JsonNode *po = Json_Get(jm_rules, "painted"), *c = po ? Json_Get(po, "night") : NULL;
+    if (paint_area != AREA_VILLAGE) return 0;       /* underground: no day or night */
     if (time_ov >= 0) return time_ov;
     return c && Story_Cond(c);
 }
@@ -510,6 +618,11 @@ static void night_step(void)
     gfx_tint[0] = (unsigned char)(128 + (NIGHT_R - 128) * night_t);
     gfx_tint[1] = (unsigned char)(128 + (NIGHT_G - 128) * night_t);
     gfx_tint[2] = (unsigned char)(128 + (NIGHT_B - 128) * night_t);
+    if (fade_in > 0) {      /* a fade in from black after the player goes through a hatch or up stairs */
+        int f = 128 - fade_in * 128 / 30;
+        gfx_tint[0] = (unsigned char)(gfx_tint[0] * f / 128); gfx_tint[1] = (unsigned char)(gfx_tint[1] * f / 128); gfx_tint[2] = (unsigned char)(gfx_tint[2] * f / 128);
+        fade_in--;
+    }
 }
 int Paint_IsNight(void) { return night_t > 0.5f; }
 
@@ -546,6 +659,41 @@ static void draw_bench(void)
     Gfx_SpriteQuad((int)floorf(sx + 0.5f) - w / 2, (int)floorf(sy + 0.5f) - h + 2, w, h, 15, 4, 0, 0, bench_w, bench_h, z);
 }
 
+/* The glyph observer (Mago.dev's writing on the cistern wall): rows of green characters that flicker on and off over the carved panel,
+ * with the aura's glow behind them; when the page ends they tear apart and go (obs_glitch). */
+static void draw_glyph(float ax, float ay)
+{
+    int row, colm, vis = obs_on || obs_glitch > 0, step = (int)(gfx_frame / 3);
+    float px0 = (ax - 78) / TPU - scr_x, py0 = (ay - 138) / TPU - scr_y;     /* the panel is above the floor spot the anchor names */
+    unsigned char c[3];
+    int pulse = (int)(95 + 35 * sinf((float)gfx_frame * 0.14f));
+    if (!vis) return;
+    if (obs_on) obs_age++;
+    else if (obs_glitch > 0) obs_glitch--;
+    if (aura_w > 0) {
+        int aw = 84 + (obs_on ? 0 : (obs_glitch % 5 - 2) * 5);
+        c[0] = (unsigned char)(pulse / 3); c[1] = (unsigned char)pulse; c[2] = (unsigned char)(pulse / 3);
+        Gfx_SpriteQuadEx((int)floorf(px0 + 39) - aw / 2, (int)floorf(py0 + 27) - aw / 2 + 4, aw, aw * 3 / 4, 15, 5, 0, 0, aura_w, aura_h, 300.0f, c, 1);
+    }
+    for (row = 0; row < 6; row++)
+        for (colm = 0; colm < 13; colm++) {
+            unsigned h = (unsigned)(row * 131 + colm * 31 + (unsigned)(step + row * 7) * 2654435761u >> 13) * 2246822519u >> 11;
+            int lit, g;
+            float x, y;
+            unsigned char cc[3][3];
+            if (!obs_on && ((h + (unsigned)obs_glitch) % 3)) continue;     /* tearing away: fewer and fewer characters */
+            if (obs_on && obs_age < 30 && (h % 4) > (unsigned)(obs_age / 8)) continue;   /* appearing: they come in one by one */
+            lit = (h >> 3) % 5;
+            if (lit == 0) continue;
+            g = 150 + lit * 25;
+            x = px0 + colm * 6.0f + (row & 1) * 2.0f; y = py0 + row * 9.0f;
+            cc[0][0] = cc[1][0] = cc[2][0] = (unsigned char)(g / 4); cc[0][1] = cc[1][1] = cc[2][1] = (unsigned char)(g > 255 ? 255 : g); cc[0][2] = cc[1][2] = cc[2][2] = (unsigned char)(g / 3);
+            Gfx_SceneTri(x, y, x + 3.5f, y, x, y + 6.0f - (h & 2), cc, 0.7f);                 /* a "character": a notch and a bar, or a block */
+            if (h & 1) Gfx_SceneTri(x + 3.5f, y, x + 3.5f, y + 6.0f, x, y + 6.0f - (h & 2), cc, 0.7f);
+            if (h & 4) Gfx_SceneTri(x - 1.0f, y + 3.0f, x + 5.0f, y + 3.0f, x + 2.0f, y + 4.5f, cc, 0.69f);
+        }
+}
+
 /* Mago.dev on the roof: the robe sprite in front of everything (it stands on the roof, the house cutout must not hide it), the
  * green aura behind it, and a glitch (flicker, torn halves) when he comes and goes. */
 static void draw_observer(void)
@@ -553,9 +701,11 @@ static void draw_observer(void)
     float ax, ay, sx, sy, t = (float)gfx_frame;
     int vis = 1, jx = 0, x0, y0, pulse, aw, ah;
     unsigned char c[3];
-    if ((!obs_on && obs_glitch <= 0) || !obs_cfg || !spr[SPR_MAGO].ok) return;
+    if ((!obs_on && obs_glitch <= 0) || !obs_cfg) return;
     if (!Paint_Anchor(Json_Str(obs_cfg, "anchor", "mago_roof"), &ax, &ay)) return;
     sx = ax / TPU - scr_x; sy = ay / TPU - scr_y;
+    if (Json_Get(obs_cfg, "glyph")) { draw_glyph(ax, ay); return; }       /* no figure: only his writing on the wall */
+    if (!spr[SPR_MAGO].ok) return;
     if (obs_on) { obs_age++; vis = obs_age > 30 || ((obs_age / 2) & 1); if (obs_age <= 30) jx = ((obs_age * 7) % 5 - 2) * 2; }
     else { int g = obs_glitch--; vis = g > 42 || ((g * 37 >> 3) & 1); jx = ((g * 13) % 7 - 3) * 3; }
     x0 = (int)floorf(sx + 0.5f) - SPR_CW / 4; y0 = (int)floorf(sy + 0.5f) - SPR_FY / 2;
@@ -604,7 +754,7 @@ int Paint_NearObject(void)
     float bd = 1e9f;
     for (n = o ? o->child : NULL; n; n = n->next, i++) {
         float ax, ay, dx, dy, d, r = (float)Json_Num(n, "reach", OBJ_REACH);
-        if (!Paint_Anchor(Json_Str(n, "anchor", ""), &ax, &ay)) continue;
+        if (!Paint_Anchor(Json_Str(n, "anchor", ""), &ax, &ay) || Paint_AnchorArea(Json_Str(n, "anchor", "")) != paint_area) continue;
         dx = pt_x - ax; dy = (pt_y - ay) * 1.4f; d = dx * dx + dy * dy;
         if (d < r * r && d < bd) { bd = d; best = i; }
     }
@@ -660,11 +810,17 @@ int Paint_Tick(unsigned short pad, unsigned short edge)
             if (!blocked(pt_x, ny) && (in || !npc_body(pt_x, ny))) pt_y = ny;
         }
     }
-    if (pt_y < EXIT_Y && pt_x > EXIT_X0 && pt_x < EXIT_X1) { paint_exit = 1; return 1; }   /* across the bridge */
+    if (paint_area == AREA_VILLAGE && pt_y < EXIT_Y && pt_x > EXIT_X0 && pt_x < EXIT_X1) { paint_exit = 1; return 1; }   /* across the bridge */
     npcs_update();
     return 0;
 }
 
+static void Paint_Enter_Scroll(void)
+{
+    float mx = PB_W / TPU - VIEW_W, my = PB_H / TPU - VIEW_H;
+    scr_x = pt_x / TPU - VIEW_W / 2.0f; scr_y = pt_y / TPU - VIEW_H * 0.58f;
+    scr_x = scr_x < 0 ? 0 : scr_x > mx ? mx : scr_x; scr_y = scr_y < 0 ? 0 : scr_y > my ? my : scr_y;
+}
 void Paint_Enter(void) { loaded = 0; sitting = 0; obs_on = obs_glitch = 0; memset(spr_baked, 0, sizeof(spr_baked)); load();   /* banks 1-12 are also the 3D Monsters' (duels), so load again each time */
     night_target = night_t = night_cond() ? 1.0f : 0.0f; night_step();
     scr_x = pt_x / TPU - VIEW_W / 2.0f; scr_y = pt_y / TPU - VIEW_H * 0.58f;
@@ -672,8 +828,41 @@ void Paint_Enter(void) { loaded = 0; sitting = 0; obs_on = obs_glitch = 0; memse
       scr_x = scr_x < 0 ? 0 : scr_x > mx ? mx : scr_x; scr_y = scr_y < 0 ? 0 : scr_y > my ? my : scr_y; } }
 
 int Paint_Loaded(void) { return loaded; }
-void Paint_Info(float *x, float *y, float *sx, float *sy) { *x = pt_x; *y = pt_y; *sx = scr_x; *sy = scr_y; }
+/* where the player is, for the save: in the cistern the save keeps the village's hatch (Continue starts in the village) */
+void Paint_Info(float *x, float *y, float *sx, float *sy)
+{
+    *sx = scr_x; *sy = scr_y;
+    if (paint_area != AREA_VILLAGE && Paint_Anchor("mini_pyramid_hatch", x, y)) return;
+    *x = pt_x; *y = pt_y;
+}
 void Paint_Set(float x, float y) { pt_x = x; pt_y = y; }
+/* go to a named place, which may be in the other area: the pictures are loaded again, with a fade in */
+void Paint_Warp(const char *area_name, const char *anchor)
+{
+    float x, y;
+    int a = -1, i;
+    for (i = 0; i < AREA_COUNT; i++) if (area_name && !strcmp(parea[i].name, area_name)) a = i;
+    if (a < 0) a = Paint_AnchorArea(anchor);
+    if (a < 0 || !Paint_Anchor(anchor, &x, &y)) { LOG("painted: no place %s", anchor ? anchor : "?"); return; }
+    memset(ptalk, 0, sizeof(ptalk));
+    pt_x = x; pt_y = y; face = 0; walking = 0;
+    if (a != paint_area) { paint_area = a; Paint_Enter(); fade_in = 30; }
+    else Paint_Enter_Scroll();
+    LOG("painted: now in the %s at %d,%d", parea[paint_area].name, (int)x, (int)y);
+}
+/* a named place, whichever area it is in (the debug aid): the area changes with it */
+void Paint_GoAnchor(const char *anchor)
+{
+    float x, y;
+    int a = Paint_AnchorArea(anchor);
+    if (a < 0 || !Paint_Anchor(anchor, &x, &y)) return;
+    if (a != paint_area) {
+        paint_area = a;
+        if (loaded) Paint_Enter();
+    }
+    pt_x = x; pt_y = y;
+    if (loaded) Paint_Enter_Scroll();
+}
 
 void Paint_Draw(const Mesh *body, const int body_rgb[5])
 {
@@ -715,24 +904,26 @@ void Paint_Draw(const Mesh *body, const int body_rgb[5])
     }
     if (paint_view == 1) return;
     if (paint_view == 0) {
-        for (i = 0; i < PB_OCC; i++) {
-            int n = pb_occ[i][2], b = n / 32, k = n % 32;
-            int x0 = pb_occ[i][0] / TPU - ox, y0 = pb_occ[i][1] / TPU - oy, w = PB_STRIDE / TPU;
+        for (i = 0; i < nocc; i++) {
+            int n = occ_t[i][2], b = n / 32, k = n % 32;
+            int x0 = occ_t[i][0] / TPU - ox, y0 = occ_t[i][1] / TPU - oy, w = PB_STRIDE / TPU;
             float sx[4] = {(float)x0, (float)(x0 + w), (float)x0, (float)(x0 + w)};
             float sy[4] = {(float)y0, (float)y0, (float)(y0 + w), (float)(y0 + w)};
             float wx, wz, z;
             if (x0 > VIEW_W + 60 || x0 + w < -60 || y0 > VIEW_H || y0 + w < 0) continue;
-            unproject(0, pb_occ[i][3] / (float)TPU - oy, &wx, &wz, &z);
+            unproject(0, occ_t[i][3] / (float)TPU - oy, &wx, &wz, &z);
             Gfx_BankQuad(sx, sy, PB_BANK0 + b, (k % 8) * 128, (k / 8) * 128, PB_STRIDE, PB_STRIDE, z);
         }
     }
     sprites_prepare(body_rgb);
     draw_bench();
+    draw_hatch();
+    draw_torches();
     for (i = 0; i < NPN; i++) {
         int sp;
         if (!npc_here(i)) continue;
         sp = paint_sprite ? pnpc[i].spr : -1;   /* every look but "3D mesh" shows the people as sprites */
-        if (sp >= 0 && spr[sp].ok) draw_spr(sp, pnpc[i].x, pnpc[i].y, spr_dir_from_yaw(pnpc[i].yaw), spr_frame_of(sp, pnpc[i].moving), 20);
+        if (sp >= 0 && spr[sp].ok) draw_spr_lift(sp, pnpc[i].x, pnpc[i].y, spr_dir_from_yaw(pnpc[i].yaw), spr_frame_of(sp, pnpc[i].moving), 20, pnpc[i].hover * sinf((float)gfx_frame * 0.07f));
         else draw_char(Gfx_Mesh(pnpc[i].mesh), pnpc[i].x, pnpc[i].y, pnpc[i].yaw, 0, NULL, 20);
     }
     {
@@ -802,7 +993,7 @@ int Paint_Target(float *tx, float *ty)
         const char *id = Json_Str(n, "npc", NULL);
         const char *an = Json_Str(n, "anchor", NULL);
         if (!Story_Cond(Json_Get(n, "when"))) continue;
-        if (an) { if (Paint_Anchor(an, tx, ty)) return 1; continue; }
+        if (an) { if (Paint_AnchorArea(an) == paint_area && Paint_Anchor(an, tx, ty)) return 1; continue; }   /* an anchor in another area: the next rule */
         if (id) {
             int i;
             for (i = 0; i < NPN; i++)

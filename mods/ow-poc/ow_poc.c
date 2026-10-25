@@ -80,11 +80,13 @@ extern void Paint_TalkStart(int ow);
 extern void Paint_TalkEnd(void);
 extern int Paint_Target(float *tx, float *ty);
 extern void Paint_MiniMap(int x, int y, int c, int s);
-extern int paint_exit, paint_markers;
+extern int paint_exit, paint_markers, paint_area;
 extern int Paint_IsNight(void);
 extern void Paint_PageEvent(const char *script, int page);
 extern void Paint_SceneEnd(void);
 extern int Paint_NearObject(void);
+extern int Paint_Area(void);
+extern void Paint_Warp(const char *area, const char *anchor);
 extern int Paint_ObjectRule(int i, Talk *t);
 extern void Paint_ObjectStart(int i, const char *pose);
 static int in_paint_flow;                  /* a conversation (or the duel it leads to) began in the painted village: it returns there */
@@ -131,6 +133,7 @@ static void open_page(void)
     p.name = name;
     cur_kind = p.kind;
     notif_age = 0;
+    LOG("journey: page %s %d kind %d", scene_id, scene_idx, p.kind);
     cur_name = (!p.kind && strcmp(p.who, "narrator")) ? name : NULL;
     if (p.kind) {                          /* not speech: a banner of its own, with a sound */
         Story_Expand(p.text, notif_text, sizeof(notif_text));
@@ -170,9 +173,17 @@ static void apply_warp(void)
     area = -1;
 }
 
+static void apply_pwarp(void)
+{
+    if (!jm_pwarp) return;
+    jm_pwarp = 0;
+    if (Paint_Loaded()) Paint_Warp(jm_pwarp_area, jm_pwarp_anchor);
+    area = -1;
+}
+
 static void end_scene(void)
 {
-    int had_effects = scene_effects != NULL;
+    int had_effects = scene_effects != NULL && !Json_Get(scene_effects, "warp");      /* a walk through the hatch alone is not progress to save */
     Say_Close();
     portrait_x = -1;
     cooldown = 20;
@@ -197,6 +208,7 @@ static void end_scene(void)
     }
     scene_intro = scene_result = 0;
     if (in_paint_flow) { in_paint_flow = 0; Paint_TalkEnd(); }
+    apply_pwarp();
 }
 
 /* ------------------------------------------------------------------- duel */
@@ -288,16 +300,22 @@ static int track_cfg(const char *key)
     return (int)Json_Num(mu, key, -1);
 }
 
+/* the place name of the HUD and the banner: the painted areas have their own (ui.json "painted"), else the old map's */
+static const char *place_name(void)
+{
+    return painted_ctx() && Paint_Area() == 1 ? Tr("painted.cistern") : World_AreaName(area < 0 ? 0 : area);
+}
+
 static void music_tick(void)
 {
     int a = World_Area(jm.x, jm.z), pc = painted_ctx();
     if (pc != pm_ctx) { pm_ctx = pc; area = -1; pm_cur = -1; pm_timer = 0; }     /* into or out of the painted village: its own song */
     if (pc && track_cfg("day") >= 0) {
-        int want = track_cfg(Paint_IsNight() && track_cfg("night") >= 0 ? "night" : "day");
+        int want = Paint_Area() == 1 && track_cfg("cistern") >= 0 ? track_cfg("cistern") : track_cfg(Paint_IsNight() && track_cfg("night") >= 0 ? "night" : "day");
         if (area < 0) { area = area_cand = a; area_banner = 150; area_timer = 0; pm_cur = -1; pm_timer = 0; }
-        if (pm_cur < 0) { SD_BGMPlay(0x7000 + (u32)want * 0x10); pm_cur = want; LOG("journey: music %d (%s)", want, want == track_cfg("night") ? "night" : "day"); }
+        if (pm_cur < 0) { SD_BGMPlay(0x7000 + (u32)want * 0x10); pm_cur = want; LOG("journey: music %d (%s)", want, Paint_Area() == 1 ? "cistern" : want == track_cfg("night") ? "night" : "day"); }
         else if (want != pm_cur && !pm_timer) { SD_BGMFadeOut(); pm_timer = 45; pm_cur = want; }
-        if (pm_timer && --pm_timer == 0) { SD_BGMPlay(0x7000 + (u32)pm_cur * 0x10); LOG("journey: music %d (%s)", pm_cur, pm_cur == track_cfg("night") ? "night" : "day"); }
+        if (pm_timer && --pm_timer == 0) { SD_BGMPlay(0x7000 + (u32)pm_cur * 0x10); LOG("journey: music %d (%s)", pm_cur, Paint_Area() == 1 ? "cistern" : pm_cur == track_cfg("night") ? "night" : "day"); }
         if (area_banner > 0) area_banner--;
         return;
     }
@@ -384,6 +402,7 @@ static void go_screen(int mode, int ret)
 static void new_journey(void)
 {
     Story_Reset();
+    paint_area = 0;
     ensure_deck();
     World_Spawn(&jm.x, &jm.z);
     cam_x = jm.x;
@@ -408,6 +427,7 @@ static void continue_journey(void)
 {
     if (!Save_Read()) { new_journey(); return; }
     Lang_Set(jm.lang);
+    paint_area = 0;                        /* a save keeps the hatch (the village) even if it was made in the cistern */
     Dbg_Apply();
     Story_Regrant();
     ensure_deck();
@@ -487,6 +507,17 @@ static void run(int first)
         music_tick();
         if (edge & PAD_SELECT) minimap_on ^= 1;
         if (edge & PAD_TRIANGLE) { state = ST_JOURNAL; break; }
+        if (!cooldown) {                       /* a state of the story that starts a scene by itself (the three stamps) */
+            Talk at;
+            if (Story_Auto(&at)) {
+                Paint_TalkStart(-1);
+                in_paint_flow = 1;
+                start_talk(&at);
+                if (state == ST_SCENE) { scene_then = at.then; scene_result = 1; }
+                else { in_paint_flow = 0; Paint_TalkEnd(); state = ST_PAINT; }
+                break;
+            }
+        }
         if (!cooldown && (edge & PAD_CROSS)) {
             int n = Paint_NearNpc(), o;
             Talk t;
@@ -703,18 +734,23 @@ static void region(int *tx0, int *tz0, int *tx1, int *tz1)
     }
 }
 
-/* The quest journal: journey.json "journal" lists the quests with the conditions that open them and close them; their texts are the
- * language file's quest_titles / quest_objectives / quest_rewards (same order). */
+/* The quest journal: journey.json "journal" lists the quests with the conditions that open them ("active") and close them ("done"); the
+ * texts are the language file's quest_titles / quest_objectives / quest_rewards (one per quest) and quest_steps (the "text" of a line).
+ * A line may carry "active" (shown only then) and the quest "hide_done" (finished lines go away): a quest then shows only what is open now.
+ * Six quests must fit one screen: open quests first with their lines, the rewards only while two or fewer are open, finished ones compact. */
+static int wrap_lines(const char *text, int maxw, int s, char lines[][100], int max);
 static void journal_overlay(int w, int h, int s, int lh, int top, int vis)
 {
     const JsonNode *list = Json_Get(jm_rules, "journal"), *q;
-    int x = w / 8, y = top + lh * 2, pw = w * 3 / 4, qi = 0, pass, shown = 0;
+    int x = w / 10, y = top + lh, pw = w * 4 / 5, qi = 0, pass, shown = 0, nopen = 0, bottom = top + vis - lh * 4 - lh / 2, dl = lh * 3 / 4;
     char line[160];
     (void)h;
+    for (q = list ? list->child : NULL; q; q = q->next)
+        if (Story_Cond(Json_Get(q, "active")) && !(Json_Get(q, "done") && Story_Cond(Json_Get(q, "done")))) nopen++;
     jm_host->fill(jm_host, 0, 0, w, h, 0x000000, 150);
-    jm_host->fill(jm_host, x - 8, top + lh / 2, pw + 16, vis - lh, 0x0C0E2C, 230);
+    jm_host->fill(jm_host, x - 8, top + lh / 4, pw + 16, vis - lh / 2, 0x0C0E2C, 230);
     jm_host->draw_text(jm_host, x + 4 * s, y, Tr("journal.heading"), 0xFFE9A0, s + 1);
-    y += lh * 2;
+    y += lh * 3 / 2;
     for (pass = 0; pass < 2; pass++) {      /* the open quests first, then the finished ones */
         qi = 0;
         for (q = list ? list->child : NULL; q; q = q->next, qi++) {
@@ -723,38 +759,45 @@ static void journal_overlay(int w, int h, int s, int lh, int top, int vis)
             if (!Story_Cond(Json_Get(q, "active")) || done != pass) continue;
             snprintf(line, sizeof(line), "%s %s", done ? "[x]" : "[ ]", TrAt("quest_titles", qi, "?"));
             jm_host->draw_text(jm_host, x + 4 * s, y, line, done ? 0x80C080 : 0x40E0E0, s);
-            y += lh;
+            y += done ? dl : lh;
             if (!done) {
-                int k = 0, any_line = 0;
+                int k = 0, any_line = 0, hide = Json_Get(q, "hide_done") != NULL;
                 for (l = Json_Get(q, "lines") ? Json_Get(q, "lines")->child : NULL; l; l = l->next, k++) {
                     const char *who = Json_Str(l, "npc", NULL);
                     int ldone = Json_Get(l, "done") && Story_Cond(Json_Get(l, "done"));
                     int ni, ti = (int)Json_Num(l, "text", -1);
                     const char *nm = who ? who : (ti >= 0 ? TrAt("quest_steps", ti, "") : "");
+                    if (Json_Get(l, "active") && !Story_Cond(Json_Get(l, "active"))) continue;
+                    if (hide && ldone) continue;
                     for (ni = 0; who && ni < npc_count; ni++) if (!strcmp(npcs[ni].id, who)) nm = npc_name(ni);
                     snprintf(line, sizeof(line), "%s %s", ldone ? "[x]" : "[ ]", nm);
                     jm_host->draw_text(jm_host, x + 20 * s, y, line, ldone ? 0x80C080 : 0xFFFFFF, s);
                     y += lh; any_line = 1;
                 }
-                if (!any_line) { jm_host->draw_text(jm_host, x + 20 * s, y, TrAt("quest_objectives", qi, ""), 0xFFFFFF, s); y += lh; }
-                snprintf(line, sizeof(line), "%s %s", Tr("journal.reward"), TrAt("quest_rewards", qi, ""));
-                jm_host->draw_text(jm_host, x + 20 * s, y, line, 0xC0C090, s);
-                y += lh;
+                if (!any_line && Json_Get(q, "lines") == NULL) { jm_host->draw_text(jm_host, x + 20 * s, y, TrAt("quest_objectives", qi, ""), 0xFFFFFF, s); y += lh; }
+                else if (!any_line && Json_Get(q, "lines") && Json_Count(Json_Get(q, "lines")) == 0) { jm_host->draw_text(jm_host, x + 20 * s, y, TrAt("quest_objectives", qi, ""), 0xFFFFFF, s); y += lh; }
+                if (nopen <= 2) {
+                    snprintf(line, sizeof(line), "%s %s", Tr("journal.reward"), TrAt("quest_rewards", qi, ""));
+                    jm_host->draw_text(jm_host, x + 20 * s, y, line, 0xC0C090, s);
+                    y += lh;
+                }
             }
-            y += lh / 2;
+            y += done ? 0 : lh / 4;
             shown++;
         }
     }
+    (void)bottom;
     if (!shown) jm_host->draw_text(jm_host, x + 4 * s, y, Tr("journal.empty"), 0xB0B0B0, s);
-    {   /* the backpack: the Stamp Card with its three slots, and the other items */
-        char names[8][32];
-        int n = Story_ItemList(names, 8), k;
+    {   /* the backpack: the Stamp Card with its three slots, and the other items (wrapped over two lines) */
+        char names[12][32], rows[3][100];
+        int n = Story_ItemList(names, 12), k, nr;
         line[0] = 0;
         for (k = 0; k < n; k++) { strncat(line, k ? ", " : "", sizeof(line) - strlen(line) - 1); strncat(line, names[k], sizeof(line) - strlen(line) - 1); }
         if (n) {
             char out[200];
             snprintf(out, sizeof(out), "%s %s", Tr("journal.items"), line);
-            jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 4, out, 0xE0D090, s);
+            nr = wrap_lines(out, pw - 8 * s, s, rows, 2);
+            for (k = 0; k < nr; k++) jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * (4 - k) - lh / 2 + lh / 2, rows[k], 0xE0D090, s);
         }
         if (Story_Has("courier_met")) {
             char out[200];
@@ -764,8 +807,7 @@ static void journal_overlay(int w, int h, int s, int lh, int top, int vis)
             jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 5, out, 0xE0D090, s);
         }
     }
-    jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 3, Tr("journal.more"), 0x8890C0, s);
-    jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 2, Tr("journal.close"), 0x8890C0, s);
+    jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 3 / 2, Tr("journal.close"), 0x8890C0, s);
 }
 
 
@@ -783,6 +825,39 @@ static const char *const ICON_COMPLETE[12] = {    /* a check mark in a ring */
 static const char *const ICON_CAPTION[12] = {     /* a feather */
     "..........##", ".........###", "........####", ".......#####", "......######", ".....#####+.",
     "....#####+..", "...#####+...", "..####+.....", ".###+.......", "##+.........", "#..........." };
+
+/* an item's own 24 x 24 picture (assets/icon_*.bin: index bytes, then a 16 colour palette), drawn as runs of rectangles; 0 when it has none */
+static int draw_item_icon(int x, int y, int px, const char *file)
+{
+    static struct { char name[64]; unsigned char idx[576]; unsigned clut[16]; int ok; } cache[6];
+    int i, r, c;
+    for (i = 0; i < 6 && cache[i].name[0]; i++) if (!strcmp(cache[i].name, file)) break;
+    if (i == 6) return 0;
+    if (!cache[i].name[0]) {
+        long sz = 0;
+        unsigned char *d = Jm_Slurp(file, &sz);
+        snprintf(cache[i].name, sizeof(cache[i].name), "%s", file);
+        if (d && sz >= 608) {
+            int k;
+            memcpy(cache[i].idx, d, 576);
+            for (k = 0; k < 16; k++) {
+                unsigned v = d[576 + k * 2] | (d[577 + k * 2] << 8);
+                cache[i].clut[k] = ((v & 31) * 255 / 31) << 16 | (((v >> 5) & 31) * 255 / 31) << 8 | (((v >> 10) & 31) * 255 / 31);
+            }
+            cache[i].ok = 1;
+        }
+        free(d);
+    }
+    if (!cache[i].ok) return 0;
+    for (r = 0; r < 24; r++)
+        for (c = 0; c < 24;) {
+            int v = cache[i].idx[r * 24 + c], e = c + 1;
+            while (e < 24 && cache[i].idx[r * 24 + e] == v) e++;
+            if (v) jm_host->fill(jm_host, x + c * px, y + r * px, (e - c) * px, px, cache[i].clut[v & 15], 255);
+            c = e;
+        }
+    return 1;
+}
 
 static void draw_icon(int x, int y, int px, const char *const *rows, unsigned col, unsigned light)
 {
@@ -845,7 +920,11 @@ static void dialog_extras(int w, int h, int s, int lh, int top, int vis)
         jm_host->fill(jm_host, x - 3 * s, y - 3 * s, pw + 6 * s, ph + 6 * s, pulse ? BORDER2[cur_kind] : BORDER[cur_kind], a);
         jm_host->fill(jm_host, x, y, pw, ph, BG[cur_kind], a);
         jm_host->fill(jm_host, x, y, pw, lh + 4 * s, BORDER[cur_kind], a / 3);
-        draw_icon(x + 10 * s, y + lh / 2 - 4 * s, px, icon, BORDER[cur_kind], BORDER2[cur_kind]);
+        {
+            const char *ifile = NULL;
+            if (cur_kind == 2 && Story_ItemIcon(notif_text, &ifile) && draw_item_icon(x + 10 * s - 2 * s, y + lh / 2 - 10 * s, px * 2 / 3, ifile)) ;
+            else draw_icon(x + 10 * s, y + lh / 2 - 4 * s, px, icon, BORDER[cur_kind], BORDER2[cur_kind]);
+        }
         tx = x + 12 * px + 22 * s;
         jm_host->draw_text(jm_host, tx, y + lh / 2 + 2 * s, title, BORDER2[cur_kind], s + 1);
         for (i = 0; i < n; i++) jm_host->draw_text(jm_host, tx - 8 * s, y + lh * (i + 2) + lh / 4, lines[i], 0xFFFFFF, s);
@@ -901,10 +980,10 @@ static void overlay(void)
     }
     if (state == ST_PAINT) {
         int n = Paint_NearNpc();
-        snprintf(line, sizeof(line), Tr("hud.status_line"), World_AreaName(area < 0 ? 0 : area), Story_Chapter(), Story_Objective());
+        snprintf(line, sizeof(line), Tr("hud.status_line"), place_name(), Story_Chapter(), Story_Objective());
         bar(top + 6, lh, line, 0xFFE9A0);
         if (area_banner > 0) {
-            const char *nm = World_AreaName(area);
+            const char *nm = place_name();
             int tw = jm_host->text_width(jm_host, nm, s + 1);
             jm_host->fill(jm_host, w / 2 - tw / 2 - 16, top + vis / 5, tw + 32, lh * 2, 0, 150);
             jm_host->draw_text(jm_host, w / 2 - tw / 2, top + vis / 5 + lh, nm, 0x40C0E0, s + 1);
@@ -946,7 +1025,7 @@ static void overlay(void)
         jm_host->draw_text(jm_host, x, y + mh + 4 * s + lh + lh / 2 + 4, Tr("map.close"), 0x8890C0, s);
         return;
     }
-    snprintf(line, sizeof(line), Tr("hud.status_line"), World_AreaName(area < 0 ? 0 : area), Story_Chapter(), Story_Objective());
+    snprintf(line, sizeof(line), Tr("hud.status_line"), place_name(), Story_Chapter(), Story_Objective());
     bar(top + 6, lh, line, 0xFFE9A0);
     if (area_banner > 0 && state == ST_WALK) {
         const char *n = World_AreaName(area);

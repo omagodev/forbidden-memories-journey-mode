@@ -32,7 +32,7 @@
   "messages": {
     "progress_saved": "Progresso salvo",
     "save_failed": "Falha ao salvar",
-    "part_end": "A estrada do porto abre na parte 3."
+    "part_end": "A estrada do porto abre na parte 4."
   },
   "creation": {
     "heading": "CRIE O SEU PERSONAGEM",
@@ -129,6 +129,7 @@
     "A Vila dos Cochichos"
   ],
   "objectives": [
+    "Duele com Bakura, o fantasma solitario",
     "Conte ao Simon o que ouviu",
     "Pergunte a Teana sobre os cochichos",
     "Pergunte a Jono sobre os cochichos",
@@ -155,7 +156,14 @@
   ],
   "items": [
     "Cartao de Selos",
-    "Lanterna"
+    "Lanterna",
+    "Jarra de Agua",
+    "Pote de Mel",
+    "Agua do Rio",
+    "Tamaras",
+    "Escaravelho do Fundador",
+    "Bandana do Jono",
+    "Amuleto da Sorte"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -164,7 +172,9 @@
     "guard": "Guarda",
     "baker": "Hakim",
     "farmer": "Kemet",
-    "hooded_man": "Homem Encapuzado"
+    "hooded_man": "Homem Encapuzado",
+    "rex": "Rex Raptor",
+    "bakura": "Bakura"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -201,25 +211,40 @@
     "Cochichos na Praca",
     "O Teste do Sabio",
     "Meia-noite no Banco",
-    "O Perdido: Escaravelho do Fundador"
+    "O Perdido: Escaravelho do Fundador",
+    "O Ganho: A Bandana do Jono",
+    "O Dado: Os Bolinhos da Teana"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
     "Conte ao Simon e aceite o duelo",
     "Sente no banco da praca ate anoitecer",
-    "Pergunte ao Hakim sobre tesouros perdidos"
+    "Pergunte ao Hakim sobre tesouros perdidos",
+    "Encontre o Rex ou o Jono, em qualquer ordem",
+    "Pegue a Jarra de Agua com a Teana"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
     "Fale com o homem encapuzado",
     "Pergunte ao Hakim sobre tesouros perdidos",
-    "Ganhe a lanterna do Kemet num duelo"
+    "Ganhe a lanterna do Kemet num duelo",
+    "Abra a escotilha e entre na cisterna",
+    "Duele com Bakura, o fantasma solitario",
+    "Encontre o Rex ou o Jono, em qualquer ordem",
+    "Venca o Rex na estrada leste",
+    "Pegue a Jarra de Agua com a Teana",
+    "Mel do Hakim",
+    "Encha a jarra no rio",
+    "Colha tamaras na palmeira",
+    "Volte a Teana e duele"
   ],
   "quest_rewards": [
     "Caderno de Cochichos completo (3 cochichos)",
     "carta Magician of Faith; a lenda do Reino",
     "Cartao de Selos com tres espacos de selo",
-    "carta Killer Needle, uma Lanterna (mais na parte 3)"
+    "Escaravelho do Fundador, cartas Killer Needle e The 13th Grave, selo Perdido",
+    "Bandana do Jono, cartas Uraby e Dragon Treasure, selo Ganho",
+    "Amuleto da Sorte, carta Kuriboh, selo Dado"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -239,5 +264,8 @@
     "complete": "MISSAO CUMPRIDA",
     "caption": "",
     "press": "X: continuar"
+  },
+  "painted": {
+    "cistern": "Cisterna Antiga"
   }
 }

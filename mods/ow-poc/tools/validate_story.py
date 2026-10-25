@@ -20,7 +20,7 @@ UI = {l: json.load(open(A / "lang" / l / "ui.json")) for l in langs}
 flags = J["flags"]
 if len(flags) > 32: err("%d flags (max 32)" % len(flags))
 if len(set(flags)) != len(flags): err("a flag is listed twice")
-anchors = set(re.findall(r'\{"(\w+)",\s*\d+,\s*\d+\}', (MOD / "jm_painted.c").read_text()))
+anchors = set(re.findall(r'\{"(\w+)",\s*\d+,\s*\d+(?:,\s*\d+)?\}', (MOD / "jm_painted.c").read_text()))
 speakers = set(J["speakers"]) | {"narrator"}
 npc_ids = {n["id"] for n in J["npcs"]}
 
@@ -44,7 +44,11 @@ for path, k, v in walk(J):
         for f in v:
             if isinstance(f, str) and f not in flags: err("%s.flags: unknown flag %r" % (path, f))
     if k in ("scene", "then") and isinstance(v, str): scenes_used.add((path, v))
-    if k == "anchor" and isinstance(v, str) and v not in anchors: err("%s: unknown anchor %r" % (path, v))
+    if k in ("anchor", "prop_anchor") and isinstance(v, str) and v not in anchors: err("%s: unknown anchor %r" % (path, v))
+    if k == "warp" and isinstance(v, list) and (len(v) != 2 or v[1] not in anchors or v[0] not in ("village", "cistern")): err("%s: bad warp %r" % (path, v))
+    if k == "area" and isinstance(v, int) and v not in (0, 1) and ".when" in path or (k == "area" and isinstance(v, int) and path.endswith(("active", "done"))): 
+        if v not in (0, 1): err("%s: unknown area %r" % (path, v))
+    if k == "icon" and isinstance(v, str) and not (MOD / v).exists(): err("%s: icon file %s missing" % (path, v))
 for l in langs:
     for path, sc in sorted(scenes_used):
         if sc not in S[l]: err("[%s] %s: scene %r does not exist" % (l, path, sc))
@@ -72,14 +76,16 @@ for o in P.get("observers", []):
 for t in P.get("time_events", []):
     sc = S[ref].get(t["script"])
     if not sc or t["page"] >= len(sc["pages"]): err("time event %s page %s does not exist" % (t["script"], t["page"]))
-for f in ("painted.raw", "painted_col.bin", "painted_palms.raw", "painted_water.raw"):
+for f in ("painted.raw", "painted_col.bin", "painted_palms.raw", "painted_water.raw", "painted_cistern.raw", "painted_cistern_col.bin", "painted_cistern_occ.bin",
+          "spr_rex.bin", "spr_bakura.bin", "prop_hatch_closed.raw", "prop_hatch_open.raw", "prop_torch_glow.raw"):
     if not (A / f).exists(): err("assets/%s missing" % f)
 for n in J["npcs"]:
     if n.get("sprite") and not (A / ("spr_%s.bin" % n["sprite"])).exists() and not (A / n["sprite"]).exists(): warnings.append("npc %s: sprite file %s not found" % (n["id"], n["sprite"]))
 for o in J.get("objects", []):
-    if o.get("prop") and not (A / ("prop_%s.raw" % o["prop"])).exists(): err("object %s: prop_%s.raw missing" % (o["id"], o["prop"]))
+    pr = {"hatch": "hatch_closed"}.get(o.get("prop"), o.get("prop"))
+    if pr and not (A / ("prop_%s.raw" % pr)).exists(): err("object %s: prop_%s.raw missing" % (o["id"], pr))
 for o in P.get("observers", []):
-    for kind in (o["sprite"], ):
+    for kind in ((o["sprite"],) if o.get("sprite") else ()):
         if not (A / ("spr_mago_%s.bin" % kind)).exists() and not (A / ("spr_%s.bin" % kind)).exists(): err("observer sprite %s missing" % kind)
     if not (A / ("prop_%s.raw" % o["overlay"])).exists(): err("observer overlay prop_%s.raw missing" % o["overlay"])
 # NPC talk rules: duel rules need a win scene; every NPC has a rule for the stage ranges they are visible in (warn only)
@@ -87,6 +93,18 @@ for n in J["npcs"]:
     for t in n.get("talk", []):
         if t.get("duel") and "win" not in t: err("npc %s: a duel rule without a win result (%s)" % (n["id"], t.get("scene")))
         if t.get("duel") and "lose" not in t: warnings.append("npc %s: duel rule %s without a lose result" % (n["id"], t.get("scene")))
+# the journal: every quest has a title, an objective and a reward in every language; every line's text index exists
+for l in langs:
+    u = UI[l]
+    nq = len(J["journal"])
+    for key in ("quest_titles", "quest_objectives", "quest_rewards"):
+        if len(u[key]) != nq: err("[%s] ui.json %s has %d entries, the journal %d quests" % (l, key, len(u[key]), nq))
+    if len(u["items"]) != len(J["items"]): err("[%s] ui.json items has %d names, journey.json %d items" % (l, len(u["items"]), len(J["items"])))
+    for q in J["journal"]:
+        for ln in q.get("lines", []):
+            if "text" in ln and ln["text"] >= len(u["quest_steps"]): err("[%s] journal %s: step text %d does not exist" % (l, q["id"], ln["text"]))
+for a in J.get("auto", []):
+    if "stage_lt" not in a["when"]: err("auto rule %s has no stage_lt: it would run again" % a["scene"])
 # debug presets
 for i, d in enumerate(J.get("debug", [])):
     for f in d.get("flags", []):

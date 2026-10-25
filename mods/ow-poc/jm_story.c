@@ -126,6 +126,7 @@ static int cond(const JsonNode *c)
     if (Json_Get(c, "stage_lt") && jm.stage >= (int)Json_Num(c, "stage_lt", 99)) return 0;
     if (Json_Get(c, "row_lt") && row >= (int)Json_Num(c, "row_lt", 0)) return 0;
     if (Json_Get(c, "row_gt") && row <= (int)Json_Num(c, "row_gt", 0)) return 0;
+    if (Json_Get(c, "area") && paint_area_now() != (int)Json_Num(c, "area", 0)) return 0;
     if (!all_set(Json_Get(c, "needs")) || !all_set(Json_Get(c, "has"))) return 0;
     if (!none_set(Json_Get(c, "lacks"))) return 0;
     if (Json_Get(c, "lacks_any") && !any_unset(Json_Get(c, "lacks_any"))) return 0;
@@ -133,6 +134,34 @@ static int cond(const JsonNode *c)
 }
 
 int Story_Cond(const JsonNode *c) { return cond(c); }
+
+/* "auto" rules: {when, result, scene, then}: a state that holds starts them (journey.json); their "when" must rule out the new state, so they run once */
+int Story_Auto(Talk *out)
+{
+    JsonNode *s = Json_Get(jm_rules, "auto"), *n;
+    for (n = s ? s->child : NULL; n; n = n->next) {
+        if (!cond(Json_Get(n, "when"))) continue;
+        memset(out, 0, sizeof(*out));
+        out->duel = -1;
+        Story_ApplyResult(Json_Get(n, "result"));
+        out->scene = Json_Str(n, "scene", NULL);
+        out->then = Json_Str(n, "then", NULL);
+        return out->scene != NULL;
+    }
+    return 0;
+}
+
+/* an item banner's text names the item: the icon journey.json gives it ("icon" of the item; the names are the language's) */
+int Story_ItemIcon(const char *text, const char **file)
+{
+    JsonNode *o = Json_Get(jm_rules, "items"), *n;
+    int i = 0;
+    for (n = o ? o->child : NULL; n; n = n->next, i++) {
+        const char *ic = Json_Str(n, "icon", NULL), *nm = TrAt("items", i, Json_Str(n, "name", ""));
+        if (ic && nm[0] && strstr(text, nm)) { *file = ic; return 1; }
+    }
+    return 0;
+}
 
 const char *Story_Objective(void)
 {
@@ -157,7 +186,7 @@ int Story_ItemList(char names[][32], int max)
     JsonNode *o = Json_Get(jm_rules, "items"), *n;
     int k = 0, i = 0;
     for (n = o ? o->child : NULL; n && k < max; n = n->next, i++)
-        if (Story_Has(Json_Str(n, "flag", ""))) {
+        if (Story_Has(Json_Str(n, "flag", "")) && !(Json_Get(n, "until") && Story_Has(Json_Str(n, "until", "")))) {
             strncpy(names[k], TrAt("items", i, Json_Str(n, "name", "?")), 31);
             names[k++][31] = 0;
         }
@@ -249,6 +278,8 @@ void Story_Regrant(void)
 
 int jm_warp;
 float jm_warp_x, jm_warp_z;
+int jm_pwarp;
+char jm_pwarp_area[16], jm_pwarp_anchor[24];
 
 void Story_ApplyResult(const JsonNode *r)
 {
@@ -265,6 +296,12 @@ void Story_ApplyResult(const JsonNode *r)
         jm_warp_x = (float)Json_At(tp, 0)->num * 32.0f;
         jm_warp_z = (float)Json_At(tp, 1)->num * 32.0f;
         jm_warp = 1;
+    }
+    if (Json_Get(r, "warp")) {         /* "warp": [area, anchor]: the painted player goes to a named place (the hatch, the stairs) */
+        JsonNode *w = Json_Get(r, "warp");
+        snprintf(jm_pwarp_area, sizeof(jm_pwarp_area), "%s", Json_At(w, 0) && Json_At(w, 0)->str ? Json_At(w, 0)->str : "");
+        snprintf(jm_pwarp_anchor, sizeof(jm_pwarp_anchor), "%s", Json_At(w, 1) && Json_At(w, 1)->str ? Json_At(w, 1)->str : "");
+        jm_pwarp = 1;
     }
     if (Json_Get(r, "stage") && jm.stage < (int)Json_Num(r, "stage", 0)) jm.stage = (int)Json_Num(r, "stage", 0);
     for (c = Json_Get(r, "cards"), n = c ? c->child : NULL; n; n = n->next) Story_Cards((int)n->num);

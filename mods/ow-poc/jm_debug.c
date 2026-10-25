@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+extern int paint_area;
 static JsonNode *cfg;
 static int on, skip, win, preset_at = -1, anchor_at = -1;
 
@@ -64,7 +65,7 @@ static int apply_preset(int i)
     jm.flags = 0;
     set_flags(Json_Get(p, "flags"), 1);
     jm.stage = (int)Json_Num(p, "stage", jm.stage);
-    if (Paint_Anchor(Json_Str(p, "anchor", ""), &x, &y)) { Paint_Set(x, y); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }
+    if (Paint_Anchor(Json_Str(p, "anchor", ""), &x, &y)) { Paint_GoAnchor(Json_Str(p, "anchor", "")); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }   /* the anchor may be in the cistern */
     if (Json_Str(p, "time", NULL)) Paint_ForceTime(!strcmp(Json_Str(p, "time", ""), "night") ? 1 : !strcmp(Json_Str(p, "time", ""), "day") ? 0 : -1);
     else Paint_ForceTime(-1);
     LOG("debug: preset %d %s (stage %d, flags %08x)", i, Json_Str(p, "name", "?"), jm.stage, jm.flags);
@@ -78,6 +79,7 @@ void Dbg_Apply(void)
     const JsonNode *t;
     float x, y;
     if (!on) return;
+    paint_area = 0;                    /* a debug state names its own place, the village otherwise */
     t = Json_Get(cfg, "preset");
     if (t) {
         int i = -1, k;
@@ -91,7 +93,7 @@ void Dbg_Apply(void)
     if (Json_Get(cfg, "stage")) jm.stage = (int)Json_Num(cfg, "stage", jm.stage);
     if (Json_Get(cfg, "wins")) jm.wins = (int)Json_Num(cfg, "wins", jm.wins);
     t = Json_Get(cfg, "teleport");
-    if (t && t->str && Paint_Anchor(t->str, &x, &y)) { Paint_Set(x, y); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }
+    if (t && t->str && Paint_Anchor(t->str, &x, &y)) { Paint_GoAnchor(t->str); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }
     else if (t && t->child) { x = (float)t->child->num; y = (float)(t->child->next ? t->child->next->num : 0); Paint_Set(x, y); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }
     t = Json_Get(cfg, "time");
     if (t && t->str) Paint_ForceTime(!strcmp(t->str, "night") ? 1 : !strcmp(t->str, "day") ? 0 : -1);
@@ -121,7 +123,7 @@ int Dbg_Keys(unsigned short pad, unsigned short edge, int *swallow)
         anchor_at++;
         name = Paint_AnchorName(anchor_at);
         if (!name) { anchor_at = 0; name = Paint_AnchorName(0); }
-        if (name && Paint_Anchor(name, &x, &y)) { Paint_Set(x, y); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; Ui_Message(name); LOG("debug: teleport %s", name); return 1; }
+        if (name && Paint_Anchor(name, &x, &y)) { Paint_GoAnchor(name); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; Ui_Message(name); LOG("debug: teleport %s", name); return 1; }
         return 0;
     }
     if (edge & PAD_SQUARE) { skip ^= 1; Ui_Message(skip ? "skip dialogue: on" : "skip dialogue: off"); }

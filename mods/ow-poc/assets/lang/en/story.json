@@ -1661,13 +1661,13 @@
    ]
   },
   {
-   "id": "dk_part2_end",
+   "id": "dk_part3_end",
    "pages": [
     {
      "speaker": "narrator",
-     "label": "Part 2 complete",
+     "label": "Part 3 complete",
      "kind": "complete",
-     "text": "That is all for this test build. Next: the pyramid hatch and the cistern (part 3)."
+     "text": "That is all for this test build. Next: across the bridge to the harbor (part 4)."
     }
    ]
   }

@@ -244,6 +244,11 @@ int Story_PageCount(const char *scene);
 int Story_Page(const char *scene, int index, Page *out);
 int Story_ItemList(char names[][32], int max);
 int Story_Cards(int id);                             /* grants a card to the chest */
+int Story_Auto(Talk *out);                           /* an "auto" rule of journey.json that holds now (stage change, then a scene), applied once */
+extern int jm_pwarp;                                 /* set by a result with "warp": [area, anchor]: the painted player goes there when the scene is over */
+extern char jm_pwarp_area[16], jm_pwarp_anchor[24];
+int Story_ItemIcon(const char *text, const char **file);   /* the icon file of an item named in a banner's text, if journey.json gives it one */
+int paint_area_now(void);                            /* 0 the painted village, 1 the old cistern (also what the "area" condition tests) */
 
 /* -------------------------------------------------------------- dialogue */
 void Say_Text(const char *name, const char *body, int ask);   /* builds the box text (speaker first, in yellow), opens the game's box */
@@ -261,7 +266,11 @@ int Lang_PrefRead(void);                             /* the language chosen the 
 void Lang_PrefWrite(int i);
 void Paint_Info(float *x, float *y, float *sx, float *sy);
 void Paint_Set(float x, float y);
-int Paint_Anchor(const char *name, float *x, float *y);   /* a named place of the painted village in picture texels */
+int Paint_Anchor(const char *name, float *x, float *y);   /* a named place of the painted village (or the cistern) in picture texels */
+int Paint_AnchorArea(const char *name);              /* the area an anchor is in (0 village, 1 cistern), -1 unknown */
+int Paint_Area(void);
+void Paint_Warp(const char *area, const char *anchor);   /* go there; changing area loads the other picture, with a fade in */
+void Paint_GoAnchor(const char *anchor);             /* debug: the same without the fade, whatever the area */
 int Paint_Loaded(void);
 const char *Paint_AnchorName(int i);                 /* the i-th named place, NULL past the last */
 void Paint_ForceTime(int t);                         /* debug: 1 night, 0 day, -1 the story decides */
