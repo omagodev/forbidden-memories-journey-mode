@@ -35,10 +35,12 @@ extern u8 gLibrary_abCardChest[];
 const MemoriesModHost *jm_host;
 int jm_save_requested, jm_save_ok, jm_name_entry_requested;
 
-enum { ST_CHOOSE, ST_CREATE, ST_WALK, ST_SCENE, ST_ASK, ST_MENU, ST_TO_DUEL, ST_LEAVE, ST_LANG, ST_MAP };
+enum { ST_CONFIRM, ST_CREATE, ST_WALK, ST_SCENE, ST_ASK, ST_MENU, ST_TO_DUEL, ST_LEAVE, ST_LANG, ST_MAP, ST_PAINT, ST_JOURNAL };
+enum { REQ_NONE, REQ_NEW, REQ_CONTINUE };   /* what the title's NEW GAME / CONTINUE asked for */
 enum { RET_NONE, RET_DUEL, RET_NAME, RET_DECK };
-static int state = ST_CHOOSE, after_return = RET_NONE;
-static int ready, choose_sel, lang_sel, minimap_on = 1;
+static int state = ST_LEAVE, after_return = RET_NONE, menu_request = REQ_NONE;
+static int paint_auto;   /* the painted village is the first thing a walk shows; L1 still toggles */
+static int ready, choose_sel, lang_sel, minimap_on = 1;   /* choose_sel: the confirm box's cursor (0 start the new game, 1 cancel) */
 static float pyaw = 3.14159265f;
 static int walking, cooldown;
 static unsigned frame_no;
@@ -51,15 +53,42 @@ static int scene_idx, scene_n, ask_sel;
 static int scene_intro;                    /* the opening scene: the story starts when it ends */
 static int scene_result;                   /* a duel's result scene: save when it ends */
 static int duel_npc = -1;
+static const char *cur_name;                 /* the speaker of the page on screen: the nameplate above the text box */
+static int cur_kind, notif_age;              /* a notification page (objective, item, complete, caption) is drawn as a banner, not as speech */
+static char notif_text[300], notif_label[48];
+static int dbg_age;                          /* frames a page / question has been open (debug skip) */
 static const JsonNode *duel_win, *duel_lose;
 static const char *scene_then;             /* a scene to play next */
 static const JsonNode *scene_choice;       /* {yes, no} results of a Yes/No page that is not a duel */
+static const JsonNode *scene_effects;      /* a talk rule's "effects": applied when its scene has been read (a rumor heard, a card given) */
 static int pend_duel = -1;                 /* a duel to start when the ask page is answered yes */
 static int portrait_x = -1, portrait_y;    /* atlas position of the speaker's face, -1 none */
 static int loaded_face = -1;
 
 /* area music and banner */
 static int area = -1, area_cand = -1, area_count, area_timer, area_banner;
+
+extern int Paint_Tick(unsigned short pad, unsigned short edge);
+extern void Paint_Enter(void);
+extern void Paint_Draw(const Mesh *body, const int body_rgb[5]);
+extern void Paint_Set(float x, float y);
+extern void Paint_Info(float *x, float *y, float *sx, float *sy);
+extern int paint_view, paint_anim, paint_sway, paint_sprite;
+extern const char *Paint_ModeName(void);
+extern int Paint_NearNpc(void);
+extern void Paint_TalkStart(int ow);
+extern void Paint_TalkEnd(void);
+extern int Paint_Target(float *tx, float *ty);
+extern void Paint_MiniMap(int x, int y, int c, int s);
+extern int paint_exit, paint_markers;
+extern int Paint_IsNight(void);
+extern void Paint_PageEvent(const char *script, int page);
+extern void Paint_SceneEnd(void);
+extern int Paint_NearObject(void);
+extern int Paint_ObjectRule(int i, Talk *t);
+extern void Paint_ObjectStart(int i, const char *pose);
+static int in_paint_flow;                  /* a conversation (or the duel it leads to) began in the painted village: it returns there */
+static int mini_big;
 
 static const char *npc_name(int i) { return TrKey("npc_names", npcs[i].id, npcs[i].name); }
 
@@ -83,7 +112,7 @@ static void speaker(const Page *p, const char **name, int *ax, int *ay)
         *ay = PORT_Y;
         return;
     }
-    if (sp) { *name = TrKey("speaker_names", p->who, Json_Str(sp, "name", p->name)); face = (int)Json_Num(sp, "portrait_id", 0); }
+    if (sp && strcmp(p->who, "narrator")) { *name = TrKey("speaker_names", p->who, Json_Str(sp, "name", p->name)); face = (int)Json_Num(sp, "portrait_id", 0); }
     for (i = 0; i < npc_count; i++)
         if (!strcmp(npcs[i].id, p->who)) { *name = npc_name(i); face = npcs[i].portrait_id; }
     if (!strcmp(p->who, "narrator")) face = 0;
@@ -100,8 +129,21 @@ static void open_page(void)
     if (!Story_Page(scene_id, scene_idx, &p)) return;
     speaker(&p, &name, &portrait_x, &portrait_y);
     p.name = name;
-    Say_Page(&p);
+    cur_kind = p.kind;
+    notif_age = 0;
+    cur_name = (!p.kind && strcmp(p.who, "narrator")) ? name : NULL;
+    if (p.kind) {                          /* not speech: a banner of its own, with a sound */
+        Story_Expand(p.text, notif_text, sizeof(notif_text));
+        snprintf(notif_label, sizeof(notif_label), "%s", p.kind == 4 && p.name ? p.name : "");
+        Say_Close();
+        portrait_x = -1;
+        if (p.kind == 1) SD_SEPlayFull(7);
+        else if (p.kind == 2) SD_SEPlayFull(47);
+        else if (p.kind == 3) SD_SEPlayFull(48);
+    } else Say_Text(cur_name, p.text, p.ask);
     state = ST_SCENE;
+    dbg_age = 0;
+    if (in_paint_flow) Paint_PageEvent(scene_id, scene_idx);     /* the sun sets, the observer shows */
 }
 
 static void begin_scene(const char *id, int intro, int result)
@@ -112,7 +154,7 @@ static void begin_scene(const char *id, int intro, int result)
     scene_intro = intro;
     scene_result = result;
     pend_duel = -1;
-    if (scene_n < 1) { LOG("journey: no scene %s", id ? id : "(null)"); scene_then = NULL; scene_choice = NULL; state = ST_WALK; return; }
+    if (scene_n < 1) { LOG("journey: no scene %s", id ? id : "(null)"); scene_then = NULL; scene_choice = NULL; state = in_paint_flow ? ST_PAINT : ST_WALK; if (in_paint_flow) { in_paint_flow = 0; Paint_TalkEnd(); } return; }
     LOG("journey: scene %s (%d pages)", id, scene_n);
     open_page();
 }
@@ -130,10 +172,18 @@ static void apply_warp(void)
 
 static void end_scene(void)
 {
+    int had_effects = scene_effects != NULL;
     Say_Close();
     portrait_x = -1;
     cooldown = 20;
-    state = ST_WALK;
+    if (scene_effects) {                   /* a rumor heard, a card given: now that the scene has been read */
+        const JsonNode *e = scene_effects;
+        scene_effects = NULL;
+        Story_ApplyResult(e);
+        World_PlaceNpcs();
+    }
+    if (in_paint_flow) Paint_SceneEnd();
+    state = in_paint_flow ? ST_PAINT : ST_WALK;
     if (scene_then) {
         const char *next = scene_then;
         scene_then = NULL;
@@ -141,11 +191,12 @@ static void end_scene(void)
         return;
     }
     if (scene_intro && jm.stage < 1) jm.stage = 1;
-    if (scene_intro || scene_result) {
+    if (scene_intro || scene_result || had_effects) {
         jm_save_ok = Save_Write();
         Ui_Message(Tr(jm_save_ok ? "messages.progress_saved" : "messages.save_failed"));
     }
     scene_intro = scene_result = 0;
+    if (in_paint_flow) { in_paint_flow = 0; Paint_TalkEnd(); }
 }
 
 /* ------------------------------------------------------------------- duel */
@@ -161,8 +212,20 @@ static void ensure_deck(void)
     LOG("journey: starter deck given (the save had none)");
 }
 
+static void duel_returned(void);
 static void arm_duel(int npc)
 {
+    if (Dbg_WinDuels()) {                  /* debug: no duel is played, it counts as won */
+        LOG("debug: duel against %s skipped (counts as won)", npcs[npc].name);
+        Say_Close();
+        portrait_x = -1;
+        jm.duels++;
+        D_8009B362 = 0;
+        after_return = RET_DUEL;
+        duel_npc = npc;
+        duel_returned();
+        return;
+    }
     ensure_deck();
     Say_Close();
     portrait_x = -1;
@@ -181,6 +244,8 @@ static void duel_returned(void)
 {
     int won = (D_8009B362 == 0);
     const JsonNode *r = won ? duel_win : duel_lose;
+    area = -1;                              /* the duel's song ended the village's: start it again */
+    if (in_paint_flow) { Paint_Enter(); paint_auto = 1; }    /* the duel took the banks: the painted village is loaded again behind the scene */
     if (won) jm.wins++; else jm.losses++;
     LOG("journey: duel over, %s (wins %d, losses %d)", won ? "won" : "lost", jm.wins, jm.losses);
     if (won) Story_ApplyResult(duel_win);
@@ -192,23 +257,50 @@ static void duel_returned(void)
         begin_scene(Json_Str(r, "scene", NULL), 0, 1);
         scene_then = Json_Str(r, "then", NULL);
         scene_choice = Json_Get(r, "choice");
-    } else { state = ST_WALK; cooldown = 20; }
+    } else if (in_paint_flow) { in_paint_flow = 0; Paint_TalkEnd(); state = ST_PAINT; cooldown = 20; }
+    else { state = ST_WALK; cooldown = 20; }
 }
 
 /* --------------------------------------------------------------- the world */
 static void start_talk(const Talk *t)
 {
     begin_scene(t->scene, 0, 0);
+    scene_effects = NULL;
     if (state == ST_SCENE && t->duel >= 0) {
         pend_duel = t->duel;
         duel_win = t->on_win;
         duel_lose = t->on_lose;
-    }
+    } else if (state == ST_SCENE) scene_effects = t->effects;
+}
+
+/* the village shown as a picture: the walk happens there, not on the 3D map */
+static int in_village(void) { return World_Area(jm.x, jm.z) == 0 && (int)(jm.z / TS) >= 23; }
+
+/* The painted village has its own songs (journey.json "painted": {"music": {"day": track, "night": track}}, a track being the sound
+ * driver's song number / 16 - 0x700): the day song plays while the village is shown, the night song once night has fallen (the bench
+ * scene and until the Stamp Card is given).  `area < 0` restarts the music (after a duel, the intro, a warp). */
+static int pm_cur = -1, pm_timer, pm_ctx = -1;
+static int menu_from_paint;                /* the START menu was opened in the painted village: the picture stays behind it, and Close returns to it */
+static int painted_ctx(void) { return state == ST_PAINT || state == ST_JOURNAL || in_paint_flow || (state == ST_MENU && menu_from_paint); }
+static int track_cfg(const char *key)
+{
+    const JsonNode *po = Json_Get(jm_rules, "painted"), *mu = po ? Json_Get(po, "music") : NULL;
+    return (int)Json_Num(mu, key, -1);
 }
 
 static void music_tick(void)
 {
-    int a = World_Area(jm.x, jm.z);
+    int a = World_Area(jm.x, jm.z), pc = painted_ctx();
+    if (pc != pm_ctx) { pm_ctx = pc; area = -1; pm_cur = -1; pm_timer = 0; }     /* into or out of the painted village: its own song */
+    if (pc && track_cfg("day") >= 0) {
+        int want = track_cfg(Paint_IsNight() && track_cfg("night") >= 0 ? "night" : "day");
+        if (area < 0) { area = area_cand = a; area_banner = 150; area_timer = 0; pm_cur = -1; pm_timer = 0; }
+        if (pm_cur < 0) { SD_BGMPlay(0x7000 + (u32)want * 0x10); pm_cur = want; LOG("journey: music %d (%s)", want, want == track_cfg("night") ? "night" : "day"); }
+        else if (want != pm_cur && !pm_timer) { SD_BGMFadeOut(); pm_timer = 45; pm_cur = want; }
+        if (pm_timer && --pm_timer == 0) { SD_BGMPlay(0x7000 + (u32)pm_cur * 0x10); LOG("journey: music %d (%s)", pm_cur, pm_cur == track_cfg("night") ? "night" : "day"); }
+        if (area_banner > 0) area_banner--;
+        return;
+    }
     if (area < 0) {
         area = area_cand = a;
         area_timer = 0;
@@ -231,6 +323,7 @@ static void walk_tick(unsigned short pad, unsigned short edge)
     float dx = 0, dz = 0, sp = (pad & PAD_CIRCLE) ? 4.2f : 2.6f;
     Talk t;
     float tx_, tz_;
+    if (!paint_auto) { paint_auto = 1; if (in_village()) { Paint_Enter(); state = ST_PAINT; return; } }
     int teleport, near;
     if (pad & PAD_UP) dz -= 1;
     if (pad & PAD_DOWN) dz += 1;
@@ -257,6 +350,7 @@ static void walk_tick(unsigned short pad, unsigned short edge)
     }
     if (edge & PAD_START) { Ui_MenuOpen(); state = ST_MENU; return; }
     if (edge & PAD_TRIANGLE) { state = ST_MAP; return; }
+    if ((edge & PAD_L1) && in_village()) { Paint_Enter(); state = ST_PAINT; return; }
     if (edge & PAD_SELECT) minimap_on ^= 1;
     if (Story_Trigger(&t, &tx_, &tz_, &teleport)) {
         if (teleport) { jm.x = tx_; jm.z = tz_; cam_x = jm.x; cam_z = jm.z; }
@@ -295,19 +389,32 @@ static void new_journey(void)
     cam_x = jm.x;
     cam_z = jm.z;
     World_PlaceNpcs();
+    { float ax, ay; if (Paint_Anchor("hero_start", &ax, &ay)) Paint_Set(ax, ay); }   /* the story starts at the home door */
     lang_sel = Lang_Current();
-    state = ST_LANG;                       /* the language first, then the creator */
+    {
+        int pref = Lang_PrefRead();
+        if (pref >= 0) {                   /* the language was chosen on an earlier new game: straight to the creator */
+            Lang_Set(pref);
+            strncpy(jm.name, Tr("defaults.player_name"), sizeof(jm.name) - 1);
+            Ui_StartCreate();
+            state = ST_CREATE;
+            return;
+        }
+    }
+    state = ST_LANG;                       /* the first time: the language first, then the creator */
 }
 
 static void continue_journey(void)
 {
     if (!Save_Read()) { new_journey(); return; }
     Lang_Set(jm.lang);
+    Dbg_Apply();
     Story_Regrant();
     ensure_deck();
     World_PlaceNpcs();
     cam_x = jm.x;
     cam_z = jm.z;
+    if (jm.pt_set) Paint_Set(jm.pt_x, jm.pt_y);   /* and back to where it stood in the painted village */
     state = ST_WALK;
 }
 
@@ -318,34 +425,48 @@ static void run(int first)
     if (first) {
         if (!ready) {
             ready = Gfx_LoadAssets() && Story_Load() && World_Load() && Lang_Set(0);
-            if (ready) Save_Init();
+            if (ready) { Save_Init(); Dbg_Init(); }
         }
         if (!ready) { ModMode_Leave(return_menu); return; }
         Tower_Background(0);
         Fade_WaitIn();
         area = -1;
         LOG("journey: mode on (return %d)", after_return);
+        paint_auto = 0;
         switch (after_return) {
         case RET_DUEL: duel_returned(); break;
         case RET_NAME: after_return = RET_NONE; Ui_RefreshName(); state = ST_CREATE; break;
         case RET_DECK: after_return = RET_NONE; state = ST_WALK; cooldown = 10; break;
-        default:
-            if (Save_Exists()) {
-                if (Save_Read()) Lang_Set(jm.lang);       /* the menu speaks the saved language */
-                choose_sel = 0;
-                state = ST_CHOOSE;
-            } else new_journey();
+        default: {
+            int req = menu_request;
+            menu_request = REQ_NONE;
+            if (req == REQ_CONTINUE && Save_Exists() && Save_Read()) {
+                continue_journey();
+            } else if (req == REQ_NEW && Save_Exists()) {   /* a save exists: ask before it can be replaced */
+                if (Save_Read()) Lang_Set(jm.lang);       /* the box speaks the saved language */
+                choose_sel = 1;                            /* Cancel is where the cursor starts */
+                state = ST_CONFIRM;
+            } else if (req == REQ_NEW) {
+                new_journey();
+            } else state = ST_LEAVE;                       /* nothing asked for (or no save to continue): back to the title */
+        }
         }
         return;
     }
     frame_no++;
+    if (Dbg_On() && (state == ST_PAINT || state == ST_WALK)) {
+        int swallow;
+        if (Dbg_Keys(pad, edge, &swallow)) { Story_Regrant(); World_PlaceNpcs(); if (state == ST_PAINT) Paint_Enter(); }
+        if (swallow) pad = edge = 0;
+    }
+    dbg_age++;
     if (cooldown > 0) cooldown--;
     if (ui_message_timer > 0) ui_message_timer--;
     switch (state) {
-    case ST_CHOOSE:
-        if (edge & (PAD_UP | PAD_DOWN)) choose_sel ^= 1;
-        if (edge & PAD_CROSS) { if (choose_sel == 0) continue_journey(); else new_journey(); }
-        if (edge & PAD_TRIANGLE) state = ST_LEAVE;
+    case ST_CONFIRM:
+        if (edge & (PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT)) choose_sel ^= 1;
+        if (edge & PAD_CROSS) { if (choose_sel == 0) new_journey(); else state = ST_LEAVE; }
+        if (edge & (PAD_TRIANGLE | PAD_CIRCLE)) state = ST_LEAVE;
         break;
     case ST_LANG:
         if (edge & (PAD_UP | PAD_DOWN)) {
@@ -354,13 +475,48 @@ static void run(int first)
             Lang_Set(lang_sel);
         }
         if (edge & PAD_CROSS) {
+            Lang_PrefWrite(lang_sel);                  /* asked once: the next new game goes straight to the creator */
             strncpy(jm.name, Tr("defaults.player_name"), sizeof(jm.name) - 1);
             Ui_StartCreate();
             state = ST_CREATE;
         }
-        if (edge & PAD_TRIANGLE) {
-            if (Save_Exists() && Save_Read()) { Lang_Set(jm.lang); state = ST_CHOOSE; } else state = ST_LEAVE;
+        if (edge & PAD_TRIANGLE) state = ST_LEAVE;
+        break;
+    case ST_PAINT:
+        if (edge & PAD_START) { Ui_MenuOpen(); menu_from_paint = 1; state = ST_MENU; break; }   /* START: the menu (deck editor, items, status, save, title) */
+        music_tick();
+        if (edge & PAD_SELECT) minimap_on ^= 1;
+        if (edge & PAD_TRIANGLE) { state = ST_JOURNAL; break; }
+        if (!cooldown && (edge & PAD_CROSS)) {
+            int n = Paint_NearNpc(), o;
+            Talk t;
+            if (n >= 0 && Story_TalkRule(&npcs[n], &t)) {
+                Paint_TalkStart(n);
+                in_paint_flow = 1;
+                start_talk(&t);
+                if (state != ST_SCENE) { in_paint_flow = 0; Paint_TalkEnd(); state = ST_PAINT; }
+                break;
+            }
+            o = Paint_NearObject();            /* the bench, the notice board */
+            if (o >= 0 && Paint_ObjectRule(o, &t)) {
+                Paint_ObjectStart(o, t.pose);
+                in_paint_flow = 1;
+                start_talk(&t);
+                if (state != ST_SCENE) { in_paint_flow = 0; Paint_TalkEnd(); state = ST_PAINT; }
+                break;
+            }
         }
+        if (Paint_Tick(pad, edge)) {
+            if (paint_exit) {      /* across the bridge: the harbor is not built yet (part 2): back to the south bank */
+                paint_exit = 0;
+                Paint_Set(652.0f, 190.0f);
+                Ui_Message(Tr("messages.part_end"));
+            } else { state = ST_WALK; cooldown = 10; }
+        }
+        break;
+    case ST_JOURNAL:
+        music_tick();
+        if (edge & (PAD_TRIANGLE | PAD_CIRCLE | PAD_CROSS | PAD_START | PAD_SELECT)) { state = ST_PAINT; cooldown = 10; }
         break;
     case ST_MAP:
         if (edge & (PAD_TRIANGLE | PAD_CIRCLE | PAD_CROSS | PAD_SELECT | PAD_START)) state = ST_WALK;
@@ -371,10 +527,13 @@ static void run(int first)
             jm.stage = 0;
             World_PlaceNpcs();
             area = -1;
-            begin_scene("c1_intro", 1, 0);
-            if (state != ST_SCENE) state = ST_WALK;
+            Paint_Enter();                         /* the story opens in the painted village, at the home door */
+            paint_auto = 1;
+            in_paint_flow = 1;
+            begin_scene(Json_Str(jm_rules, "intro", "c1_intro"), 1, 0);
+            if (state != ST_SCENE) state = ST_PAINT;
         }
-        if (edge & PAD_TRIANGLE) { if (Save_Exists()) state = ST_CHOOSE; else state = ST_LEAVE; }
+        if (edge & PAD_TRIANGLE) state = ST_LEAVE;     /* back to the title; a saved journey stays as it was */
         break;
     case ST_WALK:
         music_tick();
@@ -384,10 +543,16 @@ static void run(int first)
     case ST_SCENE:
         walking = 0;
         music_tick();
-        if (Say_Done()) {
+        if (cur_kind) notif_age++;
+        {
+            int adv = cur_kind ? ((edge & PAD_CROSS) && notif_age > 24) : Say_Done();
+            if (Dbg_Skip() && dbg_age > (cur_kind ? 30 : 8)) adv = 1;
+            if (!adv) break;
+        }
+        {
             Page p;
             Story_Page(scene_id, scene_idx, &p);
-            if (p.ask) { state = ST_ASK; ask_sel = 0; Say_Close(); break; }
+            if (p.ask) { state = ST_ASK; ask_sel = 0; dbg_age = 0; break;      /* the question stays in the box while it is answered */ }
             scene_idx++;
             if (scene_idx >= scene_n) end_scene(); else open_page();
         }
@@ -395,6 +560,7 @@ static void run(int first)
     case ST_ASK:
         music_tick();
         if (edge & (PAD_LEFT | PAD_RIGHT | PAD_UP | PAD_DOWN)) ask_sel ^= 1;
+        if (Dbg_Skip() && dbg_age > 12) { ask_sel = 0; edge |= PAD_CROSS; }
         if (edge & PAD_CROSS) {
             if (ask_sel == 0 && pend_duel >= 0) { arm_duel(pend_duel); break; }
             if (pend_duel < 0 && scene_choice) {
@@ -416,9 +582,9 @@ static void run(int first)
         music_tick();
         r = Ui_MenuInput(edge);
         if (jm_save_requested) { jm_save_requested = 0; jm_save_ok = Save_Write(); }
-        if (r == 1) { state = ST_WALK; cooldown = 10; }
-        else if (r == 2) go_screen(7, RET_DECK);
-        else if (r == 3) state = ST_LEAVE;
+        if (r == 1) { state = menu_from_paint && Paint_Loaded() ? ST_PAINT : ST_WALK; menu_from_paint = 0; cooldown = 10; }
+        else if (r == 2) { menu_from_paint = 0; go_screen(7, RET_DECK); }      /* back from the deck editor the village is loaded again (paint_auto) */
+        else if (r == 3) { menu_from_paint = 0; state = ST_LEAVE; }
         break;
     }
     case ST_LEAVE:
@@ -453,7 +619,15 @@ static void frame_hook(void)
     if (!ModMode_Active() || !ready) return;
     Gfx_Begin();
     if (state == ST_CREATE) { Ui_DrawCreate(); return; }
-    if (state == ST_CHOOSE || state == ST_LANG || state == ST_MAP) { Gfx_Backdrop(0x08061C, 0x2A2060); Gfx_End(); return; }
+    if (state == ST_CONFIRM || state == ST_LANG || state == ST_MAP) { Gfx_Backdrop(0x08061C, 0x2A2060); Gfx_End(); return; }
+    if (state == ST_PAINT || state == ST_JOURNAL || (state == ST_MENU && menu_from_paint) || (in_paint_flow && (state == ST_SCENE || state == ST_ASK))) {
+        Ui_BodyColours(colours);
+        paint_markers = state == ST_PAINT;
+        Paint_Draw(Gfx_Mesh(Ui_BodyMesh()), colours);
+        Gfx_End();
+        if (portrait_x >= 0 && state != ST_PAINT) Gfx_Portrait(14, 40, 84, portrait_x, portrait_y);
+        return;
+    }
     jm_guide_on = state == ST_WALK;
     Gfx_SetCamera(CAM_D, CAM_PITCH);
     Ui_BodyColours(colours);
@@ -462,6 +636,7 @@ static void frame_hook(void)
 }
 
 /* ---------------------------------------------------------------- overlay */
+static int near_object(void) { Talk t; int o = Paint_NearObject(); return o >= 0 && Paint_ObjectRule(o, &t); }
 static int near_npc(void) { return state == ST_WALK ? World_NearestNpc(jm.x, jm.z, 64) : -1; }
 static int has_poi(void) { Talk t; return state == ST_WALK && Story_PoiAt(jm.x, jm.z, &t); }
 
@@ -528,6 +703,163 @@ static void region(int *tx0, int *tz0, int *tx1, int *tz1)
     }
 }
 
+/* The quest journal: journey.json "journal" lists the quests with the conditions that open them and close them; their texts are the
+ * language file's quest_titles / quest_objectives / quest_rewards (same order). */
+static void journal_overlay(int w, int h, int s, int lh, int top, int vis)
+{
+    const JsonNode *list = Json_Get(jm_rules, "journal"), *q;
+    int x = w / 8, y = top + lh * 2, pw = w * 3 / 4, qi = 0, pass, shown = 0;
+    char line[160];
+    (void)h;
+    jm_host->fill(jm_host, 0, 0, w, h, 0x000000, 150);
+    jm_host->fill(jm_host, x - 8, top + lh / 2, pw + 16, vis - lh, 0x0C0E2C, 230);
+    jm_host->draw_text(jm_host, x + 4 * s, y, Tr("journal.heading"), 0xFFE9A0, s + 1);
+    y += lh * 2;
+    for (pass = 0; pass < 2; pass++) {      /* the open quests first, then the finished ones */
+        qi = 0;
+        for (q = list ? list->child : NULL; q; q = q->next, qi++) {
+            const JsonNode *l;
+            int done = Story_Cond(Json_Get(q, "done")) && Json_Get(q, "done");
+            if (!Story_Cond(Json_Get(q, "active")) || done != pass) continue;
+            snprintf(line, sizeof(line), "%s %s", done ? "[x]" : "[ ]", TrAt("quest_titles", qi, "?"));
+            jm_host->draw_text(jm_host, x + 4 * s, y, line, done ? 0x80C080 : 0x40E0E0, s);
+            y += lh;
+            if (!done) {
+                int k = 0, any_line = 0;
+                for (l = Json_Get(q, "lines") ? Json_Get(q, "lines")->child : NULL; l; l = l->next, k++) {
+                    const char *who = Json_Str(l, "npc", NULL);
+                    int ldone = Json_Get(l, "done") && Story_Cond(Json_Get(l, "done"));
+                    int ni, ti = (int)Json_Num(l, "text", -1);
+                    const char *nm = who ? who : (ti >= 0 ? TrAt("quest_steps", ti, "") : "");
+                    for (ni = 0; who && ni < npc_count; ni++) if (!strcmp(npcs[ni].id, who)) nm = npc_name(ni);
+                    snprintf(line, sizeof(line), "%s %s", ldone ? "[x]" : "[ ]", nm);
+                    jm_host->draw_text(jm_host, x + 20 * s, y, line, ldone ? 0x80C080 : 0xFFFFFF, s);
+                    y += lh; any_line = 1;
+                }
+                if (!any_line) { jm_host->draw_text(jm_host, x + 20 * s, y, TrAt("quest_objectives", qi, ""), 0xFFFFFF, s); y += lh; }
+                snprintf(line, sizeof(line), "%s %s", Tr("journal.reward"), TrAt("quest_rewards", qi, ""));
+                jm_host->draw_text(jm_host, x + 20 * s, y, line, 0xC0C090, s);
+                y += lh;
+            }
+            y += lh / 2;
+            shown++;
+        }
+    }
+    if (!shown) jm_host->draw_text(jm_host, x + 4 * s, y, Tr("journal.empty"), 0xB0B0B0, s);
+    {   /* the backpack: the Stamp Card with its three slots, and the other items */
+        char names[8][32];
+        int n = Story_ItemList(names, 8), k;
+        line[0] = 0;
+        for (k = 0; k < n; k++) { strncat(line, k ? ", " : "", sizeof(line) - strlen(line) - 1); strncat(line, names[k], sizeof(line) - strlen(line) - 1); }
+        if (n) {
+            char out[200];
+            snprintf(out, sizeof(out), "%s %s", Tr("journal.items"), line);
+            jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 4, out, 0xE0D090, s);
+        }
+        if (Story_Has("courier_met")) {
+            char out[200];
+            snprintf(out, sizeof(out), "%s  %s [%c]  %s [%c]  %s [%c]", Tr("journal.stamp"),
+                     Tr("journal.stamp_lost"), Story_Has("treasure_lost") ? 'x' : ' ', Tr("journal.stamp_won"), Story_Has("treasure_won") ? 'x' : ' ',
+                     Tr("journal.stamp_given"), Story_Has("treasure_given") ? 'x' : ' ');
+            jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 5, out, 0xE0D090, s);
+        }
+    }
+    jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 3, Tr("journal.more"), 0x8890C0, s);
+    jm_host->draw_text(jm_host, x + 4 * s, top + vis - lh * 2, Tr("journal.close"), 0x8890C0, s);
+}
+
+
+/* ------------------------------------------------- nameplate and notification banners */
+/* 12x12 pixel icons for the banners: '#' = icon colour, '+' = light, '.' = empty */
+static const char *const ICON_OBJECTIVE[12] = {   /* a scroll with an exclamation mark */
+    "..########..", ".#++++++++#.", ".#+##++##+#.", ".#++#++#++#.", ".#++#++#++#.", ".#++####++#.",
+    ".#++####++#.", ".#++#++#++#.", ".#++#++#++#.", ".#+##++##+#.", ".#++++++++#.", "..########.." };
+static const char *const ICON_ITEM[12] = {        /* a star */
+    ".....##.....", ".....##.....", "....####....", "....####....", "############", ".##########.",
+    "..########..", "...######...", "..########..", "..###..###..", ".###....###.", ".##......##." };
+static const char *const ICON_COMPLETE[12] = {    /* a check mark in a ring */
+    "...######...", "..##++++##..", ".#++++++++#.", "#++++++++#.#", "#+++++++#++#", "##++#+++#++#",
+    "#+#+##+#+++#", "#++###++++.#", ".#++#+++++#.", "..##++++##..", "...######...", "............" };
+static const char *const ICON_CAPTION[12] = {     /* a feather */
+    "..........##", ".........###", "........####", ".......#####", "......######", ".....#####+.",
+    "....#####+..", "...#####+...", "..####+.....", ".###+.......", "##+.........", "#..........." };
+
+static void draw_icon(int x, int y, int px, const char *const *rows, unsigned col, unsigned light)
+{
+    int r, c;
+    for (r = 0; r < 12; r++)
+        for (c = 0; c < 12; c++) {
+            char ch = rows[r][c];
+            if (ch == '#') jm_host->fill(jm_host, x + c * px, y + r * px, px, px, col, 255);
+            else if (ch == '+') jm_host->fill(jm_host, x + c * px, y + r * px, px, px, light, 255);
+        }
+}
+
+/* greedy wrap of `text` into lines of at most `maxw` pixels */
+static int wrap_lines(const char *text, int maxw, int s, char lines[][100], int max)
+{
+    int n = 0;
+    const char *p = text;
+    lines[0][0] = 0;
+    while (*p && n < max) {
+        char word[64];
+        int k = 0;
+        char trial[200];
+        while (*p == ' ') p++;
+        while (*p && *p != ' ' && k < 62) word[k++] = *p++;
+        word[k] = 0;
+        if (!k) break;
+        snprintf(trial, sizeof(trial), "%s%s%s", lines[n], lines[n][0] ? " " : "", word);
+        if (lines[n][0] && jm_host->text_width(jm_host, trial, s) > maxw) {
+            if (++n >= max) { n = max - 1; break; }
+            snprintf(lines[n], 100, "%s", word);
+        } else snprintf(lines[n], 100, "%s", trial);
+    }
+    return lines[0][0] ? n + 1 : 0;
+}
+
+static void dialog_extras(int w, int h, int s, int lh, int top, int vis)
+{
+    if (state != ST_SCENE && state != ST_ASK) return;
+    if (!cur_kind) {
+        return;
+    } else {
+        static const unsigned BORDER[5] = {0, 0x40E0E0, 0xFFD030, 0x70E070, 0xD8C8A0}, BORDER2[5] = {0, 0xC0FFFF, 0xFFF0A0, 0xC8FFC8, 0xFFF4D8};
+        static const unsigned BG[5] = {0, 0x082438, 0x2A1A06, 0x0C2A12, 0x2A2418};
+        static const char *const KEY[5] = {"", "objective", "item", "complete", "caption"};
+        char lines[6][100], title[64], key[40];
+        int n, pw = w * 62 / 100, ph, px = 3 * s, x, y, a, pulse, i, tx;
+        int age = notif_age, slide = age < 18 ? (18 - age) * (18 - age) * lh / 90 : 0;
+        const char *label;
+        const char *const *icon = cur_kind == 1 ? ICON_OBJECTIVE : cur_kind == 2 ? ICON_ITEM : cur_kind == 3 ? ICON_COMPLETE : ICON_CAPTION;
+        snprintf(key, sizeof(key), "notify.%s", KEY[cur_kind]);
+        label = cur_kind == 4 && notif_label[0] ? notif_label : Tr(key);
+        snprintf(title, sizeof(title), "%s", label);
+        n = wrap_lines(notif_text, pw - 12 * px - 16 * s, s, lines, 5);
+        ph = lh * (n + 3);
+        x = (w - pw) / 2;
+        y = top + vis / 5 - slide;
+        a = age < 10 ? age * 25 : 255;
+        pulse = (age / 6) & 1;
+        jm_host->fill(jm_host, 0, 0, w, h, 0, age < 12 ? age * 8 : 96);
+        jm_host->fill(jm_host, x - 3 * s, y - 3 * s, pw + 6 * s, ph + 6 * s, pulse ? BORDER2[cur_kind] : BORDER[cur_kind], a);
+        jm_host->fill(jm_host, x, y, pw, ph, BG[cur_kind], a);
+        jm_host->fill(jm_host, x, y, pw, lh + 4 * s, BORDER[cur_kind], a / 3);
+        draw_icon(x + 10 * s, y + lh / 2 - 4 * s, px, icon, BORDER[cur_kind], BORDER2[cur_kind]);
+        tx = x + 12 * px + 22 * s;
+        jm_host->draw_text(jm_host, tx, y + lh / 2 + 2 * s, title, BORDER2[cur_kind], s + 1);
+        for (i = 0; i < n; i++) jm_host->draw_text(jm_host, tx - 8 * s, y + lh * (i + 2) + lh / 4, lines[i], 0xFFFFFF, s);
+        if (age > 24 && ((age / 20) & 1) == 0) jm_host->draw_text(jm_host, x + pw - 120 * s, y + ph - lh / 2 - s, Tr("notify.press"), BORDER2[cur_kind], s);
+        if (cur_kind == 2 || cur_kind == 3) {        /* sparkles around the icon */
+            for (i = 0; i < 6; i++) {
+                int ph2 = (age * 3 + i * 41) % 60, sz = ph2 < 30 ? ph2 / 6 + 1 : (60 - ph2) / 6 + 1;
+                int sx = x + 10 * s + 6 * px + (int)(((i * 37) % 11 - 5) * 3 * s), sy = y + lh / 2 + 2 * px + (int)(((i * 53) % 9 - 4) * 4 * s);
+                jm_host->fill(jm_host, sx, sy, sz * s, sz * s, 0xFFFFC0, 255 - ph2 * 3);
+            }
+        }
+    }
+}
+
 static void overlay(void)
 {
     int w, h, s, lh, top, vis;
@@ -541,14 +873,18 @@ static void overlay(void)
     top = (h - vis) / 2;
     { static int once; if (!once++) LOG("journey: overlay %dx%d scale %d", w, h, s); }
     if (state == ST_CREATE) { Ui_CreateOverlay(); return; }
-    if (state == ST_CHOOSE) {
-        int x = w / 3, y = top + vis / 3, pw = w / 3;
+    if (state == ST_CONFIRM) {
+        int x = w / 6, y = top + vis / 4, pw = w * 2 / 3;
+        char who[96];
         jm_host->fill(jm_host, 0, 0, w, h, 0x08061C, 235);
-        jm_host->draw_text(jm_host, x, y - lh, Tr("choose.heading"), 0xFFE9A0, s + 1);
-        jm_host->fill(jm_host, x - 8, y, pw + 16, lh * 3, 0x0C0E2C, 220);
-        jm_host->draw_text(jm_host, x + 20 * s, y + lh, Tr("choose.continue"), choose_sel == 0 ? 0x40E0E0 : 0xB0B0B0, s);
-        jm_host->draw_text(jm_host, x + 20 * s, y + lh * 2, Tr("choose.new_journey"), choose_sel == 1 ? 0x40E0E0 : 0xB0B0B0, s);
-        jm_host->draw_text(jm_host, x + 4 * s, y + lh * (1 + choose_sel), ">", 0xFFFFFF, s);
+        jm_host->draw_text(jm_host, x, y - lh, Tr("confirm.heading"), 0xFFE9A0, s + 1);
+        jm_host->fill(jm_host, x - 8, y, pw + 16, lh * 6, 0x0C0E2C, 220);
+        snprintf(who, sizeof(who), Tr("confirm.saved"), jm.name, Story_Chapter());
+        jm_host->draw_text(jm_host, x + 8 * s, y + lh, who, 0xFFFFFF, s);
+        jm_host->draw_text(jm_host, x + 8 * s, y + lh * 2, Tr("confirm.warning"), 0xFF9090, s);
+        jm_host->draw_text(jm_host, x + 28 * s, y + lh * 4, Tr("confirm.start"), choose_sel == 0 ? 0x40E0E0 : 0xB0B0B0, s);
+        jm_host->draw_text(jm_host, x + 28 * s, y + lh * 5, Tr("confirm.cancel"), choose_sel == 1 ? 0x40E0E0 : 0xB0B0B0, s);
+        jm_host->draw_text(jm_host, x + 12 * s, y + lh * (4 + choose_sel), ">", 0xFFFFFF, s);
         return;
     }
     if (state == ST_LANG) {
@@ -563,6 +899,32 @@ static void overlay(void)
         jm_host->draw_text(jm_host, x, y + lh * (n + 3), Tr("language.hint"), 0x8890C0, s);
         return;
     }
+    if (state == ST_PAINT) {
+        int n = Paint_NearNpc();
+        snprintf(line, sizeof(line), Tr("hud.status_line"), World_AreaName(area < 0 ? 0 : area), Story_Chapter(), Story_Objective());
+        bar(top + 6, lh, line, 0xFFE9A0);
+        if (area_banner > 0) {
+            const char *nm = World_AreaName(area);
+            int tw = jm_host->text_width(jm_host, nm, s + 1);
+            jm_host->fill(jm_host, w / 2 - tw / 2 - 16, top + vis / 5, tw + 32, lh * 2, 0, 150);
+            jm_host->draw_text(jm_host, w / 2 - tw / 2, top + vis / 5 + lh, nm, 0x40C0E0, s + 1);
+        }
+        if (minimap_on) {
+            int c = 2 * s + (mini_big ? 2 * s : 0);
+            Paint_MiniMap(w - 48 * c - 14 * s, top + 2 * lh + 26 * s, c, s);
+        }
+        if (n >= 0) snprintf(line, sizeof(line), Tr("hint.talk"), npc_name(n));
+        else if (near_object()) snprintf(line, sizeof(line), "%s", Tr("hint.examine"));
+        else snprintf(line, sizeof(line), "%s", Tr("hint.painted"));
+        bar(top + vis - lh - 6, lh, line, 0xFFFFFF);
+        if (Ui_MessageText()) {
+            int tw = jm_host->text_width(jm_host, Ui_MessageText(), s);
+            jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + lh + 6, tw + 24 * s, lh, 0, 170);
+            jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + lh + 6 + lh / 2, Ui_MessageText(), 0x60F060, s);
+        }
+        return;
+    }
+    if (state == ST_JOURNAL) { journal_overlay(w, h, s, lh, top, vis); return; }
     if (state == ST_MENU) { Ui_MenuOverlay(); return; }
     if (state == ST_MAP) {
         int tx0, tz0, tx1, tz1, px, mw, mh, x, y;
@@ -614,25 +976,35 @@ static void overlay(void)
         else snprintf(line, sizeof(line), "%s   %s", Tr("hint.controls"), Tr("map.hint"));
         bar(top + vis - lh - 6, lh, line, 0xFFFFFF);
     }
-    if (state == ST_ASK) {
-        int x = w - w / 4, y = top + vis / 2 - lh;
-        jm_host->fill(jm_host, x, y, w / 5, lh * 3, 0x0C0E2C, 225);
-        jm_host->draw_text(jm_host, x + 24 * s, y + lh, Tr("ask.yes"), ask_sel == 0 ? 0x40E0E0 : 0xA0A0A0, s);
-        jm_host->draw_text(jm_host, x + 24 * s, y + lh * 2, Tr("ask.no"), ask_sel == 1 ? 0x40E0E0 : 0xA0A0A0, s);
-        jm_host->draw_text(jm_host, x + 8 * s, y + lh * (1 + ask_sel), ">", 0xFFFFFF, s);
+    if (state == ST_ASK) {                  /* the question stays in the box (the game's font); the choices sit above its right end */
+        int bx = w * 0x10 / 320, by = h * 0xA0 / 240, bw = w * 0x120 / 320, pw = bw / 4, ph = lh * 2 + 12 * s, px = bx + bw - pw - 6 * s, py = by - ph - 8 * s;
+        jm_host->fill(jm_host, px - 2 * s, py - 2 * s, pw + 4 * s, ph + 4 * s, 0xE8C050, 255);
+        jm_host->fill(jm_host, px, py, pw, ph, 0x0C0E2C, 245);
+        jm_host->fill(jm_host, px + 3 * s, py + 5 * s + (ask_sel ? lh : 0), pw - 6 * s, lh, 0x2038A0, 220);
+        jm_host->draw_text(jm_host, px + 28 * s, py + 5 * s + lh / 2 - 6 * s, Tr("ask.yes"), ask_sel == 0 ? 0xFFFFA0 : 0xB0B0B0, s);
+        jm_host->draw_text(jm_host, px + 28 * s, py + 5 * s + lh + lh / 2 - 6 * s, Tr("ask.no"), ask_sel == 1 ? 0xFFFFA0 : 0xB0B0B0, s);
+        jm_host->draw_text(jm_host, px + 10 * s, py + 5 * s + (ask_sel ? lh : 0) + lh / 2 - 6 * s, ">", 0xFFFFFF, s);
     }
     if (Ui_MessageText()) {
         int tw = jm_host->text_width(jm_host, Ui_MessageText(), s);
         jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + lh + 6, tw + 24 * s, lh, 0, 170);
         jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + lh + 6 + lh / 2, Ui_MessageText(), 0x60F060, s);
     }
+    dialog_extras(w, h, s, lh, top, vis);
 }
 
 static unsigned overlay_sig(void)
 {
     if (!ModMode_Active()) return 0u;
-    return 1u + (unsigned)state * 977u + (unsigned)(area + 2) * 31u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
-           (unsigned)(near_npc() + 2) * 131u + (unsigned)ask_sel * 17u + (unsigned)choose_sel * 3u + Ui_Signature() * 13u +
+    if (state == ST_PAINT) {
+        float a, b, c, d;
+        Paint_Info(&a, &b, &c, &d);
+        return 7u + (unsigned)(Paint_NearNpc() + 2) * 131u + (near_object() ? 77u : 0u) + (unsigned)minimap_on * 17u + (unsigned)mini_big * 29u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
+               (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) + (unsigned)(Lang_Current() * 1237) +
+               (unsigned)(minimap_on ? (int)(frame_no / 10 & 1) * 100003 + (int)a / 12 * 4421 + (int)b / 12 * 977 : 0);
+    }
+    return (state == ST_SCENE || state == ST_ASK ? (unsigned)(scene_idx * 131 + cur_kind * 17 + (cur_kind ? notif_age : 0) * 3571 + (cur_name ? (unsigned char)cur_name[0] * 31 : 0)) : 0u) + 1u + (unsigned)state * 977u + (unsigned)(area + 2) * 31u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
+           (unsigned)(near_npc() + 2) * 131u + (unsigned)ask_sel * 17u + (unsigned)choose_sel * 3u + (unsigned)(state == ST_CONFIRM) * 7001u + Ui_Signature() * 13u +
            (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) +
            (has_poi() ? 5u : 0u) + (unsigned)(Lang_Current() * 1237 + lang_sel * 53 + minimap_on * 7) +
            ((state == ST_WALK && minimap_on) || state == ST_MAP ? (unsigned)((int)(jm.x / TS) * 4421 + (int)(jm.z / TS) * 977 + (int)(frame_no / 10 & 1) * 100003) : 0u);
@@ -644,7 +1016,8 @@ enum { OW_SELECTION = 40 };
 static void on_menu(MemoriesModEvent *e)
 {
     const char *name = e->phase == MEMORIES_BEFORE ? jm_host->menu_item(jm_host, e->a) : NULL;
-    if (name && !strcmp(name, "ow-poc:journey")) {
+    if (name && (!strcmp(name, "ow-poc:new") || !strcmp(name, "ow-poc:continue"))) {
+        menu_request = !strcmp(name, "ow-poc:new") ? REQ_NEW : REQ_CONTINUE;
         e->handled = 1;
         e->result = OW_SELECTION;
     }
@@ -656,7 +1029,7 @@ static void on_scene(MemoriesModEvent *e)
     if (e->phase == MEMORIES_BEFORE) {
         e->handled = 1;
         after_return = RET_NONE;
-        state = ST_CHOOSE;
+        state = ST_LEAVE;
         ModMode_Enter();
     } else {
         return_menu = D_8009B26D;

@@ -1,0 +1,4859 @@
+{
+ "schema": "journey-dk/1",
+ "language": "pt",
+ "title": "Reino dos Duelistas - O Bilhete para a Ilha",
+ "text_rules": {
+  "charset": "ASCII letters, digits, space and . , ! ? ' - only (retail font). Braces only in tokens.",
+  "limit": "At most 3 lines of 32 glyphs per page (greedy word wrap). {name} counts 10 glyphs, {a|b} the longer option.",
+  "tokens": [
+   "{name}",
+   "{male|female}"
+  ]
+ },
+ "variables": {
+  "stage": "int, see stages",
+  "flags": "31-bit field, bit = index in flags[]",
+  "stars": "int 0..12",
+  "time_of_day": "'day' | 'night' (night = tint or night background, only used by the bench scene)",
+  "eliminations": "int"
+ },
+ "speakers": {
+  "atos": {
+   "name": "{name}",
+   "short": "{name}",
+   "portrait": 39,
+   "note": "Player (custom hero). Same custom Atos face slot as the old story."
+  },
+  "simon": {
+   "name": "Simon Muran",
+   "short": "Simon",
+   "portrait": 1,
+   "note": "Village sage."
+  },
+  "teana": {
+   "name": "Teana",
+   "short": "Teana",
+   "portrait": 2,
+   "note": "Date-cake stall girl."
+  },
+  "jono": {
+   "name": "Jono",
+   "short": "Jono",
+   "portrait": 3,
+   "note": "Loud friend, the Joey of this story."
+  },
+  "guard": {
+   "name": "Guarda",
+   "short": "Guard",
+   "portrait": 5,
+   "note": "Villager 2 portrait."
+  },
+  "baker": {
+   "name": "Hakim",
+   "short": "Hakim",
+   "portrait": 4,
+   "note": "Villager 1 portrait: the baker."
+  },
+  "farmer": {
+   "name": "Kemet",
+   "short": "Kemet",
+   "portrait": 6,
+   "note": "Villager 3 portrait: the date farmer."
+  },
+  "hooded_man": {
+   "name": "Homem Encapuzado",
+   "short": "Hooded",
+   "portrait": 254,
+   "note": "Voice only (no portrait). It is Shadi in disguise; the portrait appears at the reveal."
+  },
+  "bakura": {
+   "name": "Bakura",
+   "short": "Bakura",
+   "portrait": 14,
+   "note": "Lonely cistern ghost (Yami Bakura portrait)."
+  },
+  "rex": {
+   "name": "Rex Raptor",
+   "short": "Rex",
+   "portrait": 9,
+   "note": "Wandering dinosaur duelist."
+  },
+  "soldier": {
+   "name": "Soldado Mago",
+   "short": "Soldier",
+   "portrait": 18,
+   "note": "Harbor inspector."
+  },
+  "shadi": {
+   "name": "Shadi",
+   "short": "Shadi",
+   "portrait": 13,
+   "note": "Pegasus's messenger."
+  },
+  "mai": {
+   "name": "Mai",
+   "short": "Mai",
+   "portrait": 11,
+   "note": "Passenger on the ship; Harpie Lady duelist."
+  },
+  "inseto": {
+   "name": "InsetoKaiba",
+   "short": "Inseto K.",
+   "portrait": 243,
+   "note": "NEW custom portrait slot 243: arrogant insect-themed parody rival. Stylized caricature, see art list."
+  },
+  "mago_dev": {
+   "name": "Mago.dev",
+   "short": "Mago.dev",
+   "portrait": 244,
+   "note": "The observer, robe portrait (art_dk/portraits/mago_hood). Never interferes. Talks only at the epilogue payoff, when the hero finally speaks to him."
+  },
+  "mago_dev_tee": {
+   "name": "Mago.dev",
+   "short": "Mago.dev",
+   "portrait": 245,
+   "note": "Same character in the plain tee (art_dk/portraits/mago_tee): the epilogue payoff on the festival bench."
+  },
+  "mago_hidden": {
+   "name": "???",
+   "short": "???",
+   "portrait": 244,
+   "note": "Mago.dev before the hero knows his name; same robe portrait."
+  },
+  "isis": {
+   "name": "Isis",
+   "short": "Isis",
+   "portrait": 16,
+   "note": "Fortune teller of the Desert (Kingdom outline)."
+  },
+  "narrator": {
+   "name": "(label)",
+   "short": "(label)",
+   "portrait": 254,
+   "note": "No portrait. Every narrator page carries its own label."
+  }
+ },
+ "flags": [
+  {
+   "name": "heard_teana",
+   "bit": 0,
+   "value": 1,
+   "note": "Rumor 1 heard."
+  },
+  {
+   "name": "heard_jono",
+   "bit": 1,
+   "value": 2,
+   "note": "Rumor 2 heard."
+  },
+  {
+   "name": "heard_guard",
+   "bit": 2,
+   "value": 4,
+   "note": "Rumor 3 heard."
+  },
+  {
+   "name": "read_notice",
+   "bit": 3,
+   "value": 8,
+   "note": "Optional: read the notice board."
+  },
+  {
+   "name": "simon_won",
+   "bit": 4,
+   "value": 16,
+   "note": "Simon's test duel won (legend told)."
+  },
+  {
+   "name": "courier_met",
+   "bit": 5,
+   "value": 32,
+   "note": "Met the hooded man at night; Stamp Card received."
+  },
+  {
+   "name": "baker_hint",
+   "bit": 6,
+   "value": 64,
+   "note": "Hakim told about the Founder's Scarab."
+  },
+  {
+   "name": "farmer_won",
+   "bit": 7,
+   "value": 128,
+   "note": "Kemet beaten; Lantern received."
+  },
+  {
+   "name": "treasure_lost",
+   "bit": 8,
+   "value": 256,
+   "note": "Founder's Scarab won from Bakura (stamp: Lost)."
+  },
+  {
+   "name": "jono_asked",
+   "bit": 9,
+   "value": 512,
+   "note": "Jono told about the bandana."
+  },
+  {
+   "name": "treasure_won",
+   "bit": 10,
+   "value": 1024,
+   "note": "Rex beaten, bandana recovered (stamp: Won)."
+  },
+  {
+   "name": "jono_thanked",
+   "bit": 11,
+   "value": 2048,
+   "note": "Jono's thank-you gift received."
+  },
+  {
+   "name": "teana_asked",
+   "bit": 12,
+   "value": 4096,
+   "note": "Teana asked for ingredients; Water Jug given."
+  },
+  {
+   "name": "jug_taken",
+   "bit": 13,
+   "value": 8192,
+   "note": "Water Jug in the backpack."
+  },
+  {
+   "name": "got_honey",
+   "bit": 14,
+   "value": 16384,
+   "note": "Honey Jar from Hakim."
+  },
+  {
+   "name": "got_water",
+   "bit": 15,
+   "value": 32768,
+   "note": "River Water in the jug."
+  },
+  {
+   "name": "got_dates",
+   "bit": 16,
+   "value": 65536,
+   "note": "Dates from the palm."
+  },
+  {
+   "name": "treasure_given",
+   "bit": 17,
+   "value": 131072,
+   "note": "Teana beaten, Lucky Charm given (stamp: Given)."
+  },
+  {
+   "name": "baker_won",
+   "bit": 18,
+   "value": 262144,
+   "note": "Optional duel with Hakim won."
+  },
+  {
+   "name": "inspector_won",
+   "bit": 19,
+   "value": 524288,
+   "note": "Harbor exam won (gate open)."
+  },
+  {
+   "name": "shadi_won",
+   "bit": 20,
+   "value": 1048576,
+   "note": "Courier's trial won: Star Passage and 1 star."
+  },
+  {
+   "name": "simon_farewell",
+   "bit": 21,
+   "value": 2097152,
+   "note": "Goodbye to Simon."
+  },
+  {
+   "name": "teana_farewell",
+   "bit": 22,
+   "value": 4194304,
+   "note": "Goodbye to Teana."
+  },
+  {
+   "name": "jono_farewell",
+   "bit": 23,
+   "value": 8388608,
+   "note": "Goodbye to Jono."
+  },
+  {
+   "name": "mai_met",
+   "bit": 24,
+   "value": 16777216,
+   "note": "Mai explained the star rules."
+  },
+  {
+   "name": "inseto_won",
+   "bit": 25,
+   "value": 33554432,
+   "note": "Optional duel with InsetoKaiba won."
+  },
+  {
+   "name": "mago_roof",
+   "bit": 26,
+   "value": 67108864,
+   "note": "Observer glimpse 1: rooftop during the night bench scene."
+  },
+  {
+   "name": "mago_glyph",
+   "bit": 27,
+   "value": 134217728,
+   "note": "Observer glimpse 2: green glyph on the cistern wall."
+  },
+  {
+   "name": "mago_passage",
+   "bit": 28,
+   "value": 268435456,
+   "note": "Observer glimpse 3: breakwater, reading the Star Passage."
+  },
+  {
+   "name": "mago_mast",
+   "bit": 29,
+   "value": 536870912,
+   "note": "Observer glimpse 4: top of the ship's mast."
+  }
+ ],
+ "stages": [
+  {
+   "stage": 0,
+   "note": "Character creation"
+  },
+  {
+   "stage": 1,
+   "note": "Chapter 1 start: rumors in the village"
+  },
+  {
+   "stage": 2,
+   "note": "Rumors done, Simon told the legend: wait on the bench"
+  },
+  {
+   "stage": 3,
+   "note": "Stamp Card in hand: find the Lost, Won and Given treasures (any order)"
+  },
+  {
+   "stage": 4,
+   "note": "All three stamps: cross the bridge"
+  },
+  {
+   "stage": 5,
+   "note": "Harbor: exam and the Courier"
+  },
+  {
+   "stage": 6,
+   "note": "Star Passage in hand: farewells at the pier"
+  },
+  {
+   "stage": 7,
+   "note": "On the ship"
+  },
+  {
+   "stage": 10,
+   "note": "Chapter 2 start: Duelist Kingdom (see kingdom_outline.json)"
+  }
+ ],
+ "chapters": [
+  {
+   "n": 1,
+   "title": "A Vila dos Cochichos",
+   "region": "village, cistern, harbor, ship",
+   "stage": [
+    1,
+    7
+   ],
+   "reward": "Star Passage, 1 star",
+   "unlock": "Duelist Kingdom"
+  }
+ ],
+ "areas": [
+  {
+   "id": "village",
+   "name": "Vila do Oasis",
+   "setting": "The existing painted Egyptian village (river and bridge north, 4 houses, plaza, golden roads). Needs a NIGHT variant of the background.",
+   "art": "exists (painted)"
+  },
+  {
+   "id": "cistern",
+   "name": "Cisterna Antiga",
+   "setting": "Small underground room under the little pyramid: stone steps, still water, a floating pale light, carved Founder reliefs. One screen.",
+   "art": "NEW art"
+  },
+  {
+   "id": "harbor",
+   "name": "Porto do Poente",
+   "setting": "River-mouth harbor at golden hour: wooden pier, rope piles, crates, a stone gate with a guard post, empty pier end. The ship sprite is added at stage 6. One to two screens.",
+   "art": "NEW art"
+  },
+  {
+   "id": "ship_deck",
+   "name": "O Olho Dourado (convez)",
+   "setting": "Deck of a white ship with a golden eye painted on the sail: planks, barrels, rail, bow. One screen.",
+   "art": "NEW art"
+  },
+  {
+   "id": "kingdom_beach",
+   "name": "Costa das Ilusoes",
+   "setting": "First area of the Kingdom, outline only (see kingdom_outline.json).",
+   "art": "later"
+  }
+ ],
+ "anchors": {
+  "village": {
+   "hero_start": "Front of the NW house door (red zigzag house, top-left).",
+   "plaza_center": "Middle of the big open dirt plaza.",
+   "plaza_bench": "NEW prop: stone bench at the left edge of the plaza near the central palms.",
+   "house_ne_door": "Door of the NE house (blue zigzag, top-right): Simon's hall.",
+   "teana_stall": "Under the awning of the SW house (red cushions): Teana's date-cake stall.",
+   "bakery_door": "Door of the SE house (blue zigzag, awning, bottom-right): Hakim's bakery.",
+   "farmer_field": "Left-center bush field between the NW house and the crossroads.",
+   "date_palm": "The palm cluster at center-right of the plaza (use the biggest palm).",
+   "mini_pyramid_hatch": "The little pyramid beside the NW house. NEW overlay: a stone hatch on its side.",
+   "notice_sign": "The wooden sign on the right side of the plaza (already in the painted art).",
+   "river_bank": "River edge at the top, left of the bridge.",
+   "bridge_north": "The wooden bridge at the top center: guard post and exit to the harbor road.",
+   "mago_roof": "OBSERVER: far rooftop edge of the NE house (top-right), seen from the plaza at night. Robe sprite + green aura overlay, never walkable.",
+   "east_road": "East end of the horizontal golden road (right edge)."
+  },
+  "cistern": {
+   "wall_glyph": "OBSERVER: carved wall panel where green characters flicker (green aura overlay).",
+   "spawn_stairs": "Bottom of the stone steps.",
+   "bakura_spot": "Center platform with the floating light.",
+   "exit_stairs": "The stairs going up."
+  },
+  "harbor": {
+   "spawn_gate": "Arrival from the bridge, in front of the stone gate.",
+   "inspector_spot": "In front of the gate (guard post).",
+   "pier_end": "End of the pier, where the Courier waits.",
+   "farewell_simon": "Pier, left of center.",
+   "farewell_teana": "Pier, center.",
+   "farewell_jono": "Pier, right of center.",
+   "breakwater": "OBSERVER: far stone breakwater across the water. Robe sprite + green aura, never walkable.",
+   "gangway": "Gangway of the white ship (ship appears at stage 6).",
+   "bridge_back": "Edge back to the bridge/village."
+  },
+  "ship_deck": {
+   "spawn_gangway": "Top of the gangway.",
+   "mai_spot": "Near the rail, left.",
+   "inseto_spot": "Center deck, striking a pose.",
+   "barrel": "Barrel next to the mast.",
+   "mast_top": "OBSERVER: top of the mast (crow's nest). Robe sprite + green aura, never walkable.",
+   "bow": "Front of the ship."
+  },
+  "kingdom_beach": {
+   "spawn": "Beach where the ship lands (engine dev binds when the Kingdom arc is built)."
+  }
+ },
+ "npcs": [
+  {
+   "id": "simon",
+   "name": "Simon Muran",
+   "portrait_speaker": "simon",
+   "area": "village",
+   "anchor": "house_ne_door",
+   "duelist_id": 1,
+   "stages": [
+    0,
+    99
+   ],
+   "visible": "always",
+   "moves": [
+    {
+     "at_stage": 6,
+     "area": "harbor",
+     "anchor": "farewell_simon"
+    }
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ],
+      "flags_all": [
+       "heard_teana",
+       "heard_jono",
+       "heard_guard"
+      ],
+      "flags_none": [
+       "simon_won"
+      ]
+     },
+     "script": "dk1_simon_pre",
+     "duel": "simon"
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       1
+      ]
+     },
+     "script": "dk1_simon_wait"
+    },
+    {
+     "when": {
+      "stage": [
+       2,
+       2
+      ]
+     },
+     "script": "dk1_simon_stage2"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       5
+      ]
+     },
+     "script": "dk1_simon_treasures"
+    },
+    {
+     "when": {
+      "stage": [
+       6,
+       6
+      ],
+      "flags_none": [
+       "simon_farewell"
+      ]
+     },
+     "script": "dk1_simon_farewell",
+     "effects": [
+      {
+       "give_card": "Mystical Elf"
+      },
+      {
+       "set_flag": "simon_farewell"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       6,
+       99
+      ]
+     },
+     "script": "dk1_simon_after"
+    }
+   ]
+  },
+  {
+   "id": "teana",
+   "name": "Teana",
+   "portrait_speaker": "teana",
+   "area": "village",
+   "anchor": "teana_stall",
+   "duelist_id": 2,
+   "stages": [
+    0,
+    99
+   ],
+   "visible": "always",
+   "moves": [
+    {
+     "at_stage": 6,
+     "area": "harbor",
+     "anchor": "farewell_teana"
+    }
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ],
+      "flags_none": [
+       "heard_teana"
+      ]
+     },
+     "script": "dk1_teana_rumor",
+     "effects": [
+      {
+       "set_flag": "heard_teana"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ],
+      "flags_all": [
+       "heard_teana",
+       "heard_jono",
+       "heard_guard"
+      ]
+     },
+     "script": "dk1_teana_tell_simon"
+    },
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ]
+     },
+     "script": "dk1_teana_rumor_after"
+    },
+    {
+     "when": {
+      "stage": [
+       2,
+       2
+      ]
+     },
+     "script": "dk1_teana_stage2"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_none": [
+       "teana_asked"
+      ]
+     },
+     "script": "dk1_teana_ask",
+     "effects": [
+      {
+       "give_item": "jug"
+      },
+      {
+       "set_flag": "teana_asked"
+      },
+      {
+       "set_flag": "jug_taken"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_all": [
+       "teana_asked",
+       "got_honey",
+       "got_water",
+       "got_dates"
+      ],
+      "flags_none": [
+       "treasure_given"
+      ]
+     },
+     "script": "dk1_teana_pre",
+     "duel": "teana"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_all": [
+       "teana_asked"
+      ],
+      "flags_none": [
+       "treasure_given"
+      ]
+     },
+     "script": "dk1_teana_waiting"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       5
+      ]
+     },
+     "script": "dk1_teana_after"
+    },
+    {
+     "when": {
+      "stage": [
+       6,
+       6
+      ],
+      "flags_none": [
+       "teana_farewell"
+      ]
+     },
+     "script": "dk1_teana_farewell",
+     "effects": [
+      {
+       "set_flag": "teana_farewell"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       6,
+       99
+      ]
+     },
+     "script": "dk1_teana_after_farewell"
+    }
+   ]
+  },
+  {
+   "id": "jono",
+   "name": "Jono",
+   "portrait_speaker": "jono",
+   "area": "village",
+   "anchor": "plaza_center",
+   "duelist_id": 3,
+   "stages": [
+    0,
+    99
+   ],
+   "visible": "always",
+   "patrol": "plaza_loop",
+   "moves": [
+    {
+     "at_stage": 6,
+     "area": "harbor",
+     "anchor": "farewell_jono"
+    }
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ],
+      "flags_none": [
+       "heard_jono"
+      ]
+     },
+     "script": "dk1_jono_rumor",
+     "effects": [
+      {
+       "set_flag": "heard_jono"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ],
+      "flags_all": [
+       "heard_teana",
+       "heard_jono",
+       "heard_guard"
+      ]
+     },
+     "script": "dk1_jono_tell_simon"
+    },
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ]
+     },
+     "script": "dk1_jono_rumor_after"
+    },
+    {
+     "when": {
+      "stage": [
+       2,
+       2
+      ]
+     },
+     "script": "dk1_jono_stage2"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_all": [
+       "treasure_won"
+      ],
+      "flags_none": [
+       "jono_thanked"
+      ]
+     },
+     "script": "dk1_jono_thanks",
+     "effects": [
+      {
+       "give_card": "Dragon Treasure"
+      },
+      {
+       "set_flag": "jono_thanked"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_none": [
+       "jono_asked"
+      ]
+     },
+     "script": "dk1_jono_ask",
+     "effects": [
+      {
+       "set_flag": "jono_asked"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_all": [
+       "jono_asked"
+      ],
+      "flags_none": [
+       "treasure_won"
+      ]
+     },
+     "script": "dk1_jono_waiting"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       5
+      ]
+     },
+     "script": "dk1_jono_after"
+    },
+    {
+     "when": {
+      "stage": [
+       6,
+       6
+      ],
+      "flags_none": [
+       "jono_farewell"
+      ]
+     },
+     "script": "dk1_jono_farewell",
+     "effects": [
+      {
+       "set_flag": "jono_farewell"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       6,
+       99
+      ]
+     },
+     "script": "dk1_jono_after_farewell"
+    }
+   ]
+  },
+  {
+   "id": "guard",
+   "name": "Guarda",
+   "portrait_speaker": "guard",
+   "area": "village",
+   "anchor": "bridge_north",
+   "duelist_id": null,
+   "stages": [
+    0,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ],
+      "flags_none": [
+       "heard_guard"
+      ]
+     },
+     "script": "dk1_guard_rumor",
+     "effects": [
+      {
+       "set_flag": "heard_guard"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ],
+      "flags_all": [
+       "heard_teana",
+       "heard_jono",
+       "heard_guard"
+      ]
+     },
+     "script": "dk1_guard_tell_simon"
+    },
+    {
+     "when": {
+      "stage": [
+       1,
+       1
+      ]
+     },
+     "script": "dk1_guard_rumor_after"
+    },
+    {
+     "when": {
+      "stage": [
+       2,
+       2
+      ]
+     },
+     "script": "dk1_guard_stage2"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ]
+     },
+     "script": "dk1_guard_block"
+    },
+    {
+     "when": {
+      "stage": [
+       4,
+       99
+      ]
+     },
+     "script": "dk1_guard_open"
+    }
+   ]
+  },
+  {
+   "id": "baker",
+   "name": "Hakim",
+   "portrait_speaker": "baker",
+   "area": "village",
+   "anchor": "bakery_door",
+   "duelist_id": 4,
+   "stages": [
+    0,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       2
+      ]
+     },
+     "script": "dk1_baker_hello"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_all": [
+       "teana_asked"
+      ],
+      "flags_none": [
+       "got_honey"
+      ]
+     },
+     "script": "dk1_baker_honey",
+     "effects": [
+      {
+       "give_item": "honey"
+      },
+      {
+       "set_flag": "got_honey"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_none": [
+       "baker_hint"
+      ]
+     },
+     "script": "dk1_baker_hint",
+     "effects": [
+      {
+       "set_flag": "baker_hint"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       5
+      ],
+      "flags_all": [
+       "baker_hint"
+      ],
+      "flags_none": [
+       "baker_won"
+      ]
+     },
+     "script": "dk1_baker_pre",
+     "duel": "baker"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ]
+     },
+     "script": "dk1_baker_after"
+    }
+   ]
+  },
+  {
+   "id": "farmer",
+   "name": "Kemet",
+   "portrait_speaker": "farmer",
+   "area": "village",
+   "anchor": "farmer_field",
+   "duelist_id": 6,
+   "stages": [
+    0,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       2
+      ]
+     },
+     "script": "dk1_farmer_hello"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_all": [
+       "baker_hint"
+      ],
+      "flags_none": [
+       "farmer_won"
+      ]
+     },
+     "script": "dk1_farmer_pre",
+     "duel": "farmer"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_none": [
+       "farmer_won"
+      ]
+     },
+     "script": "dk1_farmer_nohint"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ]
+     },
+     "script": "dk1_farmer_after"
+    }
+   ]
+  },
+  {
+   "id": "hooded_man",
+   "name": "Homem Encapuzado",
+   "portrait_speaker": "hooded_man",
+   "area": "village",
+   "anchor": "plaza_center",
+   "duelist_id": null,
+   "stages": [
+    2,
+    2
+   ],
+   "visible": "placed",
+   "note": "Placed by the bench script at night; removed after the riddle.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       2,
+       2
+      ],
+      "flags_none": [
+       "courier_met"
+      ]
+     },
+     "script": "dk1_hooded_riddle",
+     "effects": [
+      {
+       "give_item": "stamp_card"
+      },
+      {
+       "set_flag": "courier_met"
+      },
+      {
+       "set_stage": 3
+      },
+      {
+       "set_time": "day"
+      },
+      {
+       "remove_npc": "hooded_man"
+      },
+      {
+       "place_npc": {
+        "npc": "rex",
+        "area": "village",
+        "anchor": "east_road"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "rex",
+   "name": "Rex Raptor",
+   "portrait_speaker": "rex",
+   "area": "village",
+   "anchor": "east_road",
+   "duelist_id": 9,
+   "stages": [
+    3,
+    99
+   ],
+   "visible": "placed",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_none": [
+       "jono_asked"
+      ]
+     },
+     "script": "dk1_rex_first"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_all": [
+       "jono_asked"
+      ],
+      "flags_none": [
+       "treasure_won"
+      ]
+     },
+     "script": "dk1_rex_pre",
+     "duel": "rex"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ]
+     },
+     "script": "dk1_rex_after"
+    }
+   ]
+  },
+  {
+   "id": "bakura",
+   "name": "Bakura",
+   "portrait_speaker": "bakura",
+   "area": "cistern",
+   "anchor": "bakura_spot",
+   "duelist_id": 14,
+   "stages": [
+    3,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_none": [
+       "treasure_lost"
+      ]
+     },
+     "script": "dk1_bakura_pre",
+     "duel": "bakura"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_all": [
+       "treasure_lost",
+       "mago_glyph"
+      ]
+     },
+     "script": "dk1_bakura_glyph"
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ]
+     },
+     "script": "dk1_bakura_after"
+    }
+   ]
+  },
+  {
+   "id": "mago_dev",
+   "name": "Mago.dev",
+   "portrait_speaker": "mago_dev",
+   "area": "village",
+   "anchor": "mago_roof",
+   "duelist_id": null,
+   "stages": [
+    0,
+    99
+   ],
+   "visible": "observer",
+   "note": "Never talks, never walks to the hero, never blocks. Appears only through observer_events (silhouette + green aura, vanishes with a glitch). Talkable only in the epilogue (kingdom_outline.json).",
+   "dialogue_rules": []
+  },
+  {
+   "id": "soldier",
+   "name": "Soldado Mago",
+   "portrait_speaker": "soldier",
+   "area": "harbor",
+   "anchor": "inspector_spot",
+   "duelist_id": 18,
+   "stages": [
+    4,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       4,
+       5
+      ],
+      "flags_none": [
+       "inspector_won"
+      ]
+     },
+     "script": "dk1_inspector_pre",
+     "duel": "inspector"
+    },
+    {
+     "when": {
+      "stage": [
+       4,
+       99
+      ]
+     },
+     "script": "dk1_inspector_after"
+    }
+   ]
+  },
+  {
+   "id": "shadi",
+   "name": "Shadi",
+   "portrait_speaker": "shadi",
+   "area": "harbor",
+   "anchor": "pier_end",
+   "duelist_id": 13,
+   "stages": [
+    5,
+    6
+   ],
+   "visible": "placed",
+   "note": "Placed when the inspector is beaten; removed when the Passage is given.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       5,
+       5
+      ],
+      "flags_all": [
+       "inspector_won"
+      ],
+      "flags_none": [
+       "shadi_won"
+      ]
+     },
+     "script": "dk1_shadi_pre",
+     "duel": "shadi"
+    }
+   ]
+  },
+  {
+   "id": "mai",
+   "name": "Mai",
+   "portrait_speaker": "mai",
+   "area": "ship_deck",
+   "anchor": "mai_spot",
+   "duelist_id": 11,
+   "stages": [
+    7,
+    7
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "mai_met"
+      ]
+     },
+     "script": "dk1_mai_rules",
+     "effects": [
+      {
+       "set_flag": "mai_met"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ]
+     },
+     "script": "dk1_mai_after"
+    }
+   ]
+  },
+  {
+   "id": "inseto_kaiba",
+   "name": "InsetoKaiba",
+   "portrait_speaker": "inseto",
+   "area": "ship_deck",
+   "anchor": "inseto_spot",
+   "duelist_id": "inseto_kaiba",
+   "stages": [
+    7,
+    7
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "mai_met"
+      ]
+     },
+     "script": "dk1_inseto_early"
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_all": [
+       "mai_met"
+      ],
+      "flags_none": [
+       "inseto_won"
+      ]
+     },
+     "script": "dk1_inseto_pre",
+     "duel": "inseto"
+    },
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ]
+     },
+     "script": "dk1_inseto_after"
+    }
+   ]
+  }
+ ],
+ "objects": [
+  {
+   "id": "notice_sign",
+   "name": "Mural de avisos",
+   "area": "village",
+   "anchor": "notice_sign",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       1,
+       99
+      ],
+      "flags_none": [
+       "read_notice"
+      ]
+     },
+     "script": "dk1_notice",
+     "effects": [
+      {
+       "set_flag": "read_notice"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       1,
+       99
+      ]
+     },
+     "script": "dk1_notice_after"
+    }
+   ]
+  },
+  {
+   "id": "plaza_bench",
+   "name": "Banco de pedra",
+   "area": "village",
+   "anchor": "plaza_bench",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       1
+      ]
+     },
+     "script": "dk1_bench_early"
+    },
+    {
+     "when": {
+      "stage": [
+       2,
+       2
+      ],
+      "flags_none": [
+       "courier_met"
+      ]
+     },
+     "script": "dk1_bench",
+     "effects": [
+      {
+       "set_time": "night"
+      },
+      {
+       "set_flag": "mago_roof"
+      },
+      {
+       "place_npc": {
+        "npc": "hooded_man",
+        "area": "village",
+        "anchor": "plaza_center"
+       }
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       2,
+       99
+      ]
+     },
+     "script": "dk1_bench_after"
+    }
+   ]
+  },
+  {
+   "id": "date_palm",
+   "name": "Tamareira",
+   "area": "village",
+   "anchor": "date_palm",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_all": [
+       "teana_asked"
+      ],
+      "flags_none": [
+       "got_dates"
+      ]
+     },
+     "script": "dk1_date_palm",
+     "effects": [
+      {
+       "give_item": "dates"
+      },
+      {
+       "set_flag": "got_dates"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ]
+     },
+     "script": "dk1_date_palm_idle"
+    }
+   ]
+  },
+  {
+   "id": "river_bank",
+   "name": "Rio",
+   "area": "village",
+   "anchor": "river_bank",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       3,
+       3
+      ],
+      "flags_all": [
+       "jug_taken"
+      ],
+      "flags_none": [
+       "got_water"
+      ]
+     },
+     "script": "dk1_river_fill",
+     "effects": [
+      {
+       "give_item": "river_water"
+      },
+      {
+       "set_flag": "got_water"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ]
+     },
+     "script": "dk1_river_idle"
+    }
+   ]
+  },
+  {
+   "id": "pyramid_hatch",
+   "name": "Escotilha da piramidezinha",
+   "area": "village",
+   "anchor": "mini_pyramid_hatch",
+   "solid_until": [
+    "farmer_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_none": [
+       "farmer_won"
+      ]
+     },
+     "script": "dk1_hatch_locked"
+    }
+   ]
+  },
+  {
+   "id": "bridge_north",
+   "name": "Ponte para a estrada do porto",
+   "area": "village",
+   "anchor": "bridge_north",
+   "solid_until": [
+    "treasure_lost",
+    "treasure_won",
+    "treasure_given"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       3
+      ]
+     },
+     "script": "dk1_bridge_locked"
+    }
+   ]
+  },
+  {
+   "id": "cistern_glyph",
+   "name": "Letras verdes",
+   "area": "cistern",
+   "anchor": "wall_glyph",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ],
+      "flags_none": [
+       "mago_glyph"
+      ]
+     },
+     "script": "dk1_mago_glyph",
+     "effects": [
+      {
+       "set_flag": "mago_glyph"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       3,
+       99
+      ]
+     },
+     "script": "dk1_mago_glyph_after"
+    }
+   ]
+  },
+  {
+   "id": "cistern_exit",
+   "name": "Escada para cima",
+   "area": "cistern",
+   "anchor": "exit_stairs",
+   "dialogue_rules": []
+  },
+  {
+   "id": "harbor_gate",
+   "name": "Portao do porto",
+   "area": "harbor",
+   "anchor": "inspector_spot",
+   "solid_until": [
+    "inspector_won"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_none": [
+       "inspector_won"
+      ]
+     },
+     "script": "dk1_gate_locked"
+    }
+   ]
+  },
+  {
+   "id": "harbor_bridge_back",
+   "name": "Estrada para a vila",
+   "area": "harbor",
+   "anchor": "bridge_back",
+   "dialogue_rules": []
+  },
+  {
+   "id": "ship_gangway",
+   "name": "Prancha",
+   "area": "harbor",
+   "anchor": "gangway",
+   "solid_until": [
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       6
+      ]
+     },
+     "script": "dk1_gangway_locked"
+    }
+   ]
+  },
+  {
+   "id": "barrel",
+   "name": "Barril",
+   "area": "ship_deck",
+   "anchor": "barrel",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       7,
+       99
+      ]
+     },
+     "script": "dk1_barrel"
+    }
+   ]
+  },
+  {
+   "id": "ship_bow",
+   "name": "Proa",
+   "area": "ship_deck",
+   "anchor": "bow",
+   "solid_until": [
+    "mai_met"
+   ],
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ],
+      "flags_none": [
+       "mai_met"
+      ]
+     },
+     "script": "dk1_bow_wait"
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "rumor_notebook",
+   "name": "Caderno de Boatos",
+   "description": "Suas anotacoes: um homem de capuz, um navio branco, um cartaz rasgado.",
+   "source": "Chapter start"
+  },
+  {
+   "id": "stamp_card",
+   "name": "Cartao de Selos",
+   "description": "Tres selos: Perdido, Ganho, Dado.",
+   "source": "Hooded Man"
+  },
+  {
+   "id": "honey",
+   "name": "Pote de Mel",
+   "description": "Mel grudento do Hakim.",
+   "source": "Hakim"
+  },
+  {
+   "id": "jug",
+   "name": "Jarra de Agua",
+   "description": "A jarra da Teana. Encha no rio.",
+   "source": "Teana"
+  },
+  {
+   "id": "river_water",
+   "name": "Agua do Rio",
+   "description": "Uma jarra de agua limpa do rio.",
+   "source": "River"
+  },
+  {
+   "id": "dates",
+   "name": "Tamaras",
+   "description": "Uma cesta de tamaras maduras.",
+   "source": "Date palm"
+  },
+  {
+   "id": "lantern",
+   "name": "Lanterna",
+   "description": "A lanterna do Kemet. Ilumina lugares escuros.",
+   "source": "Kemet"
+  },
+  {
+   "id": "scarab",
+   "name": "Escaravelho do Fundador",
+   "description": "O tesouro Perdido da vila.",
+   "source": "Bakura"
+  },
+  {
+   "id": "bandana",
+   "name": "Bandana do Jono",
+   "description": "O tesouro Ganho.",
+   "source": "Rex Raptor"
+  },
+  {
+   "id": "charm",
+   "name": "Amuleto da Sorte",
+   "description": "Presente da Teana: o tesouro Dado.",
+   "source": "Teana"
+  },
+  {
+   "id": "star_passage",
+   "name": "Passagem Estelar",
+   "description": "Seu bilhete para o Reino dos Duelistas.",
+   "source": "Shadi"
+  },
+  {
+   "id": "star_chip",
+   "name": "Ficha de Estrela",
+   "description": "Uma estrela. Vencer ganha, perder perde.",
+   "source": "Shadi"
+  },
+  {
+   "id": "bug_pin",
+   "name": "Pin do Inseto Dourado",
+   "description": "O pin de besouro dourado do InsetoKaiba. Pura vaidade.",
+   "source": "InsetoKaiba"
+  }
+ ],
+ "new_duelists": [
+  {
+   "id": "inseto_kaiba",
+   "copy": "Kaiba",
+   "name": "InsetoKaiba",
+   "slot": 42,
+   "portrait_slot": 243,
+   "portrait_file": "portraits/inseto_kaiba.png",
+   "note": "Parody rival. Stylized caricature only, no real likeness or real name. AI base = Kaiba (duelist 17); drops: insect cards. Slots 40 and 41 are Cockatiel and mirror Atos of the old story."
+  }
+ ],
+ "observer_events": [
+  {
+   "id": "roof_at_night",
+   "n": 1,
+   "npc": "mago_dev",
+   "sprite": "robe",
+   "overlay": "aura",
+   "area": "village",
+   "anchor": "mago_roof",
+   "show_during": {
+    "script": "dk1_bench",
+    "pages": [
+     3,
+     4
+    ]
+   },
+   "vanish": "glitch",
+   "flag": "mago_roof",
+   "note": "He watches the hero waiting on the bench. The hooded man says to ignore him."
+  },
+  {
+   "id": "cistern_glyph",
+   "n": 2,
+   "npc": "mago_dev",
+   "sprite": null,
+   "overlay": "aura",
+   "area": "cistern",
+   "anchor": "wall_glyph",
+   "interact_object": "cistern_glyph",
+   "flag": "mago_glyph",
+   "note": "Only his writing shows: green characters flickering on the wall. Bakura mentions it afterwards."
+  },
+  {
+   "id": "breakwater_passage",
+   "n": 3,
+   "npc": "mago_dev",
+   "sprite": "robe",
+   "overlay": "aura",
+   "area": "harbor",
+   "anchor": "breakwater",
+   "show_during": {
+    "script": "dk1_shadi_win",
+    "pages": [
+     1,
+     4
+    ]
+   },
+   "vanish": "glitch",
+   "flag": "mago_passage",
+   "note": "He looks at the Star Passage from afar; Shadi says he only reads."
+  },
+  {
+   "id": "mast_top",
+   "n": 4,
+   "npc": "mago_dev",
+   "sprite": "robe",
+   "overlay": "aura",
+   "area": "ship_deck",
+   "anchor": "mast_top",
+   "show_during": {
+    "script": "dk1_arrival",
+    "pages": [
+     0,
+     3
+    ]
+   },
+   "vanish": "glitch",
+   "flag": "mago_mast",
+   "note": "Sits at the top of the mast watching the island. Mai cannot see him."
+  }
+ ],
+ "quests": [
+  {
+   "id": "q01_whispers",
+   "kind": "talk",
+   "optional": false,
+   "title": "Cochichos na Praca",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Pergunte a Teana, Jono e ao Guarda",
+     "anchor": "village.teana_stall / plaza_center / bridge_north"
+    }
+   ],
+   "reward": "Rumor Notebook filled (3 rumors)"
+  },
+  {
+   "id": "q02_sage",
+   "kind": "talk+duel",
+   "optional": false,
+   "title": "O Teste do Sabio",
+   "giver": "simon",
+   "steps": [
+    {
+     "objective": "Conte ao Simon e aceite o duelo",
+     "anchor": "village.house_ne_door"
+    }
+   ],
+   "reward": "card Magician of Faith; the legend of the Kingdom"
+  },
+  {
+   "id": "q03_stakeout",
+   "kind": "investigate",
+   "optional": false,
+   "title": "Meia-noite no Banco",
+   "giver": "simon",
+   "steps": [
+    {
+     "objective": "Sente no banco da praca ate anoitecer",
+     "anchor": "village.plaza_bench"
+    },
+    {
+     "objective": "Fale com o homem encapuzado",
+     "anchor": "village.plaza_center"
+    }
+   ],
+   "reward": "Stamp Card"
+  },
+  {
+   "id": "q04_lost",
+   "kind": "fetch+duel+explore",
+   "optional": false,
+   "title": "O Perdido: Escaravelho do Fundador",
+   "giver": "baker",
+   "steps": [
+    {
+     "objective": "Pergunte ao Hakim sobre tesouros perdidos",
+     "anchor": "village.bakery_door"
+    },
+    {
+     "objective": "Ganhe a lanterna do Kemet num duelo",
+     "anchor": "village.farmer_field"
+    },
+    {
+     "objective": "Abra a escotilha e entre na cisterna",
+     "anchor": "village.mini_pyramid_hatch"
+    },
+    {
+     "objective": "Duele com Bakura, o fantasma solitario",
+     "anchor": "cistern.bakura_spot"
+    }
+   ],
+   "reward": "Founder's Scarab, cards Killer Needle and The 13th Grave, stamp Lost"
+  },
+  {
+   "id": "q05_won",
+   "kind": "talk+duel",
+   "optional": false,
+   "title": "O Ganho: A Bandana do Jono",
+   "giver": "jono",
+   "steps": [
+    {
+     "objective": "Encontre o Rex ou o Jono, em qualquer ordem",
+     "anchor": "village.east_road / plaza_center"
+    },
+    {
+     "objective": "Venca o Rex na estrada leste",
+     "anchor": "village.east_road"
+    }
+   ],
+   "reward": "Jono's Bandana, cards Uraby and Dragon Treasure, stamp Won"
+  },
+  {
+   "id": "q06_given",
+   "kind": "fetch+duel",
+   "optional": false,
+   "title": "O Dado: Os Bolinhos da Teana",
+   "giver": "teana",
+   "steps": [
+    {
+     "objective": "Pegue a Jarra de Agua com a Teana",
+     "anchor": "village.teana_stall"
+    },
+    {
+     "objective": "Mel do Hakim",
+     "anchor": "village.bakery_door"
+    },
+    {
+     "objective": "Encha a jarra no rio",
+     "anchor": "village.river_bank"
+    },
+    {
+     "objective": "Colha tamaras na palmeira",
+     "anchor": "village.date_palm"
+    },
+    {
+     "objective": "Volte a Teana e duele",
+     "anchor": "village.teana_stall"
+    }
+   ],
+   "reward": "Lucky Charm, card Kuriboh, stamp Given"
+  },
+  {
+   "id": "q07_harbor",
+   "kind": "duel",
+   "optional": false,
+   "title": "O Exame do Porto",
+   "giver": "guard",
+   "steps": [
+    {
+     "objective": "Cruze a ponte, o Guarda deixa",
+     "anchor": "village.bridge_north"
+    },
+    {
+     "objective": "Venca o Inspetor",
+     "anchor": "harbor.inspector_spot"
+    }
+   ],
+   "reward": "card Warrior of Tradition; gate opens"
+  },
+  {
+   "id": "q08_courier",
+   "kind": "duel+reveal",
+   "optional": false,
+   "title": "O Teste do Mensageiro",
+   "giver": "shadi",
+   "steps": [
+    {
+     "objective": "Ande ate o fim do cais",
+     "anchor": "harbor.pier_end"
+    },
+    {
+     "objective": "Venca Shadi",
+     "anchor": "harbor.pier_end"
+    }
+   ],
+   "reward": "Star Passage, Star Chip (1 star), card Illusionist Faceless Mage"
+  },
+  {
+   "id": "q09_farewell",
+   "kind": "talk",
+   "optional": false,
+   "title": "Adeus, Minha Vila",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Fale com Simon, Teana e Jono no cais",
+     "anchor": "harbor.farewell_*"
+    },
+    {
+     "objective": "Embarque no navio",
+     "anchor": "harbor.gangway"
+    }
+   ],
+   "reward": "card Mystical Elf; Simon's secret"
+  },
+  {
+   "id": "q10_ship",
+   "kind": "talk",
+   "optional": false,
+   "title": "Regras do Mar",
+   "giver": "mai",
+   "steps": [
+    {
+     "objective": "Fale com Mai no convez",
+     "anchor": "ship_deck.mai_spot"
+    },
+    {
+     "objective": "Va a proa",
+     "anchor": "ship_deck.bow"
+    }
+   ],
+   "reward": "the star rules; end of chapter 1"
+  },
+  {
+   "id": "s01_baker",
+   "kind": "duel",
+   "optional": true,
+   "title": "O Duelo do Forno do Hakim",
+   "giver": "baker",
+   "steps": [
+    {
+     "objective": "Duele com Hakim",
+     "anchor": "village.bakery_door"
+    }
+   ],
+   "reward": "card Mooyan Curry"
+  },
+  {
+   "id": "s02_notice",
+   "kind": "investigate",
+   "optional": true,
+   "title": "O Prego Dourado",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Leia o mural",
+     "anchor": "village.notice_sign"
+    }
+   ],
+   "reward": "flavor"
+  },
+  {
+   "id": "s03_barrel",
+   "kind": "investigate",
+   "optional": true,
+   "title": "O Barril que Ri",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Veja o barril no convez",
+     "anchor": "ship_deck.barrel"
+    }
+   ],
+   "reward": "foreshadows Teana in Chapter 5"
+  },
+  {
+   "id": "s04_inseto",
+   "kind": "duel",
+   "optional": true,
+   "title": "O Senhor dos Insetos do Navio",
+   "giver": "inseto_kaiba",
+   "steps": [
+    {
+     "objective": "Duele com InsetoKaiba no convez, depois da Mai",
+     "anchor": "ship_deck.inseto_spot"
+    }
+   ],
+   "reward": "Golden Bug Pin, card Javelin Beetle"
+  }
+ ],
+ "duels": [
+  {
+   "id": "simon",
+   "npc": "simon",
+   "duelist_id": 1,
+   "chapter": 1,
+   "deck": "Simon Muran",
+   "difficulty_tier": 1,
+   "pre_script": "dk1_simon_pre",
+   "win_script": "dk1_simon_win",
+   "lose_script": "dk1_simon_lose",
+   "win_flag": "simon_won",
+   "on_win": [
+    {
+     "give_card": "Magician of Faith"
+    },
+    {
+     "set_stage": 2
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "The sage's test. Win tells the legend."
+  },
+  {
+   "id": "baker",
+   "npc": "baker",
+   "duelist_id": 4,
+   "chapter": 1,
+   "deck": "Villager 1",
+   "difficulty_tier": 1,
+   "pre_script": "dk1_baker_pre",
+   "win_script": "dk1_baker_win",
+   "lose_script": "dk1_baker_lose",
+   "win_flag": "baker_won",
+   "on_win": [
+    {
+     "give_card": "Mooyan Curry"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Optional training duel."
+  },
+  {
+   "id": "farmer",
+   "npc": "farmer",
+   "duelist_id": 6,
+   "chapter": 1,
+   "deck": "Villager 3",
+   "difficulty_tier": 1,
+   "pre_script": "dk1_farmer_pre",
+   "win_script": "dk1_farmer_win",
+   "lose_script": "dk1_farmer_lose",
+   "win_flag": "farmer_won",
+   "on_win": [
+    {
+     "give_card": "Killer Needle"
+    },
+    {
+     "give_item": "lantern"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Required for the Lost treasure (opens the hatch)."
+  },
+  {
+   "id": "bakura",
+   "npc": "bakura",
+   "duelist_id": 14,
+   "chapter": 1,
+   "deck": "Yami Bakura",
+   "difficulty_tier": 3,
+   "pre_script": "dk1_bakura_pre",
+   "win_script": "dk1_bakura_win",
+   "lose_script": "dk1_bakura_lose",
+   "win_flag": "treasure_lost",
+   "on_win": [
+    {
+     "give_card": "The 13th Grave"
+    },
+    {
+     "give_item": "scarab"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Lost treasure. Ghost who just wants company."
+  },
+  {
+   "id": "rex",
+   "npc": "rex",
+   "duelist_id": 9,
+   "chapter": 1,
+   "deck": "Rex Raptor",
+   "difficulty_tier": 2,
+   "pre_script": "dk1_rex_pre",
+   "win_script": "dk1_rex_win",
+   "lose_script": "dk1_rex_lose",
+   "win_flag": "treasure_won",
+   "on_win": [
+    {
+     "give_card": "Uraby"
+    },
+    {
+     "give_item": "bandana"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Won treasure."
+  },
+  {
+   "id": "teana",
+   "npc": "teana",
+   "duelist_id": 2,
+   "chapter": 1,
+   "deck": "Teana",
+   "difficulty_tier": 1,
+   "pre_script": "dk1_teana_pre",
+   "win_script": "dk1_teana_win",
+   "lose_script": "dk1_teana_lose",
+   "win_flag": "treasure_given",
+   "on_win": [
+    {
+     "give_card": "Kuriboh"
+    },
+    {
+     "give_item": "charm"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Given treasure."
+  },
+  {
+   "id": "inspector",
+   "npc": "soldier",
+   "duelist_id": 18,
+   "chapter": 1,
+   "deck": "Mage Soldier",
+   "difficulty_tier": 3,
+   "pre_script": "dk1_inspector_pre",
+   "win_script": "dk1_inspector_win",
+   "lose_script": "dk1_inspector_lose",
+   "win_flag": "inspector_won",
+   "on_win": [
+    {
+     "give_card": "Warrior of Tradition"
+    },
+    {
+     "place_npc": {
+      "npc": "shadi",
+      "area": "harbor",
+      "anchor": "pier_end"
+     }
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Harbor exam."
+  },
+  {
+   "id": "shadi",
+   "npc": "shadi",
+   "duelist_id": 13,
+   "chapter": 1,
+   "deck": "Shadi Courier",
+   "difficulty_tier": 4,
+   "pre_script": "dk1_shadi_pre",
+   "win_script": "dk1_shadi_win",
+   "lose_script": "dk1_shadi_lose",
+   "win_flag": "shadi_won",
+   "on_win": [
+    {
+     "give_card": "Illusionist Faceless Mage"
+    },
+    {
+     "set_flag": "mago_passage"
+    },
+    {
+     "give_item": "star_passage"
+    },
+    {
+     "give_item": "star_chip"
+    },
+    {
+     "add_stars": 1
+    },
+    {
+     "set_stage": 6
+    },
+    {
+     "remove_npc": "shadi"
+    },
+    {
+     "show_prop": "ship"
+    },
+    {
+     "move_npc": {
+      "npc": "simon",
+      "area": "harbor",
+      "anchor": "farewell_simon"
+     }
+    },
+    {
+     "move_npc": {
+      "npc": "teana",
+      "area": "harbor",
+      "anchor": "farewell_teana"
+     }
+    },
+    {
+     "move_npc": {
+      "npc": "jono",
+      "area": "harbor",
+      "anchor": "farewell_jono"
+     }
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Courier's trial. Win = Passage + 1 star + friends appear."
+  },
+  {
+   "id": "inseto",
+   "npc": "inseto_kaiba",
+   "duelist_id": "inseto_kaiba",
+   "chapter": 1,
+   "deck": "InsetoKaiba",
+   "difficulty_tier": 5,
+   "pre_script": "dk1_inseto_pre",
+   "win_script": "dk1_inseto_win",
+   "lose_script": "dk1_inseto_lose",
+   "win_flag": "inseto_won",
+   "on_win": [
+    {
+     "give_card": "Javelin Beetle"
+    },
+    {
+     "give_item": "bug_pin"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Optional boss on the ship. No stars at risk (the Kingdom has not started). Rematch in Chapter 8."
+  }
+ ],
+ "transitions": [
+  {
+   "id": "start",
+   "when": {
+    "stage": [
+     0,
+     0
+    ]
+   },
+   "trigger": {
+    "kind": "character_creation_done"
+   },
+   "effects": [
+    {
+     "set_stage": 1
+    },
+    {
+     "give_item": "rumor_notebook"
+    }
+   ],
+   "script": "dk1_intro"
+  },
+  {
+   "id": "treasures_done",
+   "when": {
+    "stage": [
+     3,
+     3
+    ],
+    "flags_all": [
+     "treasure_lost",
+     "treasure_won",
+     "treasure_given"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true"
+   },
+   "effects": [
+    {
+     "set_stage": 4
+    }
+   ],
+   "script": "dk1_treasures_done"
+  },
+  {
+   "id": "enter_cistern",
+   "when": {
+    "stage": [
+     3,
+     99
+    ],
+    "flags_all": [
+     "farmer_won"
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "pyramid_hatch"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "cistern",
+      "anchor": "spawn_stairs"
+     }
+    }
+   ],
+   "script": "dk1_cistern_enter"
+  },
+  {
+   "id": "leave_cistern",
+   "when": {
+    "stage": [
+     0,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "cistern_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "village",
+      "anchor": "mini_pyramid_hatch"
+     }
+    }
+   ],
+   "script": "dk1_cistern_exit"
+  },
+  {
+   "id": "cross_bridge",
+   "when": {
+    "stage": [
+     4,
+     5
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "bridge_north"
+   },
+   "effects": [
+    {
+     "set_stage": 5
+    },
+    {
+     "teleport": {
+      "area": "harbor",
+      "anchor": "spawn_gate"
+     }
+    }
+   ],
+   "script": "dk1_bridge_cross",
+   "note": "set_stage 5 is a no-op when already 5. Chapter banner optional."
+  },
+  {
+   "id": "back_to_village",
+   "when": {
+    "stage": [
+     5,
+     6
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "harbor_bridge_back"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "village",
+      "anchor": "bridge_north"
+     }
+    }
+   ],
+   "script": "dk1_bridge_back"
+  },
+  {
+   "id": "board",
+   "when": {
+    "stage": [
+     6,
+     6
+    ],
+    "flags_all": [
+     "simon_farewell",
+     "teana_farewell",
+     "jono_farewell"
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "ship_gangway"
+   },
+   "effects": [
+    {
+     "set_stage": 7
+    },
+    {
+     "teleport": {
+      "area": "ship_deck",
+      "anchor": "spawn_gangway"
+     }
+    },
+    {
+     "place_npc": {
+      "npc": "mai",
+      "area": "ship_deck",
+      "anchor": "mai_spot"
+     }
+    }
+   ],
+   "script": "dk1_board"
+  },
+  {
+   "id": "arrival",
+   "when": {
+    "stage": [
+     7,
+     7
+    ],
+    "flags_all": [
+     "mai_met"
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "ship_bow"
+   },
+   "effects": [
+    {
+     "set_flag": "mago_mast"
+    },
+    {
+     "set_stage": 10
+    },
+    {
+     "teleport": {
+      "area": "kingdom_beach",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk1_arrival"
+  }
+ ],
+ "hud_objectives": [
+  {
+   "when": {
+    "stage": [
+     1,
+     1
+    ],
+    "flags_all": [
+     "heard_teana",
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "text": "Conte ao Simon o que ouviu"
+  },
+  {
+   "when": {
+    "stage": [
+     1,
+     1
+    ],
+    "flags_all": [
+     "heard_jono",
+     "heard_guard"
+    ],
+    "flags_none": [
+     "heard_teana"
+    ]
+   },
+   "text": "Pergunte a Teana sobre os cochichos"
+  },
+  {
+   "when": {
+    "stage": [
+     1,
+     1
+    ],
+    "flags_all": [
+     "heard_teana",
+     "heard_guard"
+    ],
+    "flags_none": [
+     "heard_jono"
+    ]
+   },
+   "text": "Pergunte a Jono sobre os cochichos"
+  },
+  {
+   "when": {
+    "stage": [
+     1,
+     1
+    ],
+    "flags_all": [
+     "heard_teana",
+     "heard_jono"
+    ],
+    "flags_none": [
+     "heard_guard"
+    ]
+   },
+   "text": "Pergunte ao Guarda sobre os cochichos"
+  },
+  {
+   "when": {
+    "stage": [
+     1,
+     1
+    ],
+    "flags_all": [
+     "heard_guard"
+    ],
+    "flags_none": [
+     "heard_teana",
+     "heard_jono"
+    ]
+   },
+   "text": "Pergunte a Teana e a Jono sobre os cochichos"
+  },
+  {
+   "when": {
+    "stage": [
+     1,
+     1
+    ],
+    "flags_all": [
+     "heard_jono"
+    ],
+    "flags_none": [
+     "heard_teana",
+     "heard_guard"
+    ]
+   },
+   "text": "Pergunte a Teana e ao Guarda sobre os cochichos"
+  },
+  {
+   "when": {
+    "stage": [
+     1,
+     1
+    ],
+    "flags_all": [
+     "heard_teana"
+    ],
+    "flags_none": [
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "text": "Pergunte a Jono e ao Guarda sobre os cochichos"
+  },
+  {
+   "when": {
+    "stage": [
+     1,
+     1
+    ],
+    "flags_none": [
+     "heard_teana",
+     "heard_jono",
+     "heard_guard"
+    ]
+   },
+   "text": "Pergunte a Teana e a Jono e ao Guarda sobre os cochichos"
+  },
+  {
+   "when": {
+    "stage": [
+     2,
+     2
+    ],
+    "flags_none": [
+     "simon_won"
+    ]
+   },
+   "text": "Fale com Simon"
+  },
+  {
+   "when": {
+    "stage": [
+     2,
+     2
+    ]
+   },
+   "text": "Sente no banco da praca e espere anoitecer"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ],
+    "flags_all": [
+     "teana_asked",
+     "got_honey",
+     "got_water",
+     "got_dates"
+    ],
+    "flags_none": [
+     "treasure_given"
+    ]
+   },
+   "text": "Leve os ingredientes para a Teana"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ],
+    "flags_all": [
+     "teana_asked"
+    ],
+    "flags_none": [
+     "treasure_given"
+    ]
+   },
+   "text": "Bolinhos da Teana - mel, agua do rio, tamaras"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ],
+    "flags_all": [
+     "jono_asked"
+    ],
+    "flags_none": [
+     "treasure_won"
+    ]
+   },
+   "text": "Venca o Rex na estrada leste"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ],
+    "flags_all": [
+     "farmer_won"
+    ],
+    "flags_none": [
+     "treasure_lost"
+    ]
+   },
+   "text": "Abra a escotilha da piramidezinha"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ],
+    "flags_all": [
+     "baker_hint"
+    ],
+    "flags_none": [
+     "farmer_won"
+    ]
+   },
+   "text": "Ganhe a lanterna do Kemet"
+  },
+  {
+   "when": {
+    "stage": [
+     3,
+     3
+    ]
+   },
+   "text": "Ache um tesouro Perdido, um Ganho e um Dado"
+  },
+  {
+   "when": {
+    "stage": [
+     4,
+     4
+    ]
+   },
+   "text": "Cruze a ponte ate o porto"
+  },
+  {
+   "when": {
+    "stage": [
+     5,
+     5
+    ],
+    "flags_none": [
+     "inspector_won"
+    ]
+   },
+   "text": "Venca o Inspetor no portao do porto"
+  },
+  {
+   "when": {
+    "stage": [
+     5,
+     5
+    ]
+   },
+   "text": "Encontre o Mensageiro no fim do cais"
+  },
+  {
+   "when": {
+    "stage": [
+     6,
+     6
+    ]
+   },
+   "text": "Despeca-se dos amigos e embarque"
+  },
+  {
+   "when": {
+    "stage": [
+     7,
+     7
+    ],
+    "flags_none": [
+     "mai_met"
+    ]
+   },
+   "text": "Fale com a dama no convez"
+  },
+  {
+   "when": {
+    "stage": [
+     7,
+     7
+    ]
+   },
+   "text": "Va ate a proa do navio"
+  }
+ ],
+ "scripts": [
+  {
+   "id": "dk1_intro",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Opening, right after character creation. Hero stands at the home door.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Bom dia, minha vila! Sol, areia e o barulho de cartas sendo embaralhadas."
+    },
+    {
+     "speaker": "atos",
+     "text": "Hoje e o Festival das Palmeiras. Todos estao na rua, mas ninguem esta duelando."
+    },
+    {
+     "speaker": "atos",
+     "text": "Estao todos cochichando. Algo esta acontecendo. Vou anotar tudo no meu caderno."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Pergunte a Teana, Jono e ao Guarda sobre os cochichos.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_rumor",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana, first talk (rumor 1).",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "{name}! Venha ca, rapido! Voce nao vai acreditar no que houve de madrugada."
+    },
+    {
+     "speaker": "teana",
+     "text": "Um homem de capuz preto comprou minha bandeja inteira de bolinhos de tamara!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Mas isso e otimo! Por que essa cara?"
+    },
+    {
+     "speaker": "teana",
+     "text": "Ele pagou com ISTO. Uma estrela dourada! Disse 'Nos vemos no Reino' e foi embora."
+    },
+    {
+     "speaker": "teana",
+     "text": "E nao havia pegadas na areia. Nenhuma!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um homem de capuz paga com estrelas douradas e fala de um Reino.",
+     "label": "Boato 1"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_rumor_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana, rumor already heard, other rumors missing.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Pergunte ao Jono e ao Guarda tambem. Cada um sabe um pedacinho!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_tell_simon",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana, all three rumors heard.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Tres boatos, um misterio! O velho Simon conhece historias antigas. Va falar com ele."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_rumor",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono, first talk (rumor 2).",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ei, {name}! Na hora certa. Eu vou ficar rico e famoso!"
+    },
+    {
+     "speaker": "atos",
+     "text": "De novo? Semana passada era o negocio de surfe na areia."
+    },
+    {
+     "speaker": "jono",
+     "text": "Isto e diferente! Um marinheiro me falou de um navio branco na foz do rio."
+    },
+    {
+     "speaker": "jono",
+     "text": "Ele leva a uma ilha onde duelistas lutam por estrelas. O vencedor ganha QUALQUER COISA!"
+    },
+    {
+     "speaker": "jono",
+     "text": "Qualquer coisa! Ate peixe frito pelo resto da vida!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um navio branco leva duelistas a uma ilha. O campeao ganha qualquer coisa.",
+     "label": "Boato 2"
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_rumor_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono, rumor heard, others missing.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Nao conte pra ninguem, mas eu ja estou fazendo as malas. Heh. Pergunte aos outros."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_tell_simon",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono, all three rumors heard.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "O Simon sabe do que se trata. Velhos sempre sabem. Va la, eu espero."
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_rumor",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Guard, first talk (rumor 3).",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Alto! Ah, e voce, {name}. Fale baixo."
+    },
+    {
+     "speaker": "guard",
+     "text": "Ontem a noite alguem pregou um cartaz no portao. Papel estranho. Brilhava."
+    },
+    {
+     "speaker": "guard",
+     "text": "Eu arranquei, e o meu trabalho. Mas o vento levou metade. Olhe."
+    },
+    {
+     "speaker": "atos",
+     "text": "'PASSAGEM ESTELAR. Tres tesouros. Um duelista.' E depois esta rasgado."
+    },
+    {
+     "speaker": "guard",
+     "text": "So sei isso. Pergunte ao velho Simon. Ele fica nervoso quando falam 'Reino'."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um cartaz rasgado diz - Passagem Estelar. Tres tesouros. Um duelista.",
+     "label": "Boato 3"
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_rumor_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Guard, rumor heard, others missing.",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Ja contei o que sei. Fale com os outros, mas baixinho."
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_tell_simon",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Guard, all three rumors heard.",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "O Simon. Va falar com o Simon. E nunca diga que eu mostrei aquele cartaz."
+    }
+   ]
+  },
+  {
+   "id": "dk1_notice",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Notice board (optional, flavor).",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "O mural da vila. 'Colheita de tamaras na sexta. Cabra perdida - atende por Esfinge.'"
+    },
+    {
+     "speaker": "atos",
+     "text": "Embaixo, um prego dourado e brilhante. Alguem pregou algo aqui ontem a noite."
+    }
+   ]
+  },
+  {
+   "id": "dk1_notice_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Notice board, seen.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Ainda so o aviso da cabra e um prego dourado. A cabra deve estar bem."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_wait",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Simon, before all three rumors are heard.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "A vila inteira zumbe como abelhas. Prefiro o silencio."
+    },
+    {
+     "speaker": "simon",
+     "text": "Pergunte a Teana, Jono e ao Guarda o que ouviram. Depois volte e me conte."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Simon, all rumors heard. Ask page - duel (the sage's test).",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "{name}! Voce parece alguem carregando tres boatos."
+    },
+    {
+     "speaker": "atos",
+     "text": "Um homem de capuz, um navio branco e um cartaz rasgado. Simon, o que e o Reino?"
+    },
+    {
+     "speaker": "simon",
+     "text": "Hum. Ninguem diz essa palavra nesta vila ha trinta anos."
+    },
+    {
+     "speaker": "simon",
+     "text": "Eu conto. Mas antes mostre que segura um baralho sem tremer. Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Simon beaten - the legend of Duelist Kingdom.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Maos firmes e bom coracao. Bom. Agora ouca com atencao."
+    },
+    {
+     "speaker": "simon",
+     "text": "Alem do mar fica o Reino dos Duelistas, castelo numa ilha feito pelo showman Pegasus."
+    },
+    {
+     "speaker": "simon",
+     "text": "Duelistas se reunem la com fichas de estrela. Vencer rende uma estrela. Perder custa uma."
+    },
+    {
+     "speaker": "simon",
+     "text": "Dez estrelas abrem os portoes do castelo. Quem chega ao topo enfrenta o proprio Pegasus."
+    },
+    {
+     "speaker": "atos",
+     "text": "E o campeao ganha qualquer coisa?"
+    },
+    {
+     "speaker": "simon",
+     "text": "Qualquer coisa que pedir. Essa e a isca. Pegasus adora um bom espetaculo."
+    },
+    {
+     "speaker": "simon",
+     "text": "Convites sao raros. O outro caminho e a Passagem Estelar, ganha, nunca comprada."
+    },
+    {
+     "speaker": "simon",
+     "text": "Cuidado - quem vai pela Passagem comeca com uma unica estrela. Nada de boas-vindas."
+    },
+    {
+     "speaker": "simon",
+     "text": "Um mensageiro encapuzado entrega a Passagem, so a noite. Espere no banco da praca."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou a carta Magician of Faith de Simon.",
+     "label": "Recompensa"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Sente no banco da praca e espere anoitecer.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Simon wins.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Suas maos tremeram, mas seus olhos nao. Descanse e tente de novo."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_stage2",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Simon, waiting for the bench.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "O banco da praca. Paciencia, {name}. O mensageiro vem quando o sol se vai."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_treasures",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Simon, during the treasure hunt.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Perdido, Ganho, Dado. Conheco esse enigma. Nao pense neles como tarefas."
+    },
+    {
+     "speaker": "simon",
+     "text": "Pense neles como um espelho. O Reino vai te perguntar as mesmas tres coisas."
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_stage2",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana, stage 2.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "O Simon mandou voce sentar num banco? Hehe. Leve uma almofada, a pedra e fria."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_stage2",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono, stage 2.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Um banco? Esse e o plano? Achei que seria mais... dramatico. Boa sorte!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_stage2",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Guard, stage 2.",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Sentado la fora depois de escurecer? Eu nao vi nada. Estava cochilando."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bench_early",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bench, before Simon's test.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Um bom banco de pedra. Ainda nao e hora de sentar."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bench",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bench at stage 2 - night falls, the hooded man appears.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Vou sentar aqui e esperar. Com certeza o mensageiro vai aparecer a qualquer momento."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O sol se poe. As barracas fecham. A praca fica quieta e fria.",
+     "label": "Mais tarde"
+    },
+    {
+     "speaker": "atos",
+     "text": "Ninguem ainda..."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Num telhado distante, uma figura de manto fica num leve brilho verde.",
+     "label": "Ao Longe"
+    },
+    {
+     "speaker": "atos",
+     "text": "Alguem me observa la de cima... Sumiu. So um piscar de verde."
+    },
+    {
+     "speaker": "atos",
+     "text": "Espere. Tem alguem parado perto da palmeira velha?"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Fale com o homem encapuzado na praca.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bench_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bench, later.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Um bom banco. Quando eu voltar campeao, vou sentar aqui e contar a todos."
+    }
+   ]
+  },
+  {
+   "id": "dk1_hooded_riddle",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "The hooded man (Shadi in disguise) - the three treasures. Ends the night.",
+   "pages": [
+    {
+     "speaker": "hooded_man",
+     "text": "Voce espera bem. Poucos esperam."
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "E ignore aquele no telhado. Ele so observa. Nunca toca em nada."
+    },
+    {
+     "speaker": "atos",
+     "text": "Quem e ele?"
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "Um leitor, nao um escritor. Nao hoje a noite. Agora, aos negocios."
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce e o mensageiro? Tem a Passagem Estelar?"
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "Sou uma voz no escuro, nada mais. A Passagem nao e dada. E conquistada."
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "Pegue esta carta. Ela tem tres selos vazios."
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "Preencha com tres tesouros da sua vila. Um perdido. Um ganho. Um dado."
+    },
+    {
+     "speaker": "atos",
+     "text": "Isso e um enigma, nao uma missao!"
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "A vida e quase so enigmas. Venha ao porto quando a carta estiver cheia. O navio nao espera muito."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou o Cartao de Selos. Ele tem tres selos vazios.",
+     "label": "Voce ganhou"
+    },
+    {
+     "speaker": "narrator",
+     "text": "O sol nasce e a vila acorda. Tres tesouros esperam.",
+     "label": "Manha seguinte"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Ache um tesouro Perdido, um Ganho e um Dado. Pergunte aos moradores.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_hello",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Hakim the baker, before the treasure hunt.",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Pao fresquinho! Pao quentinho! ... Ninguem? Todos estao ocupados cochichando."
+    },
+    {
+     "speaker": "baker",
+     "text": "Anote o que digo - este Festival esta amaldicoado. Ou muito estranho."
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_hint",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Hakim, hint about the Founder's Scarab and the hatch.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Hakim, voce conhece algum tesouro perdido por aqui?"
+    },
+    {
+     "speaker": "baker",
+     "text": "Engracado voce perguntar. Meu avo falava de um - o Escaravelho do Fundador."
+    },
+    {
+     "speaker": "baker",
+     "text": "Ele caiu na antiga cisterna embaixo da piramidezinha, ha muito tempo."
+    },
+    {
+     "speaker": "baker",
+     "text": "Semana passada vi uma luz palida na escotilha. Brrr! Peca a lanterna do Kemet."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Consiga a lanterna do Kemet e abra a escotilha da piramidezinha.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_honey",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Hakim gives honey for Teana's cakes.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Hakim, a Teana precisa de mel para os bolinhos do festival."
+    },
+    {
+     "speaker": "baker",
+     "text": "Para os bolinhos da Teana? Claro! Tome, cuidado, e muito grudento."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou um Pote de Mel.",
+     "label": "Voce ganhou"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Hakim, optional duel.",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Entre uma fornada e outra eu gosto de duelar. Quer testar seu baralho no meu forno? Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Hakim beaten.",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Ha! Voce duela melhor do que eu asso. Tome, um agradecimento."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou a carta Mooyan Curry.",
+     "label": "Recompensa"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Hakim wins.",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Meu pao cresce mais rapido que seu baralho. Tente de novo!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Hakim, after everything.",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Boa viagem, {name}. Vou deixar um pao quente para quando voce voltar."
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_hello",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Kemet the farmer, stages 1-2.",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "Cochichos? Sou fazendeiro. So escuto grilos e a minha cabra."
+    },
+    {
+     "speaker": "farmer",
+     "text": "Mas minhas tamaras estao maduras. As melhores por quilometros."
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_nohint",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Kemet, treasure hunt, hero has no reason for the lantern yet.",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "Tamaras maduras, sol quente, cabra sumida. Essas sao minhas novidades."
+    },
+    {
+     "speaker": "farmer",
+     "text": "Tenho a melhor lanterna da vila, mas so empresto aos corajosos."
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Kemet, lantern duel.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "O Hakim disse que voce tem uma lanterna. Preciso entrar na piramidezinha."
+    },
+    {
+     "speaker": "farmer",
+     "text": "Na escotilha assombrada? Ha! Corajoso ou maluco?"
+    },
+    {
+     "speaker": "farmer",
+     "text": "So empresto aos corajosos. Prove num duelo! Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Kemet beaten.",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "Ha! Corajoso E maluco. O melhor tipo. Leve a lanterna."
+    },
+    {
+     "speaker": "farmer",
+     "text": "E esta carta. Se ouvir musica la embaixo, corra."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou uma Lanterna e a carta Killer Needle.",
+     "label": "Recompensa"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Abra a escotilha da piramidezinha ao lado da casa.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Kemet wins.",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "A lanterna fica comigo, amigo. Treine e volte."
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Kemet, after the lantern.",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "Cuidado com o fantasma. Se ouvir musica, corra. Ja falei? Corra mesmo assim."
+    }
+   ]
+  },
+  {
+   "id": "dk1_hatch_locked",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Pyramid hatch, no lantern.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Uma piramidezinha com uma escotilha de pedra. Escuro demais para entrar."
+    }
+   ]
+  },
+  {
+   "id": "dk1_cistern_enter",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Hatch opened with the lantern.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Lanterna acesa. Desco as escadas antigas. Brrr, que frio aqui embaixo."
+    }
+   ]
+  },
+  {
+   "id": "dk1_cistern_exit",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Cistern stairs up.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Subo a escada e volto para o sol quente."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bakura the lonely ghost - duel for the Scarab.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Um visitante! Um visitante de verdade, que respira! Que dia feliz!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Hum... voce esta flutuando."
+    },
+    {
+     "speaker": "bakura",
+     "text": "Trezentos anos flutuando. Atravesso paredes, mas ninguem nunca aparece."
+    },
+    {
+     "speaker": "atos",
+     "text": "Estou procurando o Escaravelho do Fundador."
+    },
+    {
+     "speaker": "bakura",
+     "text": "Aquela coisa brilhante? Eu uso de lampada! Ganhe de mim. Um duelo! Por favor! Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bakura beaten.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Esplendido! O melhor duelo em tres seculos. Tambem o unico."
+    },
+    {
+     "speaker": "bakura",
+     "text": "Leve o Escaravelho. Acho outra lampada. Visite de novo, aqui fica quieto."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou o Escaravelho do Fundador e a carta The 13th Grave.",
+     "label": "Recompensa"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um selo brilha no seu Cartao de Selos - Perdido.",
+     "label": "Selo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bakura wins.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Ja vai embora? Fique! Mais um duelo? Por favorzinho?"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bakura, after.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Ola, amigo! O degrau esta escorregadio. Ah, e obrigado pela visita."
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_first",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Rex Raptor, first talk (boast). Points to Jono.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "ROAR! Contemple o poderoso Rex Raptor, duelista errante de dinossauros!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce nao esta so de passagem?"
+    },
+    {
+     "speaker": "rex",
+     "text": "Eu coleciono trofeus. Ve esta bandana? Ganhei de um garoto barulhento, o Jono."
+    },
+    {
+     "speaker": "atos",
+     "text": "A bandana do Jono... Melhor falar com ele primeiro."
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Rex, duel for the bandana.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Rex, quero a bandana do Jono de volta."
+    },
+    {
+     "speaker": "rex",
+     "text": "Ha! Entao tome dos meus dinossauros. Vencer e levar. Justo e justo."
+    },
+    {
+     "speaker": "rex",
+     "text": "Mas se perder, fico com suas meias da sorte tambem! Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Rex beaten.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Impossivel! Meus dinossauros! Meu trofeu!"
+    },
+    {
+     "speaker": "rex",
+     "text": "Hmph. Leve. E esta carta, novato. Eu nao guardo magoa. So dinossauros."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou a Bandana do Jono e a carta Uraby.",
+     "label": "Recompensa"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um selo brilha no seu Cartao de Selos - Ganho.",
+     "label": "Selo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Rex wins.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "ROAR! Mais dinossauros do que voce consegue contar! Volte mais forte."
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Rex, after.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Vou achar outro trofeu. Entre nesse Reino, garoto. Dizem que estrelas brilham."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_ask",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono tells about the bandana.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ugh. {name}. Nao olhe pra mim. O pior dia da vida."
+    },
+    {
+     "speaker": "atos",
+     "text": "O que houve?"
+    },
+    {
+     "speaker": "jono",
+     "text": "O Rex Raptor, o dino da estrada leste, apostou minha bandana da sorte. Perdi em tres turnos!"
+    },
+    {
+     "speaker": "jono",
+     "text": "Estou com vergonha de voltar la. Se voce ganhasse de volta, eu ficaria devendo muito."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Venca Rex Raptor na estrada leste e ganhe a bandana de volta.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_waiting",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono, waiting for the bandana.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "O Rex esta na estrada leste. Seja gentil... nao, seja MALVADO."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_thanks",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono, bandana won back.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Minha bandana! Voce conseguiu! Voce conseguiu mesmo!"
+    },
+    {
+     "speaker": "atos",
+     "text": "E sua. Pegue."
+    },
+    {
+     "speaker": "jono",
+     "text": "De jeito nenhum. Voce ganhou limpo. Fique com ela, da sorte."
+    },
+    {
+     "speaker": "jono",
+     "text": "Leve esta carta tambem. Eu tenho um plano, alias. Um plano secreto. Heh."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou a carta Dragon Treasure do Jono.",
+     "label": "Recompensa"
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono, bandana done / waiting for harbor.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Essa bandana fica melhor em voce. Bom, nao. Mas fique com ela."
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_ask",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana asks for help with the cakes (Given quest).",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "{name}! Voce ficou fora a noite toda. O fantasma te mordeu? Hehe."
+    },
+    {
+     "speaker": "atos",
+     "text": "Estou procurando um tesouro Dado. Seja la o que isso significa."
+    },
+    {
+     "speaker": "teana",
+     "text": "Dado? Ah... agora nao posso. O festival comeca e eu nao tenho bolinhos!"
+    },
+    {
+     "speaker": "teana",
+     "text": "Preciso de mel do Hakim, agua fresca do rio e tamaras maduras. Mas nao posso sair da barraca."
+    },
+    {
+     "speaker": "teana",
+     "text": "Me ajude e eu te dou algo precioso. Tome, leve minha jarra de agua."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou uma Jarra de Agua.",
+     "label": "Voce ganhou"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Pegue mel com o Hakim, encha a jarra no rio e colha tamaras de uma palmeira.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_waiting",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana, waiting for the ingredients.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Mel do Hakim, agua do rio e tamaras de uma palmeira. Por favor, ande rapido!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana, all ingredients - duel for the charm.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Mel, agua E tamaras! Voce e um heroi, {name}!"
+    },
+    {
+     "speaker": "teana",
+     "text": "Os bolinhos precisam assar. Entao duele comigo! Quero meu amuleto em boas maos."
+    },
+    {
+     "speaker": "teana",
+     "text": "Se ganhar, o amuleto e seu. Se perder, lava a louca! Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana beaten - the Given treasure.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Uau! Tudo bem, tudo bem, voce venceu. Combinado e combinado."
+    },
+    {
+     "speaker": "teana",
+     "text": "Este e meu Amuleto da Sorte, presente da minha avo. Eu nao posso ir, mas voce pode."
+    },
+    {
+     "speaker": "teana",
+     "text": "Nao e uma troca. E um presente. E isso que o torna especial."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou o Amuleto da Sorte e a carta Kuriboh.",
+     "label": "Recompensa"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um selo brilha no seu Cartao de Selos - Dado.",
+     "label": "Selo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana wins.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Hehe, eu ganhei! Louca depois do festival. Tente de novo, {name}!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana, charm given.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Venha me ver antes de partir, ta? E cuide bem desse amuleto."
+    }
+   ]
+  },
+  {
+   "id": "dk1_date_palm",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Date palm - dates for Teana.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "A palmeira esta cheia de tamaras maduras. Sacode, sacode, sacode!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Plop, plop, plop! Uma cesta inteira de tamaras doces."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou Tamaras.",
+     "label": "Voce ganhou"
+    }
+   ]
+  },
+  {
+   "id": "dk1_date_palm_idle",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Date palm, no errand or already picked.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Tamaras maduras. A Teana ia adorar. Talvez eu deva perguntar a ela primeiro."
+    }
+   ]
+  },
+  {
+   "id": "dk1_river_fill",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "River - fill the jug.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "O rio e fresco e limpo. Glub, glub, glub."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou Agua do Rio.",
+     "label": "Voce ganhou"
+    }
+   ]
+  },
+  {
+   "id": "dk1_river_idle",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "River, nothing to fill.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Um rio limpo. Os peixes me olham como se eu devesse dinheiro."
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_block",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Guard, stage 3 - bridge closed.",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Ordens - ninguem cruza a ponte hoje. Nao depois daquele caso do cartaz."
+    },
+    {
+     "speaker": "guard",
+     "text": "A nao ser que tenha um motivo muito bom. E um cartao bem cheio."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bridge_locked",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bridge object, stage 3.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "O Guarda bloqueia a ponte. Ainda nao posso cruzar."
+    }
+   ]
+  },
+  {
+   "id": "dk1_treasures_done",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "All three stamps. Chained after the third treasure.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "O Cartao de Selos esta cheio! Perdido, Ganho e Dado, os tres selos brilham."
+    },
+    {
+     "speaker": "atos",
+     "text": "O homem encapuzado disse para ir ao porto. A estrada fica depois da ponte."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Cruze a ponte ate o porto. O Guarda vai deixar voce passar.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_open",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Guard, stage 4-5 - lets the hero pass.",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Aquele cartao brilhante... e uma Passagem Estelar cheia? Em vinte anos nunca vi!"
+    },
+    {
+     "speaker": "guard",
+     "text": "Va em frente. A ponte e sua. Cuidado, {name}."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bridge_cross",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Crossing the bridge to the harbor.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Cruzo a ponte e desco a estrada dourada. Sinto cheiro de sal no ar."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Cordas rangendo e gaivotas. Um portao e um cais vazio depois dele.",
+     "label": "O Porto"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bridge_back",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Walking back to the village.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Volto pela ponte, para a vila."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inspector_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Harbor inspector (Mage Soldier) - gate exam.",
+   "pages": [
+    {
+     "speaker": "soldier",
+     "text": "Alto, viajante. Este cais esta fechado para o navio do Reino."
+    },
+    {
+     "speaker": "atos",
+     "text": "Tenho um Cartao de Selos com tres selos."
+    },
+    {
+     "speaker": "soldier",
+     "text": "Impressionante. Mas qualquer um junta selos. Duelistas precisam passar no Exame do Porto."
+    },
+    {
+     "speaker": "soldier",
+     "text": "Venca e o portao abre. Perca e va treinar. Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_inspector_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Inspector beaten.",
+   "pages": [
+    {
+     "speaker": "soldier",
+     "text": "Excelente! O portao esta aberto. O Mensageiro espera no fim do cais."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou a carta Warrior of Tradition.",
+     "label": "Recompensa"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Va ate o fim do cais e encontre o Mensageiro.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_inspector_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Inspector wins.",
+   "pages": [
+    {
+     "speaker": "soldier",
+     "text": "Hoje nao. Va treinar e volte, recruta."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inspector_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Inspector, after.",
+   "pages": [
+    {
+     "speaker": "soldier",
+     "text": "Pode ir, o cais espera. Boa sorte no mar."
+    }
+   ]
+  },
+  {
+   "id": "dk1_gate_locked",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Harbor gate object, before the exam.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "O portao esta fechado. O Inspetor esta bem na frente dele."
+    }
+   ]
+  },
+  {
+   "id": "dk1_shadi_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Shadi reveals himself - the Courier's trial.",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Voce veio. Sou Shadi, mensageiro de Pegasus. E sim, eu era o homem encapuzado."
+    },
+    {
+     "speaker": "atos",
+     "text": "Eu sabia que aquela voz era familiar!"
+    },
+    {
+     "speaker": "shadi",
+     "text": "Nao sabia. Nao minta a um espirito. Os tres selos - Memoria, Coragem, Bondade."
+    },
+    {
+     "speaker": "shadi",
+     "text": "Um duelista precisa dos tres. E de um baralho. Um ultimo teste - duele comigo. Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_shadi_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Shadi beaten - the Passage and the first star.",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Suas cartas sao leais e seu coracao e verdadeiro. A Passagem Estelar e sua."
+    },
+    {
+     "speaker": "narrator",
+     "text": "No quebra-mar distante, uma figura de manto brilha em verde e olha a sua Passagem Estelar.",
+     "label": "Ao Longe"
+    },
+    {
+     "speaker": "shadi",
+     "text": "Hum. Alguem leu a sua Passagem. Ignore. Ele so le."
+    },
+    {
+     "speaker": "atos",
+     "text": "Quem e 'ele'?"
+    },
+    {
+     "speaker": "shadi",
+     "text": "Um leitor. Ele nunca vira a pagina por voce. Volte a sua Passagem."
+    },
+    {
+     "speaker": "shadi",
+     "text": "Duelistas convidados entram com tres estrelas. Os da Passagem entram com apenas uma."
+    },
+    {
+     "speaker": "atos",
+     "text": "Uma estrela? Isso e quase nada!"
+    },
+    {
+     "speaker": "shadi",
+     "text": "E tudo que precisa. Vencer rende uma estrela. Perder custa uma. Com zero, volta pra casa."
+    },
+    {
+     "speaker": "shadi",
+     "text": "Dez estrelas abrem o castelo. Pegasus espera no topo. Seus amigos vieram se despedir."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou a Passagem Estelar, uma Ficha de Estrela e a carta Illusionist Faceless Mage.",
+     "label": "Recompensa"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce tem 1 estrela. O navio branco chega ao cais.",
+     "label": "Estrelas"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Despeca-se de Simon, Teana e Jono e embarque no navio.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_shadi_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Shadi wins.",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Seu coracao quer, mas seu baralho precisa de trabalho. Tente de novo, jovem."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_farewell",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Simon at the pier - the confession.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Entao o navio e real. Estou velho para viagens, mas meu coracao vai com voce."
+    },
+    {
+     "speaker": "simon",
+     "text": "Preciso confessar algo. Quem voce acha que escreveu para Pegasus?"
+    },
+    {
+     "speaker": "atos",
+     "text": "VOCE escreveu?!"
+    },
+    {
+     "speaker": "simon",
+     "text": "Pegasus e eu fomos amigos. Brigamos por cartas. Ele fez uma ilha, eu uma vila."
+    },
+    {
+     "speaker": "simon",
+     "text": "Ele pediu meu melhor aluno. Disse que ia pensar. Ai voce apareceu com aquele baralho."
+    },
+    {
+     "speaker": "simon",
+     "text": "Diga que Simon mandou ola. E que ele ainda me deve uma carta. Leve esta, minha primeira."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou a carta Mystical Elf de Simon.",
+     "label": "Recompensa"
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Simon at the pier, after the farewell.",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Va. E lembre - estrelas sao so numeros. Cartas sao so papel. Pessoas importam."
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_farewell",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana at the pier.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Se cuida! Nao estou chorando, e a brisa do mar! Traga uma historia GRANDE."
+    },
+    {
+     "speaker": "teana",
+     "text": "Vou guardar minha estrela dourada ate voce voltar. Nao perca o amuleto!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_after_farewell",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Teana, after.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Va logo, antes que eu chore de verdade. Hehe."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_farewell",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono at the pier.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Entao voce pegou a Passagem! Claro que pegou. Heh."
+    },
+    {
+     "speaker": "jono",
+     "text": "Nao pense que desisti. Tenho uma jangada, tres barris e um sonho."
+    },
+    {
+     "speaker": "atos",
+     "text": "Jono, voce nao sabe nadar."
+    },
+    {
+     "speaker": "jono",
+     "text": "Detalhes! Nos vemos na ilha, {name}!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_after_farewell",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Jono, after.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Jangada, barris, sonho. Facil. Va, eu alcanco voce!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_gangway_locked",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Gangway before all three goodbyes.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Meus amigos ainda estao aqui. Devo me despedir antes de partir."
+    }
+   ]
+  },
+  {
+   "id": "dk1_board",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Boarding the ship.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma buzina soa. Um navio branco com um olho dourado na vela espera no cais.",
+     "label": "Todos a bordo"
+    },
+    {
+     "speaker": "atos",
+     "text": "Adeus, minha vila. Volto com historias."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Olhe o navio e fale com a moca no convez.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk1_mai_rules",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Mai on deck - the star rules (and the rival tease).",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Ora, ora. Um novato da areia. Fofo. Cade seus amigos?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Vim {sozinho|sozinha}. Acho. Quem e voce?"
+    },
+    {
+     "speaker": "mai",
+     "text": "Mai Valentine. Harpie Ladies e ma educacao. Deixa eu adivinhar - Passagem, uma estrela?"
+    },
+    {
+     "speaker": "mai",
+     "text": "Ah, queridinho. Aqui vao as regras para voce nao chorar depois. Venca, leve uma estrela."
+    },
+    {
+     "speaker": "mai",
+     "text": "Perca, entregue uma. Mestres de zona valem duas estrelas. Dez estrelas abrem o castelo."
+    },
+    {
+     "speaker": "mai",
+     "text": "Sem estrelas? Os homens de Pegasus mandam voce pra casa. Nao deixe acontecer."
+    },
+    {
+     "speaker": "atos",
+     "text": "{Obrigado|Obrigada} pelas dicas."
+    },
+    {
+     "speaker": "mai",
+     "text": "Nao agradeca. Vamos duelar logo. E nao vou pegar leve."
+    }
+   ]
+  },
+  {
+   "id": "dk1_mai_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Mai, after the rules.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Olhe o mar. Ultima vez que voce pode aproveitar antes da diversao comecar."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_early",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "InsetoKaiba, before Mai's rules.",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "PARE AI, inseto! Fale com a dama primeiro. Quero plateia."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_pre",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "InsetoKaiba - the arrogant bug-lord. Optional duel on the ship.",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHA! Olhem quantos insetinhos subindo no MEU navio!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Quem voce esta chamando de inseto? E o navio nao e seu."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Eu sou InsetoKaiba! Campeao! Colecionador de insetos! Dono do baralho mais imbativel ja feito!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Ninguem nunca encostou nele. Nenhuma vez. Eu conferi. Duas vezes."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Enfrente-me, larvinha, e aprenda seu lugar na cadeia alimentar. Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "InsetoKaiba beaten.",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "O QUE?! Impossivel! Eu sou InsetoKaiba! Meu baralho e IMBATIVEL!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Foi batido. Agorinha."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Um defeito! Um bug no sistema! ... E eu sou o unico bug permitido aqui!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Tudo bem. Leve isto, besouro minimamente impressionante. Vou lembrar do seu nome."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou o Pin do Inseto Dourado e a carta Javelin Beetle.",
+     "label": "Recompensa"
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "InsetoKaiba wins.",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHA! Esmagado! Mais um inseto pra minha colecao! Volte quando tiver asas, larva."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "InsetoKaiba, after.",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Voce de novo? Xo, xo! Estou ensaiando meu discurso de vitoria. E muito longo."
+    }
+   ]
+  },
+  {
+   "id": "dk1_barrel",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Suspicious barrel on deck.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Um barril no convez. Cheira a... bolinhos de tamara?"
+    },
+    {
+     "speaker": "narrator",
+     "text": "O barril sussurra - 'Shhh...' e da risadinha.",
+     "label": "Barril"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bow_wait",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Ship bow before talking to Mai.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "O mar e imenso. Talvez eu deva falar com a dama no convez primeiro."
+    }
+   ]
+  },
+  {
+   "id": "dk1_arrival",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "End of chapter 1 - the island appears.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "No topo do mastro, uma figura de manto senta num brilho verde, olhando a ilha.",
+     "label": "La no Alto"
+    },
+    {
+     "speaker": "atos",
+     "text": "Mai, quem e aquele no mastro?"
+    },
+    {
+     "speaker": "mai",
+     "text": "Onde? Nao tem ninguem la, queridinho. Sol demais."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O brilho verde se apaga. O mastro esta vazio.",
+     "label": "La no Alto"
+    },
+    {
+     "speaker": "narrator",
+     "text": "A neblina se abre. Torres, bandeiras e um castelo com um olho gigante na torre mais alta.",
+     "label": "Neblina"
+    },
+    {
+     "speaker": "atos",
+     "text": "Reino dos Duelistas. Uma estrela. Dez para chegar. Vamos jogar."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Capitulo 2 - A Costa das Ilusoes",
+     "label": "Fim do Capitulo 1"
+    }
+   ]
+  },
+  {
+   "id": "dk1_mago_glyph",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Cistern wall glyph (observer appearance 2). Never helps.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Letras verdes piscam na parede, como uma janela para outra coisa.",
+     "label": "Parede"
+    },
+    {
+     "speaker": "atos",
+     "text": "Nao consigo ler. Algo como 'observar... nao editar'."
+    },
+    {
+     "speaker": "narrator",
+     "text": "As letras somem. Nada na sala mudou.",
+     "label": "Parede"
+    }
+   ]
+  },
+  {
+   "id": "dk1_mago_glyph_after",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Cistern wall, glyph already seen.",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Pedra velha e comum. O que estava escrito aqui ficou quieto."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_glyph",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Bakura mentions the green writing.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "A escrita verde na parede? Ja estava aqui antes de mim."
+    },
+    {
+     "speaker": "bakura",
+     "text": "Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia."
+    }
+   ]
+  }
+ ],
+ "editor_notes": [
+  "Home-town arc only (chapter 1). Kingdom arc: ../kingdom_outline.json.",
+  "Anchors are symbolic: <area>.<anchor>. The engine dev binds them to picture or map coordinates."
+ ]
+}

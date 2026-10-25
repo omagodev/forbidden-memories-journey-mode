@@ -945,6 +945,7 @@ Each item -- button or entry -- may have:
 | `hide`, `x`, `y`, `tint` | as the title's entries: left out, moved from the middle (160), its middle's place, its colors multiplied |
 | `wide_x`, `wide_y` | its `x` and `y` in widescreen, [below](#widescreen) |
 | `scale` | its size in percent, 25 to 400, about its middle: the menu's `scale` without one. Words, frame and the cursor's look alike; a picture at that much of its size above |
+| `needs_data` | a file name inside the mod's data folder (`mod-data/<mod id>/`): while that file is missing or empty the item is dimmed as a locked tower is, and choosing it buzzes (a mod's CONTINUE that needs its save) |
 
 The actions:
 

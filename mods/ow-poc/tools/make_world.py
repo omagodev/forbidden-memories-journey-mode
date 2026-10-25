@@ -379,7 +379,7 @@ def village(m, d, props):
     """Houses, a market, fences and rocks in the village and a bridge over the Nile.  Houses are
     meshes baked by bake_kenney.py (a: 3x2 tiles, b: 5x2, c: 3x2 with a gable roof, d: 5x3); their tiles are
     solid and the mesh stands on them, door toward the camera."""
-    size = {"a": (3, 2), "b": (5, 2), "c": (3, 2), "d": (5, 3)}
+    size = {"a": (3, 2), "b": (5, 2), "c": (3, 2), "d": (5, 2)}
     houses = [("a", 3, 24), ("b", 8, 24), ("c", 18, 24), ("d", 28, 23), ("a", 2, 39), ("b", 8, 40), ("c", 28, 38),
               ("d", 13, 41), ("a", 20, 44), ("b", 3, 46), ("a", 14, 49)]
     for k, hx, hz in houses:
@@ -393,6 +393,13 @@ def village(m, d, props):
             for x in range(hx, hx + w):
                 m[y][x] = HOUSE
         props.append({"mesh": "k_house_" + k, "x": hx + w / 2.0, "z": hz + h / 2.0, "yaw": 0})
+    for y in range(20, 54):                                       # the kit's trees stand in the village, not palms
+        for x in range(MW):
+            if m[y][x] == PALM:
+                m[y][x] = SAND
+                if (x + y) % 4 == 0:
+                    d[y][x] = STAND
+                    props.append({"mesh": "k_tree_round" if (x * 3 + y) % 4 else "k_tree_pine", "x": x + 0.5, "z": y + 0.5, "yaw": x + y})
     for y in range(4 + RO, 7 + RO):                               # the bridge: planks and rails
         m[y][24] = m[y][25] = BRIDGE
         props.append({"mesh": "k_fence_v", "x": 24.5, "z": y + 0.5, "yaw": 3.1416})
@@ -418,6 +425,15 @@ def village(m, d, props):
         stand(7, z, "k_fence_v", 0)
     for x in range(21, 24):
         stand(x, 43, "k_fence_h")
+    for i, (x, z) in enumerate(((1, 22), (1, 29), (6, 30), (13, 27), (15, 34), (22, 30), (31, 27), (30, 33), (33, 41),
+                                (11, 38), (25, 40), (17, 36), (5, 44), (22, 47), (34, 24), (16, 22))[::2]):
+        stand(x, z, "k_tree_round" if i % 3 else "k_tree_pine", i * 0.7)
+    for y in range(24, 54):                                         # palm sprites give way to the kit's trees
+        for x in range(MW):
+            if d[y][x] in (8, 10, 11):
+                d[y][x] = 0
+                if (x * 3 + y * 5) % 6 == 0:
+                    stand(x, y, "k_tree_round" if (x + y) % 3 else "k_tree_pine", x + y)
     stand(6, 33, "k_cart", 0.4)
     stand(20, 34, "k_stall_red")
     stand(8, 34, "k_stall_green")
@@ -432,6 +448,22 @@ def village(m, d, props):
             d[z][x] = k
 
 
+def kenney_rocks(m, d, props):
+    """The PSX Nature boulders (deco 1), hoodoos (6) and barrel cacti (7) become Kenney rocks that stand on the same
+    solid tiles; the other PSX meshes (sage, agave, skull, tumbleweed) are left out."""
+    rock = {1: "k_rock_large", 6: "k_rock_wide", 7: "k_rock_small"}
+    for y in range(MH):
+        for x in range(MW):
+            v = d[y][x]
+            if v in rock and (x * 7 + y * 13 + x * y) % 3:             # one rock of three: the kit's are denser than the PSX ones
+                d[y][x] = 0
+            elif v in rock:
+                d[y][x] = STAND
+                props.append({"mesh": rock[v], "x": x + 0.5, "z": y + 0.5, "yaw": ((x * 7 + y * 13) % 8) * 0.8})
+            elif 1 <= v <= 7:
+                d[y][x] = 0
+
+
 def main():
     out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), "..", "assets", "world.jwld")
     m, d, rnd = build()
@@ -442,6 +474,7 @@ def main():
     for layer in (m, d, t):
         layer.extend([[0] * MW for _ in range(MH - MAINH)])
     rooms(m, d, t)
+    kenney_rocks(m, d, props)
     blob = b"JWLD" + struct.pack("<HH", MW, MH)
     for layer in (m, d, t):
         blob += bytes(v for row in layer for v in row)

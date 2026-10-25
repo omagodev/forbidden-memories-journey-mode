@@ -43,12 +43,15 @@ enabled, Free Duel included.
 `tools/` has the generators for the assets: `make_world.py` (the map), `make_late.py` (the chapter 6 to 8 data),
 `make_atlas.py` (the texture atlas, with portrait PNGs), `bake_npc.py`
 (characters from Quaternius glTF, which are not in the repository),
-`make_veg.py` (the plant sprites) and `import_story.py` (the dialogue from
-the story content file).
+`make_veg.py` (the plant sprites), `make_props.py` (textures for the Kenney meshes and the ground), `bake_kenney.py`
+(houses, fences, stalls, rocks and trees from the Kenney Fantasy Town Kit; `--compare sheet.png` draws every piece next
+to the kit's Preview.png, `--flat` bakes the first, untextured look) and `import_lang.py` (the EN/PT language data).
 
 ## Credits
 
 * Characters: [Quaternius](https://quaternius.com), CC0.
+* Houses, fences, stalls, carts, lanterns, banners, rocks and trees: **Fantasy Town Kit 2.0** by [Kenney](https://kenney.nl),
+  CC0 (credit given as a courtesy). Only the baked pieces the map uses are in the repository (`assets/k_*.bin`).
 * Props (boulder, sagebrush, agave, skull, tumbleweed, hoodoo, barrel cactus):
   **PSX Nature** by heyheythere, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 * Ground, plants and shadow textures, and the portraits' atlas layout: made by

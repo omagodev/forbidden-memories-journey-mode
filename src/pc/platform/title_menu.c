@@ -30,6 +30,7 @@
 #include "title_config.h"
 #include "title_images.h"
 #include "menu.h"
+#include "paths.h"
 #include "platform.h"
 #include "pc/guest/state.h"
 #include "pc/mods/mods.h"
@@ -225,6 +226,23 @@ static void quit_chosen(int button, int *quit)
     if (button == 0) *quit = 1;
 }
 
+/* An item whose "needs_data" file is missing or empty (no save to continue, say): dimmed, and choosing it buzzes. */
+static int data_missing(const TitleItem *it)
+{
+    char relative[160], path[1024];
+    FILE *file;
+    long size;
+    if (!it->needs_data[0]) return 0;
+    snprintf(relative, sizeof(relative), "mod-data/%s/%s", it->mod, it->needs_data);
+    if (Paths_User(path, sizeof(path), relative)) return 1;
+    file = fopen(path, "rb");
+    if (!file) return 1;
+    fseek(file, 0, SEEK_END);
+    size = ftell(file);
+    fclose(file);
+    return size <= 0;
+}
+
 /* What item `item` of `menu` does, chosen: 1 when it was done here, 0 when
  * the game is to do it (its own entry's own choice, or a dialog of the
  * menu's, with gMain_bMenuID set to it). */
@@ -234,6 +252,10 @@ static int choose(int menu, int item)
     static const char *const ok[] = {"OK"}, *const quit[] = {"Quit", "Cancel"};
     MemoriesModEvent event = {MEMORIES_EVENT_MENU, MEMORIES_BEFORE, 0, 0, 0, -1, 0};
     int action = it->action;
+    if (data_missing(it)) {
+        SD_SEPlay(SE_BUZZ, 0xFF, 0);
+        return 1;
+    }
     event.a = item;
     event.b = menu;
     event.c = it->value;
@@ -485,6 +507,7 @@ void TitleMenu_Draw(void)
         /* A tower still locked for this save: dimmed, the cursor's look
            kept (choose buzzes). */
         if (it->action == TITLE_ACTION_TOWER && !(Tower_Config() && Tower_Unlocked())) level = LOCKED_LEVEL;
+        if (data_missing(it)) level = LOCKED_LEVEL;
         TitleImages_Ready(which, &w, &h);
         TitleImages_Draw(which, D_800E9D90[1], depth, run.x[item] - w / 2, item_y(it) - h / 2,
                          level * (int)(it->tint >> 16 & 0xFF) / 0xFF, level * (int)(it->tint >> 8 & 0xFF) / 0xFF,

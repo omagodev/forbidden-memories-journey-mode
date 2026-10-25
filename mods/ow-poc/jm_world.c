@@ -16,7 +16,6 @@ static int loaded;
 #define MAX_PROPS 512
 static struct { Mesh *mesh; float x, z, yaw; } props[MAX_PROPS];
 static int prop_count;
-static Mesh *far_rock[3];                 /* stand-ins for the boulder, the hoodoo and the cactus in the far view */
 Npc npcs[MAX_NPC];
 int npc_count;
 
@@ -97,13 +96,11 @@ int World_Load(void)
         p->rules = Json_Get(n, "talk");
         p->moves = Json_Get(n, "places");
         p->base = Json_Get(n, "tile");
+        strncpy(p->anchor, Json_Str(n, "anchor", ""), sizeof(p->anchor) - 1);
         p->mesh_ptr = Gfx_Mesh(p->mesh);
         p->yaw = 3.14159265f;
     }
     for (i = 1; i < 8; i++) if (prop_mesh[i]) Gfx_Mesh(prop_mesh[i]);
-    far_rock[0] = Gfx_Mesh("k_rock_large");
-    far_rock[1] = Gfx_Mesh("k_rock_wide");
-    far_rock[2] = Gfx_Mesh("k_rock_small");
     {
         char *text = Jm_ReadText("assets/props.json");
         JsonNode *pj = text ? Json_Parse(text) : NULL, *pl = pj ? Json_Get(pj, "props") : NULL;
@@ -267,12 +264,13 @@ static int ground_texture(int tx, int tz)
     case T_ARENA: return TX_ARENA;
     case T_PORTAL: case T_DOOR: case T_GATE: return TX_PATH0;
     case T_THRONE: return TX_GRANITE;
-    case T_GRASS: return TX_GRASS;
+    case T_GRASS: return JM_QUALITY && (h & 3) ? TX_GRASS_Q : TX_GRASS;
     case T_BRIDGE: return TX_PLANK;
     case T_PAL: return World_Area((float)tx * TS, (float)tz * TS) == 5 ? TX_GRANITE : TX_SAND0;
     default:
         if (tint[tz][tx] >= 3 && (h & 3)) return TX_OASIS;
         if ((h & 15) == 0) return TX_CRACKED;
+        if (JM_QUALITY && tint[tz][tx] < 3 && (h & 3)) return (h & 4) ? TX_SAND_Q0 : TX_SAND_Q1;
         return (int)(h >> 4) % 3;
     }
 }
@@ -417,11 +415,12 @@ static int c_ground, c_tiles, c_props;
 
 void World_Draw(float px, float pz, float pyaw, int walking, const int body_rgb[5], const Mesh *body)
 {
-    enum { GW = 64, GH = 56 };
+    /* the grid reaches from the far edge of the view to the bottom one: with GH 56 the bottom rows were left blank */
+    enum { GW = 64, GH = JM_QUALITY ? 68 : 56 };
     static Pt grid[GH][GW];
     static unsigned char cov[GH][GW];
     int cx = (int)(cam_x / TS), cz = (int)(cam_z / TS);
-    int hx = (int)(cam_d * 0.026f) + 1, zb = (int)(cam_d * 0.034f), zf = (int)(cam_d * 0.017f) + 1;
+    int hx = (int)(cam_d * 0.026f) + 1, zb = (int)(cam_d * (JM_QUALITY ? 0.030f : 0.034f)), zf = (int)(cam_d * 0.017f) + 1;
     int x0 = cx - hx, x1 = cx + hx, z0 = cz - zb, z1 = cz + zf, x, z, i;
     int nx, nz, quads = 0;
     if (cz >= 72) {                          /* inside one of the rooms: do not draw its neighbours */
@@ -500,9 +499,6 @@ void World_Draw(float px, float pz, float pyaw, int walking, const int body_rgb[
                 if (far) continue;
                 if (dk <= 11 && (h & 0x10000)) sprite_at(wx + 13, wz - 9, dk, h >> 3);
                 if (dk >= 12) { sprite_at(wx + 12, wz + 6, dk, h >> 5); sprite_at(wx - 9, wz - 7, dk, h >> 9); }
-            } else if (dk && cam_d > 900.0f) {                 /* far: the solid ones are Kenney rocks, the rest is left out */
-                Mesh *m = dk == 1 ? far_rock[0] : dk == 6 ? far_rock[1] : dk == 7 ? far_rock[2] : NULL;
-                if (m) Gfx_DrawMesh(m, 0, wx, 0, wz, (float)(hash2(x, z) & 255) * 0.0245f, 1.0f, NULL, 0);
             } else if (dk && prop_mesh[dk] && dp < cam_d * 1.5f) {
                 Mesh *m = Gfx_Mesh(prop_mesh[dk]);
                 /* not between the camera and the player: it would hide him */

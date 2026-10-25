@@ -230,7 +230,7 @@ static int action_index(const char *name)
 
 /* The keys an entry and a button share. */
 static const char *const item_keys[] = {"hide", "x", "y", "tint", "image", "selected_image", "width", "height",
-                                        "label", "action", "value", "notice", "wide_x", "wide_y", "scale"};
+                                        "label", "action", "value", "notice", "wide_x", "wide_y", "scale", "needs_data"};
 
 static void read_item(const char *mod, const char *directory, const JsonValue *part, TitleItem *item)
 {
@@ -264,6 +264,12 @@ static void read_item(const char *mod, const char *directory, const JsonValue *p
         else item->action = action;
     }
     int_member(part, "value", &item->value);
+    if ((value = Json_Member(part, "needs_data"))) {
+        const char *file = Json_String(value, NULL);
+        if (!file || !*file || strlen(file) >= sizeof(item->needs_data) || strstr(file, "..") || strchr(file, '\\') || file[0] == '/')
+            Mods_Note(mod, "%s: %s \"needs_data\" is a file name inside the mod's data folder", reading, item->name);
+        else snprintf(item->needs_data, sizeof(item->needs_data), "%s", file);
+    }
     if ((value = Json_Member(part, "notice"))) {
         const char *text = Json_String(value, NULL), *title = "";
         if (!text && Json_TypeOf(value) == JSON_OBJECT) {
@@ -325,7 +331,7 @@ static void read_buttons(const char *mod, const char *directory, const JsonValue
     for (part = Json_At(list, 0); part; part = Json_Next(part)) {
         static const char *const button_keys[] = {"id", "menu", "hide", "x", "y", "tint", "image", "selected_image",
                                                   "width", "height", "label", "action", "value", "notice", "wide_x",
-                                                  "wide_y", "scale"};
+                                                  "wide_y", "scale", "needs_data"};
         const char *id = Json_String(Json_Member(part, "id"), ""), *menu = Json_String(Json_Member(part, "menu"), NULL);
         const char *colon = strchr(id, ':');
         int i = item_index(mod, id);

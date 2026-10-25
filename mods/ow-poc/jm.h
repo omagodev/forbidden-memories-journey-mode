@@ -22,6 +22,8 @@ extern const MemoriesModHost *jm_host;
 #define PAD_RIGHT 0x0020
 #define PAD_DOWN 0x0040
 #define PAD_LEFT 0x0080
+#define PAD_L2 0x0100
+#define PAD_R2 0x0200
 #define PAD_L1 0x0400
 #define PAD_R1 0x0800
 #define PAD_TRIANGLE 0x1000
@@ -58,7 +60,9 @@ enum {
     TX_SAND0, TX_SAND1, TX_SAND2, TX_CRACKED, TX_PATH0, TX_PATH1, TX_WATER0, TX_WATER1,
     TX_WALL_TOP, TX_WALL_SIDE, TX_MARBLE, TX_LAPIS, TX_ARENA, TX_GLOW, TX_GRANITE, TX_OASIS,
     /* page 2, below the portraits (tools/make_props.py) */
-    TX_GRASS, TX_PLANK
+    TX_GRASS, TX_PLANK,
+           /* the Kenney meshes' surfaces and the richer ground (JM_QUALITY) */
+           TX_PLASTER, TX_ROOF, TX_WOOD, TX_SAND_Q0, TX_SAND_Q1, TX_GRASS_Q
 };
 void Gfx_TexXY(int tex, int *ax, int *ay);           /* where texture `tex` is in the atlas */
 /* Prop sprites on page 2, y 176: a jar (24x32 at x 512), a signpost (32x40 at 536), a crate (32x32 at 568) */
@@ -85,6 +89,12 @@ Mesh *Gfx_Mesh(const char *name);    /* "Wizard", "p_agave", ...; loaded once */
 /* Camera */
 extern float cam_x, cam_z, cam_d;
 void Gfx_SetCamera(float distance, float pitch_degrees);
+/* Visual-quality pass: painted textures on the walls and roofs of the Kenney meshes, richer sand and grass,
+ * and a ground that reaches the bottom of the view.  0 is the first look. */
+#ifndef JM_QUALITY
+#define JM_QUALITY 1
+#endif
+
 #ifndef CAM_D
 #define CAM_D 1350.0f
 #endif
@@ -118,6 +128,11 @@ void Gfx_Rect(int x, int y, int w, int h, int r, int g, int b);
 void Gfx_Backdrop(int top_rgb, int bottom_rgb);
 int Gfx_LoadFace(int duelist);                       /* disc portrait into the speaker slot */
 extern unsigned gfx_frame;
+extern float gfx_sort_override;
+void Gfx_BankQuad(const float sx[4], const float sy[4], int bank, int ax, int ay, int uw, int vh, float depth);
+extern unsigned char gfx_tint[3];
+void Gfx_SpriteQuadEx(int x0, int y0, int w, int h, int bank, int page, int u0, int v0, int uw, int vh, float depth, const unsigned char *rgb, int abr);
+void Gfx_SpriteQuad(int x0, int y0, int w, int h, int bank, int page, int u0, int v0, int uw, int vh, float depth);
 
 /* ----------------------------------------------------------------- world */
 #define MW 64
@@ -141,6 +156,7 @@ typedef struct {
     JsonNode *rules;             /* "talk" */
     JsonNode *moves;             /* "places" */
     JsonNode *base;              /* "tile" */
+    char anchor[24];             /* "anchor": the named place in the painted village where he stands (see Paint_Anchor) */
     Mesh *mesh_ptr;
 } Npc;
 #define MAX_NPC 40
@@ -189,6 +205,8 @@ typedef struct {
     unsigned short got_cards[48]; /* card ids rewards gave, so a loaded save can give them again */
     int got_count;
     int lang;                    /* index into assets/lang/languages.json */
+    float pt_x, pt_y;            /* where the player stands in the painted village (save version 3) */
+    int pt_set;                  /* 1 when pt_x, pt_y were saved */
 } Journey;
 extern Journey jm;
 
@@ -209,6 +227,8 @@ typedef struct {
     const JsonNode *scene_node;
     const char *then;            /* a scene to play when this one is over */
     const JsonNode *choice;      /* {yes, no} results for a Yes/No page that is not a duel */
+    const JsonNode *effects;     /* a result ({flags, stage, cards}) applied when the scene has been read */
+    const char *pose;            /* "sit": the player sits on the bench while the scene plays */
 } Talk;
 int Story_TalkRule(const Npc *npc, Talk *out);
 int Story_PoiAt(float x, float z, Talk *out);        /* a locked tile or spot the player pushes against */
@@ -218,15 +238,15 @@ extern int jm_warp;                                  /* set by a result with "te
 extern float jm_warp_x, jm_warp_z;
 void Story_Regrant(void);      /* flags, stage, cards, items */
 /* Pages of a scene. */
-typedef struct { const char *who, *name, *text; int ask; } Page;
+typedef struct { const char *who, *name, *text; int ask; int kind; } Page;   /* kind: 0 speech, 1 objective, 2 item / card gained, 3 quest or part complete, 4 scene caption (a narrator card) */
+void Story_Expand(const char *text, char *out, int size);   /* {name} and {a|b} tokens of a page */
 int Story_PageCount(const char *scene);
 int Story_Page(const char *scene, int index, Page *out);
 int Story_ItemList(char names[][32], int max);
 int Story_Cards(int id);                             /* grants a card to the chest */
 
 /* -------------------------------------------------------------- dialogue */
-void Say_Page(const Page *page);                     /* builds the box text, opens the game's box */
-void Say_Text(const char *name, const char *body);
+void Say_Text(const char *name, const char *body, int ask);   /* builds the box text (speaker first, in yellow), opens the game's box */
 void Say_Close(void);
 int Say_Done(void);
 void Say_Tick(void);
@@ -237,6 +257,23 @@ int Save_Write(void);
 int Save_Read(void);
 void Save_Init(void);
 void Save_Delete(void);
+int Lang_PrefRead(void);                             /* the language chosen the first time, -1 before any */
+void Lang_PrefWrite(int i);
+void Paint_Info(float *x, float *y, float *sx, float *sy);
+void Paint_Set(float x, float y);
+int Paint_Anchor(const char *name, float *x, float *y);   /* a named place of the painted village in picture texels */
+int Paint_Loaded(void);
+const char *Paint_AnchorName(int i);                 /* the i-th named place, NULL past the last */
+void Paint_ForceTime(int t);                         /* debug: 1 night, 0 day, -1 the story decides */
+int Paint_ForcedTime(void);
+
+/* ----------------------------------------------------------------- debug (jm_debug.c, off without debug.json) */
+void Dbg_Init(void);
+int Dbg_On(void);
+int Dbg_Skip(void);
+int Dbg_WinDuels(void);
+void Dbg_Apply(void);
+int Dbg_Keys(unsigned short pad, unsigned short edge, int *swallow);
 
 /* -------------------------------------------------------------------- ui */
 typedef enum { UI_NONE, UI_CREATE, UI_MENU, UI_CONFIRM } UiMode;

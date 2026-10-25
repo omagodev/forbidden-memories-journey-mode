@@ -1,1 +1,1675 @@
-{"scripts":[{"id":"c1_intro","pages":[{"speaker":"atos","text":"Ugh... my head. I was in a Duel Monsters tournament a second ago."},{"speaker":"atos","text":"A portal of light opened in the middle of the arena and pulled me in."},{"speaker":"atos","text":"Sand, palm trees, a river... This looks like ancient Egypt!"},{"speaker":"atos","text":"Only my deck came with me. I need someone who knows the way home."},{"speaker":"narrator","label":"Objective","text":"Talk to Simon Muran, the old sage waiting at the golden arena."}]},{"id":"c1_simon_pre","pages":[{"speaker":"simon","text":"Strange clothes, {lad|lass}... But those cards are as old as our magic."},{"speaker":"atos","text":"I fell out of a portal. Do you know how I get back to my own time?"},{"speaker":"simon","text":"Maybe. Show me how you duel and I will tell you where you came from. Duel?","ask":true}]},{"id":"c1_simon_win","pages":[{"speaker":"simon","text":"Impressive! You duel like a master."},{"speaker":"simon","text":"The portal that brought you is a rift in time. Only the Time Stone can close it."},{"speaker":"simon","text":"The Stone's pieces lie beyond the river, to the north. I told the bridge guard."},{"speaker":"narrator","label":"Reward","text":"You got the card Mystical Elf and a Canteen. Check your Backpack."},{"speaker":"narrator","label":"Objective","text":"Cross the river to the north. Teana and Jono want a duel too."}]},{"id":"c1_simon_lose","pages":[{"speaker":"simon","text":"Not bad, but you need more practice. Rest and try again."}]},{"id":"c1_simon_after","pages":[{"speaker":"simon","text":"The bridge is up the road to the north. Good luck, traveler."}]},{"id":"c1_teana_pre","pages":[{"speaker":"teana","text":"Hi! Are you the stranger who beat Simon? Duel me?","ask":true}]},{"id":"c1_teana_win","pages":[{"speaker":"teana","text":"Wow, you're really good! Take this card."},{"speaker":"narrator","label":"Reward","text":"You got the card Feral Imp."}]},{"id":"c1_jono_pre","pages":[{"speaker":"jono","text":"Hey, rookie! I bet my deck is stronger. Duel?","ask":true}]},{"id":"c1_jono_win","pages":[{"speaker":"jono","text":"Fine, fine... you won. Here, it's yours."},{"speaker":"narrator","label":"Reward","text":"You got the card Baby Dragon."}]},{"id":"c1_teana_lose","pages":[{"speaker":"teana","text":"Hehe, I won! Come back anytime."}]},{"id":"c1_jono_lose","pages":[{"speaker":"jono","text":"Ha! Train some more and come back."}]},{"id":"c1_teana_wait","pages":[{"speaker":"teana","text":"Old Simon is waiting for you at the arena."}]},{"id":"c1_jono_wait","pages":[{"speaker":"jono","text":"Talk to Simon first, then we duel."}]},{"id":"c1_guard_block","pages":[{"speaker":"guard","text":"Halt! Nobody crosses the river without the sage Simon Muran's permission."}]},{"id":"c1_guard_ok","pages":[{"speaker":"guard","text":"Simon allowed it? Then you may pass, traveler."}]},{"id":"c1_end__c2_intro","pages":[{"speaker":"atos","text":"The Royal City is far to the north. First I have to get past these ruins."},{"speaker":"narrator","label":"End of Chapter 1","text":"Chapter 2 - Sand Ruins"},{"speaker":"atos","text":"Broken columns, an obelisk... and a glowing stone portal in the back!"},{"speaker":"atos","text":"There are people here. Those two are from the tournament! Did they fall into the past too?"},{"speaker":"narrator","label":"Objective","text":"Beat Rex Raptor and Weevil. Then enter the stone portal to the north."}]},{"id":"c2_teana_done","pages":[{"speaker":"teana","text":"Safe travels, stranger!"}]},{"id":"c2_jono_done","pages":[{"speaker":"jono","text":"Next time I win!"}]},{"id":"c2_rex_pre","pages":[{"speaker":"rex","text":"You fell here too? Great. Beating you puts me closer to going home."},{"speaker":"atos","text":"Then let's duel. The winner gets a clear path."},{"speaker":"rex","text":"My dinosaurs will crush you! Duel?","ask":true}]},{"id":"c2_rex_win","pages":[{"speaker":"rex","text":"I can't believe it... I lost to a rookie!"},{"speaker":"rex","text":"Here, I found this shiny stone in the ruins. Maybe it helps you."},{"speaker":"narrator","label":"Reward","text":"You got Time Stone Fragment 1 and the card Ryu-kishin."}]},{"id":"c2_rex_lose","pages":[{"speaker":"rex","text":"Hahaha! Come back when you have real dinosaurs."}]},{"id":"c2_weevil_pre","pages":[{"speaker":"weevil","text":"Hehehe. In this world nobody checks if we cheat."},{"speaker":"atos","text":"Then I'll win the right way, so you remember it."},{"speaker":"weevil","text":"My bugs disagree. Duel?","ask":true}]},{"id":"c2_weevil_win","pages":[{"speaker":"weevil","text":"Impossible! My strategy was perfect!"},{"speaker":"weevil","text":"Fine, fine... take this old torch and leave me alone."},{"speaker":"narrator","label":"Reward","text":"You got a Torch and the card Hitotsu-me Giant."}]},{"id":"c2_weevil_lose","pages":[{"speaker":"weevil","text":"Hehehe! I knew you'd fall into my trap."}]},{"id":"c2_rex_done","pages":[{"speaker":"rex","text":"Go on to the portal. I will still get my rematch."}]},{"id":"c2_weevil_done","pages":[{"speaker":"weevil","text":"Hmpf. Get lost before I change my mind."}]},{"id":"c2_portal_locked","pages":[{"speaker":"atos","text":"The portal does not react. I think I must beat Rex and Weevil first."}]},{"id":"c2_end__c3_intro","pages":[{"speaker":"atos","text":"The portal glows brighter now. I'm going in!"},{"speaker":"narrator","label":"End of Chapter 2","text":"Chapter 3 - The Palace and the Prince"},{"speaker":"atos","text":"Wow! The portal took me inside the Royal City. What a huge palace!"},{"speaker":"atos","text":"In front of the palace stand a priest and a young man who looks like a king. The Prince!"},{"speaker":"narrator","label":"Objective","text":"Talk to the priest Seto in front of the palace."}]},{"id":"c3_seto_pre","pages":[{"speaker":"seto","text":"A stranger with cards nobody knows. Are you a threat or a gift?"},{"speaker":"prince","text":"Seto, let him prove himself. If he loses, I will send him away myself."},{"speaker":"atos","text":"If I win, I want to know why these time rifts keep opening."},{"speaker":"seto","text":"Agreed. Prepare your deck. Duel?","ask":true}]},{"id":"c3_seto_win","pages":[{"speaker":"seto","text":"Hmpf... you won. If the Prince trusts you, so will I."},{"speaker":"prince","text":"The rifts began when the priest Heishin opened the vault of the Millennium Items."},{"speaker":"prince","text":"Take the Royal Seal. It opens the palace, so you can find out what Heishin wants."},{"speaker":"narrator","label":"Reward","text":"You got the Royal Seal and the card Dark Magician."},{"speaker":"narrator","label":"Objective","text":"Enter the palace and investigate Heishin. The Mage Soldier offers a duel."}]},{"id":"c3_seto_lose","pages":[{"speaker":"seto","text":"That was it? Come back when you are ready, stranger."}]},{"id":"c3_seto_done","pages":[{"speaker":"seto","text":"The palace is open to you. Do not disappoint me."}]},{"id":"c3_prince_before","pages":[{"speaker":"prince","text":"Welcome to the Royal City, traveler. Show Seto what you can do."}]},{"id":"c3_prince_after","pages":[{"speaker":"prince","text":"Beware of Heishin. He roams the palace halls at night."}]},{"id":"c3_soldier_pre","pages":[{"speaker":"mage_soldier","text":"I train the palace guards. Want to test your deck against me? Duel?","ask":true}]},{"id":"c3_soldier_win","pages":[{"speaker":"mage_soldier","text":"Good duel! Take this card on your journey."},{"speaker":"narrator","label":"Reward","text":"You got the card Celtic Guardian."}]},{"id":"c3_soldier_lose","pages":[{"speaker":"mage_soldier","text":"Train a bit more and come back."}]},{"id":"c3_soldier_done","pages":[{"speaker":"mage_soldier","text":"The guards speak highly of you."}]},{"id":"c3_door_locked","pages":[{"speaker":"atos","text":"The palace door is shut. I need Seto's permission first."}]},{"id":"c3_end__c4_intro","pages":[{"speaker":"atos","text":"With the Royal Seal the door opened. Heishin is hiding something in here."},{"speaker":"narrator","label":"End of Chapter 3","text":"Chapter 4 - Heishin's Coup"},{"speaker":"narrator","label":"That Night","text":"Heishin attacked the city with his guards. The sky turned red with fire."},{"speaker":"atos","text":"This is the throne hall! Heishin is up on the throne and the Prince is surrounded!"},{"speaker":"narrator","label":"Objective","text":"Defeat Heishin in the throne hall."}]},{"id":"c4_heishin_pre","pages":[{"speaker":"heishin","text":"The Millennium Items give power to those with the courage to take them. And I had it."},{"speaker":"atos","text":"You attacked the whole city for seven pieces of gold?"},{"speaker":"heishin","text":"For seven keys. And now you hand me your deck. Duel?","ask":true}]},{"id":"c4_heishin_win","pages":[{"speaker":"heishin","text":"Impossible! A stranger beat me? This is not over!"},{"speaker":"narrator","label":"What Happened","text":"Heishin fled through the window and took the Millennium Items with him."},{"speaker":"simon","text":"{name}! Heishin will come back for the Prince. There is only one way to protect him."},{"speaker":"simon","text":"I will keep the Prince's soul in the Millennium Puzzle. He sleeps until the time is right."},{"speaker":"prince","text":"{name}, I trust you. Find the Items and wake me when the time comes."},{"speaker":"simon","text":"Take the Millennium Necklace. It shows the future and can open a rift to your time."},{"speaker":"narrator","label":"Reward","text":"You got the Millennium Necklace and the card Gaia the Fierce Knight."},{"speaker":"narrator","label":"Objective","text":"Touch the glowing throne to travel through time."}]},{"id":"c4_heishin_lose","pages":[{"speaker":"heishin","text":"Hahaha! Too weak. Come back when you have real courage."}]},{"id":"c4_prince_hall","pages":[{"speaker":"prince","text":"{name}! Heishin wants the Millennium Items. Please, stop him!"}]},{"id":"c4_seto_before","pages":[{"speaker":"seto","text":"I protect the Prince. Go, stranger, face Heishin!"}]},{"id":"c4_seto_after","pages":[{"speaker":"seto","text":"The Prince is kept in the Puzzle. Find the Items and bring him back."}]},{"id":"c4_throne_locked","pages":[{"speaker":"atos","text":"The throne is not glowing. I must defeat Heishin first."}]},{"id":"c4_end__c5_intro","pages":[{"speaker":"atos","text":"The Necklace is glowing with the throne. A time rift is opening!"},{"speaker":"narrator","label":"End of Chapter 4","text":"Chapter 5 - The Tournament Out of Time"},{"speaker":"atos","text":"Wait... this is Pegasus's tournament island! Did I come back to my own time?"},{"speaker":"atos","text":"No... the sky still has rifts. The tournament got stuck between two eras."},{"speaker":"narrator","label":"Objective","text":"Beat Mai, Bandit Keith and Shadi. Then face Pegasus in front of the castle."}]},{"id":"c5_mai_pre","pages":[{"speaker":"mai","text":"Honey, strategy is what counts here. And a little perfume."},{"speaker":"atos","text":"Then let's see which strategy is better."},{"speaker":"mai","text":"My Harpies are ready. Duel?","ask":true}]},{"id":"c5_mai_win","pages":[{"speaker":"mai","text":"Not bad, honey. You won fair and square."},{"speaker":"narrator","label":"Reward","text":"You got the card Harpie Lady."}]},{"id":"c5_mai_lose","pages":[{"speaker":"mai","text":"Hihi, come back when you learn to play."}]},{"id":"c5_mai_done","pages":[{"speaker":"mai","text":"Good luck with Pegasus. He is very weird."}]},{"id":"c5_keith_pre","pages":[{"speaker":"keith","text":"This tournament is mine. You're just another name on my list."},{"speaker":"atos","text":"Then try to cross my name out, if you can."},{"speaker":"keith","text":"We'll see, rookie. Duel?","ask":true}]},{"id":"c5_keith_win","pages":[{"speaker":"keith","text":"Grr... beginner's luck!"},{"speaker":"narrator","label":"Reward","text":"You got the card Great White."}]},{"id":"c5_keith_lose","pages":[{"speaker":"keith","text":"Hah! Go home, rookie."}]},{"id":"c5_keith_done","pages":[{"speaker":"keith","text":"Don't talk to me now, rookie."}]},{"id":"c5_shadi_pre","pages":[{"speaker":"shadi","text":"I am Shadi, guardian of the Millennium Items. I see you carry the Necklace."},{"speaker":"shadi","text":"Show me that your heart is worthy of it. Duel?","ask":true}]},{"id":"c5_shadi_win","pages":[{"speaker":"shadi","text":"Your heart is pure. Take this piece of the Time Stone."},{"speaker":"narrator","label":"Reward","text":"You got Time Stone Fragment 2 and the card Illusionist Faceless Mage."}]},{"id":"c5_shadi_lose","pages":[{"speaker":"shadi","text":"Your heart still holds doubts. Come back later."}]},{"id":"c5_shadi_done","pages":[{"speaker":"shadi","text":"Pegasus has the Millennium Eye. Be careful with him."}]},{"id":"c5_pegasus_locked","pages":[{"speaker":"pegasus","text":"Hello, {name}-{boy|girl}! First beat the other three duelists. Then I duel you."}]},{"id":"c5_pegasus_pre","pages":[{"speaker":"pegasus","text":"I already read your fate, {name}-{boy|girl}. Why not find out if I am right?"},{"speaker":"atos","text":"Nobody reads my fate. I write it in the duel!"},{"speaker":"pegasus","text":"How fun! Duel?","ask":true}]},{"id":"c5_pegasus_win","pages":[{"speaker":"pegasus","text":"Impossible! The Millennium Eye could not read your mind!"},{"speaker":"pegasus","text":"Keep the Eye. Maybe it will help you save the Prince."},{"speaker":"isis","text":"I am Isis. I saw you in a vision. I will open a portal back to Egypt."},{"speaker":"isis","text":"The Temple Mages guard the other Items. The Prince needs them."},{"speaker":"narrator","label":"Reward","text":"You got the Millennium Eye and the card Thousand Dragon."},{"speaker":"narrator","label":"Objective","text":"Enter the castle portal to return to Egypt."}]},{"id":"c5_pegasus_lose","pages":[{"speaker":"pegasus","text":"Hahaha! I told you I had read your fate."}]},{"id":"c5_pegasus_done","pages":[{"speaker":"pegasus","text":"Isis's portal is open at the castle. Goodbye, {name}-{boy|girl}!"}]},{"id":"c5_gate_locked","pages":[{"speaker":"atos","text":"The castle gate is shut. I have to beat Pegasus first."}]},{"id":"c5_end__c6_intro","pages":[{"speaker":"atos","text":"Isis's portal is open. Time to go back to Egypt!"},{"speaker":"narrator","label":"End of Chapter 5","text":"Chapter 6 - The Seven Items"}]},{"id":"c6_arrival","pages":[{"speaker":"atos","text":"Hot sand again! The portal dropped me at an old crossroads."},{"speaker":"simon","text":"{name}! Isis sent word that you were coming. I kept the Puzzle safe."},{"speaker":"narrator","label":"Reward","text":"You got the Millennium Puzzle. The Prince sleeps inside it."},{"speaker":"simon","text":"Heishin only emptied the vault. The real Items were hidden in five temples."},{"speaker":"simon","text":"Each temple has a Mage who guards one. Beat the Mages and they will let you take it."},{"speaker":"atos","text":"Sea, forest, mountain, desert and meadow. Got it. Let's go."},{"speaker":"narrator","label":"Objective","text":"Visit the five temples and win their Items. Then open the Labyrinth gate."}]},{"id":"c6_simon_hub","pages":[{"speaker":"simon","text":"Heishin's men were seen near the temples. Hurry, but do not rush your duels."}]},{"id":"c6_simon_hub_done","pages":[{"speaker":"simon","text":"You have all five Items! Go to the Labyrinth gate. I will guard the crossroads."}]},{"id":"c6_ocean_pre","pages":[{"speaker":"ocean_mage","text":"Halt, stranger! The sea does not open its temple to dry-footed visitors."},{"speaker":"atos","text":"I only want to borrow what the temple guards. Duel me."},{"speaker":"ocean_mage","text":"The tide will decide. Duel?","ask":true}]},{"id":"c6_ocean_win","pages":[{"speaker":"ocean_mage","text":"The tide has turned... Go in. High Mage Secmeton waits inside."},{"speaker":"narrator","label":"Reward","text":"You got the card Aqua Dragon."},{"speaker":"narrator","label":"Objective","text":"Enter the Sea Temple and face High Mage Secmeton."}]},{"id":"c6_ocean_lose","pages":[{"speaker":"ocean_mage","text":"The sea washes you back to shore. Try again."}]},{"id":"c6_ocean_done","pages":[{"speaker":"ocean_mage","text":"Secmeton waits inside. The sea lets you pass."}]},{"id":"c6_secmeton_locked","pages":[{"speaker":"atos","text":"A wall of water blocks the inner door. The Ocean Mage must let me in first."}]},{"id":"c6_secmeton_pre","pages":[{"speaker":"secmeton","text":"So you are the one who walks through time. The waters whispered about you."},{"speaker":"atos","text":"Then you know why I am here. I need the Sea Tablet."},{"speaker":"secmeton","text":"Words are shallow. Show me with cards. Duel?","ask":true}]},{"id":"c6_secmeton_win","pages":[{"speaker":"secmeton","text":"You swim well, traveler. The Sea Tablet is yours."},{"speaker":"secmeton","text":"It fits the Labyrinth gate. Heishin's men want it badly."},{"speaker":"narrator","label":"Reward","text":"You got the Sea Tablet and the card Suijin."},{"speaker":"narrator","label":"Objective","text":"Four temples remain - Forest, Mountain, Desert and Meadow."}]},{"id":"c6_secmeton_lose","pages":[{"speaker":"secmeton","text":"Too shallow. Dive deeper and come back."}]},{"id":"c6_secmeton_done","pages":[{"speaker":"secmeton","text":"Guard the Tablet well. The sea remembers."}]},{"id":"c6_anubisius_pre","pages":[{"speaker":"anubisius","text":"Quiet, stranger. The old trees do not like noise."},{"speaker":"atos","text":"I came for the Millennium Key. The Prince's life is at stake."},{"speaker":"anubisius","text":"The forest gives nothing for free. Duel?","ask":true}]},{"id":"c6_anubisius_win","pages":[{"speaker":"anubisius","text":"The roots yield to you. Take the Millennium Key."},{"speaker":"narrator","label":"Reward","text":"You got the Millennium Key and the card Ancient One of the Deep Forest."}]},{"id":"c6_anubisius_lose","pages":[{"speaker":"anubisius","text":"The forest swallowed your cards. Try again."}]},{"id":"c6_anubisius_done","pages":[{"speaker":"anubisius","text":"The Key is in good hands. The trees approve."}]},{"id":"c6_atenza_pre","pages":[{"speaker":"atenza","text":"The path is steep and so is my price. Only the strong may take the Rod."},{"speaker":"atos","text":"I came through time. A mountain will not stop me."},{"speaker":"atenza","text":"Then climb! Duel?","ask":true}]},{"id":"c6_atenza_win","pages":[{"speaker":"atenza","text":"You reached the peak. The Millennium Rod is yours."},{"speaker":"narrator","label":"Reward","text":"You got the Millennium Rod and the card Thunder Dragon."}]},{"id":"c6_atenza_lose","pages":[{"speaker":"atenza","text":"The mountain is cold and so am I. Climb again."}]},{"id":"c6_atenza_done","pages":[{"speaker":"atenza","text":"Use the Rod wisely. Power is not wisdom."}]},{"id":"c6_martis_pre","pages":[{"speaker":"martis","text":"The sand buries those who rush. Slow down, time traveler."},{"speaker":"atos","text":"Slow down? I just crossed five thousand years."},{"speaker":"martis","text":"Then let the dunes judge you. Duel?","ask":true}]},{"id":"c6_martis_win","pages":[{"speaker":"martis","text":"The dunes bow to you. Take the Millennium Ring."},{"speaker":"narrator","label":"Reward","text":"You got the Millennium Ring and the card Mystical Sand."}]},{"id":"c6_martis_lose","pages":[{"speaker":"martis","text":"The sand covers your footprints. Come back."}]},{"id":"c6_martis_done","pages":[{"speaker":"martis","text":"Heishin's men came by. They left empty-handed."}]},{"id":"c6_kepura_pre","pages":[{"speaker":"kepura","text":"Welcome to the meadow, little traveler! The flowers said you were coming."},{"speaker":"atos","text":"Flowers? ...Okay. I need the Millennium Scales."},{"speaker":"kepura","text":"Gently or fiercely, a duel decides. Duel?","ask":true}]},{"id":"c6_kepura_win","pages":[{"speaker":"kepura","text":"How lovely! You duel with a kind heart. The Scales are yours."},{"speaker":"narrator","label":"Reward","text":"You got the Millennium Scales and the card Queen of Autumn Leaves."}]},{"id":"c6_kepura_lose","pages":[{"speaker":"kepura","text":"Oh dear. Rest among the flowers, then try again."}]},{"id":"c6_kepura_done","pages":[{"speaker":"kepura","text":"Keep your heart balanced and the Scales will do the rest."}]},{"id":"c6_gate_locked","pages":[{"speaker":"atos","text":"The gate has five empty sockets. I need the Items from all five temples."}]},{"id":"c6_end__c7_intro","pages":[{"speaker":"atos","text":"Tablet, Key, Rod, Ring and Scales... the sockets are glowing!"},{"speaker":"narrator","label":"End of Chapter 6","text":"Chapter 7 - The Labyrinth and the Guardians"},{"speaker":"atos","text":"The gate opens onto stairs going down into the dark. Here goes nothing."},{"speaker":"simon","text":"Careful! I felt Heishin pass here. Seto went ahead to guard the way."},{"speaker":"narrator","label":"Objective","text":"Cross the Labyrinth. Beat its guardians to reach the altar."}]},{"id":"c7_lmage_pre","pages":[{"speaker":"labyrinth_mage","text":"A new face in the maze. Few ever walk back out."},{"speaker":"atos","text":"Then I will be one of the few."},{"speaker":"labyrinth_mage","text":"The walls shift here. So do the odds. Duel?","ask":true}]},{"id":"c7_lmage_win","pages":[{"speaker":"labyrinth_mage","text":"You read the maze well. Take this and move on."},{"speaker":"narrator","label":"Reward","text":"You got the card Guardian of the Labyrinth."},{"speaker":"narrator","label":"Objective","text":"Go on to the first door and face Guardian Sebek."}]},{"id":"c7_lmage_lose","pages":[{"speaker":"labyrinth_mage","text":"Lost already? The maze loves new faces."}]},{"id":"c7_lmage_done","pages":[{"speaker":"labyrinth_mage","text":"Straight on, then left. Or right. Who knows?"}]},{"id":"c7_door1_locked","pages":[{"speaker":"atos","text":"The walls keep moving. The Mage who controls them must be near."}]},{"id":"c7_sebek_pre","pages":[{"speaker":"sebek","text":"No living soul passes this door without the judgment of the gods."},{"speaker":"atos","text":"Then judge me."},{"speaker":"sebek","text":"The scales are ready. Duel?","ask":true}]},{"id":"c7_sebek_win","pages":[{"speaker":"sebek","text":"The gods find you... acceptable. The door is open."},{"speaker":"narrator","label":"Reward","text":"You got the card Guardian of the Throne Room."},{"speaker":"narrator","label":"Objective","text":"Next door - Guardian Neku."}]},{"id":"c7_sebek_lose","pages":[{"speaker":"sebek","text":"Judged and found lacking. Return when you are worthy."}]},{"id":"c7_sebek_done","pages":[{"speaker":"sebek","text":"Go. Neku waits at the next door."}]},{"id":"c7_door2_locked","pages":[{"speaker":"atos","text":"Another door, but Sebek's judgment comes first."}]},{"id":"c7_neku_pre","pages":[{"speaker":"neku","text":"I am Neku, keeper of the second door. Sebek judges the body. I judge the heart."},{"speaker":"atos","text":"My heart is fine. It is the rest of me that is tired."},{"speaker":"neku","text":"We will see. Duel?","ask":true}]},{"id":"c7_neku_win","pages":[{"speaker":"neku","text":"Your heart is steady. Pass, traveler."},{"speaker":"narrator","label":"Reward","text":"You got the card Rude Kaiser."},{"speaker":"narrator","label":"Objective","text":"Seto stands beyond the second door."}]},{"id":"c7_neku_lose","pages":[{"speaker":"neku","text":"Your heart wavers. Rest, then return."}]},{"id":"c7_neku_done","pages":[{"speaker":"neku","text":"Seto waits beyond. Do not keep him waiting."}]},{"id":"c7_door3_locked","pages":[{"speaker":"atos","text":"This door will not budge. I must beat Neku first."}]},{"id":"c7_seto2_pre","pages":[{"speaker":"seto2","text":"You came. I had my doubts."},{"speaker":"atos","text":"I said I would find the Items."},{"speaker":"seto2","text":"I serve the Prince, not you. But today we fight on the same side."},{"speaker":"atos","text":"Then why duel?"},{"speaker":"seto2","text":"The altar will test you. I will not let the Prince rest in untested hands. Duel?","ask":true}]},{"id":"c7_seto2_win","pages":[{"speaker":"seto2","text":"Enough. I was wrong to doubt you."},{"speaker":"seto2","text":"Take the White Dragon. It chose to fight beside you."},{"speaker":"narrator","label":"Reward","text":"You got the card Blue-eyes White Dragon."},{"speaker":"narrator","label":"Objective","text":"Reach the altar and wake the Prince."}]},{"id":"c7_seto2_lose","pages":[{"speaker":"seto2","text":"Not yet. Come back stronger."}]},{"id":"c7_seto2_done","pages":[{"speaker":"seto2","text":"The altar is ahead. I will guard your back."}]},{"id":"c7_altar_locked","pages":[{"speaker":"atos","text":"Seto stands in front of the altar. He will not let me through yet."}]},{"id":"c7_altar_wake","pages":[{"speaker":"atos","text":"Ring, Rod, Key, Scales, Necklace, Eye... and the Puzzle."},{"speaker":"narrator","label":"The Altar","text":"The seven Items glow. The Prince's soul rises from the Puzzle."},{"speaker":"prince","text":"{name}... Seto... I heard everything in my sleep. Thank you."},{"speaker":"seto2","text":"My Prince! You are free."},{"speaker":"heishin2","text":"Hahaha! You did the hard work for me. All seven Items in one room!"},{"speaker":"atos","text":"Heishin! You never give up."},{"speaker":"heishin2","text":"I gave up nothing. Duel, if you dare!","ask":true}]},{"id":"c7_heishin2_retry","pages":[{"speaker":"heishin2","text":"Back for more? Hand over the Items!","ask":true}]},{"id":"c7_heishin2_win","pages":[{"speaker":"heishin2","text":"No... the Items! The shadow promised me..."},{"speaker":"narrator","label":"The Shadow","text":"Heishin fades into black smoke. Something deeper stirs below."},{"speaker":"prince","text":"That was not Heishin's own power. Something older has woken."},{"speaker":"narrator","label":"Reward","text":"You got Time Stone Fragment 3 and the card Summoned Skull."},{"speaker":"narrator","label":"Objective","text":"Take the dark stairs behind the altar with the Prince."}]},{"id":"c7_heishin2_lose","pages":[{"speaker":"heishin2","text":"Hahaha! The Items are mine!"}]},{"id":"c7_prince_free","pages":[{"speaker":"prince","text":"Let us go. Whatever waits below, we face it together."}]},{"id":"c7_seto2_after_altar","pages":[{"speaker":"seto2","text":"Heishin was a pawn. The real enemy is below. Go, I will follow."}]},{"id":"c7_end__c8_intro","pages":[{"speaker":"atos","text":"The Fragments and the Items are all pulling toward the dark stairs."},{"speaker":"narrator","label":"End of Chapter 7","text":"Chapter 8 - Nitemare"},{"speaker":"prince","text":"The Final Temple. It floats in the Shadow Realm."},{"speaker":"atos","text":"Last duel. After this, I go home."},{"speaker":"narrator","label":"Objective","text":"Reach the Final Temple and defeat Nitemare."}]},{"id":"c8_seto3_pre","pages":[{"speaker":"seto3","text":"Turn back... The night does not forgive."},{"speaker":"atos","text":"Seto! That is not you talking."},{"speaker":"prince","text":"The shadow holds him. Break it with a duel, {name}!"},{"speaker":"seto3","text":"...Duel.","ask":true}]},{"id":"c8_seto3_win","pages":[{"speaker":"seto3","text":"Argh... what have I done? Prince?"},{"speaker":"seto3","text":"I saw it. DarkNite wears Heishin's grudge. Nitemare sleeps above."},{"speaker":"narrator","label":"Reward","text":"You got the card Red-eyes B. Dragon."},{"speaker":"narrator","label":"Objective","text":"Beat DarkNite in the hall of shadows."}]},{"id":"c8_seto3_lose","pages":[{"speaker":"seto3","text":"...Leave. Come back stronger."}]},{"id":"c8_seto3_done","pages":[{"speaker":"seto3","text":"Go on. I will hold the door behind you."}]},{"id":"c8_hall_locked","pages":[{"speaker":"atos","text":"A wall of black mist. Seto stands in my way."}]},{"id":"c8_darknite_pre","pages":[{"speaker":"darknite","text":"The seven Items called me. Thank you for bringing them."},{"speaker":"prince","text":"{name}, I duel beside you. This world is not only mine."},{"speaker":"atos","text":"Let's finish this."},{"speaker":"darknite","text":"Two hearts against one night? Duel!","ask":true}]},{"id":"c8_darknite_win","pages":[{"speaker":"darknite","text":"Impossible... the dark cannot lose to the light!"},{"speaker":"nitemare","text":"You amused me, DarkNite. Now step aside."},{"speaker":"narrator","label":"Reward","text":"You got the card Zoa."},{"speaker":"narrator","label":"Objective","text":"Climb to the top and face Nitemare."}]},{"id":"c8_darknite_lose","pages":[{"speaker":"darknite","text":"Nothing is lost in the dark. Not even you."}]},{"id":"c8_stairs_locked","pages":[{"speaker":"atos","text":"The stairs are sealed by shadow. DarkNite is guarding them."}]},{"id":"c8_nitemare_pre","pages":[{"speaker":"nitemare","text":"I am Nitemare. I was here before the first Item."},{"speaker":"nitemare","text":"Heishin was a puppet. The rifts, the Items... all of it was mine."},{"speaker":"atos","text":"You opened the rifts? You pulled me from my own time?"},{"speaker":"nitemare","text":"I opened every door. Close the last one yourself, if you can."},{"speaker":"prince","text":"Together, {name}! Light the way through the night!"},{"speaker":"atos","text":"Last duel. Then I am going home."},{"speaker":"nitemare","text":"Come, then. Duel!","ask":true}]},{"id":"c8_nitemare_win","pages":[{"speaker":"nitemare","text":"No... the light of seven Items..."},{"speaker":"narrator","label":"The Time Stone","text":"The three Fragments fly together and form the complete Time Stone."},{"speaker":"narrator","label":"Reward","text":"You got the Time Stone and the legendary card Workers' Rights."},{"speaker":"narrator","label":"Objective","text":"Choose how your journey ends."}]},{"id":"c8_nitemare_lose","pages":[{"speaker":"nitemare","text":"The dark takes everything. Even hope."}]},{"id":"c8_choice","pages":[{"speaker":"prince","text":"The Stone can send you home, {name}. Or you can stay beside us."},{"speaker":"atos","text":"Use the Time Stone to go home?","ask":true}]},{"id":"ending_home","pages":[{"speaker":"atos","text":"Goodbye, Seto. Goodbye, Prince. Thank you for everything."},{"speaker":"prince","text":"Take this card as a memory. We will not forget you."},{"speaker":"narrator","label":"Reward","text":"You got the card Mystical Elf as a keepsake."},{"speaker":"narrator","label":"Epilogue","text":"The Stone's light carries {name} back to the arena, one second after leaving."},{"speaker":"atos","text":"...Same arena. Same crowd. And I still have the Prince's card."},{"speaker":"narrator","label":"The End","text":"Thank you for playing JOURNEY MODE."}]},{"id":"ending_stay","pages":[{"speaker":"atos","text":"I think my story is here now. I will stay."},{"speaker":"seto3","text":"Then serve beside me, priest. The Prince will need you."},{"speaker":"prince","text":"Welcome home, {name}. Egypt is your time too."},{"speaker":"narrator","label":"Epilogue","text":"{name} became a priest of the Royal City and kept the Time Stone safe forever."},{"speaker":"narrator","label":"The End","text":"Thank you for playing JOURNEY MODE."}]},{"id":"side_cockatiel_pre","pages":[{"speaker":"cockatiel","text":"Tweet-tweet! Welcome, time traveler. I am Cockatiel, wandering duelist."},{"speaker":"atos","text":"Nice crest. Does your bird bite?"},{"speaker":"cockatiel","text":"Only sore losers. My flock is eager for a duel. Ready?","ask":true}]},{"id":"side_cockatiel_win","pages":[{"speaker":"cockatiel","text":"Ha! Not bad. My flock is impressed."},{"speaker":"cockatiel","text":"Keep this feather. It brings luck to those who fly high."},{"speaker":"narrator","label":"Reward","text":"You got the Cockatiel Feather and the card Crimson Sunbird."}]},{"id":"side_cockatiel_lose","pages":[{"speaker":"cockatiel","text":"Chirp! Come back after some seeds and practice."}]},{"id":"side_cockatiel_done","pages":[{"speaker":"cockatiel","text":"Fly high, traveler. The wind remembers you."}]},{"id":"side_cockatiel_epilogue","pages":[{"speaker":"cockatiel","text":"I heard what you did out there. The whole flock is singing about it."}]},{"id":"side_mirror_pre","pages":[{"speaker":"atos","text":"Wait... that is my face! And that looks like my deck!"},{"speaker":"mirror","text":"I am the Atos who stayed home. The rift pulled the wrong one, or maybe the right one."},{"speaker":"atos","text":"Then let's see which of us is the better duelist."},{"speaker":"mirror","text":"Fine by me. My deck works overtime. Duel?","ask":true}]},{"id":"side_mirror_win","pages":[{"speaker":"mirror","text":"Not bad... you work harder than I do."},{"speaker":"narrator","label":"Reward","text":"You got the card Hero of the East."}]},{"id":"side_mirror_lose","pages":[{"speaker":"mirror","text":"Overtime pays off. Try again."}]},{"id":"side_mirror_done","pages":[{"speaker":"mirror","text":"Go on. I will keep the arena warm."}]}]}
+{
+ "scripts": [
+  {
+   "id": "dk1_intro",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Good morning, home town! Sun, sand and the sound of cards being shuffled."
+    },
+    {
+     "speaker": "atos",
+     "text": "Today is the Festival of the Palms. Everyone is outside, but nobody is dueling."
+    },
+    {
+     "speaker": "atos",
+     "text": "They are all whispering. Something is going on. I'll write it in my notebook."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Ask Teana, Jono and the Guard what the whispers are about.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_rumor",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "{name}! Come here, quick! You won't believe what happened at dawn."
+    },
+    {
+     "speaker": "teana",
+     "text": "A man in a black hood bought my whole tray of date cakes!"
+    },
+    {
+     "speaker": "atos",
+     "text": "That's great news! Why the long face?"
+    },
+    {
+     "speaker": "teana",
+     "text": "He paid with THIS. A golden star! He said 'See you in the Kingdom' and left."
+    },
+    {
+     "speaker": "teana",
+     "text": "And there were no footprints in the sand. Not one!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "A hooded man pays with golden stars and talks about a Kingdom.",
+     "label": "Rumor 1",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_rumor_after",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Ask Jono and the Guard too. Everybody knows a different piece!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_tell_simon",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Three rumors, one mystery! Old Simon knows old stories. Go and ask him."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_rumor",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Hey, {name}! Perfect timing. I'm about to become rich and famous!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Again? Last week it was the sand-surfing business."
+    },
+    {
+     "speaker": "jono",
+     "text": "This is different! A sailor told me about a white ship by the river mouth."
+    },
+    {
+     "speaker": "jono",
+     "text": "It sails to an island where duelists fight for stars. The winner gets ANYTHING!"
+    },
+    {
+     "speaker": "jono",
+     "text": "Anything! Even a lifetime supply of fried fish!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "A white ship takes duelists to an island. Winners get anything.",
+     "label": "Rumor 2",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_rumor_after",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Don't tell anyone, but I'm already packing. Heh. Go ask the others."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_tell_simon",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Simon will know what this is about. Old men always do. Go on, I'll wait."
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_rumor",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Halt! Oh, it's you, {name}. Keep your voice down."
+    },
+    {
+     "speaker": "guard",
+     "text": "Last night someone nailed a poster to the gate. Strange paper. It glowed."
+    },
+    {
+     "speaker": "guard",
+     "text": "I tore it down, as is my job. But the wind took half of it. Look."
+    },
+    {
+     "speaker": "atos",
+     "text": "'STAR PASSAGE. Three treasures. One duelist.' And then it's torn off."
+    },
+    {
+     "speaker": "guard",
+     "text": "That's all I know. Ask old Simon. He gets nervous when people say 'Kingdom'."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A torn poster says - Star Passage. Three treasures. One duelist.",
+     "label": "Rumor 3",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_rumor_after",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "I told you what I know. Talk to the others, but quietly."
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_tell_simon",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Simon. Go and see Simon. And never say I showed you that poster."
+    }
+   ]
+  },
+  {
+   "id": "dk1_notice",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The village notice board. 'Date harvest on Friday. Lost goat - answers to Sphinx.'"
+    },
+    {
+     "speaker": "atos",
+     "text": "Under it, a shiny gold nail. Someone pinned something here last night."
+    }
+   ]
+  },
+  {
+   "id": "dk1_notice_after",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Still just a goat notice and a gold nail. The goat is probably fine."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_wait",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "The whole village buzzes like bees. I prefer quiet."
+    },
+    {
+     "speaker": "simon",
+     "text": "Ask Teana, Jono and the Guard what they heard. Then come and tell me."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_pre",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "{name}! You look like someone carrying three rumors."
+    },
+    {
+     "speaker": "atos",
+     "text": "A hooded man, a white ship and a torn poster. Simon, what is the Kingdom?"
+    },
+    {
+     "speaker": "simon",
+     "text": "Hm. Nobody has said that word in this village for thirty years."
+    },
+    {
+     "speaker": "simon",
+     "text": "I will tell you. But first show me you can hold a deck without shaking. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_win",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Steady hands and a good heart. Good. Now listen carefully."
+    },
+    {
+     "speaker": "simon",
+     "text": "Far across the sea lies Duelist Kingdom, an island castle built by a showman named Pegasus."
+    },
+    {
+     "speaker": "simon",
+     "text": "Duelists gather there with star chips. Win a duel and take a star. Lose and you give one."
+    },
+    {
+     "speaker": "simon",
+     "text": "Ten stars open the castle gates. Whoever reaches the top faces Pegasus himself."
+    },
+    {
+     "speaker": "atos",
+     "text": "And the winner gets anything?"
+    },
+    {
+     "speaker": "simon",
+     "text": "Anything he asks. That is the bait. Pegasus does love a good show."
+    },
+    {
+     "speaker": "simon",
+     "text": "Invitations are rare. The other way is the Star Passage, earned, never bought."
+    },
+    {
+     "speaker": "simon",
+     "text": "Careful - a Passage duelist starts with a single star. Do not expect a warm welcome."
+    },
+    {
+     "speaker": "simon",
+     "text": "A hooded courier hands out the Passage, only at night. Wait on the plaza bench."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the card Magician of Faith from Simon.",
+     "label": "Reward",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Sit on the plaza bench and wait for night.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_lose",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Your hands shook, but your eyes did not. Rest and try again."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_stage2",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "The bench in the plaza. Be patient, {name}. The courier comes when the sun is gone."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_treasures",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Lost, Won, Given. I know that riddle. Do not think of them as chores."
+    },
+    {
+     "speaker": "simon",
+     "text": "Think of them as a mirror. The Kingdom will ask you the same three things."
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_stage2",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Simon sent you to sit on a bench? Hehe. Take a cushion, the stone is cold."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_stage2",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "A bench? That's the plan? I thought it'd be more... dramatic. Good luck!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_stage2",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Sitting outside after dark? I did not see anything. I was napping."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bench_early",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "A nice stone bench. It is not the time to sit yet."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bench",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "I'll sit here and wait. Surely the courier will show up any minute."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The sun sinks. The stalls close. The plaza grows quiet and cold.",
+     "label": "Later",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Nobody yet..."
+    },
+    {
+     "speaker": "narrator",
+     "text": "On a far rooftop, a robed figure stands in a faint green shimmer.",
+     "label": "Far Away",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Somebody is watching me from up there... Gone. Only a flicker of green."
+    },
+    {
+     "speaker": "atos",
+     "text": "Wait. Is someone standing by the old palm?"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Talk to the hooded man in the plaza.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bench_after",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "A good bench. When I come back a champion, I'll sit here and tell everyone."
+    }
+   ]
+  },
+  {
+   "id": "dk1_hooded_riddle",
+   "pages": [
+    {
+     "speaker": "hooded_man",
+     "text": "You wait well. Few people do."
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "And ignore the one on the roof. He only watches. He never touches."
+    },
+    {
+     "speaker": "atos",
+     "text": "Who is he?"
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "A reader, not a writer. Not tonight. Now, to business."
+    },
+    {
+     "speaker": "atos",
+     "text": "Are you the courier? Do you have the Star Passage?"
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "I am a voice in the dark, nothing more. The Passage is not given. It is earned."
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "Take this card. It has three empty stamps."
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "Fill them with three treasures of your village. One lost. One won. One given."
+    },
+    {
+     "speaker": "atos",
+     "text": "That is a riddle, not a quest!"
+    },
+    {
+     "speaker": "hooded_man",
+     "text": "Life is mostly riddles. Come to the harbor when the card is full. The ship won't wait long."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the Stamp Card. It shows three empty stamps.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "The sun rises and the village wakes. Three treasures await.",
+     "label": "Next Morning",
+     "kind": "caption"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Find a Lost, a Won and a Given treasure. Ask the villagers.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_hello",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Fresh bread! Warm bread! ... Nobody? Everyone is too busy whispering to eat."
+    },
+    {
+     "speaker": "baker",
+     "text": "Mark my words - this Festival is cursed. Or very strange."
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_hint",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Hakim, do you know of any lost treasure around here?"
+    },
+    {
+     "speaker": "baker",
+     "text": "Funny you ask. My grandfather told me about one - the Founder's Scarab."
+    },
+    {
+     "speaker": "baker",
+     "text": "It fell into the old cistern under the little pyramid, long ago."
+    },
+    {
+     "speaker": "baker",
+     "text": "Last week I saw a pale light in the hatch. Brrr! Ask Kemet for his lantern."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Win Kemet's lantern, then open the hatch of the little pyramid.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_honey",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Hakim, Teana needs honey for her festival cakes."
+    },
+    {
+     "speaker": "baker",
+     "text": "For Teana's cakes? Of course! Here, careful, it is very sticky."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got a Honey Jar.",
+     "label": "You got",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_pre",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Between batches I like a duel. Want to try your deck against my oven? Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_win",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Ha! You duel better than I bake. Here, a little thank-you."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the card Mooyan Curry.",
+     "label": "Reward",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_lose",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "My bread rises faster than your deck. Try again!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_baker_after",
+   "pages": [
+    {
+     "speaker": "baker",
+     "text": "Safe travels, {name}. I'll keep a loaf warm for when you return."
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_hello",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "Whispers? I'm a farmer. I mostly hear crickets and my goat."
+    },
+    {
+     "speaker": "farmer",
+     "text": "My dates are ripe, though. Best dates for miles."
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_nohint",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "Dates ripe, sun hot, goat missing. That's my news."
+    },
+    {
+     "speaker": "farmer",
+     "text": "I own the best lantern in the village, but I only lend it to the brave."
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_pre",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Hakim says you have a lantern. I need to go into the little pyramid."
+    },
+    {
+     "speaker": "farmer",
+     "text": "Into the haunted hatch? Ha! Brave or crazy?"
+    },
+    {
+     "speaker": "farmer",
+     "text": "I only lend to the brave. Prove it with a duel! Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_win",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "Ha! Brave AND crazy. The best kind. Take the lantern."
+    },
+    {
+     "speaker": "farmer",
+     "text": "And this card. If you hear music down there, run."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got a Lantern and the card Killer Needle.",
+     "label": "Reward",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Open the hatch of the little pyramid next to the house.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_lose",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "The lantern stays with me, friend. Practice and come back."
+    }
+   ]
+  },
+  {
+   "id": "dk1_farmer_after",
+   "pages": [
+    {
+     "speaker": "farmer",
+     "text": "Mind the ghost. If you hear music, run. I said that already? Run anyway."
+    }
+   ]
+  },
+  {
+   "id": "dk1_hatch_locked",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "A little pyramid with a stone hatch. It is far too dark to go inside."
+    }
+   ]
+  },
+  {
+   "id": "dk1_cistern_enter",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Lantern lit. Down the old steps I go. Brrr, it's cold down here."
+    }
+   ]
+  },
+  {
+   "id": "dk1_cistern_exit",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Up the steps and back into the warm sun."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_pre",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "A visitor! A real, breathing visitor! Oh, joyful day!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Um... you are floating."
+    },
+    {
+     "speaker": "bakura",
+     "text": "Three hundred years of floating. I walk through walls, but nobody ever drops by."
+    },
+    {
+     "speaker": "atos",
+     "text": "I'm looking for the Founder's Scarab."
+    },
+    {
+     "speaker": "bakura",
+     "text": "That shiny thing? I use it as a lamp! Win it from me. A duel! Please! Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_win",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Splendid! The best duel in three centuries. Also the only one."
+    },
+    {
+     "speaker": "bakura",
+     "text": "Take the Scarab. I'll find another lamp. Please visit again, it gets quiet."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the Founder's Scarab and the card The 13th Grave.",
+     "label": "Reward",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "A stamp glows on your Stamp Card - Lost.",
+     "label": "Stamp",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_lose",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Leaving already? Stay! One more duel? Pretty please?"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_after",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Hello, friend! The step is slippery. Oh, and thank you for the visit."
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_first",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "ROAR! Behold the mighty Rex Raptor, wandering dinosaur duelist!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Aren't you just passing through?"
+    },
+    {
+     "speaker": "rex",
+     "text": "I collect trophies. See this bandana? Won it from a loud kid called Jono."
+    },
+    {
+     "speaker": "atos",
+     "text": "Jono's bandana... I should talk to him first."
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_pre",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Rex, I want Jono's bandana back."
+    },
+    {
+     "speaker": "rex",
+     "text": "Ha! Then take it from my dinosaurs. Win and it is yours. Fair is fair."
+    },
+    {
+     "speaker": "rex",
+     "text": "But lose, and I get your lucky socks too! Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_win",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Impossible! My dinosaurs! My trophy!"
+    },
+    {
+     "speaker": "rex",
+     "text": "Hmph. Take it. And this card, rookie. I don't carry grudges. Only dinosaurs."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got Jono's Bandana and the card Uraby.",
+     "label": "Reward",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "A stamp glows on your Stamp Card - Won.",
+     "label": "Stamp",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_lose",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "ROAR! More dinosaurs than you can count! Come back stronger."
+    }
+   ]
+  },
+  {
+   "id": "dk1_rex_after",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "I'll find a new trophy. You should enter that Kingdom, kid. I hear stars are shiny."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_ask",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ugh. {name}. Don't look at me. Worst day ever."
+    },
+    {
+     "speaker": "atos",
+     "text": "What happened?"
+    },
+    {
+     "speaker": "jono",
+     "text": "Rex Raptor, the big dino guy on the east road, bet my lucky bandana. I lost in three turns!"
+    },
+    {
+     "speaker": "jono",
+     "text": "I'm too embarrassed to go back. If you won it back for me, I'd owe you big."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Beat Rex Raptor on the east road and win the bandana back.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_waiting",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Rex is on the east road. Please be gentle... no, be MEAN."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_thanks",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "My bandana! You did it! You actually did it!"
+    },
+    {
+     "speaker": "atos",
+     "text": "It's yours. Take it."
+    },
+    {
+     "speaker": "jono",
+     "text": "No way. You won it fair and square. Keep it, it brings luck."
+    },
+    {
+     "speaker": "jono",
+     "text": "Take this card too. I have a plan, by the way. A secret plan. Heh."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the card Dragon Treasure from Jono.",
+     "label": "Reward",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_after",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "That bandana looks better on you. Well, no. But keep it anyway."
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_ask",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "{name}! You were out all night. Did the ghost bite you? Hehe."
+    },
+    {
+     "speaker": "atos",
+     "text": "I'm looking for a Given treasure. Whatever that means."
+    },
+    {
+     "speaker": "teana",
+     "text": "Given? Oh... I can't talk now. The festival starts and I have no cakes!"
+    },
+    {
+     "speaker": "teana",
+     "text": "I need honey from Hakim, fresh river water and ripe dates. But I can't leave the stall."
+    },
+    {
+     "speaker": "teana",
+     "text": "Help me and I'll give you something precious. Here, take my water jug."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got a Water Jug.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Get honey from Hakim, fill the jug at the river, pick dates from a palm.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_waiting",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Honey from Hakim, water from the river and dates from a palm. Please hurry!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_pre",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Honey, water AND dates! You're a hero, {name}!"
+    },
+    {
+     "speaker": "teana",
+     "text": "The cakes need time to bake. So duel me! I want my charm in good hands."
+    },
+    {
+     "speaker": "teana",
+     "text": "If you win, the charm is yours. If you lose, you wash dishes! Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_win",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Wow! Okay, okay, you win. A deal is a deal."
+    },
+    {
+     "speaker": "teana",
+     "text": "This is my Lucky Charm. My granny gave it to me. I can't go anywhere, but you can."
+    },
+    {
+     "speaker": "teana",
+     "text": "It is not a trade. It is a gift. That is what makes it special."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the Lucky Charm and the card Kuriboh.",
+     "label": "Reward",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "A stamp glows on your Stamp Card - Given.",
+     "label": "Stamp",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_lose",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Hehe, I won! Dishes after the festival. Try again, {name}!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_after",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Come and see me before you go, ok? And take care of that charm."
+    }
+   ]
+  },
+  {
+   "id": "dk1_date_palm",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The palm is full of ripe dates. Shake, shake, shake!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Plop, plop, plop! A whole basket of sweet dates."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got Dates.",
+     "label": "You got",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_date_palm_idle",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Ripe dates. Teana would love some. Maybe I should ask her first."
+    }
+   ]
+  },
+  {
+   "id": "dk1_river_fill",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The river is cool and clear. Glug, glug, glug."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got River Water.",
+     "label": "You got",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_river_idle",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "A clear river. The fish stare at me as if I owe them money."
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_block",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "Orders - nobody crosses the bridge today. Not after that poster business."
+    },
+    {
+     "speaker": "guard",
+     "text": "Unless you have a very good reason. And a very full card."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bridge_locked",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The Guard blocks the bridge. I can't cross yet."
+    }
+   ]
+  },
+  {
+   "id": "dk1_treasures_done",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The Stamp Card is full! Lost, Won and Given, all three stamps are glowing."
+    },
+    {
+     "speaker": "atos",
+     "text": "The hooded man said to come to the harbor. The road is across the bridge."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Cross the bridge to the harbor. The Guard will let you pass.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_guard_open",
+   "pages": [
+    {
+     "speaker": "guard",
+     "text": "That glowing card... is that a full Star Passage card? In twenty years I never saw one!"
+    },
+    {
+     "speaker": "guard",
+     "text": "Go on. The bridge is yours. Be careful, {name}."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bridge_cross",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Across the bridge and down the golden road. I smell salt in the air."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Creaking ropes and gulls. A gate, and an empty pier beyond it.",
+     "label": "The Harbor",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bridge_back",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Back across the bridge, to the village."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inspector_pre",
+   "pages": [
+    {
+     "speaker": "soldier",
+     "text": "Halt, traveler. This pier is closed for the Kingdom ship."
+    },
+    {
+     "speaker": "atos",
+     "text": "I have a Stamp Card with three stamps."
+    },
+    {
+     "speaker": "soldier",
+     "text": "Impressive. But anyone can collect stamps. Duelists must pass the Harbor Exam."
+    },
+    {
+     "speaker": "soldier",
+     "text": "Beat me and the gate opens. Lose and go practice. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_inspector_win",
+   "pages": [
+    {
+     "speaker": "soldier",
+     "text": "Excellent! The gate is open. The Courier is waiting at the end of the pier."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the card Warrior of Tradition.",
+     "label": "Reward",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Walk to the end of the pier and meet the Courier.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_inspector_lose",
+   "pages": [
+    {
+     "speaker": "soldier",
+     "text": "Not today. Go practice and come back, recruit."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inspector_after",
+   "pages": [
+    {
+     "speaker": "soldier",
+     "text": "Go ahead, the pier is waiting. Good luck over the sea."
+    }
+   ]
+  },
+  {
+   "id": "dk1_gate_locked",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The gate is shut. The Inspector stands right in front of it."
+    }
+   ]
+  },
+  {
+   "id": "dk1_shadi_pre",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "You came. I am Shadi, Pegasus's messenger. And yes, I was the hooded man."
+    },
+    {
+     "speaker": "atos",
+     "text": "I knew that voice was familiar!"
+    },
+    {
+     "speaker": "shadi",
+     "text": "You did not. Do not lie to a spirit. The three stamps - Memory, Courage, Kindness."
+    },
+    {
+     "speaker": "shadi",
+     "text": "A duelist needs all three. And a deck. One last test - duel me. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_shadi_win",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Your cards are loyal and your heart is true. The Star Passage is yours."
+    },
+    {
+     "speaker": "narrator",
+     "text": "On the far breakwater, a robed figure glows green and looks at your Star Passage.",
+     "label": "Far Away",
+     "kind": "caption"
+    },
+    {
+     "speaker": "shadi",
+     "text": "Hm. Someone has read your Passage. Ignore him. He only reads."
+    },
+    {
+     "speaker": "atos",
+     "text": "Who is 'he'?"
+    },
+    {
+     "speaker": "shadi",
+     "text": "A reader. He never turns a page for you. Back to your Passage."
+    },
+    {
+     "speaker": "shadi",
+     "text": "Invited duelists enter with three stars. Passage duelists enter with only one."
+    },
+    {
+     "speaker": "atos",
+     "text": "One star? That is hardly anything!"
+    },
+    {
+     "speaker": "shadi",
+     "text": "It is all you need to begin. Win a duel, take a star. Lose and one goes. At zero, you go home."
+    },
+    {
+     "speaker": "shadi",
+     "text": "Ten stars open the castle. Pegasus waits at the top. Your friends came to see you off."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the Star Passage, a Star Chip and the card Illusionist Faceless Mage.",
+     "label": "Reward",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "You have 1 star. The white ship arrives at the pier.",
+     "label": "Stars",
+     "kind": "caption"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Say goodbye to Simon, Teana and Jono, then board the ship.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_shadi_lose",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Your heart is willing but your deck needs work. Try again, young one."
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_farewell",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "So the ship is real. I'm too old for sea voyages, but my heart sails with you."
+    },
+    {
+     "speaker": "simon",
+     "text": "I must confess something. Who do you think wrote to Pegasus?"
+    },
+    {
+     "speaker": "atos",
+     "text": "YOU did?!"
+    },
+    {
+     "speaker": "simon",
+     "text": "Pegasus and I were friends once. We argued about cards. He built an island, I built a village."
+    },
+    {
+     "speaker": "simon",
+     "text": "He asked for my best student. I said I'd think about it. Then you showed up with that deck."
+    },
+    {
+     "speaker": "simon",
+     "text": "Tell him Simon says hello. And that he still owes me a card. Take this one, my first."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the card Mystical Elf from Simon.",
+     "label": "Reward",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_simon_after",
+   "pages": [
+    {
+     "speaker": "simon",
+     "text": "Go. And remember - stars are only numbers. Cards are only paper. People matter."
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_farewell",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Take care! I'm not crying, it's the sea breeze! Bring back a BIG story."
+    },
+    {
+     "speaker": "teana",
+     "text": "I'll keep my golden star safe until you're back. Don't lose that charm!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_teana_after_farewell",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Go on, before I start crying for real. Hehe."
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_farewell",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "So you got the Passage! Of course you did. Heh."
+    },
+    {
+     "speaker": "jono",
+     "text": "Don't think I'm giving up. I have a raft, three barrels and a dream."
+    },
+    {
+     "speaker": "atos",
+     "text": "Jono, you can't swim."
+    },
+    {
+     "speaker": "jono",
+     "text": "Details! See you on the island, {name}!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_jono_after_farewell",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Raft, barrels, dream. Easy. Go, I'll catch up!"
+    }
+   ]
+  },
+  {
+   "id": "dk1_gangway_locked",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "My friends are still here. I should say goodbye before I leave."
+    }
+   ]
+  },
+  {
+   "id": "dk1_board",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A horn blows. A white ship with a golden eye on its sail waits at the pier.",
+     "label": "All Aboard",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Goodbye, home town. I'll be back with stories."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Look around the ship and talk to the lady on deck.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk1_mai_rules",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Well, well. A rookie from the sand. Cute. Where are your friends?"
+    },
+    {
+     "speaker": "atos",
+     "text": "I came alone. I think. Who are you?"
+    },
+    {
+     "speaker": "mai",
+     "text": "Mai Valentine. Harpie Ladies and bad manners. Let me guess - Passage, one star?"
+    },
+    {
+     "speaker": "mai",
+     "text": "Oh sweetie. Here are the rules so you don't cry later. Win a duel, take one star."
+    },
+    {
+     "speaker": "mai",
+     "text": "Lose a duel, give one up. Zone masters are worth two stars. Ten stars open the castle."
+    },
+    {
+     "speaker": "mai",
+     "text": "No stars left? Pegasus's men send you home. Do not let that happen."
+    },
+    {
+     "speaker": "atos",
+     "text": "Thanks for the tips."
+    },
+    {
+     "speaker": "mai",
+     "text": "Don't thank me. We'll duel soon. And I won't go easy on you."
+    }
+   ]
+  },
+  {
+   "id": "dk1_mai_after",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Look at the sea. Last time you can enjoy it before the fun starts."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_early",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "STOP RIGHT THERE, bug! Talk to the lady first. I want an audience."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_pre",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHA! Look at all these little bugs crawling onto MY ship!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Who are you calling a bug? And it's not your ship."
+    },
+    {
+     "speaker": "inseto",
+     "text": "I am InsetoKaiba! Champion! Bug collector! Owner of the most unbeatable deck ever made!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Nobody has ever touched it. Not once. I checked. Twice."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Face me, little larva, and learn your place in the food chain. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_win",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "WHAT?! Impossible! I am InsetoKaiba! My deck is UNBEATABLE!"
+    },
+    {
+     "speaker": "atos",
+     "text": "It was beatable. Just now."
+    },
+    {
+     "speaker": "inseto",
+     "text": "A glitch! A bug in the system! ... And I am the only bug allowed here!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Fine. Take this, you mildly impressive beetle. I will remember your name."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got the Golden Bug Pin and the card Javelin Beetle.",
+     "label": "Reward",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_lose",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHA! Squashed! Another bug for my collection! Come back when you grow wings, larva."
+    }
+   ]
+  },
+  {
+   "id": "dk1_inseto_after",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "You again? Shoo, shoo! I'm rehearsing my victory speech. It is very long."
+    }
+   ]
+  },
+  {
+   "id": "dk1_barrel",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "A barrel on the deck. It smells like... date cakes?"
+    },
+    {
+     "speaker": "narrator",
+     "text": "The barrel whispers - 'Shhh...' and giggles.",
+     "label": "Barrel",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_bow_wait",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "The sea is wide. Maybe I should talk to the lady on deck first."
+    }
+   ]
+  },
+  {
+   "id": "dk1_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "At the top of the mast, a robed figure sits in a green shimmer, watching the island.",
+     "label": "Up High",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Mai, who is that up on the mast?"
+    },
+    {
+     "speaker": "mai",
+     "text": "Where? Nobody is up there, sweetie. Too much sun."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The green flicker goes out. The mast is empty.",
+     "label": "Up High",
+     "kind": "caption"
+    },
+    {
+     "speaker": "narrator",
+     "text": "The mist parts. Towers, flags and a castle with a giant eye on its tallest spire.",
+     "label": "Mist",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Duelist Kingdom. One star. Ten to go. Let's play."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Chapter 2 - The Shore of Illusions",
+     "label": "End of Chapter 1",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk1_mago_glyph",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Green characters flicker on the wall, like a window into something else.",
+     "label": "Wall",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "I can't read it. Something like 'observe... do not edit'."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The glyphs fade. Nothing in the room has changed.",
+     "label": "Wall",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_mago_glyph_after",
+   "pages": [
+    {
+     "speaker": "atos",
+     "text": "Plain old stone. Whatever was written here has gone quiet."
+    }
+   ]
+  },
+  {
+   "id": "dk1_bakura_glyph",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "The green writing on the wall? It was here before me."
+    },
+    {
+     "speaker": "bakura",
+     "text": "It never helps and never harms. It only watches. I like it. Good company."
+    }
+   ]
+  },
+  {
+   "id": "dk_part2_end",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "label": "Part 2 complete",
+     "kind": "complete",
+     "text": "That is all for this test build. Next: the pyramid hatch and the cistern (part 3)."
+    }
+   ]
+  }
+ ]
+}

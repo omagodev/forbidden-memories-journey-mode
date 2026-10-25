@@ -101,6 +101,9 @@ typedef struct {
     int action, value;         /* TITLE_ACTION_*, and the number a code mod's event gets */
     char notice_title[64];
     char notice[TITLE_NOTICE];
+    /* A file of the mod's data directory (mod-data/<mod>/<file>) the item needs: without it (or empty) the item is dimmed and
+     * choosing it buzzes, as a locked tower does. "" for none. */
+    char needs_data[64];
 } TitleItem;
 
 /* A picture a mod adds to the title ("images"): its middle's place in the

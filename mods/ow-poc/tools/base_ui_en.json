@@ -1,0 +1,232 @@
+{
+  "language": {
+    "name": "English",
+    "label": "Language",
+    "hint": "Up/Down: choose   X: confirm   Triangle: back"
+  },
+  "mod": {
+    "name": "Journey Mode",
+    "description": "A story mode with a walkable 3D world: character creation, 30 people in 16 areas over eight chapters, the game's own text boxes and duels with a deck for each duelist, area music, a START menu, a save file and two endings. Characters: Quaternius (CC0); props: PSX Nature Free by heyheythere (CC BY 4.0).",
+    "title_button": "JOURNEY MODE"
+  },
+  "choose": {
+    "heading": "JOURNEY MODE",
+    "continue": "Continue",
+    "new_journey": "New journey",
+    "language": "Language: %s"
+  },
+  "hud": {
+    "status_line": "%s  -  %s    Objective: %s",
+    "objective_label": "Objective:"
+  },
+  "hint": {
+    "talk": "X: talk to %s",
+    "examine": "X: examine",
+    "controls": "Arrows: walk   Circle: run   X: talk   Start: menu",
+    "painted": "Arrows: walk   Circle: run   X: talk   Start: save   Triangle: big map   Select: map on/off   L1: 3D map"
+  },
+  "ask": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "messages": {
+    "progress_saved": "Progress saved",
+    "save_failed": "Save failed"
+  },
+  "creation": {
+    "heading": "CREATE YOUR CHARACTER",
+    "rows": {
+      "name": "Name",
+      "gender": "Gender",
+      "hair": "Hair",
+      "hair_colour": "Hair colour",
+      "skin": "Skin",
+      "outfit_colour": "Outfit colour",
+      "portrait": "Portrait",
+      "start": "Start"
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "hair_styles": [
+      "Short",
+      "Swept",
+      "Tidy"
+    ],
+    "hair_colours": [
+      "Violet",
+      "Black",
+      "Brown",
+      "Blonde",
+      "Red"
+    ],
+    "skins": [
+      "Light",
+      "Tan",
+      "Dark"
+    ],
+    "outfit_colours": [
+      "Blue",
+      "Red",
+      "Green",
+      "Black",
+      "White"
+    ],
+    "portraits": [
+      "Portrait 1",
+      "Portrait 2",
+      "Portrait 3",
+      "Portrait 4"
+    ],
+    "hint_name": "X: type a name",
+    "hint_begin": "X: begin",
+    "hint_change": "Left/Right: change"
+  },
+  "menu": {
+    "items": [
+      "Deck editor",
+      "Items",
+      "Status",
+      "Save",
+      "Back to title",
+      "Close"
+    ],
+    "items_empty": "Nothing yet",
+    "objective": "Objective: %s",
+    "status": "Duels %d    Wins %d    Losses %d",
+    "deck": "Deck %d / 40 cards",
+    "saved": "Progress saved.",
+    "save_failed": "The save failed.",
+    "quit_title": "Back to the title screen?",
+    "quit_warn": "(unsaved progress is lost)",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "defaults": {
+    "player_name": "Hero"
+  },
+  "areas": [
+    "Village",
+    "Fields",
+    "Nile River",
+    "Sand Ruins",
+    "Royal City",
+    "Throne Hall",
+    "Tournament Island",
+    "Desert Temple",
+    "Temple Crossroads",
+    "Sea Temple",
+    "Forest Temple",
+    "Mountain Temple",
+    "Desert Temple",
+    "Meadow Temple",
+    "Labyrinth",
+    "Final Temple"
+  ],
+  "chapters": [
+    "Chapter 1: The Village",
+    "Chapter 2: Sand Ruins",
+    "Chapter 3: The Palace and the Prince",
+    "Chapter 4: Heishin's Coup",
+    "Chapter 6: The Seven Items",
+    "Chapter 7: The Labyrinth and the Guardians",
+    "Chapter 8: Nitemare",
+    "Chapter 5: The Tournament Out of Time",
+    "Epilogue"
+  ],
+  "objectives": [
+    "Talk to Simon Muran",
+    "Cross the river to the north",
+    "Enter the stone portal",
+    "Beat Weevil Underwood",
+    "Beat Rex Raptor",
+    "Beat Rex Raptor and Weevil",
+    "Enter the palace",
+    "Duel Seto in front of the palace",
+    "Touch the glowing throne",
+    "Defeat Heishin",
+    "Enter the castle portal",
+    "Face Pegasus",
+    "Beat Mai, Bandit Keith and Shadi",
+    "Open the Labyrinth gate",
+    "Face High Mage Secmeton",
+    "Win the five temple Items",
+    "Take the dark stairs",
+    "Wake the Prince at the altar",
+    "Beat Seto at the third door",
+    "Face Guardian Neku",
+    "Face Guardian Sebek",
+    "Cross the Labyrinth",
+    "Choose your ending",
+    "Face Nitemare",
+    "Beat DarkNite",
+    "Free Seto from the shadow",
+    "Story complete!",
+    "Chapter 5 complete!"
+  ],
+  "items": [
+    "Canteen",
+    "Time Stone Fragment 1",
+    "Torch",
+    "Royal Seal",
+    "Millennium Necklace",
+    "Time Stone Fragment 2",
+    "Millennium Eye",
+    "Sea Tablet",
+    "Millennium Key",
+    "Millennium Rod",
+    "Millennium Ring",
+    "Millennium Scales",
+    "Time Stone Fragment 3",
+    "Time Stone"
+  ],
+  "npc_names": {
+    "simon": "Simon Muran",
+    "teana": "Teana",
+    "jono": "Jono",
+    "guard": "Guard",
+    "rex": "Rex Raptor",
+    "weevil": "Weevil",
+    "seto": "Seto",
+    "prince": "Prince",
+    "mage_soldier": "Mage Soldier",
+    "heishin": "Heishin",
+    "mai": "Mai",
+    "keith": "Bandit Keith",
+    "shadi": "Shadi",
+    "pegasus": "Pegasus",
+    "simon_crossroads": "Simon Muran",
+    "ocean_mage": "Ocean Mage",
+    "secmeton": "High Mage Secmeton",
+    "anubisius": "High Mage Anubisius",
+    "atenza": "High Mage Atenza",
+    "martis": "High Mage Martis",
+    "kepura": "High Mage Kepura",
+    "labyrinth_mage": "Labyrinth Mage",
+    "sebek": "Guardian Sebek",
+    "neku": "Guardian Neku",
+    "seto2": "Seto",
+    "heishin2": "Heishin",
+    "prince_labyrinth": "Prince",
+    "seto3": "Seto",
+    "darknite": "DarkNite",
+    "nitemare": "Nitemare"
+  },
+  "speaker_names": {
+    "prince": "Prince",
+    "isis": "Isis"
+  },
+  "map": {
+    "title": "MAP",
+    "close": "Triangle: close",
+    "hint": "Triangle: map   Select: minimap"
+  },
+  "confirm": {
+    "heading": "Start a new game?",
+    "saved": "Saved journey: %s  -  %s",
+    "warning": "Starting a new game replaces this save when the story begins saving.",
+    "start": "Start a new game",
+    "cancel": "Cancel"
+  }
+}

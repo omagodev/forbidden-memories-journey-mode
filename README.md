@@ -1,8 +1,8 @@
 # Journey Mode: Yu-Gi-Oh! Forbidden Memories
 
-A story and open-world mode for **Yu-Gi-Oh! Forbidden Memories**, in English and Portuguese: walk a map, talk to duelists, follow a story across eight chapters and fight real duels with the game's own engine. Created by Atos Vinicius (omagodev).
+A story and open-world mode for **Yu-Gi-Oh! Forbidden Memories**, in English and Portuguese: walk painted maps, talk to duelists, follow a story and fight real duels with the game's own engine. The current story is a Duelist Kingdom adventure that starts in your home town (work in progress; the older eight-chapter story is kept as a backup). Created by Atos Vinicius (omagodev).
 
-Press **JOURNEY MODE** on the title screen. You need your own legal copy of the USA disc (SLUS-01411); no game data is included.
+Press **JOURNEY MODE** on the title screen. You need your own legal copy of the USA disc (SLUS-01411); no game data is included. The painted maps, sprites and portraits of Journey Mode are original AI-assisted art made for this project (see [CREDITS.md](CREDITS.md)).
 
 ## Built on the shoulders of others
 
@@ -11,7 +11,8 @@ This project is built on **[Yu-Gi-Oh! Forbidden Memories Recompiled](https://git
 ## Where things are
 
 * `mods/ow-poc/`: the Journey Mode mod (code, baked maps and models, tools).
-* `journey_content/`: story, decks and UI text in English and Portuguese, with validators.
+* `journey_content/`: story, decks and UI text in English and Portuguese, with validators. The Duelist Kingdom story is in `journey_content/duelist_kingdom/`.
+* `mods/ow-poc/tools/`: bake scripts, the fast test helper and the smoke-test scenarios (see `mods/ow-poc/tools/TESTING.md`).
 * `notes/journey-mode.md`: design notes. The rest of `notes/` is the port's documentation.
 * [CREDITS.md](CREDITS.md): everyone whose work is used here.
 

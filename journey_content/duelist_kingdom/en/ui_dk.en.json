@@ -1,0 +1,47 @@
+{
+ "hud": {
+  "objective_label": "Objective:",
+  "stars": "Stars: %d",
+  "chapter_label": "Chapter %d"
+ },
+ "menu": {
+  "journal": "Journal",
+  "rumors": "Rumors",
+  "backpack": "Backpack",
+  "stamp_card": "Stamp Card"
+ },
+ "stamp_card": {
+  "slots": [
+   "Lost",
+   "Won",
+   "Given"
+  ],
+  "empty": "Empty"
+ },
+ "star_ui": {
+  "wager": "Wager 1 star?",
+  "gain": "You took a star! Stars: %d",
+  "loss": "You lost a star. Stars: %d",
+  "eliminated": "Out of stars! Pegasus's staff gives you one more chance."
+ },
+ "time": {
+  "night": "Night",
+  "day": "Day"
+ },
+ "areas": {
+  "village": "Oasis Village",
+  "cistern": "Old Cistern",
+  "harbor": "Sunset Harbor",
+  "ship_deck": "The Golden Eye (ship deck)",
+  "kingdom_beach": "Shore of Illusions"
+ },
+ "notebook": [
+  "Rumor 1: a hooded man pays with golden stars and talks about a Kingdom.",
+  "Rumor 2: a white ship takes duelists to an island. Winners get anything.",
+  "Rumor 3: a torn poster says Star Passage. Three treasures. One duelist."
+ ],
+ "ask_yes_no": [
+  "Yes",
+  "No"
+ ]
+}

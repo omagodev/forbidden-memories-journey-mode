@@ -176,6 +176,8 @@ int Story_TalkRule(const Npc *npc, Talk *out)
         out->duel = Json_Num(n, "duel", 0) != 0 ? (int)(npc - npcs) : -1;
         out->on_win = Json_Get(n, "win");
         out->on_lose = Json_Get(n, "lose");
+        out->effects = Json_Get(n, "effects");
+        out->pose = Json_Str(n, "pose", NULL);
         return out->scene != NULL;
     }
     return 0;
@@ -293,6 +295,10 @@ int Story_Page(const char *id, int index, Page *out)
     out->name = Json_Str(p, "label", NULL);
     out->text = Json_Str(p, "text", "");
     out->ask = Json_Num(p, "ask", 0) != 0;
+    {
+        const char *k = Json_Str(p, "kind", "");
+        out->kind = !strcmp(k, "objective") ? 1 : !strcmp(k, "item") ? 2 : !strcmp(k, "complete") ? 3 : !strcmp(k, "caption") ? 4 : 0;
+    }
     return 1;
 }
 
@@ -343,13 +349,7 @@ static void expand(const char *s, char *out, size_t size)
     out[n] = 0;
 }
 
-static void glyph_string(const char *s)
-{
-    uint32_t ch;
-    while (*s && (ch = Glyphs_NextCharacter(&s)) != 0) tglyph(Glyphs_Code(ch));
-}
-
-static void build_text(const char *name, const char *body)
+static void build_text(const char *name, const char *body, int ask)
 {
     static char expanded[600];
     const char *s;
@@ -358,8 +358,14 @@ static void build_text(const char *name, const char *body)
     s = expanded;
     tlen = 0;
     tx = 0;
-    if (name && *name) { glyph_string(name); tput(0xFE); }
-    tx = 0;
+    if (name && *name) {                    /* the speaker: first on the line, in the game's yellow text, then a colon */
+        const char *n = name;
+        tput(0xF8); tput(0x0A); tput(0x01);          /* secondary command 0A: text colour = ramp 1 (yellow) */
+        while (*n) { uint32_t ch = Glyphs_NextCharacter(&n); tglyph(Glyphs_Code(ch)); }
+        tglyph(Glyphs_Code(':'));
+        tput(0xF8); tput(0x0A); tput(0x00);          /* back to white for the message */
+        tglyph(0);
+    }
     while (*s) {
         const char *w = s;
         int letters = 0, room = (BOX_W - tx) / LETTER;
@@ -369,14 +375,14 @@ static void build_text(const char *name, const char *body)
             while (*p && *p != ' ') { Glyphs_NextCharacter(&p); letters++; }
         }
         if (letters > room && tx) {
-            if (++line % 3 == 0) { tput(0xFA); if (name && *name) { glyph_string(name); tput(0xFE); } }
+            if (++line % 3 == 0) tput(0xFA);
             else tput(0xFE);
             tx = 0;
             continue;
         }
         while (letters--) { uint32_t ch = Glyphs_NextCharacter(&s); tglyph(Glyphs_Code(ch)); }
     }
-    tput(0xFA);
+    if (!ask) tput(0xFA);                   /* a question has no page wait: the box stays up while it is answered */
     tput(0xFF);
     ModMode_SetText(text, tlen);
 }
@@ -385,11 +391,11 @@ static DuelEffectChannel *box(void) { return &D_800EB0F8[0]; }
 void Say_Close(void) { if (box()->flags_34 & 0x8000) TextBox_Destroy((struct DuelEffectChannel *)box()); }
 int Say_Done(void) { return (box()->flags_34 & TEXT_BOX_FLAG_DONE) && !(box()->flags_34 & 0x08); }
 
-void Say_Text(const char *name, const char *body)
+void Say_Text(const char *name, const char *body, int ask)
 {
-    build_text(name, body);
+    build_text(name, body, ask);
     Say_Close();
     Tower_CreateBox(MOD_MODE_TEXT_ID, 0x10, 0xA0, 0x120, 0x40, 0x20);
 }
 
-void Say_Page(const Page *p) { Say_Text(p->name, p->text); }
+void Story_Expand(const char *text, char *out, int size) { expand(text, out, (size_t)size); }

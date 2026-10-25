@@ -15,8 +15,9 @@ JOURNEY MODE is an unofficial, non-commercial fan mod for Yu-Gi-Oh! Forbidden Me
 * PSX Nature assets by **heyheythere** (CC BY 4.0): credit "PSX Nature by heyheythere, CC BY 4.0"
 * **QuickJS** by Fabrice Bellard and Charlie Gordon (MIT), see patches/QUICKJS_LICENSE
 
+## Art
+* The painted maps, character sprites and sprite sheets of Journey Mode (home town, Duelist Kingdom areas, NPCs) are **AI-generated** images, then processed and baked into game formats by the scripts in `mods/ow-poc/tools/`. The characters are original or fan-made, inspired by Forbidden Memories characters; they are not official art. The AI-generated sprite sheets in `mods/ow-poc/tools/sprite_sheets/` are included as the sources of those scripts.
+* The "InsetoKaiba" rival is a stylized parody character; it uses no real person's name or likeness.
+
 ## Content
 Written with help from Grok Bot (English translation, chapters 6-8, deck lists, the Cockatiel character). Yu-Gi-Oh! and all related characters and cards belong to Kazuki Takahashi / Konami.
-
-## Origin of this repository
-The port code here is a copy of https://github.com/Unchiga/Yu-Gi-Oh-Forbidden-Memories-Recompiled (MIT, see LICENSE), imported with a fresh history. Use that repository for upstream history, issues and updates. Journey Mode is in `mods/ow-poc` and `journey_content/`.

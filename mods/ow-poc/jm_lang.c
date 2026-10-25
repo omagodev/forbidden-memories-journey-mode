@@ -96,6 +96,33 @@ const char *Lang_Name(int i)
 
 int Lang_Current(void) { return cur < 0 ? 0 : cur; }
 
+/* The language picked the first time Journey Mode starts a new game is kept in language.cfg (the mod's data folder), so the
+ * choice screen only shows then; the START menu's Language row changes it later (and every save writes it). */
+int Lang_PrefRead(void)
+{
+    FILE *f = jm_host->open_data(jm_host, "language.cfg", "rb");
+    int v = -1;
+    char buf[16];
+    size_t n;
+    if (!f) return -1;
+    n = fread(buf, 1, sizeof(buf) - 1, f);
+    fclose(f);
+    buf[n] = 0;
+    if (n > 0 && buf[0] >= '0' && buf[0] <= '9') v = atoi(buf);
+    return v >= 0 && v < Lang_Count() ? v : -1;
+}
+
+void Lang_PrefWrite(int i)
+{
+    FILE *f = jm_host->open_data(jm_host, "language.cfg", "wb");
+    char buf[16];
+    int n;
+    if (!f) return;
+    n = snprintf(buf, sizeof(buf), "%d\n", i);
+    fwrite(buf, 1, (size_t)n, f);
+    fclose(f);
+}
+
 /* Loads the interface and the story of language i (the first one if i is not a language). */
 int Lang_Set(int i)
 {
