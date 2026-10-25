@@ -38,10 +38,18 @@ int ui_message_timer;
 void Ui_Message(const char *s) { strncpy(ui_message, s, sizeof(ui_message) - 1); ui_message_timer = 120; }
 const char *Ui_MessageText(void) { return ui_message_timer > 0 ? ui_message : NULL; }
 
-/* -------------------------------------------------------- character creator */
-enum { C_NAME, C_GENDER, C_HAIR, C_HAIR_COL, C_SKIN, C_OUTFIT, C_PORTRAIT, C_START, C_ROWS };
-static int row;
+/* -------------------------------------------------------- character creator
+ * The rows: Name, Gender, then one row per chargen category (skin, outfit, outfit colour, hair, hair colour, accessory ... whatever
+ * assets/chargen/manifest.json lists), Portrait, Start.  Without the chargen layers the old rows (hair, hair colour, skin, outfit colour)
+ * and the turning 3D character are used.  Up/Down choose the row, Left/Right (or X) change it, X on Name opens the name screen. */
+enum { C_NAME, C_GENDER, C_HAIR, C_HAIR_COL, C_SKIN, C_OUTFIT, C_PORTRAIT, C_START, C_ROWS };   /* the old rows and their ids */
+enum { R_NAME, R_GENDER, R_CAT, R_OLD, R_PORTRAIT, R_START };
+typedef struct { int kind, arg; } CRow;
+static CRow rows[20];
+static int nrows, row;
 static float spin;
+static int cg_t;
+static unsigned cg_sig = ~0u;                 /* the choice the hero page was composed for */
 extern int jm_name_entry_requested;
 static const char *const row_key[C_ROWS] = {"creation.rows.name", "creation.rows.gender", "creation.rows.hair", "creation.rows.hair_colour",
                                             "creation.rows.skin", "creation.rows.outfit_colour", "creation.rows.portrait", "creation.rows.start"};
@@ -68,10 +76,26 @@ const char *Ui_BodyMesh(void)
     return jm.gender ? female[jm.hair % 3] : male[jm.hair % 3];
 }
 
+static void build_rows(void)
+{
+    int c;
+    nrows = 0;
+    rows[nrows].kind = R_NAME; rows[nrows++].arg = 0;
+    rows[nrows].kind = R_GENDER; rows[nrows++].arg = 0;
+    if (Cg_Ready()) for (c = 0; c < Cg_CatCount() && nrows < 16; c++) { rows[nrows].kind = R_CAT; rows[nrows++].arg = c; }
+    else { static const int old[4] = {C_HAIR, C_HAIR_COL, C_SKIN, C_OUTFIT}; for (c = 0; c < 4; c++) { rows[nrows].kind = R_OLD; rows[nrows++].arg = old[c]; } }
+    rows[nrows].kind = R_PORTRAIT; rows[nrows++].arg = 0;
+    rows[nrows].kind = R_START; rows[nrows++].arg = 0;
+}
+
 void Ui_StartCreate(void)
 {
     row = 0;
     spin = 0;
+    cg_t = 0;
+    cg_sig = ~0u;
+    Cg_Defaults();
+    build_rows();
 }
 
 static int option(int r)
@@ -99,18 +123,34 @@ static void set_option(int r, int v)
     }
 }
 
+static int row_id(const CRow *r)       /* the old row id of a fixed row */
+{
+    return r->kind == R_GENDER ? C_GENDER : r->kind == R_PORTRAIT ? C_PORTRAIT : r->kind == R_OLD ? r->arg : -1;
+}
+
+static void change(int d)
+{
+    CRow *r = &rows[row];
+    if (r->kind == R_CAT) {
+        int c = r->arg, tries = Cg_OptCount(c);
+        Cg_Set(c, Cg_Get(c) + d);
+        while (Cg_Avoided() && tries-- > 0) Cg_Set(c, Cg_Get(c) + d);        /* skip hair + accessory pairs the art marks as clashing */
+        cg_t = 0;
+    }
+    else if (row_id(r) >= 0 && nopt[row_id(r)]) { int id = row_id(r); set_option(id, (option(id) + d + nopt[id]) % nopt[id]); }
+}
+
 int Ui_CreateInput(unsigned short edge)
 {
-    if (edge & PAD_UP) row = (row + C_ROWS - 1) % C_ROWS;
-    if (edge & PAD_DOWN) row = (row + 1) % C_ROWS;
-    if (edge & (PAD_LEFT | PAD_RIGHT)) {
-        int d = (edge & PAD_LEFT) ? -1 : 1;
-        if (nopt[row]) set_option(row, (option(row) + d + nopt[row]) % nopt[row]);
-    }
+    if (!nrows) build_rows();
+    if (edge & PAD_UP) row = (row + nrows - 1) % nrows;
+    if (edge & PAD_DOWN) row = (row + 1) % nrows;
+    if (edge & PAD_LEFT) change(-1);
+    if (edge & PAD_RIGHT) change(1);
     if (edge & PAD_CROSS) {
-        if (row == C_NAME) jm_name_entry_requested = 1;
-        else if (row == C_START && jm.name[0]) return 1;
-        else if (nopt[row]) set_option(row, (option(row) + 1) % nopt[row]);
+        if (rows[row].kind == R_NAME) jm_name_entry_requested = 1;
+        else if (rows[row].kind == R_START) { if (jm.name[0]) return 1; }
+        else change(1);
     }
     return 0;
 }
@@ -121,12 +161,13 @@ void Ui_RefreshName(void)
     if (n && n[0]) { strncpy(jm.name, n, sizeof(jm.name) - 1); jm.name[sizeof(jm.name) - 1] = 0; }
 }
 
-/* In the frame hook: a podium, the turning character and the chosen portrait. */
+/* In the frame hook: a podium, the turning character and the chosen portrait.  With the chargen layers the character is the
+ * layered sprite (composed into the hero's bank page whenever the choice changes), shown big, walking and turning to all four sides. */
 void Ui_DrawCreate(void)
 {
     int colours[5];
     static float cx, cz;
-    Mesh *m = Gfx_Mesh(Ui_BodyMesh());
+    Mesh *m = Cg_Ready() ? NULL : Gfx_Mesh(Ui_BodyMesh());
     float sx[4], sy[4], d;
     unsigned char rgb[4][3];
     int k;
@@ -144,7 +185,19 @@ void Ui_DrawCreate(void)
     }
     Ui_BodyColours(colours);
     if (m) Gfx_DrawMesh(m, 0, cx, 0, cz, spin, 1.15f, colours, 0);
-    Gfx_Shadow(cx, cz, 22);
+    Gfx_Shadow(cx, cz + (Cg_Ready() ? 18 : 0), 22);
+    if (Cg_Ready()) {
+        static const int turn[4] = {0, 2, 3, 1};            /* down, right, up, left */
+        float px, py, pd;
+        int dir = turn[(cg_t / 110) & 3], fr = 1 + (cg_t / 6) % 4, sc = 2;
+        if (cg_sig != Cg_Signature()) { Cg_Compose(13, 2); cg_sig = Cg_Signature(); LOG("journey: creator look %d %d %d %d %d %d %d", jm.cg[0], jm.cg[1], jm.cg[2], jm.cg[3], jm.cg[4], jm.cg[5], jm.cg[6]); }
+        cg_t++;
+        Gfx_Project(cx, 0, cz + 18, &px, &py, &pd);              /* a step in front of the podium's middle: the big sprite must fit under the top */
+        Gfx_SpriteQuad((int)(px + 0.5f) - 24 * sc, (int)(py + 0.5f) - 56 * sc, 48 * sc, 62 * sc, 13, 2, fr * 48, dir * 64, 48, 62, pd);
+        Gfx_End();
+        Gfx_Portrait(258, 10, 52, PORT_X + jm.portrait * 48, PORT_Y);
+        return;
+    }
     Gfx_End();
     Gfx_Portrait(14, 146, 52, PORT_X + jm.portrait * 48, PORT_Y);
 }
@@ -154,43 +207,56 @@ void Ui_CreateOverlay(void)
     int i, x, y, w, h, lh;
     char buf[40];
     metrics();
+    if (!nrows) build_rows();
     lh = line_h();
     w = 2 * ui_w / 5;
     x = ui_w / 32;
-    y = ui_top + ui_vis / 14;
-    h = lh * (C_ROWS + 3);
+    y = ui_top + ui_vis / 20;
+    h = lh * (nrows + 3);
     panel(x, y, w, h);
     text(x + 12 * ui_s, y + lh / 2 + 2, Tr("creation.heading"), 0xFFE9A0);
-    for (i = 0; i < C_ROWS; i++) {
+    for (i = 0; i < nrows; i++) {
         int ry = y + lh * (i + 2) - lh / 2 + 4;
         unsigned on = i == row ? 0x40E0E0 : 0xB8B8B8;
-        const char *val = "";
-        switch (i) {
-        case C_NAME: val = jm.name; break;
-        case C_GENDER: val = Tr(jm.gender ? "creation.gender.female" : "creation.gender.male"); break;
-        case C_HAIR: val = TrAt("creation.hair_styles", jm.hair % 3, "?"); break;
-        case C_HAIR_COL: val = TrAt("creation.hair_colours", jm.hair_col % 5, "?"); break;
-        case C_SKIN: val = TrAt("creation.skins", jm.skin % 3, "?"); break;
-        case C_OUTFIT: val = TrAt("creation.outfit_colours", jm.outfit % 5, "?"); break;
-        case C_PORTRAIT: val = TrAt("creation.portraits", jm.portrait % 4, "?"); break;
+        const char *val = "", *lab = "";
+        const CRow *r = &rows[i];
+        switch (r->kind) {
+        case R_NAME: lab = Tr(row_key[C_NAME]); val = jm.name; break;
+        case R_GENDER: lab = Tr(row_key[C_GENDER]); val = Tr(jm.gender ? "creation.gender.female" : "creation.gender.male"); break;
+        case R_PORTRAIT: lab = Tr(row_key[C_PORTRAIT]); val = TrAt("creation.portraits", jm.portrait % 4, "?"); break;
+        case R_START: lab = Tr(row_key[C_START]); break;
+        case R_CAT: lab = Cg_CatLabel(r->arg); val = Cg_OptCount(r->arg) ? Cg_OptLabel(r->arg, Cg_Get(r->arg)) : "-"; break;
+        case R_OLD:
+            lab = Tr(row_key[r->arg]);
+            switch (r->arg) {
+            case C_HAIR: val = TrAt("creation.hair_styles", jm.hair % 3, "?"); break;
+            case C_HAIR_COL: val = TrAt("creation.hair_colours", jm.hair_col % 5, "?"); break;
+            case C_SKIN: val = TrAt("creation.skins", jm.skin % 3, "?"); break;
+            case C_OUTFIT: val = TrAt("creation.outfit_colours", jm.outfit % 5, "?"); break;
+            }
+            break;
         }
         if (i == row) text(x + 6 * ui_s, ry, ">", 0xFFFFFF);
-        text(x + 22 * ui_s, ry, Tr(row_key[i]), on);
-        text(x + w / 2, ry, val, i == row ? 0xFFFFFF : 0x909090);
+        text(x + 22 * ui_s, ry, lab, on);
+        text(x + w * 11 / 20, ry, val, i == row ? 0xFFFFFF : 0x909090);
     }
-    snprintf(buf, sizeof(buf), "%s", Tr(row == C_NAME ? "creation.hint_name" : row == C_START ? "creation.hint_begin" : "creation.hint_change"));
+    snprintf(buf, sizeof(buf), "%s", Tr(rows[row].kind == R_NAME ? "creation.hint_name" : rows[row].kind == R_START ? "creation.hint_begin" : "creation.hint_change"));
     text(x + 12 * ui_s, y + h - lh / 2, buf, 0x8890C0);
 }
 
 unsigned Ui_Signature(void);
 
 /* --------------------------------------------------------------- START menu */
-enum { M_DECK, M_ITEMS, M_STATUS, M_SAVE, M_LANG, M_TITLE, M_CLOSE, M_COUNT };
-static const int menu_text[M_COUNT] = {0, 1, 2, 3, -1, 4, 5};      /* index in ui "menu.items"; the language row is made */
+enum { M_DECK, M_ITEMS, M_STATUS, M_SAVE, M_LANG, M_DEV, M_TITLE, M_CLOSE, M_COUNT };
+static const int menu_text[M_COUNT] = {0, 1, 2, 3, -1, -2, 4, 5};   /* index in ui "menu.items"; the language and Dev mode rows are made */
 static int msel, msub, qsel;
 
 static const char *menu_name(int i, char *buf, size_t size)
 {
+    if (menu_text[i] == -2) {
+        snprintf(buf, size, Tr("menu.dev"), Tr(Dev_BarOn() ? "menu.dev_on" : "menu.dev_off"));
+        return buf;
+    }
     if (menu_text[i] < 0) {
         snprintf(buf, size, Tr("choose.language"), Lang_Name(Lang_Current()));
         return buf;
@@ -211,6 +277,7 @@ int Ui_MenuInput(unsigned short edge)
         return 0;
     }
     if (msel == M_LANG && (edge & (PAD_LEFT | PAD_RIGHT))) { Lang_Set((Lang_Current() + (edge & PAD_LEFT ? Lang_Count() - 1 : 1)) % Lang_Count()); jm_save_requested = 1; }
+    if (msel == M_DEV && (edge & (PAD_LEFT | PAD_RIGHT))) Dev_Set(!Dev_BarOn());
     if (edge & PAD_UP) msel = (msel + M_COUNT - 1) % M_COUNT;
     if (edge & PAD_DOWN) msel = (msel + 1) % M_COUNT;
     if (edge & (PAD_CIRCLE | PAD_START | PAD_TRIANGLE)) return 1;
@@ -222,6 +289,7 @@ int Ui_MenuInput(unsigned short edge)
             Lang_Set((Lang_Current() + 1) % Lang_Count());
             jm_save_requested = 1;
             break;
+        case M_DEV: Dev_Set(!Dev_BarOn()); break;
         case M_SAVE:
             jm_save_requested = 1;
             msub = 1;
@@ -243,6 +311,10 @@ void Ui_MenuOverlay(void)
     x = ui_w / 40;
     y = ui_top + ui_vis / 16;
     w = ui_w / 4;
+    for (i = 0; i < M_COUNT; i++) {          /* the box is as wide as its longest row (a language or Dev mode label may be long) */
+        int rw = jm_host->text_width(jm_host, menu_name(i, nb, sizeof(nb)), ui_s) + 22 * ui_s + 14 * ui_s;
+        if (rw > w) w = rw;
+    }
     h = lh * (M_COUNT + 3);
     panel(x, y, w, h);
     text(x + 12 * ui_s, y + lh, jm.name, 0xFFE9A0);
@@ -287,5 +359,5 @@ void Ui_MenuOverlay(void)
 unsigned Ui_Signature(void)
 {
     return (unsigned)(row * 31 + msel * 131 + msub * 1009 + qsel * 17 + jm.gender * 3 + jm.hair * 5 + jm.hair_col * 7 + jm.skin * 11 +
-                      jm.outfit * 13 + jm.portrait * 19 + (int)jm.name[0] * 23 + (int)jm.name[1] * 29 + Lang_Current() * 37);
+                      jm.outfit * 13 + jm.portrait * 19 + (int)jm.name[0] * 23 + (int)jm.name[1] * 29 + Lang_Current() * 37 + Dev_BarOn() * 43 + (int)Cg_Signature() * 47);
 }

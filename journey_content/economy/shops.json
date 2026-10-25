@@ -1,0 +1,1803 @@
+{
+ "schema": "journey-shops/1",
+ "rules": {
+  "buy_sell": "Every shop buys and sells. Sell price = round5(sell_rate * weq[rarity] * sell_base_win), one global price (no arbitrage between towns, and always below the cheapest buy price).",
+  "no_healing": "There is no healing item and no healing service: duels do not carry life points, so nothing needs healing.",
+  "stock_kinds": "always = fixed singles (commons) and packs; rotating = B and A cards re-picked every 6 won or lost duels, no storage needed; limited = one-time or capped purchases (bit in bought[]); each entry may have min_level, unlock.stage_min or unlock.flags_all.",
+  "no_shop": "cistern (quest dungeon), ship_deck (cutscene stage), castle_hall and castle_top (finale) have no shop; harbor opens at stage 5."
+ },
+ "shops": [
+  {
+   "id": "village",
+   "area": "village",
+   "name": "Teana's Stall",
+   "name_id": "shop.village",
+   "pool": "village",
+   "keeper": {
+    "id": "teana",
+    "name": "Teana",
+    "existing_npc": true,
+    "greet_id": "keeper_greet.teana"
+   },
+   "anchor": "village.teana_stall",
+   "price_win": 30,
+   "tier": 1,
+   "open": {
+    "stage_min": 3
+   },
+   "stock": {
+    "always": [
+     {
+      "card": "Forest",
+      "rarity": "C",
+      "price": 25,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 25,
+      "min_level": 1
+     },
+     {
+      "card": "Mushroom Man",
+      "rarity": "C",
+      "price": 25,
+      "min_level": 1
+     },
+     {
+      "card": "Torike",
+      "rarity": "C",
+      "price": 25,
+      "min_level": 1
+     },
+     {
+      "card": "Basic Insect",
+      "rarity": "C",
+      "price": 25,
+      "min_level": 1
+     },
+     {
+      "card": "Killer Needle",
+      "rarity": "C",
+      "price": 25,
+      "min_level": 1
+     },
+     {
+      "card": "Larvae Moth",
+      "rarity": "C",
+      "price": 25,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 1,
+      "price": 75,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 4,
+      "price": 240,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Sword Arm of Dragon",
+      "rarity": "A",
+      "price": 480,
+      "max_buy": 1,
+      "bit": 0,
+      "min_level": 4
+     },
+     {
+      "card": "Hercules Beetle",
+      "rarity": "A",
+      "price": 480,
+      "max_buy": 1,
+      "bit": 1,
+      "min_level": 4
+     },
+     {
+      "card": "Mooyan Curry",
+      "rarity": "B",
+      "price": 75,
+      "max_buy": 3,
+      "bit": 2,
+      "min_level": 1,
+      "unlock": {
+       "flags_all": [
+        "treasure_given"
+       ]
+      }
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 120,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 360,
+      "min_level": 6,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 900,
+      "min_level": 16,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "harbor",
+   "area": "harbor",
+   "name": "Dockside Cart",
+   "name_id": "shop.harbor",
+   "pool": "harbor",
+   "keeper": {
+    "id": "dock_dan",
+    "name": "Dock Dan",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.dock_dan"
+   },
+   "anchor": "harbor.shop_stall",
+   "price_win": 50,
+   "tier": 2,
+   "open": {
+    "stage_min": 5
+   },
+   "stock": {
+    "always": [
+     {
+      "card": "Umi",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Droll Bird",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Kaminarikozou",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Flying Penguin",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Bolt Penguin",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Oscillo Hero #2",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 4,
+      "price": 125,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 7,
+      "price": 400,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Harpie Lady Sisters",
+      "rarity": "A",
+      "price": 800,
+      "max_buy": 1,
+      "bit": 3,
+      "min_level": 7
+     },
+     {
+      "card": "Deepsea Shark",
+      "rarity": "A",
+      "price": 800,
+      "max_buy": 1,
+      "bit": 4,
+      "min_level": 7
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 200,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 600,
+      "min_level": 7,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 1500,
+      "min_level": 16,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "beach",
+   "area": "kingdom_beach",
+   "name": "Shell Tent",
+   "name_id": "shop.beach",
+   "pool": "beach",
+   "keeper": {
+    "id": "shell_sue",
+    "name": "Shell Sue",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.shell_sue"
+   },
+   "anchor": "kingdom_beach.shop_stall",
+   "price_win": 50,
+   "tier": 2,
+   "open": {},
+   "stock": {
+    "always": [
+     {
+      "card": "Umi",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Ganigumo",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Flame Viper",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Basic Insect",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Killer Needle",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Larvae Moth",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 5,
+      "price": 125,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 8,
+      "price": 400,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Boulder Tortoise",
+      "rarity": "A",
+      "price": 800,
+      "max_buy": 1,
+      "bit": 5,
+      "min_level": 8
+     },
+     {
+      "card": "Vermillion Sparrow",
+      "rarity": "A",
+      "price": 800,
+      "max_buy": 1,
+      "bit": 6,
+      "min_level": 8
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 200,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 600,
+      "min_level": 8,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 1500,
+      "min_level": 16,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "forest",
+   "area": "kingdom_forest",
+   "name": "Hermit's Hut",
+   "name_id": "shop.forest",
+   "pool": "forest",
+   "keeper": {
+    "id": "hermit_hob",
+    "name": "Hermit Hob",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.hermit_hob"
+   },
+   "anchor": "kingdom_forest.shop_stall",
+   "price_win": 80,
+   "tier": 3,
+   "open": {},
+   "stock": {
+    "always": [
+     {
+      "card": "Forest",
+      "rarity": "C",
+      "price": 65,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 65,
+      "min_level": 1
+     },
+     {
+      "card": "Hitotsu-me Giant",
+      "rarity": "C",
+      "price": 65,
+      "min_level": 1
+     },
+     {
+      "card": "Man-eater Bug",
+      "rarity": "C",
+      "price": 65,
+      "min_level": 1
+     },
+     {
+      "card": "Mushroom Man",
+      "rarity": "C",
+      "price": 65,
+      "min_level": 1
+     },
+     {
+      "card": "Mountain Warrior",
+      "rarity": "C",
+      "price": 65,
+      "min_level": 1
+     },
+     {
+      "card": "Torike",
+      "rarity": "C",
+      "price": 65,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 6,
+      "price": 200,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 9,
+      "price": 640,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Flower Wolf",
+      "rarity": "A",
+      "price": 1280,
+      "max_buy": 1,
+      "bit": 7,
+      "min_level": 9
+     },
+     {
+      "card": "Garvas",
+      "rarity": "A",
+      "price": 1280,
+      "max_buy": 1,
+      "bit": 8,
+      "min_level": 9
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 320,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 960,
+      "min_level": 9,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 2400,
+      "min_level": 16,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "mountain",
+   "area": "kingdom_mountain",
+   "name": "Cliffside Tent",
+   "name_id": "shop.mountain",
+   "pool": "mountain",
+   "keeper": {
+    "id": "cliff_cass",
+    "name": "Cliff Cass",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.cliff_cass"
+   },
+   "anchor": "kingdom_mountain.shop_stall",
+   "price_win": 120,
+   "tier": 4,
+   "open": {},
+   "stock": {
+    "always": [
+     {
+      "card": "Wasteland",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Mountain",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Rock Ogre Grotto #1",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Battle Warrior",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Kageningen",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Hero of the East",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Supporter in the Shadows",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 8,
+      "price": 300,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 11,
+      "price": 960,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Giant Soldier of Stone",
+      "rarity": "A",
+      "price": 1920,
+      "max_buy": 1,
+      "bit": 9,
+      "min_level": 11
+     },
+     {
+      "card": "Punished Eagle",
+      "rarity": "A",
+      "price": 1920,
+      "max_buy": 1,
+      "bit": 10,
+      "min_level": 11
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 480,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 1440,
+      "min_level": 11,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 3600,
+      "min_level": 16,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "meadow",
+   "area": "kingdom_meadow",
+   "name": "Rose Cart",
+   "name_id": "shop.meadow",
+   "pool": "meadow",
+   "keeper": {
+    "id": "rose_rue",
+    "name": "Rose Rue",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.rose_rue"
+   },
+   "anchor": "kingdom_meadow.shop_stall",
+   "price_win": 120,
+   "tier": 4,
+   "open": {},
+   "stock": {
+    "always": [
+     {
+      "card": "Forest",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Sogen",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Petit Angel",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Mystical Sheep #1",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Mushroom Man",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Time Wizard",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     },
+     {
+      "card": "Torike",
+      "rarity": "C",
+      "price": 95,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 9,
+      "price": 300,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 12,
+      "price": 960,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Queen of Autumn Leaves",
+      "rarity": "A",
+      "price": 1920,
+      "max_buy": 1,
+      "bit": 11,
+      "min_level": 12
+     },
+     {
+      "card": "Garvas",
+      "rarity": "A",
+      "price": 1920,
+      "max_buy": 1,
+      "bit": 12,
+      "min_level": 12
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 480,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 1440,
+      "min_level": 12,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 3600,
+      "min_level": 17,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "desert",
+   "area": "kingdom_desert",
+   "name": "Caravan Tent",
+   "name_id": "shop.desert",
+   "pool": "desert",
+   "keeper": {
+    "id": "nomad_nia",
+    "name": "Nomad Nia",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.nomad_nia"
+   },
+   "anchor": "kingdom_desert.shop_stall",
+   "price_win": 170,
+   "tier": 5,
+   "open": {},
+   "stock": {
+    "always": [
+     {
+      "card": "Wasteland",
+      "rarity": "C",
+      "price": 135,
+      "min_level": 1
+     },
+     {
+      "card": "Mountain",
+      "rarity": "C",
+      "price": 135,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 135,
+      "min_level": 1
+     },
+     {
+      "card": "The 13th Grave",
+      "rarity": "C",
+      "price": 135,
+      "min_level": 1
+     },
+     {
+      "card": "Shadow Specter",
+      "rarity": "C",
+      "price": 135,
+      "min_level": 1
+     },
+     {
+      "card": "Time Wizard",
+      "rarity": "C",
+      "price": 135,
+      "min_level": 1
+     },
+     {
+      "card": "Skull Servant",
+      "rarity": "C",
+      "price": 135,
+      "min_level": 1
+     },
+     {
+      "card": "Rock Ogre Grotto #1",
+      "rarity": "C",
+      "price": 135,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 11,
+      "price": 425,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 14,
+      "price": 1360,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Mystical Sand",
+      "rarity": "A",
+      "price": 2720,
+      "max_buy": 1,
+      "bit": 13,
+      "min_level": 14
+     },
+     {
+      "card": "Pumpking the King of Ghosts",
+      "rarity": "A",
+      "price": 2720,
+      "max_buy": 1,
+      "bit": 14,
+      "min_level": 14
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 680,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 2040,
+      "min_level": 14,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 5100,
+      "min_level": 19,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "fair",
+   "area": "kingdom_fair",
+   "name": "Grand Bazaar",
+   "name_id": "shop.fair",
+   "pool": "fair",
+   "keeper": {
+    "id": "bazaar_bea",
+    "name": "Bazaar Bea",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.bazaar_bea"
+   },
+   "anchor": "kingdom_fair.shop_stall",
+   "price_win": 230,
+   "tier": 6,
+   "open": {},
+   "stock": {
+    "always": [
+     {
+      "card": "Yami",
+      "rarity": "C",
+      "price": 185,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 185,
+      "min_level": 1
+     },
+     {
+      "card": "Baby Dragon",
+      "rarity": "C",
+      "price": 185,
+      "min_level": 1
+     },
+     {
+      "card": "Ryu-kishin",
+      "rarity": "C",
+      "price": 185,
+      "min_level": 1
+     },
+     {
+      "card": "Oscillo Hero #2",
+      "rarity": "C",
+      "price": 185,
+      "min_level": 1
+     },
+     {
+      "card": "Sangan",
+      "rarity": "C",
+      "price": 185,
+      "min_level": 1
+     },
+     {
+      "card": "Kuriboh",
+      "rarity": "C",
+      "price": 185,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 12,
+      "price": 575,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 15,
+      "price": 1840,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Metal Dragon",
+      "rarity": "A",
+      "price": 3680,
+      "max_buy": 1,
+      "bit": 15,
+      "min_level": 15
+     },
+     {
+      "card": "Twin-headed Thunder Dragon",
+      "rarity": "S",
+      "price": 6900,
+      "max_buy": 1,
+      "bit": 16,
+      "min_level": 18
+     },
+     {
+      "card": "Bickuribox",
+      "rarity": "S",
+      "price": 6900,
+      "max_buy": 1,
+      "bit": 17,
+      "min_level": 18
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 920,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 2760,
+      "min_level": 15,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 6900,
+      "min_level": 20,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": {
+    "from_pools": [
+     "village",
+     "harbor",
+     "beach",
+     "forest",
+     "mountain",
+     "meadow",
+     "desert"
+    ],
+    "packs_only": true,
+    "price_mult": 1.25,
+    "note": "The Grand Bazaar also sells the common pack of every earlier location at +25%: a way to fill the gaps in the collection. Drops stay local."
+   },
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "gate",
+   "area": "castle_gate",
+   "name": "Gate Pawn Stall",
+   "name_id": "shop.gate",
+   "pool": "gate",
+   "keeper": {
+    "id": "pawn_paul",
+    "name": "Pawn Paul",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.pawn_paul"
+   },
+   "anchor": "castle_gate.shop_stall",
+   "price_win": 380,
+   "tier": 8,
+   "open": {},
+   "stock": {
+    "always": [
+     {
+      "card": "Mountain",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Baby Dragon",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Basic Insect",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Killer Needle",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Larvae Moth",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Battle Warrior",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 15,
+      "price": 950,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 18,
+      "price": 3040,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Royal Guard",
+      "rarity": "A",
+      "price": 6080,
+      "max_buy": 1,
+      "bit": 18,
+      "min_level": 18
+     },
+     {
+      "card": "Seiyaryu",
+      "rarity": "S",
+      "price": 11400,
+      "max_buy": 1,
+      "bit": 19,
+      "min_level": 21
+     },
+     {
+      "card": "Kaiser Dragon",
+      "rarity": "S",
+      "price": 11400,
+      "max_buy": 1,
+      "bit": 20,
+      "min_level": 21
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 1520,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 4560,
+      "min_level": 18,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 11400,
+      "min_level": 23,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  }
+ ]
+}

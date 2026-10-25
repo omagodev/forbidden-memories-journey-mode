@@ -22,6 +22,8 @@
   "hint": {
     "talk": "X: talk to %s",
     "examine": "X: examine",
+    "talk_short": "Talk",
+    "examine_short": "Examine",
     "controls": "Arrows: walk   Circle: run   X: talk   Start: menu",
     "painted": "Arrows: walk   Circle: run   X: talk   Start: save   Triangle: big map   Select: map on/off   L1: 3D map"
   },
@@ -92,6 +94,9 @@
       "Back to title",
       "Close"
     ],
+    "dev": "Dev mode: %s",
+    "dev_on": "ON",
+    "dev_off": "OFF",
     "items_empty": "Nothing yet",
     "objective": "Objective: %s",
     "status": "Duels %d    Wins %d    Losses %d",
@@ -228,5 +233,57 @@
     "warning": "Starting a new game replaces this save when the story begins saving.",
     "start": "Start a new game",
     "cancel": "Cancel"
+  },
+  "chargen": {
+    "rows": {
+      "skin": "Skin",
+      "outfit": "Outfit",
+      "outfit_colour": "Outfit colour",
+      "hair": "Hair",
+      "hair_colour": "Hair colour",
+      "accessory": "Accessory",
+      "accessory_colour": "Accessory colour"
+    },
+    "names": {
+      "fair": "Fair",
+      "tan": "Tan",
+      "brown": "Brown",
+      "deep": "Deep",
+      "black": "Black",
+      "blond": "Blond",
+      "red": "Red",
+      "silver": "Silver",
+      "tunic": "Tunic",
+      "jacket": "Jacket",
+      "cloak": "Cloak",
+      "uniform": "Uniform",
+      "linen": "Linen",
+      "forest": "Forest",
+      "indigo": "Indigo",
+      "crimson": "Crimson",
+      "navy": "Navy",
+      "violet": "Violet",
+      "moss": "Moss",
+      "plum": "Plum",
+      "sand": "Sand",
+      "maroon": "Maroon",
+      "short": "Short",
+      "spiky": "Spiky",
+      "long": "Long",
+      "ponytail": "Ponytail",
+      "bob": "Bob",
+      "hood_down": "Hood down",
+      "none": "None",
+      "headband": "Headband",
+      "scarf": "Scarf",
+      "duel_disk": "Duel disk",
+      "cap": "Cap",
+      "white": "White",
+      "blue": "Blue",
+      "teal": "Teal",
+      "mustard": "Mustard",
+      "gold": "Gold",
+      "green": "Green"
+    }
   }
 }

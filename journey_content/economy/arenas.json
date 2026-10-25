@@ -1,0 +1,1360 @@
+{
+ "schema": "journey-arenas/1",
+ "rules": {
+  "clandestine": "Arenas are hidden: they appear as an interact object (arena_door anchor) only after the shop keeper's tip, which the keeper gives the first time the player talks to them with level >= unlock level. arena byte bit7 = found.",
+  "run": "Pay the fee, fight rung 1 to 4 in order. A win pays the rung's coins (80% of a normal duel win) and xp and rolls the rung's drop context; the champion bout (rung 4) deals 2 drops. A loss ends the run (earnings kept, fee gone); the run can be repeated at once.",
+  "first_clear": "Coins x3 of the champion tier, xp x2, a guaranteed A (S 10%) card, a rank title in the status screen.",
+  "repeat": "After the first clear a run pays bout coins and xp as before; the clear bonus is the champion tier's coins x1 and one A/S card (no xp bonus). This is the card-farming loop of the location.",
+  "levelling": "Arena xp uses the same level-difference factor as every duel (economy.json formulas.xp), so over-levelled farmers earn less.",
+  "no_stars": "Arena duels never touch stars (stars_wager false).",
+  "drops": "All arena drops come from the location's own pool (card_pools.json) with the contexts of economy.json."
+ },
+ "fighters": [
+  {
+   "id": "doughboy",
+   "arena": "village",
+   "rung": 1,
+   "name": "Doughboy",
+   "tier": 1,
+   "duelist": {
+    "id": "eco_doughboy",
+    "copy": "Villager 1",
+    "name": "Doughboy",
+    "slot": 50
+   },
+   "deck": "Doughboy",
+   "types": [
+    "Plant",
+    "Beast"
+   ],
+   "text_id": "fighter_pre.doughboy"
+  },
+  {
+   "id": "beetle_ben",
+   "arena": "village",
+   "rung": 2,
+   "name": "Beetle Ben",
+   "tier": 2,
+   "duelist": {
+    "id": "eco_beetle_ben",
+    "copy": "Villager 1",
+    "name": "Beetle Ben",
+    "slot": 51
+   },
+   "deck": "Beetle Ben",
+   "types": [
+    "Insect"
+   ],
+   "text_id": "fighter_pre.beetle_ben"
+  },
+  {
+   "id": "reed_ria",
+   "arena": "village",
+   "rung": 3,
+   "name": "Reed Ria",
+   "tier": 2,
+   "duelist": {
+    "id": "eco_reed_ria",
+    "copy": "Ocean Mage",
+    "name": "Reed Ria",
+    "slot": 52
+   },
+   "deck": "Reed Ria",
+   "types": [
+    "Reptile",
+    "Beast"
+   ],
+   "text_id": "fighter_pre.reed_ria"
+  },
+  {
+   "id": "big_flour",
+   "arena": "village",
+   "rung": 4,
+   "name": "Big Flour",
+   "tier": 3,
+   "duelist": {
+    "id": "eco_big_flour",
+    "copy": "Ocean Mage",
+    "name": "Big Flour",
+    "slot": 53
+   },
+   "deck": "Big Flour",
+   "types": [
+    "Plant",
+    "Insect",
+    "Beast"
+   ],
+   "text_id": "fighter_pre.big_flour"
+  },
+  {
+   "id": "gull_gus",
+   "arena": "harbor",
+   "rung": 1,
+   "name": "Gull Gus",
+   "tier": 2,
+   "duelist": {
+    "id": "eco_gull_gus",
+    "copy": "Villager 1",
+    "name": "Gull Gus",
+    "slot": 54
+   },
+   "deck": "Gull Gus",
+   "types": [
+    "Winged Beast"
+   ],
+   "text_id": "fighter_pre.gull_gus"
+  },
+  {
+   "id": "eel_ed",
+   "arena": "harbor",
+   "rung": 2,
+   "name": "Eel Ed",
+   "tier": 3,
+   "duelist": {
+    "id": "eco_eel_ed",
+    "copy": "Forest Mage",
+    "name": "Eel Ed",
+    "slot": 55
+   },
+   "deck": "Eel Ed",
+   "types": [
+    "Fish",
+    "Sea Serpent"
+   ],
+   "text_id": "fighter_pre.eel_ed"
+  },
+  {
+   "id": "rope_rae",
+   "arena": "harbor",
+   "rung": 3,
+   "name": "Rope Rae",
+   "tier": 3,
+   "duelist": {
+    "id": "eco_rope_rae",
+    "copy": "Ocean Mage",
+    "name": "Rope Rae",
+    "slot": 56
+   },
+   "deck": "Rope Rae",
+   "types": [
+    "Aqua",
+    "Thunder"
+   ],
+   "text_id": "fighter_pre.rope_rae"
+  },
+  {
+   "id": "old_barnac",
+   "arena": "harbor",
+   "rung": 4,
+   "name": "Old Barnac",
+   "tier": 4,
+   "duelist": {
+    "id": "eco_old_barnac",
+    "copy": "Mountain Mage",
+    "name": "Old Barnac",
+    "slot": 57
+   },
+   "deck": "Old Barnac",
+   "types": [
+    "Fish",
+    "Aqua",
+    "Sea Serpent"
+   ],
+   "text_id": "fighter_pre.old_barnac"
+  },
+  {
+   "id": "crab_cal",
+   "arena": "beach",
+   "rung": 1,
+   "name": "Crab Cal",
+   "tier": 2,
+   "duelist": {
+    "id": "eco_crab_cal",
+    "copy": "Ocean Mage",
+    "name": "Crab Cal",
+    "slot": 58
+   },
+   "deck": "Crab Cal",
+   "types": [
+    "Aqua"
+   ],
+   "text_id": "fighter_pre.crab_cal"
+  },
+  {
+   "id": "flare_fay",
+   "arena": "beach",
+   "rung": 2,
+   "name": "Flare Fay",
+   "tier": 3,
+   "duelist": {
+    "id": "eco_flare_fay",
+    "copy": "Ocean Mage",
+    "name": "Flare Fay",
+    "slot": 59
+   },
+   "deck": "Flare Fay",
+   "types": [
+    "Pyro",
+    "Reptile"
+   ],
+   "text_id": "fighter_pre.flare_fay"
+  },
+  {
+   "id": "sand_fly",
+   "arena": "beach",
+   "rung": 3,
+   "name": "Sand Fly",
+   "tier": 3,
+   "duelist": {
+    "id": "eco_sand_fly",
+    "copy": "Mage Soldier",
+    "name": "Sand Fly",
+    "slot": 60
+   },
+   "deck": "Sand Fly",
+   "types": [
+    "Insect"
+   ],
+   "text_id": "fighter_pre.sand_fly"
+  },
+  {
+   "id": "hull_hank",
+   "arena": "beach",
+   "rung": 4,
+   "name": "Hull Hank",
+   "tier": 4,
+   "duelist": {
+    "id": "eco_hull_hank",
+    "copy": "Meadow Mage",
+    "name": "Hull Hank",
+    "slot": 61
+   },
+   "deck": "Hull Hank",
+   "types": [
+    "Aqua",
+    "Insect",
+    "Pyro"
+   ],
+   "text_id": "fighter_pre.hull_hank"
+  },
+  {
+   "id": "moss_mel",
+   "arena": "forest",
+   "rung": 1,
+   "name": "Moss Mel",
+   "tier": 3,
+   "duelist": {
+    "id": "eco_moss_mel",
+    "copy": "Ocean Mage",
+    "name": "Moss Mel",
+    "slot": 62
+   },
+   "deck": "Moss Mel",
+   "types": [
+    "Plant"
+   ],
+   "text_id": "fighter_pre.moss_mel"
+  },
+  {
+   "id": "bark_bo",
+   "arena": "forest",
+   "rung": 2,
+   "name": "Bark Bo",
+   "tier": 4,
+   "duelist": {
+    "id": "eco_bark_bo",
+    "copy": "Mountain Mage",
+    "name": "Bark Bo",
+    "slot": 63
+   },
+   "deck": "Bark Bo",
+   "types": [
+    "Beast"
+   ],
+   "text_id": "fighter_pre.bark_bo"
+  },
+  {
+   "id": "twig_tess",
+   "arena": "forest",
+   "rung": 3,
+   "name": "Twig Tess",
+   "tier": 4,
+   "duelist": {
+    "id": "eco_twig_tess",
+    "copy": "Meadow Mage",
+    "name": "Twig Tess",
+    "slot": 64
+   },
+   "deck": "Twig Tess",
+   "types": [
+    "Insect"
+   ],
+   "text_id": "fighter_pre.twig_tess"
+  },
+  {
+   "id": "old_stump",
+   "arena": "forest",
+   "rung": 4,
+   "name": "Old Stump",
+   "tier": 5,
+   "duelist": {
+    "id": "eco_old_stump",
+    "copy": "Mountain Mage",
+    "name": "Old Stump",
+    "slot": 65
+   },
+   "deck": "Old Stump",
+   "types": [
+    "Beast-Warrior",
+    "Beast",
+    "Dinosaur"
+   ],
+   "text_id": "fighter_pre.old_stump"
+  },
+  {
+   "id": "pick_pete",
+   "arena": "mountain",
+   "rung": 1,
+   "name": "Pick Pete",
+   "tier": 4,
+   "duelist": {
+    "id": "eco_pick_pete",
+    "copy": "Mountain Mage",
+    "name": "Pick Pete",
+    "slot": 66
+   },
+   "deck": "Pick Pete",
+   "types": [
+    "Rock"
+   ],
+   "text_id": "fighter_pre.pick_pete"
+  },
+  {
+   "id": "gear_gwen",
+   "arena": "mountain",
+   "rung": 2,
+   "name": "Gear Gwen",
+   "tier": 5,
+   "duelist": {
+    "id": "eco_gear_gwen",
+    "copy": "Desert Mage",
+    "name": "Gear Gwen",
+    "slot": 67
+   },
+   "deck": "Gear Gwen",
+   "types": [
+    "Machine"
+   ],
+   "text_id": "fighter_pre.gear_gwen"
+  },
+  {
+   "id": "wing_wes",
+   "arena": "mountain",
+   "rung": 3,
+   "name": "Wing Wes",
+   "tier": 5,
+   "duelist": {
+    "id": "eco_wing_wes",
+    "copy": "Mountain Mage",
+    "name": "Wing Wes",
+    "slot": 68
+   },
+   "deck": "Wing Wes",
+   "types": [
+    "Winged Beast"
+   ],
+   "text_id": "fighter_pre.wing_wes"
+  },
+  {
+   "id": "blast_bart",
+   "arena": "mountain",
+   "rung": 4,
+   "name": "Blast Bart",
+   "tier": 6,
+   "duelist": {
+    "id": "eco_blast_bart",
+    "copy": "High Mage Secmeton",
+    "name": "Blast Bart",
+    "slot": 69
+   },
+   "deck": "Blast Bart",
+   "types": [
+    "Warrior",
+    "Machine",
+    "Rock"
+   ],
+   "text_id": "fighter_pre.blast_bart"
+  },
+  {
+   "id": "daisy_dee",
+   "arena": "meadow",
+   "rung": 1,
+   "name": "Daisy Dee",
+   "tier": 4,
+   "duelist": {
+    "id": "eco_daisy_dee",
+    "copy": "Meadow Mage",
+    "name": "Daisy Dee",
+    "slot": 70
+   },
+   "deck": "Daisy Dee",
+   "types": [
+    "Fairy",
+    "Plant"
+   ],
+   "text_id": "fighter_pre.daisy_dee"
+  },
+  {
+   "id": "hare_hal",
+   "arena": "meadow",
+   "rung": 2,
+   "name": "Hare Hal",
+   "tier": 5,
+   "duelist": {
+    "id": "eco_hare_hal",
+    "copy": "Mountain Mage",
+    "name": "Hare Hal",
+    "slot": 71
+   },
+   "deck": "Hare Hal",
+   "types": [
+    "Beast"
+   ],
+   "text_id": "fighter_pre.hare_hal"
+  },
+  {
+   "id": "mist_mina",
+   "arena": "meadow",
+   "rung": 3,
+   "name": "Mist Mina",
+   "tier": 5,
+   "duelist": {
+    "id": "eco_mist_mina",
+    "copy": "Meadow Mage",
+    "name": "Mist Mina",
+    "slot": 72
+   },
+   "deck": "Mist Mina",
+   "types": [
+    "Spellcaster",
+    "Fairy"
+   ],
+   "text_id": "fighter_pre.mist_mina"
+  },
+  {
+   "id": "maze_queen",
+   "arena": "meadow",
+   "rung": 4,
+   "name": "Maze Queen",
+   "tier": 6,
+   "duelist": {
+    "id": "eco_maze_queen",
+    "copy": "High Mage Anubisius",
+    "name": "Maze Queen",
+    "slot": 73
+   },
+   "deck": "Maze Queen",
+   "types": [
+    "Fairy",
+    "Spellcaster",
+    "Plant"
+   ],
+   "text_id": "fighter_pre.maze_queen"
+  },
+  {
+   "id": "mummy_moe",
+   "arena": "desert",
+   "rung": 1,
+   "name": "Mummy Moe",
+   "tier": 5,
+   "duelist": {
+    "id": "eco_mummy_moe",
+    "copy": "Mountain Mage",
+    "name": "Mummy Moe",
+    "slot": 74
+   },
+   "deck": "Mummy Moe",
+   "types": [
+    "Zombie"
+   ],
+   "text_id": "fighter_pre.mummy_moe"
+  },
+  {
+   "id": "scarab_sia",
+   "arena": "desert",
+   "rung": 2,
+   "name": "Scarab Sia",
+   "tier": 6,
+   "duelist": {
+    "id": "eco_scarab_sia",
+    "copy": "High Mage Secmeton",
+    "name": "Scarab Sia",
+    "slot": 75
+   },
+   "deck": "Scarab Sia",
+   "types": [
+    "Reptile",
+    "Zombie"
+   ],
+   "text_id": "fighter_pre.scarab_sia"
+  },
+  {
+   "id": "dust_dara",
+   "arena": "desert",
+   "rung": 3,
+   "name": "Dust Dara",
+   "tier": 6,
+   "duelist": {
+    "id": "eco_dust_dara",
+    "copy": "High Mage Anubisius",
+    "name": "Dust Dara",
+    "slot": 76
+   },
+   "deck": "Dust Dara",
+   "types": [
+    "Spellcaster"
+   ],
+   "text_id": "fighter_pre.dust_dara"
+  },
+  {
+   "id": "tomb_lord",
+   "arena": "desert",
+   "rung": 4,
+   "name": "Tomb Lord",
+   "tier": 7,
+   "duelist": {
+    "id": "eco_tomb_lord",
+    "copy": "High Mage Atenza",
+    "name": "Tomb Lord",
+    "slot": 77
+   },
+   "deck": "Tomb Lord",
+   "types": [
+    "Zombie",
+    "Rock",
+    "Spellcaster"
+   ],
+   "text_id": "fighter_pre.tomb_lord"
+  },
+  {
+   "id": "clown_cleo",
+   "arena": "fair",
+   "rung": 1,
+   "name": "Clown Cleo",
+   "tier": 6,
+   "duelist": {
+    "id": "eco_clown_cleo",
+    "copy": "High Mage Secmeton",
+    "name": "Clown Cleo",
+    "slot": 78
+   },
+   "deck": "Clown Cleo",
+   "types": [
+    "Fiend"
+   ],
+   "text_id": "fighter_pre.clown_cleo"
+  },
+  {
+   "id": "juggle_jo",
+   "arena": "fair",
+   "rung": 2,
+   "name": "Juggle Jo",
+   "tier": 7,
+   "duelist": {
+    "id": "eco_juggle_jo",
+    "copy": "Guardian Sebek",
+    "name": "Juggle Jo",
+    "slot": 79
+   },
+   "deck": "Juggle Jo",
+   "types": [
+    "Machine",
+    "Warrior"
+   ],
+   "text_id": "fighter_pre.juggle_jo"
+  },
+  {
+   "id": "spark_sam",
+   "arena": "fair",
+   "rung": 3,
+   "name": "Spark Sam",
+   "tier": 7,
+   "duelist": {
+    "id": "eco_spark_sam",
+    "copy": "High Mage Atenza",
+    "name": "Spark Sam",
+    "slot": 80
+   },
+   "deck": "Spark Sam",
+   "types": [
+    "Thunder",
+    "Dragon"
+   ],
+   "text_id": "fighter_pre.spark_sam"
+  }
+ ],
+ "arenas": [
+  {
+   "id": "village",
+   "location": "village",
+   "area": "village",
+   "interior_area": "arena_village",
+   "name": "Flour Cellar Ring",
+   "setting": "A chalk ring between flour sacks under the bakery.",
+   "keeper": "baker",
+   "tip_id": "arena_tip.village",
+   "name_id": "arena.village",
+   "entry_anchor": "village.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 2,
+    "stage_min": 3
+   },
+   "fee": 30,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "doughboy",
+     "tier": 1,
+     "deck": "Doughboy",
+     "champion": false,
+     "coins": 25,
+     "xp_base": 10,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "beetle_ben",
+     "tier": 2,
+     "deck": "Beetle Ben",
+     "champion": false,
+     "coins": 40,
+     "xp_base": 16,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "reed_ria",
+     "tier": 2,
+     "deck": "Reed Ria",
+     "champion": false,
+     "coins": 40,
+     "xp_base": 16,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "big_flour",
+     "tier": 3,
+     "deck": "Big Flour",
+     "champion": true,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "village",
+   "first_clear": {
+    "coins": 240,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.village"
+   },
+   "repeat_clear": {
+    "coins": 80,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "harbor",
+   "location": "harbor",
+   "area": "harbor",
+   "interior_area": "arena_harbor",
+   "name": "Net Loft Pit",
+   "setting": "A smugglers' hold under the net loft, lit by lanterns.",
+   "keeper": "dock_dan",
+   "tip_id": "arena_tip.harbor",
+   "name_id": "arena.harbor",
+   "entry_anchor": "harbor.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 2,
+    "stage_min": 5
+   },
+   "fee": 50,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "gull_gus",
+     "tier": 2,
+     "deck": "Gull Gus",
+     "champion": false,
+     "coins": 40,
+     "xp_base": 16,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "eel_ed",
+     "tier": 3,
+     "deck": "Eel Ed",
+     "champion": false,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "rope_rae",
+     "tier": 3,
+     "deck": "Rope Rae",
+     "champion": false,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "old_barnac",
+     "tier": 4,
+     "deck": "Old Barnac",
+     "champion": true,
+     "coins": 95,
+     "xp_base": 34,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "harbor",
+   "first_clear": {
+    "coins": 360,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.harbor"
+   },
+   "repeat_clear": {
+    "coins": 120,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "beach",
+   "location": "beach",
+   "area": "kingdom_beach",
+   "interior_area": "arena_beach",
+   "name": "Wreck Pit",
+   "setting": "The hull of a beached ship, a ring on the old deck.",
+   "keeper": "shell_sue",
+   "tip_id": "arena_tip.beach",
+   "name_id": "arena.beach",
+   "entry_anchor": "kingdom_beach.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 3
+   },
+   "fee": 50,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "crab_cal",
+     "tier": 2,
+     "deck": "Crab Cal",
+     "champion": false,
+     "coins": 40,
+     "xp_base": 16,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "flare_fay",
+     "tier": 3,
+     "deck": "Flare Fay",
+     "champion": false,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "sand_fly",
+     "tier": 3,
+     "deck": "Sand Fly",
+     "champion": false,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "hull_hank",
+     "tier": 4,
+     "deck": "Hull Hank",
+     "champion": true,
+     "coins": 95,
+     "xp_base": 34,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "beach",
+   "first_clear": {
+    "coins": 360,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.beach"
+   },
+   "repeat_clear": {
+    "coins": 120,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "forest",
+   "location": "forest",
+   "area": "kingdom_forest",
+   "interior_area": "arena_forest",
+   "name": "Hollow Log Ring",
+   "setting": "A giant hollow log with moss seats and fireflies.",
+   "keeper": "hermit_hob",
+   "tip_id": "arena_tip.forest",
+   "name_id": "arena.forest",
+   "entry_anchor": "kingdom_forest.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 4
+   },
+   "fee": 80,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "moss_mel",
+     "tier": 3,
+     "deck": "Moss Mel",
+     "champion": false,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "bark_bo",
+     "tier": 4,
+     "deck": "Bark Bo",
+     "champion": false,
+     "coins": 95,
+     "xp_base": 34,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "twig_tess",
+     "tier": 4,
+     "deck": "Twig Tess",
+     "champion": false,
+     "coins": 95,
+     "xp_base": 34,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "old_stump",
+     "tier": 5,
+     "deck": "Old Stump",
+     "champion": true,
+     "coins": 135,
+     "xp_base": 46,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "forest",
+   "first_clear": {
+    "coins": 510,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.forest"
+   },
+   "repeat_clear": {
+    "coins": 170,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "mountain",
+   "location": "mountain",
+   "area": "kingdom_mountain",
+   "interior_area": "arena_mountain",
+   "name": "Mine Shaft Pit",
+   "setting": "An abandoned mine shaft, gamblers on the rails.",
+   "keeper": "cliff_cass",
+   "tip_id": "arena_tip.mountain",
+   "name_id": "arena.mountain",
+   "entry_anchor": "kingdom_mountain.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 6
+   },
+   "fee": 120,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "pick_pete",
+     "tier": 4,
+     "deck": "Pick Pete",
+     "champion": false,
+     "coins": 95,
+     "xp_base": 34,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "gear_gwen",
+     "tier": 5,
+     "deck": "Gear Gwen",
+     "champion": false,
+     "coins": 135,
+     "xp_base": 46,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "wing_wes",
+     "tier": 5,
+     "deck": "Wing Wes",
+     "champion": false,
+     "coins": 135,
+     "xp_base": 46,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "blast_bart",
+     "tier": 6,
+     "deck": "Blast Bart",
+     "champion": true,
+     "coins": 185,
+     "xp_base": 60,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "mountain",
+   "first_clear": {
+    "coins": 690,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.mountain"
+   },
+   "repeat_clear": {
+    "coins": 230,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "meadow",
+   "location": "meadow",
+   "area": "kingdom_meadow",
+   "interior_area": "arena_meadow",
+   "name": "Rabbit Hole Ring",
+   "setting": "A burrow under the hedges, a ring edged with carrots.",
+   "keeper": "rose_rue",
+   "tip_id": "arena_tip.meadow",
+   "name_id": "arena.meadow",
+   "entry_anchor": "kingdom_meadow.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 7
+   },
+   "fee": 120,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "daisy_dee",
+     "tier": 4,
+     "deck": "Daisy Dee",
+     "champion": false,
+     "coins": 95,
+     "xp_base": 34,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "hare_hal",
+     "tier": 5,
+     "deck": "Hare Hal",
+     "champion": false,
+     "coins": 135,
+     "xp_base": 46,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "mist_mina",
+     "tier": 5,
+     "deck": "Mist Mina",
+     "champion": false,
+     "coins": 135,
+     "xp_base": 46,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "maze_queen",
+     "tier": 6,
+     "deck": "Maze Queen",
+     "champion": true,
+     "coins": 185,
+     "xp_base": 60,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "meadow",
+   "first_clear": {
+    "coins": 690,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.meadow"
+   },
+   "repeat_clear": {
+    "coins": 230,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "desert",
+   "location": "desert",
+   "area": "kingdom_desert",
+   "interior_area": "arena_desert",
+   "name": "Sunken Tomb Pit",
+   "setting": "A buried tomb with torches and a sand floor ring.",
+   "keeper": "nomad_nia",
+   "tip_id": "arena_tip.desert",
+   "name_id": "arena.desert",
+   "entry_anchor": "kingdom_desert.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 9
+   },
+   "fee": 170,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "mummy_moe",
+     "tier": 5,
+     "deck": "Mummy Moe",
+     "champion": false,
+     "coins": 135,
+     "xp_base": 46,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "scarab_sia",
+     "tier": 6,
+     "deck": "Scarab Sia",
+     "champion": false,
+     "coins": 185,
+     "xp_base": 60,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "dust_dara",
+     "tier": 6,
+     "deck": "Dust Dara",
+     "champion": false,
+     "coins": 185,
+     "xp_base": 60,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "tomb_lord",
+     "tier": 7,
+     "deck": "Tomb Lord",
+     "champion": true,
+     "coins": 240,
+     "xp_base": 76,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "desert",
+   "first_clear": {
+    "coins": 900,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.desert"
+   },
+   "repeat_clear": {
+    "coins": 300,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "fair",
+   "location": "fair",
+   "area": "kingdom_fair",
+   "interior_area": "arena_fair",
+   "name": "Underfair Big Top",
+   "setting": "A second circus under the fair, ring of sawdust.",
+   "keeper": "bazaar_bea",
+   "tip_id": "arena_tip.fair",
+   "name_id": "arena.fair",
+   "entry_anchor": "kingdom_fair.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 10
+   },
+   "fee": 230,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "clown_cleo",
+     "tier": 6,
+     "deck": "Clown Cleo",
+     "champion": false,
+     "coins": 185,
+     "xp_base": 60,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "juggle_jo",
+     "tier": 7,
+     "deck": "Juggle Jo",
+     "champion": false,
+     "coins": 240,
+     "xp_base": 76,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "spark_sam",
+     "tier": 7,
+     "deck": "Spark Sam",
+     "champion": false,
+     "coins": 240,
+     "xp_base": 76,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "old_jackal",
+     "tier": 7,
+     "deck": "Old Jackal",
+     "champion": true,
+     "coins": 240,
+     "xp_base": 76,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "fair",
+   "first_clear": {
+    "coins": 900,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.fair"
+   },
+   "repeat_clear": {
+    "coins": 300,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  }
+ ]
+}

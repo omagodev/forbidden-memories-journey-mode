@@ -10,7 +10,9 @@ This project is built on **[Yu-Gi-Oh! Forbidden Memories Recompiled](https://git
 
 ## Where things are
 
+* [`docs/CONTINUE_DEVELOPMENT.md`](docs/CONTINUE_DEVELOPMENT.md): hand-off guide (setup, build, tests, next steps).
 * `mods/ow-poc/`: the Journey Mode mod (code, baked maps and models, tools).
+* `art_dk/`: art sources and bake tools (large raw generations and private references are not included).
 * `journey_content/`: story, decks and UI text in English and Portuguese, with validators. The Duelist Kingdom story is in `journey_content/duelist_kingdom/`.
 * `mods/ow-poc/tools/`: bake scripts, the fast test helper and the smoke-test scenarios (see `mods/ow-poc/tools/TESTING.md` and `docs/TESTING.md`).
 * `notes/journey-mode.md`: design notes. The rest of `notes/` is the port's documentation.

@@ -178,6 +178,7 @@ void World_Spawn(float *x, float *z);
 /* ------------------------------------------------------------- languages */
 int Lang_Count(void);
 const char *Lang_Name(int i);
+const char *Lang_Code(void);                         /* "en", "pt" */
 int Lang_Current(void);
 int Lang_Set(int i);                                 /* loads the interface and the story of language i */
 const char *Tr(const char *path);                    /* "menu.items.2" in the current language, else the path */
@@ -207,6 +208,8 @@ typedef struct {
     int lang;                    /* index into assets/lang/languages.json */
     float pt_x, pt_y;            /* where the player stands in the painted village (save version 3) */
     int pt_set;                  /* 1 when pt_x, pt_y were saved */
+    unsigned char cg[8];         /* the layered hero: the chosen option of each chargen category (save version 4; 7 used) */
+    int cg_set;                  /* 1 when the creator made the hero; 0 on an older save, which keeps the painted hero */
 } Journey;
 extern Journey jm;
 
@@ -276,6 +279,21 @@ const char *Paint_AnchorName(int i);                 /* the i-th named place, NU
 void Paint_ForceTime(int t);                         /* debug: 1 night, 0 day, -1 the story decides */
 int Paint_ForcedTime(void);
 
+/* ----------------------------------------------------------- chargen (jm_chargen.c): the hero assembled from layers */
+int Cg_Ready(void);                                  /* assets/chargen/manifest.json is there and usable */
+int Cg_CatCount(void);
+const char *Cg_CatLabel(int c);
+const char *Cg_CatId(int c);
+int Cg_OptCount(int c);
+const char *Cg_OptLabel(int c, int o);
+int Cg_Get(int c);
+void Cg_Set(int c, int v);
+void Cg_Defaults(void);                              /* the first option everywhere, cg_set = 1 (when the layers exist) */
+unsigned Cg_Signature(void);                         /* changes with the choice */
+int Cg_Compose(int bank, int page);                  /* paints the hero into a bank page (5 frames x 4 directions) */
+int Cg_Frames(void);
+int Cg_Avoided(void);                                /* the current hair + accessory is one the art marks as clashing */
+
 /* ----------------------------------------------------------------- debug (jm_debug.c, off without debug.json) */
 void Dbg_Init(void);
 int Dbg_On(void);
@@ -283,6 +301,9 @@ int Dbg_Skip(void);
 int Dbg_WinDuels(void);
 void Dbg_Apply(void);
 int Dbg_Keys(unsigned short pad, unsigned short edge, int *swallow);
+void Dev_Load(void);                                 /* reads devmode.cfg (after Dbg_Init) */
+int Dev_BarOn(void);                                 /* 1: the top status bar is drawn ("Dev mode" in the START menu) */
+void Dev_Set(int on);                                /* sets it and writes devmode.cfg */
 
 /* -------------------------------------------------------------------- ui */
 typedef enum { UI_NONE, UI_CREATE, UI_MENU, UI_CONFIRM } UiMode;

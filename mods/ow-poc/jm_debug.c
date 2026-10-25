@@ -6,6 +6,7 @@
  *   "time": "day" | "night" | "auto"
  *   "skip_dialogue": true   pages turn by themselves; Yes is chosen at questions
  *   "win_duels": true       a duel is not played: it counts as won
+ *   "look": [0, 1, 2, ...]  the layered hero: the option number of each chargen category, set on Continue
  * In the painted village, with L1 + R1 held:  Up / Down  next / previous preset,  Left  time auto > night > day,
  * Right  next anchor,  Square  skip dialogue on/off,  Triangle  win duels on/off. */
 #include "jm.h"
@@ -18,6 +19,27 @@ static JsonNode *cfg;
 static int on, skip, win, preset_at = -1, anchor_at = -1;
 
 int Dbg_On(void) { return on; }
+
+/* "Dev mode" (START menu row): the top status bar (place, chapter, objective).  Kept in devmode.cfg in the mod's data folder
+ * ("0" or "1") so it survives restarts and is the same for every save.  No file yet: ON when debug.json is active, else OFF. */
+static int devbar = -1;
+void Dev_Load(void)
+{
+    FILE *f = jm_host->open_data(jm_host, "devmode.cfg", "rb");
+    char c = 0;
+    if (f) { if (fread(&c, 1, 1, f) != 1) c = 0; fclose(f); }
+    devbar = c == '0' ? 0 : c == '1' ? 1 : on;
+    LOG("journey: dev mode %d (%s)", devbar, c == '0' || c == '1' ? "file" : on ? "default, debug.json" : "default");
+}
+int Dev_BarOn(void) { return devbar < 0 ? on : devbar; }
+void Dev_Set(int v)
+{
+    FILE *f;
+    devbar = v ? 1 : 0;
+    f = jm_host->open_data(jm_host, "devmode.cfg", "wb");
+    if (f) { fwrite(devbar ? "1\n" : "0\n", 1, 2, f); fclose(f); }
+    LOG("journey: dev mode %d (saved)", devbar);
+}
 int Dbg_Skip(void) { return on && skip; }
 int Dbg_WinDuels(void) { return on && win; }
 
@@ -95,6 +117,12 @@ void Dbg_Apply(void)
     t = Json_Get(cfg, "teleport");
     if (t && t->str && Paint_Anchor(t->str, &x, &y)) { Paint_GoAnchor(t->str); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }
     else if (t && t->child) { x = (float)t->child->num; y = (float)(t->child->next ? t->child->next->num : 0); Paint_Set(x, y); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }
+    t = Json_Get(cfg, "look");                 /* [skin, outfit, outfit colour, hair, ...]: the chargen choice, set on Continue */
+    if (t && t->child && Cg_Ready()) {
+        const JsonNode *n; int c = 0;
+        for (n = t->child; n && c < 8; n = n->next, c++) Cg_Set(c, (int)n->num);
+        jm.cg_set = 1;
+    }
     t = Json_Get(cfg, "time");
     if (t && t->str) Paint_ForceTime(!strcmp(t->str, "night") ? 1 : !strcmp(t->str, "day") ? 0 : -1);
 }

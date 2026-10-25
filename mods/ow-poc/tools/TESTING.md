@@ -61,7 +61,9 @@ Steps: `("wait", n)`, `("press", key or [keys], hold, after)`, `("until", log te
 Pad keys: up down left right cross circle square triangle l1 r1 l2 r2 start select.  Frames are VBlanks (60 per game second).
 
 Scenarios now: painted_menu, painted_menu_deck, village_roads, dk_part2_bench, dk_part2_hooded_man, dk_part2_baker, dk_part2_kemet_duel, dk_part2_kemet_real_duel (experimental, not in `all`),
-music_day_night, dk_part2_pt, ui_dialog_*, ui_ask_*, and for part 3 the `dk_part3_*` and `ui_banners_p3_*` scenarios (26 run by `all`, plus one experimental real-duel scenario; `python3 mods/ow-poc/tools/smoke/jm_smoke.py list` shows all). See `docs/TESTING.md` for part 3.  For a new part: add a preset, add 2-4 scenarios, run `fast.sh all`.
+music_day_night, dk_part2_pt, the dk_part3_* set (hatch, cistern, glyph, Rex, errands, journals), ui_banners_p3_en/pt, ui_hint_talk_en, ui_hint_examine_pt (action hint),
+ui_devmode_en/pt/release (Dev mode row).  Scenario keys for settings: `devcfg: "0"|"1"` writes devmode.cfg first, `no_debug_json: True` runs as a release build (no debug aid),
+the `restart` step closes and starts the game again on the same user folder (to test what persists).  For a new part: add a preset, add 2-4 scenarios, run `fast.sh all`.
 
 ## Workflow for a new part
 

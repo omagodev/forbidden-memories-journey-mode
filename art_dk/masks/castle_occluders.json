@@ -1,0 +1,442 @@
+{
+ "scene": "castle",
+ "picture": "backgrounds/dk_castle_1280x720.jpg",
+ "size": [
+  1280,
+  720
+ ],
+ "note": "polygons in 1280x720 picture pixels; base_y = depth line (characters with feet y < base_y are hidden by the cutout)",
+ "occluders": [
+  {
+   "name": "statue_UL",
+   "polygon": [
+    [
+     206,
+     19
+    ],
+    [
+     300,
+     19
+    ],
+    [
+     300,
+     306
+    ],
+    [
+     206,
+     306
+    ]
+   ],
+   "base_y": 306
+  },
+  {
+   "name": "statue_UR",
+   "polygon": [
+    [
+     981,
+     19
+    ],
+    [
+     1075,
+     19
+    ],
+    [
+     1075,
+     306
+    ],
+    [
+     981,
+     306
+    ]
+   ],
+   "base_y": 306
+  },
+  {
+   "name": "statue_LL",
+   "polygon": [
+    [
+     312,
+     381
+    ],
+    [
+     425,
+     381
+    ],
+    [
+     425,
+     700
+    ],
+    [
+     312,
+     700
+    ]
+   ],
+   "base_y": 700
+  },
+  {
+   "name": "statue_LR",
+   "polygon": [
+    [
+     856,
+     381
+    ],
+    [
+     969,
+     381
+    ],
+    [
+     969,
+     700
+    ],
+    [
+     856,
+     700
+    ]
+   ],
+   "base_y": 700
+  },
+  {
+   "name": "bottom_wall_left",
+   "polygon": [
+    [
+     38,
+     531
+    ],
+    [
+     331,
+     531
+    ],
+    [
+     331,
+     700
+    ],
+    [
+     38,
+     700
+    ]
+   ],
+   "base_y": 700
+  },
+  {
+   "name": "bottom_wall_right",
+   "polygon": [
+    [
+     950,
+     531
+    ],
+    [
+     1238,
+     531
+    ],
+    [
+     1238,
+     700
+    ],
+    [
+     950,
+     700
+    ]
+   ],
+   "base_y": 700
+  },
+  {
+   "name": "hedge_BL",
+   "polygon": [
+    [
+     431,
+     581
+    ],
+    [
+     538,
+     581
+    ],
+    [
+     538,
+     720
+    ],
+    [
+     431,
+     720
+    ]
+   ],
+   "base_y": 720
+  },
+  {
+   "name": "hedge_BR",
+   "polygon": [
+    [
+     744,
+     581
+    ],
+    [
+     856,
+     581
+    ],
+    [
+     856,
+     720
+    ],
+    [
+     744,
+     720
+    ]
+   ],
+   "base_y": 720
+  },
+  {
+   "name": "fountain",
+   "polygon": [
+    [
+     550,
+     281
+    ],
+    [
+     731,
+     281
+    ],
+    [
+     731,
+     456
+    ],
+    [
+     550,
+     456
+    ]
+   ],
+   "base_y": 456
+  },
+  {
+   "name": "gate_towers_pillars",
+   "polygon": [
+    [
+     531,
+     0
+    ],
+    [
+     750,
+     0
+    ],
+    [
+     750,
+     188
+    ],
+    [
+     531,
+     188
+    ]
+   ],
+   "base_y": 188
+  }
+ ],
+ "warps": [
+  {
+   "name": "to_castle_door",
+   "rect": [
+    591,
+    150,
+    685,
+    188
+   ]
+  },
+  {
+   "name": "to_forest_south",
+   "rect": [
+    588,
+    681,
+    694,
+    720
+   ]
+  }
+ ],
+ "obstacles": [
+  {
+   "name": "pedestal_statue_UL",
+   "rect": [
+    206,
+    119,
+    300,
+    306
+   ]
+  },
+  {
+   "name": "pedestal_statue_UR",
+   "rect": [
+    981,
+    119,
+    1075,
+    306
+   ]
+  },
+  {
+   "name": "pedestal_statue_LL",
+   "rect": [
+    312,
+    475,
+    425,
+    700
+   ]
+  },
+  {
+   "name": "pedestal_statue_LR",
+   "rect": [
+    856,
+    475,
+    969,
+    700
+   ]
+  },
+  {
+   "name": "fountain",
+   "rect": [
+    550,
+    312,
+    731,
+    456
+   ]
+  },
+  {
+   "name": "brazier_UL",
+   "rect": [
+    388,
+    231,
+    438,
+    312
+   ]
+  },
+  {
+   "name": "brazier_UR",
+   "rect": [
+    838,
+    231,
+    894,
+    306
+   ]
+  },
+  {
+   "name": "brazier_LL",
+   "rect": [
+    444,
+    475,
+    494,
+    562
+   ]
+  },
+  {
+   "name": "brazier_LR",
+   "rect": [
+    788,
+    475,
+    838,
+    562
+   ]
+  },
+  {
+   "name": "hedge_UL",
+   "rect": [
+    294,
+    194,
+    481,
+    238
+   ]
+  },
+  {
+   "name": "hedge_UR",
+   "rect": [
+    800,
+    194,
+    981,
+    238
+   ]
+  },
+  {
+   "name": "planter_UC_L",
+   "rect": [
+    481,
+    175,
+    531,
+    244
+   ]
+  },
+  {
+   "name": "planter_UC_R",
+   "rect": [
+    750,
+    175,
+    800,
+    244
+   ]
+  },
+  {
+   "name": "planter_L1",
+   "rect": [
+    194,
+    338,
+    269,
+    412
+   ]
+  },
+  {
+   "name": "planter_L2",
+   "rect": [
+    188,
+    412,
+    269,
+    506
+   ]
+  },
+  {
+   "name": "planter_R1",
+   "rect": [
+    1006,
+    338,
+    1088,
+    412
+   ]
+  },
+  {
+   "name": "planter_R2",
+   "rect": [
+    1006,
+    412,
+    1081,
+    506
+   ]
+  },
+  {
+   "name": "hedge_BL",
+   "rect": [
+    431,
+    581,
+    538,
+    720
+   ]
+  },
+  {
+   "name": "hedge_BR",
+   "rect": [
+    744,
+    581,
+    856,
+    720
+   ]
+  },
+  {
+   "name": "pillar_gate_L",
+   "rect": [
+    531,
+    50,
+    588,
+    188
+   ]
+  },
+  {
+   "name": "pillar_gate_R",
+   "rect": [
+    694,
+    50,
+    750,
+    188
+   ]
+  }
+ ]
+}

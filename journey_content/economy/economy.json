@@ -1,0 +1,306 @@
+{
+ "schema": "journey-economy/1",
+ "currency": {
+  "id": "coins",
+  "name": "Coins",
+  "name_id": "currency.name",
+  "symbol": "c",
+  "cap": 99999,
+  "start": 0,
+  "note": "Not called 'star chips': the story already uses the Star Chip item for stars, and the outline's 'star chip' fair shops become coin shops."
+ },
+ "tiers": {
+  "win_coins": [
+   30,
+   50,
+   80,
+   120,
+   170,
+   230,
+   300,
+   380,
+   480,
+   600
+  ],
+  "win_xp": [
+   10,
+   16,
+   24,
+   34,
+   46,
+   60,
+   76,
+   94,
+   114,
+   136
+  ],
+  "nominal_level": [
+   1,
+   4,
+   7,
+   10,
+   13,
+   16,
+   19,
+   22,
+   25,
+   28
+  ],
+  "note": "index = opponent difficulty tier - 1 (decks' difficulty_tier, 1..10). nominal_level is the level a duelist of that tier is 'worth'."
+ },
+ "formulas": {
+  "coins_win": "round(win_coins[tier] * context_mult * (1 + coin_bonus_pct(level)/100))",
+  "coins_loss": "0 (a lost duel pays nothing; an ambush loss costs stolen coins)",
+  "context_mult": {
+   "story_first_win": 1.0,
+   "story_rematch": 0.5,
+   "ambush_win": 1.25,
+   "arena_bout": 0.8,
+   "free_duel": 1.0
+  },
+  "xp": "round(win_xp[tier] * clamp(1 + 0.12*(nominal_level[tier] - player_level), 0.2, 1.8)); a loss gives 25% of that (min 1); 0 at level cap",
+  "level": "largest L with levels.table[L].xp_total <= xp",
+  "arena_fee": "round5(win_coins[arena tier] * 1.0)",
+  "sell_price": "round5(sell_rate * weq[rarity] * sell_base_win)",
+  "buy_price": "round5(win_coins[shop tier] * weq[rarity])  (packs: pack_weq)"
+ },
+ "prices": {
+  "weq": {
+   "C": 0.8,
+   "B": 2.5,
+   "A": 8.0,
+   "S": 30.0
+  },
+  "pack_weq": {
+   "common": 4.0,
+   "rare": 12.0,
+   "grand": 30.0
+  },
+  "sell_rate": 0.25,
+  "sell_base_win": 80,
+  "round_to": 5,
+  "meaning": "A common single costs about one win of the shop's tier, B 2.5 wins, A 8 wins, S 30 wins; packs 4 / 12 / 30 wins.",
+  "healing": "none"
+ },
+ "drop_odds": {
+  "base_percent": {
+   "C": 68.0,
+   "B": 25.0,
+   "A": 6.5,
+   "S": 0.5
+  },
+  "contexts": {
+   "duel": {
+    "C": 68,
+    "B": 25,
+    "A": 6.5,
+    "S": 0.5
+   },
+   "ambush_win": {
+    "C": 55,
+    "B": 33,
+    "A": 11,
+    "S": 1
+   },
+   "arena_bout": {
+    "C": 60,
+    "B": 30,
+    "A": 9,
+    "S": 1
+   },
+   "arena_champion": {
+    "C": 35,
+    "B": 40,
+    "A": 22,
+    "S": 3
+   },
+   "arena_clear": {
+    "C": 0,
+    "B": 0,
+    "A": 90,
+    "S": 10
+   }
+  },
+  "cards_per_context": {
+   "duel": 1,
+   "ambush_win": 1,
+   "arena_bout": 1,
+   "arena_champion": 2,
+   "arena_clear": 1
+  },
+  "s_rule": "S cards are arena_only: in every other context their share falls to A."
+ },
+ "rewards_story": {
+  "quest_coins": {
+   "q01_whispers": 20,
+   "q02_sage": 30,
+   "q03_stakeout": 20,
+   "q04_lost": 80,
+   "q05_won": 80,
+   "q06_given": 60,
+   "q07_harbor": 60,
+   "q08_courier": 100,
+   "q09_farewell": 0,
+   "q10_ship": 0,
+   "s01_baker": 25
+  },
+  "quest_note": "paid when the quest's last step completes (new effect give_coins in the quest-complete banner)",
+  "intro": "The first coins come from Simon's test duel (stage 1 -> 2): the HUD shows 'Coins' for the first time with a one-page tutorial banner (eco_bits bit0).",
+  "duels": [
+   {
+    "id": "simon",
+    "tier": 1,
+    "stars_wager": false
+   },
+   {
+    "id": "baker",
+    "tier": 1,
+    "stars_wager": false
+   },
+   {
+    "id": "farmer",
+    "tier": 1,
+    "stars_wager": false
+   },
+   {
+    "id": "bakura",
+    "tier": 3,
+    "stars_wager": false
+   },
+   {
+    "id": "rex",
+    "tier": 2,
+    "stars_wager": false
+   },
+   {
+    "id": "teana",
+    "tier": 1,
+    "stars_wager": false
+   },
+   {
+    "id": "inspector",
+    "tier": 3,
+    "stars_wager": false
+   },
+   {
+    "id": "shadi",
+    "tier": 4,
+    "stars_wager": false
+   },
+   {
+    "id": "inseto",
+    "tier": 5,
+    "stars_wager": false
+   }
+  ],
+  "protected_cards": [
+   "Dragon Treasure",
+   "Illusionist Faceless Mage",
+   "Javelin Beetle",
+   "Killer Needle",
+   "Kuriboh",
+   "Magician of Faith",
+   "Mooyan Curry",
+   "Mystical Elf",
+   "The 13th Grave",
+   "Uraby",
+   "Warrior of Tradition"
+  ],
+  "protected_note": "Cards the story hands out (give_card effects) cannot be sold."
+ },
+ "state": {
+  "save_version": 4,
+  "append_to": "Journey (mods/ow-poc/jm.h), after pt_set. Save_Read zero-fills the tail of an older file, so every new field must be valid at 0.",
+  "c_struct": "typedef struct {\n  int coins;              /* 0..99999 */\n  int xp;                 /* total xp, level derived (levels.json) */\n  int amb_cd;             /* ambush countdown, 1/30 s of walking; 0 = roll a new one */\n  int amb_walk;           /* total walking time since new game, 1/30 s (tutorial warm-up) */\n  int gang_loot;          /* coins the last ambush took, 50% recoverable on the next win */\n  unsigned short amb_won, amb_lost;\n  unsigned char amb_streak, amb_first_done, pad[2];\n  unsigned char arena[8]; /* per arena (arenas.json order): bit7 found, bits 3-6 clears (0..15), bits 0-2 rung (0..4) */\n  unsigned int bought[2]; /* shops.json limited[].bit, 64 one-time purchases */\n  unsigned int eco_bits;  /* bit0 intro seen, bit1 gang truce, bit2 level-cap banner seen */\n} Economy;   /* 52 bytes */",
+  "flags_used": 0,
+  "flags_note": "No story flag is used (30 of 32 are taken). Everything is a counter or a bit inside Economy.",
+  "rotation": "Shop stock rotation is derived from jm.duels, so no stock is stored."
+ },
+ "features": {
+  "deck_power_cap": {
+   "enabled": false,
+   "points": {
+    "C": 1,
+    "B": 2,
+    "A": 4,
+    "S": 8
+   },
+   "cap": "52 + 3 * level",
+   "note": "Optional. FM has no deck cost."
+  },
+  "ambush_repellent_item": {
+   "enabled": false,
+   "note": "A shop item that pauses the countdown for 5 minutes. Off by default: it weakens the difficulty the user asked for."
+  },
+  "gang_truce_after_boss": {
+   "enabled": true,
+   "note": "Beating Old Jackal in the Underfair arena halves ambush frequency and stolen coins for good (eco_bits bit1)."
+  }
+ },
+ "effects_new": [
+  "give_coins {n}",
+  "take_coins {n}",
+  "give_xp {n}",
+  "open_shop {id}",
+  "open_arena {id}",
+  "set_ambush {on|off}"
+ ],
+ "conditions_new": [
+  "coins_min",
+  "level_min",
+  "level_max"
+ ],
+ "files": {
+  "shops": "shops.json",
+  "pools": "card_pools.json",
+  "gang": "gang.json",
+  "arenas": "arenas.json",
+  "levels": "levels.json",
+  "decks": "decks_economy.json",
+  "rarity": "card_rarity.json",
+  "text_en": "en/economy.en.json",
+  "text_pt": "pt/economy.pt.json"
+ },
+ "new_areas": [
+  {
+   "id": "arena_village",
+   "name_id": "arena.village",
+   "art": "NEW art (one screen interior)"
+  },
+  {
+   "id": "arena_harbor",
+   "name_id": "arena.harbor",
+   "art": "NEW art (one screen interior)"
+  },
+  {
+   "id": "arena_beach",
+   "name_id": "arena.beach",
+   "art": "NEW art (one screen interior)"
+  },
+  {
+   "id": "arena_forest",
+   "name_id": "arena.forest",
+   "art": "NEW art (one screen interior)"
+  },
+  {
+   "id": "arena_mountain",
+   "name_id": "arena.mountain",
+   "art": "NEW art (one screen interior)"
+  },
+  {
+   "id": "arena_meadow",
+   "name_id": "arena.meadow",
+   "art": "NEW art (one screen interior)"
+  },
+  {
+   "id": "arena_desert",
+   "name_id": "arena.desert",
+   "art": "NEW art (one screen interior)"
+  },
+  {
+   "id": "arena_fair",
+   "name_id": "arena.fair",
+   "art": "NEW art (one screen interior)"
+  }
+ ]
+}

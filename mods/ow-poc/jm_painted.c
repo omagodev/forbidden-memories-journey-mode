@@ -69,17 +69,17 @@ static int bench_at(float *x, float *y);
 #define SPR_CH 62
 #define SPR_FX 24
 #define SPR_FY 56
-enum { SPR_KENNEY_M, SPR_PLAYER_MESH, SPR_AI, SPR_SIMON, SPR_TEANA, SPR_JONO, SPR_GUARD, SPR_RIVAL, SPR_MAGO, SPR_BAKER, SPR_FARMER, SPR_REX, SPR_BAKURA, SPR_COUNT };
+enum { SPR_KENNEY_M, SPR_PLAYER_MESH, SPR_AI, SPR_SIMON, SPR_TEANA, SPR_JONO, SPR_GUARD, SPR_RIVAL, SPR_MAGO, SPR_BAKER, SPR_FARMER, SPR_REX, SPR_BAKURA, SPR_HERO, SPR_COUNT };
 typedef struct { const char *file; int recolour; int nf; unsigned char *kind, *wt, *rgb; int ok; int bank, page; } Spr;
 static Spr spr[SPR_COUNT] = {
     {"assets/spr_kenney_m.bin", 0}, {"assets/spr_player.bin", 1}, {"assets/spr_ai.bin", 0},
     {"assets/spr_simon.bin", 0}, {"assets/spr_teana.bin", 0}, {"assets/spr_jono.bin", 0}, {"assets/spr_guard.bin", 0},
     {"assets/spr_rival.bin", 0}, {"assets/spr_mago_robe.bin", 0}, {"assets/spr_baker.bin", 0}, {"assets/spr_farmer.bin", 0},
-    {"assets/spr_rex.bin", 0}, {"assets/spr_bakura.bin", 0},
+    {"assets/spr_rex.bin", 0}, {"assets/spr_bakura.bin", 0}, {NULL, 0},      /* SPR_HERO: composed from the chargen layers (jm_chargen.c), no file */
 };
 /* Where each sheet lives: bank 13 has eight 256x256 pages. A 7-frame sheet takes two pages, a 5-frame sheet one. Bank 15 is still free. */
-static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15};
-static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7};   /* bank 15: pages 0-3 the DK people, 4 the bench and the hatch, 5 the aura and the torch glow, 6 Rex, 7 the ghost */
+static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 13};
+static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 2};   /* the hero takes bank 13 page 2 (the mesh-baked comparison sprite, when chargen is there) */   /* bank 15: pages 0-3 the DK people, 4 the bench and the hatch, 5 the aura and the torch glow, 6 Rex, 7 the ghost */
 int paint_sprite = 3;               /* 0 3D mesh, 1 Kenney sprite, 2 sprite baked from the player's mesh, 3 painted (AI) sprite, 4 all side by side */
 static int spr_baked[SPR_COUNT];   /* cleared when the painted scene is entered: banks are reloaded then */
 static int face = 0;              /* 0 down, 1 left, 2 right, 3 up */
@@ -93,6 +93,12 @@ static int spr_load(int i)
     Spr *s = &spr[i];
     if (s->ok) return 1;
     if (s->nf < 0) return 0;
+    if (i == SPR_HERO) {
+        if (!Cg_Ready() || !jm.cg_set) return 0;       /* an older save keeps the painted hero (SPR_AI) */
+        s->nf = Cg_Frames(); s->bank = spr_bank[i]; s->page = spr_page[i]; s->ok = 1;
+        return 1;
+    }
+    if (i == SPR_PLAYER_MESH && Cg_Ready()) { s->nf = -1; return 0; }      /* its page is the hero's now (the comparison mode 2 is gone) */
     d = Jm_Slurp(s->file, &size);
     if (!d || size < 14 || memcmp(d, "SPR1", 4)) { LOG("sprite: cannot read %s", s->file); s->nf = -1; free(d); return 0; }
     s->nf = d[4] | d[5] << 8;
@@ -149,6 +155,7 @@ static void spr_bake(int i, const int pal[5])
     uint16_t *bank = SoftGpu_Bank(s->bank);
     int dir, f, x, y, tex = SPR_CW * SPR_CH;
     if (!bank || !s->ok) return;
+    if (i == SPR_HERO) { Cg_Compose(s->bank, s->page); return; }
     for (dir = 0; dir < 4; dir++)
         for (f = 0; f < s->nf; f++) {
             int cell = dir * s->nf + f, page = s->page + (f >= 5), col = f % 5;
@@ -215,6 +222,7 @@ static int spr_walk_frame(int i)
     return 1 + (int)((gfx_frame / (s->nf > 5 ? 3 : 4)) % (unsigned)(s->nf - 1));
 }
 
+static unsigned hero_sig;
 static void sprites_prepare(const int body_rgb[5])
 {
     int i, same = 1;
@@ -222,6 +230,7 @@ static void sprites_prepare(const int body_rgb[5])
     for (i = 0; i < SPR_COUNT; i++) {
         int fresh = !spr_baked[i];
         if (!spr_load(i)) continue;
+        if (i == SPR_HERO && hero_sig != Cg_Signature()) { fresh = 1; hero_sig = Cg_Signature(); }   /* the creator or a debug look changed the hero */
         if (fresh || (spr[i].recolour && !same)) { spr_bake(i, body_rgb); spr_baked[i] = 1; }
     }
     if (body_rgb) memcpy(spr_colours, body_rgb, sizeof(spr_colours));
@@ -821,7 +830,7 @@ static void Paint_Enter_Scroll(void)
     scr_x = pt_x / TPU - VIEW_W / 2.0f; scr_y = pt_y / TPU - VIEW_H * 0.58f;
     scr_x = scr_x < 0 ? 0 : scr_x > mx ? mx : scr_x; scr_y = scr_y < 0 ? 0 : scr_y > my ? my : scr_y;
 }
-void Paint_Enter(void) { loaded = 0; sitting = 0; obs_on = obs_glitch = 0; memset(spr_baked, 0, sizeof(spr_baked)); load();   /* banks 1-12 are also the 3D Monsters' (duels), so load again each time */
+void Paint_Enter(void) { loaded = 0; sitting = 0; obs_on = obs_glitch = 0; memset(spr_baked, 0, sizeof(spr_baked)); hero_sig = ~0u; load();   /* banks 1-12 are also the 3D Monsters' (duels), so load again each time */
     night_target = night_t = night_cond() ? 1.0f : 0.0f; night_step();
     scr_x = pt_x / TPU - VIEW_W / 2.0f; scr_y = pt_y / TPU - VIEW_H * 0.58f;
     { float mx = PB_W / TPU - VIEW_W, my = PB_H / TPU - VIEW_H;   /* inside the picture from the first frame */
@@ -931,7 +940,7 @@ void Paint_Draw(const Mesh *body, const int body_rgb[5])
         float off = mode == 4 ? 28.0f : 0.0f;
         if (mode == 1) draw_spr(SPR_KENNEY_M, pt_x, pt_y, face, spr_walk_frame(SPR_KENNEY_M), 20);
         if (mode == 2) draw_spr(SPR_PLAYER_MESH, pt_x, pt_y, face, spr_walk_frame(SPR_PLAYER_MESH), 20);
-        if (mode == 3) draw_spr(SPR_AI, pt_x, pt_y, face, spr_walk_frame(SPR_AI), 20);
+        if (mode == 3) { int hs = spr[SPR_HERO].ok && jm.cg_set ? SPR_HERO : SPR_AI; draw_spr(hs, pt_x, pt_y, face, spr_walk_frame(hs), 20); }
         if (mode == 4) {
             draw_spr(SPR_KENNEY_M, pt_x - 3 * off, pt_y, face, spr_walk_frame(SPR_KENNEY_M), 20);
             draw_spr(SPR_PLAYER_MESH, pt_x - off, pt_y, face, spr_walk_frame(SPR_PLAYER_MESH), 20);

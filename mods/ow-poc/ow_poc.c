@@ -445,7 +445,7 @@ static void run(int first)
     if (first) {
         if (!ready) {
             ready = Gfx_LoadAssets() && Story_Load() && World_Load() && Lang_Set(0);
-            if (ready) { Save_Init(); Dbg_Init(); }
+            if (ready) { Save_Init(); Dbg_Init(); Dev_Load(); }
         }
         if (!ready) { ModMode_Leave(return_menu); return; }
         Tower_Background(0);
@@ -670,6 +670,34 @@ static void frame_hook(void)
 static int near_object(void) { Talk t; int o = Paint_NearObject(); return o >= 0 && Paint_ObjectRule(o, &t); }
 static int near_npc(void) { return state == ST_WALK ? World_NearestNpc(jm.x, jm.z, 64) : -1; }
 static int has_poi(void) { Talk t; return state == ST_WALK && Story_PoiAt(jm.x, jm.z, &t); }
+
+/* a rounded rectangle (rows of fills: the overlay has rectangles only) */
+static void round_fill(int x, int y, int w, int h, unsigned rgb, unsigned alpha)
+{
+    int r = h / 2, j;
+    for (j = 0; j < h; j++) {
+        int dy2 = (2 * j + 1 - h), inset = 0;                  /* twice the row centre's distance from the middle */
+        int rr = h * h - dy2 * dy2;                              /* (2*half-width)^2 of the circle of diameter h */
+        if (rr > 0) { int hw = 0; while ((hw + 1) * (hw + 1) <= rr) hw++; inset = r - hw / 2; }
+        else inset = r;
+        if (inset < 0) inset = 0;
+        if (w - 2 * inset > 0) jm_host->fill(jm_host, x + inset, y + j, w - 2 * inset, 1, rgb, alpha);
+    }
+}
+
+/* The small action hint: a round button with the key (X is the keyboard key and the PlayStation Cross at once) and one word,
+ * in a dim pill at the bottom right.  Drawn only while something can be talked to or examined. */
+static void hint_pill(int w, int s, int lh, int top, int vis, const char *word)
+{
+    int d = lh - 7 * s, ph = lh - 1 * s, tw = jm_host->text_width(jm_host, word, s), pad = 4 * s;
+    int pw = pad + d + 6 * s + tw + 10 * s, x = w - pw - 16 * s, y = top + vis - ph - 12 * s, bx = x + pad, by = y + (ph - d) / 2;
+    int xw = jm_host->text_width(jm_host, "X", s);
+    round_fill(x, y, pw, ph, 0x000000, 140);
+    round_fill(bx - s, by - s, d + 2 * s, d + 2 * s, 0x7C9CF0, 235);
+    round_fill(bx + s, by + s, d - 2 * s, d - 2 * s, 0x141C48, 255);
+    jm_host->draw_text(jm_host, bx + (d - xw) / 2, by + d / 2, "X", 0xB8D0FF, s);
+    jm_host->draw_text(jm_host, bx + d + 6 * s, y + ph / 2, word, 0xF4F4F4, s);
+}
 
 static void bar(int y, int h, const char *left, unsigned rgb)
 {
@@ -981,7 +1009,7 @@ static void overlay(void)
     if (state == ST_PAINT) {
         int n = Paint_NearNpc();
         snprintf(line, sizeof(line), Tr("hud.status_line"), place_name(), Story_Chapter(), Story_Objective());
-        bar(top + 6, lh, line, 0xFFE9A0);
+        if (Dev_BarOn()) bar(top + 6, lh, line, 0xFFE9A0);
         if (area_banner > 0) {
             const char *nm = place_name();
             int tw = jm_host->text_width(jm_host, nm, s + 1);
@@ -990,16 +1018,14 @@ static void overlay(void)
         }
         if (minimap_on) {
             int c = 2 * s + (mini_big ? 2 * s : 0);
-            Paint_MiniMap(w - 48 * c - 14 * s, top + 2 * lh + 26 * s, c, s);
+            Paint_MiniMap(w - 48 * c - 14 * s, top + (Dev_BarOn() ? 2 * lh + 26 * s : lh + 14 * s), c, s);
         }
-        if (n >= 0) snprintf(line, sizeof(line), Tr("hint.talk"), npc_name(n));
-        else if (near_object()) snprintf(line, sizeof(line), "%s", Tr("hint.examine"));
-        else snprintf(line, sizeof(line), "%s", Tr("hint.painted"));
-        bar(top + vis - lh - 6, lh, line, 0xFFFFFF);
+        if (n >= 0) hint_pill(w, s, lh, top, vis, Tr("hint.talk_short"));
+        else if (near_object()) hint_pill(w, s, lh, top, vis, Tr("hint.examine_short"));
         if (Ui_MessageText()) {
             int tw = jm_host->text_width(jm_host, Ui_MessageText(), s);
-            jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + lh + 6, tw + 24 * s, lh, 0, 170);
-            jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + lh + 6 + lh / 2, Ui_MessageText(), 0x60F060, s);
+            jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0), tw + 24 * s, lh, 0, 170);
+            jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), 0x60F060, s);
         }
         return;
     }
@@ -1026,7 +1052,7 @@ static void overlay(void)
         return;
     }
     snprintf(line, sizeof(line), Tr("hud.status_line"), place_name(), Story_Chapter(), Story_Objective());
-    bar(top + 6, lh, line, 0xFFE9A0);
+    if (Dev_BarOn()) bar(top + 6, lh, line, 0xFFE9A0);
     if (area_banner > 0 && state == ST_WALK) {
         const char *n = World_AreaName(area);
         int tw = jm_host->text_width(jm_host, n, s + 1);
@@ -1044,16 +1070,14 @@ static void overlay(void)
         if (tx0 < rx0) tx0 = rx0;
         if (tz0 < rz0) tz0 = rz0;
         x = w - (tx1 - tx0 + 1) * px - 14 * s;
-        y = top + lh + 24 * s;
+        y = top + (Dev_BarOn() ? lh + 24 * s : 12 * s);
         jm_host->fill(jm_host, x - 3 * s, y - 3 * s, (tx1 - tx0 + 1) * px + 6 * s, (tz1 - tz0 + 1) * px + 6 * s, 0xC8A03C, 255);
         draw_map(x, y, px, tx0, tz0, tx1, tz1, s);
     }
     if (state == ST_WALK) {
         int n = near_npc();
-        if (n >= 0) snprintf(line, sizeof(line), Tr("hint.talk"), npc_name(n));
-        else if (has_poi()) snprintf(line, sizeof(line), "%s", Tr("hint.examine"));
-        else snprintf(line, sizeof(line), "%s   %s", Tr("hint.controls"), Tr("map.hint"));
-        bar(top + vis - lh - 6, lh, line, 0xFFFFFF);
+        if (n >= 0) hint_pill(w, s, lh, top, vis, Tr("hint.talk_short"));
+        else if (has_poi()) hint_pill(w, s, lh, top, vis, Tr("hint.examine_short"));
     }
     if (state == ST_ASK) {                  /* the question stays in the box (the game's font); the choices sit above its right end */
         int bx = w * 0x10 / 320, by = h * 0xA0 / 240, bw = w * 0x120 / 320, pw = bw / 4, ph = lh * 2 + 12 * s, px = bx + bw - pw - 6 * s, py = by - ph - 8 * s;
@@ -1066,8 +1090,8 @@ static void overlay(void)
     }
     if (Ui_MessageText()) {
         int tw = jm_host->text_width(jm_host, Ui_MessageText(), s);
-        jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + lh + 6, tw + 24 * s, lh, 0, 170);
-        jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + lh + 6 + lh / 2, Ui_MessageText(), 0x60F060, s);
+        jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0), tw + 24 * s, lh, 0, 170);
+        jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), 0x60F060, s);
     }
     dialog_extras(w, h, s, lh, top, vis);
 }
@@ -1079,13 +1103,13 @@ static unsigned overlay_sig(void)
         float a, b, c, d;
         Paint_Info(&a, &b, &c, &d);
         return 7u + (unsigned)(Paint_NearNpc() + 2) * 131u + (near_object() ? 77u : 0u) + (unsigned)minimap_on * 17u + (unsigned)mini_big * 29u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
-               (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) + (unsigned)(Lang_Current() * 1237) +
+               (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) + (unsigned)(Lang_Current() * 1237) + (unsigned)Dev_BarOn() * 3331u +
                (unsigned)(minimap_on ? (int)(frame_no / 10 & 1) * 100003 + (int)a / 12 * 4421 + (int)b / 12 * 977 : 0);
     }
     return (state == ST_SCENE || state == ST_ASK ? (unsigned)(scene_idx * 131 + cur_kind * 17 + (cur_kind ? notif_age : 0) * 3571 + (cur_name ? (unsigned char)cur_name[0] * 31 : 0)) : 0u) + 1u + (unsigned)state * 977u + (unsigned)(area + 2) * 31u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
            (unsigned)(near_npc() + 2) * 131u + (unsigned)ask_sel * 17u + (unsigned)choose_sel * 3u + (unsigned)(state == ST_CONFIRM) * 7001u + Ui_Signature() * 13u +
            (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) +
-           (has_poi() ? 5u : 0u) + (unsigned)(Lang_Current() * 1237 + lang_sel * 53 + minimap_on * 7) +
+           (has_poi() ? 5u : 0u) + (unsigned)Dev_BarOn() * 3331u + (unsigned)(Lang_Current() * 1237 + lang_sel * 53 + minimap_on * 7) +
            ((state == ST_WALK && minimap_on) || state == ST_MAP ? (unsigned)((int)(jm.x / TS) * 4421 + (int)(jm.z / TS) * 977 + (int)(frame_no / 10 & 1) * 100003) : 0u);
 }
 

@@ -95,6 +95,7 @@ const char *Lang_Name(int i)
 }
 
 int Lang_Current(void) { return cur < 0 ? 0 : cur; }
+const char *Lang_Code(void) { const char *c = code_of(Lang_Current()); return c ? c : "en"; }
 
 /* The language picked the first time Journey Mode starts a new game is kept in language.cfg (the mod's data folder), so the
  * choice screen only shows then; the START menu's Language row changes it later (and every save writes it). */

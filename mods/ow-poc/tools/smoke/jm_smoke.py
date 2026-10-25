@@ -54,11 +54,17 @@ class Run:
         body += struct.pack("<6i", 0, 0, 1, 0, 0, 0) + struct.pack("<ff", 14.5 * 32, 33.5 * 32)
         body += b"\0" * 96 + struct.pack("<i", 0)
         body += struct.pack("<iffi", lang, 184, 273, 1)
-        (self.data / "journey.sav").write_bytes(struct.pack("<III", 0x31534A4D, 3, 192) + body)
+        if self.sc.get("boot") == "new":                # NEW GAME from the title: no save, the language is already chosen (language.cfg)
+            (self.data / "language.cfg").write_text("%d\n" % lang)
+        else:
+          (self.data / "journey.sav").write_bytes(struct.pack("<III", 0x31534A4D, 3, 192) + body)
         dbg = dict(self.sc.get("debug", {}))
         if "preset" in self.sc:
             dbg["preset"] = self.sc["preset"]
-        (self.data / "debug.json").write_text(json.dumps(dbg))
+        if not self.sc.get("no_debug_json"):          # without it the mod runs as a release build (no debug aid, Dev mode off by default)
+            (self.data / "debug.json").write_text(json.dumps(dbg))
+        if "devcfg" in self.sc:                        # devmode.cfg: the saved Dev mode choice ("0" / "1")
+            (self.data / "devmode.cfg").write_text(self.sc["devcfg"] + "\n")
 
     def count(self, pat):
         try:
@@ -82,7 +88,8 @@ class Run:
         g.step(300)
         g.press("start", hold=8, after=10); g.step(120)
         g.press("start", hold=8, after=10); g.step(150); g.step(40)
-        g.press("down", hold=6, after=20); g.press("cross", hold=6, after=20)     # JOURNEY MODE > Continue
+        if self.sc.get("boot") != "new": g.press("down", hold=6, after=20)
+        g.press("cross", hold=6, after=20)                                       # JOURNEY MODE > Continue (or New game)
         g.step(self.sc.get("boot_frames", 260))
 
     def until(self, pat, frames):
@@ -99,6 +106,11 @@ class Run:
         elif op == "until":
             if not self.until(s[1], s[2] if len(s) > 2 else 900): self.problems.append("timeout waiting for log %r" % s[1])
         elif op == "snap": self.snap(s[1])
+        elif op == "restart":                 # close the game and start it again on the same user folder (settings that persist)
+            try: self.g.close()
+            except Exception: pass            # noqa: BLE001
+            time.sleep(1)
+            self.start()
         elif op == "duel_win":                # a real duel: wait for the field, set the opponent's life points to 0, press through the result screens
             g.duel_ready(); g.step(60)
             g.poke("D_800E9FF0", struct.pack("<hHh", 0, 0, 8000), offset=Y.SIDE_SIZE + 0x12)
