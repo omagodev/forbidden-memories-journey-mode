@@ -19,6 +19,7 @@
 #include "game/func_80039794.h"
 #include "game/sound.h"
 #include "game/func_80024DC8.h"
+#include "game/duel_rewards.h"
 #include "pc/mods/modapi.h"
 #include "pc/platform/mod_mode.h"
 #include "jm.h"
@@ -35,7 +36,21 @@ extern u8 gLibrary_abCardChest[];
 const MemoriesModHost *jm_host;
 int jm_save_requested, jm_save_ok, jm_name_entry_requested;
 
-enum { ST_CONFIRM, ST_CREATE, ST_WALK, ST_SCENE, ST_ASK, ST_MENU, ST_TO_DUEL, ST_LEAVE, ST_LANG, ST_MAP, ST_PAINT, ST_JOURNAL };
+/* The card a won duel drops.  The game picks one out of its own weighted table; while a Journey duel
+ * is being fought the pool of the place it happens in picks instead (journey_content/economy), and
+ * the game's own choice stands for every other duel, so Free Duel and the campaign are untouched. */
+static s32 (*drop_original)(s32);
+static int duel_live;                      /* a Journey duel is in flight */
+static s32 drop_pick(s32 pool_index)
+{
+    if (duel_live && Eco_Ready()) {
+        int id = Eco_RollDrop("duel");
+        if (id > 0) return id;
+    }
+    return drop_original ? drop_original(pool_index) : 0;
+}
+
+enum { ST_CONFIRM, ST_CREATE, ST_WALK, ST_SCENE, ST_ASK, ST_MENU, ST_TO_DUEL, ST_LEAVE, ST_LANG, ST_MAP, ST_PAINT, ST_JOURNAL, ST_SHOP };
 enum { REQ_NONE, REQ_NEW, REQ_CONTINUE };   /* what the title's NEW GAME / CONTINUE asked for */
 enum { RET_NONE, RET_DUEL, RET_NAME, RET_DECK };
 static int state = ST_LEAVE, after_return = RET_NONE, menu_request = REQ_NONE;
@@ -195,6 +210,10 @@ static void end_scene(void)
     }
     if (in_paint_flow) Paint_SceneEnd();
     state = in_paint_flow ? ST_PAINT : ST_WALK;
+    if (jm_shop_req) {                     /* an "open_shop" result: the stall opens after the talk */
+        jm_shop_req = 0;
+        if (Eco_ShopSet(jm_shop_req_id)) { Shop_Open(); state = ST_SHOP; return; }
+    }
     if (scene_then) {
         const char *next = scene_then;
         scene_then = NULL;
@@ -236,7 +255,7 @@ static void arm_duel(int npc)
         after_return = RET_DUEL;
         duel_npc = npc;
         duel_returned();
-        return;
+        return;      /* the debug win plays no duel, so it rolls no drop */
     }
     ensure_deck();
     Say_Close();
@@ -247,6 +266,7 @@ static void arm_duel(int npc)
     after_return = RET_DUEL;
     duel_npc = npc;
     jm.duels++;
+    duel_live = 1;
     state = ST_TO_DUEL;
     LOG("journey: duel against %s (duelist %d)", npcs[npc].name, npcs[npc].duelist_id);
     func_80024DC8(-1, npcs[npc].duelist_id, 0x6000, 0x6000);
@@ -256,11 +276,15 @@ static void duel_returned(void)
 {
     int won = (D_8009B362 == 0);
     const JsonNode *r = won ? duel_win : duel_lose;
+    /* whether this win was had before is read now: applying the result sets the flags that say so */
+    int rematch = won && Story_ResultDone(duel_win);
     area = -1;                              /* the duel's song ended the village's: start it again */
     if (in_paint_flow) { Paint_Enter(); paint_auto = 1; }    /* the duel took the banks: the painted village is loaded again behind the scene */
     if (won) jm.wins++; else jm.losses++;
     LOG("journey: duel over, %s (wins %d, losses %d)", won ? "won" : "lost", jm.wins, jm.losses);
     if (won) Story_ApplyResult(duel_win);
+    duel_live = 0;
+    if (duel_npc >= 0) Eco_DuelReward(npcs[duel_npc].id, won, rematch);
     World_PlaceNpcs();
     after_return = RET_NONE;
     duel_npc = -1;
@@ -445,7 +469,7 @@ static void run(int first)
     if (first) {
         if (!ready) {
             ready = Gfx_LoadAssets() && Story_Load() && World_Load() && Lang_Set(0);
-            if (ready) { Save_Init(); Dbg_Init(); Dev_Load(); }
+            if (ready) { Save_Init(); Dbg_Init(); Dev_Load(); Eco_Load(); Eco_LoadLang(Lang_Code()); }
         }
         if (!ready) { ModMode_Leave(return_menu); return; }
         Tower_Background(0);
@@ -482,6 +506,8 @@ static void run(int first)
     dbg_age++;
     if (cooldown > 0) cooldown--;
     if (ui_message_timer > 0) ui_message_timer--;
+    Eco_Tick();                             /* the queued coin, xp and level-up notices, one by one */
+    if (ready) Eco_QuestTick();             /* a quest whose last step just completed pays its coins */
     switch (state) {
     case ST_CONFIRM:
         if (edge & (PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT)) choose_sel ^= 1;
@@ -501,6 +527,9 @@ static void run(int first)
             state = ST_CREATE;
         }
         if (edge & PAD_TRIANGLE) state = ST_LEAVE;
+        break;
+    case ST_SHOP:
+        if (Shop_Input(edge)) { state = ST_PAINT; cooldown = 12; }
         break;
     case ST_PAINT:
         if (edge & PAD_START) { Ui_MenuOpen(); menu_from_paint = 1; state = ST_MENU; break; }   /* START: the menu (deck editor, items, status, save, title) */
@@ -526,6 +555,11 @@ static void run(int first)
                 in_paint_flow = 1;
                 start_talk(&t);
                 if (state != ST_SCENE) { in_paint_flow = 0; Paint_TalkEnd(); state = ST_PAINT; }
+                break;
+            }
+            if (n >= 0 && Eco_ShopAt(npcs[n].id)) {   /* a keeper with nothing left to say runs the stall */
+                Shop_Open();
+                state = ST_SHOP;
                 break;
             }
             o = Paint_NearObject();            /* the bench, the notice board */
@@ -980,6 +1014,7 @@ static void overlay(void)
     top = (h - vis) / 2;
     { static int once; if (!once++) LOG("journey: overlay %dx%d scale %d", w, h, s); }
     if (state == ST_CREATE) { Ui_CreateOverlay(); return; }
+    if (state == ST_SHOP) { Shop_Overlay(); return; }
     if (state == ST_CONFIRM) {
         int x = w / 6, y = top + vis / 4, pw = w * 2 / 3;
         char who[96];
@@ -1010,6 +1045,17 @@ static void overlay(void)
         int n = Paint_NearNpc();
         snprintf(line, sizeof(line), Tr("hud.status_line"), place_name(), Story_Chapter(), Story_Objective());
         if (Dev_BarOn()) bar(top + 6, lh, line, 0xFFE9A0);
+        if (Eco_Ready() && (jm.eco.coins > 0 || jm.eco.xp > 0)) {   /* the purse, once there is one */
+            char money[48], hud[96];
+            int mw, my = top + 6 + (Dev_BarOn() ? lh + 6 : 0);
+            Ui_Fmt1(money, sizeof(money), EcoTr("ui.money"), jm.eco.coins);
+            snprintf(hud, sizeof(hud), "%s   ", money);
+            Ui_Fmt1(money, sizeof(money), EcoTr("ui.hud_level"), Eco_Level());
+            strncat(hud, money, sizeof(hud) - strlen(hud) - 1);
+            mw = jm_host->text_width(jm_host, hud, s);
+            jm_host->fill(jm_host, 14 * s, my, mw + 20 * s, lh, 0, 150);
+            jm_host->draw_text(jm_host, 24 * s, my + lh / 2, hud, 0xFFE9A0, s);
+        }
         if (area_banner > 0) {
             const char *nm = place_name();
             int tw = jm_host->text_width(jm_host, nm, s + 1);
@@ -1025,7 +1071,7 @@ static void overlay(void)
         if (Ui_MessageText()) {
             int tw = jm_host->text_width(jm_host, Ui_MessageText(), s);
             jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0), tw + 24 * s, lh, 0, 170);
-            jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), 0x60F060, s);
+            jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), Ui_MessageColour(), s);
         }
         return;
     }
@@ -1091,7 +1137,7 @@ static void overlay(void)
     if (Ui_MessageText()) {
         int tw = jm_host->text_width(jm_host, Ui_MessageText(), s);
         jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0), tw + 24 * s, lh, 0, 170);
-        jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), 0x60F060, s);
+        jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), Ui_MessageColour(), s);
     }
     dialog_extras(w, h, s, lh, top, vis);
 }
@@ -1099,12 +1145,14 @@ static void overlay(void)
 static unsigned overlay_sig(void)
 {
     if (!ModMode_Active()) return 0u;
+    if (state == ST_SHOP) return 11u + Shop_Signature();
     if (state == ST_PAINT) {
         float a, b, c, d;
         Paint_Info(&a, &b, &c, &d);
         return 7u + (unsigned)(Paint_NearNpc() + 2) * 131u + (near_object() ? 77u : 0u) + (unsigned)minimap_on * 17u + (unsigned)mini_big * 29u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
                (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) + (unsigned)(Lang_Current() * 1237) + (unsigned)Dev_BarOn() * 3331u +
-               (unsigned)(minimap_on ? (int)(frame_no / 10 & 1) * 100003 + (int)a / 12 * 4421 + (int)b / 12 * 977 : 0);
+               (unsigned)(minimap_on ? (int)(frame_no / 10 & 1) * 100003 + (int)a / 12 * 4421 + (int)b / 12 * 977 : 0) +
+               (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.xp * 97u;
     }
     return (state == ST_SCENE || state == ST_ASK ? (unsigned)(scene_idx * 131 + cur_kind * 17 + (cur_kind ? notif_age : 0) * 3571 + (cur_name ? (unsigned char)cur_name[0] * 31 : 0)) : 0u) + 1u + (unsigned)state * 977u + (unsigned)(area + 2) * 31u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
            (unsigned)(near_npc() + 2) * 131u + (unsigned)ask_sel * 17u + (unsigned)choose_sel * 3u + (unsigned)(state == ST_CONFIRM) * 7001u + Ui_Signature() * 13u +
@@ -1148,6 +1196,7 @@ int MemoriesModInit(const MemoriesModHost *h, MemoriesMod *mod)
     mod->overlay_signature = overlay_sig;
     Story_Reset();
     ModMode_Register(run);
+    h->hook(h, (void *)Duel_SelectCardDrop, (void *)drop_pick, (void **)&drop_original);
     h->subscribe(h, MEMORIES_EVENT_MENU, 0, on_menu);
     h->subscribe(h, MEMORIES_EVENT_SCENE, 0, on_scene);
     return 1;

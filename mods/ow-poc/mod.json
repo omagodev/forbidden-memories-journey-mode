@@ -5,6 +5,9 @@
   "author": "Atos Vinicius",
   "description": "A story mode with a walkable 3D world: character creation, 30 people in 16 areas over eight chapters, the game's own text boxes and duels with a deck for each duelist, area music, a title menu of NEW GAME / CONTINUE / OPTIONS, a START menu, a save file and two endings. Characters: Quaternius (CC0); props: PSX Nature Free by heyheythere (CC BY 4.0).",
   "min_api": 10,
+  "limits": {
+    "card_drops": 1
+  },
   "library": "ow-poc",
   "enabled": true,
   "menu": {

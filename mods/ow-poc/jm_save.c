@@ -7,7 +7,7 @@
 #include <string.h>
 
 #define MAGIC 0x31534A4Du      /* "MJS1" */
-#define VERSION 4          /* 2 added the language, 3 the painted village position, 4 the layered hero; older files (176 bytes of Journey and up) still load */
+#define VERSION 5          /* 2 added the language, 3 the painted village position, 4 the layered hero, 5 the economy; older files (176 bytes of Journey and up) still load */
 
 typedef struct { unsigned magic, version, size; Journey data; } File;
 

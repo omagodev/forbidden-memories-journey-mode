@@ -136,6 +136,7 @@ int Lang_Set(int i)
     cur = i;
     jm.lang = i;
     Story_LoadScenes(code_of(i));
+    Eco_LoadLang(code_of(i));
     LOG("journey: language %s", code_of(i));
     return 1;
 }

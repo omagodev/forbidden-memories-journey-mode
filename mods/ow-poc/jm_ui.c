@@ -33,10 +33,46 @@ static void panel(int x, int y, int w, int h)
 static int line_h(void) { return 16 * ui_s + 4; }
 static void text(int x, int row_y, const char *s, unsigned rgb) { jm_host->draw_text(jm_host, x, row_y, s, rgb, ui_s); }
 
+/* The same panel, font and metrics for a screen of another file (the shop). */
+void Ui_Metrics(int *w, int *h, int *scale, int *top, int *vis)
+{
+    metrics();
+    if (w) *w = ui_w;
+    if (h) *h = ui_h;
+    if (scale) *scale = ui_s;
+    if (top) *top = ui_top;
+    if (vis) *vis = ui_vis;
+}
+void Ui_Panel(int x, int y, int w, int h) { panel(x, y, w, h); }
+/* `tmpl` with its first "%d" replaced by `value`.  Translated text with one number in it goes through
+ * here rather than printf, so a translation with the wrong specifier reads oddly instead of crashing. */
+void Ui_Fmt1(char *out, size_t size, const char *tmpl, int value)
+{
+    const char *at = strstr(tmpl, "%d");
+    size_t head;
+    if (!at) { snprintf(out, size, "%s", tmpl); return; }
+    head = (size_t)(at - tmpl);
+    if (head >= size - 1) head = size - 1;
+    memcpy(out, tmpl, head);
+    snprintf(out + head, size - head, "%d%s", value, at + 2);
+}
+int Ui_LineH(void) { return line_h(); }
+void Ui_Text(int x, int row_y, const char *s, unsigned rgb) { text(x, row_y, s, rgb); }
+
 char ui_message[48];
 int ui_message_timer;
-void Ui_Message(const char *s) { strncpy(ui_message, s, sizeof(ui_message) - 1); ui_message_timer = 120; }
+static unsigned message_rgb = 0x60F060;
+void Ui_Message(const char *s) { Ui_MessageTone(s, 0x60F060); }
+/* The same line in another colour: gold for a level up, red for a warning. */
+void Ui_MessageTone(const char *s, unsigned rgb)
+{
+    strncpy(ui_message, s, sizeof(ui_message) - 1);
+    ui_message[sizeof(ui_message) - 1] = 0;
+    message_rgb = rgb;
+    ui_message_timer = 120;
+}
 const char *Ui_MessageText(void) { return ui_message_timer > 0 ? ui_message : NULL; }
+unsigned Ui_MessageColour(void) { return message_rgb; }
 
 /* -------------------------------------------------------- character creator
  * The rows: Name, Gender, then one row per chargen category (skin, outfit, outfit colour, hair, hair colour, accessory ... whatever
@@ -325,7 +361,7 @@ void Ui_MenuOverlay(void)
     }
     if (!msub) return;
     {
-        int px = x + w + 8 * ui_s, pw = ui_w / 2, ph = lh * 11, py = y;
+        int px = x + w + 8 * ui_s, pw = ui_w / 2, ph = lh * (msel == M_STATUS && Eco_Ready() ? 13 : 11), py = y;
         panel(px, py, pw, ph);
         text(px + 12 * ui_s, py + lh, menu_name(msel, nb, sizeof(nb)), 0xFFE9A0);
         if (msel == M_ITEMS) {
@@ -344,6 +380,27 @@ void Ui_MenuOverlay(void)
             text(px + 14 * ui_s, py + lh * 5, buf, 0xE0E0E0);
             snprintf(buf, sizeof(buf), Tr("menu.deck"), cards);
             text(px + 14 * ui_s, py + lh * 6, buf, 0xE0E0E0);
+            if (Eco_Ready()) {
+                int into, span, bw = pw / 3, bx = px + 14 * ui_s, by = py + lh * 8 + lh / 3;
+                snprintf(buf, sizeof(buf), "%s", EcoTr("ui.status_title"));
+                text(px + 14 * ui_s, py + lh * 7 + lh / 2, buf, 0x40E0E0);
+                Ui_Fmt1(buf, sizeof(buf), EcoTr("ui.level_label"), Eco_Level());
+                text(px + 14 * ui_s, py + lh * 8, buf, 0xE0E0E0);
+                Ui_Fmt1(buf, sizeof(buf), EcoTr("ui.money"), jm.eco.coins);
+                text(px + pw / 2, py + lh * 8, buf, 0xFFE9A0);
+                snprintf(buf, sizeof(buf), EcoTr("ui.status_rank"), Eco_RankName());
+                text(px + 14 * ui_s, py + lh * 9, buf, 0xE0E0E0);
+                if (Eco_XpBar(&into, &span)) {       /* the bar of the way to the next level */
+                    jm_host->fill(jm_host, bx, by + lh, bw, 6 * ui_s, 0x202840, 255);
+                    jm_host->fill(jm_host, bx, by + lh, bw * into / span, 6 * ui_s, 0x40E0E0, 255);
+                    snprintf(buf, sizeof(buf), EcoTr("ui.xp_label"), into, span);
+                    text(bx + bw + 10 * ui_s, py + lh * 10, buf, 0x909090);
+                } else text(bx, py + lh * 10, EcoTr("ui.xp_max"), 0xFFE9A0);
+                if (jm.eco.amb_won || jm.eco.amb_lost) {
+                    snprintf(buf, sizeof(buf), EcoTr("ui.status_gang"), jm.eco.amb_won, jm.eco.amb_lost);
+                    text(px + 14 * ui_s, py + lh * 11, buf, 0xE0E0E0);
+                }
+            }
         } else if (msel == M_SAVE) {
             text(px + 14 * ui_s, py + lh * 2 + lh / 2, Tr(jm_save_ok ? "menu.saved" : "menu.save_failed"), jm_save_ok ? 0x60F060 : 0xF06060);
         } else if (msel == M_TITLE) {
@@ -359,5 +416,6 @@ void Ui_MenuOverlay(void)
 unsigned Ui_Signature(void)
 {
     return (unsigned)(row * 31 + msel * 131 + msub * 1009 + qsel * 17 + jm.gender * 3 + jm.hair * 5 + jm.hair_col * 7 + jm.skin * 11 +
-                      jm.outfit * 13 + jm.portrait * 19 + (int)jm.name[0] * 23 + (int)jm.name[1] * 29 + Lang_Current() * 37 + Dev_BarOn() * 43 + (int)Cg_Signature() * 47);
+                      jm.outfit * 13 + jm.portrait * 19 + (int)jm.name[0] * 23 + (int)jm.name[1] * 29 + Lang_Current() * 37 + Dev_BarOn() * 43 + (int)Cg_Signature() * 47) +
+           (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.xp * 7919u;
 }

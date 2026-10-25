@@ -783,7 +783,10 @@
       "stage_ge": 3,
       "stage_lt": 6
      },
-     "scene": "dk1_teana_after"
+     "scene": "dk1_teana_after",
+     "effects": {
+      "open_shop": "village"
+     }
     },
     {
      "when": {
@@ -804,7 +807,10 @@
      "when": {
       "stage_ge": 6
      },
-     "scene": "dk1_teana_after_farewell"
+     "scene": "dk1_teana_after_farewell",
+     "effects": {
+      "open_shop": "village"
+     }
     }
    ],
    "duelist_id": 2,

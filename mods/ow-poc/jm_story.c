@@ -127,6 +127,9 @@ static int cond(const JsonNode *c)
     if (Json_Get(c, "row_lt") && row >= (int)Json_Num(c, "row_lt", 0)) return 0;
     if (Json_Get(c, "row_gt") && row <= (int)Json_Num(c, "row_gt", 0)) return 0;
     if (Json_Get(c, "area") && paint_area_now() != (int)Json_Num(c, "area", 0)) return 0;
+    if (Json_Get(c, "coins_min") && jm.eco.coins < (int)Json_Num(c, "coins_min", 0)) return 0;
+    if (Json_Get(c, "level_min") && Eco_Level() < (int)Json_Num(c, "level_min", 0)) return 0;
+    if (Json_Get(c, "level_max") && Eco_Level() > (int)Json_Num(c, "level_max", 99)) return 0;
     if (!all_set(Json_Get(c, "needs")) || !all_set(Json_Get(c, "has"))) return 0;
     if (!none_set(Json_Get(c, "lacks"))) return 0;
     if (Json_Get(c, "lacks_any") && !any_unset(Json_Get(c, "lacks_any"))) return 0;
@@ -277,9 +280,25 @@ void Story_Regrant(void)
 }
 
 int jm_warp;
+int jm_shop_req;                      /* an "open_shop" result asked for a shop: its screen opens after the scene */
+char jm_shop_req_id[16];
 float jm_warp_x, jm_warp_z;
 int jm_pwarp;
 char jm_pwarp_area[16], jm_pwarp_anchor[24];
+
+/* 1 when every flag this result sets is set already: the duel has been won before, so it pays the
+ * rematch rate.  A result that sets no flag cannot be told apart and counts as a first win. */
+int Story_ResultDone(const JsonNode *r)
+{
+    JsonNode *f = r ? Json_Get(r, "flags") : NULL, *n;
+    int any = 0;
+    for (n = f ? f->child : NULL; n; n = n->next) {
+        if (!n->str) continue;
+        any = 1;
+        if (!Story_Has(n->str)) return 0;
+    }
+    return any;
+}
 
 void Story_ApplyResult(const JsonNode *r)
 {
@@ -305,6 +324,14 @@ void Story_ApplyResult(const JsonNode *r)
     }
     if (Json_Get(r, "stage") && jm.stage < (int)Json_Num(r, "stage", 0)) jm.stage = (int)Json_Num(r, "stage", 0);
     for (c = Json_Get(r, "cards"), n = c ? c->child : NULL; n; n = n->next) Story_Cards((int)n->num);
+    /* the economy's own results (journey_content/economy: "effects_new") */
+    if (Json_Get(r, "give_coins")) Eco_GiveCoins((int)Json_Num(r, "give_coins", 0));
+    if (Json_Get(r, "take_coins")) Eco_TakeCoins((int)Json_Num(r, "take_coins", 0));
+    if (Json_Get(r, "give_xp")) Eco_GiveXp((int)Json_Num(r, "give_xp", 0));
+    if (Json_Get(r, "open_shop")) {
+        snprintf(jm_shop_req_id, sizeof(jm_shop_req_id), "%s", Json_Str(r, "open_shop", ""));
+        jm_shop_req = 1;
+    }
 }
 
 /* ----------------------------------------------------------------- scenes */

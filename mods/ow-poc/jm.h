@@ -194,6 +194,27 @@ void Guide_Draw(float px, float pz);                 /* into the scene: marker, 
 int Guide_Target(float *x, float *z, float *wx, float *wz);
 unsigned World_MapColor(int tx, int tz);             /* a tile as 0xRRGGBB for the maps */
 
+/* --------------------------------------------------------------- economy
+ * Coins, experience and what the player has done with them.  The block is appended to Journey, so
+ * Save_Read zero-fills it for a save written before it existed: every field must mean something at 0.
+ * Layout and meaning are journey_content/economy/economy.json ("state"). */
+typedef struct {
+    int coins;                   /* 0..cap (99999) */
+    int xp;                      /* total xp earned; the level is derived from it */
+    int amb_cd;                  /* ambush countdown, 30ths of a second of walking; 0 = roll a new one */
+    int amb_walk;                /* walking time since NEW GAME, 30ths of a second */
+    int gang_loot;               /* coins the last ambush took (half comes back on the next win) */
+    unsigned short amb_won, amb_lost;
+    unsigned char amb_streak, amb_first_done;
+    unsigned short quests_paid;  /* the journal quests whose coins have been paid (the block's spare 2 bytes) */
+    unsigned char arena[8];      /* per arena: bit7 found, bits 3-6 clears, bits 0-2 the rung reached */
+    unsigned int bought[2];      /* the one-time shop items taken (shops.json limited[].bit) */
+    unsigned int eco_bits;       /* ECO_INTRO, ECO_TRUCE, ECO_CAP_SEEN */
+} Economy;                       /* 48 bytes */
+#define ECO_INTRO 1u             /* the "you have coins now" tutorial page has been shown */
+#define ECO_TRUCE 2u             /* Old Jackal beaten: ambushes are halved for good */
+#define ECO_CAP_SEEN 4u          /* the level-cap notice has been shown */
+
 /* ----------------------------------------------------------------- story */
 typedef struct {
     unsigned flags;              /* the duelists beaten, bit by name order in rules */
@@ -210,6 +231,7 @@ typedef struct {
     int pt_set;                  /* 1 when pt_x, pt_y were saved */
     unsigned char cg[8];         /* the layered hero: the chosen option of each chargen category (save version 4; 7 used) */
     int cg_set;                  /* 1 when the creator made the hero; 0 on an older save, which keeps the painted hero */
+    Economy eco;                 /* coins, xp and the rest of the economy (save version 5) */
 } Journey;
 extern Journey jm;
 
@@ -237,6 +259,9 @@ int Story_TalkRule(const Npc *npc, Talk *out);
 int Story_PoiAt(float x, float z, Talk *out);        /* a locked tile or spot the player pushes against */
 int Story_Trigger(Talk *out, float *tp_x, float *tp_z, int *teleport); /* a line crossed; applies set_stage */
 void Story_ApplyResult(const JsonNode *result);
+int Story_ResultDone(const JsonNode *result);        /* its flags are all set already: a duel won before */
+extern int jm_shop_req;                              /* set by a result with "open_shop": the screen opens after the scene */
+extern char jm_shop_req_id[16];
 extern int jm_warp;                                  /* set by a result with "teleport": where to put the player */
 extern float jm_warp_x, jm_warp_z;
 void Story_Regrant(void);      /* flags, stage, cards, items */
@@ -279,6 +304,70 @@ const char *Paint_AnchorName(int i);                 /* the i-th named place, NU
 void Paint_ForceTime(int t);                         /* debug: 1 night, 0 day, -1 the story decides */
 int Paint_ForcedTime(void);
 
+/* --------------------------------------------------- economy (jm_eco.c): coins, xp and the shops
+ * The data is assets/economy.json (tier tables, the level curve, drop odds, the local card pools and
+ * the shops), built from journey_content/economy by tools/eco_to_journey.py; the strings it shows are
+ * assets/lang/<code>/economy.json.  Without those files every call here is a no-op, so a build that
+ * has not run the converter plays as it did before. */
+int Eco_Load(void);                                  /* reads the data once; 0 when it is not there */
+int Eco_Ready(void);
+void Eco_LoadLang(const char *code);                 /* the strings of a language (Lang_Set calls it) */
+const char *EcoTr(const char *path);                 /* "ui.coins" of economy.json, else the path */
+int Eco_Level(void);                                 /* 1..cap, from jm.eco.xp and the level table */
+int Eco_Rank(void);                                  /* the rank number of the current level */
+const char *Eco_RankName(void);
+int Eco_XpBar(int *into, int *span);                 /* xp into the level and the span to the next; 0 at the cap */
+void Eco_GiveCoins(int n);                           /* capped, with a notice */
+int Eco_TakeCoins(int n);                            /* 0 when the purse is short (nothing is taken) */
+int Eco_GiveXp(int n);                               /* returns the levels gained (0 or more) */
+int Eco_DuelTier(const char *npc_id);                /* the difficulty tier of a story duel, 0 unknown */
+int Eco_WinCoins(int tier, const char *context);     /* coins a win of that tier pays in that context */
+int Eco_WinXp(int tier);
+int Eco_LossXp(int tier);
+int Eco_QuestCoins(const char *quest_id);
+void Eco_DuelReward(const char *npc_id, int won, int rematch);   /* the whole payout of one duel */
+void Eco_Tick(void);                                 /* shows the queued notices, one after another */
+void Eco_QuestTick(void);                            /* pays a quest the player has just finished */
+const char *EcoDlg(const char *key);                 /* a line of the economy's dialogue block */
+
+/* The card a won duel drops comes from the pool of the place it was fought in (0 for a place with
+ * no pool, like the cistern).  `context` is a key of the drop odds: "duel", "ambush_win", ... */
+int Eco_RollDrop(const char *context);
+int Eco_DropCount(const char *context);
+
+/* A shop.  Eco_ShopAt picks the one a person keeps, if it is open at this point of the story; the
+ * screen then reads its stock as a flat list of these. */
+enum { ECO_ITEM_CARD, ECO_ITEM_ONCE, ECO_ITEM_PACK, ECO_ITEM_SELL };
+typedef struct {
+    int card;                    /* the card id, 0 for a pack */
+    int price;
+    int owned;                   /* copies in the chest; for a pack, the cards in it; to sell, the spares */
+    int level_min;
+    int bit;                     /* a one-time item's bit, a pack's index, else -1 */
+    int kind;
+    int locked;                  /* the level is too low */
+    char name[34];
+} EcoItem;
+int Eco_ShopAt(const char *npc_id);
+int Eco_ShopSet(const char *shop_id);
+const char *Eco_ShopName(void);
+const char *Eco_ShopGreet(void);
+int Eco_ShopItems(EcoItem *out, int max);
+int Eco_PackItems(EcoItem *out, int max);
+int Eco_SellItems(EcoItem *out, int max);
+int Eco_Buy(const EcoItem *item);
+int Eco_Sell(const EcoItem *item);
+int Eco_OpenPack(int index, int *cards, int max);
+int Eco_CardClass(int card);                         /* 0 C, 1 B, 2 A, 3 S; -1 for a card with no class */
+int Eco_SellPrice(int card);                         /* 0 when it may not be sold */
+int Eco_Protected(int card);
+
+/* --------------------------------------------- the shop screen (jm_shop.c) */
+void Shop_Open(void);                                /* after Eco_ShopAt or Eco_ShopSet said yes */
+int Shop_Input(unsigned short edge);                 /* 1 when the player is done with it */
+void Shop_Overlay(void);
+unsigned Shop_Signature(void);
+
 /* ----------------------------------------------------------- chargen (jm_chargen.c): the hero assembled from layers */
 int Cg_Ready(void);                                  /* assets/chargen/manifest.json is there and usable */
 int Cg_CatCount(void);
@@ -320,6 +409,14 @@ void Ui_MenuOpen(void);
 unsigned Ui_Signature(void);
 extern int ui_message_timer;
 void Ui_Message(const char *text);
+void Ui_MessageTone(const char *text, unsigned rgb);   /* the same line in another colour */
+unsigned Ui_MessageColour(void);
+/* The panel, font and metrics of the menus, for a screen written in another file (the shop). */
+void Ui_Metrics(int *w, int *h, int *scale, int *top, int *vis);
+void Ui_Panel(int x, int y, int w, int h);
+int Ui_LineH(void);
+void Ui_Text(int x, int row_y, const char *text, unsigned rgb);
+void Ui_Fmt1(char *out, size_t size, const char *tmpl, int value);
 void Ui_RefreshName(void);
 extern int jm_save_requested, jm_save_ok, jm_name_entry_requested;
 const char *Ui_MessageText(void);
