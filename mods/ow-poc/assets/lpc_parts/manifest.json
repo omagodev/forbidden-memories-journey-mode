@@ -1,0 +1,1772 @@
+{
+ "format": "journey-lpc-parts-1",
+ "hi": 64,
+ "w": 25,
+ "h": 38,
+ "frames": 10,
+ "anchor": [
+  12,
+  32
+ ],
+ "slots": [
+  "skin",
+  "hair",
+  "hair_colour",
+  "top",
+  "top_colour",
+  "legs",
+  "shoes",
+  "accessory"
+ ],
+ "skin": [
+  {
+   "name": "natural",
+   "mul": [
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "fair",
+   "mul": [
+    1.04,
+    1.0,
+    0.98
+   ]
+  },
+  {
+   "name": "tan",
+   "mul": [
+    0.9,
+    0.78,
+    0.66
+   ]
+  },
+  {
+   "name": "brown",
+   "mul": [
+    0.74,
+    0.58,
+    0.45
+   ]
+  },
+  {
+   "name": "dark",
+   "mul": [
+    0.58,
+    0.42,
+    0.31
+   ]
+  },
+  {
+   "name": "deep",
+   "mul": [
+    0.44,
+    0.31,
+    0.23
+   ]
+  }
+ ],
+ "hair_colour": [
+  {
+   "name": "brown",
+   "rgb": [
+    72,
+    42,
+    28
+   ]
+  },
+  {
+   "name": "black",
+   "rgb": [
+    30,
+    28,
+    34
+   ]
+  },
+  {
+   "name": "dark brown",
+   "rgb": [
+    52,
+    34,
+    26
+   ]
+  },
+  {
+   "name": "blond",
+   "rgb": [
+    150,
+    80,
+    10
+   ]
+  },
+  {
+   "name": "red",
+   "rgb": [
+    130,
+    34,
+    16
+   ]
+  },
+  {
+   "name": "orange",
+   "rgb": [
+    170,
+    80,
+    10
+   ]
+  },
+  {
+   "name": "silver",
+   "rgb": [
+    120,
+    120,
+    136
+   ]
+  },
+  {
+   "name": "blue",
+   "rgb": [
+    30,
+    52,
+    120
+   ]
+  },
+  {
+   "name": "violet",
+   "rgb": [
+    72,
+    34,
+    104
+   ]
+  },
+  {
+   "name": "green",
+   "rgb": [
+    28,
+    84,
+    42
+   ]
+  }
+ ],
+ "top_colour": [
+  {
+   "name": "blue",
+   "rgb": [
+    46,
+    72,
+    150
+   ]
+  },
+  {
+   "name": "red",
+   "rgb": [
+    120,
+    22,
+    26
+   ]
+  },
+  {
+   "name": "green",
+   "rgb": [
+    26,
+    80,
+    38
+   ]
+  },
+  {
+   "name": "black",
+   "rgb": [
+    24,
+    24,
+    30
+   ]
+  },
+  {
+   "name": "white",
+   "rgb": [
+    150,
+    150,
+    146
+   ]
+  },
+  {
+   "name": "violet",
+   "rgb": [
+    68,
+    30,
+    108
+   ]
+  },
+  {
+   "name": "gold",
+   "rgb": [
+    128,
+    96,
+    22
+   ]
+  },
+  {
+   "name": "teal",
+   "rgb": [
+    16,
+    84,
+    92
+   ]
+  },
+  {
+   "name": "brown",
+   "rgb": [
+    80,
+    48,
+    24
+   ]
+  },
+  {
+   "name": "grey",
+   "rgb": [
+    72,
+    72,
+    82
+   ]
+  }
+ ],
+ "body": {
+  "male": [
+   {
+    "file": "body_bodies_male.lpl",
+    "z": 10,
+    "tint": "skin"
+   },
+   {
+    "file": "head_heads_human_male.lpl",
+    "z": 12,
+    "tint": "skin"
+   }
+  ],
+  "female": [
+   {
+    "file": "body_bodies_female.lpl",
+    "z": 10,
+    "tint": "skin"
+   },
+   {
+    "file": "head_heads_human_female.lpl",
+    "z": 12,
+    "tint": "skin"
+   }
+  ]
+ },
+ "hair": [
+  {
+   "name": "spiked",
+   "male": [
+    {
+     "file": "hair_spiked2_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_spiked2_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "hawk",
+   "male": [
+    {
+     "file": "hair_shorthawk_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_shorthawk_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "liberty",
+   "male": [
+    {
+     "file": "hair_spiked_liberty_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_spiked_liberty_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "porcupine",
+   "male": [
+    {
+     "file": "hair_spiked_porcupine_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_spiked_porcupine_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "messy",
+   "male": [
+    {
+     "file": "hair_messy1_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_messy1_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "messy 2",
+   "male": [
+    {
+     "file": "hair_messy2_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_messy2_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "bedhead",
+   "male": [
+    {
+     "file": "hair_bedhead_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_bedhead_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "mop",
+   "male": [
+    {
+     "file": "hair_mop_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_mop_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "parted",
+   "male": [
+    {
+     "file": "hair_parted_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_parted_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "swoop",
+   "male": [
+    {
+     "file": "hair_swoop_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_swoop_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "curly",
+   "male": [
+    {
+     "file": "hair_curly_short_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_curly_short_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "afro",
+   "male": [
+    {
+     "file": "hair_afro_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_afro_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "bob",
+   "male": [
+    {
+     "file": "hair_bob_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_bob_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "pixie",
+   "male": [
+    {
+     "file": "hair_pixie_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_pixie_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "long",
+   "male": [
+    {
+     "file": "hair_long_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_long_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "long messy",
+   "male": [
+    {
+     "file": "hair_long_messy_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_long_messy_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "ponytail",
+   "male": [
+    {
+     "file": "hair_ponytail_adult_bg.lpl",
+     "z": 8,
+     "tint": "hair"
+    },
+    {
+     "file": "hair_ponytail_adult_fg.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_ponytail_adult_bg.lpl",
+     "z": 8,
+     "tint": "hair"
+    },
+    {
+     "file": "hair_ponytail_adult_fg.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "long tied",
+   "male": [
+    {
+     "file": "hair_long_tied_adult_bg.lpl",
+     "z": 8,
+     "tint": "hair"
+    },
+    {
+     "file": "hair_long_tied_adult_fg.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_long_tied_adult_bg.lpl",
+     "z": 8,
+     "tint": "hair"
+    },
+    {
+     "file": "hair_long_tied_adult_fg.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "pigtails",
+   "male": [
+    {
+     "file": "hair_pigtails_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_pigtails_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "buzzcut",
+   "male": [
+    {
+     "file": "hair_buzzcut_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ],
+   "female": [
+    {
+     "file": "hair_buzzcut_adult.lpl",
+     "z": 50,
+     "tint": "hair"
+    }
+   ]
+  },
+  {
+   "name": "none",
+   "male": [],
+   "female": []
+  }
+ ],
+ "top": [
+  {
+   "name": "v-neck",
+   "male": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve2_vneck_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve2_vneck_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "longsleeve",
+   "male": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "buttoned",
+   "male": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve2_buttoned_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve2_buttoned_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "polo",
+   "male": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve2_polo_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve2_polo_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "cardigan",
+   "male": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve2_cardigan_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeve2_cardigan_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "cuffed",
+   "male": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeves_cuffed_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_longsleeve_longsleeves_cuffed_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "t-shirt",
+   "male": [
+    {
+     "file": "torso_clothes_shortsleeve_tshirt_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_shortsleeve_tshirt_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "t-shirt v",
+   "male": [
+    {
+     "file": "torso_clothes_shortsleeve_tshirt_vneck_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_shortsleeve_tshirt_vneck_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "short polo",
+   "male": [
+    {
+     "file": "torso_clothes_shortsleeve_shortsleeve_polo_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_shortsleeve_shortsleeve_polo_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "sleeveless",
+   "male": [
+    {
+     "file": "torso_clothes_sleeveless_sleeveless1_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_sleeveless_sleeveless1_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  },
+  {
+   "name": "tank v",
+   "male": [
+    {
+     "file": "torso_clothes_sleeveless_sleeveless2_vneck_male.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ],
+   "female": [
+    {
+     "file": "torso_clothes_sleeveless_sleeveless2_vneck_female.lpl",
+     "z": 30,
+     "tint": "top"
+    }
+   ]
+  }
+ ],
+ "legs": [
+  {
+   "name": "navy pants",
+   "rgb": [
+    38,
+    42,
+    68
+   ],
+   "male": [
+    {
+     "file": "legs_pants_male.lpl",
+     "z": 22,
+     "tint": [
+      38,
+      42,
+      68
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_pants_thin.lpl",
+     "z": 22,
+     "tint": [
+      38,
+      42,
+      68
+     ]
+    }
+   ]
+  },
+  {
+   "name": "black pants",
+   "rgb": [
+    30,
+    30,
+    36
+   ],
+   "male": [
+    {
+     "file": "legs_pants_male.lpl",
+     "z": 22,
+     "tint": [
+      30,
+      30,
+      36
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_pants_thin.lpl",
+     "z": 22,
+     "tint": [
+      30,
+      30,
+      36
+     ]
+    }
+   ]
+  },
+  {
+   "name": "brown pants",
+   "rgb": [
+    84,
+    64,
+    38
+   ],
+   "male": [
+    {
+     "file": "legs_pants_male.lpl",
+     "z": 22,
+     "tint": [
+      84,
+      64,
+      38
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_pants_thin.lpl",
+     "z": 22,
+     "tint": [
+      84,
+      64,
+      38
+     ]
+    }
+   ]
+  },
+  {
+   "name": "grey pants",
+   "rgb": [
+    92,
+    92,
+    104
+   ],
+   "male": [
+    {
+     "file": "legs_pants2_male.lpl",
+     "z": 22,
+     "tint": [
+      92,
+      92,
+      104
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_pants2_thin.lpl",
+     "z": 22,
+     "tint": [
+      92,
+      92,
+      104
+     ]
+    }
+   ]
+  },
+  {
+   "name": "khaki pants",
+   "rgb": [
+    150,
+    128,
+    82
+   ],
+   "male": [
+    {
+     "file": "legs_pants2_male.lpl",
+     "z": 22,
+     "tint": [
+      150,
+      128,
+      82
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_pants2_thin.lpl",
+     "z": 22,
+     "tint": [
+      150,
+      128,
+      82
+     ]
+    }
+   ]
+  },
+  {
+   "name": "jeans",
+   "rgb": [
+    52,
+    78,
+    132
+   ],
+   "male": [
+    {
+     "file": "legs_cuffed_male.lpl",
+     "z": 22,
+     "tint": [
+      52,
+      78,
+      132
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_cuffed_thin.lpl",
+     "z": 22,
+     "tint": [
+      52,
+      78,
+      132
+     ]
+    }
+   ]
+  },
+  {
+   "name": "shorts",
+   "rgb": [
+    106,
+    78,
+    48
+   ],
+   "male": [
+    {
+     "file": "legs_shorts_shorts_male.lpl",
+     "z": 22,
+     "tint": [
+      106,
+      78,
+      48
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_shorts_shorts_thin.lpl",
+     "z": 22,
+     "tint": [
+      106,
+      78,
+      48
+     ]
+    }
+   ]
+  },
+  {
+   "name": "leggings",
+   "rgb": [
+    34,
+    30,
+    46
+   ],
+   "male": [
+    {
+     "file": "legs_leggings_male.lpl",
+     "z": 22,
+     "tint": [
+      34,
+      30,
+      46
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_leggings_thin.lpl",
+     "z": 22,
+     "tint": [
+      34,
+      30,
+      46
+     ]
+    }
+   ]
+  },
+  {
+   "name": "red skirt",
+   "rgb": [
+    146,
+    42,
+    44
+   ],
+   "male": [
+    {
+     "file": "legs_skirts_plain_male.lpl",
+     "z": 22,
+     "tint": [
+      146,
+      42,
+      44
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_skirts_plain_thin.lpl",
+     "z": 22,
+     "tint": [
+      146,
+      42,
+      44
+     ]
+    }
+   ]
+  },
+  {
+   "name": "formal",
+   "rgb": [
+    36,
+    36,
+    44
+   ],
+   "male": [
+    {
+     "file": "legs_formal_male.lpl",
+     "z": 22,
+     "tint": [
+      36,
+      36,
+      44
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "legs_formal_thin.lpl",
+     "z": 22,
+     "tint": [
+      36,
+      36,
+      44
+     ]
+    }
+   ]
+  }
+ ],
+ "shoes": [
+  {
+   "name": "shoes",
+   "rgb": [
+    38,
+    30,
+    34
+   ],
+   "male": [
+    {
+     "file": "feet_shoes_basic_male.lpl",
+     "z": 20,
+     "tint": [
+      38,
+      30,
+      34
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "feet_shoes_basic_thin.lpl",
+     "z": 20,
+     "tint": [
+      38,
+      30,
+      34
+     ]
+    }
+   ]
+  },
+  {
+   "name": "brown shoes",
+   "rgb": [
+    74,
+    48,
+    30
+   ],
+   "male": [
+    {
+     "file": "feet_shoes_basic_male.lpl",
+     "z": 20,
+     "tint": [
+      74,
+      48,
+      30
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "feet_shoes_basic_thin.lpl",
+     "z": 20,
+     "tint": [
+      74,
+      48,
+      30
+     ]
+    }
+   ]
+  },
+  {
+   "name": "boots",
+   "rgb": [
+    64,
+    44,
+    30
+   ],
+   "male": [
+    {
+     "file": "feet_boots_basic_male.lpl",
+     "z": 20,
+     "tint": [
+      64,
+      44,
+      30
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "feet_boots_basic_thin.lpl",
+     "z": 20,
+     "tint": [
+      64,
+      44,
+      30
+     ]
+    }
+   ]
+  },
+  {
+   "name": "black boots",
+   "rgb": [
+    32,
+    28,
+    34
+   ],
+   "male": [
+    {
+     "file": "feet_boots_fold_male.lpl",
+     "z": 20,
+     "tint": [
+      32,
+      28,
+      34
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "feet_boots_fold_thin.lpl",
+     "z": 20,
+     "tint": [
+      32,
+      28,
+      34
+     ]
+    }
+   ]
+  },
+  {
+   "name": "rimmed boots",
+   "rgb": [
+    90,
+    60,
+    36
+   ],
+   "male": [
+    {
+     "file": "feet_boots_rimmed_male.lpl",
+     "z": 20,
+     "tint": [
+      90,
+      60,
+      36
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "feet_boots_rimmed_thin.lpl",
+     "z": 20,
+     "tint": [
+      90,
+      60,
+      36
+     ]
+    }
+   ]
+  },
+  {
+   "name": "sandals",
+   "rgb": [
+    110,
+    80,
+    50
+   ],
+   "male": [
+    {
+     "file": "feet_sandals_male.lpl",
+     "z": 20,
+     "tint": [
+      110,
+      80,
+      50
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "feet_sandals_thin.lpl",
+     "z": 20,
+     "tint": [
+      110,
+      80,
+      50
+     ]
+    }
+   ]
+  },
+  {
+   "name": "slippers",
+   "rgb": [
+    140,
+    40,
+    40
+   ],
+   "male": [
+    {
+     "file": "feet_slippers_male.lpl",
+     "z": 20,
+     "tint": [
+      140,
+      40,
+      40
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "feet_slippers_thin.lpl",
+     "z": 20,
+     "tint": [
+      140,
+      40,
+      40
+     ]
+    }
+   ]
+  }
+ ],
+ "accessory": [
+  {
+   "name": "none",
+   "male": [],
+   "female": []
+  },
+  {
+   "name": "red cape",
+   "male": [
+    {
+     "file": "cape_solid_bg.lpl",
+     "z": 5,
+     "tint": [
+      150,
+      30,
+      34
+     ]
+    },
+    {
+     "file": "cape_solid_fg.lpl",
+     "z": 40,
+     "tint": [
+      150,
+      30,
+      34
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "cape_solid_bg.lpl",
+     "z": 5,
+     "tint": [
+      150,
+      30,
+      34
+     ]
+    },
+    {
+     "file": "cape_solid_fg.lpl",
+     "z": 40,
+     "tint": [
+      150,
+      30,
+      34
+     ]
+    }
+   ]
+  },
+  {
+   "name": "violet cape",
+   "male": [
+    {
+     "file": "cape_solid_bg.lpl",
+     "z": 5,
+     "tint": [
+      66,
+      36,
+      94
+     ]
+    },
+    {
+     "file": "cape_solid_fg.lpl",
+     "z": 40,
+     "tint": [
+      66,
+      36,
+      94
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "cape_solid_bg.lpl",
+     "z": 5,
+     "tint": [
+      66,
+      36,
+      94
+     ]
+    },
+    {
+     "file": "cape_solid_fg.lpl",
+     "z": 40,
+     "tint": [
+      66,
+      36,
+      94
+     ]
+    }
+   ]
+  },
+  {
+   "name": "tattered cape",
+   "male": [
+    {
+     "file": "cape_tattered_bg.lpl",
+     "z": 5,
+     "tint": [
+      34,
+      32,
+      40
+     ]
+    },
+    {
+     "file": "cape_tattered_fg.lpl",
+     "z": 40,
+     "tint": [
+      34,
+      32,
+      40
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "cape_tattered_bg.lpl",
+     "z": 5,
+     "tint": [
+      34,
+      32,
+      40
+     ]
+    },
+    {
+     "file": "cape_tattered_fg.lpl",
+     "z": 40,
+     "tint": [
+      34,
+      32,
+      40
+     ]
+    }
+   ]
+  },
+  {
+   "name": "hood",
+   "male": [
+    {
+     "file": "hat_cloth_hood_adult.lpl",
+     "z": 60,
+     "tint": [
+      52,
+      40,
+      70
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "hat_cloth_hood_adult.lpl",
+     "z": 60,
+     "tint": [
+      52,
+      40,
+      70
+     ]
+    }
+   ]
+  },
+  {
+   "name": "bandana",
+   "male": [
+    {
+     "file": "hat_cloth_bandana_adult.lpl",
+     "z": 60,
+     "tint": [
+      154,
+      34,
+      38
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "hat_cloth_bandana_adult.lpl",
+     "z": 60,
+     "tint": [
+      154,
+      34,
+      38
+     ]
+    }
+   ]
+  },
+  {
+   "name": "headband",
+   "male": [
+    {
+     "file": "hat_headband_tied_adult.lpl",
+     "z": 60,
+     "tint": [
+      154,
+      34,
+      38
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "hat_headband_tied_adult.lpl",
+     "z": 60,
+     "tint": [
+      154,
+      34,
+      38
+     ]
+    }
+   ]
+  },
+  {
+   "name": "rune band",
+   "male": [
+    {
+     "file": "hat_headband_thick_adult.lpl",
+     "z": 60,
+     "tint": [
+      40,
+      60,
+      130
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "hat_headband_thick_adult.lpl",
+     "z": 60,
+     "tint": [
+      40,
+      60,
+      130
+     ]
+    }
+   ]
+  },
+  {
+   "name": "leather cap",
+   "male": [
+    {
+     "file": "hat_cloth_leather_cap_adult.lpl",
+     "z": 60,
+     "tint": [
+      120,
+      84,
+      50
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "hat_cloth_leather_cap_adult.lpl",
+     "z": 60,
+     "tint": [
+      120,
+      84,
+      50
+     ]
+    }
+   ]
+  },
+  {
+   "name": "wizard hat",
+   "male": [
+    {
+     "file": "hat_magic_wizard_base_adult.lpl",
+     "z": 60,
+     "tint": [
+      60,
+      50,
+      130
+     ]
+    },
+    {
+     "file": "hat_magic_wizard_belt_adult.lpl",
+     "z": 60,
+     "tint": [
+      176,
+      140,
+      56
+     ]
+    }
+   ],
+   "female": [
+    {
+     "file": "hat_magic_wizard_base_adult.lpl",
+     "z": 60,
+     "tint": [
+      60,
+      50,
+      130
+     ]
+    },
+    {
+     "file": "hat_magic_wizard_belt_adult.lpl",
+     "z": 60,
+     "tint": [
+      176,
+      140,
+      56
+     ]
+    }
+   ]
+  },
+  {
+   "name": "glasses",
+   "male": [
+    {
+     "file": "facial_glasses_round_adult.lpl",
+     "z": 45,
+     "tint": null
+    }
+   ],
+   "female": [
+    {
+     "file": "facial_glasses_round_adult.lpl",
+     "z": 45,
+     "tint": null
+    }
+   ]
+  },
+  {
+   "name": "sunglasses",
+   "male": [
+    {
+     "file": "facial_glasses_sunglasses_adult.lpl",
+     "z": 45,
+     "tint": null
+    }
+   ],
+   "female": [
+    {
+     "file": "facial_glasses_sunglasses_adult.lpl",
+     "z": 45,
+     "tint": null
+    }
+   ]
+  },
+  {
+   "name": "eyepatch",
+   "male": [
+    {
+     "file": "facial_patches_eyepatch_ambi_adult.lpl",
+     "z": 45,
+     "tint": null
+    }
+   ],
+   "female": [
+    {
+     "file": "facial_patches_eyepatch_ambi_adult.lpl",
+     "z": 45,
+     "tint": null
+    }
+   ]
+  }
+ ],
+ "bases": [
+  {
+   "name": "Hero",
+   "body": "male",
+   "cg": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Duelist",
+   "body": "female",
+   "cg": [
+    2,
+    17,
+    4,
+    4,
+    5,
+    7,
+    3,
+    6
+   ]
+  },
+  {
+   "name": "Rogue",
+   "body": "male",
+   "cg": [
+    4,
+    5,
+    1,
+    9,
+    1,
+    2,
+    5,
+    5
+   ]
+  },
+  {
+   "name": "Mystic",
+   "body": "female",
+   "cg": [
+    1,
+    14,
+    1,
+    1,
+    5,
+    1,
+    3,
+    2
+   ]
+  },
+  {
+   "name": "Scholar",
+   "body": "male",
+   "cg": [
+    3,
+    8,
+    3,
+    3,
+    2,
+    4,
+    1,
+    10
+   ]
+  },
+  {
+   "name": "Ranger",
+   "body": "female",
+   "cg": [
+    5,
+    10,
+    2,
+    2,
+    7,
+    5,
+    4,
+    3
+   ]
+  }
+ ]
+}

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 extern uint16_t *SoftGpu_Bank(int bank);
 extern const char *HdText_PlayerName(void);
@@ -77,21 +78,23 @@ const char *Ui_MessageText(void) { return ui_message_timer > 0 ? ui_message : NU
 unsigned Ui_MessageColour(void) { return message_rgb; }
 
 /* -------------------------------------------------------- character creator
- * Four steps (Base, Appearance, Name, Confirm) in the layout of a modern creator: a top bar with the step tracker, the bases on the left
- * with the small in-game sprite, the assembled hero big in the middle on a glowing ring, the tabs (Hair, Outfit, Colour, Accessories) with
- * an option grid and colour swatches on the right, Back / Next at the bottom with small key hints.  Everything is drawn in the overlay
- * from the texels themselves (the composed hero page, the portraits, the LPC sheet), nearest-neighbour, so it is crisp at any window size.
- * Keys (keyboard default): arrows move, Q / E (L1 / L2, also W = R1) switch tabs, X or Enter = next, S (Circle) = back, R (R2) turns the
- * sprite, Z (Square) switches the big view between sprite and portrait. */
+ * Four steps (Base, Appearance, Name, Confirm) laid out like a console RPG creator: the JOURNEY MODE plate, the title plate and a step
+ * tracker of round gold nodes on top; "Choose base" on the left (busts of ready-made LPC heroes) above the small in-game sprite walking;
+ * the hero big in the middle on a magic circle, over the castle plaza blurred (assets/ui/chargen_bg.raw, tools/bake_chargen_ui.py);
+ * on the right tabs with pixel icons (Hair, Outfit, Colour, Accessories, Legs, Shoes), a 5x2 grid of busts wearing each option with page
+ * arrows and dots, and round colour swatches; a dark "< Back" pill, the key hints in a rounded bar and a gold "Next >" pill at the bottom.
+ * Everything is drawn in the overlay (fills) from the composed LPC texels (jm_chargen.c), so no texture bank is used by the screen.
+ * Keys (keyboard default): arrows move, Q / E (L1 / L2, also W = R1) switch tabs, X or Enter next, S (Circle) back, R turns the sprite,
+ * Z switches the big view (sprite / portrait).  Escape stays the host's exit key. */
 enum { C_HAIR, C_HAIR_COL, C_SKIN, C_OUTFIT, C_ROWS };
-enum { CG_SKIN_, CG_OUTFIT_, CG_OUTFIT_COL_, CG_HAIR_, CG_HAIR_COL_, CG_ACC_, CG_ACC_COL_ };   /* jm_chargen.c's category order */
+enum { K_SKIN, K_HAIR, K_HAIR_COL, K_TOP, K_TOP_COL, K_LEGS, K_SHOES, K_ACC };     /* jm_chargen.c's categories */
 enum { STEP_BASE, STEP_LOOK, STEP_NAME, STEP_CONFIRM, STEP_N };
-enum { TAB_HAIR, TAB_OUTFIT, TAB_COLOUR, TAB_ACC, TAB_N };
-#define GRID_COLS 4
+enum { TAB_HAIR, TAB_OUTFIT, TAB_COLOUR, TAB_ACC, TAB_LEGS, TAB_SHOES, TAB_N };
+#define GRID_COLS 5
 #define GRID_ROWS 2
-static int step, tab, sect, base_sect, view_portrait, turn_dir, done_mask;
+#define GRID_PAGE (GRID_COLS * GRID_ROWS)
+static int step, tab, sect, base_row, base_top, view_portrait, turn_dir, done_mask;
 static int cg_t;
-static unsigned cg_sig = ~0u;                 /* the choice the hero page was composed for */
 extern int jm_name_entry_requested;
 
 static const int HAIR_RGB[5] = {0x5A2A78, 0x1C1C22, 0x6A4020, 0xE0C050, 0xB82818};
@@ -115,20 +118,22 @@ const char *Ui_BodyMesh(void)
     return jm.gender ? female[jm.hair % 3] : male[jm.hair % 3];
 }
 
-/* the tabs with data, and the sections of each: a style grid (or none) then the colour rows */
-static int tab_grid(int t) { return t == TAB_HAIR ? CG_HAIR_ : t == TAB_OUTFIT ? CG_OUTFIT_ : t == TAB_ACC ? CG_ACC_ : -1; }
+/* a tab's grid category (or -1) and its swatch rows */
+static int tab_grid(int t)
+{
+    switch (t) { case TAB_HAIR: return K_HAIR; case TAB_OUTFIT: return K_TOP; case TAB_ACC: return K_ACC; case TAB_LEGS: return K_LEGS; case TAB_SHOES: return K_SHOES; }
+    return -1;
+}
 static int tab_cols(int t, int out[4])
 {
     int n = 0;
-    if (t == TAB_HAIR) out[n++] = CG_HAIR_COL_;
-    else if (t == TAB_OUTFIT) out[n++] = CG_OUTFIT_COL_;
-    else if (t == TAB_ACC) { if (Cg_OptCount(CG_ACC_COL_) > 0) out[n++] = CG_ACC_COL_; }
-    else { out[n++] = CG_SKIN_; out[n++] = CG_HAIR_COL_; out[n++] = CG_OUTFIT_COL_; if (Cg_OptCount(CG_ACC_COL_) > 0) out[n++] = CG_ACC_COL_; }
+    if (t == TAB_HAIR) out[n++] = K_HAIR_COL;
+    else if (t == TAB_OUTFIT) out[n++] = K_TOP_COL;
+    else if (t == TAB_COLOUR) { out[n++] = K_SKIN; out[n++] = K_HAIR_COL; out[n++] = K_TOP_COL; }
     return n;
 }
-static int tab_has(int t) { int c[4]; return Cg_Ready() && ((tab_grid(t) >= 0 && Cg_OptCount(tab_grid(t)) > 0) || tab_cols(t, c) > 0); }
-static int grid_rows_of(int t) { int g = tab_grid(t), n = g >= 0 ? Cg_OptCount(g) : 0, r; if (!n) return 0; r = (n + GRID_COLS - 1) / GRID_COLS; return r; }
-/* sections of the tab: rows of the grid first (one section per grid row), then each colour row */
+static int tab_has(int t) { int c[4], g = tab_grid(t); return Cg_Ready() && ((g >= 0 && Cg_OptCount(g) > 0) || tab_cols(t, c) > 0); }
+static int grid_rows_of(int t) { int g = tab_grid(t); return g >= 0 && Cg_OptCount(g) > 0 ? GRID_ROWS : 0; }
 static int sect_count(void) { int c[4]; return grid_rows_of(tab) + tab_cols(tab, c); }
 static int sect_cat(int s, int *is_grid)
 {
@@ -141,21 +146,13 @@ static int sect_cat(int s, int *is_grid)
 
 void Ui_StartCreate(void)
 {
-    step = STEP_BASE; tab = TAB_HAIR; sect = 0; base_sect = 0; view_portrait = 0; turn_dir = 0; done_mask = 0;
+    step = STEP_BASE; tab = TAB_HAIR; sect = 0; base_row = 0; base_top = 0; view_portrait = 0; turn_dir = 0; done_mask = 0;
     cg_t = 0;
-    cg_sig = ~0u;
     Cg_Defaults();
-    if (Cg_Ready()) Cg_SetStyle(0);           /* the creator customises the layered hero; the LPC sprite stays one choice away on Base */
-    while (!tab_has(tab) && tab < TAB_N - 1) tab++;
+    if (Cg_BaseCount() > 0) Cg_ApplyBase(0);
 }
 
-static void set_cat(int c, int v, int d)
-{
-    int tries = Cg_OptCount(c);
-    Cg_Set(c, v);
-    while (Cg_Avoided() && tries-- > 0) Cg_Set(c, Cg_Get(c) + d);        /* skip hair + accessory pairs the art marks as clashing */
-    cg_t = 0;
-}
+static void set_cat(int c, int v) { Cg_Set(c, v); cg_t = 0; }
 
 static void change_tab(int d)
 {
@@ -164,46 +161,46 @@ static void change_tab(int d)
     sect = 0;
 }
 
-static int look_input(unsigned short edge)
+static void look_input(unsigned short edge)
 {
-    int is_grid, c, n, v;
-    if (edge & (PAD_L1)) change_tab(-1);
+    int is_grid, c, n, v, cnt, gr;
+    if (edge & PAD_L1) change_tab(-1);
     if (edge & (PAD_R1 | PAD_L2)) change_tab(1);
     n = sect_count();
-    if (!n) return 0;
+    if (!n) return;
     if (sect >= n) sect = n - 1;
     c = sect_cat(sect, &is_grid);
-    if (c < 0) return 0;
-    v = Cg_Get(c);
+    if (c < 0) return;
+    v = Cg_Get(c); cnt = Cg_OptCount(c); gr = grid_rows_of(tab);
+    if (cnt <= 0) return;
     if (is_grid) {
-        int cnt = Cg_OptCount(c), gr = grid_rows_of(tab);
-        if (edge & PAD_LEFT) set_cat(c, (v + cnt - 1) % cnt, -1);
-        if (edge & PAD_RIGHT) set_cat(c, (v + 1) % cnt, 1);
-        if (edge & PAD_UP) { if (v - GRID_COLS >= 0) { set_cat(c, v - GRID_COLS, -1); sect = (v - GRID_COLS) / GRID_COLS; } }
+        int row = (v % GRID_PAGE) / GRID_COLS;
+        if (edge & PAD_LEFT) set_cat(c, (v + cnt - 1) % cnt);
+        if (edge & PAD_RIGHT) set_cat(c, (v + 1) % cnt);
+        if ((edge & PAD_UP) && row > 0) set_cat(c, v - GRID_COLS);
         if (edge & PAD_DOWN) {
-            if (v + GRID_COLS < cnt) { set_cat(c, v + GRID_COLS, 1); sect = (v + GRID_COLS) / GRID_COLS; }
-            else if (n > gr) sect = gr;
+            if (row < GRID_ROWS - 1 && v + GRID_COLS < cnt && (v + GRID_COLS) / GRID_PAGE == v / GRID_PAGE) set_cat(c, v + GRID_COLS);
+            else if (n > gr) { sect = gr; return; }
         }
-        if (is_grid && sect < gr) sect = Cg_Get(c) / GRID_COLS;     /* the grid section follows the selected tile */
+        sect = (Cg_Get(c) % GRID_PAGE) / GRID_COLS;           /* the grid section follows the selected tile */
     } else {
-        int cnt = Cg_OptCount(c), gr = grid_rows_of(tab);
-        if (cnt > 0 && (edge & PAD_LEFT)) set_cat(c, (v + cnt - 1) % cnt, -1);
-        if (cnt > 0 && (edge & PAD_RIGHT)) set_cat(c, (v + 1) % cnt, 1);
-        if (edge & PAD_UP) { if (sect > gr) sect--; else if (gr) sect = Cg_Get(tab_grid(tab)) / GRID_COLS; }
-        if (edge & PAD_DOWN) { if (sect < n - 1) sect++; }
+        if (edge & PAD_LEFT) set_cat(c, (v + cnt - 1) % cnt);
+        if (edge & PAD_RIGHT) set_cat(c, (v + 1) % cnt);
+        if (edge & PAD_UP) { if (sect > gr) sect--; else if (gr) sect = (Cg_Get(tab_grid(tab)) % GRID_PAGE) / GRID_COLS; }
+        if ((edge & PAD_DOWN) && sect < n - 1) sect++;
     }
-    return 0;
 }
 
 static void base_input(unsigned short edge)
 {
-    int d = edge & PAD_LEFT ? -1 : edge & PAD_RIGHT ? 1 : 0;
-    if (edge & PAD_UP) base_sect = (base_sect + 2) % 3;
-    if (edge & PAD_DOWN) base_sect = (base_sect + 1) % 3;
+    int d = edge & PAD_LEFT ? -1 : edge & PAD_RIGHT ? 1 : 0, nb = Cg_BaseCount();
+    if (edge & PAD_UP) base_row = (base_row + 2) % 3;
+    if (edge & PAD_DOWN) base_row = (base_row + 1) % 3;
     if (!d) return;
-    if (base_sect == 0) jm.portrait = (jm.portrait + d + 4) % 4;
-    else if (base_sect == 1) jm.gender ^= 1;
-    else if (Cg_Ready()) { Cg_SetStyle(!Cg_Style()); cg_t = 0; }
+    if (base_row == 0 && nb > 0) { int b = Cg_MatchBase(); Cg_ApplyBase(((b < 0 ? base_top : b) + d + nb) % nb); }
+    else if (base_row == 1) jm.gender ^= 1;
+    else jm.portrait = (jm.portrait + d + 4) % 4;
+    cg_t = 0;
 }
 
 /* 1 = begin the journey, 2 = back to the title */
@@ -224,7 +221,7 @@ int Ui_CreateInput(unsigned short edge)
         break;
     case STEP_CONFIRM:
         if (edge & (PAD_CROSS | PAD_START)) {
-            if (jm.name[0]) return 1;
+            if (jm.name[0]) { jm.cg_set = 1; return 1; }
             step = STEP_NAME;
             return 0;
         }
@@ -245,15 +242,15 @@ void Ui_RefreshName(void)
     if (n && n[0]) { strncpy(jm.name, n, sizeof(jm.name) - 1); jm.name[sizeof(jm.name) - 1] = 0; }
 }
 
-/* In the frame hook: a dim backdrop, and the hero's page composed when the choice changed.  The rest is the overlay. */
+/* In the frame hook: only a dark backdrop (the overlay paints the whole screen). */
+static unsigned logged_sig = ~0u;
 void Ui_DrawCreate(void)
 {
     cg_t++;
     Gfx_Backdrop(0x0A0A22, 0x1E1642);
-    if (Cg_Ready() && cg_sig != Cg_Signature()) {
-        Cg_Compose(13, 2);
-        cg_sig = Cg_Signature();
-        LOG("journey: creator look %d %d %d %d %d %d %d", jm.cg[0], jm.cg[1], jm.cg[2], jm.cg[3], jm.cg[4], jm.cg[5], jm.cg[6]);
+    if (Cg_Ready() && logged_sig != Cg_Signature()) {
+        logged_sig = Cg_Signature();
+        LOG("journey: creator look %d %d %d %d %d %d %d %d body %d", jm.cg[0], jm.cg[1], jm.cg[2], jm.cg[3], jm.cg[4], jm.cg[5], jm.cg[6], jm.cg[7], jm.gender);
     }
     Gfx_End();
 }
@@ -268,30 +265,90 @@ static void frame_r(int x, int y, int w, int h, int t, unsigned rgb, unsigned a)
     fillr(x, y, w, t, rgb, a); fillr(x, y + h - t, w, t, rgb, a);
     fillr(x, y + t, t, h - 2 * t, rgb, a); fillr(x + w - t, y + t, t, h - 2 * t, rgb, a);
 }
-/* a dark navy panel with a thin gold border and cut corners */
-static void cpanel(int x, int y, int w, int h, int strong)
+static unsigned mix(unsigned a, unsigned b, int t, int n)      /* a..b at t/n */
 {
-    int c = DS(6), t = DS(strong ? 2 : 1);
-    fillr(x + c, y, w - 2 * c, h, 0x12133A, 228);
-    fillr(x, y + c, c, h - 2 * c, 0x12133A, 228);
-    fillr(x + w - c, y + c, c, h - 2 * c, 0x12133A, 228);
-    fillr(x + c, y, w - 2 * c, t, 0xC8A03C, strong ? 255 : 170);
-    fillr(x + c, y + h - t, w - 2 * c, t, 0xC8A03C, strong ? 255 : 170);
-    fillr(x, y + c, t, h - 2 * c, 0xC8A03C, strong ? 255 : 170);
-    fillr(x + w - t, y + c, t, h - 2 * c, 0xC8A03C, strong ? 255 : 170);
+    int r = (int)(a >> 16 & 255) + ((int)(b >> 16 & 255) - (int)(a >> 16 & 255)) * t / n;
+    int g = (int)(a >> 8 & 255) + ((int)(b >> 8 & 255) - (int)(a >> 8 & 255)) * t / n;
+    int bl = (int)(a & 255) + ((int)(b & 255) - (int)(a & 255)) * t / n;
+    return (unsigned)(r << 16 | g << 8 | bl);
+}
+static void vgrad(int x, int y, int w, int h, unsigned top, unsigned bot, unsigned a)
+{
+    int k, band = DS(4);
+    for (k = 0; k < h; k += band) fillr(x, y + k, w, k + band > h ? h - k : band, mix(top, bot, k, h > 1 ? h : 1), a);
+}
+static void disc(int cx, int cy, int rx, int ry, unsigned rgb, unsigned a)          /* a filled ellipse */
+{
+    int y;
+    if (rx < 1 || ry < 1) return;
+    for (y = -ry; y <= ry; y++) {
+        float f = 1.0f - (float)(y * y) / (float)(ry * ry);
+        int hw = (int)(rx * sqrtf(f > 0 ? f : 0) + 0.5f);
+        if (hw > 0) fillr(cx - hw, cy + y, hw * 2, 1, rgb, a);
+    }
+}
+static void ring(int cx, int cy, int rx, int ry, int t, unsigned rgb, unsigned a)  /* an ellipse outline t thick */
+{
+    int y, irx = rx - t, iry = ry - t;
+    for (y = -ry; y <= ry; y++) {
+        float f = 1.0f - (float)(y * y) / (float)(ry * ry), fi;
+        int hw = (int)(rx * sqrtf(f > 0 ? f : 0) + 0.5f), iw = 0;
+        if (iry > 0 && y > -iry && y < iry) { fi = 1.0f - (float)(y * y) / (float)(iry * iry); iw = (int)(irx * sqrtf(fi > 0 ? fi : 0) + 0.5f); }
+        if (hw <= 0) continue;
+        if (iw <= 0) fillr(cx - hw, cy + y, hw * 2, 1, rgb, a);
+        else { fillr(cx - hw, cy + y, hw - iw, 1, rgb, a); fillr(cx + iw, cy + y, hw - iw, 1, rgb, a); }
+    }
+}
+static void diamond(int cx, int cy, int r, unsigned rgb, unsigned a)
+{
+    int k;
+    for (k = -r; k <= r; k++) { int hw = r - (k < 0 ? -k : k); if (hw > 0) fillr(cx - hw, cy + k, hw * 2, 1, rgb, a); }
+}
+static void corner_orn(int cx, int cy)
+{
+    int r = DS(9);
+    diamond(cx, cy, r + DS(2), 0x4A3008, 255);
+    diamond(cx, cy, r, 0xE6BC52, 255);
+    diamond(cx, cy, r - DS(4), 0x6A3CC8, 255);
+    fillr(cx - DS(1), cy - r + DS(4), DS(2), DS(2), 0xFFF0C0, 255);
+}
+/* ornate panel: navy-to-purple gradient, a thick bevelled gold border, corner gems */
+static void opanel(int x, int y, int w, int h, int active)
+{
+    int t = DS(3);
+    if (active) frame_r(x - DS(4), y - DS(4), w + DS(8), h + DS(8), DS(3), 0xE8C050, 70);
+    fillr(x + DS(5), y + DS(6), w, h, 0x000000, 110);                         /* drop shadow */
+    vgrad(x, y, w, h, 0x1C1B52, 0x100D2E, 236);
+    frame_r(x, y, w, h, DS(1), 0x3A2606, 255);
+    frame_r(x + DS(1), y + DS(1), w - DS(2), h - DS(2), t, active ? 0xE8C050 : 0xC09032, 255);
+    fillr(x + DS(1), y + DS(1), w - DS(2), DS(1), 0xFFE8A0, 255);              /* bevel light */
+    fillr(x + DS(1), y + DS(1), DS(1), h - DS(2), 0xFFE8A0, 200);
+    frame_r(x + DS(1) + t, y + DS(1) + t, w - DS(2) - 2 * t, h - DS(2) - 2 * t, DS(1), 0x4A3008, 255);
+    fillr(x + DS(1) + t + DS(1), y + DS(1) + t + DS(1), w - 2 * t - DS(4), DS(1), 0x3C3C8C, 200);   /* inner sheen */
+    corner_orn(x + DS(2), y + DS(2)); corner_orn(x + w - DS(2), y + DS(2));
+    corner_orn(x + DS(2), y + h - DS(2)); corner_orn(x + w - DS(2), y + h - DS(2));
+}
+/* a pill (rounded ends); gold = the Next button */
+static void pill(int x, int y, int w, int h, int gold, int lit)
+{
+    int r = h / 2;
+    unsigned edge = gold ? 0xFFF0B0 : (lit ? 0xE8C050 : 0xA07828), top = gold ? 0xFFDC6A : 0x262660, bot = gold ? 0xC8901E : 0x12123A;
+    disc(x + r, y + r, r + DS(2), r + DS(2), 0x000000, 90);
+    disc(x + w - r, y + r, r + DS(2), r + DS(2), 0x000000, 90);
+    disc(x + r, y + r, r, r, edge, 255); disc(x + w - r, y + r, r, r, edge, 255); fillr(x + r, y, w - 2 * r, h, edge, 255);
     {
-        int k;
-        for (k = 0; k < c; k++) {                     /* the diagonal corners */
-            fillr(x + c - k, y + k, t, t, 0xC8A03C, strong ? 255 : 170);
-            fillr(x + w - c + k - t, y + k, t, t, 0xC8A03C, strong ? 255 : 170);
-            fillr(x + c - k, y + h - k - t, t, t, 0xC8A03C, strong ? 255 : 170);
-            fillr(x + w - c + k - t, y + h - k - t, t, t, 0xC8A03C, strong ? 255 : 170);
+        int i, ih = h - 2 * DS(2), ir = ih / 2, iy = y + DS(2);
+        for (i = 0; i < ih; i++) {
+            float f = 1.0f - (float)((i - ir) * (i - ir)) / (float)(ir * ir);
+            int hw = (int)(ir * sqrtf(f > 0 ? f : 0) + 0.5f);
+            fillr(x + r - hw, iy + i, w - 2 * r + 2 * hw, 1, mix(top, bot, i, ih), 255);
         }
     }
 }
 static int tw(const char *s, int sc) { return jm_host->text_width(jm_host, s, sc); }
 static int small_s(void) { return ui_s > 2 ? ui_s - 1 : ui_s; }
 static void text_c(int cx, int my, const char *s, unsigned rgb, int sc) { jm_host->draw_text(jm_host, cx - tw(s, sc) / 2, my, s, rgb, sc); }
+static void text_sh(int x, int my, const char *s, unsigned rgb, int sc) { jm_host->draw_text(jm_host, x + DS(2), my + DS(2), s, 0x000000, sc); jm_host->draw_text(jm_host, x, my, s, rgb, sc); }
 static void text_fit(int x, int my, int maxw, const char *s, unsigned rgb, int sc)       /* shrinks, then cuts, a label to a width */
 {
     char b[64];
@@ -302,79 +359,19 @@ static void text_fit(int x, int my, int maxw, const char *s, unsigned rgb, int s
     while (n > 1 && tw(b, sc) > maxw) b[--n] = 0;
     jm_host->draw_text(jm_host, x, my, b, rgb, sc);
 }
+static void text_cfit(int cx, int my, int maxw, const char *s, unsigned rgb, int sc)
+{
+    while (sc > 1 && tw(s, sc) > maxw) sc--;
+    text_c(cx, my, s, rgb, sc);
+}
 static unsigned rgb555(uint16_t v) { return ((v & 31) * 255 / 31) << 16 | ((v >> 5 & 31) * 255 / 31) << 8 | ((v >> 10 & 31) * 255 / 31); }
-/* texels (stride 1024, 0 = clear) at an integer zoom, one fill per run of equal texels */
-static void blit(const uint16_t *src, int w, int h, int dx, int dy, int z)
+/* texels (any stride, 0 = clear) at an integer zoom, one fill per run of equal texels */
+static void blit(const uint16_t *src, int stride, int x0, int y0, int w, int h, int dx, int dy, int z)
 {
     int y, x;
     if (!src) return;
     for (y = 0; y < h; y++) {
-        const uint16_t *r = src + (size_t)y * 1024;
-        for (x = 0; x < w;) {
-            int x1 = x + 1;
-            if (!(r[x] & 0x7FFF) && !(r[x] & 0x8000)) { x++; continue; }
-            while (x1 < w && r[x1] == r[x]) x1++;
-            fillr(dx + x * z, dy + y * z, (x1 - x) * z, z, rgb555(r[x]), 255);
-            x = x1;
-        }
-    }
-}
-/* the drawn rows of a sprite frame (its top and bottom), for framing a crop */
-static void bounds(const uint16_t *src, int w, int h, int *top, int *bot)
-{
-    int y, x;
-    *top = h; *bot = 0;
-    for (y = 0; y < h; y++) for (x = 0; x < w; x++) if (src[(size_t)y * 1024 + x]) { if (y < *top) *top = y; *bot = y; break; }
-    if (*top > *bot) { *top = 0; *bot = h - 1; }
-}
-static void check_mark(int x, int y, int sz)
-{
-    int k, t = sz / 6 < 1 ? 1 : sz / 6;
-    fillr(x, y, sz, sz, 0xE8C050, 255);
-    for (k = 0; k < sz / 3; k++) fillr(x + sz / 5 + k, y + sz / 2 + k - t, t, t * 2, 0x1A1430, 255);
-    for (k = 0; k < sz / 2; k++) fillr(x + sz / 5 + sz / 3 + k, y + sz / 2 + sz / 3 - k - t * 2, t, t * 2, 0x1A1430, 255);
-}
-static void glow_ellipse(int cx, int cy, int rx, int ry, unsigned rgb, unsigned a)
-{
-    int y;
-    for (y = -ry; y <= ry; y++) {
-        float f = 1.0f - (float)(y * y) / (float)(ry * ry);
-        int hw = (int)(rx * sqrtf(f > 0 ? f : 0));
-        if (hw > 0) fillr(cx - hw, cy + y, hw * 2, 1, rgb, a);
-    }
-}
-static const uint16_t *hero_frame(int dir, int fr) { uint16_t *b = SoftGpu_Bank(13); return b ? b + (size_t)(dir * 64) * 1024 + 512 + fr * 48 : NULL; }
-static const uint16_t *portrait_px(int i) { uint16_t *b = SoftGpu_Bank(BANK); return b ? b + (size_t)PORT_Y * 1024 + PORT_X + (i & 3) * 48 : NULL; }
-
-/* option tiles: the hero composed with that option, cached per look */
-#define TILE_MAX 16
-static uint16_t tile_scratch[1024 * 256];
-static struct { unsigned sig; int ok; uint16_t px[62][48]; } tiles[TILE_MAX];
-static const uint16_t *tile_of(int c, int o, int slot)
-{
-    unsigned char keep[8];
-    unsigned sig;
-    int y;
-    if (slot < 0 || slot >= TILE_MAX) return NULL;
-    memcpy(keep, jm.cg, sizeof(keep));
-    jm.cg[c] = (unsigned char)o;
-    if (c == CG_OUTFIT_ || c == CG_ACC_) jm.cg[c + 1] = keep[c] == o ? keep[c + 1] : 0;
-    sig = Cg_Signature() * 7u + (unsigned)c;
-    if (!tiles[slot].ok || tiles[slot].sig != sig) {
-        memset(tile_scratch, 0, sizeof(tile_scratch));
-        Cg_ComposeTo(tile_scratch);
-        for (y = 0; y < 62; y++) memcpy(tiles[slot].px[y], tile_scratch + (size_t)y * 1024, 48 * sizeof(uint16_t));
-        tiles[slot].sig = sig; tiles[slot].ok = 1;
-    }
-    memcpy(jm.cg, keep, sizeof(keep));
-    return &tiles[slot].px[0][0];
-}
-/* a tile's texels are 48 wide, not 1024: blit with stride 48 */
-static void blit48(const uint16_t *src, int x0, int w, int y0, int h, int dx, int dy, int z)
-{
-    int y, x;
-    for (y = 0; y < h; y++) {
-        const uint16_t *r = src + (size_t)(y0 + y) * 48 + x0;
+        const uint16_t *r = src + (size_t)(y0 + y) * stride + x0;
         for (x = 0; x < w;) {
             int x1 = x + 1;
             if (!r[x]) { x++; continue; }
@@ -384,312 +381,424 @@ static void blit48(const uint16_t *src, int x0, int w, int y0, int h, int dx, in
         }
     }
 }
+static void check_badge(int x, int y, int sz)
+{
+    int k, t = sz / 7 < 1 ? 1 : sz / 7;
+    disc(x + sz / 2, y + sz / 2, sz / 2 + DS(1), sz / 2 + DS(1), 0x3A2606, 255);
+    disc(x + sz / 2, y + sz / 2, sz / 2, sz / 2, 0xF0C850, 255);
+    for (k = 0; k < sz / 4; k++) fillr(x + sz / 4 + k, y + sz / 2 + k - t, t + 1, t + 1, 0x241A08, 255);
+    for (k = 0; k < sz * 2 / 5; k++) fillr(x + sz / 4 + sz / 4 + k, y + sz / 2 + sz / 4 - k - t, t + 1, t + 1, 0x241A08, 255);
+}
+static const uint16_t *portrait_px(int i) { uint16_t *b = SoftGpu_Bank(BANK); return b ? b + (size_t)PORT_Y * 1024 + PORT_X + (i & 3) * 48 : NULL; }
 
-static void key_cap(int *x, int my, const char *key, const char *label)
+/* the backdrop: the castle plaza blurred and tinted, 320x180 scaled to the screen */
+static unsigned char *bg_px;
+static int bg_w, bg_h, bg_tried;
+static void draw_backdrop(void)
 {
-    int ss = small_s(), kw = tw(key, ss) + DS(12), kh = DS(24);
-    fillr(*x, my - kh / 2, kw, kh, 0x2A2C5A, 255);
-    frame_r(*x, my - kh / 2, kw, kh, 1, 0x9090C0, 255);
-    text_c(*x + kw / 2, my, key, 0xFFFFFF, ss);
-    *x += kw + DS(6);
-    jm_host->draw_text(jm_host, *x, my, label, 0xB8B8D8, ss);
-    *x += tw(label, ss) + DS(18);
+    int y, x;
+    if (!bg_tried) {
+        long size;
+        unsigned char *d = Jm_Slurp("assets/ui/chargen_bg.raw", &size);
+        bg_tried = 1;
+        if (d && size > 8 && !memcmp(d, "CGB1", 4)) {
+            bg_w = d[4] | d[5] << 8; bg_h = d[6] | d[7] << 8;
+            if (size >= 8 + (long)bg_w * bg_h * 3) bg_px = d; else free(d);
+        } else free(d);
+    }
+    fillr(0, 0, ui_w, ui_h, 0x07061A, 255);
+    if (!bg_px) { vgrad(0, ui_top, ui_w, ui_vis, 0x1A1440, 0x0A0820, 255); return; }
+    {
+    int cw = ui_w, ch = ui_w * bg_h / bg_w, ox = 0, oy;     /* cover the whole canvas, cropping the sides when it is taller than 16:9 */
+    if (ch < ui_h) { ch = ui_h; cw = ui_h * bg_w / bg_h; ox = (ui_w - cw) / 2; }
+    oy = (ui_h - ch) / 2;
+    for (y = 0; y < bg_h; y++) {
+        int sy = oy + y * ch / bg_h, sh = oy + (y + 1) * ch / bg_h - sy;
+        const unsigned char *r = bg_px + 8 + (size_t)y * bg_w * 3;
+        for (x = 0; x < bg_w; x++) {
+            int sx = ox + x * cw / bg_w, sw = ox + (x + 1) * cw / bg_w - sx;
+            if (sx + sw < 0 || sx > ui_w) continue;
+            fillr(sx, sy, sw, sh, (unsigned)(r[x * 3] << 16 | r[x * 3 + 1] << 8 | r[x * 3 + 2]), 255);
+        }
+    }
+    }
 }
-static int keys_width(const char *const *k, int n)
+
+/* 12x12 pixel icons of the tabs: '#' gold, '+' light, '.' clear */
+static const char *const ICONS[TAB_N][12] = {
+    {"...######...", "..########..", ".####++####.", ".##+....+##.", "##+......+##", "##........##", "##.#....#.##", "#..........#", "#..........#", "##........##", ".#........#.", "............"},  /* hair */
+    {"..##....##..", ".###+..+###.", "####+##+####", "###......###", ".##......##.", "..#......#..", "..#......#..", "..#......#..", "..#......#..", "..#......#..", "..########..", "............"},  /* shirt */
+    {"...######...", ".##......##.", "#..++....+.#", "#.++++..+++#", "#..++.....##", "#.........#.", "#..+++...#..", "#.+++++..##.", "#..+++....##", ".##......##.", "...######...", "............"},  /* palette */
+    {"............", "............", "#..........#", "#..........#", "#####..#####", "#+++#..#+++#", "#+++####+++#", "#+++#..#+++#", "#####..#####", "............", "............", "............"},  /* glasses */
+    {"..########..", "..########..", "..###..###..", "..##....##..", "..##....##..", "..##....##..", "..##....##..", "..##....##..", "..##....##..", "..##....##..", ".###....###.", "............"},  /* trousers */
+    {"....###.....", "....###.....", "....###.....", "....###.....", "....###.....", "....####....", "....######..", "...########.", "..#########.", "..##########", "..##########", "............"},  /* boot */
+};
+static void icon(int cx, int cy, int t, int on)
 {
-    int ss = small_s(), w = 0, i;
-    for (i = 0; i < n; i++) w += tw(k[2 * i], ss) + DS(12) + DS(6) + tw(k[2 * i + 1], ss) + DS(18);
-    return w;
+    int y, x, z = DS(3);
+    unsigned g = on ? 0xF0C850 : 0x8C88B8, l = on ? 0xFFF4C8 : 0xC8C4E8;
+    for (y = 0; y < 12; y++)
+        for (x = 0; x < 12; x++) {
+            char c = ICONS[t][y][x];
+            if (c == '.') continue;
+            fillr(cx - 6 * z + x * z, cy - 6 * z + y * z, z, z, c == '#' ? g : l, 255);
+        }
 }
+
+/* busts and figures of a look (current, a base, or the current with one option changed), cached by look */
+#define TILE_MAX 24
+static struct { unsigned sig; int ok; uint16_t px[64 * 64]; } tiles[TILE_MAX];
+static unsigned look_sig(const unsigned char cg[8], int g, int cell) { unsigned h = (unsigned)g * 977u + (unsigned)cell; int i; for (i = 0; i < 8; i++) h = h * 131u + cg[i]; return h; }
+static const uint16_t *look_cell(const unsigned char cg[8], int g, int cell, int slot)
+{
+    unsigned s = look_sig(cg, g, cell);
+    if (slot < 0 || slot >= TILE_MAX) return NULL;
+    if (!tiles[slot].ok || tiles[slot].sig != s) {
+        if (!Cg_ComposeCell(cg, g, cell, tiles[slot].px)) return NULL;
+        tiles[slot].sig = s; tiles[slot].ok = 1;
+    }
+    return tiles[slot].px;
+}
+/* the 64x64 idle pose of a direction (source resolution) */
+static const uint16_t *look_hi(const unsigned char cg[8], int g, int dir, int slot)
+{
+    unsigned s = look_sig(cg, g, 1000 + dir);
+    if (slot < 0 || slot >= TILE_MAX) return NULL;
+    if (!tiles[slot].ok || tiles[slot].sig != s) {
+        if (!Cg_ComposeHi(cg, g, dir, tiles[slot].px)) return NULL;
+        tiles[slot].sig = s; tiles[slot].ok = 1;
+    }
+    return tiles[slot].px;
+}
+static const uint16_t *option_cell(int c, int o, int slot)
+{
+    unsigned char cg[8];
+    memcpy(cg, jm.cg, 8);
+    cg[c] = (unsigned char)o;
+    return look_hi(cg, jm.gender, 0, slot);
+}
+static const int DIR_OF[4] = {0, 2, 3, 1};          /* turn order: down, right, up, left (cell rows: down, left, right, up) */
 
 static void draw_top(void)
 {
     int i, ss = small_s();
-    fillr(0, DY(0), ui_w, DY(84) - DY(0), 0x080820, 200);
-    fillr(0, DY(84), ui_w, DS(2), 0xC8A03C, 200);
-    jm_host->draw_text(jm_host, DX(40), DY(30), Tr("creation.v2.title"), 0xFFE9A0, ui_s);
-    jm_host->draw_text(jm_host, DX(42), DY(62), Tr("creation.v2.subtitle"), 0x9AA0D0, ss);
+    /* JOURNEY MODE plate */
+    opanel(DX(20), DY(14), DX(210), DY(84) - DY(14), 0);
+    text_c(DX(125), DY(40), "JOURNEY", 0xFFE08A, ui_s);
+    text_c(DX(125), DY(66), "MODE", 0xC8B8F0, ss);
+    diamond(DX(60), DY(66), DS(4), 0xE6BC52, 255); diamond(DX(190), DY(66), DS(4), 0xE6BC52, 255);
+    /* the title plate */
+    opanel(DX(246), DY(14), DX(400), DY(84) - DY(14), 1);
+    text_sh(DX(270), DY(38), Tr("creation.v2.title"), 0xFFE08A, ui_s);
+    fillr(DX(270), DY(55), DX(30), DS(1), 0xC09032, 255);
+    jm_host->draw_text(jm_host, DX(308), DY(64), Tr("creation.v2.subtitle"), 0xB8B4E0, ss);
+    /* the step tracker */
     for (i = 0; i < STEP_N; i++) {
-        int cx = DX(780 + i * 135), cy = DY(30), r = DS(15);
-        unsigned col = i == step ? 0xE8C050 : (done_mask >> i & 1) ? 0xC8C8E0 : 0x6A6C98;
+        int cx = DX(760 + i * 146), cy = DY(36), r = DS(17), done = (done_mask >> i & 1) && i != step;
         char n[4];
-        if (i < STEP_N - 1) fillr(cx + r + DS(4), cy, DX(135) - 2 * r - DS(8), DS(2), (done_mask >> i & 1) ? 0xC8A03C : 0x44466E, 255);
-        glow_ellipse(cx, cy, r, r, col, 255);
-        glow_ellipse(cx, cy, r - DS(3), r - DS(3), i == step ? 0x3A2A10 : 0x14153C, 255);
-        if ((done_mask >> i & 1) && i != step) check_mark(cx - DS(8), cy - DS(8), DS(16));
-        else { snprintf(n, sizeof(n), "%d", i + 1); text_c(cx, cy, n, col, ss); }
-        text_c(cx, DY(64), TrAt("creation.v2.steps", i, "?"), i == step ? 0xFFE9A0 : 0x9A9CC8, ss);
+        if (i < STEP_N - 1) {
+            fillr(cx + r + DS(4), cy - DS(1), DX(146) - 2 * r - DS(8), DS(3), 0x1A1430, 255);
+            fillr(cx + r + DS(4), cy, DX(146) - 2 * r - DS(8), DS(1), (done_mask >> i & 1) ? 0xE8C050 : 0x5A5888, 255);
+        }
+        if (i == step) disc(cx, cy, r + DS(6), r + DS(6), 0xE8C050, 60);
+        disc(cx, cy, r + DS(2), r + DS(2), 0x2A1A06, 255);
+        disc(cx, cy, r, r, i == step || done ? 0xE8C050 : 0x6A6898, 255);
+        disc(cx, cy, r - DS(3), r - DS(3), i == step ? 0xC8901E : 0x14143C, 255);
+        if (i == step) disc(cx, cy - DS(4), r - DS(6), r - DS(9), 0xF0C850, 255);
+        if (done) check_badge(cx - DS(10), cy - DS(10), DS(20));
+        else { snprintf(n, sizeof(n), "%d", i + 1); text_c(cx, cy, n, i == step ? 0x241A08 : 0xB0B0D0, ss); }
+        text_cfit(cx, DY(72), DX(i == STEP_N - 1 ? 124 : 142), TrAt("creation.v2.steps", i, "?"), i == step ? 0xFFE08A : 0xA8A6D0, ss);
     }
 }
 
 static void draw_left(void)
 {
-    int x = DX(24), y = DY(100), w = DX(240), h = DY(600) - DY(100), i, ss = small_s();
-    int ph = (DY(398) - DY(140)) / 4 - DS(6), pw = w - DX(36), pz;
-    cpanel(x, y, w, h, step == STEP_BASE);
-    jm_host->draw_text(jm_host, x + DX(16), DY(122), Tr("creation.v2.choose_base"), 0xFFE9A0, ss);
-    pz = ph / 48; if (pz < 1) pz = 1;
-    for (i = 0; i < 4; i++) {
-        int ty = DY(140) + i * (ph + DS(6)), tx = x + DX(18), sel = jm.portrait % 4 == i;
-        fillr(tx, ty, pw, ph, sel ? 0x2A2440 : 0x1A1C48, 255);
-        blit(portrait_px(i), 48, 48, tx + DS(6), ty + (ph - 48 * pz) / 2, pz);
-        text_fit(tx + DS(12) + 48 * pz, ty + ph / 2, pw - 48 * pz - DS(18), TrAt("creation.portraits", i, "?"), sel ? 0xFFFFFF : 0x9090B0, ss);
-        frame_r(tx, ty, pw, ph, sel ? DS(3) : 1, sel ? 0xE8C050 : 0x44466E, 255);
-        if (sel) check_mark(tx + pw - DS(22), ty + ph - DS(22), DS(18));
-        if (sel && step == STEP_BASE && base_sect == 0) frame_r(tx - DS(4), ty - DS(4), pw + DS(8), ph + DS(8), 1, 0xFFF0B0, 200);
+    int x = DX(20), y = DY(104), w = DX(232), h = DY(604) - DY(104), i, ss = small_s(), nb = Cg_BaseCount(), cur = Cg_MatchBase();
+    int tx = x + DX(16), tw_ = w - DX(32), th = DS(84), gap = DS(8), ty0 = DY(140);
+    opanel(x, y, w, h, step == STEP_BASE);
+    diamond(x + DX(18), DY(124), DS(4), 0xE6BC52, 255);
+    text_fit(x + DX(28), DY(124), w - DX(34), Tr("creation.v2.choose_base"), 0xFFE08A, ss);
+    if (cur >= 0) { if (cur < base_top) base_top = cur; if (cur > base_top + 2) base_top = cur - 2; }
+    for (i = 0; i < 3 && base_top + i < nb; i++) {
+        int b = base_top + i, ty = ty0 + i * (th + gap), on = b == cur, g, bz;
+        unsigned char cg[8];
+        const uint16_t *px;
+        vgrad(tx, ty, tw_, th, on ? 0x3A2A5E : 0x22265A, on ? 0x1A1438 : 0x121436, 255);
+        bz = (th - DS(4)) / 32; if (bz < 1) bz = 1;
+        if (Cg_BaseLook(b, cg, &g) && (px = look_hi(cg, g, 0, 17 + i)) != NULL) blit(px, 64, 14, 12, 36, 32, tx + DS(6), ty + th - 32 * bz - DS(2), bz);
+        text_fit(tx + DS(14) + 36 * bz, ty + th / 2, tw_ - 36 * bz - DS(20), Cg_BaseName(b), on ? 0xFFFFFF : 0xA8A6D0, ss);
+        frame_r(tx, ty, tw_, th, on ? DS(3) : DS(1), on ? 0xF0C850 : 0x4A4A88, 255);
+        if (on) check_badge(tx + tw_ - DS(26), ty + th - DS(26), DS(22));
+        if (on && step == STEP_BASE && base_row == 0) frame_r(tx - DS(3), ty - DS(3), tw_ + DS(6), th + DS(6), DS(1), 0xFFF4C8, 230);
     }
+    if (base_top > 0) text_c(x + w / 2, ty0 - DS(8), "^", 0xF0C850, ss);
+    if (base_top + 3 < nb) text_c(x + w / 2, ty0 + 3 * (th + gap) - DS(6), "v", 0xF0C850, ss);
     /* the small in-game sprite, walking, with the arrows that turn it */
     {
-        int by = DY(410), bh = DY(590) - by, bx = x + DX(18), bw = pw, fr = 1 + (cg_t / 8) % 4, top, bot;
-        jm_host->draw_text(jm_host, bx, by + DS(10), Tr("creation.v2.sprite_game"), 0xFFE9A0, ss);
-        fillr(bx, by + DS(24), bw, bh - DS(24), 0x0C0E2A, 255);
-        for (i = 1; i < 6; i++) fillr(bx + bw * i / 6, by + DS(24), 1, bh - DS(24), 0x1E2250, 255);       /* a faint grid */
-        for (i = 1; i < 5; i++) fillr(bx, by + DS(24) + (bh - DS(24)) * i / 5, bw, 1, 0x1E2250, 255);
-        frame_r(bx, by + DS(24), bw, bh - DS(24), 1, 0x44466E, 255);
-        if (Cg_Style()) {
-            int lw, lh, fx, fy, nf;
-            const uint16_t *p = Paint_LpcFrame(turn_dir == 1 ? 1 : turn_dir == 2 ? 3 : turn_dir == 3 ? 2 : 0, 0, &lw, &lh, &fx, &fy, &nf);
-            if (p) { p = Paint_LpcFrame(turn_dir == 1 ? 1 : turn_dir == 2 ? 3 : turn_dir == 3 ? 2 : 0, nf > 1 ? 1 + (cg_t / 5) % (nf - 1) : 0, &lw, &lh, &fx, &fy, &nf);
-                     blit(p, lw, lh, bx + bw / 2 - lw * 2 / 2, by + DS(24) + (bh - DS(24) - lh * 2) / 2, 2); }
-        } else if (Cg_Ready()) {
-            static const int dirs[4] = {0, 2, 3, 1};
-            const uint16_t *p = hero_frame(dirs[turn_dir], fr);
-            bounds(p, 48, 62, &top, &bot);
-            blit(p + (size_t)top * 1024, 48, bot - top + 1, bx + bw / 2 - 48, by + DS(24) + (bh - DS(24) - (bot - top + 1) * 2) / 2, 2);
-        }
-        text_c(bx + DS(12), by + DS(24) + (bh - DS(24)) / 2, "<", 0xE8C050, ui_s);
-        text_c(bx + bw - DS(12), by + DS(24) + (bh - DS(24)) / 2, ">", 0xE8C050, ui_s);
+        int by = DY(452), bx = tx, bw = tw_, bh = DY(590) - by, fr = 1 + (cg_t / 5) % 9, z = 3;
+        const uint16_t *px;
+        diamond(x + DX(18), by - DS(13), DS(4), 0xE6BC52, 255);
+        jm_host->draw_text(jm_host, x + DX(28), by - DS(13), Tr("creation.v2.sprite_game"), 0xFFE08A, ss);
+        fillr(bx, by, bw, bh, 0x0A0C26, 255);
+        for (i = 1; i < 8; i++) fillr(bx + bw * i / 8, by, 1, bh, 0x1C2050, 255);
+        for (i = 1; i < 6; i++) fillr(bx, by + bh * i / 6, bw, 1, 0x1C2050, 255);
+        frame_r(bx, by, bw, bh, DS(1), 0x4A4A88, 255);
+        while (z > 1 && 38 * z > bh - DS(6)) z--;
+        disc(bx + bw / 2, by + bh - DS(10), DS(22), DS(5), 0x000000, 120);
+        px = look_cell(jm.cg, jm.gender, DIR_OF[turn_dir] * 10 + fr, 23);
+        blit(px, 25, 0, 0, 25, 38, bx + bw / 2 - 25 * z / 2, by + bh - DS(4) - 36 * z, z);
+        disc(bx + DS(16), by + bh / 2, DS(12), DS(12), 0x2A2A62, 255); text_c(bx + DS(16), by + bh / 2, "<", 0xF0C850, ss);
+        disc(bx + bw - DS(16), by + bh / 2, DS(12), DS(12), 0x2A2A62, 255); text_c(bx + bw - DS(16), by + bh / 2, ">", 0xF0C850, ss);
     }
 }
 
 static void draw_center(void)
 {
-    int cx = DX(520), x0 = DX(280), x1 = DX(760), top = DY(96), floor_y = DY(500), ss = small_s();
-    /* a soft vignette behind the hero, the ring of light under the feet */
-    fillr(x0, top, x1 - x0, DY(600) - top, 0x0C0A26, 90);
-    glow_ellipse(cx, DY(270), DX(200), DS(190), 0x2A2470, 60);
-    glow_ellipse(cx, floor_y, DX(170), DS(36), 0x2E58C8, 70);
-    glow_ellipse(cx, floor_y, DX(130), DS(26), 0x4C8CF0, 90);
-    glow_ellipse(cx, floor_y, DX(118), DS(22), 0x10143A, 200);
-    glow_ellipse(cx, floor_y, DX(96), DS(16), 0x5AA8FF, 110);
-    glow_ellipse(cx, floor_y, DX(80), DS(12), 0x141A48, 220);
+    int cx = DX(512), floor_y = DY(500), ss = small_s(), k;
+    float a0 = cg_t * 0.012f;
+    /* the magic circle */
+    disc(cx, floor_y, DX(200), DS(52), 0x2848C0, 40);
+    disc(cx, floor_y, DX(170), DS(42), 0x3A6CF0, 50);
+    ring(cx, floor_y, DX(176), DS(44), DS(3), 0x6CB4FF, 200);
+    ring(cx, floor_y, DX(160), DS(39), DS(1), 0xA8D8FF, 160);
+    ring(cx, floor_y, DX(120), DS(29), DS(2), 0x6CB4FF, 180);
+    ring(cx, floor_y, DX(78), DS(19), DS(2), 0xA8D8FF, 150);
+    disc(cx, floor_y, DX(70), DS(16), 0x8CC8FF, 70);
+    for (k = 0; k < 16; k++) {                              /* runes turning between the rings */
+        float a = a0 + k * 0.3927f;
+        int px = cx + (int)(DX(140) * cosf(a)), py = floor_y + (int)(DS(34) * sinf(a));
+        diamond(px, py, DS(k & 1 ? 3 : 4), k & 1 ? 0xA8D8FF : 0xE8F4FF, 220);
+    }
+    for (k = 0; k < 6; k++) {                               /* a few sparks rising */
+        int sx = cx - DX(150) + k * DX(60) + (int)(DX(10) * sinf(cg_t * 0.05f + k)), sy = floor_y - DS(20) - (int)((cg_t * 2 + k * 37) % 220) * ui_vis / 720;
+        fillr(sx, sy, DS(3), DS(3), 0x9CD0FF, 160);
+    }
     if (view_portrait) {
-        int z = (DY(470) - DY(150)) / 48;
+        int z = (DY(470) - DY(150)) / 48, fx, fy;
         if (z < 1) z = 1;
-        frame_r(cx - 24 * z - DS(4), floor_y - 48 * z - DS(30), 48 * z + DS(8), 48 * z + DS(8), DS(2), 0xC8A03C, 255);
-        blit(portrait_px(jm.portrait), 48, 48, cx - 24 * z, floor_y - 48 * z - DS(26), z);
-    } else if (Cg_Style()) {
-        int lw, lh, fx, fy, nf, z;
-        const uint16_t *p = Paint_LpcFrame(0, 0, &lw, &lh, &fx, &fy, &nf);
-        if (p) {
-            static const int dirs[4] = {0, 2, 3, 1};
-            p = Paint_LpcFrame(dirs[turn_dir] == 2 ? 2 : dirs[turn_dir] == 1 ? 1 : dirs[turn_dir], 0, &lw, &lh, &fx, &fy, &nf);
-            z = (floor_y - DY(110)) / (fy > 0 ? fy : lh);
-            if (z < 1) z = 1;
-            blit(p, lw, lh, cx - fx * z, floor_y - fy * z, z);
-        }
-    } else if (Cg_Ready()) {
-        static const int dirs[4] = {0, 2, 3, 1};
-        const uint16_t *p = hero_frame(dirs[turn_dir], 0);
-        int z = (floor_y - DY(110)) / 56;
+        fx = cx - 24 * z; fy = floor_y - 48 * z - DS(30);
+        opanel(fx - DS(10), fy - DS(10), 48 * z + DS(20), 48 * z + DS(20), 0);
+        blit(portrait_px(jm.portrait), 1024, 0, 0, 48, 48, fx, fy, z);
+    } else {
+        int z = (floor_y - DY(112)) / 52;
+        const uint16_t *px = look_hi(jm.cg, jm.gender, DIR_OF[turn_dir], 22);
         if (z < 1) z = 1;
-        blit(p, 48, 62, cx - 24 * z, floor_y - 56 * z, z);
+        disc(cx, floor_y, DX(70), DS(14), 0x000000, 120);
+        blit(px, 64, 0, 0, 64, 64, cx - 32 * z, floor_y - 62 * z, z);
     }
     /* View: sprite / portrait */
     {
-        int vy = DY(548), vw = DX(300), vx = cx - vw / 2, bw = (vw - DX(24)) / 2, k;
-        cpanel(vx, vy - DS(22), vw, DS(44), 0);
+        int vy = DY(560), vw = DX(320), vx = cx - vw / 2, bw = (vw - DX(36)) / 2;
+        opanel(vx, vy - DS(24), vw, DS(48), 0);
         for (k = 0; k < 2; k++) {
-            int bx = vx + DX(8) + k * (bw + DX(8)), on = view_portrait == k;
-            fillr(bx, vy - DS(15), bw, DS(30), on ? 0x3A2E14 : 0x1A1C48, 255);
-            frame_r(bx, vy - DS(15), bw, DS(30), 1, on ? 0xE8C050 : 0x44466E, 255);
-            text_c(bx + bw / 2, vy, Tr(k ? "creation.v2.view_portrait" : "creation.v2.view_sprite"), on ? 0xFFE9A0 : 0x9090B0, ss);
+            int bx = vx + DX(12) + k * (bw + DX(12)), on = view_portrait == k;
+            vgrad(bx, vy - DS(15), bw, DS(30), on ? 0x5A4214 : 0x22265A, on ? 0x2A1E08 : 0x121436, 255);
+            frame_r(bx, vy - DS(15), bw, DS(30), on ? DS(2) : DS(1), on ? 0xF0C850 : 0x4A4A88, 255);
+            text_cfit(bx + bw / 2, vy, bw - DS(8), Tr(k ? "creation.v2.view_portrait" : "creation.v2.view_sprite"), on ? 0xFFE08A : 0x9A98C8, ss);
         }
     }
 }
 
 static void swatch_row(int x, int y, int w, int c, int focused, int ss)
 {
-    int n = Cg_OptCount(c), k, sw = DS(36), gap = DS(8), sel = Cg_Get(c);
-    char lab[48];
-    snprintf(lab, sizeof(lab), "%s", Cg_CatLabel(c));
-    jm_host->draw_text(jm_host, x, y, lab, focused ? 0xFFE9A0 : 0xC8C8E0, ss);
-    if (n > 0) { text_fit(x + w - DX(150), y, DX(150), Cg_OptLabel(c, sel), 0x9090B0, ss); }
-    if (n * (sw + gap) > w) { sw = w / n - gap; if (sw < DS(12)) sw = DS(12); }
+    int n = Cg_OptCount(c), k, d = DS(34), gap = DS(10), sel = Cg_Get(c);
+    diamond(x + DS(4), y, DS(4), 0xE6BC52, 255);
+    jm_host->draw_text(jm_host, x + DS(14), y, Cg_CatLabel(c), focused ? 0xFFE08A : 0xD0CCF0, ss);
+    if (n > 0) text_fit(x + w - DX(140), y, DX(140), Cg_OptLabel(c, sel), 0x9A98C8, ss);
+    if (n * (d + gap) > w) { d = w / n - gap; if (d < DS(14)) d = DS(14); }
     for (k = 0; k < n; k++) {
-        int sx = x + k * (sw + gap), sy = y + DS(16), rgb = Cg_OptRgb(c, k), rgb2 = Cg_OptRgb2(c, k);
-        fillr(sx, sy, sw, sw, rgb < 0 ? 0x303030 : (unsigned)rgb, 255);
-        if (rgb2 >= 0) fillr(sx, sy + sw * 2 / 3, sw, sw - sw * 2 / 3, (unsigned)rgb2, 255);
-        frame_r(sx, sy, sw, sw, k == sel ? DS(3) : 1, k == sel ? 0xE8C050 : 0x50527A, 255);
-        if (k == sel) check_mark(sx + sw - DS(12), sy - DS(4), DS(14));
-        if (k == sel && focused) frame_r(sx - DS(4), sy - DS(4), sw + DS(8), sw + DS(8), 1, 0xFFF0B0, 220);
+        int sx = x + k * (d + gap) + d / 2, sy = y + DS(20) + d / 2, rgb = Cg_OptRgb(c, k);
+        if (k == sel) disc(sx, sy, d / 2 + DS(5), d / 2 + DS(5), focused ? 0xFFF4C8 : 0xE8C050, focused ? 255 : 200);
+        disc(sx, sy, d / 2 + DS(2), d / 2 + DS(2), 0x1A1206, 255);
+        disc(sx, sy, d / 2, d / 2, rgb < 0 ? 0x303030 : (unsigned)rgb, 255);
+        disc(sx - d / 6, sy - d / 6, d / 6, d / 7, 0xFFFFFF, 70);              /* a shine */
+        if (k == sel) check_badge(sx + d / 4, sy - d / 2 - DS(4), DS(16));
+    }
+}
+
+static void draw_tabs(int x, int y, int w)
+{
+    int vis[TAB_N], n = 0, t, k, ss = small_s(), tbw, gap = DX(6);
+    for (t = 0; t < TAB_N; t++) if (tab_has(t)) vis[n++] = t;
+    if (!n) return;
+    tbw = (w - (n - 1) * gap) / n;
+    for (k = 0; k < n; k++) while (ss > 1 && tw(TrAt("creation.v2.tabs", vis[k], "?"), ss) > tbw - DS(6)) ss--;
+    for (k = 0; k < n; k++) {
+        int tx = x + k * (tbw + gap), on = vis[k] == tab, th = DS(64);
+        vgrad(tx, y, tbw, th, on ? 0x6A4E18 : 0x262A64, on ? 0x2E2008 : 0x14163E, 255);
+        frame_r(tx, y, tbw, th, on ? DS(3) : DS(1), on ? 0xF0C850 : 0x4A4A88, 255);
+        if (on) frame_r(tx - DS(2), y - DS(2), tbw + DS(4), th + DS(4), DS(1), 0xFFF4C8, 120);
+        icon(tx + tbw / 2, y + DS(22), vis[k], on);
+        text_cfit(tx + tbw / 2, y + DS(50), tbw - DS(6), TrAt("creation.v2.tabs", vis[k], "?"), on ? 0xFFE08A : 0xA8A6D0, ss);
     }
 }
 
 static void draw_right(void)
 {
-    int x = DX(780), y = DY(100), w = DX(1256) - x, h = DY(600) - y, t, ss = small_s(), ntabs = 0, k, tx, tbw;
-    int vis[TAB_N];
-    cpanel(x, y, w, h, step == STEP_LOOK);
-    for (t = 0; t < TAB_N; t++) if (tab_has(t)) vis[ntabs++] = t;
-    if (!ntabs) { text_c(x + w / 2, y + h / 2, "-", 0x9090B0, ui_s); return; }
-    {                                        /* tab widths follow their labels */
-        int lw[TAB_N], tot = 0, room = w - DX(24) - (ntabs - 1) * DX(8);
-        for (k = 0; k < ntabs; k++) { lw[k] = tw(TrAt("creation.v2.tabs", vis[k], "?"), ss) + DX(20); tot += lw[k]; }
-        tx = x + DX(12);
-        for (k = 0; k < ntabs; k++) {
-            int on = vis[k] == tab, s2 = ss;
-            const char *lab = TrAt("creation.v2.tabs", vis[k], "?");
-            tbw = room * lw[k] / tot;
-            fillr(tx, y + DS(12), tbw, DS(44), on ? 0x3A2E14 : 0x1A1C48, 255);
-            frame_r(tx, y + DS(12), tbw, DS(44), on ? DS(2) : 1, on ? 0xE8C050 : 0x44466E, 255);
-            if (on) fillr(tx + DS(8), y + DS(50), tbw - DS(16), DS(3), 0xE8C050, 255);
-            while (s2 > 1 && tw(lab, s2) > tbw - DS(6)) s2--;
-            text_c(tx + tbw / 2, y + DS(33), lab, on ? 0xFFE9A0 : 0x9A9CC8, s2);
-            tx += tbw + DX(8);
-        }
-    }
+    int x = DX(770), y = DY(104), w = DX(1260) - x, h = DY(604) - y, ss = small_s();
+    opanel(x, y, w, h, step == STEP_LOOK);
+    draw_tabs(x + DX(16), y + DS(16), w - DX(32));
     {
-        int g = tab_grid(tab), cols[4], nc = tab_cols(tab, cols), cy = y + DS(84), gx = x + DX(30), gw = w - DX(60), is_grid = 0;
-        int fc = step == STEP_LOOK ? sect_cat(sect, &is_grid) : -1;
+        int g = tab_grid(tab), cols[4], nc = tab_cols(tab, cols), cy = y + DS(104), gx = x + DX(24), gw = w - DX(48), is_grid = 0, k;
+        int fc = sect_cat(sect, &is_grid);
         if (g >= 0 && Cg_OptCount(g) > 0) {
-            int n = Cg_OptCount(g), sel = Cg_Get(g), tw_ = (gw - (GRID_COLS - 1) * DX(10)) / GRID_COLS, th = DS(96), i, page = sel / (GRID_COLS * GRID_ROWS);
-            int pages = (n + GRID_COLS * GRID_ROWS - 1) / (GRID_COLS * GRID_ROWS), focused = is_grid && fc == g;
-            const char *key = g == CG_HAIR_ ? "creation.v2.style_hair" : g == CG_OUTFIT_ ? "creation.v2.style_outfit" : "creation.v2.style_acc";
-            jm_host->draw_text(jm_host, gx, cy, Tr(key), focused ? 0xFFE9A0 : 0xC8C8E0, ss);
-            text_fit(x + w - DX(30) - DX(150), cy, DX(150), Cg_OptLabel(g, sel), 0x9090B0, ss);
-            cy += DS(16);
-            for (i = page * GRID_COLS * GRID_ROWS; i < n && i < (page + 1) * GRID_COLS * GRID_ROWS; i++) {
-                int li = i - page * GRID_COLS * GRID_ROWS, ix = gx + (li % GRID_COLS) * (tw_ + DX(10)), iy = cy + (li / GRID_COLS) * (th + DS(10));
-                const uint16_t *px = tile_of(g, i, li);
-                int on = i == sel, z, y0, hh;
-                fillr(ix, iy, tw_, th, on ? 0x2A2440 : 0x1A1C48, 255);
+            int n = Cg_OptCount(g), sel = Cg_Get(g), page = sel / GRID_PAGE, pages = (n + GRID_PAGE - 1) / GRID_PAGE, i, focused = is_grid && fc == g;
+            int ax = DX(22), tw_ = (gw - 2 * ax - (GRID_COLS - 1) * DX(8)) / GRID_COLS, th = DS(86), y0, hh;
+            static const char *const key[8] = {"", "creation.v2.style_hair", "", "creation.v2.style_outfit", "", "creation.v2.style_legs", "creation.v2.style_shoes", "creation.v2.style_acc"};
+            diamond(gx + DS(4), cy, DS(4), 0xE6BC52, 255);
+            jm_host->draw_text(jm_host, gx + DS(14), cy, Tr(key[g]), focused ? 0xFFE08A : 0xD0CCF0, ss);
+            text_fit(gx + gw - DX(150), cy, DX(150), Cg_OptLabel(g, sel), 0x9A98C8, ss);
+            cy += DS(18);
+            fillr(gx, cy - DS(4), gw, GRID_ROWS * (th + DS(8)) + DS(4), 0x0A0A24, 120);
+            y0 = g == K_TOP ? 26 : g == K_LEGS ? 38 : g == K_SHOES ? 48 : 8;      /* rows of the 64x64 pose: head, chest, legs, feet */
+            hh = g == K_SHOES ? 16 : 26;
+            for (i = page * GRID_PAGE; i < n && i < (page + 1) * GRID_PAGE; i++) {
+                int li = i - page * GRID_PAGE, ix = gx + ax + (li % GRID_COLS) * (tw_ + DX(8)), iy = cy + (li / GRID_COLS) * (th + DS(8)), on = i == sel, z;
+                const uint16_t *px = option_cell(g, i, li);
+                vgrad(ix, iy, tw_, th, on ? 0x40306A : 0x262A64, on ? 0x1C1440 : 0x14163E, 255);
                 if (px) {
-                    if (g == CG_HAIR_ || g == CG_ACC_) { y0 = 2; hh = 30; }       /* head and shoulders */
-                    else { y0 = 16; hh = 42; }                                    /* the outfit: neck to feet */
-                    z = (th - DS(8)) / hh; if (z < 1) z = 1;
-                    while (z > 1 && 34 * z > tw_ - DS(4)) z--;
-                    blit48(px, 7, 34, y0, hh, ix + (tw_ - 34 * z) / 2, iy + (th - hh * z) / 2, z);
+                    z = (th - DS(8)) / hh;
+                    while (z > 1 && 32 * z > tw_ - DS(4)) z--;
+                    blit(px, 64, 16, y0, 32, hh, ix + (tw_ - 32 * z) / 2, iy + (th - hh * z) / 2, z);
                 }
-                if (g == CG_ACC_ && i == 0) text_c(ix + tw_ / 2, iy + th - DS(12), Cg_OptLabel(g, 0), 0xB0B0C8, small_s() > 1 ? small_s() - 1 : 1);
-                frame_r(ix, iy, tw_, th, on ? DS(3) : 1, on ? 0xE8C050 : 0x44466E, 255);
-                if (on) check_mark(ix + tw_ - DS(20), iy + DS(4), DS(16));
-                if (on && focused) frame_r(ix - DS(4), iy - DS(4), tw_ + DS(8), th + DS(8), 1, 0xFFF0B0, 220);
+                frame_r(ix, iy, tw_, th, on ? DS(3) : DS(1), on ? 0xF0C850 : 0x4A4A88, 255);
+                if (on) check_badge(ix + tw_ - DS(20), iy - DS(6), DS(22));
+                if (on && focused) frame_r(ix - DS(3), iy - DS(3), tw_ + DS(6), th + DS(6), DS(1), 0xFFF4C8, 230);
             }
-            cy += GRID_ROWS * (th + DS(10)) + DS(4);
-            if (pages > 1) {                         /* page dots, and arrows at the grid's sides */
-                for (i = 0; i < pages; i++) glow_ellipse(x + w / 2 + (i * 2 - pages + 1) * DS(10), cy, DS(4), DS(4), i == page ? 0xE8C050 : 0x50527A, 255);
-                text_c(x + DX(14), cy - GRID_ROWS * (th + DS(10)) / 2 - DS(8), "<", 0xE8C050, ui_s);
-                text_c(x + w - DX(14), cy - GRID_ROWS * (th + DS(10)) / 2 - DS(8), ">", 0xE8C050, ui_s);
+            if (pages > 1) {
+                int my = cy + GRID_ROWS * (th + DS(8)) / 2;
+                text_c(gx + ax / 2, my, "<", 0xF0C850, ui_s);
+                text_c(gx + gw - ax / 2, my, ">", 0xF0C850, ui_s);
             }
+            cy += GRID_ROWS * (th + DS(8)) + DS(10);
+            for (i = 0; i < pages && pages > 1; i++) disc(x + w / 2 + (i * 2 - pages + 1) * DS(12), cy, DS(4), DS(4), i == page ? 0xF0C850 : 0x5A5888, 255);
             cy += DS(22);
         }
-        if (Cg_Style()) { text_fit(gx, y + h - DS(20), gw, Tr("creation.v2.lpc_note"), 0xE0A060, ss); }
         for (k = 0; k < nc; k++) {
             swatch_row(gx, cy, gw, cols[k], !is_grid && fc == cols[k], ss);
-            cy += DS(76);
+            cy += DS(84);
         }
     }
 }
 
-/* Base step: the right panel holds the gender and sprite set rows */
+/* Base step: the base, the body type and the dialogue portrait */
 static void draw_right_base(void)
 {
-    int x = DX(780), y = DY(100), w = DX(1256) - x, h = DY(600) - y, ss = small_s(), i;
+    int x = DX(770), y = DY(104), w = DX(1260) - x, h = DY(604) - y, ss = small_s(), i, b = Cg_MatchBase();
     const char *lab[3], *val[3];
-    cpanel(x, y, w, h, 1);
-    jm_host->draw_text(jm_host, x + DX(24), y + DS(30), Tr("creation.v2.steps.0"), 0xFFE9A0, ui_s);
-    lab[0] = Tr("creation.rows.portrait"); val[0] = TrAt("creation.portraits", jm.portrait % 4, "?");
-    lab[1] = Tr("creation.rows.gender"); val[1] = Tr(jm.gender ? "creation.gender.female" : "creation.gender.male");
-    lab[2] = Tr("creation.rows.sprite"); val[2] = Tr(Cg_Style() ? "creation.sprite.lpc" : "creation.sprite.layered");
+    opanel(x, y, w, h, 1);
+    diamond(x + DX(28), y + DS(32), DS(5), 0xE6BC52, 255);
+    text_sh(x + DX(42), y + DS(32), TrAt("creation.v2.steps", 0, "Base"), 0xFFE08A, ui_s);
+    lab[0] = Tr("creation.v2.base"); val[0] = b >= 0 ? Cg_BaseName(b) : Tr("creation.v2.custom");
+    lab[1] = Tr("creation.v2.body"); val[1] = Tr(jm.gender ? "creation.v2.body_female" : "creation.v2.body_male");
+    lab[2] = Tr("creation.rows.portrait"); val[2] = TrAt("creation.portraits", jm.portrait % 4, "?");
     for (i = 0; i < 3; i++) {
-        int ry = y + DS(80) + i * DS(70), on = base_sect == i, bw = w - DX(48);
-        fillr(x + DX(24), ry, bw, DS(56), on ? 0x2A2440 : 0x1A1C48, 255);
-        frame_r(x + DX(24), ry, bw, DS(56), on ? DS(2) : 1, on ? 0xE8C050 : 0x44466E, 255);
-        jm_host->draw_text(jm_host, x + DX(36), ry + DS(16), lab[i], on ? 0xFFE9A0 : 0xC8C8E0, ss);
-        text_c(x + DX(24) + bw / 2, ry + DS(40), val[i], 0xFFFFFF, ss);
-        if (on) { jm_host->draw_text(jm_host, x + DX(36), ry + DS(40), "<", 0xE8C050, ss); jm_host->draw_text(jm_host, x + DX(24) + bw - DX(24), ry + DS(40), ">", 0xE8C050, ss); }
+        int ry = y + DS(76) + i * DS(84), on = base_row == i, bw = w - DX(56), bx = x + DX(28);
+        vgrad(bx, ry, bw, DS(66), on ? 0x40306A : 0x262A64, on ? 0x1C1440 : 0x14163E, 255);
+        frame_r(bx, ry, bw, DS(66), on ? DS(3) : DS(1), on ? 0xF0C850 : 0x4A4A88, 255);
+        jm_host->draw_text(jm_host, bx + DX(14), ry + DS(18), lab[i], on ? 0xFFE08A : 0xA8A6D0, ss);
+        text_cfit(bx + bw / 2, ry + DS(44), bw - DX(80), val[i], 0xFFFFFF, ss);
+        if (on) { text_c(bx + DX(20), ry + DS(44), "<", 0xF0C850, ss); text_c(bx + bw - DX(20), ry + DS(44), ">", 0xF0C850, ss); }
+    }
+    if (i == 3 && jm.portrait >= 0) {
+        int z = 2, py = y + DS(76) + 3 * DS(84) + DS(8);
+        if (py + 48 * z < y + h - DS(14)) { frame_r(x + w / 2 - 24 * z - DS(4), py - DS(4), 48 * z + DS(8), 48 * z + DS(8), DS(2), 0xC09032, 255); blit(portrait_px(jm.portrait), 1024, 0, 0, 48, 48, x + w / 2 - 24 * z, py, z); }
     }
 }
 
 static void draw_right_name(void)
 {
-    int x = DX(780), y = DY(100), w = DX(1256) - x, h = DY(600) - y, ss = small_s();
-    cpanel(x, y, w, h, 1);
-    jm_host->draw_text(jm_host, x + DX(24), y + DS(30), Tr("creation.v2.name_title"), 0xFFE9A0, ui_s);
-    fillr(x + DX(24), y + DS(70), w - DX(48), DS(60), 0x0C0E2A, 255);
-    frame_r(x + DX(24), y + DS(70), w - DX(48), DS(60), DS(2), 0xE8C050, 255);
-    text_c(x + w / 2, y + DS(100), jm.name[0] ? jm.name : Tr("creation.v2.name_empty"), jm.name[0] ? 0xFFFFFF : 0x7070A0, ui_s);
-    text_fit(x + DX(24), y + DS(160), w - DX(48), Tr("creation.v2.name_hint"), 0x9AA0D0, ss);
+    int x = DX(770), y = DY(104), w = DX(1260) - x, h = DY(604) - y, ss = small_s();
+    opanel(x, y, w, h, 1);
+    diamond(x + DX(28), y + DS(32), DS(5), 0xE6BC52, 255);
+    text_sh(x + DX(42), y + DS(32), Tr("creation.v2.name_title"), 0xFFE08A, ui_s);
+    vgrad(x + DX(28), y + DS(70), w - DX(56), DS(64), 0x0A0C26, 0x161A44, 255);
+    frame_r(x + DX(28), y + DS(70), w - DX(56), DS(64), DS(3), 0xF0C850, 255);
+    text_c(x + w / 2, y + DS(102), jm.name[0] ? jm.name : Tr("creation.v2.name_empty"), jm.name[0] ? 0xFFFFFF : 0x7070A0, ui_s);
+    text_fit(x + DX(28), y + DS(166), w - DX(56), Tr("creation.v2.name_hint"), 0xA8A6D0, ss);
 }
 
 static void draw_right_confirm(void)
 {
-    int x = DX(780), y = DY(100), w = DX(1256) - x, h = DY(600) - y, ss = small_s(), c, ry;
-    char b[96];
-    cpanel(x, y, w, h, 1);
-    jm_host->draw_text(jm_host, x + DX(24), y + DS(30), Tr("creation.v2.confirm_title"), 0xFFE9A0, ui_s);
-    ry = y + DS(68);
-#define ROW(L, V) do { text_fit(x + DX(30), ry, w * 46 / 100 - DX(36), (L), 0x9AA0D0, ss); text_fit(x + w * 46 / 100, ry, w * 54 / 100 - DX(20), (V), 0xFFFFFF, ss); ry += DS(30); } while (0)
+    int x = DX(770), y = DY(104), w = DX(1260) - x, h = DY(604) - y, ss = small_s(), c, ry, b = Cg_MatchBase();
+    opanel(x, y, w, h, 1);
+    diamond(x + DX(28), y + DS(32), DS(5), 0xE6BC52, 255);
+    text_sh(x + DX(42), y + DS(32), Tr("creation.v2.confirm_title"), 0xFFE08A, ui_s);
+    ry = y + DS(72);
+#define ROW(L, V) do { fillr(x + DX(26), ry - DS(13), w - DX(52), DS(26), 0x1A1C4C, ((ry / DS(30)) & 1) ? 150 : 60); \
+    text_fit(x + DX(34), ry, w * 44 / 100 - DX(40), (L), 0xA8A6D0, ss); text_fit(x + w * 44 / 100, ry, w * 56 / 100 - DX(34), (V), 0xFFFFFF, ss); ry += DS(31); } while (0)
     ROW(Tr("creation.rows.name"), jm.name[0] ? jm.name : "-");
-    ROW(Tr("creation.rows.portrait"), TrAt("creation.portraits", jm.portrait % 4, "?"));
-    ROW(Tr("creation.rows.gender"), Tr(jm.gender ? "creation.gender.female" : "creation.gender.male"));
-    ROW(Tr("creation.rows.sprite"), Tr(Cg_Style() ? "creation.sprite.lpc" : "creation.sprite.layered"));
-    if (!Cg_Style()) for (c = 0; c < Cg_CatCount(); c++) {
+    ROW(Tr("creation.v2.base"), b >= 0 ? Cg_BaseName(b) : Tr("creation.v2.custom"));
+    ROW(Tr("creation.v2.body"), Tr(jm.gender ? "creation.v2.body_female" : "creation.v2.body_male"));
+    for (c = 0; c < Cg_CatCount(); c++) {
         if (!Cg_OptCount(c)) continue;
-        snprintf(b, sizeof(b), "%s", Cg_OptLabel(c, Cg_Get(c)));
-        ROW(Cg_CatLabel(c), b);
-        if (ry > y + h - DS(20)) break;
+        ROW(Cg_CatLabel(c), Cg_OptLabel(c, Cg_Get(c)));
+        if (ry > y + h - DS(24)) break;
     }
 #undef ROW
 }
 
+static void key_cap(int *x, int my, const char *key, const char *label)
+{
+    int ss = small_s(), kw = tw(key, ss) + DS(14), kh = DS(26);
+    if (kw < kh) kw = kh;
+    pill(*x, my - kh / 2, kw, kh, 0, 1);
+    text_c(*x + kw / 2, my, key, 0xFFFFFF, ss);
+    *x += kw + DS(6);
+    jm_host->draw_text(jm_host, *x, my, label, 0xC8C4E8, ss);
+    *x += tw(label, ss) + DS(18);
+}
+static int keys_width(const char *const *k, int n)
+{
+    int ss = small_s(), w = 0, i, kw;
+    for (i = 0; i < n; i++) { kw = tw(k[2 * i], ss) + DS(14); if (kw < DS(26)) kw = DS(26); w += kw + DS(6) + tw(k[2 * i + 1], ss) + DS(18); }
+    return w - DS(18);
+}
+
 static void draw_bottom(void)
 {
-    int by = DY(650), bh = DS(52), ss = small_s(), x, w;
+    int by = DY(656), bh = DS(54), x, w;
     const char *nl = Tr(step == STEP_CONFIRM ? "creation.v2.begin" : "creation.v2.next");
-    char nb[48];
-    /* Back */
-    cpanel(DX(24), by - bh / 2, DX(170), bh, 0);
-    text_c(DX(24) + DX(85), by, Tr("creation.v2.back"), 0xE0E0F0, ui_s);
-    /* Next, gold */
-    snprintf(nb, sizeof(nb), "%s >", nl);
-    fillr(DX(1060), by - bh / 2, DX(196), bh, 0xD8A830, 255);
-    fillr(DX(1060), by - bh / 2, DX(196), bh / 3, 0xF0C850, 255);
-    frame_r(DX(1060), by - bh / 2, DX(196), bh, DS(2), 0xFFF0B0, 255);
-    text_c(DX(1060) + DX(98), by, nb, 0x241A08, ui_s);
-    /* the keys of this step */
+    char b[48];
+    pill(DX(20), by - bh / 2, DX(190), bh, 0, 0);
+    snprintf(b, sizeof(b), "< %s", Tr("creation.v2.back"));
+    text_c(DX(20) + DX(95), by, b, 0xE8E4FF, ui_s);
+    pill(DX(1050), by - bh / 2, DX(210), bh, 1, 1);
+    snprintf(b, sizeof(b), "%s >", nl);
+    text_c(DX(1050) + DX(105), by, b, 0x2A1A04, ui_s);
     {
         const char *k[12];
-        int n = 0;
-        k[n * 2] = "\x1b\x1a"; k[n * 2 + 1] = Tr("creation.v2.k_move"); n++;
+        int n = 0, i, xx;
+        k[n * 2] = step == STEP_LOOK ? "<^v>" : "^v"; k[n * 2 + 1] = Tr("creation.v2.k_move"); n++;
         if (step == STEP_LOOK) { k[n * 2] = "Q/E"; k[n * 2 + 1] = Tr("creation.v2.k_tab"); n++; }
+        if (step == STEP_BASE) { k[0] = "<^v>"; }
         if (step == STEP_NAME) { k[n * 2] = "X"; k[n * 2 + 1] = Tr("creation.v2.k_edit"); n++; }
         else { k[n * 2] = "X"; k[n * 2 + 1] = nl; n++; }
         k[n * 2] = "S"; k[n * 2 + 1] = Tr("creation.v2.back"); n++;
         k[n * 2] = "R"; k[n * 2 + 1] = Tr("creation.v2.k_rotate"); n++;
         k[n * 2] = "Z"; k[n * 2 + 1] = Tr("creation.v2.k_view"); n++;
-        k[0] = "<>";
-        if (step == STEP_LOOK || step == STEP_BASE) k[0] = "<^v>";
+        while (n > 2 && keys_width(k, n) > DX(720)) n--;
         w = keys_width(k, n);
-        x = (DX(210) + DX(1044)) / 2 - w / 2;
-        if (x < DX(210)) { while (n > 2 && keys_width(k, n) > DX(834)) n--; w = keys_width(k, n); x = (DX(210) + DX(1044)) / 2 - w / 2; }
-        fillr(x - DX(12), by - DS(18), w + DX(12), DS(36), 0x0C0E2A, 200);
-        frame_r(x - DX(12), by - DS(18), w + DX(12), DS(36), 1, 0x44466E, 255);
-        {
-            int i, xx = x;
-            for (i = 0; i < n; i++) key_cap(&xx, by, k[2 * i], k[2 * i + 1]);
+        x = (DX(220) + DX(1040)) / 2 - w / 2;
+        {   /* the rounded bar */
+            int bx = x - DS(30), bw = w + DS(60), bhh = DS(40), r = bhh / 2;
+            disc(bx + r, by, r, r, 0x0C0C2A, 220); disc(bx + bw - r, by, r, r, 0x0C0C2A, 220); fillr(bx + r, by - r, bw - 2 * r, bhh, 0x0C0C2A, 220);
+            ring(bx + r, by, r, r, DS(1), 0x6A5A9A, 255); ring(bx + bw - r, by, r, r, DS(1), 0x6A5A9A, 255);
+            fillr(bx + r, by - r, bw - 2 * r, DS(1), 0x6A5A9A, 255); fillr(bx + r, by + r - DS(1), bw - 2 * r, DS(1), 0x6A5A9A, 255);
+            fillr(bx + r - DS(1), by - r + DS(1), DS(2), bhh - DS(2), 0x0C0C2A, 255); fillr(bx + bw - r - DS(1), by - r + DS(1), DS(2), bhh - DS(2), 0x0C0C2A, 255);
         }
-        (void)ss;
+        xx = x;
+        for (i = 0; i < n; i++) key_cap(&xx, by, k[2 * i], k[2 * i + 1]);
     }
 }
 
 void Ui_CreateOverlay(void)
 {
     metrics();
+    draw_backdrop();
     draw_top();
-    draw_left();
     draw_center();
+    draw_left();
     switch (step) {
     case STEP_BASE: draw_right_base(); break;
     case STEP_LOOK: draw_right(); break;
@@ -701,7 +810,8 @@ void Ui_CreateOverlay(void)
 
 static unsigned create_sig(void)
 {
-    return (unsigned)(step * 3 + tab * 41 + sect * 59 + base_sect * 71 + view_portrait * 83 + turn_dir * 97 + done_mask * 101) + (unsigned)(cg_t / 5) * 7907u;
+    return (unsigned)(step * 3 + tab * 41 + sect * 59 + base_row * 71 + view_portrait * 83 + turn_dir * 97 + done_mask * 101 + jm.portrait * 7) +
+           (unsigned)(cg_t / 3) * 7907u + Cg_Signature() * 13u;
 }
 
 unsigned Ui_Signature(void);

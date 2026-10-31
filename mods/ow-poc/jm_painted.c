@@ -88,6 +88,19 @@ static int spr_baked[SPR_COUNT];   /* cleared when the painted scene is entered:
 static int face = 0;              /* 0 down, 1 left, 2 right, 3 up */
 static int spr_colours[5] = {-2, 0, 0, 0, 0};
 
+static unsigned lpc_sig;
+static int spr_load(int i);
+/* the creator (or a debug look) changed the hero: compose its cells again and bake them on the next draw */
+static void lpc_refresh(void)
+{
+    Spr *s = &spr[SPR_LPC_TEST];
+    int c, tex;
+    if (!Cg_Ready() || !s->ok || lpc_sig == Cg_Signature()) return;
+    tex = s->w * s->h;
+    for (c = 0; c < s->nf * 4; c++) Cg_ComposeCellRgb(c, s->kind + (size_t)c * tex, s->rgb + (size_t)c * tex * 3);
+    lpc_sig = Cg_Signature();
+    spr_baked[SPR_LPC_TEST] = 0;
+}
 static int spr_load(int i)
 {
     long size;
@@ -96,9 +109,14 @@ static int spr_load(int i)
     Spr *s = &spr[i];
     if (s->ok) return 1;
     if (s->nf < 0) return 0;
-    if (i == SPR_HERO) {
-        if (!Cg_Ready() || !jm.cg_set) return 0;       /* an older save keeps the painted hero (SPR_AI) */
-        s->nf = Cg_Frames(); s->w = SPR_CW; s->h = SPR_CH; s->fx = SPR_FX; s->fy = SPR_FY;
+    if (i == SPR_HERO) { s->nf = -1; return 0; }     /* the old layered hero is gone: the player is the LPC hero (SPR_LPC_TEST) */
+    if (i == SPR_LPC_TEST && Cg_Ready()) {             /* composed from the creator's LPC parts (jm_chargen.c) */
+        int c, tex;
+        s->nf = Cg_Frames(); s->w = Cg_W(); s->h = Cg_H(); s->fx = 12; s->fy = 32;
+        tex = s->w * s->h; cells = s->nf * 4;
+        s->kind = malloc((size_t)cells * tex); s->wt = calloc((size_t)cells * tex * 4, 1); s->rgb = malloc((size_t)cells * tex * 3);
+        for (c = 0; c < cells; c++) Cg_ComposeCellRgb(c, s->kind + (size_t)c * tex, s->rgb + (size_t)c * tex * 3);
+        lpc_sig = Cg_Signature();
         s->bank = spr_bank[i]; s->page = spr_page[i]; s->ok = 1;
         return 1;
     }
@@ -161,7 +179,6 @@ static void spr_bake(int i, const int pal[5])
     uint16_t *bank = SoftGpu_Bank(s->bank);
     int dir, f, x, y, tex = s->w * s->h, cols = 256 / s->w;
     if (!bank || !s->ok) return;
-    if (i == SPR_HERO) { Cg_Compose(s->bank, s->page); return; }
     for (dir = 0; dir < 4; dir++)
         for (f = 0; f < s->nf; f++) {
             int cell = dir * s->nf + f, page = s->page + f / cols, col = f % cols;
@@ -235,6 +252,7 @@ int Paint_LpcPreview(int x, int y, int scale, int dir, int frame, float depth)
     Spr *s = &spr[SPR_LPC_TEST];
     int f, cols, page, col;
     if (!spr_load(SPR_LPC_TEST)) return 0;
+    lpc_refresh();
     if (!spr_baked[SPR_LPC_TEST]) { spr_bake(SPR_LPC_TEST, NULL); spr_baked[SPR_LPC_TEST] = 1; }
     f = frame >= 0 && frame < s->nf ? frame : 0;
     cols = 256 / s->w; page = s->page + f / cols; col = f % cols;
@@ -249,6 +267,7 @@ const uint16_t *Paint_LpcFrame(int dir, int frame, int *w, int *h, int *fx, int 
     uint16_t *bank;
     int f, cols, page, col;
     if (!spr_load(SPR_LPC_TEST)) return NULL;
+    lpc_refresh();
     if (!spr_baked[SPR_LPC_TEST]) { spr_bake(SPR_LPC_TEST, NULL); spr_baked[SPR_LPC_TEST] = 1; }
     bank = SoftGpu_Bank(s->bank);
     if (!bank) return NULL;
@@ -267,7 +286,7 @@ static void sprites_prepare(const int body_rgb[5])
         int fresh = !spr_baked[i];
         if (i == SPR_ARENA_CROWD && paint_area != AREA_ARENA) continue;   /* page 4 belongs to the village props everywhere else */
         if (!spr_load(i)) continue;
-        if (i == SPR_HERO && hero_sig != Cg_Signature()) { fresh = 1; hero_sig = Cg_Signature(); }   /* the creator or a debug look changed the hero */
+        if (i == SPR_LPC_TEST) { lpc_refresh(); fresh = !spr_baked[i]; }   /* the creator or a debug look changed the hero */
         if (fresh || (spr[i].recolour && !same)) { spr_bake(i, body_rgb); spr_baked[i] = 1; }
     }
     if (body_rgb) memcpy(spr_colours, body_rgb, sizeof(spr_colours));
@@ -1311,7 +1330,7 @@ void Paint_Draw(const Mesh *body, const int body_rgb[5])
         else draw_char(Gfx_Mesh(pnpc[i].mesh), pnpc[i].x, pnpc[i].y, pnpc[i].yaw, 0, NULL, 20);
     }
     {
-        int mode = Dbg_On() ? paint_sprite : (Cg_Style() ? 1 : 3);   /* the creator owns the normal player look; debug can still compare all renderers */
+        int mode = Dbg_On() ? paint_sprite : 1;   /* the creator owns the normal player look; debug can still compare all renderers */
         float off = mode == 4 ? 28.0f : 0.0f;
         if (mode == 1) draw_spr(SPR_LPC_TEST, pt_x, pt_y, face, spr_walk_frame(SPR_LPC_TEST), 20);
         if (mode == 2) draw_spr(SPR_PLAYER_MESH, pt_x, pt_y, face, spr_walk_frame(SPR_PLAYER_MESH), 20);

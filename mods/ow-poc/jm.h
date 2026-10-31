@@ -437,7 +437,7 @@ void Shop_Overlay(void);
 unsigned Shop_Signature(void);
 
 /* ----------------------------------------------------------- chargen (jm_chargen.c): the hero assembled from layers */
-int Cg_Ready(void);                                  /* assets/chargen/manifest.json is there and usable */
+int Cg_Ready(void);                                  /* assets/lpc_parts/manifest.json is there and usable */
 int Cg_CatCount(void);
 const char *Cg_CatLabel(int c);
 const char *Cg_CatId(int c);
@@ -445,16 +445,24 @@ int Cg_OptCount(int c);
 const char *Cg_OptLabel(int c, int o);
 int Cg_Get(int c);
 void Cg_Set(int c, int v);
-int Cg_Style(void);                                   /* 0 layered Journey sprite, 1 LPC */
+int Cg_Style(void);                                   /* always 1: the hero is LPC */
 void Cg_SetStyle(int style);
-void Cg_Defaults(void);                              /* the first option everywhere, cg_set = 1 (when the layers exist) */
-unsigned Cg_Signature(void);                         /* changes with the choice */
-int Cg_ComposeTo(uint16_t *buf);                    /* the same into a 1024x256 buffer (creator tiles) */
+void Cg_Defaults(void);                              /* base "Hero", cg_set = 1 (when the parts exist) */
+unsigned Cg_Signature(void);                         /* changes with the choice (and the body type) */
 int Cg_OptRgb(int c, int o);
 int Cg_OptRgb2(int c, int o);
-int Cg_Compose(int bank, int page);                  /* paints the hero into a bank page (5 frames x 4 directions) */
 int Cg_Frames(void);
-int Cg_Avoided(void);                                /* the current hair + accessory is one the art marks as clashing */
+int Cg_W(void);
+int Cg_H(void);
+int Cg_Avoided(void);
+int Cg_BaseCount(void);
+const char *Cg_BaseName(int b);
+int Cg_BaseLook(int b, unsigned char cg[8], int *gender);
+void Cg_ApplyBase(int b);
+int Cg_MatchBase(void);
+int Cg_ComposeCell(const unsigned char cg[8], int gender, int cell, uint16_t *out);   /* cell = direction * 10 + frame, out 25x38 RGB555 */
+int Cg_ComposeHi(const unsigned char cg[8], int gender, int dir, uint16_t *out);       /* idle pose at 64x64 */
+int Cg_ComposeCellRgb(int cell, unsigned char *kind, unsigned char *rgb);
 
 /* ----------------------------------------------------------------- debug (jm_debug.c, off without debug.json) */
 void Dbg_Init(void);
