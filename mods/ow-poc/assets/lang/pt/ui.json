@@ -41,6 +41,7 @@
     "rows": {
       "name": "Nome",
       "gender": "Genero",
+      "sprite": "Sprite",
       "hair": "Cabelo",
       "hair_colour": "Cor do cabelo",
       "skin": "Pele",
@@ -51,6 +52,10 @@
     "gender": {
       "male": "Masculino",
       "female": "Feminino"
+    },
+    "sprite": {
+      "layered": "Camadas Journey",
+      "lpc": "LPC (mais fluido)"
     },
     "hair_styles": [
       "Curto",
@@ -323,6 +328,7 @@
     "press": "X: continuar"
   },
   "painted": {
-    "cistern": "Cisterna Antiga"
+    "cistern": "Cisterna Antiga",
+    "arena": "Arena Secreta do Porão"
   }
 }

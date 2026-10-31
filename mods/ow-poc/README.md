@@ -43,6 +43,7 @@ enabled, Free Duel included.
 `tools/` has the generators for the assets: `make_world.py` (the map), `make_late.py` (the chapter 6 to 8 data),
 `make_atlas.py` (the texture atlas, with portrait PNGs), `bake_npc.py`
 (characters from Quaternius glTF, which are not in the repository),
+`import_lpc_test.py` (the ten-frame Universal LPC protagonist and village-character test set: one idle plus the full nine-frame walk),
 `make_veg.py` (the plant sprites), `make_props.py` (textures for the Kenney meshes and the ground), `bake_kenney.py`
 (houses, fences, stalls, rocks and trees from the Kenney Fantasy Town Kit; `--compare sheet.png` draws every piece next
 to the kit's Preview.png, `--flat` bakes the first, untextured look) and `import_lang.py` (the EN/PT language data).
@@ -50,6 +51,8 @@ to the kit's Preview.png, `--flat` bakes the first, untextured look) and `import
 ## Credits
 
 * Characters: [Quaternius](https://quaternius.com), CC0.
+* LPC animation proof of concept: selected Universal LPC layers under OGA-BY 3.0 and CC-BY-SA 3.0; the complete selection,
+  authors and source links are in `assets/lpc_test_credits.txt`.
 * Houses, fences, stalls, carts, lanterns, banners, rocks and trees: **Fantasy Town Kit 2.0** by [Kenney](https://kenney.nl),
   CC0 (credit given as a courtesy). Only the baked pieces the map uses are in the repository (`assets/k_*.bin`).
 * Props (boulder, sagebrush, agave, skull, tumbleweed, hoodoo, barrel cactus):

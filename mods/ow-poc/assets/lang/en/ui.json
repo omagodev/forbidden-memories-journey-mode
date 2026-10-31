@@ -41,6 +41,7 @@
     "rows": {
       "name": "Name",
       "gender": "Gender",
+      "sprite": "Sprite",
       "hair": "Hair",
       "hair_colour": "Hair colour",
       "skin": "Skin",
@@ -51,6 +52,10 @@
     "gender": {
       "male": "Male",
       "female": "Female"
+    },
+    "sprite": {
+      "layered": "Journey layers",
+      "lpc": "LPC (smoother)"
     },
     "hair_styles": [
       "Short",
@@ -323,6 +328,7 @@
     "press": "X: continue"
   },
   "painted": {
-    "cistern": "Old Cistern"
+    "cistern": "Old Cistern",
+    "arena": "Secret Cellar Arena"
   }
 }

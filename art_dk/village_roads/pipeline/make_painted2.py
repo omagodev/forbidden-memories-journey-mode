@@ -64,6 +64,24 @@ house_polys = {
  "C": ([(55,537),(190,474),(248,520),(262,545),(310,582),(312,660),(285,665),(255,692),(240,690),(215,668),(150,690),(111,685),(55,640)], 690),
  "D": ([(1110,525),(1169,480),(1280,538),(1280,700),(1230,690),(1180,680),(1130,700),(1100,718),(1045,692),(1045,624),(1103,586)], 700),
 }
+# Raised round shrubs.  Their crowns become depth-sorted occluders, while only
+# a narrow footprint at the bottom is solid.  The three touching crowns in the
+# north flower bed share one texture cell so all 30 free painted-bank cells are
+# sufficient for the 32 shrubs.
+bush_crowns = [
+ (239,93,281,131), (444,110,483,151), (483,103,525,146), (523,120,570,160),
+ (736,89,779,130), (728,140,775,181), (1051,91,1097,131), (1073,192,1118,232),
+ (398,198,445,241), (366,243,411,283), (299,273,345,316), (392,280,435,323),
+ (435,292,481,338), (477,328,523,374), (142,339,189,383), (304,332,350,375),
+ (763,272,809,316), (723,306,770,352), (798,306,843,351), (846,327,892,370),
+ (884,349,930,392), (843,368,896,414), (944,368,991,415),
+ (874,486,924,533), (558,535,608,579), (404,590,453,634), (428,590,476,634),
+ (488,582,538,629), (511,649,561,696), (892,608,943,653),
+ (1055,563,1103,606), (1057,646,1109,693),
+]
+bush_occluders = [[bush_crowns[1], bush_crowns[2], bush_crowns[3]]] + [
+    [c] for i, c in enumerate(bush_crowns) if i not in (1, 2, 3)
+]
 def poly_mask(pts):
     m = Image.new("L", (BW, BH), 0)
     ImageDraw.Draw(m).polygon(pts, fill=255)
@@ -97,6 +115,17 @@ for name, (pts, by) in house_polys.items():
             if m[y0:y0 + CELL, x0:x0 + CELL].sum() < 4: continue
             occ_tab.append((x0, y0, len(cells), by))
             cells.append(cut(tex_orig, m, x0, y0))
+for crowns in bush_occluders:
+    im = Image.new("L", (BW, BH), 0)
+    di = ImageDraw.Draw(im)
+    for x0, y0, x1, y1 in crowns:
+        di.ellipse((x0 + 2, y0 + 2, x1 - 2, y1 - 1), fill=255)
+    m = (np.array(im) > 0) & ~taken
+    ys, xs = np.nonzero(m)
+    x0 = max(0, min(BW - CELL, (int(xs.min()) + int(xs.max()) - CELL) // 2))
+    y0 = max(0, min(BH - CELL, (int(ys.min()) + int(ys.max()) - CELL) // 2))
+    occ_tab.append((x0, y0, len(cells), max(c[3] for c in crowns)))
+    cells.append(cut(tex_orig, m, x0, y0))
 def write_banks(path, cells, extra=b""):
     nb = math.ceil(len(cells) / 32)
     banks = np.zeros((nb, 512, 1024), np.uint16)
@@ -194,6 +223,14 @@ for n, (fr, tr, by) in PALMS.items():
     rects.append((tr[0] + 4, by - 16, tr[2] - 4, min(719, by + 2)))
 rects.append((0, 0, 1280, 26))
 for r in rects: d.rectangle(r, fill=255)
+
+# Only the little trunk/root footprint is solid.  The crown is an occluder, so
+# a character north of it walks behind the leaves and gaps between rows remain
+# traversable.  blocked() adds another five texels of character radius.
+for x0, y0, x1, y1 in bush_crowns:
+    dx = max(7, (x1 - x0) * 3 // 10)
+    fh = max(7, (y1 - y0) // 5)
+    d.ellipse((x0 + dx, y1 - fh - 3, x1 - dx, y1 - 3), fill=255)
 a = np.array(blk) > 0
 hsv = np.array(Image.fromarray(ORIG).convert("HSV")).astype(int)
 hh = hsv[:, :, 0] * 360 / 255; ss = hsv[:, :, 1] / 255; vv = hsv[:, :, 2] / 255

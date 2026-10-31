@@ -4,11 +4,14 @@
  *   "stage": n, "flags": [names], "clear_flags": [names], "wins": n    set on Continue, after the preset
  *   "teleport": "anchor" | [x, y]    where to stand in the painted village (picture texels)
  *   "time": "day" | "night" | "auto"
+ *   "coins": n, "xp": n     the purse and the experience, set on Continue
+ *   "walked": seconds       walking already done, which is what the Jackals count
+ *   "gang_ready": true      the Jackals have watched long enough: the next step brings one over
  *   "skip_dialogue": true   pages turn by themselves; Yes is chosen at questions
  *   "win_duels": true       a duel is not played: it counts as won
  *   "look": [0, 1, 2, ...]  the layered hero: the option number of each chargen category, set on Continue
  * In the painted village, with L1 + R1 held:  Up / Down  next / previous preset,  Left  time auto > night > day,
- * Right  next anchor,  Square  skip dialogue on/off,  Triangle  win duels on/off. */
+ * Right  next anchor,  Square  skip dialogue on/off,  Triangle  win duels on/off,  Circle  ambush now. */
 #include "jm.h"
 #include <stdio.h>
 #include <string.h>
@@ -114,6 +117,12 @@ void Dbg_Apply(void)
     set_flags(Json_Get(cfg, "clear_flags"), 0);
     if (Json_Get(cfg, "stage")) jm.stage = (int)Json_Num(cfg, "stage", jm.stage);
     if (Json_Get(cfg, "wins")) jm.wins = (int)Json_Num(cfg, "wins", jm.wins);
+    /* the economy, so a test does not have to be played up to: coins and xp outright, and
+     * "gang_ready" to stand where the Jackals have finished watching and are about to move */
+    if (Json_Get(cfg, "coins")) jm.eco.coins = (int)Json_Num(cfg, "coins", jm.eco.coins);
+    if (Json_Get(cfg, "xp")) jm.eco.xp = (int)Json_Num(cfg, "xp", jm.eco.xp);
+    if (Json_Get(cfg, "walked")) jm.eco.amb_walk = (int)(Json_Num(cfg, "walked", 0) * 30);
+    if (Json_Num(cfg, "gang_ready", 0) != 0) Gang_Force();
     t = Json_Get(cfg, "teleport");
     if (t && t->str && Paint_Anchor(t->str, &x, &y)) { Paint_GoAnchor(t->str); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }
     else if (t && t->child) { x = (float)t->child->num; y = (float)(t->child->next ? t->child->next->num : 0); Paint_Set(x, y); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }
@@ -152,6 +161,11 @@ int Dbg_Keys(unsigned short pad, unsigned short edge, int *swallow)
         name = Paint_AnchorName(anchor_at);
         if (!name) { anchor_at = 0; name = Paint_AnchorName(0); }
         if (name && Paint_Anchor(name, &x, &y)) { Paint_GoAnchor(name); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; Ui_Message(name); LOG("debug: teleport %s", name); return 1; }
+        return 0;
+    }
+    if (edge & PAD_CIRCLE) {               /* bring the Jackals over on the next step */
+        if (Gang_Force()) Ui_Message("ambush: walk a step");
+        else Ui_Message("ambush: no gang data");
         return 0;
     }
     if (edge & PAD_SQUARE) { skip ^= 1; Ui_Message(skip ? "skip dialogue: on" : "skip dialogue: off"); }

@@ -10,7 +10,7 @@ story's own converter (dk_to_journey.py) owns journey.json and ui.json, so the t
 The design files stay the source of truth; edit journey_content/economy/src/ and regenerate them with
 their own generator first (gen_economy.py), then run this.
 """
-import csv, json, os, sys
+import collections, csv, io, json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MOD = os.path.dirname(HERE)
@@ -34,6 +34,9 @@ def main():
     every = "--all" in sys.argv[1:]
     eco = load("economy.json")
     rarity = load("card_rarity.json")
+    gang = load("gang.json")
+    arenas = load("arenas.json")
+    decks = load("decks_economy.json")
     pools = load("card_pools.json")
     shops = load("shops.json")
     levels = load("levels.json")
@@ -116,8 +119,14 @@ def main():
                     if e["i"] is None:
                         missing.append("%s: %s" % (sid, e["n"]))
 
+    out["gang"] = gang_runtime(gang, every)
+    out["arenas"] = arenas_runtime(arenas, every)
+    added = write_duelists(gang, arenas, decks, out, every)
+
     write(os.path.join(MOD, "assets/economy.json"), out)
     merge_into_story(out)
+    print("duelists: %d written (%d of the gang, %d of the arenas)" %
+          (len(added), len(gang["members"]), len(added) - len(gang["members"])))
 
     for code in ("en", "pt"):
         src = load(os.path.join("en", "economy.en.json") if code == "en" else os.path.join("pt", "economy.pt.json"))
@@ -159,14 +168,174 @@ def merge_into_story(out):
                 continue
             rule["effects"] = {"open_shop": shop_id}
             touched.append("%s/%s" % (npc["id"], rule.get("scene", "?")))
+    # The arena's door, so it is a thing on the ground and not an invisible spot.  It borrows the
+    # cistern's hatch art (one piece, drawn for every "hatch" object of the area) and carries no talk
+    # of its own: pressing X there is handled by the arena itself (Arena_DoorAt in ow_poc.c).
+    doors = 0
+    objects = story.setdefault("objects", [])
+    have = {o.get("id") for o in objects}
+    for sid, a in out["arenas"].items():
+        anchor = a["entry_anchor"].split(".", 1)[-1]
+        oid = "arena_door_%s" % sid
+        if oid in have:
+            continue
+        objects.append({"id": oid, "anchor": anchor, "prop": "hatch", "reach": 0})
+        doors += 1
+
     write(path, story)
-    print("journey.json: shop opened from %d idle rules (%s)" % (len(touched), ", ".join(touched) or "none"))
+    print("journey.json: shop opened from %d idle rules (%s); %d arena door(s) added" %
+          (len(touched), ", ".join(touched) or "none", doors))
 
 
 def write(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=1, ensure_ascii=True, sort_keys=False)
         f.write("\n")
+
+
+
+
+# ---------------------------------------------------------------- the gang and the arenas
+# The gang roams every open-air area, so all seven of them come across; the arenas are tied to a
+# place, so only the ones whose place exists are written, as the pools and shops are.
+ARENAS_NOW = ("village",)
+# No art for the gang yet, so each is drawn from a villager's sheet in a colour of his own.  Sand and
+# rag tones, in the order the design lists them: dusty pup, scrap junker, fang brute, viper, hex
+# lady, granite brute, old boss.  Replace this when the sprites exist.
+GANG_TINTS = [0xC8B48C, 0x9A9AA6, 0xB07050, 0x7FA86A, 0xA07AB4, 0x8C8C8C, 0xD0A040]
+
+
+def gang_runtime(gang, every):
+    """What the mod needs to run the Dune Jackals: who they are, how often they come, what they take.
+
+    The design has them spawn off the edge of the view when a countdown ends.  They are placed in the
+    area instead - the player sees them loitering about - and the countdown is what makes one of them
+    walk over and pick his excuse, so the timing the design balanced is unchanged.
+    """
+    amb = gang["ambush"]
+    stakes = gang["stakes"]
+    members = [m for m in gang["members"] if every or True]
+    return {
+        "name_id": gang["gang"]["name_id"],
+        "members": [{
+            "id": m["id"],
+            "duelist": m["duelist"]["id"],
+            "name": m["duelist"]["name"],
+            "tier": m["gang_tier"],
+            "difficulty": m["difficulty_tier"],
+            "tint": GANG_TINTS[i % len(GANG_TINTS)],
+            "taunt_id": m["taunt_id"],
+            "win_id": m["win_id"],
+            "lose_id": m["lose_id"],
+        } for i, m in enumerate(members)],
+        "tier_by_level": [{"from": r["level"][0], "to": r["level"][1], "weights": r["weights"]}
+                          for r in gang["tier_by_level"]],
+        "stakes": {
+            "pct": stakes["percent_by_gang_tier"],
+            "min": stakes["min_by_gang_tier"],
+            "max": stakes["max_by_gang_tier"],
+            "first_three": stakes["first_three_ambushes_factor"],
+            "relief_after": stakes["loss_streak_relief"]["after_losses"],
+            "relief_stolen": stakes["loss_streak_relief"]["stolen_factor"],
+            "relief_cooldown": stakes["loss_streak_relief"]["cooldown_factor"],
+            "truce": stakes["truce_factor"],
+            "recover": stakes["recover_on_win"],
+        },
+        "ambush": {
+            "min_purse": amb["min_purse"],
+            # the countdown is kept in 30ths of a second of walking, as the save does
+            "cooldown_min": int(amb["cooldown_walk_seconds"]["min"] * 30),
+            "cooldown_max": int(amb["cooldown_walk_seconds"]["max"] * 30),
+            "warmup": int(amb["tutorial"]["warmup_walk_seconds"] * 30),
+            "stage_min": amb["tutorial"]["no_ambush_before_stage"],
+            "first_member": amb["tutorial"]["first_ambush"]["member"],
+            "first_cap": amb["tutorial"]["first_ambush"]["stake_cap_coins"],
+            "grace_win": int(amb["grace_walk_seconds"]["after_win"] * 30),
+            "grace_loss": int(amb["grace_walk_seconds"]["after_loss"] * 30),
+            "grace_area": int(amb["grace_walk_seconds"]["after_area_change"] * 30),
+            "grace_scene": int(amb["grace_walk_seconds"]["after_scene_or_menu"] * 30),
+            "areas": amb["eligible_areas"],
+            "frequency": amb["frequency_by_area"],
+        },
+    }
+
+
+def arenas_runtime(arenas, every):
+    fighters = {f["id"]: f for f in arenas["fighters"]}
+    out = {}
+    for a in arenas["arenas"]:
+        if not every and a["id"] not in ARENAS_NOW:
+            continue
+        out[a["id"]] = {
+            "name_id": a["name_id"], "tip_id": a["tip_id"], "keeper": a.get("keeper", ""),
+            "entry_anchor": a["entry_anchor"], "interior_area": a["interior_area"],
+            "pool": a["pool"], "fee": a["fee"], "unlock": a["unlock"],
+            "ladder": [{
+                "rung": r["rung"],
+                "fighter": r["fighter"],
+                "duelist": fighters[r["fighter"]]["duelist"]["id"] if r["fighter"] in fighters else "",
+                "name": fighters[r["fighter"]]["name"] if r["fighter"] in fighters else r["fighter"],
+                "text_id": fighters[r["fighter"]]["text_id"] if r["fighter"] in fighters else "",
+                "tier": r["tier"], "champion": 1 if r["champion"] else 0,
+                "coins": r["coins"], "xp_base": r["xp_base"], "drops": r["drops"],
+            } for r in a["ladder"]],
+            "first_clear": a["first_clear"], "repeat_clear": a["repeat_clear"],
+        }
+    return out
+
+
+def write_duelists(gang, arenas, decks, out, every):
+    """The duelists the gang and the arenas need, and their decks.
+
+    The port makes a duelist from duelists/<id>.json: `copy` is the disc opponent whose face, AI and
+    drops it borrows, `name` is its own.  Its deck goes in mod.json under that name, the way the
+    villagers' decks already do.  The mod asks the host for the id each of them got this run
+    (duelist_id), because that depends on which mods are applied and in what order.
+
+    Only the ones the game can reach are written: a duelist here is a row on the Free Duel grid too.
+    """
+    folder = os.path.join(MOD, "duelists")
+    if not os.path.isdir(folder):
+        os.mkdir(folder)
+    wanted = []
+    for m in gang["members"]:
+        wanted.append(m["duelist"])
+    arena_ids = set()
+    for a in arenas["arenas"]:
+        if not every and a["id"] not in ARENAS_NOW:
+            continue
+        for r in a["ladder"]:
+            arena_ids.add(r["fighter"])
+    for f in arenas["fighters"]:
+        if f["id"] in arena_ids:
+            wanted.append(f["duelist"])
+
+    mod = os.path.join(MOD, "mod.json")
+    with open(mod, encoding="utf-8") as fh:
+        manifest = json.load(fh, object_pairs_hook=collections.OrderedDict)
+    kept, missing = [], []
+    for d in wanted:
+        path = os.path.join(folder, "%s.json" % d["id"])
+        write(path, collections.OrderedDict([("copy", d["copy"]), ("name", d["name"])]))
+        kept.append(d["id"])
+        deck = decks["decks"].get(d["name"])
+        if not deck:
+            missing.append(d["name"])
+            continue
+        entry = collections.OrderedDict([("fixed", True)])
+        entry.update(deck["cards"])
+        manifest["decks"][d["name"]] = entry
+    with io.open(mod, "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(manifest, fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+    # a duelist written before but no longer wanted would stay on the grid for ever
+    for name in sorted(os.listdir(folder)):
+        if name.endswith(".json") and name[:-5] not in kept:
+            os.remove(os.path.join(folder, name))
+            print("removed duelists/%s" % name)
+    for name in sorted(set(missing)):
+        print("warning: no deck for", name)
+    return kept
 
 
 if __name__ == "__main__":

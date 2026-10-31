@@ -124,6 +124,10 @@ void Gfx_DrawMesh(const Mesh *m, int frame, float wx, float wy, float wz, float 
                   float bias);
 /* A 2D quad straight into the ordering table, nearest slot (portraits). */
 void Gfx_Portrait(int x, int y, int size, int ax, int ay);
+/* The same, and a flat rectangle, into one of the game's own tables at a chosen depth: for drawing
+ * among pictures the game queued, like the duel's life-point panel. */
+void Gfx_PortraitAt(int x, int y, int size, int ax, int ay, int ot_index, unsigned depth);
+void Gfx_RectAt(int x, int y, int w, int h, int r, int g, int b, int ot_index, unsigned depth);
 void Gfx_Rect(int x, int y, int w, int h, int r, int g, int b);
 void Gfx_Backdrop(int top_rgb, int bottom_rgb);
 int Gfx_LoadFace(int duelist);                       /* disc portrait into the speaker slot */
@@ -229,7 +233,7 @@ typedef struct {
     int lang;                    /* index into assets/lang/languages.json */
     float pt_x, pt_y;            /* where the player stands in the painted village (save version 3) */
     int pt_set;                  /* 1 when pt_x, pt_y were saved */
-    unsigned char cg[8];         /* the layered hero: the chosen option of each chargen category (save version 4; 7 used) */
+    unsigned char cg[8];         /* seven layered options plus render style (0 layered, 1 LPC); saved since version 4 */
     int cg_set;                  /* 1 when the creator made the hero; 0 on an older save, which keeps the painted hero */
     Economy eco;                 /* coins, xp and the rest of the economy (save version 5) */
 } Journey;
@@ -276,7 +280,7 @@ int Story_Auto(Talk *out);                           /* an "auto" rule of journe
 extern int jm_pwarp;                                 /* set by a result with "warp": [area, anchor]: the painted player goes there when the scene is over */
 extern char jm_pwarp_area[16], jm_pwarp_anchor[24];
 int Story_ItemIcon(const char *text, const char **file);   /* the icon file of an item named in a banner's text, if journey.json gives it one */
-int paint_area_now(void);                            /* 0 the painted village, 1 the old cistern (also what the "area" condition tests) */
+int paint_area_now(void);                            /* 0 village, 1 cistern, 2 secret arena (also story "area") */
 
 /* -------------------------------------------------------------- dialogue */
 void Say_Text(const char *name, const char *body, int ask);   /* builds the box text (speaker first, in yellow), opens the game's box */
@@ -294,12 +298,25 @@ int Lang_PrefRead(void);                             /* the language chosen the 
 void Lang_PrefWrite(int i);
 void Paint_Info(float *x, float *y, float *sx, float *sy);
 void Paint_Set(float x, float y);
-int Paint_Anchor(const char *name, float *x, float *y);   /* a named place of the painted village (or the cistern) in picture texels */
-int Paint_AnchorArea(const char *name);              /* the area an anchor is in (0 village, 1 cistern), -1 unknown */
+int Paint_Anchor(const char *name, float *x, float *y);   /* a named place of a painted area in picture texels */
+int Paint_AnchorArea(const char *name);              /* 0 village, 1 cistern, 2 arena, -1 unknown */
 int Paint_Area(void);
 void Paint_Warp(const char *area, const char *anchor);   /* go there; changing area loads the other picture, with a fade in */
 void Paint_GoAnchor(const char *anchor);             /* debug: the same without the fade, whatever the area */
+int Paint_ArenaPadAt(void);                          /* standing in the empty challenger mark */
+void Paint_ArenaReady(void);                         /* snap to the challenger mark, facing the keeper */
 int Paint_Loaded(void);
+/* A villager's idle picture, big, in the view's own 320x240 space (the shop's keeper). 0 if unknown. */
+int Paint_Figure(const char *npc_id, int x, int y, int w, int h);
+/* The keeper's painted picture for the shop screen, when assets/shop_<keeper>.raw is there. */
+/* A card's picture from the disc, into a texture page, for the reveal after a duel. */
+int Paint_CardArt(int card);
+void Paint_CardArtWhere(int *ax, int *ay, int *w, int *h);
+int Paint_ShopArt(const char *keeper);
+int Paint_ShopFigure(int x, int y, int box_w, int box_h);
+int Paint_LpcPreview(int x, int y, int scale, int dir, int frame, float depth); /* creator preview, x/y is the feet */
+/* The opaque horizontal span of the shop art at an overlay-canvas row. */
+int Paint_ShopMaskSpan(int output_y, int output_w, int output_h, int *x0, int *x1);
 const char *Paint_AnchorName(int i);                 /* the i-th named place, NULL past the last */
 void Paint_ForceTime(int t);                         /* debug: 1 night, 0 day, -1 the story decides */
 int Paint_ForcedTime(void);
@@ -333,6 +350,8 @@ const char *EcoDlg(const char *key);                 /* a line of the economy's 
 /* The card a won duel drops comes from the pool of the place it was fought in (0 for a place with
  * no pool, like the cistern).  `context` is a key of the drop odds: "duel", "ambush_win", ... */
 int Eco_RollDrop(const char *context);
+void Eco_SetDropContext(const char *context);        /* which odds the next won duel drops by */
+const char *Eco_DropContext(void);
 int Eco_DropCount(const char *context);
 
 /* A shop.  Eco_ShopAt picks the one a person keeps, if it is open at this point of the story; the
@@ -352,6 +371,7 @@ int Eco_ShopAt(const char *npc_id);
 int Eco_ShopSet(const char *shop_id);
 const char *Eco_ShopName(void);
 const char *Eco_ShopGreet(void);
+const char *Eco_ShopKeeper(void);
 int Eco_ShopItems(EcoItem *out, int max);
 int Eco_PackItems(EcoItem *out, int max);
 int Eco_SellItems(EcoItem *out, int max);
@@ -362,8 +382,55 @@ int Eco_CardClass(int card);                         /* 0 C, 1 B, 2 A, 3 S; -1 f
 int Eco_SellPrice(int card);                         /* 0 when it may not be sold */
 int Eco_Protected(int card);
 
+JsonNode *Eco_Block(const char *key);                /* a block of the data, for jm_gang.c */
+void Eco_Note(const char *text, int alert);          /* a line on the message queue */
+
+/* ------------------------------------------- the Dune Jackals (jm_gang.c)
+ * They are in the place the player is, in plain sight, and a countdown that only runs while he
+ * walks decides when one of them comes over.  Everything they do is in jm.eco. */
+typedef struct { float x, y; int member; unsigned tint; } GangFigure;
+enum { GANG_GRACE_WIN, GANG_GRACE_LOSS, GANG_GRACE_AREA, GANG_GRACE_SCENE };
+int Gang_Load(void);
+int Gang_Present(void);                              /* they are about the place (from stage 3) */
+int Gang_Awake(void);                                /* and the ambush clock may run (past the warm-up) */
+int Gang_Figures(GangFigure *out, int max);          /* where they loiter in this place, now */
+void Gang_Walked(int frames);                        /* frames the player actually moved */
+void Gang_Near(float px, float py);                  /* every painted frame: standing in their spot */
+int Gang_Dwell(void);
+int Gang_AlertAt(int slot);                          /* 0-100: how much this one has noticed */
+float Gang_Reach(void);                              /* how far their ground reaches, in texels */
+void Gang_Grace(int which);                          /* hold them off for a while */
+void Gang_Area(void);                                /* the player changed area */
+int Gang_Pending(void);                              /* one of them is coming over */
+int Gang_Member(void);
+const char *Gang_Line(const char *kind);             /* "taunt", "win", "lose" */
+const char *Gang_Name(void);
+int Gang_Duelist(void);                              /* the id the host gave this member this run */
+int Gang_Tier(void);
+void Gang_Result(int won);
+void Gang_Cancel(void);
+void Gang_Debug(char *out, size_t size);             /* the state of every condition, for Dev mode */
+int Gang_Force(void);                                /* debug: let the next step bring one of them */
+
+/* -------------------------------------- the clandestine arenas (jm_arena.c)
+ * A ladder of four duels behind a door, for a fee.  Where a run stands is in jm.eco.arena[]. */
+int Arena_Load(void);
+int Arena_DoorAt(float x, float y);                  /* the player is at this place's arena door */
+float Arena_DoorDistance(float x, float y);          /* texels to it, -1 when this place has none */
+void Arena_Debug(char *out, size_t size, float x, float y);   /* why it does or does not answer */
+int Arena_Open(void);
+const char *Arena_Name(void);
+int Arena_Input(unsigned short edge, int *start_duel);   /* 1 when the player is done with it */
+void Arena_Overlay(void);
+unsigned Arena_Signature(void);
+int Arena_NextFighter(char *name, size_t size, int *tier);   /* the duelist of the rung to fight */
+const char *Arena_FighterLine(void);
+int Arena_Running(void);
+void Arena_Result(int won);
+
 /* --------------------------------------------- the shop screen (jm_shop.c) */
 void Shop_Open(void);                                /* after Eco_ShopAt or Eco_ShopSet said yes */
+const char *Shop_Keeper(void);                       /* whose stall it is, for the figure behind it */
 int Shop_Input(unsigned short edge);                 /* 1 when the player is done with it */
 void Shop_Overlay(void);
 unsigned Shop_Signature(void);
@@ -377,6 +444,8 @@ int Cg_OptCount(int c);
 const char *Cg_OptLabel(int c, int o);
 int Cg_Get(int c);
 void Cg_Set(int c, int v);
+int Cg_Style(void);                                   /* 0 layered Journey sprite, 1 LPC */
+void Cg_SetStyle(int style);
 void Cg_Defaults(void);                              /* the first option everywhere, cg_set = 1 (when the layers exist) */
 unsigned Cg_Signature(void);                         /* changes with the choice */
 int Cg_Compose(int bank, int page);                  /* paints the hero into a bank page (5 frames x 4 directions) */

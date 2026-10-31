@@ -2087,6 +2087,12 @@
     }
    ],
    "reach": 80
+  },
+  {
+   "id": "arena_door_village",
+   "anchor": "arena_door",
+   "prop": "hatch",
+   "reach": 0
   }
  ],
  "intro": "dk1_intro",

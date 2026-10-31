@@ -77,7 +77,8 @@ for t in P.get("time_events", []):
     sc = S[ref].get(t["script"])
     if not sc or t["page"] >= len(sc["pages"]): err("time event %s page %s does not exist" % (t["script"], t["page"]))
 for f in ("painted.raw", "painted_col.bin", "painted_palms.raw", "painted_water.raw", "painted_cistern.raw", "painted_cistern_col.bin", "painted_cistern_occ.bin",
-          "spr_rex.bin", "spr_bakura.bin", "prop_hatch_closed.raw", "prop_hatch_open.raw", "prop_torch_glow.raw"):
+          "painted_arena.raw", "painted_arena_col.bin",
+          "spr_rex.bin", "spr_bakura.bin", "spr_arena_crowd.bin", "prop_hatch_closed.raw", "prop_hatch_open.raw", "prop_torch_glow.raw"):
     if not (A / f).exists(): err("assets/%s missing" % f)
 for n in J["npcs"]:
     if n.get("sprite") and not (A / ("spr_%s.bin" % n["sprite"])).exists() and not (A / n["sprite"]).exists(): warnings.append("npc %s: sprite file %s not found" % (n["id"], n["sprite"]))

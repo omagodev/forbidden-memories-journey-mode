@@ -2251,5 +2251,281 @@
   428,
   618,
   717
- ]
+ ],
+ "gang": {
+  "name_id": "gang.name",
+  "members": [
+   {
+    "id": "dusty",
+    "duelist": "eco_dusty",
+    "name": "Dusty",
+    "tier": 1,
+    "difficulty": 1,
+    "tint": 13153420,
+    "taunt_id": "gang_taunt.dusty",
+    "win_id": "gang_win.dusty",
+    "lose_id": "gang_lose.dusty"
+   },
+   {
+    "id": "scrap",
+    "duelist": "eco_scrap",
+    "name": "Scrap",
+    "tier": 1,
+    "difficulty": 1,
+    "tint": 10132134,
+    "taunt_id": "gang_taunt.scrap",
+    "win_id": "gang_win.scrap",
+    "lose_id": "gang_lose.scrap"
+   },
+   {
+    "id": "fang",
+    "duelist": "eco_fang",
+    "name": "Fang",
+    "tier": 2,
+    "difficulty": 2,
+    "tint": 11563088,
+    "taunt_id": "gang_taunt.fang",
+    "win_id": "gang_win.fang",
+    "lose_id": "gang_lose.fang"
+   },
+   {
+    "id": "viper",
+    "duelist": "eco_viper",
+    "name": "Viper",
+    "tier": 2,
+    "difficulty": 2,
+    "tint": 8366186,
+    "taunt_id": "gang_taunt.viper",
+    "win_id": "gang_win.viper",
+    "lose_id": "gang_lose.viper"
+   },
+   {
+    "id": "madame_hex",
+    "duelist": "eco_madame_hex",
+    "name": "Madame Hex",
+    "tier": 3,
+    "difficulty": 3,
+    "tint": 10517172,
+    "taunt_id": "gang_taunt.madame_hex",
+    "win_id": "gang_win.madame_hex",
+    "lose_id": "gang_lose.madame_hex"
+   },
+   {
+    "id": "granite",
+    "duelist": "eco_granite",
+    "name": "Granite",
+    "tier": 3,
+    "difficulty": 3,
+    "tint": 9211020,
+    "taunt_id": "gang_taunt.granite",
+    "win_id": "gang_win.granite",
+    "lose_id": "gang_lose.granite"
+   },
+   {
+    "id": "old_jackal",
+    "duelist": "eco_old_jackal",
+    "name": "Old Jackal",
+    "tier": 4,
+    "difficulty": 7,
+    "tint": 13672512,
+    "taunt_id": "gang_taunt.old_jackal",
+    "win_id": "gang_win.old_jackal",
+    "lose_id": "gang_lose.old_jackal"
+   }
+  ],
+  "tier_by_level": [
+   {
+    "from": 1,
+    "to": 4,
+    "weights": {
+     "1": 100
+    }
+   },
+   {
+    "from": 5,
+    "to": 7,
+    "weights": {
+     "1": 70,
+     "2": 30
+    }
+   },
+   {
+    "from": 8,
+    "to": 10,
+    "weights": {
+     "1": 30,
+     "2": 70
+    }
+   },
+   {
+    "from": 11,
+    "to": 13,
+    "weights": {
+     "2": 80,
+     "3": 20
+    }
+   },
+   {
+    "from": 14,
+    "to": 17,
+    "weights": {
+     "2": 40,
+     "3": 60
+    }
+   },
+   {
+    "from": 18,
+    "to": 30,
+    "weights": {
+     "3": 100
+    }
+   }
+  ],
+  "stakes": {
+   "pct": {
+    "1": 0.1,
+    "2": 0.15,
+    "3": 0.2
+   },
+   "min": {
+    "1": 10,
+    "2": 25,
+    "3": 60
+   },
+   "max": {
+    "1": 120,
+    "2": 400,
+    "3": 1500
+   },
+   "first_three": 0.5,
+   "relief_after": 2,
+   "relief_stolen": 0.5,
+   "relief_cooldown": 1.5,
+   "truce": 0.5,
+   "recover": 0.5
+  },
+  "ambush": {
+   "min_purse": 25,
+   "cooldown_min": 2250,
+   "cooldown_max": 4500,
+   "warmup": 9000,
+   "stage_min": 3,
+   "first_member": "dusty",
+   "first_cap": 20,
+   "grace_win": 1350,
+   "grace_loss": 2700,
+   "grace_area": 600,
+   "grace_scene": 300,
+   "areas": [
+    "village",
+    "kingdom_beach",
+    "kingdom_forest",
+    "kingdom_mountain",
+    "kingdom_meadow",
+    "kingdom_desert"
+   ],
+   "frequency": {
+    "village": 1.0,
+    "kingdom_beach": 1.0,
+    "kingdom_forest": 1.1,
+    "kingdom_mountain": 1.1,
+    "kingdom_meadow": 1.0,
+    "kingdom_desert": 1.2
+   }
+  }
+ },
+ "arenas": {
+  "village": {
+   "name_id": "arena.village",
+   "tip_id": "arena_tip.village",
+   "keeper": "baker",
+   "entry_anchor": "village.arena_door",
+   "interior_area": "arena_village",
+   "pool": "village",
+   "fee": 30,
+   "unlock": {
+    "level_min": 2,
+    "stage_min": 3
+   },
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "doughboy",
+     "duelist": "eco_doughboy",
+     "name": "Doughboy",
+     "text_id": "fighter_pre.doughboy",
+     "tier": 1,
+     "champion": 0,
+     "coins": 25,
+     "xp_base": 10,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "beetle_ben",
+     "duelist": "eco_beetle_ben",
+     "name": "Beetle Ben",
+     "text_id": "fighter_pre.beetle_ben",
+     "tier": 2,
+     "champion": 0,
+     "coins": 40,
+     "xp_base": 16,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "reed_ria",
+     "duelist": "eco_reed_ria",
+     "name": "Reed Ria",
+     "text_id": "fighter_pre.reed_ria",
+     "tier": 2,
+     "champion": 0,
+     "coins": 40,
+     "xp_base": 16,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "big_flour",
+     "duelist": "eco_big_flour",
+     "name": "Big Flour",
+     "text_id": "fighter_pre.big_flour",
+     "tier": 3,
+     "champion": 1,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "first_clear": {
+    "coins": 240,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.village"
+   },
+   "repeat_clear": {
+    "coins": 80,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   }
+  }
+ }
 }

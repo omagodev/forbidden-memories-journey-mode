@@ -1,8 +1,8 @@
 /* The mods' "ui" key as read (src/pc/platform/ui_config.c): real manifests
  * through the real JSON reader. What is checked without a screen: the
  * retail defaults, each key landing where pc/cards/duel_ui.c looks for it, a
- * later mod winning key by key, what each element takes (the sliding ones
- * up and down only, and no larger than leaves the screen with the game's),
+ * later mod winning key by key, what each element takes (LP halves may be
+ * and the FIELD box arranged across, and sliding ones staying bounded),
  * and the notes a mistake raises. */
 #include "../../src/pc/platform/ui_config.c"
 #include <stdarg.h>
@@ -117,15 +117,15 @@ static void mods_win_key_by_key(void)
     CHECK(!config->element[UI_LP_PLAYER].image.file[0]);
 }
 
-/* What the game slides off the screen sideways keeps its place across. */
-static void sliding_ones_move_up_and_down(void)
+/* The LP halves and FIELD box may form a new arrangement across the screen. */
+static void sliding_ones_may_be_arranged_across(void)
 {
     const UiConfig *config = one("{\"ui\": {\"duel\": {\"lp_opponent\": {\"x\": -236, \"y\": -2},"
                                  " \"lp_player\": {\"x\": -236}, \"field\": {\"x\": 170, \"y\": 40}}}}");
     const UiElement *e = config->element;
-    CHECK(notes == 3 && strstr(note, "\"x\" is left out"));
-    CHECK(e[UI_LP_OPPONENT].set && e[UI_LP_OPPONENT].x == 0 && e[UI_LP_OPPONENT].y == -2);
-    CHECK(e[UI_LP_PLAYER].set && e[UI_LP_PLAYER].x == 0 && e[UI_FIELD].x == 0 && e[UI_FIELD].y == 40);
+    CHECK(notes == 0);
+    CHECK(e[UI_LP_OPPONENT].set && e[UI_LP_OPPONENT].x == -236 && e[UI_LP_OPPONENT].y == -2);
+    CHECK(e[UI_LP_PLAYER].set && e[UI_LP_PLAYER].x == -236 && e[UI_FIELD].x == 170 && e[UI_FIELD].y == 40);
 }
 
 /* No larger than leaves the screen at the nearest place the game slides it
@@ -247,7 +247,7 @@ int main(void)
     retail();
     keys();
     mods_win_key_by_key();
-    sliding_ones_move_up_and_down();
+    sliding_ones_may_be_arranged_across();
     sliding_ones_leave_the_screen();
     card_bar_parts();
     mistakes();

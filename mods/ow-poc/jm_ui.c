@@ -75,11 +75,11 @@ const char *Ui_MessageText(void) { return ui_message_timer > 0 ? ui_message : NU
 unsigned Ui_MessageColour(void) { return message_rgb; }
 
 /* -------------------------------------------------------- character creator
- * The rows: Name, Gender, then one row per chargen category (skin, outfit, outfit colour, hair, hair colour, accessory ... whatever
+ * The rows: Name, Gender, sprite set, then one row per chargen category (skin, outfit, outfit colour, hair, hair colour, accessory ... whatever
  * assets/chargen/manifest.json lists), Portrait, Start.  Without the chargen layers the old rows (hair, hair colour, skin, outfit colour)
  * and the turning 3D character are used.  Up/Down choose the row, Left/Right (or X) change it, X on Name opens the name screen. */
 enum { C_NAME, C_GENDER, C_HAIR, C_HAIR_COL, C_SKIN, C_OUTFIT, C_PORTRAIT, C_START, C_ROWS };   /* the old rows and their ids */
-enum { R_NAME, R_GENDER, R_CAT, R_OLD, R_PORTRAIT, R_START };
+enum { R_NAME, R_GENDER, R_STYLE, R_CAT, R_OLD, R_PORTRAIT, R_START };
 typedef struct { int kind, arg; } CRow;
 static CRow rows[20];
 static int nrows, row;
@@ -118,6 +118,7 @@ static void build_rows(void)
     nrows = 0;
     rows[nrows].kind = R_NAME; rows[nrows++].arg = 0;
     rows[nrows].kind = R_GENDER; rows[nrows++].arg = 0;
+    rows[nrows].kind = R_STYLE; rows[nrows++].arg = 0;
     if (Cg_Ready()) for (c = 0; c < Cg_CatCount() && nrows < 16; c++) { rows[nrows].kind = R_CAT; rows[nrows++].arg = c; }
     else { static const int old[4] = {C_HAIR, C_HAIR_COL, C_SKIN, C_OUTFIT}; for (c = 0; c < 4; c++) { rows[nrows].kind = R_OLD; rows[nrows++].arg = old[c]; } }
     rows[nrows].kind = R_PORTRAIT; rows[nrows++].arg = 0;
@@ -173,6 +174,7 @@ static void change(int d)
         while (Cg_Avoided() && tries-- > 0) Cg_Set(c, Cg_Get(c) + d);        /* skip hair + accessory pairs the art marks as clashing */
         cg_t = 0;
     }
+    else if (r->kind == R_STYLE) { Cg_SetStyle(Cg_Style() + d); cg_t = 0; }
     else if (row_id(r) >= 0 && nopt[row_id(r)]) { int id = row_id(r); set_option(id, (option(id) + d + nopt[id]) % nopt[id]); }
 }
 
@@ -197,8 +199,8 @@ void Ui_RefreshName(void)
     if (n && n[0]) { strncpy(jm.name, n, sizeof(jm.name) - 1); jm.name[sizeof(jm.name) - 1] = 0; }
 }
 
-/* In the frame hook: a podium, the turning character and the chosen portrait.  With the chargen layers the character is the
- * layered sprite (composed into the hero's bank page whenever the choice changes), shown big, walking and turning to all four sides. */
+/* In the frame hook: a podium, the turning character and the chosen portrait. Both the layered Journey sprite and the LPC resource are
+ * previewed here with the same asset and animation that exploration will use. */
 void Ui_DrawCreate(void)
 {
     int colours[5];
@@ -225,11 +227,17 @@ void Ui_DrawCreate(void)
     if (Cg_Ready()) {
         static const int turn[4] = {0, 2, 3, 1};            /* down, right, up, left */
         float px, py, pd;
-        int dir = turn[(cg_t / 110) & 3], fr = 1 + (cg_t / 6) % 4, sc = 2;
-        if (cg_sig != Cg_Signature()) { Cg_Compose(13, 2); cg_sig = Cg_Signature(); LOG("journey: creator look %d %d %d %d %d %d %d", jm.cg[0], jm.cg[1], jm.cg[2], jm.cg[3], jm.cg[4], jm.cg[5], jm.cg[6]); }
+        int dir = turn[(cg_t / 110) & 3], fr, sc;
+        if (!Cg_Style() && cg_sig != Cg_Signature()) { Cg_Compose(13, 2); cg_sig = Cg_Signature(); LOG("journey: creator look %d %d %d %d %d %d %d", jm.cg[0], jm.cg[1], jm.cg[2], jm.cg[3], jm.cg[4], jm.cg[5], jm.cg[6]); }
         cg_t++;
         Gfx_Project(cx, 0, cz + 18, &px, &py, &pd);              /* a step in front of the podium's middle: the big sprite must fit under the top */
-        Gfx_SpriteQuad((int)(px + 0.5f) - 24 * sc, (int)(py + 0.5f) - 56 * sc, 48 * sc, 62 * sc, 13, 2, fr * 48, dir * 64, 48, 62, pd);
+        if (Cg_Style()) {
+            fr = 1 + (cg_t / 4) % 9; sc = 4;
+            Paint_LpcPreview((int)(px + 0.5f), (int)(py + 0.5f), sc, dir, fr, pd);
+        } else {
+            fr = 1 + (cg_t / 6) % 4; sc = 2;
+            Gfx_SpriteQuad((int)(px + 0.5f) - 24 * sc, (int)(py + 0.5f) - 56 * sc, 48 * sc, 62 * sc, 13, 2, fr * 48, dir * 64, 48, 62, pd);
+        }
         Gfx_End();
         Gfx_Portrait(258, 10, 52, PORT_X + jm.portrait * 48, PORT_Y);
         return;
@@ -259,6 +267,7 @@ void Ui_CreateOverlay(void)
         switch (r->kind) {
         case R_NAME: lab = Tr(row_key[C_NAME]); val = jm.name; break;
         case R_GENDER: lab = Tr(row_key[C_GENDER]); val = Tr(jm.gender ? "creation.gender.female" : "creation.gender.male"); break;
+        case R_STYLE: lab = Tr("creation.rows.sprite"); val = Tr(Cg_Style() ? "creation.sprite.lpc" : "creation.sprite.layered"); break;
         case R_PORTRAIT: lab = Tr(row_key[C_PORTRAIT]); val = TrAt("creation.portraits", jm.portrait % 4, "?"); break;
         case R_START: lab = Tr(row_key[C_START]); break;
         case R_CAT: lab = Cg_CatLabel(r->arg); val = Cg_OptCount(r->arg) ? Cg_OptLabel(r->arg, Cg_Get(r->arg)) : "-"; break;

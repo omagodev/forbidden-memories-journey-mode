@@ -32,6 +32,10 @@ int Eco_Load(void)
 
 int Eco_Ready(void) { return eco != NULL; }
 
+/* A block of the economy data, for the parts of it that live in another file (the gang, the arenas). */
+JsonNode *Eco_Block(const char *key) { return eco ? Json_Get(eco, key) : NULL; }
+
+
 void Eco_LoadLang(const char *code)
 {
     char path[80], *t;
@@ -87,6 +91,8 @@ static void note_tone(const char *s, unsigned rgb)
 }
 
 static void note(const char *s) { note_tone(s, TONE_GAIN); }
+/* A line on the message queue from another file; `alert` puts it in the colour a level up uses. */
+void Eco_Note(const char *text, int alert) { note_tone(text, alert ? TONE_ALERT : TONE_GAIN); }
 
 static void note_num(const char *key, int value)
 {
@@ -272,8 +278,8 @@ void Eco_QuestTick(void)
  * context odds, the level's shift towards the better classes, and the entry weights. */
 static const char *area_id(void)
 {
-    /* the two painted places of the home arc; later parts add their own areas to area_pool */
-    return paint_area_now() ? "cistern" : "village";
+    /* The flour cellar is under the village and its arena data uses the village card pool. */
+    return paint_area_now() == 1 ? "cistern" : "village";
 }
 
 static JsonNode *pool_of_area(void)
@@ -335,10 +341,16 @@ int Eco_DropCount(const char *context)
 }
 
 /* A card of the local pool, or 0 when the place has none (the cistern) or the data is missing. */
+static char drop_ctx[24] = "duel";
+void Eco_SetDropContext(const char *context) { snprintf(drop_ctx, sizeof(drop_ctx), "%s", context ? context : "duel"); }
+const char *Eco_DropContext(void) { return drop_ctx; }
+
 int Eco_RollDrop(const char *context)
 {
     JsonNode *pool = pool_of_area(), *e;
-    int odds[4], weight[4], i, roll, sum = 0, want, level = Eco_Level(), arena = 0;
+    /* the arena is the only place an S card is given out, so its contexts unlock those entries */
+    int arena = context && !strncmp(context, "arena", 5);
+    int odds[4], weight[4], i, roll, sum = 0, want, level = Eco_Level();
     if (!pool || !class_odds(context, arena, odds, weight)) return 0;
     roll = rand() % ODDS_TOTAL;
     for (i = 0; i < 4; i++) {                       /* which class */
@@ -419,6 +431,7 @@ const char *Eco_ShopName(void)
 }
 
 const char *Eco_ShopGreet(void) { return shop ? EcoDlg(Json_Str(shop, "greet_id", "")) : ""; }
+const char *Eco_ShopKeeper(void) { return shop ? Json_Str(shop, "keeper", "") : ""; }
 
 /* --------------------------------------------------------- what a card is
  * The class of any card (the design's rarity table by id), what it sells for, and whether it may be
