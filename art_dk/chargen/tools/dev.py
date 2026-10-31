@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'/workspace/study/fmrecomp/art_dk/chargen/tools')
+import sys; sys.path.insert(0,__import__('os').path.dirname(__import__('os').path.abspath(__file__)))
 import importlib
 from PIL import Image
 from rig import *; from preview import *

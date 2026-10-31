@@ -13,11 +13,13 @@ JOURNEY MODE is an unofficial, non-commercial fan mod for Yu-Gi-Oh! Forbidden Me
 * Fantasy Town Kit 2.0 by **Kenney** (CC0): https://kenney.nl
 * Character and prop models by **Quaternius** (CC0): https://quaternius.com
 * PSX Nature assets by **heyheythere** (CC BY 4.0): credit "PSX Nature by heyheythere, CC BY 4.0"
+* **Liberated Pixel Cup (LPC)** character sprites, via the [Universal LPC Spritesheet Character Generator](https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator), by many artists (bluecarrot16, JaidynReiman, Benjamin K. Smith, Evert, Eliza Wyatt, TheraHedwig, Johannes Sjolund, Stephen Challener and others), under OGA-BY 3.0, CC-BY-SA 3.0 and GPL 3.0. The per-layer authors, licenses and links are in `mods/ow-poc/assets/lpc_runtime_credits.csv` and `mods/ow-poc/assets/lpc_test_credits.txt`. The baked `spr_lpc_*.bin` sprites are derivative works under the same licenses.
 * **QuickJS** by Fabrice Bellard and Charlie Gordon (MIT), see patches/QUICKJS_LICENSE
 
 ## Art
 * The painted maps, character sprites and sprite sheets of Journey Mode (home town, Duelist Kingdom areas, NPCs) are **AI-generated** images, then processed and baked into game formats by the scripts in `mods/ow-poc/tools/`. The characters are original or fan-made, inspired by Forbidden Memories characters; they are not official art. The AI-generated sprite sheets in `mods/ow-poc/tools/sprite_sheets/` are included as the sources of those scripts.
 * Part 3 adds more of the same: the cistern map, the Rex Raptor and Bakura ghost sprites, the hatch and torch props and the item icons are AI-generated and baked by `mods/ow-poc/tools/build_part3_assets.py`. Like all the characters, they are inspired by Forbidden Memories and are not official art.
+* The underground arena background and crowd (`art_dk/arena/`) and the shop art are AI-generated, baked by `mods/ow-poc/tools/build_arena_assets.py` and `make_shop_art.py`.
 * The "InsetoKaiba" rival is a stylized parody character; it uses no real person's name or likeness.
 
 ## Content

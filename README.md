@@ -1,140 +1,125 @@
-# Journey Mode: Yu-Gi-Oh! Forbidden Memories
+<div align="center">
 
-A story and open-world mode for **Yu-Gi-Oh! Forbidden Memories**, in English and Portuguese: walk painted maps, talk to duelists, follow a story and fight real duels with the game's own engine. The current story is a Duelist Kingdom adventure that starts in your home town (work in progress, home town arc through part 3; the older eight-chapter story is kept as a backup). Created by Atos Vinicius (omagodev).
+# ⚔️ Journey Mode
+### A story-driven RPG mode for *Yu-Gi-Oh! Forbidden Memories*
 
-Press **JOURNEY MODE** on the title screen. You need your own legal copy of the USA disc (SLUS-01411); no game data is included. The painted maps, sprites and portraits of Journey Mode are original AI-assisted art made for this project (see [CREDITS.md](CREDITS.md)).
+Walk painted maps, talk to the duelists of Forbidden Memories, take quests and fight real duels with the game's own engine.
 
-## Built on the shoulders of others
+[![Release](https://img.shields.io/github/v/release/omagodev/forbidden-memories-journey-mode?include_prereleases&label=release)](https://github.com/omagodev/forbidden-memories-journey-mode/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue)
+![Languages](https://img.shields.io/badge/lang-EN%20%7C%20PT--BR-orange)
+![Status](https://img.shields.io/badge/status-alpha-red)
 
-This project is built on **[Yu-Gi-Oh! Forbidden Memories Recompiled](https://github.com/Unchiga/Yu-Gi-Oh-Forbidden-Memories-Recompiled)** by Unchiga and contributors, the native PC port that makes all of it possible, which in turn builds on **[memories-decomp](https://github.com/krystalgamer/memories-decomp)** by krystalgamer and its authors. This repository started from a copy of their port and adds Journey Mode on top. Please go and check out and support their project too: it keeps its own community, history, releases and the HD pack. Thank you to everyone there.
+**English** · [Português (BR)](README.pt-BR.md)
 
-## Where things are
+![Painted home town with dialogue](docs/media/village_dialogue.png)
 
-* [`docs/CONTINUE_DEVELOPMENT.md`](docs/CONTINUE_DEVELOPMENT.md): hand-off guide (setup, build, tests, next steps).
-* `mods/ow-poc/`: the Journey Mode mod (code, baked maps and models, tools).
-* `art_dk/`: art sources and bake tools (large raw generations and private references are not included).
-* `journey_content/`: story, decks and UI text in English and Portuguese, with validators. The Duelist Kingdom story is in `journey_content/duelist_kingdom/`.
-* `mods/ow-poc/tools/`: bake scripts, the fast test helper and the smoke-test scenarios (see `mods/ow-poc/tools/TESTING.md` and `docs/TESTING.md`).
-* `notes/journey-mode.md`: design notes. The rest of `notes/` is the port's documentation.
-* [CREDITS.md](CREDITS.md): everyone whose work is used here.
+</div>
 
-## The native port
+---
 
-**Yu-Gi-Oh! Forbidden Memories** (PS1, USA) rebuilt from its decompiled source as a
-native PC game for Windows and Linux, with a macOS ARM64 source build. Bring your own disc image; no game data is
-included but the text of the European translations (below).
+## What is this?
 
-This is not a static recompilation: the game code was decompiled
-by hand into C that matches the original byte for byte, then ported to PC.
+Journey Mode is a fan-made, just-for-fun project. I took the amazing work of the Forbidden Memories community, adapted it, and wanted to build an **RPG story** on top of the game I grew up with.
 
-![Your field at 4x resolution with 3D Monsters](docs/screenshots/field.jpg)
+The core idea: the duelists from the game's memory are **linked directly to NPCs on the map**. You walk up to Simon, Teana, Jono or Rex Raptor in a painted village, talk to them, and when a duel starts it is the real Forbidden Memories duel, with the real decks, the real AI and the real fusions.
+
+## Why sprites and not 3D?
+
+My first goal was a game that could still run on a **PlayStation 1**. I started with low-poly 3D maps, but the PS1 graphics engine only handles so many vertices, and the result never looked the way I wanted.
+
+So I switched to **painted 2D backgrounds with sprites**. They are far lighter than 3D models, and with a few tricks (layered overlays, swaying palms, animated water and fire, occluders you walk behind) they make the player feel they're in a rich, good-looking map, which the 3D version couldn't deliver with that vertex budget. Today the mode runs on the native PC port, but it keeps that PS1-era spirit.
+
+| | |
+|---|---|
+| ![Objective banner in the village](docs/media/village_objective.png) | ![Underground arena](docs/media/arena.jpg) |
+| *Quests and objectives in the home town* | *The clandestine underground arena, lit by animated fire* |
+
+## The story
+
+> **The Duelist Kingdom** (work in progress)
+
+You are a young duelist from **Oasis Village**, a sleepy desert town where everyone shuffles cards in the sun. Rumors start spreading about a tournament on a faraway island, a place where duelists wager **star chips** and only the best reach the castle.
+
+* **Chapter 1: Home town.** Prove yourself in Simon's test duel. On a quiet night a hooded stranger hands you a Stamp Card. Earn three stamps through creative quests (something lost, something won, something given), pass the harbor exam and face Shadi's trial. Win the **Star Passage** and your first star, just like Joey did, then say goodbye at the pier.
+* **On the ship** you meet Mai, learn the star rules, and run into **InsetoKaiba**: an arrogant, insect-obsessed rival in a white coat with a pompadour, and a parody you won't forget.
+* **The Kingdom (chapters 2-10, outlined):** the Shore of Illusions, the Forest of Whispers, the Mountain Pass, the Meadow Maze, the Desert of Lost Stars and the Star Fair. Win stars, lose stars, never get a game over. Reach **10 stars** to open the castle gate and climb to Pegasus's Dream Room.
+* **Mago.dev, the observer.** A mage who *programs reality* but never interferes. You'll catch glimpses of him on rooftops, in green glyphs on a cistern wall and at the top of a mast... until the very end.
+
+The full outline is in [`journey_content/duelist_kingdom/`](journey_content/duelist_kingdom/README.md), and every line of dialogue in reading order is in [English](journey_content/duelist_kingdom/en/story_readable_dk.en.md) and [Portuguese](journey_content/duelist_kingdom/pt/story_readable_dk.pt.md). Spoilers, of course.
+
+## Characters
+
+<div align="center">
+
+![Characters](docs/media/characters.png)
+
+*Top: InsetoKaiba and Mago.dev (robe and t-shirt). Bottom: hero (test), Simon, Teana, the guard, Jono, the rival, Mago.dev, the baker, the farmer, Rex Raptor and Bakura as in-game walking sprites.*
+
+</div>
 
 ## Features
 
-- Up to 4x internal resolution, widescreen and HD text
-- **3D Monsters**: face-up monsters stand on the field as their battle models
-- Optional **Forbidden Memories HD** pack: redrawn cards, frames and portraits
-- Mods: framework for new cards past the original 722, fusions, textures, music, gameplay tables
-- **FM Editor**: make mods without writing JSON: cards, art, fusions, duelists, decks, packs, the title screen and more ([guide](tools/pc/fm_editor/README.md))
-- Save slots, fusion helper, card drop rates, rebindable controls
-- **Game > Language**: the European releases' own English, French, German, Italian and Spanish
-
-![HD Free Duel portraits](docs/screenshots/portraits.jpg)
+- 🗺️ **Painted maps:** a home town, a cistern and an underground arena, with animated water, fire and swaying palms
+- 🧑‍🤝‍🧑 **NPCs linked to Forbidden Memories duelists:** talk, take quests, and duel them with the original engine
+- 🎭 **Character creator:** build your hero from layered parts (body, outfit, hair, accessory)
+- 📜 **Quests, objectives and a journal**, with an objective arrow and a mini-map
+- 💰 **Economy (early):** money, a shop in every town and card drops from the local card pool only
+- 🥷 **Duelist gang (early):** they ambush you at a set frequency, you can't run, and if they win they take your money
+- 🔥 **Clandestine arenas (early):** farm local cards and level up
+- 🌐 **English and Brazilian Portuguese**
+- 🛠️ **Dev mode** and fast test scenarios that jump straight to any story point
 
 ## Play
 
-Download the latest build from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases),
-extract it and run `memories-pc.exe` (Windows) or `./memories-pc` (Linux). On first
-launch, pick your USA disc's `.bin`. The game can tell you when a newer release is out
-(**Help > Check for updates at start** turns it off; see [Updates](notes/updates.md)).
+1. Download the latest build from [**Releases**](https://github.com/omagodev/forbidden-memories-journey-mode/releases) and extract it.
+2. Run `JOGAR_JourneyMode.bat` (or `memories-pc.exe`).
+3. On first launch, pick **your own** USA disc image (`SLUS-01411`, `.bin`). **No game data is included.**
+4. On the title screen, choose **NEW GAME** to create your character.
 
-### Bring your save from an emulator
+## Build and contribute
 
-Your save from the original game (an emulator's memory card, or a PS1 card copied to a PC)
-loads in the port. Copy the memory card file (`.mcr`, `.mcd`, `.srm`, `.gme`, `.mcs`, `.psv`,
-...; DuckStation keeps its cards in its `memcards` folder, ePSXe in `memcards`) into the
-port's `saves` folder: `Documents\My Games\YFM Re-Decomp\saves` on Windows,
-`~/.local/share/YFM Re-Decomp/saves` on Linux. Then pick **LOAD** on the title screen: the
-save is copied into an empty slot (the card file is renamed `.imported`) and you can load it.
-Emulator save states are not memory cards and cannot be imported; save in game first.
-
-### HD pack
-
-1. From the same release, download `yfm-redecomp-hd-mod-<version>.zip`.
-2. Close the game and extract the zip into the game folder, the one with `memories-pc.exe`
-   or `memories-pc`. You should end up with `mods/assets-hd` beside the other mods.
-3. Start the game. The pack is on by default: press **F10** for the menu bar and open
-   **Game > Mods** to check it, or to turn it or any of its parts off.
-4. For the best look, pick **Video > Resolution > Internal 4x** and turn on **Video > HD text**.
-
-**From source:** put the `.bin` in `game/` and run `play.bat` or `./play.sh`. The first
-run builds everything (Linux needs `gcc` and `python3`). See [PC build](notes/pc-build.md).
-
-On Apple Silicon, `./play.sh` builds and runs the macOS target using Python 3,
-Xcode command-line tools, and verified dependencies installed under `tmp/`.
-See [macOS build](notes/macos-build.md) and the [ARM64 runtime guide](notes/macos-arm64.md).
-Native save states use F5/F7 and have build and platform compatibility limits;
-see [save-state compatibility](notes/macos-arm64.md#save-state-use-and-compatibility). Code mods
-need a macOS ARM64 build; existing i386 code-mod binaries cannot be loaded.
-See [macOS code mods](notes/modding.md#native-macos-arm64-code-mods).
-
-**Languages:** `languages/*.txt` is the text of the five European releases, read off the
-PAL discs by the port itself. With the discs in `game/pal`, `python3 tools/pc/export_languages.py`
-writes them again, and `--check` compares them ([Translations](notes/translation.md),
-"The official languages"). They are the only game data in the repository: text, no pictures.
-
-## Decompilation
-
-Every game function matches the original executable byte for byte:
+Everything you need to set up, build and test is in [**docs/CONTINUE_DEVELOPMENT.md**](docs/CONTINUE_DEVELOPMENT.md). The short version:
 
 ```sh
-make tools   # pinned toolchain
-make match   # rebuild SLUS_014.11 exactly (see notes/setup.md)
+./build-pc.sh                                         # build the port
+python3 tools/pc/build_mod.py --target i386 mods/ow-poc   # build Journey Mode
 ```
 
-<details>
-<summary>Progress</summary>
+| Folder | What's inside |
+|---|---|
+| [`mods/ow-poc/`](mods/ow-poc) | The Journey Mode mod: C code, baked maps and sprites, tools |
+| [`journey_content/`](journey_content) | Story, decks, economy and UI text (EN/PT) with validators |
+| [`art_dk/`](art_dk) | Art sources and bake pipelines |
+| [`docs/`](docs) | Hand-off guide, testing and [the native port's docs](docs/PORT.md) |
 
-<!-- BEGIN GENERATED PROGRESS -->
+Ideas, bugs and pull requests are very welcome: see [CONTRIBUTING.md](CONTRIBUTING.md) and the [roadmap](ROADMAP.md).
 
-| Metric | Current |
-|---|---:|
-| Game C-decompilation targets matched | **1,134 / 1,134 (100.00%)** |
-| Game C-decompilation target bytes matched | **356,080 (`0x56EF0`) / 356,080 (`0x56EF0`) (100.00%)** |
-| Remaining game C-decompilation targets | 0 functions, 0 (`0x0`) |
-| Evidence-backed handwritten game assembly | 61 functions, 40,116 (`0x9CB4`) |
-| Total game-owned functions | 1,195 |
-| Preserved Psy-Q CRT/SDK assembly | 591 functions, 117,348 (`0x1CA64`) |
-| Total discovered functions | 1,786 |
-| Embedded/unassigned resident text | 1,780 (`0x6F4`) |
+## Roadmap
 
-Runtime overlay modules:
+The highlights (full list in [ROADMAP.md](ROADMAP.md)):
 
-| Module | Matching C functions | Matching C bytes |
-|---|---:|---:|
-| `free_duel` | 9 / 9 (100.00%) | 4,140 (`0x102C`) / 4,140 (`0x102C`) (100.00%) |
-| `main_menu` | 31 / 31 (100.00%) | 17,724 (`0x453C`) / 17,724 (`0x453C`) (100.00%) |
-| `overworld_after_coup` | 15 / 15 (100.00%) | 6,184 (`0x1828`) / 6,184 (`0x1828`) (100.00%) |
-| `overworld_before_coup` | 15 / 15 (100.00%) | 6,184 (`0x1828`) / 6,184 (`0x1828`) (100.00%) |
-| `password` | 27 / 27 (100.00%) | 10,884 (`0x2A84`) / 10,884 (`0x2A84`) (100.00%) |
+- [x] Painted home town, NPCs, dialogue, quests and chapter 1
+- [x] Character creator with layered sprites
+- [x] Underground arena with animated fire
+- [ ] Economy, gang and arenas: balance and polish
+- [ ] Duelist Kingdom chapters 2-10
+- [ ] More painted areas: harbor, ship and the island zones
+- [ ] 🌐 **Online multiplayer**: duel your friends from the map
 
-_Generated from `config/slus_01411/functions.csv` and `config/slus_01411/overlays/*_functions.csv` by `tools/project/progress.py`._
+## Built on the shoulders of giants
 
-<!-- END GENERATED PROGRESS -->
+This project would not exist without:
 
-</details>
+- **[Yu-Gi-Oh! Forbidden Memories Recompiled](https://github.com/Unchiga/Yu-Gi-Oh-Forbidden-Memories-Recompiled)** by Unchiga and contributors: the native PC port, renderer and mod loader everything here runs on. Go support them.
+- **[memories-decomp](https://github.com/krystalgamer/memories-decomp)** by krystalgamer and its authors: the decompilation behind the port.
+- The **[Liberated Pixel Cup](https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator)** artists, **Kenney** and **Quaternius**, among others.
 
-## Docs
+The full list, with licenses, is in [CREDITS.md](CREDITS.md).
 
-[Modding](notes/modding.md) · [FM Editor](tools/pc/fm_editor/README.md) · [More cards](notes/more-cards.md) · [Fusion helper](notes/fusion-helper.md) ·
-[Card drops](notes/card-drops.md) · [Card packs](notes/card-packs.md) · [Translations](notes/translation.md) · [Updates](notes/updates.md) · [Setup](notes/setup.md) · [Build](notes/build.md) ·
-[Releases](notes/pc-release.md)
+## License
 
-## Community
+Journey Mode code and content are [MIT](LICENSE), © Atos Vinicius ([omagodev](https://github.com/omagodev)). The port is MIT by its authors. Third-party art keeps its own license (see [CREDITS.md](CREDITS.md)).
 
-Questions, ideas and bug reports: open an [issue](https://github.com/omagodev/forbidden-memories-journey-mode/issues).
-The original project has its own community, linked in [its README](https://github.com/Unchiga/Yu-Gi-Oh-Forbidden-Memories-Recompiled#community).
-
-## License and credits
-
-Journey Mode (`mods/ow-poc`, `journey_content/`) is [MIT](LICENSE), copyright Atos Vinicius. The PC port (`src/pc/`, `tools/pc/`, `tests/pc/`, `mods/`, `examples/` and the build and play scripts) is by Unchiga and contributors, also [MIT](LICENSE). The decompilation builds on [memories-decomp](https://github.com/krystalgamer/memories-decomp) by its authors. Yu-Gi-Oh! and Forbidden Memories belong to Konami. Full list in [CREDITS.md](CREDITS.md).
+*Yu-Gi-Oh! and Forbidden Memories belong to Kazuki Takahashi and Konami. This is an unofficial, non-commercial fan project and is not affiliated with Konami.*

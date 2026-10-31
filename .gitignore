@@ -27,3 +27,7 @@
 
 # Journey Mode baked assets
 !mods/ow-poc/assets/*.bin
+
+# Compiled mod objects (built by tools/pc/build_mod.py)
+mods/**/*.o
+*.rsp
