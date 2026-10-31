@@ -47,16 +47,6 @@ Você é um jovem duelista da **Vila Oásis**, uma cidade tranquila no deserto o
 
 O roteiro completo está em [`journey_content/duelist_kingdom/`](journey_content/duelist_kingdom/README.md), e todos os diálogos em ordem de leitura estão em [português](journey_content/duelist_kingdom/pt/story_readable_dk.pt.md) e [inglês](journey_content/duelist_kingdom/en/story_readable_dk.en.md). Com spoilers, claro.
 
-## Personagens
-
-<div align="center">
-
-![Personagens](docs/media/characters.png)
-
-*Em cima: InsetoKaiba e Mago.dev (manto e camiseta). Embaixo, os sprites do jogo: herói (teste), Simon, Teana, o guarda, Jono, o rival, Mago.dev, o padeiro, o fazendeiro, Rex Raptor e Bakura.*
-
-</div>
-
 ## Criação de personagem
 
 Antes da jornada você monta seu próprio duelista, e o herói que anda pelo mapa é exatamente o que você criou, quadro a quadro (1 parado + 9 de caminhada). Cada parte é uma camada real de sprite LPC montada em tempo real.
@@ -74,9 +64,25 @@ Antes da jornada você monta seu próprio duelista, e o herói que anda pelo map
 
 São mais de **250 milhões** de combinações possíveis (6 × 2 × 21 × 10 × 11 × 10 × 10 × 7 × 13). Alguns exemplos: escolha a base **Ladino**, dê cabelo longo branco e uma túnica vermelha, e você tem um ladrão de cartas andarilho; pegue o **Místico**, troque para pele escura, cabelo roxo e uma capa, e nasce um feiticeiro do deserto; ou comece pelo **Estudioso**, com óculos e colete verde, para um pesquisador de cartas tranquilo.
 
-| Escolha a base | Cabelo | Acessórios | No jogo |
-|---|---|---|---|
-| ![](docs/media/chargen_pt_01_base.png) | ![](docs/media/chargen_pt_03_hair_tab.png) | ![](docs/media/chargen_pt_07_accessories_tab.png) | ![](docs/media/chargen_pt_14_in_game_walking.png) |
+<div align="center">
+
+**Escolha a base**
+
+![Escolha a base](docs/media/chargen_pt_01_base.png)
+
+**Escolha cabelo e cor**
+
+![Escolha cabelo e cor](docs/media/chargen_pt_03_hair_tab.png)
+
+**Adicione acessórios**
+
+![Adicione acessórios](docs/media/chargen_pt_07_accessories_tab.png)
+
+**Seu herói andando no jogo**
+
+![Seu herói andando no jogo](docs/media/chargen_pt_14_in_game_walking.png)
+
+</div>
 
 ## Funcionalidades
 

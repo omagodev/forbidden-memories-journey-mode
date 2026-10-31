@@ -49,16 +49,6 @@ You are a young duelist from **Oasis Village**, a sleepy desert town where every
 
 The full outline is in [`journey_content/duelist_kingdom/`](journey_content/duelist_kingdom/README.md), and every line of dialogue in reading order is in [English](journey_content/duelist_kingdom/en/story_readable_dk.en.md) and [Portuguese](journey_content/duelist_kingdom/pt/story_readable_dk.pt.md). Spoilers, of course.
 
-## Characters
-
-<div align="center">
-
-![Characters](docs/media/characters.png)
-
-*Top: InsetoKaiba and Mago.dev (robe and t-shirt). Bottom: hero (test), Simon, Teana, the guard, Jono, the rival, Mago.dev, the baker, the farmer, Rex Raptor and Bakura as in-game walking sprites.*
-
-</div>
-
 ## Character creator
 
 Before the journey starts you build your own duelist, and the hero you see walking on the map is exactly the one you made, frame by frame (1 idle + 9 walk frames). Every part is a real LPC sprite layer composed at runtime.
@@ -76,9 +66,25 @@ Before the journey starts you build your own duelist, and the hero you see walki
 
 That is more than **250 million** possible combinations (6 × 2 × 21 × 10 × 11 × 10 × 10 × 7 × 13). Some examples: pick the **Rogue** base, give him long white hair and a red tunic, and you get a wandering card thief; take the **Mystic**, switch to a dark skin tone, purple hair and a cape, and you have a desert sorcerer; or start from the **Scholar**, add glasses and a green vest for a quiet card researcher.
 
-| Choose a base | Hair | Accessories | In game |
-|---|---|---|---|
-| ![](docs/media/chargen_en_01_base.png) | ![](docs/media/chargen_en_03_hair_tab.png) | ![](docs/media/chargen_en_07_accessories_tab.png) | ![](docs/media/chargen_en_14_in_game_walking.png) |
+<div align="center">
+
+**Choose a base**
+
+![Choose a base](docs/media/chargen_en_01_base.png)
+
+**Pick a hair style and colour**
+
+![Pick a hair style and colour](docs/media/chargen_en_03_hair_tab.png)
+
+**Add accessories**
+
+![Add accessories](docs/media/chargen_en_07_accessories_tab.png)
+
+**Your hero walking in game**
+
+![Your hero walking in game](docs/media/chargen_en_14_in_game_walking.png)
+
+</div>
 
 ## Features
 
