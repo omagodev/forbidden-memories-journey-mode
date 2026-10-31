@@ -71,6 +71,8 @@ O roteiro completo está em [`journey_content/duelist_kingdom/`](journey_content
 
 ## Como jogar
 
+> 📥 **Não precisa compilar.** Baixe a versão para Windows em [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Guia completo: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
+
 1. Baixe a versão mais recente em [**Releases**](https://github.com/omagodev/forbidden-memories-journey-mode/releases) e extraia.
 2. Rode `JOGAR_JourneyMode.bat` (ou `memories-pc.exe`).
 3. Na primeira vez, escolha **a sua própria** imagem do disco americano (`SLUS-01411`, `.bin`). **Nenhum dado do jogo vem incluso.**

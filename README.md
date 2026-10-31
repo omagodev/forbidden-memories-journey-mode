@@ -73,8 +73,10 @@ The full outline is in [`journey_content/duelist_kingdom/`](journey_content/duel
 
 ## Play
 
+> 📥 **No compiling needed.** Grab the Windows build from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Full guide: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
+
 1. Download the latest build from [**Releases**](https://github.com/omagodev/forbidden-memories-journey-mode/releases) and extract it.
-2. Run `JOGAR_JourneyMode.bat` (or `memories-pc.exe`).
+2. Copy your `.bin` into the `game` folder, then run `JOGAR_JourneyMode.bat` (or `memories-pc.exe`).
 3. On first launch, pick **your own** USA disc image (`SLUS-01411`, `.bin`). **No game data is included.**
 4. On the title screen, choose **NEW GAME** to create your character.
 
