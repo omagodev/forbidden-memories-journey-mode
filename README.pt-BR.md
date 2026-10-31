@@ -57,6 +57,27 @@ O roteiro completo está em [`journey_content/duelist_kingdom/`](journey_content
 
 </div>
 
+## Criação de personagem
+
+Antes da jornada você monta seu próprio duelista, e o herói que anda pelo mapa é exatamente o que você criou, quadro a quadro (1 parado + 9 de caminhada). Cada parte é uma camada real de sprite LPC montada em tempo real.
+
+| Parte | Variações |
+|---|---|
+| Bases iniciais | **6**: Herói, Duelista, Ladino, Místico, Estudioso, Patrulheiro |
+| Tons de pele | **6** |
+| Tipos de corpo | **2** |
+| Cabelos | **21**, cada um em **10** cores |
+| Roupas | **11**, cada uma em **10** cores |
+| Calças | **10** |
+| Calçados | **7** |
+| Acessórios | **13** (capas, chapéus, óculos e mais) |
+
+São mais de **250 milhões** de combinações possíveis (6 × 2 × 21 × 10 × 11 × 10 × 10 × 7 × 13). Alguns exemplos: escolha a base **Ladino**, dê cabelo longo branco e uma túnica vermelha, e você tem um ladrão de cartas andarilho; pegue o **Místico**, troque para pele escura, cabelo roxo e uma capa, e nasce um feiticeiro do deserto; ou comece pelo **Estudioso**, com óculos e colete verde, para um pesquisador de cartas tranquilo.
+
+| Escolha a base | Cabelo | Acessórios | No jogo |
+|---|---|---|---|
+| ![](docs/media/chargen_pt_01_base.png) | ![](docs/media/chargen_pt_03_hair_tab.png) | ![](docs/media/chargen_pt_07_accessories_tab.png) | ![](docs/media/chargen_pt_14_in_game_walking.png) |
+
 ## Funcionalidades
 
 - 🗺️ **Mapas pintados:** vila natal, cisterna e arena subterrânea, com água, fogo e palmeiras animados

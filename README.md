@@ -59,6 +59,27 @@ The full outline is in [`journey_content/duelist_kingdom/`](journey_content/duel
 
 </div>
 
+## Character creator
+
+Before the journey starts you build your own duelist, and the hero you see walking on the map is exactly the one you made, frame by frame (1 idle + 9 walk frames). Every part is a real LPC sprite layer composed at runtime.
+
+| Part | Variations |
+|---|---|
+| Starting bases | **6**: Hero, Duelist, Rogue, Mystic, Scholar, Ranger |
+| Skin tones | **6** |
+| Body types | **2** |
+| Hair styles | **21**, each in **10** colours |
+| Tops / outfits | **11**, each in **10** colours |
+| Legs | **10** |
+| Shoes | **7** |
+| Accessories | **13** (capes, hats, glasses and more) |
+
+That is more than **250 million** possible combinations (6 × 2 × 21 × 10 × 11 × 10 × 10 × 7 × 13). Some examples: pick the **Rogue** base, give him long white hair and a red tunic, and you get a wandering card thief; take the **Mystic**, switch to a dark skin tone, purple hair and a cape, and you have a desert sorcerer; or start from the **Scholar**, add glasses and a green vest for a quiet card researcher.
+
+| Choose a base | Hair | Accessories | In game |
+|---|---|---|---|
+| ![](docs/media/chargen_en_01_base.png) | ![](docs/media/chargen_en_03_hair_tab.png) | ![](docs/media/chargen_en_07_accessories_tab.png) | ![](docs/media/chargen_en_14_in_game_walking.png) |
+
 ## Features
 
 - 🗺️ **Painted maps:** a home town, a cistern and an underground arena, with animated water, fire and swaying palms
