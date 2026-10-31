@@ -33,17 +33,53 @@ static void panel(int x, int y, int w, int h)
 static int line_h(void) { return 16 * ui_s + 4; }
 static void text(int x, int row_y, const char *s, unsigned rgb) { jm_host->draw_text(jm_host, x, row_y, s, rgb, ui_s); }
 
+/* The same panel, font and metrics for a screen of another file (the shop). */
+void Ui_Metrics(int *w, int *h, int *scale, int *top, int *vis)
+{
+    metrics();
+    if (w) *w = ui_w;
+    if (h) *h = ui_h;
+    if (scale) *scale = ui_s;
+    if (top) *top = ui_top;
+    if (vis) *vis = ui_vis;
+}
+void Ui_Panel(int x, int y, int w, int h) { panel(x, y, w, h); }
+/* `tmpl` with its first "%d" replaced by `value`.  Translated text with one number in it goes through
+ * here rather than printf, so a translation with the wrong specifier reads oddly instead of crashing. */
+void Ui_Fmt1(char *out, size_t size, const char *tmpl, int value)
+{
+    const char *at = strstr(tmpl, "%d");
+    size_t head;
+    if (!at) { snprintf(out, size, "%s", tmpl); return; }
+    head = (size_t)(at - tmpl);
+    if (head >= size - 1) head = size - 1;
+    memcpy(out, tmpl, head);
+    snprintf(out + head, size - head, "%d%s", value, at + 2);
+}
+int Ui_LineH(void) { return line_h(); }
+void Ui_Text(int x, int row_y, const char *s, unsigned rgb) { text(x, row_y, s, rgb); }
+
 char ui_message[48];
 int ui_message_timer;
-void Ui_Message(const char *s) { strncpy(ui_message, s, sizeof(ui_message) - 1); ui_message_timer = 120; }
+static unsigned message_rgb = 0x60F060;
+void Ui_Message(const char *s) { Ui_MessageTone(s, 0x60F060); }
+/* The same line in another colour: gold for a level up, red for a warning. */
+void Ui_MessageTone(const char *s, unsigned rgb)
+{
+    strncpy(ui_message, s, sizeof(ui_message) - 1);
+    ui_message[sizeof(ui_message) - 1] = 0;
+    message_rgb = rgb;
+    ui_message_timer = 120;
+}
 const char *Ui_MessageText(void) { return ui_message_timer > 0 ? ui_message : NULL; }
+unsigned Ui_MessageColour(void) { return message_rgb; }
 
 /* -------------------------------------------------------- character creator
- * The rows: Name, Gender, then one row per chargen category (skin, outfit, outfit colour, hair, hair colour, accessory ... whatever
+ * The rows: Name, Gender, sprite set, then one row per chargen category (skin, outfit, outfit colour, hair, hair colour, accessory ... whatever
  * assets/chargen/manifest.json lists), Portrait, Start.  Without the chargen layers the old rows (hair, hair colour, skin, outfit colour)
  * and the turning 3D character are used.  Up/Down choose the row, Left/Right (or X) change it, X on Name opens the name screen. */
 enum { C_NAME, C_GENDER, C_HAIR, C_HAIR_COL, C_SKIN, C_OUTFIT, C_PORTRAIT, C_START, C_ROWS };   /* the old rows and their ids */
-enum { R_NAME, R_GENDER, R_CAT, R_OLD, R_PORTRAIT, R_START };
+enum { R_NAME, R_GENDER, R_STYLE, R_CAT, R_OLD, R_PORTRAIT, R_START };
 typedef struct { int kind, arg; } CRow;
 static CRow rows[20];
 static int nrows, row;
@@ -82,6 +118,7 @@ static void build_rows(void)
     nrows = 0;
     rows[nrows].kind = R_NAME; rows[nrows++].arg = 0;
     rows[nrows].kind = R_GENDER; rows[nrows++].arg = 0;
+    rows[nrows].kind = R_STYLE; rows[nrows++].arg = 0;
     if (Cg_Ready()) for (c = 0; c < Cg_CatCount() && nrows < 16; c++) { rows[nrows].kind = R_CAT; rows[nrows++].arg = c; }
     else { static const int old[4] = {C_HAIR, C_HAIR_COL, C_SKIN, C_OUTFIT}; for (c = 0; c < 4; c++) { rows[nrows].kind = R_OLD; rows[nrows++].arg = old[c]; } }
     rows[nrows].kind = R_PORTRAIT; rows[nrows++].arg = 0;
@@ -137,6 +174,7 @@ static void change(int d)
         while (Cg_Avoided() && tries-- > 0) Cg_Set(c, Cg_Get(c) + d);        /* skip hair + accessory pairs the art marks as clashing */
         cg_t = 0;
     }
+    else if (r->kind == R_STYLE) { Cg_SetStyle(Cg_Style() + d); cg_t = 0; }
     else if (row_id(r) >= 0 && nopt[row_id(r)]) { int id = row_id(r); set_option(id, (option(id) + d + nopt[id]) % nopt[id]); }
 }
 
@@ -161,8 +199,8 @@ void Ui_RefreshName(void)
     if (n && n[0]) { strncpy(jm.name, n, sizeof(jm.name) - 1); jm.name[sizeof(jm.name) - 1] = 0; }
 }
 
-/* In the frame hook: a podium, the turning character and the chosen portrait.  With the chargen layers the character is the
- * layered sprite (composed into the hero's bank page whenever the choice changes), shown big, walking and turning to all four sides. */
+/* In the frame hook: a podium, the turning character and the chosen portrait. Both the layered Journey sprite and the LPC resource are
+ * previewed here with the same asset and animation that exploration will use. */
 void Ui_DrawCreate(void)
 {
     int colours[5];
@@ -189,11 +227,17 @@ void Ui_DrawCreate(void)
     if (Cg_Ready()) {
         static const int turn[4] = {0, 2, 3, 1};            /* down, right, up, left */
         float px, py, pd;
-        int dir = turn[(cg_t / 110) & 3], fr = 1 + (cg_t / 6) % 4, sc = 2;
-        if (cg_sig != Cg_Signature()) { Cg_Compose(13, 2); cg_sig = Cg_Signature(); LOG("journey: creator look %d %d %d %d %d %d %d", jm.cg[0], jm.cg[1], jm.cg[2], jm.cg[3], jm.cg[4], jm.cg[5], jm.cg[6]); }
+        int dir = turn[(cg_t / 110) & 3], fr, sc;
+        if (!Cg_Style() && cg_sig != Cg_Signature()) { Cg_Compose(13, 2); cg_sig = Cg_Signature(); LOG("journey: creator look %d %d %d %d %d %d %d", jm.cg[0], jm.cg[1], jm.cg[2], jm.cg[3], jm.cg[4], jm.cg[5], jm.cg[6]); }
         cg_t++;
         Gfx_Project(cx, 0, cz + 18, &px, &py, &pd);              /* a step in front of the podium's middle: the big sprite must fit under the top */
-        Gfx_SpriteQuad((int)(px + 0.5f) - 24 * sc, (int)(py + 0.5f) - 56 * sc, 48 * sc, 62 * sc, 13, 2, fr * 48, dir * 64, 48, 62, pd);
+        if (Cg_Style()) {
+            fr = 1 + (cg_t / 4) % 9; sc = 4;
+            Paint_LpcPreview((int)(px + 0.5f), (int)(py + 0.5f), sc, dir, fr, pd);
+        } else {
+            fr = 1 + (cg_t / 6) % 4; sc = 2;
+            Gfx_SpriteQuad((int)(px + 0.5f) - 24 * sc, (int)(py + 0.5f) - 56 * sc, 48 * sc, 62 * sc, 13, 2, fr * 48, dir * 64, 48, 62, pd);
+        }
         Gfx_End();
         Gfx_Portrait(258, 10, 52, PORT_X + jm.portrait * 48, PORT_Y);
         return;
@@ -223,6 +267,7 @@ void Ui_CreateOverlay(void)
         switch (r->kind) {
         case R_NAME: lab = Tr(row_key[C_NAME]); val = jm.name; break;
         case R_GENDER: lab = Tr(row_key[C_GENDER]); val = Tr(jm.gender ? "creation.gender.female" : "creation.gender.male"); break;
+        case R_STYLE: lab = Tr("creation.rows.sprite"); val = Tr(Cg_Style() ? "creation.sprite.lpc" : "creation.sprite.layered"); break;
         case R_PORTRAIT: lab = Tr(row_key[C_PORTRAIT]); val = TrAt("creation.portraits", jm.portrait % 4, "?"); break;
         case R_START: lab = Tr(row_key[C_START]); break;
         case R_CAT: lab = Cg_CatLabel(r->arg); val = Cg_OptCount(r->arg) ? Cg_OptLabel(r->arg, Cg_Get(r->arg)) : "-"; break;
@@ -325,7 +370,7 @@ void Ui_MenuOverlay(void)
     }
     if (!msub) return;
     {
-        int px = x + w + 8 * ui_s, pw = ui_w / 2, ph = lh * 11, py = y;
+        int px = x + w + 8 * ui_s, pw = ui_w / 2, ph = lh * (msel == M_STATUS && Eco_Ready() ? 13 : 11), py = y;
         panel(px, py, pw, ph);
         text(px + 12 * ui_s, py + lh, menu_name(msel, nb, sizeof(nb)), 0xFFE9A0);
         if (msel == M_ITEMS) {
@@ -344,6 +389,27 @@ void Ui_MenuOverlay(void)
             text(px + 14 * ui_s, py + lh * 5, buf, 0xE0E0E0);
             snprintf(buf, sizeof(buf), Tr("menu.deck"), cards);
             text(px + 14 * ui_s, py + lh * 6, buf, 0xE0E0E0);
+            if (Eco_Ready()) {
+                int into, span, bw = pw / 3, bx = px + 14 * ui_s, by = py + lh * 8 + lh / 3;
+                snprintf(buf, sizeof(buf), "%s", EcoTr("ui.status_title"));
+                text(px + 14 * ui_s, py + lh * 7 + lh / 2, buf, 0x40E0E0);
+                Ui_Fmt1(buf, sizeof(buf), EcoTr("ui.level_label"), Eco_Level());
+                text(px + 14 * ui_s, py + lh * 8, buf, 0xE0E0E0);
+                Ui_Fmt1(buf, sizeof(buf), EcoTr("ui.money"), jm.eco.coins);
+                text(px + pw / 2, py + lh * 8, buf, 0xFFE9A0);
+                snprintf(buf, sizeof(buf), EcoTr("ui.status_rank"), Eco_RankName());
+                text(px + 14 * ui_s, py + lh * 9, buf, 0xE0E0E0);
+                if (Eco_XpBar(&into, &span)) {       /* the bar of the way to the next level */
+                    jm_host->fill(jm_host, bx, by + lh, bw, 6 * ui_s, 0x202840, 255);
+                    jm_host->fill(jm_host, bx, by + lh, bw * into / span, 6 * ui_s, 0x40E0E0, 255);
+                    snprintf(buf, sizeof(buf), EcoTr("ui.xp_label"), into, span);
+                    text(bx + bw + 10 * ui_s, py + lh * 10, buf, 0x909090);
+                } else text(bx, py + lh * 10, EcoTr("ui.xp_max"), 0xFFE9A0);
+                if (jm.eco.amb_won || jm.eco.amb_lost) {
+                    snprintf(buf, sizeof(buf), EcoTr("ui.status_gang"), jm.eco.amb_won, jm.eco.amb_lost);
+                    text(px + 14 * ui_s, py + lh * 11, buf, 0xE0E0E0);
+                }
+            }
         } else if (msel == M_SAVE) {
             text(px + 14 * ui_s, py + lh * 2 + lh / 2, Tr(jm_save_ok ? "menu.saved" : "menu.save_failed"), jm_save_ok ? 0x60F060 : 0xF06060);
         } else if (msel == M_TITLE) {
@@ -359,5 +425,6 @@ void Ui_MenuOverlay(void)
 unsigned Ui_Signature(void)
 {
     return (unsigned)(row * 31 + msel * 131 + msub * 1009 + qsel * 17 + jm.gender * 3 + jm.hair * 5 + jm.hair_col * 7 + jm.skin * 11 +
-                      jm.outfit * 13 + jm.portrait * 19 + (int)jm.name[0] * 23 + (int)jm.name[1] * 29 + Lang_Current() * 37 + Dev_BarOn() * 43 + (int)Cg_Signature() * 47);
+                      jm.outfit * 13 + jm.portrait * 19 + (int)jm.name[0] * 23 + (int)jm.name[1] * 29 + Lang_Current() * 37 + Dev_BarOn() * 43 + (int)Cg_Signature() * 47) +
+           (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.xp * 7919u;
 }

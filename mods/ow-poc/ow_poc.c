@@ -19,6 +19,9 @@
 #include "game/func_80039794.h"
 #include "game/sound.h"
 #include "game/func_80024DC8.h"
+#include "game/duel_rewards.h"
+#include "game/display_object.h"
+#include "game/duel_draw_status_numbers.h"
 #include "pc/mods/modapi.h"
 #include "pc/platform/mod_mode.h"
 #include "jm.h"
@@ -35,7 +38,28 @@ extern u8 gLibrary_abCardChest[];
 const MemoriesModHost *jm_host;
 int jm_save_requested, jm_save_ok, jm_name_entry_requested;
 
-enum { ST_CONFIRM, ST_CREATE, ST_WALK, ST_SCENE, ST_ASK, ST_MENU, ST_TO_DUEL, ST_LEAVE, ST_LANG, ST_MAP, ST_PAINT, ST_JOURNAL };
+/* The card a won duel drops.  The game picks one out of its own weighted table; while a Journey duel
+ * is being fought the pool of the place it happens in picks instead (journey_content/economy), and
+ * the game's own choice stands for every other duel, so Free Duel and the campaign are untouched. */
+/* The card the duel just gave, shown turning in the air before the village comes back. */
+static int card_show, card_age, card_back;
+#define CARD_FRAMES 170
+static s32 (*drop_original)(s32);
+static int duel_live;                      /* a Journey duel is in flight */
+static s32 drop_pick(s32 pool_index)
+{
+    if (duel_live && Eco_Ready()) {
+        int id = Eco_RollDrop(Eco_DropContext());
+        if (id > 0) { card_show = id; return id; }
+    }
+    {
+        s32 id = drop_original ? drop_original(pool_index) : 0;
+        if (duel_live && id > 0) card_show = (int)id;     /* the game's own pick is shown too */
+        return id;
+    }
+}
+
+enum { ST_CONFIRM, ST_CREATE, ST_WALK, ST_SCENE, ST_ASK, ST_MENU, ST_TO_DUEL, ST_LEAVE, ST_LANG, ST_MAP, ST_PAINT, ST_JOURNAL, ST_SHOP, ST_AMBUSH, ST_ARENA, ST_CARD };
 enum { REQ_NONE, REQ_NEW, REQ_CONTINUE };   /* what the title's NEW GAME / CONTINUE asked for */
 enum { RET_NONE, RET_DUEL, RET_NAME, RET_DECK };
 static int state = ST_LEAVE, after_return = RET_NONE, menu_request = REQ_NONE;
@@ -53,6 +77,87 @@ static int scene_idx, scene_n, ask_sel;
 static int scene_intro;                    /* the opening scene: the story starts when it ends */
 static int scene_result;                   /* a duel's result scene: save when it ends */
 static int duel_npc = -1;
+static int duel_is_gang;                   /* the duel being fought is an ambush, not a story duel */
+static int duel_is_arena;                  /* ... or a rung of an arena ladder */
+static int arena_return;                   /* the duel came from the ladder: go back to it */
+
+/* The gang duel uses a person of its own: the villagers in npcs[] are the story's, and a Jackal is
+ * not one of them.  The last slot of the table is kept for whoever the economy puts in front of the
+ * player - a Jackal now, an arena fighter later - so the duel code needs no special case. */
+#define ECO_NPC (MAX_NPC - 1)
+static void eco_opponent(const char *id, const char *name, int duelist)
+{
+    Npc *n = &npcs[ECO_NPC];
+    memset(n, 0, sizeof(*n));
+    snprintf(n->id, sizeof(n->id), "%s", id ? id : "");
+    snprintf(n->name, sizeof(n->name), "%s", name ? name : "");
+    n->duelist_id = duelist;
+    n->portrait_id = duelist;
+    n->hidden = 1;                         /* never placed in the world: he only duels */
+}
+
+/* The two duelists' faces beside their life points.
+ *
+ * The duel's life-point panel is one 64x40 picture of both sides, the opponent's half on top, and
+ * the game slides it off the side of the screen between battles.  This hook runs where the game has
+ * just queued the panel's digits, which is the one place that knows where the panel is this frame
+ * and in which ordering table: the face and its frame go in beside it, at the same depth, so they
+ * ride the slide with it and are layered with it.
+ *
+ * The opponent's face is read from the disc into the mod's page (Gfx_LoadFace), once per duel; the
+ * player's is the portrait chosen in the Journey creator. Outside a Journey duel the hook does
+ * nothing at all, so Free Duel and the campaign look as they always did.
+ *
+ * The numbers below are in the game's own pixels, measured from the panel's middle, which is where
+ * duel_draw_status_numbers.c puts its digits from.  Nudge them if the face sits badly. */
+#define FACE_SIZE 28               /* two compact portraits leave the centre of the board clear */
+#define OPP_FACE_LEFT 92           /* opponent: portrait 188..216, LP half 224..288 */
+#define PLAYER_FACE_LEFT 268       /* player: portrait 12..40, LP half 48..112 */
+#define FACE_TOP 32                /* aligned with the opponent's half instead of touching the top */
+#define FACE_EDGE 2                /* the frame around it */
+static void (*panel_original)(DisplayObject *);
+static int face_duelist = -1;      /* whose face is in the page */
+static short opponent_face_x, opponent_face_y;
+static short player_face_x, player_face_y;   /* where they went this frame, for names in the overlay */
+static int face_on;
+
+static void duel_face(int x, int y, int ax, int ay, DisplayObject *pos)
+{
+    Gfx_RectAt(x - FACE_EDGE, y - FACE_EDGE, FACE_SIZE + 2 * FACE_EDGE, FACE_SIZE + 2 * FACE_EDGE,
+               200, 160, 60, pos->ot_index, pos->field_14 + 1u);
+    Gfx_RectAt(x - 1, y - 1, FACE_SIZE + 2, FACE_SIZE + 2, 12, 14, 44, pos->ot_index, pos->field_14);
+    Gfx_PortraitAt(x, y, FACE_SIZE, ax, ay, pos->ot_index, pos->field_14 - 1u);
+}
+
+static void panel_drawn(DisplayObject *widget)
+{
+    DisplayObject *pos;
+    int duelist, panel_x, opponent_x, player_x, y, portrait;
+    if (panel_original) panel_original(widget);
+    face_on = 0;
+    if (!duel_live || duel_npc < 0 || !ready) return;
+    duelist = npcs[duel_npc].duelist_id;
+    pos = (DisplayObject *)(void *)widget->field_50.word;
+    if (!pos || duelist <= 0) return;
+    panel_x = (int)pos->field_30.h.field_30;
+    if (panel_x - 32 >= 320 || panel_x + 32 <= 0) return;   /* the game's panel completed its slide away */
+    if (face_duelist != duelist) {         /* a disc read: once a duel, not once a frame */
+        if (!Gfx_LoadFace(duelist)) return;
+        face_duelist = duelist;
+    }
+    portrait = jm.portrait >= 0 && jm.portrait < 4 ? jm.portrait : 0;
+    opponent_x = panel_x - OPP_FACE_LEFT;
+    player_x = panel_x - PLAYER_FACE_LEFT;
+    y = (int)pos->field_30.h.field_32 - FACE_TOP;
+    duel_face(player_x, y, PORT_X + portrait * 48, PORT_Y, pos);
+    duel_face(opponent_x, y, DYN_PORT_X, DYN_PORT_Y, pos);
+    player_face_x = (short)player_x;
+    player_face_y = (short)y;
+    opponent_face_x = (short)opponent_x;
+    opponent_face_y = (short)y;
+    face_on = 1;
+}
+
 static const char *cur_name;                 /* the speaker of the page on screen: the nameplate above the text box */
 static int cur_kind, notif_age;              /* a notification page (objective, item, complete, caption) is drawn as a banner, not as speech */
 static char notif_text[300], notif_label[48];
@@ -157,7 +262,7 @@ static void begin_scene(const char *id, int intro, int result)
     scene_intro = intro;
     scene_result = result;
     pend_duel = -1;
-    if (scene_n < 1) { LOG("journey: no scene %s", id ? id : "(null)"); scene_then = NULL; scene_choice = NULL; state = in_paint_flow ? ST_PAINT : ST_WALK; if (in_paint_flow) { in_paint_flow = 0; Paint_TalkEnd(); } return; }
+    if (scene_n < 1) { LOG("journey: no scene %s", id ? id : "(null)"); scene_then = NULL; scene_choice = NULL; state = ST_PAINT; if (in_paint_flow) { in_paint_flow = 0; Paint_TalkEnd(); } return; }
     LOG("journey: scene %s (%d pages)", id, scene_n);
     open_page();
 }
@@ -194,7 +299,11 @@ static void end_scene(void)
         World_PlaceNpcs();
     }
     if (in_paint_flow) Paint_SceneEnd();
-    state = in_paint_flow ? ST_PAINT : ST_WALK;
+    state = ST_PAINT;
+    if (jm_shop_req) {                     /* an "open_shop" result: the stall opens after the talk */
+        jm_shop_req = 0;
+        if (Eco_ShopSet(jm_shop_req_id)) { Shop_Open(); state = ST_SHOP; return; }
+    }
     if (scene_then) {
         const char *next = scene_then;
         scene_then = NULL;
@@ -236,7 +345,7 @@ static void arm_duel(int npc)
         after_return = RET_DUEL;
         duel_npc = npc;
         duel_returned();
-        return;
+        return;      /* the debug win plays no duel, so it rolls no drop */
     }
     ensure_deck();
     Say_Close();
@@ -247,6 +356,8 @@ static void arm_duel(int npc)
     after_return = RET_DUEL;
     duel_npc = npc;
     jm.duels++;
+    duel_live = 1;
+    face_duelist = -1;                     /* the next opponent's face is read when the panel first draws */
     state = ST_TO_DUEL;
     LOG("journey: duel against %s (duelist %d)", npcs[npc].name, npcs[npc].duelist_id);
     func_80024DC8(-1, npcs[npc].duelist_id, 0x6000, 0x6000);
@@ -256,21 +367,40 @@ static void duel_returned(void)
 {
     int won = (D_8009B362 == 0);
     const JsonNode *r = won ? duel_win : duel_lose;
+    /* whether this win was had before is read now: applying the result sets the flags that say so */
+    int rematch = won && Story_ResultDone(duel_win);
     area = -1;                              /* the duel's song ended the village's: start it again */
     if (in_paint_flow) { Paint_Enter(); paint_auto = 1; }    /* the duel took the banks: the painted village is loaded again behind the scene */
     if (won) jm.wins++; else jm.losses++;
     LOG("journey: duel over, %s (wins %d, losses %d)", won ? "won" : "lost", jm.wins, jm.losses);
     if (won) Story_ApplyResult(duel_win);
+    duel_live = 0;
+    if (duel_is_gang) { duel_is_gang = 0; Gang_Result(won); }
+    else if (duel_is_arena) { duel_is_arena = 0; Arena_Result(won); }
+    else if (duel_npc >= 0) Eco_DuelReward(npcs[duel_npc].id, won, rematch);
+    Eco_SetDropContext("duel");
     World_PlaceNpcs();
     after_return = RET_NONE;
     duel_npc = -1;
     apply_warp();
+    if (card_show && !Paint_CardArt(card_show)) card_show = 0;   /* no picture: no reveal */
     if (r && Json_Str(r, "scene", NULL)) {
         begin_scene(Json_Str(r, "scene", NULL), 0, 1);
         scene_then = Json_Str(r, "then", NULL);
         scene_choice = Json_Get(r, "choice");
+    } else if (Arena_Running() || (arena_return && !r)) {
+        arena_return = 0;
+        in_paint_flow = 0;
+        Paint_TalkEnd();
+        state = ST_ARENA;                  /* back to the ladder, a rung further up or out of the run */
+        cooldown = 12;
     } else if (in_paint_flow) { in_paint_flow = 0; Paint_TalkEnd(); state = ST_PAINT; cooldown = 20; }
-    else { state = ST_WALK; cooldown = 20; }
+    else { state = ST_PAINT; cooldown = 20; }
+    if (card_show && state != ST_SCENE && state != ST_ASK) {   /* a scene of its own comes first */
+        card_back = state;
+        card_age = 0;
+        state = ST_CARD;
+    }
 }
 
 /* --------------------------------------------------------------- the world */
@@ -293,7 +423,7 @@ static int in_village(void) { return World_Area(jm.x, jm.z) == 0 && (int)(jm.z /
  * scene and until the Stamp Card is given).  `area < 0` restarts the music (after a duel, the intro, a warp). */
 static int pm_cur = -1, pm_timer, pm_ctx = -1;
 static int menu_from_paint;                /* the START menu was opened in the painted village: the picture stays behind it, and Close returns to it */
-static int painted_ctx(void) { return state == ST_PAINT || state == ST_JOURNAL || in_paint_flow || (state == ST_MENU && menu_from_paint); }
+static int painted_ctx(void) { return state == ST_PAINT || state == ST_JOURNAL || state == ST_SHOP || state == ST_ARENA || state == ST_AMBUSH || in_paint_flow || (state == ST_MENU && menu_from_paint); }
 static int track_cfg(const char *key)
 {
     const JsonNode *po = Json_Get(jm_rules, "painted"), *mu = po ? Json_Get(po, "music") : NULL;
@@ -303,7 +433,9 @@ static int track_cfg(const char *key)
 /* the place name of the HUD and the banner: the painted areas have their own (ui.json "painted"), else the old map's */
 static const char *place_name(void)
 {
-    return painted_ctx() && Paint_Area() == 1 ? Tr("painted.cistern") : World_AreaName(area < 0 ? 0 : area);
+    if (painted_ctx() && Paint_Area() == 1) return Tr("painted.cistern");
+    if (painted_ctx() && Paint_Area() == 2) return Tr("painted.arena");
+    return World_AreaName(area < 0 ? 0 : area);
 }
 
 static void music_tick(void)
@@ -368,7 +500,6 @@ static void walk_tick(unsigned short pad, unsigned short edge)
     }
     if (edge & PAD_START) { Ui_MenuOpen(); state = ST_MENU; return; }
     if (edge & PAD_TRIANGLE) { state = ST_MAP; return; }
-    if ((edge & PAD_L1) && in_village()) { Paint_Enter(); state = ST_PAINT; return; }
     if (edge & PAD_SELECT) minimap_on ^= 1;
     if (Story_Trigger(&t, &tx_, &tz_, &teleport)) {
         if (teleport) { jm.x = tx_; jm.z = tz_; cam_x = jm.x; cam_z = jm.z; }
@@ -423,6 +554,8 @@ static void new_journey(void)
     state = ST_LANG;                       /* the first time: the language first, then the creator */
 }
 
+static void enter_world(void);
+
 static void continue_journey(void)
 {
     if (!Save_Read()) { new_journey(); return; }
@@ -435,7 +568,17 @@ static void continue_journey(void)
     cam_x = jm.x;
     cam_z = jm.z;
     if (jm.pt_set) Paint_Set(jm.pt_x, jm.pt_y);   /* and back to where it stood in the painted village */
-    state = ST_WALK;
+    enter_world();
+}
+
+/* The village is a picture, and the 3D map behind it is only the old view (L1).  Entering it here
+ * rather than on the first walking frame is what keeps that map from showing for a frame first. */
+static void enter_world(void)
+{
+    /* There is one view: the painted village.  The old 3D map is no longer a place the player goes. */
+    Paint_Enter();
+    paint_auto = 1;
+    state = ST_PAINT;
 }
 
 static void run(int first)
@@ -445,7 +588,7 @@ static void run(int first)
     if (first) {
         if (!ready) {
             ready = Gfx_LoadAssets() && Story_Load() && World_Load() && Lang_Set(0);
-            if (ready) { Save_Init(); Dbg_Init(); Dev_Load(); }
+            if (ready) { Save_Init(); Dbg_Init(); Dev_Load(); Eco_Load(); Eco_LoadLang(Lang_Code()); Gang_Load(); Arena_Load(); }
         }
         if (!ready) { ModMode_Leave(return_menu); return; }
         Tower_Background(0);
@@ -456,7 +599,7 @@ static void run(int first)
         switch (after_return) {
         case RET_DUEL: duel_returned(); break;
         case RET_NAME: after_return = RET_NONE; Ui_RefreshName(); state = ST_CREATE; break;
-        case RET_DECK: after_return = RET_NONE; state = ST_WALK; cooldown = 10; break;
+        case RET_DECK: after_return = RET_NONE; enter_world(); cooldown = 10; break;
         default: {
             int req = menu_request;
             menu_request = REQ_NONE;
@@ -482,6 +625,10 @@ static void run(int first)
     dbg_age++;
     if (cooldown > 0) cooldown--;
     if (ui_message_timer > 0) ui_message_timer--;
+    Eco_Tick();                             /* the queued coin, xp and level-up notices, one by one */
+    if (ready && state != ST_PAINT && state != ST_WALK) Gang_Grace(GANG_GRACE_SCENE);   /* not mid-talk */
+    if (ready && state == ST_PAINT) Gang_Area();
+    if (ready) Eco_QuestTick();             /* a quest whose last step just completed pays its coins */
     switch (state) {
     case ST_CONFIRM:
         if (edge & (PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT)) choose_sel ^= 1;
@@ -502,11 +649,62 @@ static void run(int first)
         }
         if (edge & PAD_TRIANGLE) state = ST_LEAVE;
         break;
+    case ST_SHOP:
+        if (Shop_Input(edge)) { state = ST_PAINT; cooldown = 12; }
+        break;
+    case ST_CARD:
+        if (++card_age >= CARD_FRAMES || (card_age > 24 && (edge & (PAD_CROSS | PAD_CIRCLE | PAD_START | PAD_TRIANGLE)))) {
+            card_show = 0;
+            state = card_back;
+            cooldown = 10;
+        }
+        break;
+    case ST_ARENA: {
+        int start = 0;
+        if (Arena_Input(edge, &start)) { state = ST_PAINT; cooldown = 12; break; }
+        if (start) {
+            char name[24];
+            int tier = 1, duelist = Arena_NextFighter(name, sizeof(name), &tier);
+            if (duelist <= 0) { LOG("journey: the arena fighter has no duelist this run"); break; }
+            eco_opponent("eco_arena", name, duelist);
+            duel_is_arena = 1;
+            arena_return = 1;
+            in_paint_flow = 1;
+            Eco_SetDropContext("arena_bout");
+            arm_duel(ECO_NPC);
+        }
+        break;
+    }
+    case ST_AMBUSH:                        /* he has walked over and said his piece; then the duel */
+        if (Say_Done() || (edge & (PAD_CROSS | PAD_CIRCLE | PAD_START))) {
+            Say_Close();
+            eco_opponent("eco_gang", Gang_Name(), Gang_Duelist());
+            if (npcs[ECO_NPC].duelist_id <= 0) {    /* the host has no such duelist: let it go */
+                LOG("journey: the ambusher has no duelist this run; skipped");
+                Gang_Cancel();
+                in_paint_flow = 0;
+                state = ST_PAINT;
+                cooldown = 20;
+                break;
+            }
+            duel_is_gang = 1;
+            in_paint_flow = 1;
+            Eco_SetDropContext("ambush_win");
+            arm_duel(ECO_NPC);
+        }
+        break;
     case ST_PAINT:
         if (edge & PAD_START) { Ui_MenuOpen(); menu_from_paint = 1; state = ST_MENU; break; }   /* START: the menu (deck editor, items, status, save, title) */
         music_tick();
         if (edge & PAD_SELECT) minimap_on ^= 1;
         if (edge & PAD_TRIANGLE) { state = ST_JOURNAL; break; }
+        if (!cooldown && Paint_Area() != 2 && Gang_Pending()) {     /* the countdown ran out: one of them walks over */
+            Ui_MessageTone(EcoTr("ui.ambush_banner"), 0xFF6060);
+            Say_Text(Gang_Name(), Gang_Line("taunt"), 0);
+            in_paint_flow = 1;                 /* it all happens in the picture, not on the old map */
+            state = ST_AMBUSH;
+            break;
+        }
         if (!cooldown) {                       /* a state of the story that starts a scene by itself (the three stamps) */
             Talk at;
             if (Story_Auto(&at)) {
@@ -521,12 +719,33 @@ static void run(int first)
         if (!cooldown && (edge & PAD_CROSS)) {
             int n = Paint_NearNpc(), o;
             Talk t;
+            if (Paint_ArenaPadAt()) {
+                Paint_ArenaReady();
+                state = ST_ARENA;
+                cooldown = 10;
+                break;
+            }
             if (n >= 0 && Story_TalkRule(&npcs[n], &t)) {
                 Paint_TalkStart(n);
                 in_paint_flow = 1;
                 start_talk(&t);
                 if (state != ST_SCENE) { in_paint_flow = 0; Paint_TalkEnd(); state = ST_PAINT; }
                 break;
+            }
+            if (n >= 0 && Eco_ShopAt(npcs[n].id)) {   /* a keeper with nothing left to say runs the stall */
+                Shop_Open();
+                state = ST_SHOP;
+                break;
+            }
+            {                                  /* the cellar hatch: the ring under the bakery */
+                float ax, ay, asx, asy;
+                Paint_Info(&ax, &ay, &asx, &asy);
+                if (Arena_DoorAt(ax, ay) && Arena_Open()) {
+                    Paint_Warp("arena_village", "arena_player");
+                    area = -1;
+                    cooldown = 18;
+                    break;
+                }
             }
             o = Paint_NearObject();            /* the bench, the notice board */
             if (o >= 0 && Paint_ObjectRule(o, &t)) {
@@ -537,12 +756,20 @@ static void run(int first)
                 break;
             }
         }
-        if (Paint_Tick(pad, edge)) {
-            if (paint_exit) {      /* across the bridge: the harbor is not built yet (part 2): back to the south bank */
+        {
+            int paint_result = Paint_Tick(pad, edge);
+            if (paint_result == 2) {          /* the player reached the bottom edge of the cellar stairs */
+                Paint_Warp("village", "arena_door");
+                area = -1;
+                cooldown = 18;
+            } else if (paint_result) {
+                /* the picture could not be loaded, or the player walked off the far side of it: there is
+                 * nowhere else to go now, so he is put back on the south bank where he came from */
                 paint_exit = 0;
                 Paint_Set(652.0f, 190.0f);
                 Ui_Message(Tr("messages.part_end"));
-            } else { state = ST_WALK; cooldown = 10; }
+                cooldown = 10;
+            }
         }
         break;
     case ST_JOURNAL:
@@ -550,7 +777,7 @@ static void run(int first)
         if (edge & (PAD_TRIANGLE | PAD_CIRCLE | PAD_CROSS | PAD_START | PAD_SELECT)) { state = ST_PAINT; cooldown = 10; }
         break;
     case ST_MAP:
-        if (edge & (PAD_TRIANGLE | PAD_CIRCLE | PAD_CROSS | PAD_SELECT | PAD_START)) state = ST_WALK;
+        if (edge & (PAD_TRIANGLE | PAD_CIRCLE | PAD_CROSS | PAD_SELECT | PAD_START)) state = ST_PAINT;
         break;
     case ST_CREATE:
         if (jm_name_entry_requested) { jm_name_entry_requested = 0; go_screen(9, RET_NAME); return; }
@@ -613,7 +840,7 @@ static void run(int first)
         music_tick();
         r = Ui_MenuInput(edge);
         if (jm_save_requested) { jm_save_requested = 0; jm_save_ok = Save_Write(); }
-        if (r == 1) { state = menu_from_paint && Paint_Loaded() ? ST_PAINT : ST_WALK; menu_from_paint = 0; cooldown = 10; }
+        if (r == 1) { state = ST_PAINT; menu_from_paint = 0; cooldown = 10; }
         else if (r == 2) { menu_from_paint = 0; go_screen(7, RET_DECK); }      /* back from the deck editor the village is loaded again (paint_auto) */
         else if (r == 3) { menu_from_paint = 0; state = ST_LEAVE; }
         break;
@@ -643,6 +870,52 @@ static void run(int first)
     }
 }
 
+/* The card the duel gave, turning in the air over the village.
+ *
+ * It fades up out of nothing, floats, and turns about its own upright axis: the turn is the width
+ * narrowing with the cosine of the angle, and the top and bottom edges leaning the other way by its
+ * sine, which is what reads as a flat thing rotating rather than a picture being squeezed.  Edge on,
+ * a thin bright line stands in for the card's side.
+ *
+ * Gfx_BankQuad branches on the sign of its depth: a negative one goes straight to the slot the
+ * painted floor is drawn in, behind everything, which is where this card first went.  A depth of 0
+ * takes the sorted path instead, and since everything else in the scene sorts at a larger depth
+ * (characters are hundreds, the ground glow is 200000), 0 is the front of the list. */
+static void card_draw(void)
+{
+    float a = (float)card_age * 0.075f;
+    float c = cosf(a), turn = c < 0.0f ? -c : c;
+    float lean = sinf(a) * 4.0f;
+    float cx = 160.0f, cy = 104.0f + sinf((float)card_age * 0.06f) * 6.0f;
+    float hw = 46.0f * turn, hh = 43.0f;
+    float sx[4], sy[4];
+    unsigned char keep[3];
+    int lit = 20 + card_age * 11;                  /* it starts visible, not from pure black */
+    if (!card_show) return;
+    if (lit > 128) lit = 128;                      /* 128 is this scene's neutral brightness */
+    if (card_age > CARD_FRAMES - 20) {             /* and it fades out again at the end */
+        lit = (CARD_FRAMES - card_age) * 128 / 20;
+        if (lit < 0) lit = 0;
+    }
+    if (hw < 1.0f) hw = 1.0f;
+    sx[0] = cx - hw; sy[0] = cy - hh - lean;
+    sx[1] = cx + hw; sy[1] = cy - hh + lean;
+    sx[2] = cx - hw; sy[2] = cy + hh + lean;
+    sx[3] = cx + hw; sy[3] = cy + hh - lean;
+    memcpy(keep, gfx_tint, sizeof(keep));
+    gfx_tint[0] = gfx_tint[1] = gfx_tint[2] = (unsigned char)lit;
+    {
+        int ax, ay, w, h;
+        Paint_CardArtWhere(&ax, &ay, &w, &h);
+        Gfx_BankQuad(sx, sy, 15, ax, ay, w, h, 0.0f);
+    }
+    if (turn < 0.12f) {                            /* edge on: a sliver of light for the card's side */
+        float ex[4] = {cx - 1.5f, cx + 1.5f, cx - 1.5f, cx + 1.5f};
+        Gfx_Rect((int)ex[0], (int)(cy - hh), 3, (int)(hh * 2.0f), lit + 60, lit + 60, lit + 30);
+    }
+    memcpy(gfx_tint, keep, sizeof(keep));
+}
+
 /* ------------------------------------------------------------------ frame */
 static void frame_hook(void)
 {
@@ -651,23 +924,48 @@ static void frame_hook(void)
     Gfx_Begin();
     if (state == ST_CREATE) { Ui_DrawCreate(); return; }
     if (state == ST_CONFIRM || state == ST_LANG || state == ST_MAP) { Gfx_Backdrop(0x08061C, 0x2A2060); Gfx_End(); return; }
-    if (state == ST_PAINT || state == ST_JOURNAL || (state == ST_MENU && menu_from_paint) || (in_paint_flow && (state == ST_SCENE || state == ST_ASK))) {
+    if (state == ST_PAINT || state == ST_JOURNAL || state == ST_SHOP || state == ST_ARENA || state == ST_AMBUSH || state == ST_CARD || (state == ST_MENU && menu_from_paint) || (in_paint_flow && (state == ST_SCENE || state == ST_ASK))) {
         Ui_BodyColours(colours);
         paint_markers = state == ST_PAINT;
         Paint_Draw(Gfx_Mesh(Ui_BodyMesh()), colours);
+        /* Full-bleed shop illustration: its sides and lower edge overscan the 320x240 view, so the
+         * source image's cropped waist/stall never leaves a visible rectangular boundary. */
+        if (state == ST_SHOP && !Paint_ShopFigure(-8, 6, 336, 234))
+            Paint_Figure(Shop_Keeper(), 34, 44, 104, 134);
+        if (state == ST_CARD) card_draw();
         Gfx_End();
         if (portrait_x >= 0 && state != ST_PAINT) Gfx_Portrait(14, 40, 84, portrait_x, portrait_y);
         return;
     }
-    jm_guide_on = state == ST_WALK;
-    Gfx_SetCamera(CAM_D, CAM_PITCH);
-    Ui_BodyColours(colours);
-    World_Draw(jm.x, jm.z, pyaw, walking, colours, Gfx_Mesh(Ui_BodyMesh()));
-    if (portrait_x >= 0 && (state == ST_SCENE || state == ST_ASK)) Gfx_Portrait(14, 40, 84, portrait_x, portrait_y);
+    /* Everything else is the painted village too - the old 3D map is not a screen any more.  Until
+     * its picture is in memory there is nothing to draw but a plain field, which is what keeps that
+     * map from showing for the frame or two between entering the mode and the picture arriving. */
+    jm_guide_on = 0;
+    if (Paint_Loaded()) {
+        Ui_BodyColours(colours);
+        paint_markers = 0;
+        Paint_Draw(Gfx_Mesh(Ui_BodyMesh()), colours);
+        Gfx_End();
+        if (portrait_x >= 0) Gfx_Portrait(14, 40, 84, portrait_x, portrait_y);
+        return;
+    }
+    Gfx_Backdrop(0x08061C, 0x1A1430);
+    Gfx_End();
 }
 
 /* ---------------------------------------------------------------- overlay */
 static int near_object(void) { Talk t; int o = Paint_NearObject(); return o >= 0 && Paint_ObjectRule(o, &t); }
+/* The arena's cellar hatch answers X the way a person or a signpost does, so it offers it the same
+ * way: the hatch carries no talk of its own (the arena screen handles the press), which is why it
+ * is asked about separately here instead of coming out of Paint_NearObject. */
+static int near_arena_door(void)
+{
+    float x, y, sx, sy;
+    if (!Paint_Loaded()) return 0;
+    if (Paint_ArenaPadAt()) return 1;
+    Paint_Info(&x, &y, &sx, &sy);
+    return Arena_DoorAt(x, y);
+}
 static int near_npc(void) { return state == ST_WALK ? World_NearestNpc(jm.x, jm.z, 64) : -1; }
 static int has_poi(void) { Talk t; return state == ST_WALK && Story_PoiAt(jm.x, jm.z, &t); }
 
@@ -850,6 +1148,13 @@ static const char *const ICON_ITEM[12] = {        /* a star */
 static const char *const ICON_COMPLETE[12] = {    /* a check mark in a ring */
     "...######...", "..##++++##..", ".#++++++++#.", "#++++++++#.#", "#+++++++#++#", "##++#+++#++#",
     "#+#+##+#+++#", "#++###++++.#", ".#++#+++++#.", "..##++++##..", "...######...", "............" };
+static const char *const ICON_COIN[12] = {        /* a coin, edge on the right */
+    "...######...", "..##++++##..", ".#++####++#.", "#++#++++#++#", "#++#+##+#++#", "#++#+##+#++#",
+    "#++#+##+#++#", "#++#+##+#++#", "#++#++++#++#", ".#++####++#.", "..##++++##..", "...######..." };
+static const char *const ICON_XP[12] = {         /* a small chevron, for the experience bar */
+    "............", "....####....", "...##++##...", "..##++++##..", ".##++##++##.", "##++##+##++#",
+    "#++##+++##+#", ".##+++++##..", "..##+++##...", "...##+##....", "....###.....", "............" };
+
 static const char *const ICON_CAPTION[12] = {     /* a feather */
     "..........##", ".........###", "........####", ".......#####", "......######", ".....#####+.",
     "....#####+..", "...#####+...", "..####+.....", ".###+.......", "##+.........", "#..........." };
@@ -896,6 +1201,128 @@ static void draw_icon(int x, int y, int px, const char *const *rows, unsigned co
             if (ch == '#') jm_host->fill(jm_host, x + c * px, y + r * px, px, px, col, 255);
             else if (ch == '+') jm_host->fill(jm_host, x + c * px, y + r * px, px, px, light, 255);
         }
+}
+
+/* ------------------------------------------------------------------- the HUD
+ * A panel that is always on while the player walks the village: his face, his name, the level with
+ * the bar to the next one, the star chips the game itself counts, and the purse.
+ *
+ * It is drawn in two layers, because a mod has no way to put a picture in the overlay: the face is a
+ * quad in the game's scene (Gfx_Portrait, 320x240 space) and everything else is overlay text and
+ * rectangles in window pixels.  So the panel's place is worked out once, here, and the face's place
+ * is derived from it - that way the two layers cannot drift apart. */
+extern u32 gLibrary_dwStarchips;
+#define FACE_TEX 48            /* the portrait in the atlas is 48 x 48 */
+
+static void hud_box(int w, int s, int top, int vis, int *x, int *y, int *bw, int *bh, int *face)
+{
+    int lh = 16 * s + 8;
+    *face = lh * 2 / FACE_TEX * FACE_TEX;   /* two rows of text, rounded to whole face texels */
+    if (*face < FACE_TEX) *face = FACE_TEX;
+    *bw = w * 30 / 100;
+    if (*bw < *face + 150 * s) *bw = *face + 150 * s;
+    *bh = *face + 14 * s;
+    *x = w / 48;
+    *y = top + vis / 40;
+}
+
+/* The player's face, drawn in the overlay as runs of rectangles.
+ *
+ * It began as a quad in the game's scene, which was wrong: the overlay is the whole window, and
+ * where the game's picture sits inside it - under the menu bar, letterboxed as the aspect setting
+ * says - is the port's own business (layout.dst in pc/platform/sdl.c) and is not handed to a mod.
+ * There is no sound way to line the two up, so the face is read out of the texture atlas once and
+ * drawn in the overlay with the rest of the HUD, in the same units, where it cannot drift.
+ * The item banners already draw their pictures this way (draw_item_icon). */
+static int hud_portrait(int x, int y, int px, int which)
+{
+    static unsigned char faces[4][FACE_TEX * FACE_TEX * 3];
+    static unsigned char solid[4][FACE_TEX * FACE_TEX];
+    static int loaded;                  /* 0 not tried, 1 there, -1 no atlas */
+    int r, c;
+    if (!loaded) {
+        long size = 0;
+        unsigned char *d = Jm_Slurp("assets/atlas.raw", &size);
+        int aw = d && size >= 4 ? (d[0] | d[1] << 8) : 0;
+        int ah = d && size >= 4 ? (d[2] | d[3] << 8) : 0;
+        loaded = -1;
+        if (d && aw >= PORT_X + 4 * FACE_TEX && ah >= PORT_Y + FACE_TEX &&
+            size >= 4 + (long)aw * ah * 2) {
+            int k;
+            for (k = 0; k < 4; k++)
+                for (r = 0; r < FACE_TEX; r++)
+                    for (c = 0; c < FACE_TEX; c++) {
+                        const unsigned char *t = d + 4 + ((size_t)(PORT_Y + r) * aw +
+                                                          PORT_X + k * FACE_TEX + c) * 2;
+                        unsigned v = (unsigned)t[0] | ((unsigned)t[1] << 8);
+                        unsigned char *o = faces[k] + ((size_t)r * FACE_TEX + c) * 3;
+                        o[0] = (unsigned char)((v & 31) * 255 / 31);
+                        o[1] = (unsigned char)(((v >> 5) & 31) * 255 / 31);
+                        o[2] = (unsigned char)(((v >> 10) & 31) * 255 / 31);
+                        solid[k][(size_t)r * FACE_TEX + c] = (unsigned char)(v != 0);
+                    }
+            loaded = 1;
+        }
+        free(d);
+    }
+    if (loaded != 1) return 0;
+    which &= 3;
+    if (px < 1) px = 1;
+    for (r = 0; r < FACE_TEX; r++)
+        for (c = 0; c < FACE_TEX;) {
+            const unsigned char *o = faces[which] + ((size_t)r * FACE_TEX + c) * 3;
+            int end = c + 1;
+            if (!solid[which][(size_t)r * FACE_TEX + c]) { c++; continue; }   /* 0 is see-through */
+            while (end < FACE_TEX && solid[which][(size_t)r * FACE_TEX + end] &&
+                   !memcmp(faces[which] + ((size_t)r * FACE_TEX + end) * 3, o, 3)) end++;
+            jm_host->fill(jm_host, x + c * px, y + r * px, (end - c) * px, px,
+                          ((unsigned)o[0] << 16) | ((unsigned)o[1] << 8) | o[2], 255);
+            c = end;
+        }
+    return FACE_TEX * px;
+}
+
+static void hud_panel(int w, int s, int top, int vis)
+{
+    int x, y, bw, bh, face, lh = 16 * s + 8, tx, into = 0, span = 0, barw, bary;
+    char buf[64];
+    if (!Eco_Ready() || w <= 0 || vis <= 0 || s <= 0) return;
+    hud_box(w, s, top, vis, &x, &y, &bw, &bh, &face);
+    jm_host->fill(jm_host, x, y, bw, bh, 0x0C0E2C, 200);
+    jm_host->fill(jm_host, x, y, bw, 2 * s, 0xC8A03C, 255);
+    jm_host->fill(jm_host, x, y + bh - 2 * s, bw, 2 * s, 0xC8A03C, 255);
+    jm_host->fill(jm_host, x, y, 2 * s, bh, 0xC8A03C, 255);
+    jm_host->fill(jm_host, x + bw - 2 * s, y, 2 * s, bh, 0xC8A03C, 255);
+    /* the frame round the face, which the scene has already drawn under this */
+    jm_host->fill(jm_host, x + 5 * s, y + 5 * s, face + 4 * s, 2 * s, 0xC8A03C, 255);
+    jm_host->fill(jm_host, x + 5 * s, y + 7 * s + face, face + 4 * s, 2 * s, 0xC8A03C, 255);
+    jm_host->fill(jm_host, x + 5 * s, y + 5 * s, 2 * s, face + 4 * s, 0xC8A03C, 255);
+    jm_host->fill(jm_host, x + 7 * s + face, y + 5 * s, 2 * s, face + 4 * s, 0xC8A03C, 255);
+
+    hud_portrait(x + 7 * s, y + 7 * s, face / FACE_TEX, jm.portrait);
+
+    tx = x + face + 16 * s;
+    jm_host->draw_text(jm_host, tx, y + 7 * s + lh / 2, jm.name, 0xFFE9A0, s);
+    Ui_Fmt1(buf, sizeof(buf), EcoTr("ui.hud_level"), Eco_Level());
+    jm_host->draw_text(jm_host, x + bw - jm_host->text_width(jm_host, buf, s) - 10 * s,
+                       y + 7 * s + lh / 2, buf, 0x40E0E0, s);
+
+    /* the way to the next level, under the name */
+    barw = bw - (face + 16 * s) - 10 * s;
+    bary = y + 7 * s + lh;
+    jm_host->fill(jm_host, tx, bary, barw, 5 * s, 0x202840, 255);
+    if (Eco_XpBar(&into, &span) && span > 0)
+        jm_host->fill(jm_host, tx, bary, barw * into / span, 5 * s, 0x40E0E0, 255);
+    else jm_host->fill(jm_host, tx, bary, barw, 5 * s, 0xFFE9A0, 255);   /* at the cap it is full */
+    draw_icon(tx - 13 * s, bary - 3 * s, s, ICON_XP, 0x40E0E0, 0x90F0F0);
+
+    /* the star chips the game counts, and the purse */
+    draw_icon(tx, bary + 9 * s, s, ICON_ITEM, 0xE0C040, 0xFFF0A0);
+    snprintf(buf, sizeof(buf), "%u", (unsigned)gLibrary_dwStarchips);
+    jm_host->draw_text(jm_host, tx + 15 * s, bary + 15 * s, buf, 0xFFE9A0, s);
+    draw_icon(tx + barw / 2, bary + 9 * s, s, ICON_COIN, 0xD8A838, 0xFFE090);
+    snprintf(buf, sizeof(buf), "%d", jm.eco.coins);
+    jm_host->draw_text(jm_host, tx + barw / 2 + 15 * s, bary + 15 * s, buf, 0xFFE9A0, s);
 }
 
 /* greedy wrap of `text` into lines of at most `maxw` pixels */
@@ -967,11 +1394,56 @@ static void dialog_extras(int w, int h, int s, int lh, int top, int vis)
     }
 }
 
+/* Both names below their faces, during a duel.
+ *
+ * The face itself is a picture in the game's own scene (panel_drawn); the name is text, and the only
+ * text a mod can draw is the port's overlay, which is in window pixels.  The two are lined up by
+ * mapping the game's complete 320x240 picture to that canvas; the name sits below the small face.
+ * The game's own "Opponent's name for COM" (View menu) is not used, because it would show the name
+ * of the disc duelist whose slot a villager borrows ("Villager 1"), not the villager's. */
+static void duel_nameplate(int w, int h, int s, int lh, int fx, int fy, const char *name, unsigned colour)
+{
+    if (!name || !*name) return;
+    {
+        int x = fx * w / 320;
+        int y = (fy + FACE_SIZE + 6) * h / 240;
+        int tw = jm_host->text_width(jm_host, name, s);
+        jm_host->fill(jm_host, x - 2 * s, y, tw + 8 * s, lh, 0x0C0E2C, 210);
+        jm_host->draw_text(jm_host, x + 2 * s, y + lh / 2, name, colour, s);
+    }
+}
+
+static void duel_names(void)
+{
+    int w, h, s, lh;
+    const char *opponent, *player;
+    if (!face_on || duel_npc < 0) return;
+    jm_host->overlay_size(jm_host, &w, &h, &s);
+    if (s < 2) s = 2;
+    lh = 16 * s + 8;
+    opponent = TrKey("npc_names", npcs[duel_npc].id, npcs[duel_npc].name);
+    player = jm.name[0] ? jm.name : Tr("defaults.player_name");
+    duel_nameplate(w, h, s, lh, player_face_x, player_face_y, player, 0xB8D0FF);
+    duel_nameplate(w, h, s, lh, opponent_face_x, opponent_face_y, opponent, 0xFFE9A0);
+}
+
 static void overlay(void)
 {
     int w, h, s, lh, top, vis;
     char line[200];
-    if (!ModMode_Active() || !ready) return;
+    if (!ready) return;
+    if (!ModMode_Active()) { duel_names(); return; }
+    if (!Paint_Loaded() && state != ST_CREATE && state != ST_CONFIRM &&
+        state != ST_LANG && state != ST_LEAVE) {        /* the picture is still coming */
+        int i, dots;
+        jm_host->overlay_size(jm_host, &w, &h, &s);
+        if (s < 2) s = 2;
+        if (w <= 0 || h <= 0) return;
+        dots = (int)((frame_no / 14) % 4);
+        for (i = 0; i < dots; i++)
+            jm_host->fill(jm_host, w / 2 - 20 * s + i * 14 * s, h / 2, 8 * s, 8 * s, 0xC8A03C, 255);
+        return;
+    }
     jm_host->overlay_size(jm_host, &w, &h, &s);
     if (s < 2) s = 2;
     lh = 16 * s + 8;
@@ -980,6 +1452,16 @@ static void overlay(void)
     top = (h - vis) / 2;
     { static int once; if (!once++) LOG("journey: overlay %dx%d scale %d", w, h, s); }
     if (state == ST_CREATE) { Ui_CreateOverlay(); return; }
+    if (state == ST_CARD) {                /* a veil, so the card reads against the village */
+        int dim = card_age * 8;
+        if (dim > 150) dim = 150;
+        if (card_age > CARD_FRAMES - 20) dim = (CARD_FRAMES - card_age) * 150 / 20;
+        if (dim < 0) dim = 0;
+        jm_host->fill(jm_host, 0, 0, w, h, 0x05040E, (unsigned)dim);
+        return;
+    }
+    if (state == ST_SHOP) { Shop_Overlay(); return; }
+    if (state == ST_ARENA) { Arena_Overlay(); return; }
     if (state == ST_CONFIRM) {
         int x = w / 6, y = top + vis / 4, pw = w * 2 / 3;
         char who[96];
@@ -1010,6 +1492,16 @@ static void overlay(void)
         int n = Paint_NearNpc();
         snprintf(line, sizeof(line), Tr("hud.status_line"), place_name(), Story_Chapter(), Story_Objective());
         if (Dev_BarOn()) bar(top + 6, lh, line, 0xFFE9A0);
+        if (Dev_BarOn()) {                 /* why the Jackals and the arena do or do not answer */
+            char dbg[160];
+            float ax, ay, asx, asy;
+            Gang_Debug(dbg, sizeof(dbg));
+            bar(top + 6 + lh + 4, lh, dbg, 0xFF9090);
+            Paint_Info(&ax, &ay, &asx, &asy);
+            Arena_Debug(dbg, sizeof(dbg), ax, ay);
+            bar(top + 6 + (lh + 4) * 2, lh, dbg, 0xFFB060);
+        }
+        hud_panel(w, s, top, vis);         /* face, name, level, the bar, stars and the purse */
         if (area_banner > 0) {
             const char *nm = place_name();
             int tw = jm_host->text_width(jm_host, nm, s + 1);
@@ -1021,11 +1513,11 @@ static void overlay(void)
             Paint_MiniMap(w - 48 * c - 14 * s, top + (Dev_BarOn() ? 2 * lh + 26 * s : lh + 14 * s), c, s);
         }
         if (n >= 0) hint_pill(w, s, lh, top, vis, Tr("hint.talk_short"));
-        else if (near_object()) hint_pill(w, s, lh, top, vis, Tr("hint.examine_short"));
+        else if (near_object() || near_arena_door()) hint_pill(w, s, lh, top, vis, Tr("hint.examine_short"));
         if (Ui_MessageText()) {
             int tw = jm_host->text_width(jm_host, Ui_MessageText(), s);
             jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0), tw + 24 * s, lh, 0, 170);
-            jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), 0x60F060, s);
+            jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), Ui_MessageColour(), s);
         }
         return;
     }
@@ -1091,20 +1583,29 @@ static void overlay(void)
     if (Ui_MessageText()) {
         int tw = jm_host->text_width(jm_host, Ui_MessageText(), s);
         jm_host->fill(jm_host, w - tw - 30 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0), tw + 24 * s, lh, 0, 170);
-        jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), 0x60F060, s);
+        jm_host->draw_text(jm_host, w - tw - 18 * s, top + 6 + (Dev_BarOn() ? lh + 6 : 0) + lh / 2, Ui_MessageText(), Ui_MessageColour(), s);
     }
     dialog_extras(w, h, s, lh, top, vis);
 }
 
 static unsigned overlay_sig(void)
 {
-    if (!ModMode_Active()) return 0u;
+    /* outside our own mode the only thing drawn is the duelling opponent's name */
+    if (!ModMode_Active())
+        return face_on ? 2166136261u + (unsigned)opponent_face_x * 131u + (unsigned)opponent_face_y * 7919u +
+                         (unsigned)player_face_x * 17u + (unsigned)(duel_npc + 1) * 1009u : 0u;
+    if (!Paint_Loaded()) return 3u + (unsigned)(frame_no / 14) * 131u;   /* the waiting dots */
+    if (state == ST_CARD) return 17u + (unsigned)card_age * 131u;
+    if (state == ST_SHOP) return 11u + Shop_Signature();
+    if (state == ST_ARENA) return 13u + Arena_Signature();
     if (state == ST_PAINT) {
         float a, b, c, d;
         Paint_Info(&a, &b, &c, &d);
         return 7u + (unsigned)(Paint_NearNpc() + 2) * 131u + (near_object() ? 77u : 0u) + (unsigned)minimap_on * 17u + (unsigned)mini_big * 29u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
                (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) + (unsigned)(Lang_Current() * 1237) + (unsigned)Dev_BarOn() * 3331u +
-               (unsigned)(minimap_on ? (int)(frame_no / 10 & 1) * 100003 + (int)a / 12 * 4421 + (int)b / 12 * 977 : 0);
+               (unsigned)(minimap_on ? (int)(frame_no / 10 & 1) * 100003 + (int)a / 12 * 4421 + (int)b / 12 * 977 : 0) +
+               (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.xp * 97u + (unsigned)gLibrary_dwStarchips * 131u +
+               (unsigned)near_arena_door() * 7u;        /* the pill comes and goes as he walks up to it */
     }
     return (state == ST_SCENE || state == ST_ASK ? (unsigned)(scene_idx * 131 + cur_kind * 17 + (cur_kind ? notif_age : 0) * 3571 + (cur_name ? (unsigned char)cur_name[0] * 31 : 0)) : 0u) + 1u + (unsigned)state * 977u + (unsigned)(area + 2) * 31u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
            (unsigned)(near_npc() + 2) * 131u + (unsigned)ask_sel * 17u + (unsigned)choose_sel * 3u + (unsigned)(state == ST_CONFIRM) * 7001u + Ui_Signature() * 13u +
@@ -1148,6 +1649,8 @@ int MemoriesModInit(const MemoriesModHost *h, MemoriesMod *mod)
     mod->overlay_signature = overlay_sig;
     Story_Reset();
     ModMode_Register(run);
+    h->hook(h, (void *)Duel_SelectCardDrop, (void *)drop_pick, (void **)&drop_original);
+    h->hook(h, (void *)Duel_DrawLifePointsAndDeckCounts, (void *)panel_drawn, (void **)&panel_original);
     h->subscribe(h, MEMORIES_EVENT_MENU, 0, on_menu);
     h->subscribe(h, MEMORIES_EVENT_SCENE, 0, on_scene);
     return 1;

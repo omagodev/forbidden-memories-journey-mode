@@ -465,6 +465,9 @@ static void draw_panel(DisplayObject *object, s32 ot, s32 depth)
         return;
     }
     sprite = (const GsSPRITE *)&caught.sprite[0];
+    /* An arranged half may have a large horizontal offset.  Once the panel the game is animating
+     * has itself left the screen, keep that arrangement from lingering behind on its own. */
+    if (off_screen(sprite->x, sprite->y, sprite->x + PANEL_W, sprite->y + PANEL_H)) return;
     for (half = 1; half >= 0; half--) {
         int which = half ? UI_LP_PLAYER : UI_LP_OPPONENT, top = sprite->y + half * HALF_H;
         int mode = (int)((u32)caught.mode[0] >> 16);
@@ -529,6 +532,9 @@ int DuelUi_RenderObject(DisplayObject *object, s32 ot, s32 depth)
     }
     if (!changed(which)) return 0;
     e = element(which);
+    /* A FIELD box arranged elsewhere must still leave when the original box
+     * the game animates has completed its slide off the left of the screen. */
+    if (which == UI_FIELD && sheet_extent(object, &x0, &y0, &x1, &y1) && off_screen(x0, y0, x1, y1)) return 1;
     if (e->hidden || !capture_all(object, ot, depth, e->x, e->y, &caught)) return 1;
     /* Its place, moved: where all of a sheet's parts go, or where all of
      * its sprites are (a variant the bar takes in some views). */

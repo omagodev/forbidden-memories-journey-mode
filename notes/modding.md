@@ -1398,7 +1398,7 @@ tab draws them from your disc and drags them about.
     "duel": {
         "lp_opponent": {"y": 24, "tint": "#FF9090", "digits": "#FFE040", "label": "RIVAL"},
         "lp_player": {"y": -28, "scale": 120, "image": "art/lp.png"},
-        "field": {"y": 40, "scale": 110, "tint": "#80C0FF"},
+        "field": {"x": 108, "y": 40, "scale": 110, "tint": "#80C0FF"},
         "card_bar": {"tint": "#C0C0FF",
                      "name": {"x": 40, "tint": "#FFE040", "spacing": 1},
                      "atk": {"x": 55}, "def": {"x": 55},
@@ -1411,16 +1411,16 @@ tab draws them from your disc and drags them about.
 
 | Picture | What it is |
 |---|---|
-| `lp_opponent` | the panel's top half: LP, COM and the opponent's life points and deck count; up and down only, at most 161 % (201 % drawn from an `image`) |
+| `lp_opponent` | the panel's top half: LP, COM and the opponent's life points and deck count; movable across and down, at most 161 % (201 % drawn from an `image`) |
 | `lp_player` | its bottom half: YOU and the player's; the same |
-| `field` | the FIELD box, with the terrain's name; up and down only, at most 130 % |
+| `field` | the FIELD box, with the terrain's name; movable across and down, at most 130 % |
 | `card_bar` | the strip under the hand; the hand's cards slide in and out with it, so it stays where the game has it, at its size: only its colors, a picture of its own or none. What it shows are its parts, below |
 | `hand_cursor` | the red arrow under the card the cursor is on |
 | `field_cursor` | the frame round the zone a card is going to |
 
 | Key | Meaning |
 |---|---|
-| `x`, `y` | moved by so many of the game's pixels, -400 to 400 across (the cursors only), -300 to 300 down |
+| `x`, `y` | moved by so many of the game's pixels, -400 to 400 across, -300 to 300 down |
 | `scale` | its size in percent, 25 to 400, about its middle (100 as it is; less for the panel's halves and the box, below) |
 | `tint` | its colors multiplied, `#RRGGBB` (`#FFFFFF` as they are; a color can only darken what is there) |
 | `hide` | `true`: not drawn |
@@ -1465,11 +1465,13 @@ Everything is done as the game draws the pictures, never to the game's own
 objects, so its slides, the turn's colors and the cursors' moves go on as
 they do. The game hides the panel and the FIELD box by sliding them off the
 side of the screen (the panel right, the box left, for each battle and the
-duel's end, and for Exodia a shorter way), so those move up and down only:
-moved so, a half or the box slides with the game's, pixel for pixel, and is
-off the screen when the game's is. An `x` for them is left out, and a size
-that would still reach onto the screen where the game slides them to is
-brought down to the most that does not (an LP half reaches 8 further with
+duel's end, and for Exodia a shorter way). LP halves may be arranged across
+the screen with `x`; once the game's original panel completes its slide away,
+the arrangement is hidden with it. The FIELD box may be arranged across with
+`x` too; once its original box completes the slide away, the arrangement is
+hidden with it. A size that would still reach onto
+the screen where the game slides it to is brought down to the most that does
+not (an LP half reaches 8 further with
 a fifth digit, LP over 9999; a picture by its own `width`), both noted. A
 piece of a sized one goes off the edge as the game's own would, where it is
 drawn. The

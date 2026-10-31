@@ -18,15 +18,17 @@ const char *const UiConfig_PartNames[UI_PARTS] = {"name", "atk", "def", "type", 
 /* What each element takes. The LP halves and the FIELD box are slid off
  * the screen sideways by the game (to x 408 and -116 for a battle and the
  * duel's end, 384 and -64 for Exodia: duel_scene_battle.c,
- * duel_result_runtime.c, func_80018FEC.c), so they are moved up or down
- * only, where they slide with the game's and leave the screen when it
- * does; the card bar, which the hand's cards slide in and out with,
+ * duel_result_runtime.c, func_80018FEC.c). They may also be arranged across
+ * the screen; duel_ui.c still hides the arrangement once the game's original
+ * panel has completed its slide away. The card bar, whose hand cards slide
+ * in and out with it,
  * takes only its colors, a picture of its own or none, while the parts of
  * its text (its "name", "atk", ...: read_part) move about on it; only the
  * LP halves have digits and words. */
 enum { TAKES_X = 1, TAKES_Y = 2, TAKES_SCALE = 4, TAKES_LABEL = 8 };
-static const unsigned takes[UI_ELEMENTS] = {TAKES_Y | TAKES_SCALE | TAKES_LABEL, TAKES_Y | TAKES_SCALE | TAKES_LABEL,
-                                            TAKES_Y | TAKES_SCALE, 0, TAKES_X | TAKES_Y | TAKES_SCALE,
+static const unsigned takes[UI_ELEMENTS] = {TAKES_X | TAKES_Y | TAKES_SCALE | TAKES_LABEL,
+                                            TAKES_X | TAKES_Y | TAKES_SCALE | TAKES_LABEL,
+                                            TAKES_X | TAKES_Y | TAKES_SCALE, 0, TAKES_X | TAKES_Y | TAKES_SCALE,
                                             TAKES_X | TAKES_Y | TAKES_SCALE};
 
 /* How far a sliding element may reach from its middle towards the side it

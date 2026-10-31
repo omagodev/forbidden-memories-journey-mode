@@ -52,6 +52,7 @@ int Cg_Frames(void) { return 5; }
 
 /* ------------------------------------------------------------ the choice */
 enum { CG_SKIN, CG_OUTFIT, CG_OUTFIT_COL, CG_HAIR, CG_HAIR_COL, CG_ACC, CG_ACC_COL, CG_N };
+#define CG_STYLE_SLOT 7
 static const char *const cat_id[CG_N] = {"skin", "outfit", "outfit_colour", "hair", "hair_colour", "accessory", "accessory_colour"};
 
 static const JsonNode *style_at(const char *part, int i)         /* the i-th style of a part; accessories: 0 is "none", then the manifest's order */
@@ -109,17 +110,20 @@ void Cg_Set(int c, int v)
     if (c == CG_OUTFIT) jm.cg[CG_OUTFIT_COL] = 0;          /* a style has its own colourways */
     if (c == CG_ACC) jm.cg[CG_ACC_COL] = 0;
 }
+int Cg_Style(void) { return jm.cg[CG_STYLE_SLOT] ? 1 : 0; }
+void Cg_SetStyle(int style) { jm.cg[CG_STYLE_SLOT] = (unsigned char)(style ? 1 : 0); }
 void Cg_Defaults(void)
 {
     memset(jm.cg, 0, sizeof(jm.cg));
     jm.cg_set = Cg_Ready() ? 1 : 0;
+    Cg_SetStyle(1);                                                     /* make the new LPC option visible on a fresh journey */
     if (jm.cg_set && Json_Count(pal_skin) > 1) jm.cg[CG_SKIN] = 1;      /* "tan": the old hero's skin */
 }
 unsigned Cg_Signature(void)
 {
     unsigned h = (unsigned)jm.cg_set;
     int i;
-    for (i = 0; i < CG_N; i++) h = h * 31u + jm.cg[i];
+    for (i = 0; i <= CG_STYLE_SLOT; i++) h = h * 31u + jm.cg[i];
     return h;
 }
 

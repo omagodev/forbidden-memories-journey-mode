@@ -1,0 +1,35 @@
+Journey Mode LPC animation proof of concept
+===========================================
+
+Generated from Universal LPC Spritesheet Character Generator assets:
+https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator
+
+Selected layers and attribution
+--------------------------------
+
+Body (body/bodies/male): bluecarrot16, JaidynReiman, Benjamin K. Smith
+(BenCreating), Evert, Eliza Wyatt (ElizaWy), TheraHedwig, MuffinElZangano,
+Durrani, Johannes Sjolund (wulax), Stephen Challener (Redshrike).
+Used under OGA-BY 3.0.
+
+Human male head: bluecarrot16, Benjamin K. Smith (BenCreating),
+Stephen Challener (Redshrike). Used under OGA-BY 3.0.
+
+Spiked2 hair (hair/spiked2): Fabzy and bluecarrot16.
+Used under CC-BY-SA 3.0.
+Sources: https://opengameart.org/content/the-revolution-hair and
+https://opengameart.org/content/lpc-hair
+
+Longsleeve 2 VNeck: ElizaWy, JaidynReiman, Stephen Challener (Redshrike),
+Johannes Sjolund (wulax). Used under OGA-BY 3.0.
+
+Pants: bluecarrot16, JaidynReiman, ElizaWy, Matthew Krohn (makrohn),
+Johannes Sjolund (wulax), Stephen Challener (Redshrike).
+Used under OGA-BY 3.0.
+
+Basic shoes: JaidynReiman, bluecarrot16, Johannes Sjolund (wulax).
+Used under OGA-BY 3.0.
+
+The composed and recoloured LPC runtime sprites are distributed under
+CC-BY-SA 3.0. Exact upstream per-file attribution for every layer now used by
+the protagonist and NPC variants is included in lpc_runtime_credits.csv.

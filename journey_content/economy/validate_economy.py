@@ -6,8 +6,9 @@ arena ladders and their expected value, levels table, ASCII/charset/3x32 fit and
 quests, duelist slots, 30 of 32 flags: this design adds none)."""
 import csv, json, math, os, re, sys, collections
 HERE = os.path.dirname(os.path.abspath(__file__))
-CAT = os.environ.get("FM_CATALOG", "/workspace/study/fmrecomp/fork/notes/card-catalog.csv")
-TABLES_C = "/workspace/study/fmrecomp/fork/src/pc/cards/tables.c"
+REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
+CAT = os.environ.get("FM_CATALOG", os.path.join(REPO, "notes", "card-catalog.csv"))
+TABLES_C = os.environ.get("FM_TABLES_C", os.path.join(REPO, "src", "pc", "cards", "tables.c"))
 DK = os.path.join(HERE, "..", "duelist_kingdom")
 errs, warns, infos = [], [], []
 def err(m): errs.append(m)

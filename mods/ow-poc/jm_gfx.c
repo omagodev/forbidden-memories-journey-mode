@@ -553,6 +553,39 @@ void Gfx_SpriteQuad(int x0, int y0, int w, int h, int bank, int page, int u0, in
     Gfx_SpriteQuadEx(x0, y0, w, h, bank, page, u0, v0, uw, vh, depth, gfx_tint, -1);
 }
 
+/* The same two, drawn into another of the game's ordering tables at a given depth, so they can be
+ * put among pictures the game itself queued: the duel's life-point panel hands its own table and
+ * depth to whatever is drawn beside it, which is what makes the face slide on and off with it. */
+static void sort_into(void *prim, int ot_index, unsigned depth)
+{
+    GsOT *ot = D_800E9D90[ot_index & 3];
+    GsSortPoly(prim, ot, (unsigned short)depth);
+}
+
+void Gfx_PortraitAt(int x, int y, int size, int ax, int ay, int ot_index, unsigned depth)
+{
+    POLY_GT4 p;
+    float sx[4] = {(float)x, (float)(x + size), (float)x, (float)(x + size)};
+    float sy[4] = {(float)y, (float)y, (float)(y + size), (float)(y + size)};
+    unsigned char rgb[4][3];
+    int k;
+    for (k = 0; k < 4; k++) rgb[k][0] = rgb[k][1] = rgb[k][2] = 128;
+    memset(&p, 0, sizeof(p));
+    gt4(&p, sx, sy, ax, ay, 48, 48, rgb, 0);
+    sort_into(&p, ot_index, depth);
+}
+
+void Gfx_RectAt(int x, int y, int w, int h, int r, int g, int b, int ot_index, unsigned depth)
+{
+    POLY_G4 p;
+    memset(&p, 0, sizeof(p));
+    setPolyG4(&p);
+    p.r0 = p.r1 = p.r2 = p.r3 = (u8)r; p.g0 = p.g1 = p.g2 = p.g3 = (u8)g; p.b0 = p.b1 = p.b2 = p.b3 = (u8)b;
+    p.x0 = (short)x; p.y0 = (short)y; p.x1 = (short)(x + w); p.y1 = (short)y;
+    p.x2 = (short)x; p.y2 = (short)(y + h); p.x3 = (short)(x + w); p.y3 = (short)(y + h);
+    sort_into(&p, ot_index, depth);
+}
+
 void Gfx_Portrait(int x, int y, int size, int ax, int ay)
 {
     POLY_GT4 p;
