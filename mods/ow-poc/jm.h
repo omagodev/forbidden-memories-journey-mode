@@ -314,6 +314,7 @@ int Paint_CardArt(int card);
 void Paint_CardArtWhere(int *ax, int *ay, int *w, int *h);
 int Paint_ShopArt(const char *keeper);
 int Paint_ShopFigure(int x, int y, int box_w, int box_h);
+const uint16_t *Paint_LpcFrame(int dir, int frame, int *w, int *h, int *fx, int *fy, int *nf); /* the LPC frame's texels in its bank (stride 1024) */
 int Paint_LpcPreview(int x, int y, int scale, int dir, int frame, float depth); /* creator preview, x/y is the feet */
 /* The opaque horizontal span of the shop art at an overlay-canvas row. */
 int Paint_ShopMaskSpan(int output_y, int output_w, int output_h, int *x0, int *x1);
@@ -448,6 +449,9 @@ int Cg_Style(void);                                   /* 0 layered Journey sprit
 void Cg_SetStyle(int style);
 void Cg_Defaults(void);                              /* the first option everywhere, cg_set = 1 (when the layers exist) */
 unsigned Cg_Signature(void);                         /* changes with the choice */
+int Cg_ComposeTo(uint16_t *buf);                    /* the same into a 1024x256 buffer (creator tiles) */
+int Cg_OptRgb(int c, int o);
+int Cg_OptRgb2(int c, int o);
 int Cg_Compose(int bank, int page);                  /* paints the hero into a bank page (5 frames x 4 directions) */
 int Cg_Frames(void);
 int Cg_Avoided(void);                                /* the current hair + accessory is one the art marks as clashing */

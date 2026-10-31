@@ -89,7 +89,43 @@
     ],
     "hint_name": "X: digitar o nome",
     "hint_begin": "X: comecar",
-    "hint_change": "Esquerda/Direita: mudar"
+    "hint_change": "Esquerda/Direita: mudar",
+    "v2": {
+      "title": "CRIAR PERSONAGEM",
+      "subtitle": "Personalize seu duelista",
+      "steps": [
+        "Base",
+        "Aparencia",
+        "Nome",
+        "Confirmar"
+      ],
+      "choose_base": "ESCOLHA A BASE",
+      "sprite_game": "SPRITE (JOGO)",
+      "view_sprite": "Sprite",
+      "view_portrait": "Retrato",
+      "tabs": [
+        "Cabelo",
+        "Roupa",
+        "Cor",
+        "Acessorios"
+      ],
+      "style_hair": "Estilo de cabelo",
+      "style_outfit": "Estilo de roupa",
+      "style_acc": "Acessorio",
+      "back": "Voltar",
+      "next": "Proximo",
+      "begin": "Comecar",
+      "k_move": "Mover",
+      "k_tab": "Aba",
+      "k_rotate": "Girar",
+      "k_view": "Ver",
+      "k_edit": "Editar nome",
+      "name_title": "SEU NOME",
+      "name_empty": "(sem nome)",
+      "name_hint": "X: digitar o nome. Enter: proximo",
+      "confirm_title": "PRONTO PARA DUELAR?",
+      "lpc_note": "Sprite LPC: visual fixo"
+    }
   },
   "menu": {
     "items": [

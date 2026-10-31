@@ -243,6 +243,21 @@ int Paint_LpcPreview(int x, int y, int scale, int dir, int frame, float depth)
     return 1;
 }
 
+const uint16_t *Paint_LpcFrame(int dir, int frame, int *w, int *h, int *fx, int *fy, int *nf)
+{
+    Spr *s = &spr[SPR_LPC_TEST];
+    uint16_t *bank;
+    int f, cols, page, col;
+    if (!spr_load(SPR_LPC_TEST)) return NULL;
+    if (!spr_baked[SPR_LPC_TEST]) { spr_bake(SPR_LPC_TEST, NULL); spr_baked[SPR_LPC_TEST] = 1; }
+    bank = SoftGpu_Bank(s->bank);
+    if (!bank) return NULL;
+    f = frame >= 0 && frame < s->nf ? frame : 0;
+    cols = 256 / s->w; page = s->page + f / cols; col = f % cols;
+    *w = s->w; *h = s->h; *fx = s->fx; *fy = s->fy; *nf = s->nf;
+    return bank + (size_t)((page >> 2) * 256 + dir * 64) * 1024 + (page & 3) * 256 + col * s->w;
+}
+
 static unsigned hero_sig;
 static void sprites_prepare(const int body_rgb[5])
 {

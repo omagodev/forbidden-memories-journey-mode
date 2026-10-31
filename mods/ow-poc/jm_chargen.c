@@ -235,9 +235,35 @@ static void paint_layer(const Layer *l, const JsonNode *style, const Pal *pal, u
 }
 
 /* Paints the hero into a bank page (clears it first).  Returns 1 if it did. */
-int Cg_Compose(int bank_no, int page)
+static int compose_into(uint16_t *bank, int page);
+int Cg_Compose(int bank_no, int page) { return compose_into(SoftGpu_Bank(bank_no), page); }
+/* The same into a caller's 1024x256 RGB555 buffer (page 0 layout): the creator's option tiles, so the game's banks stay as they are. */
+int Cg_ComposeTo(uint16_t *buf) { return compose_into(buf, 0); }
+/* The swatch colour of option o of a colour category (skin, hair colour, outfit / accessory colourway), 0xRRGGBB; -1 when it has none. */
+int Cg_OptRgb(int c, int o)
 {
-    uint16_t *bank = SoftGpu_Bank(bank_no);
+    const JsonNode *e = NULL, *rgb = NULL;
+    if (!Cg_Ready()) return -1;
+    switch (c) {
+    case CG_SKIN: e = Json_At(pal_skin, o); rgb = Json_Get(e, "rgb"); break;
+    case CG_HAIR_COL: e = Json_At(pal_hair, o); rgb = Json_Get(e, "rgb"); break;
+    case CG_OUTFIT_COL: e = Json_At(colourways(CG_OUTFIT, "outfit"), o); rgb = Json_Get(e, "main"); break;
+    case CG_ACC_COL: e = Json_At(colourways(CG_ACC, "accessory"), o); rgb = Json_Get(e, "a"); break;
+    }
+    if (!rgb || !rgb->child || !rgb->child->next || !rgb->child->next->next) return -1;
+    return (int)rgb->child->num << 16 | (int)rgb->child->next->num << 8 | (int)rgb->child->next->next->num;
+}
+/* The second colour of an outfit colourway (its trim), for a two-tone swatch; -1 when none. */
+int Cg_OptRgb2(int c, int o)
+{
+    const JsonNode *rgb = NULL;
+    if (!Cg_Ready() || c != CG_OUTFIT_COL) return -1;
+    rgb = Json_Get(Json_At(colourways(CG_OUTFIT, "outfit"), o), "trim");
+    if (!rgb || !rgb->child || !rgb->child->next || !rgb->child->next->next) return -1;
+    return (int)rgb->child->num << 16 | (int)rgb->child->next->num << 8 | (int)rgb->child->next->next->num;
+}
+static int compose_into(uint16_t *bank, int page)
+{
     const JsonNode *skin, *hair, *ow, *acc_cw, *order, *o;
     int dir, y, k;
     if (!Cg_Ready() || !bank) return 0;

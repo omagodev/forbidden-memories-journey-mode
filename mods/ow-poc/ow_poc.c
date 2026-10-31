@@ -37,6 +37,7 @@ extern u8 gLibrary_abCardChest[];
 
 const MemoriesModHost *jm_host;
 int jm_save_requested, jm_save_ok, jm_name_entry_requested;
+static int create_r;
 
 /* The card a won duel drops.  The game picks one out of its own weighted table; while a Journey duel
  * is being fought the pool of the place it happens in picks instead (journey_content/economy), and
@@ -781,7 +782,8 @@ static void run(int first)
         break;
     case ST_CREATE:
         if (jm_name_entry_requested) { jm_name_entry_requested = 0; go_screen(9, RET_NAME); return; }
-        if (Ui_CreateInput(edge)) {
+        if ((create_r = Ui_CreateInput(edge)) == 2) { state = ST_LEAVE; break; }      /* Back on the first step: the title */
+        if (create_r == 1) {
             jm.stage = 0;
             World_PlaceNpcs();
             area = -1;
@@ -791,7 +793,6 @@ static void run(int first)
             begin_scene(Json_Str(jm_rules, "intro", "c1_intro"), 1, 0);
             if (state != ST_SCENE) state = ST_PAINT;
         }
-        if (edge & PAD_TRIANGLE) state = ST_LEAVE;     /* back to the title; a saved journey stays as it was */
         break;
     case ST_WALK:
         music_tick();

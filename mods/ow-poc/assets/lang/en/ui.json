@@ -89,7 +89,43 @@
     ],
     "hint_name": "X: type a name",
     "hint_begin": "X: begin",
-    "hint_change": "Left/Right: change"
+    "hint_change": "Left/Right: change",
+    "v2": {
+      "title": "CREATE CHARACTER",
+      "subtitle": "Customize your duelist",
+      "steps": [
+        "Base",
+        "Appearance",
+        "Name",
+        "Confirm"
+      ],
+      "choose_base": "CHOOSE BASE",
+      "sprite_game": "SPRITE (GAME)",
+      "view_sprite": "Sprite",
+      "view_portrait": "Portrait",
+      "tabs": [
+        "Hair",
+        "Outfit",
+        "Colour",
+        "Accessories"
+      ],
+      "style_hair": "Hair style",
+      "style_outfit": "Outfit style",
+      "style_acc": "Accessory",
+      "back": "Back",
+      "next": "Next",
+      "begin": "Begin",
+      "k_move": "Move",
+      "k_tab": "Tab",
+      "k_rotate": "Turn",
+      "k_view": "View",
+      "k_edit": "Edit name",
+      "name_title": "YOUR NAME",
+      "name_empty": "(no name yet)",
+      "name_hint": "X: type your name. Enter: next",
+      "confirm_title": "READY TO DUEL?",
+      "lpc_note": "LPC sprite: its look is fixed"
+    }
   },
   "menu": {
     "items": [
