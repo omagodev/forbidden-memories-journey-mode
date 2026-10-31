@@ -7,9 +7,11 @@ Ande por mapas pintados, converse com os duelistas do Forbidden Memories, faça 
 
 [![Release](https://img.shields.io/github/v/release/omagodev/forbidden-memories-journey-mode?include_prereleases&label=release)](https://github.com/omagodev/forbidden-memories-journey-mode/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+![Plataforma](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue)
+![Idiomas](https://img.shields.io/badge/lang-EN%20%7C%20PT--BR-orange)
 ![Status](https://img.shields.io/badge/status-alpha-red)
 
-[English](README.md) · **Português (BR)**
+<a href="README.md"><img src="https://img.shields.io/badge/Read_in_English-0a3d91?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM%2FrhtAAABfklEQVR42u2WMUsCYRzGfxeSplgQGAQJIlFD2GJQRDRItUY4tdTgN7DP0QcImhxqS6KpkKbQApeShiJISIIyhdS7zpZriDsyThHktSPe3%2FTnfeDu4f%2FwPncgkUgkEkej%2BKMJw%2Bd1o2pNAMy527OD50eB7hRcAGuLEc6yBcLBMeqqDtSsMzu9XP3W05k8Uzvb4jcIsLEyRzqT5%2BccmQ5SV3WKpbKtDlDL74s3uLW%2BROr4osWQeQbQST8NjfztBgEKd09tN9gXg%2BYLQxMB%2FD5PW0N2kfclYp%2FXzfzsJFc3DwDWHBgdBqBcrdnqqtYkv7ks3mBsYaYrQ7%2F188tb4TWj%2BKMJw4z2tVKjoelWnXzonwAMeQZt9WKpLDxil7kRgJe3d3xet9V1gFXQAA1NR9WaLXoldy3eoFm67Xqvk56LJ8VGfLh3ZPTyjNVIWOwlMQzDwMEoJ%2BMx5xpUFFyiP%2Fb%2FP%2BJsPOlogwOO%2F6N2esSu%2B92Uszfo9JqRSCQSiaQ3vgD3Gx4lB45C0AAAAABJRU5ErkJggg%3D%3D" alt="🇺🇸 Read in English"></a>
 
 ![Vila natal pintada com diálogo](docs/media/village_dialogue.png)
 
@@ -98,19 +100,55 @@ São mais de **250 milhões** de combinações possíveis (6 × 2 × 21 × 10 ×
 
 ## Como jogar
 
-> 📥 **Não precisa compilar.** Baixe a versão para Windows em [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Guia completo: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
+> 📥 **Não precisa compilar.** Baixe a versão para Windows em [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Guia completo: [docs/HOW_TO_PLAY.pt-BR.md](docs/HOW_TO_PLAY.pt-BR.md).
 
 1. Baixe a versão mais recente em [**Releases**](https://github.com/omagodev/forbidden-memories-journey-mode/releases) e extraia.
-2. Rode `JOGAR_JourneyMode.bat` (ou `memories-pc.exe`).
+2. Copie seu `.bin` para a pasta `game` e rode `JOGAR_JourneyMode.bat` (ou `memories-pc.exe`).
 3. Na primeira vez, escolha **a sua própria** imagem do disco americano (`SLUS-01411`, `.bin`). **Nenhum dado do jogo vem incluso.**
 4. Na tela de título, escolha **NOVO JOGO** para criar seu personagem.
 
 ## Compilar e contribuir
 
-O guia completo de configuração, compilação e testes está em [**docs/CONTINUE_DEVELOPMENT.md**](docs/CONTINUE_DEVELOPMENT.md). Ideias, bugs e pull requests são muito bem-vindos: veja o [CONTRIBUTING.md](CONTRIBUTING.md) e o [roadmap](ROADMAP.md), que inclui o **multiplayer online** como uma das próximas grandes features.
+Tudo o que você precisa para configurar, compilar e testar está em [**docs/CONTINUE_DEVELOPMENT.pt-BR.md**](docs/CONTINUE_DEVELOPMENT.pt-BR.md). A versão curta:
 
-## Créditos
+```sh
+./build-pc.sh                                         # compila o port
+python3 tools/pc/build_mod.py --target i386 mods/ow-poc   # compila o Journey Mode
+```
 
-Construído sobre o **[Yu-Gi-Oh! Forbidden Memories Recompiled](https://github.com/Unchiga/Yu-Gi-Oh-Forbidden-Memories-Recompiled)** (Unchiga e colaboradores) e o **[memories-decomp](https://github.com/krystalgamer/memories-decomp)** (krystalgamer e autores). A lista completa está em [CREDITS.md](CREDITS.md).
+| Pasta | O que tem dentro |
+|---|---|
+| [`mods/ow-poc/`](mods/ow-poc) | O mod Journey Mode: código C, mapas e sprites convertidos, ferramentas |
+| [`journey_content/`](journey_content) | História, decks, economia e textos da interface (EN/PT) com validadores |
+| [`art_dk/`](art_dk) | Fontes de arte e pipelines de conversão |
+| [`docs/`](docs) | Guia de continuação, testes e [a documentação do port nativo](docs/PORT.pt-BR.md) |
 
-Código e conteúdo do Journey Mode sob licença [MIT](LICENSE), © Atos Vinicius ([omagodev](https://github.com/omagodev)). *Yu-Gi-Oh! e Forbidden Memories pertencem a Kazuki Takahashi e à Konami. Projeto de fã, não oficial e sem fins comerciais.*
+Ideias, bugs e pull requests são muito bem-vindos: veja o [CONTRIBUTING.pt-BR.md](CONTRIBUTING.pt-BR.md) e o [roadmap](ROADMAP.pt-BR.md).
+
+## Roadmap
+
+Os destaques (lista completa no [ROADMAP.pt-BR.md](ROADMAP.pt-BR.md)):
+
+- [x] Vila natal pintada, NPCs, diálogos, missões e capítulo 1
+- [x] Criador de personagem com sprites em camadas
+- [x] Arena subterrânea com fogo animado
+- [ ] Economia, gangue e arenas: balanceamento e polimento
+- [ ] Capítulos 2 a 10 do Reino dos Duelistas
+- [ ] Mais áreas pintadas: porto, navio e as zonas da ilha
+- [ ] 🌐 **Multiplayer online**: duele com seus amigos direto do mapa
+
+## Nos ombros de gigantes
+
+Este projeto não existiria sem:
+
+- **[Yu-Gi-Oh! Forbidden Memories Recompiled](https://github.com/Unchiga/Yu-Gi-Oh-Forbidden-Memories-Recompiled)**, de Unchiga e colaboradores: o port nativo para PC, o renderizador e o carregador de mods sobre os quais tudo aqui roda. Vá apoiá-los.
+- **[memories-decomp](https://github.com/krystalgamer/memories-decomp)**, de krystalgamer e seus autores: a descompilação por trás do port.
+- Os artistas do **[Liberated Pixel Cup](https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator)**, **Kenney** e **Quaternius**, entre outros.
+
+A lista completa, com licenças, está no [CREDITS.pt-BR.md](CREDITS.pt-BR.md).
+
+## Licença
+
+O código e o conteúdo do Journey Mode estão sob a licença [MIT](LICENSE), © Atos Vinicius ([omagodev](https://github.com/omagodev)). O port é MIT, de seus autores. A arte de terceiros mantém sua própria licença (veja o [CREDITS.pt-BR.md](CREDITS.pt-BR.md)).
+
+*Yu-Gi-Oh! e Forbidden Memories pertencem a Kazuki Takahashi e à Konami. Este é um projeto de fã, não oficial e sem fins comerciais, sem nenhuma ligação com a Konami.*

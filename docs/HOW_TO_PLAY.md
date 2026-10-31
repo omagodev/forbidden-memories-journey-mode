@@ -1,15 +1,15 @@
-# How to play / Como jogar
+<p align="right"><a href="HOW_TO_PLAY.pt-BR.md"><img src="https://img.shields.io/badge/Ler_em_Portugu%C3%AAs-009c3b?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM%2FrhtAAADvklEQVR42u2XXUybZRiGr1L8aC20YAt2UEopLHR2n4oHQDJnPDAx2zTMEzMzMCNqPHDJDvyJB4uZzMREs83FJYsJCyQzUZPFv2Qsi1M3DQaDBG0lQlbKaKE0%2FJT%2BUGg%2FWuYBaZNKyzoGAbX32fe97%2Fvkzv28z%2F08L%2BSQQw7%2Fbsg49%2BTt7Uwwb7sr%2BP8i2FgYoLEwsP0IquUxThsd9FoH6LUOcNroQC2PbY8i2V88yyfVwxgEKeX%2FuCTw6mgd3X7t1ihoFBbpNA9xuc6%2BihyAQZC4XGen0zx0T2quS8GXyiY5ZRxBI48RCiu4eGUPdkc5Q7f0AFhMXsRaD637eihSRZiJ3cfbbjMXpnZsLkGjsMinNUPsVa8UQs%2FvtbR3NDM1p067v6wkyDsvf8OeRx0A%2FBzU0DJiwSUpsyYoZ7%2FpRDYbj1eMcWnnIGZFJEnu6IethCMFGc%2BEIwV0%2F%2FIIYs04Rr2PqoIorz3oAZmMn0LFG3MHGwsD2MQ%2BThpGEfJWxA6FFbR3NGetQntHM6GwAgAh7zYnDaPYxL6sLCljitXyGGerHBwp9a5auzT6JlpLK7pSFTtUWn5w%2FkFpXgkLnjg%2FXhvktxtuyo3F%2FGWfSp55o%2BUKh%2Ff1rorVNa3n2FgtwXh%2BWoL5d2MdCTj7Inz5RQ%2BOoRkASnRKtDoV5dVF1DbpaGipRBtScuGj%2FiRJm6OSw6wmeKTUy1MaX0ZLSlHQKCxytmqEgw%2FMrCn700dfz1gYACazmprdpTS0VOJzLPLVx39CZJKr506tGfdrn45jYzUpRbQuH5Riqcc0GiHl%2B5YzyPffjvD%2B89cJumO8d%2FFZxL316%2FLBlBS7JCXP3dx9xxRbTF684ceYcM%2BztLRMICAllUsQTOCz8%2F3cHJjm0CvWjCTW6jppFez2a7HaGuia1qcNKNZ6mJuNsLS0zC6xLPl%2Fwj2fQi5B2jU2y8h3H6SN1TWtx2pryNgSM6Y4GM%2BnzWmhabAe%2B4IqZe3gE%2F3Iln0AeFz%2BpHIVlYWYzOpkyk1mNbqyYu5Xynmm8VpKDPuCiqbBetqclowVnJVRT0gKzk9VEEfG44UB5DIoUkWo0vu42isSjcbxz0UB8M9F8c9FiUbj7BLLmPbOM%2B7yc%2FzFTh7eOb5yf5dlnJio5gXHQ0xIiq1tdcbKJd469Pk9tbr%2F1rDwTzXfNYyl7TR30yk2bR50SUranBYODIuMS0Ja6zgwLN6xCDZ95E9Y0plJQ7IIzkwa1rSOLXsXJ6aTX%2Bc1G%2FZoymcDsZHEcg%2F3HHLIIYcV%2FA2BwaA%2BPOkCagAAAABJRU5ErkJggg%3D%3D" alt="🇧🇷 Ler em Português (BR)"></a></p>
 
-No compiling needed: download the ready-to-run Windows build. / Não precisa compilar: baixe a versão pronta para Windows.
+# How to play
 
-## English
+No compiling needed: download the ready-to-run Windows build.
 
-### What you need
+## What you need
 - Windows 10 or 11.
 - **Your own** disc image of *Yu-Gi-Oh! Forbidden Memories* (USA, **SLUS-01411**): the `.bin` file of a `.bin/.cue` pair. Pick the `.bin`, not the `.cue`. No game data is included.
 - Nothing to install: no emulator and no compiling.
 
-### Steps
+## Steps
 1. Download `JourneyMode_<version>_Windows.zip` from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest).
 2. Extract the **whole** zip into a folder (don't run it from inside the zip).
 3. Copy your `.bin` into the `game` folder, or pick it with **Choose ROM...** on the first launch.
@@ -17,7 +17,7 @@ No compiling needed: download the ready-to-run Windows build. / Não precisa com
 5. If SmartScreen warns you: **More info → Run anyway** (the program isn't signed; the source is right here).
 6. On the title screen choose **NEW GAME**, create your character and go. **CONTINUE** loads your save.
 
-### Keyboard
+## Keyboard
 | Key | Action |
 |---|---|
 | Arrows | Move / navigate |
@@ -29,23 +29,6 @@ No compiling needed: download the ready-to-run Windows build. / Não precisa com
 | Esc | Quit |
 
 Saves go to `Documents\My Games\YFM Re-Decomp`. Found a bug? [Open an issue](https://github.com/omagodev/forbidden-memories-journey-mode/issues) and attach `game.log` from the game folder.
-
-## Português
-
-### O que você precisa
-- Windows 10 ou 11.
-- **Sua própria** imagem do disco *Yu-Gi-Oh! Forbidden Memories* (EUA, **SLUS-01411**): o arquivo `.bin` do par `.bin/.cue`. Escolha o `.bin`, não o `.cue`. Nenhum dado do jogo vem incluso.
-- Não precisa instalar nada, nem emulador, nem compilar.
-
-### Passo a passo
-1. Baixe o `JourneyMode_<versão>_Windows.zip` em [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest).
-2. Extraia o zip **inteiro** numa pasta (não rode de dentro do zip).
-3. Copie seu `.bin` para a pasta `game`, ou escolha em **Choose ROM...** na primeira vez.
-4. Clique duas vezes em **`JOGAR_JourneyMode.bat`** (recomendado, liga o texto HD) ou no `memories-pc.exe`.
-5. Se o SmartScreen avisar: **Mais informações → Executar assim mesmo** (o programa não é assinado; o código está aqui).
-6. Na tela de título escolha **NOVO JOGO**, crie seu personagem e comece. **CONTINUAR** carrega seu save.
-
-Os controles são os mesmos da tabela acima. Saves ficam em `Documentos\My Games\YFM Re-Decomp`. Achou um bug? [Abra uma issue](https://github.com/omagodev/forbidden-memories-journey-mode/issues) com o `game.log` da pasta do jogo.
 
 ## Linux / build from source
 See [CONTINUE_DEVELOPMENT.md](CONTINUE_DEVELOPMENT.md).
