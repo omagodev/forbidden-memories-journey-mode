@@ -137,7 +137,7 @@
   "pack_common": "Pack",
   "pack_rare": "Rare",
   "pack_grand": "Grand",
-  "pack_fmt": "%s %s",
+  "pack_fmt": "%2$s %1$s",
   "ambush_banner": "AMBUSH!",
   "ambush_cannot_run": "You cannot run!",
   "ambush_stake": "They want %d coins!",

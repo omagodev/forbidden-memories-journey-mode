@@ -792,6 +792,38 @@ static void draw_bottom(void)
     }
 }
 
+/* The creator's drawing kit, for the other ornate screens (the shop, jm_shop.c).  Design units are a 1280x720 canvas. */
+int Ui_DX(int v) { return DX(v); }
+int Ui_DY(int v) { return DY(v); }
+int Ui_DS(int v) { return DS(v); }
+int Ui_SmallS(void) { return small_s(); }
+void Ui_Fill(int x, int y, int w, int h, unsigned rgb, unsigned a) { fillr(x, y, w, h, rgb, a); }
+void Ui_Frame(int x, int y, int w, int h, int t, unsigned rgb, unsigned a) { frame_r(x, y, w, h, t, rgb, a); }
+void Ui_VGrad(int x, int y, int w, int h, unsigned top, unsigned bot, unsigned a) { vgrad(x, y, w, h, top, bot, a); }
+void Ui_Disc(int cx, int cy, int rx, int ry, unsigned rgb, unsigned a) { disc(cx, cy, rx, ry, rgb, a); }
+void Ui_Ring(int cx, int cy, int rx, int ry, int t, unsigned rgb, unsigned a) { ring(cx, cy, rx, ry, t, rgb, a); }
+void Ui_OPanel(int x, int y, int w, int h, int active) { opanel(x, y, w, h, active); }
+void Ui_Pill(int x, int y, int w, int h, int gold, int lit) { pill(x, y, w, h, gold, lit); }
+void Ui_TextC(int cx, int my, const char *t, unsigned rgb, int sc) { text_c(cx, my, t, rgb, sc); }
+void Ui_TextSh(int x, int my, const char *t, unsigned rgb, int sc) { text_sh(x, my, t, rgb, sc); }
+void Ui_TextFit(int x, int my, int maxw, const char *t, unsigned rgb, int sc) { text_fit(x, my, maxw, t, rgb, sc); }
+/* key caps and their labels in the rounded bar, centred on cx (pairs: key, label) */
+void Ui_KeyBar(const char *const *k, int n, int cx, int my, int maxw)
+{
+    int w, x, i;
+    while (n > 1 && keys_width(k, n) > maxw) n--;
+    w = keys_width(k, n);
+    x = cx - w / 2;
+    {
+        int bx = x - DS(24), bw = w + DS(48), bhh = DS(38), r = bhh / 2;
+        disc(bx + r, my, r, r, 0x0C0C2A, 225); disc(bx + bw - r, my, r, r, 0x0C0C2A, 225); fillr(bx + r, my - r, bw - 2 * r, bhh, 0x0C0C2A, 225);
+        ring(bx + r, my, r, r, DS(1), 0x6A5A9A, 255); ring(bx + bw - r, my, r, r, DS(1), 0x6A5A9A, 255);
+        fillr(bx + r, my - r, bw - 2 * r, DS(1), 0x6A5A9A, 255); fillr(bx + r, my + r - DS(1), bw - 2 * r, DS(1), 0x6A5A9A, 255);
+        fillr(bx + r - DS(1), my - r + DS(1), DS(2), bhh - DS(2), 0x0C0C2A, 255); fillr(bx + bw - r - DS(1), my - r + DS(1), DS(2), bhh - DS(2), 0x0C0C2A, 255);
+    }
+    for (i = 0; i < n; i++) key_cap(&x, my, k[2 * i], k[2 * i + 1]);
+}
+
 void Ui_CreateOverlay(void)
 {
     metrics();

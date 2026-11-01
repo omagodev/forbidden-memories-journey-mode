@@ -574,6 +574,8 @@ int Eco_PackItems(EcoItem *out, int max)
         it->locked = Eco_Level() < it->level_min;
         snprintf(path, sizeof(path), "ui.pack_%s", kind);
         if (!strcmp(kind, "common")) snprintf(it->name, sizeof(it->name), "%s", EcoTr("ui.pack_common"));
+        else if (!strncmp(EcoTr("ui.pack_fmt"), "%1", 2))      /* "Pacote Raro": the pack word first */
+            snprintf(it->name, sizeof(it->name), "%s %s", EcoTr("ui.pack_common"), EcoTr(path));
         else snprintf(it->name, sizeof(it->name), "%s %s", EcoTr(path), EcoTr("ui.pack_common"));
         n++;
     }

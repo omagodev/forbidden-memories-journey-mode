@@ -137,7 +137,7 @@
   "pack_common": "Pacote",
   "pack_rare": "Raro",
   "pack_grand": "Grande",
-  "pack_fmt": "%2$s %1$s",
+  "pack_fmt": "%1$s %2$s",
   "ambush_banner": "EMBOSCADA!",
   "ambush_cannot_run": "Voce nao pode fugir!",
   "ambush_stake": "Eles querem %d moedas!",

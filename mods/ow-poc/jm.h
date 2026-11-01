@@ -495,6 +495,18 @@ unsigned Ui_MessageColour(void);
 /* The panel, font and metrics of the menus, for a screen written in another file (the shop). */
 void Ui_Metrics(int *w, int *h, int *scale, int *top, int *vis);
 void Ui_Panel(int x, int y, int w, int h);
+int Ui_DX(int v); int Ui_DY(int v); int Ui_DS(int v); int Ui_SmallS(void);   /* the creator's drawing kit (1280x720 design units) */
+void Ui_Fill(int x, int y, int w, int h, unsigned rgb, unsigned a);
+void Ui_Frame(int x, int y, int w, int h, int t, unsigned rgb, unsigned a);
+void Ui_VGrad(int x, int y, int w, int h, unsigned top, unsigned bot, unsigned a);
+void Ui_Disc(int cx, int cy, int rx, int ry, unsigned rgb, unsigned a);
+void Ui_Ring(int cx, int cy, int rx, int ry, int t, unsigned rgb, unsigned a);
+void Ui_OPanel(int x, int y, int w, int h, int active);
+void Ui_Pill(int x, int y, int w, int h, int gold, int lit);
+void Ui_TextC(int cx, int my, const char *t, unsigned rgb, int sc);
+void Ui_TextSh(int x, int my, const char *t, unsigned rgb, int sc);
+void Ui_TextFit(int x, int my, int maxw, const char *t, unsigned rgb, int sc);
+void Ui_KeyBar(const char *const *k, int n, int cx, int my, int maxw);
 int Ui_LineH(void);
 void Ui_Text(int x, int row_y, const char *text, unsigned rgb);
 void Ui_Fmt1(char *out, size_t size, const char *tmpl, int value);
