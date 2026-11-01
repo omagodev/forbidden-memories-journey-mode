@@ -97,6 +97,14 @@ That is more than **250 million** possible combinations (6 × 2 × 21 × 10 × 1
 - 🔥 **Clandestine arenas (early):** farm local cards and level up
 - 🌐 **English and Brazilian Portuguese**
 
+<div align="center">
+
+![The in-game Start menu: deck editor, items, status, save and language.](docs/media/start_menu.png)
+
+*The in-game Start menu: deck editor, items, status, save and language.*
+
+</div>
+
 ## Play
 
 > 📥 **No compiling needed.** Grab the Windows build from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Full guide: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
