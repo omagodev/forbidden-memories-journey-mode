@@ -139,8 +139,32 @@ def forest():
     pack("forest", src, walk, occ)
 
 
-harbor(); ship_deck(); beach(); forest()
-shutil.copy(ART + "/kingdom/baked/spr_forest_mage.bin", OUT + "/spr_forest_mage.bin")
+def mountain():
+    """The Mountain Pass (chapter 4): the dirt and grass are walkable (a colour test), the chasm, the cliffs and the
+    clouds are not; the rope bridge is the one way across; the pines and the tent are drawn over the player."""
+    src = ART + "/raw/dk_mountain_raw.jpg"
+    pic = Image.open(src).convert("RGB")
+    hsv = np.array(pic.filter(ImageFilter.GaussianBlur(4)).convert("HSV")).astype(np.float32)
+    h, sat, v = hsv[..., 0] * 360 / 255, hsv[..., 1] / 255, hsv[..., 2] / 255
+    walk = (h < 85) & (h > 18) & (v > 0.42) & (sat > 0.38)
+    walk = np.array(Image.fromarray(walk.astype(np.uint8) * 255).filter(ImageFilter.MedianFilter(15))) > 127
+    chasm = [(550, 150), (570, 310), (590, 440), (575, 525), (535, 600), (520, 720), (830, 720), (800, 625), (750, 525),
+             (762, 440), (750, 310), (700, 150), (690, 0), (560, 0)]
+    walk &= ~shape_mask([("p", chasm), ("r", 0, 0, 1280, 40), ("r", 1240, 0, 1280, 720), ("r", 940, 0, 1280, 130),
+                         ("r", 335, 255, 515, 395),                       # the tent and its crates
+                         ("p", [(880, 120), (1060, 110), (1230, 220), (1240, 440), (1100, 440), (1060, 365), (1010, 360), (880, 330)])])   # the cave cliff
+    walk |= shape_mask([("r", 575, 452, 760, 505),                         # the rope bridge
+                        ("r", 150, 640, 300, 720),                         # the trail in from the forest
+                        ("r", 780, 150, 880, 210), ("r", 990, 350, 1070, 400)])   # the gate's steps; the cave mouth
+    pines = [((20, 430, 230, 680), 690), ((260, 540, 400, 700), 700), ((110, 220, 190, 330), 340), ((1150, 400, 1240, 500), 500)]
+    occ = [(shape_mask([("r",) + r]) & ~walk, base) for r, base in pines]
+    occ.append((shape_mask([("r", 345, 255, 505, 330)]), 400))             # the tent's roof
+    pack("mountain", src, walk, occ)
+
+
+harbor(); ship_deck(); beach(); forest(); mountain()
+for n in ("forest_mage", "keith", "mountain_mage"):
+    shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
 for n in ("mai", "weevil", "shadi", "soldier", "trader", "camp_merchant"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
 shutil.copy(ART + "/baked/spr_inseto.bin", OUT + "/spr_inseto.bin")
