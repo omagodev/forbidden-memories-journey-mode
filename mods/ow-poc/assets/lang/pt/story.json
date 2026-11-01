@@ -2187,15 +2187,15 @@
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "Sou o mestre deste bosque. Minha aposta e de duas estrelas."
+     "text": "Sou o mestre deste bosque. Minha aposta e uma estrela."
     },
     {
      "speaker": "forest_mage",
-     "text": "A sua e uma. A floresta e generosa. As raizes, nao."
+     "text": "A sua tambem. A floresta e justa. As raizes, nao."
     },
     {
      "speaker": "atos",
-     "text": "Duas estrelas me levam a cinco. Vamos plantar."
+     "text": "Mais uma estrela e sao quatro. Vamos plantar."
     },
     {
      "speaker": "forest_mage",
@@ -2209,11 +2209,11 @@
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "As raizes se curvam. Leve minhas duas estrelas, e esta folha."
+     "text": "As raizes se curvam. Leve minha estrela, e esta folha."
     },
     {
      "speaker": "narrator",
-     "text": "Duas estrelas, a Folha Sussurrante e a carta Mystic Horseman.",
+     "text": "Uma estrela, a Folha Sussurrante e a carta Mystic Horseman.",
      "label": "Voce ganhou",
      "kind": "item"
     },
@@ -2223,7 +2223,7 @@
     },
     {
      "speaker": "atos",
-     "text": "Cinco estrelas. E um entalhador que ninguem nunca viu."
+     "text": "Quatro estrelas. Dez abrem o castelo. Falta muito."
     },
     {
      "speaker": "narrator",
@@ -2271,9 +2271,18 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "A estrada sobe as nuvens. O capitulo 4 chega na proxima parte.",
+     "text": "A corda segue firme. A passagem so deixa entrar quem tem quatro estrelas.",
      "label": "Passagem da Montanha",
      "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_short",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "Tres estrelas, brotinho, ou as raizes nao abrem. Conquiste antes."
     }
    ]
   },
@@ -2291,7 +2300,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Cinco estrelas brilham na luva. A corda cai sozinha.",
+     "text": "Quatro estrelas brilham na luva. A corda cai sozinha.",
      "label": "Passagem da Montanha",
      "kind": "caption"
     },
@@ -2353,15 +2362,15 @@
    "pages": [
     {
      "speaker": "keith",
-     "text": "Regra da casa. Dobro ou Nada. Voce ganha, eu pago duas estrelas."
+     "text": "Regra da casa. O pedagio e uma estrela. Ganhou, passa com a minha."
     },
     {
      "speaker": "keith",
-     "text": "Voce perde, paga uma e desce a pe. Negocio doce, ne?"
+     "text": "Perdeu, o pedagio e meu e voce desce a pe. Justo, ne?"
     },
     {
      "speaker": "atos",
-     "text": "Doce pra voce. Esse baralho cheira a caca-niquel viciado."
+     "text": "Justo pra voce. Esse baralho cheira a caca-niquel viciado."
     },
     {
      "speaker": "keith",
@@ -2375,11 +2384,11 @@
    "pages": [
     {
      "speaker": "keith",
-     "text": "Tch. As maquinas travaram. Toma, duas estrelas. E essa sucata."
+     "text": "Tch. As maquinas travaram. Toma, minha estrela. E essa sucata."
     },
     {
      "speaker": "narrator",
-     "text": "Duas estrelas e a carta Pendulum Machine.",
+     "text": "Uma estrela e a carta Pendulum Machine.",
      "label": "Voce ganhou",
      "kind": "item"
     },
@@ -2418,6 +2427,15 @@
    ]
   },
   {
+   "id": "dk4_keith_short",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Quatro estrelas no minimo, moleque. Nao roubo duro. Some."
+    }
+   ]
+  },
+  {
    "id": "dk4_mai_pre",
    "pages": [
     {
@@ -2430,7 +2448,7 @@
     },
     {
      "speaker": "mai",
-     "text": "O Keith me devia. Voce me deve um duelo. Uma estrela, sem truque."
+     "text": "O Keith me devia. Voce me deve um duelo. Sem estrelas, so orgulho."
     },
     {
      "speaker": "mai",
@@ -2448,7 +2466,7 @@
     },
     {
      "speaker": "narrator",
-     "text": "Uma estrela e a carta Harpie Lady.",
+     "text": "A carta Harpie Lady. A Mai fica com a estrela.",
      "label": "Voce ganhou",
      "kind": "item"
     },
@@ -2556,7 +2574,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Um arco de pedra nas nuvens. O vento empurra voce de volta.",
+     "text": "Um arco de pedra nas nuvens. Seis estrelas gravadas. O vento empurra voce.",
      "label": "Portao do Cume",
      "kind": "caption"
     }
@@ -2567,11 +2585,11 @@
    "pages": [
     {
      "speaker": "mountain_mage",
-     "text": "Poucos chegam ao cume com oito estrelas. Menos saem com dez."
+     "text": "Poucos chegam ao cume com cinco estrelas. Menos saem com seis."
     },
     {
      "speaker": "mountain_mage",
-     "text": "Aposto duas. Voce aposta uma. A montanha nao se curva."
+     "text": "Uma estrela contra uma. A montanha nao se curva."
     },
     {
      "speaker": "atos",
@@ -2585,15 +2603,24 @@
    ]
   },
   {
+   "id": "dk4_mage_short",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "Cinco estrelas, pedrinha. Recupere o que perdeu e suba."
+    }
+   ]
+  },
+  {
    "id": "dk4_mage_win",
    "pages": [
     {
      "speaker": "mountain_mage",
-     "text": "A pedra racha. Duas estrelas, e meu soldado de pedra."
+     "text": "A pedra racha. Minha estrela, e meu soldado de pedra."
     },
     {
      "speaker": "narrator",
-     "text": "Duas estrelas e a carta Giant Soldier of Stone.",
+     "text": "Uma estrela e a carta Giant Soldier of Stone.",
      "label": "Voce ganhou",
      "kind": "item"
     },
@@ -2603,7 +2630,7 @@
     },
     {
      "speaker": "atos",
-     "text": "Dez estrelas. E um anfitriao que me observa o caminho todo."
+     "text": "Seis estrelas. Faltam quatro, e um anfitriao me vigiando."
     },
     {
      "speaker": "narrator",

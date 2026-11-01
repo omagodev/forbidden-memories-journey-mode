@@ -111,13 +111,14 @@ static void icon12(const char *const pic[12], int cx, int cy, int z, unsigned ma
 static const char *bag_text(int idx, const char *what)      /* "bag.<flag>.desc" or ".from", in the language */
 {
     char k[64];
-    snprintf(k, sizeof(k), "bag.%s.%s", Story_ItemFlag(idx), what);
+    snprintf(k, sizeof(k), "bag.%s.%s", Story_ItemKey(idx), what);
     return T(k);
 }
 
 static const char *name_of(int v, char *b, size_t n)
 {
     if (tab) { b[0] = 0; Cards_NameUtf8(v, b, n); snprintf(b, n, "%s", Jm_L1(b)); }
+    else if (Story_ItemCount(v) >= 0) snprintf(b, n, "%s x%d", Jm_L1(Story_ItemName(v)), Story_ItemCount(v));
     else snprintf(b, n, "%s", Jm_L1(Story_ItemName(v)));
     return b;
 }

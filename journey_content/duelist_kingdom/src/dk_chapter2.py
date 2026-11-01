@@ -164,7 +164,7 @@ OBJECTS = [
   W(when=W(stage=[10,99], flags_none=["camp_met"]), script="dk2_camp", effects=[W(set_flag="camp_met")]),
   W(when=W(stage=[10,99]), script="dk2_camp_after")]),
  dict(id="jungle_path", name=B("Jungle path", "Trilha da selva"), area="kingdom_beach", anchor="jungle_path", rules=[
-  W(when=W(stage=[10,11]), script="dk2_jungle_early")]),
+  W(when=W(stage=[10,12]), script="dk2_jungle_early")]),
 ]
 DUELS = [
  dict(id="weevil", npc="weevil", duelist_id=10, deck="Weevil Shore", tier=2, pre="dk2_weevil_pre", win="dk2_weevil_win", lose="dk2_weevil_lose", win_flag="weevil_won",

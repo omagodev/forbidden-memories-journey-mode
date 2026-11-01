@@ -352,6 +352,13 @@
   {
    "name": "Star Chisel",
    "flag": "carver_found"
+  },
+  {
+   "name": "Star Chips",
+   "flag": "shadi_won",
+   "icon": "assets/icon_star_chips.bin",
+   "key": "star_chips",
+   "count": "stars"
   }
  ],
  "chapters": [
@@ -687,7 +694,7 @@
     "stage_ge": 15,
     "stage_lt": 16
    },
-   "text": "Beat the Forest Mage - he wagers two stars"
+   "text": "Beat the Forest Mage - a star on the line"
   },
   {
    "when": {
@@ -701,7 +708,7 @@
     "stage_ge": 17,
     "stage_lt": 18
    },
-   "text": "Beat Bandit Keith at the bridge - Double or Nothing"
+   "text": "Beat Bandit Keith at the bridge - his toll is a star"
   },
   {
    "when": {
@@ -722,7 +729,7 @@
     "stage_ge": 20,
     "stage_lt": 21
    },
-   "text": "Beat the Mountain Mage - he wagers two stars"
+   "text": "Beat the Mountain Mage - a star on the line"
   },
   {
    "when": {
@@ -1936,7 +1943,8 @@
       "stage_lt": 16,
       "lacks": [
        "forest_mage_won"
-      ]
+      ],
+      "earned_min": 3
      },
      "scene": "dk3_mage_pre",
      "duel": true,
@@ -1949,11 +1957,21 @@
        "forest_mage_won"
       ],
       "scene": "dk3_mage_win",
-      "wager": 2
+      "wager": 1
      },
      "lose": {
       "scene": "dk3_mage_lose"
      }
+    },
+    {
+     "when": {
+      "stage_ge": 15,
+      "stage_lt": 16,
+      "lacks": [
+       "forest_mage_won"
+      ]
+     },
+     "scene": "dk3_mage_short"
     },
     {
      "when": {
@@ -2013,7 +2031,8 @@
       "stage_lt": 18,
       "lacks": [
        "keith_won"
-      ]
+      ],
+      "earned_min": 4
      },
      "scene": "dk4_keith_pre",
      "duel": true,
@@ -2026,11 +2045,21 @@
        "keith_won"
       ],
       "scene": "dk4_keith_win",
-      "wager": 2
+      "wager": 1
      },
      "lose": {
       "scene": "dk4_keith_lose"
      }
+    },
+    {
+     "when": {
+      "stage_ge": 17,
+      "stage_lt": 18,
+      "lacks": [
+       "keith_won"
+      ]
+     },
+     "scene": "dk4_keith_short"
     },
     {
      "when": {
@@ -2075,8 +2104,7 @@
       "flags": [
        "mai_mountain_won"
       ],
-      "scene": "dk4_mai_win",
-      "wager": 1
+      "scene": "dk4_mai_win"
      },
      "lose": {
       "scene": "dk4_mai_lose"
@@ -2148,7 +2176,8 @@
       "stage_lt": 21,
       "lacks": [
        "mountain_mage_won"
-      ]
+      ],
+      "earned_min": 5
      },
      "scene": "dk4_mage_pre",
      "duel": true,
@@ -2161,11 +2190,21 @@
        "mountain_mage_won"
       ],
       "scene": "dk4_mage_win",
-      "wager": 2
+      "wager": 1
      },
      "lose": {
       "scene": "dk4_mage_lose"
      }
+    },
+    {
+     "when": {
+      "stage_ge": 20,
+      "stage_lt": 21,
+      "lacks": [
+       "mountain_mage_won"
+      ]
+     },
+     "scene": "dk4_mage_short"
     },
     {
      "when": {
@@ -3553,7 +3592,8 @@
     {
      "when": {
       "stage_ge": 12,
-      "stage_lt": 13
+      "stage_lt": 13,
+      "earned_min": 2
      },
      "scene": "dk3_enter",
      "effects": {
@@ -3567,7 +3607,7 @@
     {
      "when": {
       "stage_ge": 10,
-      "stage_lt": 12
+      "stage_lt": 13
      },
      "scene": "dk2_jungle_early"
     }
@@ -3688,7 +3728,8 @@
     {
      "when": {
       "stage_ge": 16,
-      "stage_lt": 17
+      "stage_lt": 17,
+      "earned_min": 4
      },
      "scene": "dk4_enter",
      "effects": {
@@ -3760,14 +3801,14 @@
    "talk": [
     {
      "when": {
-      "stage_ge": 21
+      "stage_ge": 21,
+      "earned_min": 6
      },
      "scene": "dk4_castle_road"
     },
     {
      "when": {
-      "stage_ge": 17,
-      "stage_lt": 21
+      "stage_ge": 17
      },
      "scene": "dk4_gate_shut"
     }
@@ -4674,7 +4715,7 @@
    ],
    "anchor": "kingdom_forest.forest_center",
    "time": "auto",
-   "stars": 5
+   "stars": 4
   },
   {
    "name": "28 mountain arrival (chapter 4)",
@@ -4720,7 +4761,7 @@
    ],
    "anchor": "kingdom_mountain.spawn",
    "time": "auto",
-   "stars": 5
+   "stars": 4
   },
   {
    "name": "29 Keith's toll (wager)",
@@ -4767,10 +4808,10 @@
    ],
    "anchor": "kingdom_mountain.pass_center",
    "time": "auto",
-   "stars": 5
+   "stars": 4
   },
   {
-   "name": "30 Mai across the bridge (wager)",
+   "name": "30 Mai across the bridge (pride duel)",
    "stage": 18,
    "flags": [
     "heard_teana",
@@ -4815,7 +4856,7 @@
    ],
    "anchor": "kingdom_mountain.hangout_a",
    "time": "auto",
-   "stars": 7
+   "stars": 5
   },
   {
    "name": "31 the star-carver's cave",
@@ -4864,7 +4905,7 @@
    ],
    "anchor": "kingdom_mountain.hangout_a",
    "time": "auto",
-   "stars": 8
+   "stars": 5
   },
   {
    "name": "32 Mountain Mage (wager)",
@@ -4914,7 +4955,7 @@
    ],
    "anchor": "kingdom_mountain.hangout_a",
    "time": "auto",
-   "stars": 8
+   "stars": 5
   },
   {
    "name": "33 chapter 4 done",
@@ -4965,7 +5006,7 @@
    ],
    "anchor": "kingdom_mountain.hangout_a",
    "time": "auto",
-   "stars": 10
+   "stars": 6
   }
  ],
  "auto": [

@@ -863,18 +863,18 @@ _The three marks read: the stone gate opens on the hidden clearing._
 ### dk3_mage_pre
 _The Forest Mage, zone master: a two-star wager._
 
-- **Mago da Floresta**: Sou o mestre deste bosque. Minha aposta e de duas estrelas.
-- **Mago da Floresta**: A sua e uma. A floresta e generosa. As raizes, nao.
-- **{name}**: Duas estrelas me levam a cinco. Vamos plantar.
+- **Mago da Floresta**: Sou o mestre deste bosque. Minha aposta e uma estrela.
+- **Mago da Floresta**: A sua tambem. A floresta e justa. As raizes, nao.
+- **{name}**: Mais uma estrela e sao quatro. Vamos plantar.
 - **Mago da Floresta**: Entao compre, brotinho. As raizes podem comecar?  _[Duel? Yes/No]_
 
 ### dk3_mage_win
-_The Forest Mage loses: two stars, the leaf, end of chapter 3._
+_The Forest Mage loses: a star, the leaf, end of chapter 3._
 
-- **Mago da Floresta**: As raizes se curvam. Leve minhas duas estrelas, e esta folha.
-- **Voce ganhou**: Duas estrelas, a Folha Sussurrante e a carta Mystic Horseman.
+- **Mago da Floresta**: As raizes se curvam. Leve minha estrela, e esta folha.
+- **Voce ganhou**: Uma estrela, a Folha Sussurrante e a carta Mystic Horseman.
 - **Mago da Floresta**: Quem entalha as estrelas anda por toda zona. Pergunte as montanhas.
-- **{name}**: Cinco estrelas. E um entalhador que ninguem nunca viu.
+- **{name}**: Quatro estrelas. Dez abrem o castelo. Falta muito.
 - **Fim do Capitulo 3**: A Floresta dos Sussurros ficou para tras. A passagem da montanha espera.
 
 ### dk3_mage_lose
@@ -896,7 +896,12 @@ _The mountain pass before the clearing._
 ### dk3_pass_locked
 _The mountain pass after chapter 3: the next part._
 
-- **Passagem da Montanha**: A estrada sobe as nuvens. O capitulo 4 chega na proxima parte.
+- **Passagem da Montanha**: A corda segue firme. A passagem so deixa entrar quem tem quatro estrelas.
+
+### dk3_mage_short
+_The Forest Mage refuses a duelist under three stars._
+
+- **Mago da Floresta**: Tres estrelas, brotinho, ou as raizes nao abrem. Conquiste antes.
 
 ### dk3_hermit
 _Hermit Hob, the forest hut._
@@ -906,7 +911,7 @@ _Hermit Hob, the forest hut._
 ### dk4_enter
 _Chapter 3 -> 4: the hero climbs the forest road into the Mountain Pass._
 
-- **Passagem da Montanha**: Cinco estrelas brilham na luva. A corda cai sozinha.
+- **Passagem da Montanha**: Quatro estrelas brilham na luva. A corda cai sozinha.
 - **{name}**: Pra cima. O castelo tem que estar acima das nuvens.
 
 ### dk4_to_mountain
@@ -928,18 +933,18 @@ _Chapter 4 opens: the pass, the chasm and a toll at the bridge._
 - **Objetivo**: Fale com o homem que guarda a ponte de corda.
 
 ### dk4_keith_pre
-_Keith's Double or Nothing: a two-star wager to cross the bridge._
+_Keith's toll: a one-star wager to cross the bridge._
 
-- **Bandit Keith**: Regra da casa. Dobro ou Nada. Voce ganha, eu pago duas estrelas.
-- **Bandit Keith**: Voce perde, paga uma e desce a pe. Negocio doce, ne?
-- **{name}**: Doce pra voce. Esse baralho cheira a caca-niquel viciado.
+- **Bandit Keith**: Regra da casa. O pedagio e uma estrela. Ganhou, passa com a minha.
+- **Bandit Keith**: Perdeu, o pedagio e meu e voce desce a pe. Justo, ne?
+- **{name}**: Justo pra voce. Esse baralho cheira a caca-niquel viciado.
 - **Bandit Keith**: Na America a gente chama de estrategia. Embaralha ou some?  _[Duel? Yes/No]_
 
 ### dk4_keith_win
 _Keith pays up and opens the bridge._
 
-- **Bandit Keith**: Tch. As maquinas travaram. Toma, duas estrelas. E essa sucata.
-- **Voce ganhou**: Duas estrelas e a carta Pendulum Machine.
+- **Bandit Keith**: Tch. As maquinas travaram. Toma, minha estrela. E essa sucata.
+- **Voce ganhou**: Uma estrela e a carta Pendulum Machine.
 - **Bandit Keith**: A loirinha te espera do outro lado. Ela nao e moleza.
 - **Objetivo**: Atravesse a ponte de corda.
 
@@ -954,24 +959,29 @@ _Keith after the duel, counting chips._
 
 - **Bandit Keith**: Some daqui. To contando fichas. A ponte e sua, otario.
 
+### dk4_keith_short
+_Keith turns away a duelist under four stars._
+
+- **Bandit Keith**: Quatro estrelas no minimo, moleque. Nao roubo duro. Some.
+
 ### dk4_mai_pre
 _Mai on the far side of the bridge: the rival duel from the ship._
 
 - **Mai**: Demorou, hein. Eu ja estava gostando da vista.
 - **{name}**: Mai! Voce subiu sozinha? O Keith te deixou passar?
-- **Mai**: O Keith me devia. Voce me deve um duelo. Uma estrela, sem truque.
+- **Mai**: O Keith me devia. Voce me deve um duelo. Sem estrelas, so orgulho.
 - **Mai**: Me mostra que o navio nao foi sorte. Pronto, garoto?  _[Duel? Yes/No]_
 
 ### dk4_mai_win
-_Mai loses with style and points at the cave._
+_Mai loses with style (no star: a pride duel) and points at the cave._
 
 - **Mai**: Nada mal. Minhas damas precisavam de uma licao.
-- **Voce ganhou**: Uma estrela e a carta Harpie Lady.
+- **Voce ganhou**: A carta Harpie Lady. A Mai fica com a estrela.
 - **Mai**: Dica gratis. Alguem bate na pedra daquela caverna toda noite.
 - **Objetivo**: Descubra quem entalha as estrelas na caverna.
 
 ### dk4_mai_lose
-_Mai keeps her star._
+_Mai wins the pride duel (no star lost)._
 
 - **Mai**: Cartas bonitas, mao fraca. Volte quando crescer.
 - **{name}**: Ela nao estava brincando. Preciso de cartas do ceu. A mina tem.
@@ -1006,23 +1016,28 @@ _The cave after Croquet is gone._
 ### dk4_gate_shut
 _The summit gate before the Mountain Mage comes out._
 
-- **Portao do Cume**: Um arco de pedra nas nuvens. O vento empurra voce de volta.
+- **Portao do Cume**: Um arco de pedra nas nuvens. Seis estrelas gravadas. O vento empurra voce.
 
 ### dk4_mage_pre
-_The Mountain Mage, zone master: a two-star wager at the summit gate._
+_The Mountain Mage, zone master: a one-star wager at the summit gate._
 
-- **Mago da Montanha**: Poucos chegam ao cume com oito estrelas. Menos saem com dez.
-- **Mago da Montanha**: Aposto duas. Voce aposta uma. A montanha nao se curva.
+- **Mago da Montanha**: Poucos chegam ao cume com cinco estrelas. Menos saem com seis.
+- **Mago da Montanha**: Uma estrela contra uma. A montanha nao se curva.
 - **{name}**: Dez estrelas abrem o castelo. Nao desco agora.
 - **Mago da Montanha**: Entao fique firme, pedrinha. A pedra pode falar?  _[Duel? Yes/No]_
 
-### dk4_mage_win
-_The Mountain Mage loses: ten stars, end of chapter 4._
+### dk4_mage_short
+_The Mountain Mage refuses a duelist under five stars._
 
-- **Mago da Montanha**: A pedra racha. Duas estrelas, e meu soldado de pedra.
-- **Voce ganhou**: Duas estrelas e a carta Giant Soldier of Stone.
+- **Mago da Montanha**: Cinco estrelas, pedrinha. Recupere o que perdeu e suba.
+
+### dk4_mage_win
+_The Mountain Mage loses: six stars, end of chapter 4._
+
+- **Mago da Montanha**: A pedra racha. Minha estrela, e meu soldado de pedra.
+- **Voce ganhou**: Uma estrela e a carta Giant Soldier of Stone.
 - **Mago da Montanha**: Croquet passou por aqui. O castelo sabe que voce vem.
-- **{name}**: Dez estrelas. E um anfitriao que me observa o caminho todo.
+- **{name}**: Seis estrelas. Faltam quatro, e um anfitriao me vigiando.
 - **Fim do Capitulo 4**: A Passagem da Montanha ficou para tras. A estrada do castelo abre.
 
 ### dk4_mage_lose

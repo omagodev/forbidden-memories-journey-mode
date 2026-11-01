@@ -107,13 +107,13 @@ DEBUG_PRESETS = [
     {"name": "24 Star Marks", "stage": 14, "flags": _SHORE + ["forest_arrived", "rex_forest_won"], "anchor": "kingdom_forest.forest_center", "time": "auto", "stars": 3},
     {"name": "25 two marks read", "stage": 14, "flags": _SHORE + ["forest_arrived", "rex_forest_won", "star_mark_1", "star_mark_2"], "anchor": "kingdom_forest.hangout_a", "time": "auto", "stars": 3},
     {"name": "26 Forest Mage (wager)", "stage": 15, "flags": _FOREST, "anchor": "kingdom_forest.forest_center", "time": "auto", "stars": 3},
-    {"name": "27 chapter 3 done", "stage": 16, "flags": _FOREST + ["forest_mage_won"], "anchor": "kingdom_forest.forest_center", "time": "auto", "stars": 5},
-    {"name": "28 mountain arrival (chapter 4)", "stage": 17, "flags": _MOUNT, "anchor": "kingdom_mountain.spawn", "time": "auto", "stars": 5},
-    {"name": "29 Keith's toll (wager)", "stage": 17, "flags": _MOUNT + ["mountain_arrived"], "anchor": "kingdom_mountain.pass_center", "time": "auto", "stars": 5},
-    {"name": "30 Mai across the bridge (wager)", "stage": 18, "flags": _MOUNT + ["mountain_arrived", "keith_won"], "anchor": "kingdom_mountain.hangout_a", "time": "auto", "stars": 7},
-    {"name": "31 the star-carver's cave", "stage": 19, "flags": _MOUNT + ["mountain_arrived", "keith_won", "mai_mountain_won"], "anchor": "kingdom_mountain.hangout_a", "time": "auto", "stars": 8},
-    {"name": "32 Mountain Mage (wager)", "stage": 20, "flags": _MOUNT + ["mountain_arrived", "keith_won", "mai_mountain_won", "carver_found"], "anchor": "kingdom_mountain.hangout_a", "time": "auto", "stars": 8},
-    {"name": "33 chapter 4 done", "stage": 21, "flags": _MOUNT + ["mountain_arrived", "keith_won", "mai_mountain_won", "carver_found", "mountain_mage_won"], "anchor": "kingdom_mountain.hangout_a", "time": "auto", "stars": 10},
+    {"name": "27 chapter 3 done", "stage": 16, "flags": _FOREST + ["forest_mage_won"], "anchor": "kingdom_forest.forest_center", "time": "auto", "stars": 4},
+    {"name": "28 mountain arrival (chapter 4)", "stage": 17, "flags": _MOUNT, "anchor": "kingdom_mountain.spawn", "time": "auto", "stars": 4},
+    {"name": "29 Keith's toll (wager)", "stage": 17, "flags": _MOUNT + ["mountain_arrived"], "anchor": "kingdom_mountain.pass_center", "time": "auto", "stars": 4},
+    {"name": "30 Mai across the bridge (pride duel)", "stage": 18, "flags": _MOUNT + ["mountain_arrived", "keith_won"], "anchor": "kingdom_mountain.hangout_a", "time": "auto", "stars": 5},
+    {"name": "31 the star-carver's cave", "stage": 19, "flags": _MOUNT + ["mountain_arrived", "keith_won", "mai_mountain_won"], "anchor": "kingdom_mountain.hangout_a", "time": "auto", "stars": 5},
+    {"name": "32 Mountain Mage (wager)", "stage": 20, "flags": _MOUNT + ["mountain_arrived", "keith_won", "mai_mountain_won", "carver_found"], "anchor": "kingdom_mountain.hangout_a", "time": "auto", "stars": 5},
+    {"name": "33 chapter 4 done", "stage": 21, "flags": _MOUNT + ["mountain_arrived", "keith_won", "mai_mountain_won", "carver_found", "mountain_mage_won"], "anchor": "kingdom_mountain.hangout_a", "time": "auto", "stars": 6},
 ]
 # a narrator page with a label is not speech: its kind decides the banner (en labels; pt pages follow the same index)
 LABEL_KIND = {"Objective": "objective", "Reward": "item", "You got": "item", "Stamp": "item", "End of Chapter 1": "complete", "End of Chapter 2": "complete", "End of Chapter 3": "complete", "End of Chapter 4": "complete"}
@@ -129,8 +129,19 @@ ITEM_FLAG = {"stamp_card": ("courier_met", None, "assets/icon_stamp_card.bin"), 
              "scarab": ("treasure_lost", None, "assets/icon_founders_scarab.bin"), "bandana": ("treasure_won", None, "assets/icon_jonos_bandana.bin"),
              "charm": ("treasure_given", None, "assets/icon_lucky_charm.bin"),
              "star_passage": ("shadi_won", None, "assets/icon_stamp_card.bin"), "bug_pin": ("inseto_won", None, "assets/icon_founders_scarab.bin"),
-             "loaded_dice": ("weevil_won", None, None), "whisper_leaf": ("forest_mage_won", None, None), "star_chisel": ("carver_found", None, None)}
-ITEM_ORDER = ["stamp_card", "lantern", "jug", "honey", "river_water", "dates", "scarab", "bandana", "charm", "star_passage", "bug_pin", "loaded_dice", "whisper_leaf", "star_chisel"]
+             "loaded_dice": ("weevil_won", None, None), "whisper_leaf": ("forest_mage_won", None, None), "star_chisel": ("carver_found", None, None),
+             "star_chips": ("shadi_won", None, "assets/icon_star_chips.bin")}
+ITEM_ORDER = ["stamp_card", "lantern", "jug", "honey", "river_water", "dates", "scarab", "bandana", "charm", "star_passage", "bug_pin", "loaded_dice", "whisper_leaf", "star_chisel", "star_chips"]
+# Mochila texts for the Kingdom's items, accented (the UI font has them; the dialogue font is ASCII): (description, where from)
+BAG_TEXT = {
+ "en": {"star_chips": ("The Kingdom's star chips. Only the story's gatekeepers and zone masters hand them out, one each, and a lost one stays with the duelist who took it until you beat him. Ten open the castle.", "Shadi's Star Passage, then the duelists who guard each zone.")},
+ "pt": {"star_chips": ("As fichas de estrela do Reino. Só os guardiões e mestres de zona da história as entregam, uma cada, e uma estrela perdida fica com quem a tomou até você vencê-lo. Dez abrem o castelo.", "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."),
+        "star_passage": ("Seu bilhete para o Reino dos Duelistas.", "Shadi, no porto."),
+        "bug_pin": ("O broche dourado do InsetoKaiba. Ele jura que vai pegar de volta.", "InsetoKaiba, no navio."),
+        "loaded_dice": ("Os dados viciados do Weevil. Melhor nunca usar.", "Weevil, na Costa das Ilusões."),
+        "whisper_leaf": ("Uma folha que farfalha perto de uma estrela.", "O Mago da Floresta."),
+        "star_chisel": ("O cinzel do Croquet. A ponta ainda brilha como estrela.", "Croquet, na Caverna da Estrela.")},
+}
 warnings = []
 
 
@@ -159,6 +170,8 @@ def when(w):
             if v[1] < 99: out["stage_lt"] = v[1] + 1
         elif k == "flags_all": out["needs"] = v
         elif k == "flags_none": out["lacks"] = v
+        elif k == "earned": out["earned_min"] = v      # stars handed out so far (held + lost-and-owed): a star gate
+        elif k == "earned_lt": out["earned_lt"] = v
         elif k == "flags_any": warnings.append("flags_any not supported: %r" % (w,))
         else: warnings.append("condition key %s ignored" % k)
     return out
@@ -391,6 +404,7 @@ def build():
         e = {"name": it["name"], "flag": flag}
         if until: e["until"] = until
         if icon: e["icon"] = icon
+        if iid == "star_chips": e["key"] = "star_chips"; e["count"] = "stars"   # the Mochila shows "Star Chips xN" (jm_bag.c)
         items.append(e)
     item_names = {c: [[x for x in src["items"] if x["id"] == iid][0]["name"] for iid in ITEM_ORDER] for c, src in (("en", en), ("pt", pt))}
     painted = {"bridge_open": {"stage_ge": 4},
@@ -442,8 +456,8 @@ def build():
                            "Founder's Scarab, cards Killer Needle and The 13th Grave, stamp Lost", "Jono's Bandana, cards Uraby and Dragon Treasure, stamp Won",
                            "Lucky Charm, card Kuriboh, stamp Given", "card Warrior of Tradition; the harbor gate opens",
                            "Star Passage, a star, card Illusionist Faceless Mage", "card Mystical Elf; Simon's secret", "the star rules; land on the island",
-                           "a second star, Loaded Dice, card Hercules Beetle", "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman",
-                           "ten stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"],
+                           "a second star, Loaded Dice, card Hercules Beetle", "the fourth star, Whisper Leaf, cards Megazowler and Mystic Horseman",
+                           "the sixth star, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"],
                "jr_extra": {"items": "Items:", "stamp": "Stamp Card:"}, "stamps": ["Lost", "Won", "Given"]},
         "pt": {"jr": {"heading": "DIARIO", "reward": "Recompensa:", "empty": "Nenhuma missao ainda.", "more": "Mais missoes chegam nas proximas partes da historia.", "close": "Triangulo: fechar"},
                "hint_painted": "Setas: andar   Circulo: correr   X: falar   Triangulo: diario   Select: mapa liga/desliga   Start: menu",
@@ -452,8 +466,8 @@ def build():
                            "Escaravelho do Fundador, cartas Killer Needle e The 13th Grave, selo Perdido", "Bandana do Jono, cartas Uraby e Dragon Treasure, selo Ganho",
                            "Amuleto da Sorte, carta Kuriboh, selo Dado", "carta Warrior of Tradition; o portao do porto abre",
                            "Passagem Estelar, uma estrela, carta Illusionist Faceless Mage", "carta Mystical Elf; o segredo do Simon", "as regras das estrelas; chegar a ilha",
-                           "a segunda estrela, Dados Viciados, carta Hercules Beetle", "cinco estrelas, Folha Sussurrante, cartas Megazowler e Mystic Horseman",
-                           "dez estrelas, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone"],
+                           "a segunda estrela, Dados Viciados, carta Hercules Beetle", "a quarta estrela, Folha Sussurrante, cartas Megazowler e Mystic Horseman",
+                           "a sexta estrela, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone"],
                "jr_extra": {"items": "Itens:", "stamp": "Cartao de Selos:"}, "stamps": ["Perdido", "Ganho", "Dado"]},
     }
     en_kind = {s["id"]: [LABEL_KIND.get(p.get("label"), "caption" if p.get("label") else "") for p in s["pages"]] for s in en["scripts"]}
@@ -480,6 +494,15 @@ def build():
         ui["messages"]["part_end"] = ex["part_end"]
         ui["notify"] = NOTIFY[code]
         ui.setdefault("painted", {})
+        # the Kingdom's items get their Mochila text from the story (the home town's are in base_ui_*.json)
+        bag = ui.setdefault("bag", {})
+        for iid in ITEM_ORDER:
+            flag = ITEM_FLAG[iid][0]
+            key = "star_chips" if iid == "star_chips" else flag
+            if key in bag: continue
+            it = [x for x in src["items"] if x["id"] == iid][0]
+            bag[key] = {"desc": BAG_TEXT.get(code, {}).get(iid, (it.get("description", ""), ""))[0] or it.get("description", ""),
+                        "from": BAG_TEXT.get(code, {}).get(iid, ("", it.get("source", "")))[1] or it.get("source", "")}
         for aid in ("cistern", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain"):
             ui["painted"][aid] = [a for a in src["areas"] if a["id"] == aid][0]["name"]
         with open(os.path.join(MOD, "assets/lang/%s/ui.json" % code), "w", encoding="utf-8") as f:

@@ -863,18 +863,18 @@ _The three marks read: the stone gate opens on the hidden clearing._
 ### dk3_mage_pre
 _The Forest Mage, zone master: a two-star wager._
 
-- **Forest Mage**: I am the master of this wood. My wager is two stars.
-- **Forest Mage**: Yours is one. The forest is generous. Its roots are not.
-- **{name}**: Two stars would put me at five. Let's grow some.
+- **Forest Mage**: I am the master of this wood. My wager is one star.
+- **Forest Mage**: Yours is one too. The forest is fair. Its roots are not.
+- **{name}**: One more star makes four. Let's grow some.
 - **Forest Mage**: Then draw, sprout. Shall the roots begin?  _[Duel? Yes/No]_
 
 ### dk3_mage_win
-_The Forest Mage loses: two stars, the leaf, end of chapter 3._
+_The Forest Mage loses: a star, the leaf, end of chapter 3._
 
-- **Forest Mage**: The roots bow. Take my two stars, and this leaf.
-- **You got**: Two stars, the Whisper Leaf and the card Mystic Horseman.
+- **Forest Mage**: The roots bow. Take my star, and this leaf.
+- **You got**: A star, the Whisper Leaf and the card Mystic Horseman.
 - **Forest Mage**: Whoever carves the stars walks every zone. Ask the mountains.
-- **{name}**: Five stars. And a star-carver nobody has ever seen.
+- **{name}**: Four stars. Ten open the castle. A long way yet.
 - **End of Chapter 3**: The Forest of Whispers is behind you. The mountain pass waits.
 
 ### dk3_mage_lose
@@ -896,7 +896,12 @@ _The mountain pass before the clearing._
 ### dk3_pass_locked
 _The mountain pass after chapter 3: the next part._
 
-- **Mountain Pass**: The road climbs into the clouds. Chapter 4 arrives in the next part.
+- **Mountain Pass**: The rope stays tight. The pass lets in only duelists with four stars.
+
+### dk3_mage_short
+_The Forest Mage refuses a duelist under three stars._
+
+- **Forest Mage**: Three stars, sprout, or the roots stay shut. Earn them first.
 
 ### dk3_hermit
 _Hermit Hob, the forest hut._
@@ -906,7 +911,7 @@ _Hermit Hob, the forest hut._
 ### dk4_enter
 _Chapter 3 -> 4: the hero climbs the forest road into the Mountain Pass._
 
-- **Mountain Pass**: Five stars glow on your glove. The rope falls away.
+- **Mountain Pass**: Four stars glow on your glove. The rope falls away.
 - **{name}**: Up we go. The castle has to be somewhere above the clouds.
 
 ### dk4_to_mountain
@@ -928,18 +933,18 @@ _Chapter 4 opens: the pass, the chasm and a toll at the bridge._
 - **Objective**: Talk to the man guarding the rope bridge.
 
 ### dk4_keith_pre
-_Keith's Double or Nothing: a two-star wager to cross the bridge._
+_Keith's toll: a one-star wager to cross the bridge._
 
-- **Bandit Keith**: House rules. Double or Nothing. You win, I pay two stars.
-- **Bandit Keith**: You lose, you pay one and walk back down. Sweet deal, huh?
-- **{name}**: Sweet for you. That deck smells like rigged slot machines.
+- **Bandit Keith**: House rules. Toll is one star. You win, you cross with mine.
+- **Bandit Keith**: You lose, the toll's mine and you walk back down. Fair, huh?
+- **{name}**: Fair for you. That deck smells like rigged slot machines.
 - **Bandit Keith**: In America we call it strategy. Shuffle up or scram?  _[Duel? Yes/No]_
 
 ### dk4_keith_win
 _Keith pays up and opens the bridge._
 
-- **Bandit Keith**: Tch. Machines jammed. Here, two stars. And this junk.
-- **You got**: Two stars and the card Pendulum Machine.
+- **Bandit Keith**: Tch. Machines jammed. Here, my star. And this junk.
+- **You got**: A star and the card Pendulum Machine.
 - **Bandit Keith**: Blondie's waiting on the other side. She's no pushover.
 - **Objective**: Cross the rope bridge.
 
@@ -954,24 +959,29 @@ _Keith after the duel, counting chips._
 
 - **Bandit Keith**: Beat it. I'm counting chips. Bridge is yours, sucker.
 
+### dk4_keith_short
+_Keith turns away a duelist under four stars._
+
+- **Bandit Keith**: Four stars minimum, kid. I don't rob the broke. Scram.
+
 ### dk4_mai_pre
 _Mai on the far side of the bridge: the rival duel from the ship._
 
 - **Mai**: Took you long enough. I was starting to like the view.
 - **{name}**: Mai! You came up the pass alone? Keith let you through?
-- **Mai**: Keith owed me. You owe me a duel. One star, no tricks.
+- **Mai**: Keith owed me. You owe me a duel. No stars, just pride.
 - **Mai**: Show me the ship wasn't luck. Ready, kid?  _[Duel? Yes/No]_
 
 ### dk4_mai_win
-_Mai loses with style and points at the cave._
+_Mai loses with style (no star: a pride duel) and points at the cave._
 
 - **Mai**: Not bad. My ladies needed a lesson in humility.
-- **You got**: A star and the card Harpie Lady.
+- **You got**: The card Harpie Lady. Mai keeps her star.
 - **Mai**: Free tip. Someone taps stone in that cave every night.
 - **Objective**: Find who carves the stars in the cave.
 
 ### dk4_mai_lose
-_Mai keeps her star._
+_Mai wins the pride duel (no star lost)._
 
 - **Mai**: Pretty cards, weak hand. Come back when you've grown.
 - **{name}**: She wasn't kidding. I need sky cards. The mine pit has them.
@@ -1006,23 +1016,28 @@ _The cave after Croquet is gone._
 ### dk4_gate_shut
 _The summit gate before the Mountain Mage comes out._
 
-- **Summit Gate**: A stone arch in the clouds. The wind pushes you back.
+- **Summit Gate**: A stone arch in the clouds. Six stars are carved on it. The wind pushes you back.
 
 ### dk4_mage_pre
-_The Mountain Mage, zone master: a two-star wager at the summit gate._
+_The Mountain Mage, zone master: a one-star wager at the summit gate._
 
-- **Mountain Mage**: Few reach the summit with eight stars. Fewer leave with ten.
-- **Mountain Mage**: I wager two. You wager one. The mountain does not bend.
-- **{name}**: Ten stars opens the castle. I'm not going back down now.
+- **Mountain Mage**: Few reach the summit with five stars. Fewer leave with six.
+- **Mountain Mage**: One star against one. The mountain does not bend.
+- **{name}**: Ten stars open the castle. I'm not going back down now.
 - **Mountain Mage**: Then stand firm, pebble. Shall the stone speak?  _[Duel? Yes/No]_
 
-### dk4_mage_win
-_The Mountain Mage loses: ten stars, end of chapter 4._
+### dk4_mage_short
+_The Mountain Mage refuses a duelist under five stars._
 
-- **Mountain Mage**: The stone cracks. Two stars, and my stone soldier.
-- **You got**: Two stars and the card Giant Soldier of Stone.
+- **Mountain Mage**: Five stars, pebble. Win back what you lost, then climb.
+
+### dk4_mage_win
+_The Mountain Mage loses: six stars, end of chapter 4._
+
+- **Mountain Mage**: The stone cracks. My star, and my stone soldier.
+- **You got**: A star and the card Giant Soldier of Stone.
 - **Mountain Mage**: Croquet came this way too. The castle knows you are coming.
-- **{name}**: Ten stars. And a host who's been watching me the whole way.
+- **{name}**: Six stars. Four to go, and a host watching every step.
 - **End of Chapter 4**: The Mountain Pass is behind you. The castle road opens.
 
 ### dk4_mage_lose

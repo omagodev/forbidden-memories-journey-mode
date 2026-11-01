@@ -243,6 +243,7 @@ typedef struct {
     int pt_area;                 /* the painted area the save was made in (0 village; 3.. the harbor, ship, beach) */
     int stars_beaten[2];         /* the named duelists already beaten for stars (bit by kingdom duel index) */
     unsigned char arena_x[4];    /* arenas 9-12 (the ship's Bilge Ring onward): same bits as eco.arena[]; at the end so older saves load */
+    int stars_owed;              /* stars lost in first-time wagers and not won back yet: the next first-time star win returns them (0 on an older save) */
 } Journey;
 extern Journey jm;
 
@@ -287,6 +288,8 @@ const char *Story_CardGiver(int id);                 /* the story duelist who gi
 int Story_GotCards(int *out, int max);               /* the cards the story gave */
 int Story_Items(int *out, int max);                  /* held items, as journey.json item indices */
 const char *Story_ItemName(int i); const char *Story_ItemFile(int i); const char *Story_ItemFlag(int i);
+const char *Story_ItemKey(int i);     /* the ui.json "bag" key: "key" if the item has one, else its flag */
+int Story_ItemCount(int i);           /* -1, or the count shown with the name ("count": "stars") */
 int Jm_ItemIcon(int x, int y, int px, const char *file);   /* an item's 24x24 icon, px screen pixels a texel */
 extern int Cards_Seen(int id);
 extern int Cards_NameUtf8(int id, char *out, size_t size);

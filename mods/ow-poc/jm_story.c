@@ -132,6 +132,9 @@ static int cond(const JsonNode *c)
     if (Json_Get(c, "row_gt") && row <= (int)Json_Num(c, "row_gt", 0)) return 0;
     if (Json_Get(c, "area") && paint_area_now() != (int)Json_Num(c, "area", 0)) return 0;
     if (Json_Get(c, "stars_min") && jm.stars < (int)Json_Num(c, "stars_min", 0)) return 0;
+    /* "earned_min": the stars the story has handed out so far (held, plus those a loss left with a duelist until he is beaten) */
+    if (Json_Get(c, "earned_min") && jm.stars + jm.stars_owed < (int)Json_Num(c, "earned_min", 0)) return 0;
+    if (Json_Get(c, "earned_lt") && jm.stars + jm.stars_owed >= (int)Json_Num(c, "earned_lt", 0)) return 0;
     if (Json_Get(c, "coins_min") && jm.eco.coins < (int)Json_Num(c, "coins_min", 0)) return 0;
     if (Json_Get(c, "level_min") && Eco_Level() < (int)Json_Num(c, "level_min", 0)) return 0;
     if (Json_Get(c, "level_max") && Eco_Level() > (int)Json_Num(c, "level_max", 99)) return 0;
@@ -332,6 +335,12 @@ int Story_Items(int *out, int max)
 const char *Story_ItemName(int i) { JsonNode *n = Json_At(Json_Get(jm_rules, "items"), i); return n ? TrAt("items", i, Json_Str(n, "name", "?")) : "?"; }
 const char *Story_ItemFile(int i) { JsonNode *n = Json_At(Json_Get(jm_rules, "items"), i); return n ? Json_Str(n, "icon", NULL) : NULL; }
 const char *Story_ItemFlag(int i) { JsonNode *n = Json_At(Json_Get(jm_rules, "items"), i); return n ? Json_Str(n, "flag", "") : ""; }
+const char *Story_ItemKey(int i) { JsonNode *n = Json_At(Json_Get(jm_rules, "items"), i); return n ? Json_Str(n, "key", Json_Str(n, "flag", "")) : ""; }
+int Story_ItemCount(int i)
+{
+    JsonNode *n = Json_At(Json_Get(jm_rules, "items"), i);
+    return n && !strcmp(Json_Str(n, "count", ""), "stars") ? jm.stars : -1;
+}
 
 int jm_warp;
 int jm_shop_req;                      /* an "open_shop" result asked for a shop: its screen opens after the scene */
@@ -379,7 +388,7 @@ void Story_ApplyResult(const JsonNode *r)
     if (Json_Get(r, "stage") && jm.stage < (int)Json_Num(r, "stage", 0)) jm.stage = (int)Json_Num(r, "stage", 0);
     if (Json_Get(r, "stars")) {        /* "stars": n, the Star Passage's first chip; the kingdom's wagers are settled after a duel (ow_poc.c) */
         jm.stars += (int)Json_Num(r, "stars", 0);
-        if (jm.stars > 12) jm.stars = 12;
+        if (jm.stars > 10) jm.stars = 10;
         if (jm.stars < 0) jm.stars = 0;
     }
     for (c = Json_Get(r, "cards"), n = c ? c->child : NULL; n; n = n->next) Story_Cards((int)n->num);

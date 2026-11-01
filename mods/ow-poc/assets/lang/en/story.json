@@ -2187,15 +2187,15 @@
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "I am the master of this wood. My wager is two stars."
+     "text": "I am the master of this wood. My wager is one star."
     },
     {
      "speaker": "forest_mage",
-     "text": "Yours is one. The forest is generous. Its roots are not."
+     "text": "Yours is one too. The forest is fair. Its roots are not."
     },
     {
      "speaker": "atos",
-     "text": "Two stars would put me at five. Let's grow some."
+     "text": "One more star makes four. Let's grow some."
     },
     {
      "speaker": "forest_mage",
@@ -2209,11 +2209,11 @@
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "The roots bow. Take my two stars, and this leaf."
+     "text": "The roots bow. Take my star, and this leaf."
     },
     {
      "speaker": "narrator",
-     "text": "Two stars, the Whisper Leaf and the card Mystic Horseman.",
+     "text": "A star, the Whisper Leaf and the card Mystic Horseman.",
      "label": "You got",
      "kind": "item"
     },
@@ -2223,7 +2223,7 @@
     },
     {
      "speaker": "atos",
-     "text": "Five stars. And a star-carver nobody has ever seen."
+     "text": "Four stars. Ten open the castle. A long way yet."
     },
     {
      "speaker": "narrator",
@@ -2271,9 +2271,18 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "The road climbs into the clouds. Chapter 4 arrives in the next part.",
+     "text": "The rope stays tight. The pass lets in only duelists with four stars.",
      "label": "Mountain Pass",
      "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_short",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "Three stars, sprout, or the roots stay shut. Earn them first."
     }
    ]
   },
@@ -2291,7 +2300,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Five stars glow on your glove. The rope falls away.",
+     "text": "Four stars glow on your glove. The rope falls away.",
      "label": "Mountain Pass",
      "kind": "caption"
     },
@@ -2353,15 +2362,15 @@
    "pages": [
     {
      "speaker": "keith",
-     "text": "House rules. Double or Nothing. You win, I pay two stars."
+     "text": "House rules. Toll is one star. You win, you cross with mine."
     },
     {
      "speaker": "keith",
-     "text": "You lose, you pay one and walk back down. Sweet deal, huh?"
+     "text": "You lose, the toll's mine and you walk back down. Fair, huh?"
     },
     {
      "speaker": "atos",
-     "text": "Sweet for you. That deck smells like rigged slot machines."
+     "text": "Fair for you. That deck smells like rigged slot machines."
     },
     {
      "speaker": "keith",
@@ -2375,11 +2384,11 @@
    "pages": [
     {
      "speaker": "keith",
-     "text": "Tch. Machines jammed. Here, two stars. And this junk."
+     "text": "Tch. Machines jammed. Here, my star. And this junk."
     },
     {
      "speaker": "narrator",
-     "text": "Two stars and the card Pendulum Machine.",
+     "text": "A star and the card Pendulum Machine.",
      "label": "You got",
      "kind": "item"
     },
@@ -2418,6 +2427,15 @@
    ]
   },
   {
+   "id": "dk4_keith_short",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Four stars minimum, kid. I don't rob the broke. Scram."
+    }
+   ]
+  },
+  {
    "id": "dk4_mai_pre",
    "pages": [
     {
@@ -2430,7 +2448,7 @@
     },
     {
      "speaker": "mai",
-     "text": "Keith owed me. You owe me a duel. One star, no tricks."
+     "text": "Keith owed me. You owe me a duel. No stars, just pride."
     },
     {
      "speaker": "mai",
@@ -2448,7 +2466,7 @@
     },
     {
      "speaker": "narrator",
-     "text": "A star and the card Harpie Lady.",
+     "text": "The card Harpie Lady. Mai keeps her star.",
      "label": "You got",
      "kind": "item"
     },
@@ -2556,7 +2574,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "A stone arch in the clouds. The wind pushes you back.",
+     "text": "A stone arch in the clouds. Six stars are carved on it. The wind pushes you back.",
      "label": "Summit Gate",
      "kind": "caption"
     }
@@ -2567,15 +2585,15 @@
    "pages": [
     {
      "speaker": "mountain_mage",
-     "text": "Few reach the summit with eight stars. Fewer leave with ten."
+     "text": "Few reach the summit with five stars. Fewer leave with six."
     },
     {
      "speaker": "mountain_mage",
-     "text": "I wager two. You wager one. The mountain does not bend."
+     "text": "One star against one. The mountain does not bend."
     },
     {
      "speaker": "atos",
-     "text": "Ten stars opens the castle. I'm not going back down now."
+     "text": "Ten stars open the castle. I'm not going back down now."
     },
     {
      "speaker": "mountain_mage",
@@ -2585,15 +2603,24 @@
    ]
   },
   {
+   "id": "dk4_mage_short",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "Five stars, pebble. Win back what you lost, then climb."
+    }
+   ]
+  },
+  {
    "id": "dk4_mage_win",
    "pages": [
     {
      "speaker": "mountain_mage",
-     "text": "The stone cracks. Two stars, and my stone soldier."
+     "text": "The stone cracks. My star, and my stone soldier."
     },
     {
      "speaker": "narrator",
-     "text": "Two stars and the card Giant Soldier of Stone.",
+     "text": "A star and the card Giant Soldier of Stone.",
      "label": "You got",
      "kind": "item"
     },
@@ -2603,7 +2630,7 @@
     },
     {
      "speaker": "atos",
-     "text": "Ten stars. And a host who's been watching me the whole way."
+     "text": "Six stars. Four to go, and a host watching every step."
     },
     {
      "speaker": "narrator",

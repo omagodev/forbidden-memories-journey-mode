@@ -216,12 +216,12 @@
     "Capitulo 2 completo - a floresta espera",
     "Ache o duelista que grita na floresta",
     "Siga as tres Marcas de Estrela nas arvores",
-    "Venca o Mago da Floresta - ele aposta duas estrelas",
+    "Venca o Mago da Floresta - uma estrela em jogo",
     "Capitulo 3 completo - a passagem da montanha espera",
-    "Venca o Bandit Keith na ponte - Dobro ou Nada",
+    "Venca o Bandit Keith na ponte - o pedagio e uma estrela",
     "Atravesse a ponte - Mai espera do outro lado",
     "Descubra quem entalha as estrelas na caverna",
-    "Venca o Mago da Montanha - ele aposta duas estrelas",
+    "Venca o Mago da Montanha - uma estrela em jogo",
     "Capitulo 4 completo - a estrada do castelo espera"
   ],
   "items": [
@@ -238,7 +238,8 @@
     "Pin do Inseto Dourado",
     "Dados Viciados",
     "Folha Sussurrante",
-    "Cinzel Estelar"
+    "Cinzel Estelar",
+    "Fichas de Estrela"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -493,8 +494,8 @@
     "carta Mystical Elf; o segredo do Simon",
     "as regras das estrelas; chegar a ilha",
     "a segunda estrela, Dados Viciados, carta Hercules Beetle",
-    "cinco estrelas, Folha Sussurrante, cartas Megazowler e Mystic Horseman",
-    "dez estrelas, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone"
+    "a quarta estrela, Folha Sussurrante, cartas Megazowler e Mystic Horseman",
+    "a sexta estrela, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -649,6 +650,30 @@
     "treasure_given": {
       "desc": "Um pequeno amuleto da sorte, dado como agradecimento.",
       "from": "Teana, como agradecimento pelos ingredientes."
+    },
+    "shadi_won": {
+      "desc": "Seu bilhete para o Reino dos Duelistas.",
+      "from": "Shadi, no porto."
+    },
+    "inseto_won": {
+      "desc": "O broche dourado do InsetoKaiba. Ele jura que vai pegar de volta.",
+      "from": "InsetoKaiba, no navio."
+    },
+    "weevil_won": {
+      "desc": "Os dados viciados do Weevil. Melhor nunca usar.",
+      "from": "Weevil, na Costa das Ilusões."
+    },
+    "forest_mage_won": {
+      "desc": "Uma folha que farfalha perto de uma estrela.",
+      "from": "O Mago da Floresta."
+    },
+    "carver_found": {
+      "desc": "O cinzel do Croquet. A ponta ainda brilha como estrela.",
+      "from": "Croquet, na Caverna da Estrela."
+    },
+    "star_chips": {
+      "desc": "As fichas de estrela do Reino. Só os guardiões e mestres de zona da história as entregam, uma cada, e uma estrela perdida fica com quem a tomou até você vencê-lo. Dez abrem o castelo.",
+      "from": "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."
     }
   }
 }

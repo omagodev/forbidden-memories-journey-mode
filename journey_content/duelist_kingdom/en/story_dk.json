@@ -456,7 +456,7 @@
    "name": "forest_mage_won",
    "bit": 41,
    "value": 2199023255552,
-   "note": "Forest Mage beaten: five stars, end of chapter 3."
+   "note": "Forest Mage beaten: fourth star, end of chapter 3."
   },
   {
    "name": "mountain_arrived",
@@ -468,13 +468,13 @@
    "name": "keith_won",
    "bit": 43,
    "value": 8796093022208,
-   "note": "Keith beaten at the bridge: seven stars."
+   "note": "Keith beaten at the bridge: fifth star."
   },
   {
    "name": "mai_mountain_won",
    "bit": 44,
    "value": 17592186044416,
-   "note": "Mai beaten across the bridge: eight stars."
+   "note": "Mai beaten across the bridge (pride duel, no star)."
   },
   {
    "name": "carver_found",
@@ -486,7 +486,7 @@
    "name": "mountain_mage_won",
    "bit": 46,
    "value": 70368744177664,
-   "note": "Mountain Mage beaten: ten stars, end of chapter 4."
+   "note": "Mountain Mage beaten: sixth star, end of chapter 4."
   }
  ],
  "stages": [
@@ -602,7 +602,7 @@
     13,
     16
    ],
-   "reward": "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman",
+   "reward": "four stars, Whisper Leaf, cards Megazowler and Mystic Horseman",
    "unlock": "the mountain pass (chapter 4)"
   },
   {
@@ -613,7 +613,7 @@
     17,
     21
    ],
-   "reward": "ten stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone",
+   "reward": "six stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone",
    "unlock": "the castle road (chapter 5)"
   }
  ],
@@ -1937,10 +1937,23 @@
       ],
       "flags_none": [
        "forest_mage_won"
-      ]
+      ],
+      "earned": 3
      },
      "script": "dk3_mage_pre",
      "duel": "forest_mage"
+    },
+    {
+     "when": {
+      "stage": [
+       15,
+       15
+      ],
+      "flags_none": [
+       "forest_mage_won"
+      ]
+     },
+     "script": "dk3_mage_short"
     },
     {
      "when": {
@@ -1989,8 +2002,22 @@
     99
    ],
    "visible": "placed",
-   "note": "Bandit Keith's toll bridge: Double or Nothing (wins 2 stars, loses 1).",
+   "note": "Bandit Keith's toll bridge: a one-star wager; needs four stars to be challenged.",
    "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       17,
+       17
+      ],
+      "flags_none": [
+       "keith_won"
+      ],
+      "earned": 4
+     },
+     "script": "dk4_keith_pre",
+     "duel": "keith"
+    },
     {
      "when": {
       "stage": [
@@ -2001,8 +2028,7 @@
        "keith_won"
       ]
      },
-     "script": "dk4_keith_pre",
-     "duel": "keith"
+     "script": "dk4_keith_short"
     },
     {
      "when": {
@@ -2027,7 +2053,7 @@
     99
    ],
    "visible": "placed",
-   "note": "Mai, the rival from the ship, across the bridge: a star wager.",
+   "note": "Mai, the rival from the ship, across the bridge: a pride duel, no star.",
    "dialogue_rules": [
     {
      "when": {
@@ -2114,10 +2140,23 @@
       ],
       "flags_none": [
        "mountain_mage_won"
-      ]
+      ],
+      "earned": 5
      },
      "script": "dk4_mage_pre",
      "duel": "mountain_mage"
+    },
+    {
+     "when": {
+      "stage": [
+       20,
+       20
+      ],
+      "flags_none": [
+       "mountain_mage_won"
+      ]
+     },
+     "script": "dk4_mage_short"
     },
     {
      "when": {
@@ -2582,7 +2621,7 @@
      "when": {
       "stage": [
        10,
-       11
+       12
       ]
      },
      "script": "dk2_jungle_early"
@@ -2778,7 +2817,8 @@
       "stage": [
        21,
        99
-      ]
+      ],
+      "earned": 6
      },
      "script": "dk4_castle_road"
     },
@@ -2786,7 +2826,7 @@
      "when": {
       "stage": [
        17,
-       20
+       99
       ]
      },
      "script": "dk4_gate_shut"
@@ -2915,6 +2955,12 @@
    "name": "Whisper Leaf",
    "description": "A leaf that rustles when a star is near.",
    "source": "the Forest Mage"
+  },
+  {
+   "id": "star_chips",
+   "name": "Star Chips",
+   "description": "Story star chips. Only gatekeepers and zone masters hand them out. Ten open the castle.",
+   "source": "Shadi, then the Kingdom's gatekeepers"
   },
   {
    "id": "star_chisel",
@@ -3316,11 +3362,11 @@
      "anchor": "kingdom_forest.star_mark_1"
     },
     {
-     "objective": "Beat the Forest Mage for two stars",
+     "objective": "Beat the Forest Mage for a star",
      "anchor": "kingdom_forest.gate_spot"
     }
    ],
-   "reward": "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman"
+   "reward": "four stars, Whisper Leaf, cards Megazowler and Mystic Horseman"
   },
   {
    "id": "q13_mountain",
@@ -3342,11 +3388,11 @@
      "anchor": "kingdom_mountain.cave_spot"
     },
     {
-     "objective": "Beat the Mountain Mage for two stars",
+     "objective": "Beat the Mountain Mage for a star",
      "anchor": "kingdom_mountain.gate_spot"
     }
    ],
-   "reward": "ten stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"
+   "reward": "six stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"
   }
  ],
  "duels": [
@@ -3672,8 +3718,8 @@
    ],
    "rewards_first_win_only": true,
    "stars_wager": true,
-   "stars": 2,
-   "note": "Zone master: +2 stars on a win, -1 on a loss. Needs forest cards or arena wins."
+   "stars": 1,
+   "note": "Zone master: +1 star on a win, -1 on a loss (won back with the win). Needs three stars to accept. Needs forest cards or arena wins."
   },
   {
    "id": "keith",
@@ -3696,8 +3742,8 @@
    ],
    "rewards_first_win_only": true,
    "stars_wager": true,
-   "stars": 2,
-   "note": "Double or Nothing: +2 stars on a win, -1 on a loss. Machines: needs forest and mountain upgrades."
+   "stars": 1,
+   "note": "Toll: +1 star on a win, -1 on a loss (won back with the win). Machines: needs forest and mountain upgrades."
   },
   {
    "id": "mai_mountain",
@@ -3719,9 +3765,8 @@
     }
    ],
    "rewards_first_win_only": true,
-   "stars_wager": true,
-   "stars": 1,
-   "note": "Star wager (+1 / -1). Mai's harpies, now with real support."
+   "stars_wager": false,
+   "note": "Pride duel, no star: stars come only from the zone's gatekeepers. Mai's harpies, now with real support."
   },
   {
    "id": "mountain_mage",
@@ -3744,8 +3789,8 @@
    ],
    "rewards_first_win_only": true,
    "stars_wager": true,
-   "stars": 2,
-   "note": "Zone master: +2 stars on a win, -1 on a loss. Needs mountain cards or Mine Shaft Pit wins."
+   "stars": 1,
+   "note": "Zone master: +1 star on a win, -1 on a loss (won back with the win). Needs five stars to accept. Needs mountain cards or Mine Shaft Pit wins."
   }
  ],
  "transitions": [
@@ -4006,7 +4051,8 @@
     "stage": [
      12,
      12
-    ]
+    ],
+    "earned": 2
    },
    "trigger": {
     "kind": "interact",
@@ -4121,7 +4167,8 @@
     "stage": [
      16,
      16
-    ]
+    ],
+    "earned": 4
    },
    "trigger": {
     "kind": "interact",
@@ -4552,7 +4599,7 @@
      15
     ]
    },
-   "text": "Beat the Forest Mage - he wagers two stars"
+   "text": "Beat the Forest Mage - a star on the line"
   },
   {
    "when": {
@@ -4570,7 +4617,7 @@
      17
     ]
    },
-   "text": "Beat Bandit Keith at the bridge - Double or Nothing"
+   "text": "Beat Bandit Keith at the bridge - his toll is a star"
   },
   {
    "when": {
@@ -4597,7 +4644,7 @@
      20
     ]
    },
-   "text": "Beat the Mountain Mage - he wagers two stars"
+   "text": "Beat the Mountain Mage - a star on the line"
   },
   {
    "when": {
@@ -7110,15 +7157,15 @@
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "I am the master of this wood. My wager is two stars."
+     "text": "I am the master of this wood. My wager is one star."
     },
     {
      "speaker": "forest_mage",
-     "text": "Yours is one. The forest is generous. Its roots are not."
+     "text": "Yours is one too. The forest is fair. Its roots are not."
     },
     {
      "speaker": "atos",
-     "text": "Two stars would put me at five. Let's grow some."
+     "text": "One more star makes four. Let's grow some."
     },
     {
      "speaker": "forest_mage",
@@ -7131,15 +7178,15 @@
    "id": "dk3_mage_win",
    "legacy_id": null,
    "chapter": 3,
-   "desc": "The Forest Mage loses: two stars, the leaf, end of chapter 3.",
+   "desc": "The Forest Mage loses: a star, the leaf, end of chapter 3.",
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "The roots bow. Take my two stars, and this leaf."
+     "text": "The roots bow. Take my star, and this leaf."
     },
     {
      "speaker": "narrator",
-     "text": "Two stars, the Whisper Leaf and the card Mystic Horseman.",
+     "text": "A star, the Whisper Leaf and the card Mystic Horseman.",
      "label": "You got"
     },
     {
@@ -7148,7 +7195,7 @@
     },
     {
      "speaker": "atos",
-     "text": "Five stars. And a star-carver nobody has ever seen."
+     "text": "Four stars. Ten open the castle. A long way yet."
     },
     {
      "speaker": "narrator",
@@ -7206,8 +7253,20 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "The road climbs into the clouds. Chapter 4 arrives in the next part.",
+     "text": "The rope stays tight. The pass lets in only duelists with four stars.",
      "label": "Mountain Pass"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_short",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The Forest Mage refuses a duelist under three stars.",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "Three stars, sprout, or the roots stay shut. Earn them first."
     }
    ]
   },
@@ -7231,7 +7290,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Five stars glow on your glove. The rope falls away.",
+     "text": "Four stars glow on your glove. The rope falls away.",
      "label": "Mountain Pass"
     },
     {
@@ -7296,19 +7355,19 @@
    "id": "dk4_keith_pre",
    "legacy_id": null,
    "chapter": 4,
-   "desc": "Keith's Double or Nothing: a two-star wager to cross the bridge.",
+   "desc": "Keith's toll: a one-star wager to cross the bridge.",
    "pages": [
     {
      "speaker": "keith",
-     "text": "House rules. Double or Nothing. You win, I pay two stars."
+     "text": "House rules. Toll is one star. You win, you cross with mine."
     },
     {
      "speaker": "keith",
-     "text": "You lose, you pay one and walk back down. Sweet deal, huh?"
+     "text": "You lose, the toll's mine and you walk back down. Fair, huh?"
     },
     {
      "speaker": "atos",
-     "text": "Sweet for you. That deck smells like rigged slot machines."
+     "text": "Fair for you. That deck smells like rigged slot machines."
     },
     {
      "speaker": "keith",
@@ -7325,11 +7384,11 @@
    "pages": [
     {
      "speaker": "keith",
-     "text": "Tch. Machines jammed. Here, two stars. And this junk."
+     "text": "Tch. Machines jammed. Here, my star. And this junk."
     },
     {
      "speaker": "narrator",
-     "text": "Two stars and the card Pendulum Machine.",
+     "text": "A star and the card Pendulum Machine.",
      "label": "You got"
     },
     {
@@ -7372,6 +7431,18 @@
    ]
   },
   {
+   "id": "dk4_keith_short",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Keith turns away a duelist under four stars.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Four stars minimum, kid. I don't rob the broke. Scram."
+    }
+   ]
+  },
+  {
    "id": "dk4_mai_pre",
    "legacy_id": null,
    "chapter": 4,
@@ -7387,7 +7458,7 @@
     },
     {
      "speaker": "mai",
-     "text": "Keith owed me. You owe me a duel. One star, no tricks."
+     "text": "Keith owed me. You owe me a duel. No stars, just pride."
     },
     {
      "speaker": "mai",
@@ -7400,7 +7471,7 @@
    "id": "dk4_mai_win",
    "legacy_id": null,
    "chapter": 4,
-   "desc": "Mai loses with style and points at the cave.",
+   "desc": "Mai loses with style (no star: a pride duel) and points at the cave.",
    "pages": [
     {
      "speaker": "mai",
@@ -7408,7 +7479,7 @@
     },
     {
      "speaker": "narrator",
-     "text": "A star and the card Harpie Lady.",
+     "text": "The card Harpie Lady. Mai keeps her star.",
      "label": "You got"
     },
     {
@@ -7426,7 +7497,7 @@
    "id": "dk4_mai_lose",
    "legacy_id": null,
    "chapter": 4,
-   "desc": "Mai keeps her star.",
+   "desc": "Mai wins the pride duel (no star lost).",
    "pages": [
     {
      "speaker": "mai",
@@ -7527,7 +7598,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "A stone arch in the clouds. The wind pushes you back.",
+     "text": "A stone arch in the clouds. Six stars are carved on it. The wind pushes you back.",
      "label": "Summit Gate"
     }
    ]
@@ -7536,19 +7607,19 @@
    "id": "dk4_mage_pre",
    "legacy_id": null,
    "chapter": 4,
-   "desc": "The Mountain Mage, zone master: a two-star wager at the summit gate.",
+   "desc": "The Mountain Mage, zone master: a one-star wager at the summit gate.",
    "pages": [
     {
      "speaker": "mountain_mage",
-     "text": "Few reach the summit with eight stars. Fewer leave with ten."
+     "text": "Few reach the summit with five stars. Fewer leave with six."
     },
     {
      "speaker": "mountain_mage",
-     "text": "I wager two. You wager one. The mountain does not bend."
+     "text": "One star against one. The mountain does not bend."
     },
     {
      "speaker": "atos",
-     "text": "Ten stars opens the castle. I'm not going back down now."
+     "text": "Ten stars open the castle. I'm not going back down now."
     },
     {
      "speaker": "mountain_mage",
@@ -7558,18 +7629,30 @@
    ]
   },
   {
-   "id": "dk4_mage_win",
+   "id": "dk4_mage_short",
    "legacy_id": null,
    "chapter": 4,
-   "desc": "The Mountain Mage loses: ten stars, end of chapter 4.",
+   "desc": "The Mountain Mage refuses a duelist under five stars.",
    "pages": [
     {
      "speaker": "mountain_mage",
-     "text": "The stone cracks. Two stars, and my stone soldier."
+     "text": "Five stars, pebble. Win back what you lost, then climb."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_win",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The Mountain Mage loses: six stars, end of chapter 4.",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "The stone cracks. My star, and my stone soldier."
     },
     {
      "speaker": "narrator",
-     "text": "Two stars and the card Giant Soldier of Stone.",
+     "text": "A star and the card Giant Soldier of Stone.",
      "label": "You got"
     },
     {
@@ -7578,7 +7661,7 @@
     },
     {
      "speaker": "atos",
-     "text": "Ten stars. And a host who's been watching me the whole way."
+     "text": "Six stars. Four to go, and a host watching every step."
     },
     {
      "speaker": "narrator",

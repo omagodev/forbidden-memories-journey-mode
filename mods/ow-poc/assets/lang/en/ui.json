@@ -216,12 +216,12 @@
     "Chapter 2 complete - the forest waits",
     "Find the duelist shouting in the forest",
     "Follow the three Star Marks on the trees",
-    "Beat the Forest Mage - he wagers two stars",
+    "Beat the Forest Mage - a star on the line",
     "Chapter 3 complete - the mountain pass waits",
-    "Beat Bandit Keith at the bridge - Double or Nothing",
+    "Beat Bandit Keith at the bridge - his toll is a star",
     "Cross the bridge - Mai waits on the far side",
     "Find who carves the stars in the cave",
-    "Beat the Mountain Mage - he wagers two stars",
+    "Beat the Mountain Mage - a star on the line",
     "Chapter 4 complete - the castle road waits"
   ],
   "items": [
@@ -238,7 +238,8 @@
     "Golden Bug Pin",
     "Loaded Dice",
     "Whisper Leaf",
-    "Star Chisel"
+    "Star Chisel",
+    "Star Chips"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -485,8 +486,8 @@
     "card Mystical Elf; Simon's secret",
     "the star rules; land on the island",
     "a second star, Loaded Dice, card Hercules Beetle",
-    "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman",
-    "ten stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"
+    "the fourth star, Whisper Leaf, cards Megazowler and Mystic Horseman",
+    "the sixth star, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -641,6 +642,30 @@
     "treasure_given": {
       "desc": "A little charm for luck, given in thanks.",
       "from": "Teana, in thanks for the ingredients."
+    },
+    "shadi_won": {
+      "desc": "Your ticket to Duelist Kingdom.",
+      "from": "Shadi"
+    },
+    "inseto_won": {
+      "desc": "InsetoKaiba's tiny gold beetle pin. Pure vanity.",
+      "from": "InsetoKaiba"
+    },
+    "weevil_won": {
+      "desc": "Weevil's dice. Every face is a six.",
+      "from": "Weevil"
+    },
+    "forest_mage_won": {
+      "desc": "A leaf that rustles when a star is near.",
+      "from": "the Forest Mage"
+    },
+    "carver_found": {
+      "desc": "Croquet's chisel. The tip still glows like a star.",
+      "from": "Croquet, in the Star Cave"
+    },
+    "star_chips": {
+      "desc": "The Kingdom's star chips. Only the story's gatekeepers and zone masters hand them out, one each, and a lost one stays with the duelist who took it until you beat him. Ten open the castle.",
+      "from": "Shadi's Star Passage, then the duelists who guard each zone."
     }
   }
 }

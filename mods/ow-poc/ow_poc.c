@@ -408,9 +408,10 @@ static void duel_returned(void)
         const JsonNode *wg = duel_win ? Json_Get(duel_win, "wager") : NULL;
         if (wg && !beaten_before) {
             int n = wg->num > 0 ? (int)wg->num : 1;
-            if (won) { jm.stars += n; if (jm.stars > 12) jm.stars = 12; }
-            else if (--jm.stars <= 0) {      /* the last star is gone: never a game over, he wakes at the Shore Camp with one */
+            if (won) { jm.stars += n + jm.stars_owed; jm.stars_owed = 0; if (jm.stars > 10) jm.stars = 10; }   /* a win also takes back the stars lost before */
+            else if (jm.stars_owed++, --jm.stars <= 0) {      /* the last star is gone: never a game over, he wakes at the Shore Camp with one */
                 jm.stars = 1;
+                if (jm.stars_owed > 0) jm.stars_owed--;   /* the camp's free star is one of the lost ones */
                 jm.eliminations++;
                 eliminated = 1;
                 {   /* the forest and the pass have a trail camp of their own: no walk back from the beach */
@@ -422,7 +423,7 @@ static void duel_returned(void)
                 }
                 jm_pwarp = 1;
             }
-            LOG("journey: star duel %s, stars %d (eliminations %d)", won ? "won" : "lost", jm.stars, jm.eliminations);
+            LOG("journey: star duel %s, stars %d (eliminations %d, owed %d)", won ? "won" : "lost", jm.stars, jm.eliminations, jm.stars_owed);
         }
     }
     duel_live = 0;

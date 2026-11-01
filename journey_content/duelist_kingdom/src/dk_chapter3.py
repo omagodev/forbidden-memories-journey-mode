@@ -99,24 +99,24 @@ def scripts(sc, H, X, N):
      N("Objective", "Objetivo", "Duel the Forest Mage at the stone gate.", "Duele com o Mago da Floresta no portao."),
     ], chapter=3)
     sc("dk3_mage_pre", "The Forest Mage, zone master: a two-star wager.", [
-     X("forest_mage", "I am the master of this wood. My wager is two stars.",
-       "Sou o mestre deste bosque. Minha aposta e de duas estrelas."),
-     X("forest_mage", "Yours is one. The forest is generous. Its roots are not.",
-       "A sua e uma. A floresta e generosa. As raizes, nao."),
-     H("Two stars would put me at five. Let's grow some.",
-       "Duas estrelas me levam a cinco. Vamos plantar."),
+     X("forest_mage", "I am the master of this wood. My wager is one star.",
+       "Sou o mestre deste bosque. Minha aposta e uma estrela."),
+     X("forest_mage", "Yours is one too. The forest is fair. Its roots are not.",
+       "A sua tambem. A floresta e justa. As raizes, nao."),
+     H("One more star makes four. Let's grow some.",
+       "Mais uma estrela e sao quatro. Vamos plantar."),
      X("forest_mage", "Then draw, sprout. Shall the roots begin?",
        "Entao compre, brotinho. As raizes podem comecar?", ask=True),
     ], chapter=3)
-    sc("dk3_mage_win", "The Forest Mage loses: two stars, the leaf, end of chapter 3.", [
-     X("forest_mage", "The roots bow. Take my two stars, and this leaf.",
-       "As raizes se curvam. Leve minhas duas estrelas, e esta folha."),
-     N("You got", "Voce ganhou", "Two stars, the Whisper Leaf and the card Mystic Horseman.",
-       "Duas estrelas, a Folha Sussurrante e a carta Mystic Horseman."),
+    sc("dk3_mage_win", "The Forest Mage loses: a star, the leaf, end of chapter 3.", [
+     X("forest_mage", "The roots bow. Take my star, and this leaf.",
+       "As raizes se curvam. Leve minha estrela, e esta folha."),
+     N("You got", "Voce ganhou", "A star, the Whisper Leaf and the card Mystic Horseman.",
+       "Uma estrela, a Folha Sussurrante e a carta Mystic Horseman."),
      X("forest_mage", "Whoever carves the stars walks every zone. Ask the mountains.",
        "Quem entalha as estrelas anda por toda zona. Pergunte as montanhas."),
-     H("Five stars. And a star-carver nobody has ever seen.",
-       "Cinco estrelas. E um entalhador que ninguem nunca viu."),
+     H("Four stars. Ten open the castle. A long way yet.",
+       "Quatro estrelas. Dez abrem o castelo. Falta muito."),
      N("End of Chapter 3", "Fim do Capitulo 3", "The Forest of Whispers is behind you. The mountain pass waits.",
        "A Floresta dos Sussurros ficou para tras. A passagem da montanha espera."),
     ], chapter=3)
@@ -135,8 +135,12 @@ def scripts(sc, H, X, N):
        "Uma corda bloqueia a estrada - Exige licenca do mestre da zona."),
     ], chapter=3)
     sc("dk3_pass_locked", "The mountain pass after chapter 3: the next part.", [
-     N("Mountain Pass", "Passagem da Montanha", "The road climbs into the clouds. Chapter 4 arrives in the next part.",
-       "A estrada sobe as nuvens. O capitulo 4 chega na proxima parte."),
+     N("Mountain Pass", "Passagem da Montanha", "The rope stays tight. The pass lets in only duelists with four stars.",
+       "A corda segue firme. A passagem so deixa entrar quem tem quatro estrelas."),
+    ], chapter=3)
+    sc("dk3_mage_short", "The Forest Mage refuses a duelist under three stars.", [
+     X("forest_mage", "Three stars, sprout, or the roots stay shut. Earn them first.",
+       "Tres estrelas, brotinho, ou as raizes nao abrem. Conquiste antes."),
     ], chapter=3)
     sc("dk3_hermit", "Hermit Hob, the forest hut.", [
      X("hermit_hob", "Mushrooms, moss and cards. The cards are the least weird.",
@@ -149,7 +153,7 @@ SPEAKERS = {
 }
 FLAGS = [("forest_arrived", "Chapter 3: entered the Forest of Whispers."), ("rex_forest_won", "Rex beaten in the forest: third star."),
          ("star_mark_1", "Read the first Star Mark."), ("star_mark_2", "Read the second Star Mark."), ("star_mark_3", "Read the third Star Mark."),
-         ("forest_mage_won", "Forest Mage beaten: five stars, end of chapter 3.")]
+         ("forest_mage_won", "Forest Mage beaten: fourth star, end of chapter 3.")]
 STAGES = [(13, "Chapter 3: in the forest, Rex is lost"), (14, "Chapter 3: follow the three Star Marks"),
           (15, "Chapter 3: the clearing is open, the Forest Mage waits"), (16, "Chapter 3 complete: the mountain pass is the next part")]
 ANCHORS = {"kingdom_forest": {"spawn": "South path in from the beach (bottom left).", "rex_spot": "The crossing of the paths, centre.",
@@ -168,7 +172,8 @@ NPCS = [
              W(when=W(stage=[13,99]), script="dk3_rex_after")]),
  dict(id="forest_mage", area="kingdom_forest", anchor="gate_spot", duelist_id=23, stages=[15, 99], visible="placed",
       note="The zone master at the stone gate once the clearing is open.",
-      rules=[W(when=W(stage=[15,15], flags_none=["forest_mage_won"]), script="dk3_mage_pre", duel="forest_mage"),
+      rules=[W(when=W(stage=[15,15], flags_none=["forest_mage_won"], earned=3), script="dk3_mage_pre", duel="forest_mage"),
+             W(when=W(stage=[15,15], flags_none=["forest_mage_won"]), script="dk3_mage_short"),
              W(when=W(stage=[15,99]), script="dk3_mage_after")]),
  dict(id="hermit_hob", area="kingdom_forest", anchor="shop_stall", duelist_id=None, stages=[13, 99], visible="always", rules=[W(when=W(stage=[13,99]), script="dk3_hermit")]),
 ]
@@ -190,11 +195,11 @@ DUELS = [
  dict(id="rex_forest", npc="rex_forest", duelist_id=9, deck="Rex Forest", tier=3, pre="dk3_rex_pre", win="dk3_rex_win", lose="dk3_rex_lose", win_flag="rex_forest_won",
       on_win=[W(give_card="Megazowler"), W(set_stage=14)], stars=1, note="Star wager (+1 / -1). Rex's dinosaurs: the first wall after the weak starter."),
  dict(id="forest_mage", npc="forest_mage", duelist_id=23, deck="Forest Mage Grove", tier=4, pre="dk3_mage_pre", win="dk3_mage_win", lose="dk3_mage_lose", win_flag="forest_mage_won",
-      on_win=[W(give_card="Mystic Horseman"), W(give_item="whisper_leaf"), W(set_stage=16)], stars=2,
-      note="Zone master: +2 stars on a win, -1 on a loss. Needs forest cards or arena wins."),
+      on_win=[W(give_card="Mystic Horseman"), W(give_item="whisper_leaf"), W(set_stage=16)], stars=1,
+      note="Zone master: +1 star on a win, -1 on a loss (won back with the win). Needs three stars to accept. Needs forest cards or arena wins."),
 ]
 TRANSITIONS = [
- dict(id="enter_forest", when=W(stage=[12,12]), trigger=W(kind="interact", object="jungle_path"), effects=[W(set_stage=13), W(teleport=W(area="kingdom_forest", anchor="spawn"))], script="dk3_enter"),
+ dict(id="enter_forest", when=W(stage=[12,12], earned=2), trigger=W(kind="interact", object="jungle_path"), effects=[W(set_stage=13), W(teleport=W(area="kingdom_forest", anchor="spawn"))], script="dk3_enter"),
  dict(id="to_forest", when=W(stage=[13,99]), trigger=W(kind="interact", object="jungle_path"), effects=[W(teleport=W(area="kingdom_forest", anchor="spawn"))], script="dk3_to_forest"),
  dict(id="to_beach", when=W(stage=[13,99]), trigger=W(kind="interact", object="forest_exit"), effects=[W(teleport=W(area="kingdom_beach", anchor="jungle_path"))], script="dk3_to_beach"),
  dict(id="forest_arrival", when=W(stage=[13,13], flags_none=["forest_arrived"]), trigger=W(kind="when_true", area="kingdom_forest"), effects=[W(set_flag="forest_arrived")], script="dk3_arrival"),
@@ -203,17 +208,17 @@ TRANSITIONS = [
 HUD = [
  (W(stage=[13,13]), "Find the duelist shouting in the forest", "Ache o duelista que grita na floresta"),
  (W(stage=[14,14]), "Follow the three Star Marks on the trees", "Siga as tres Marcas de Estrela nas arvores"),
- (W(stage=[15,15]), "Beat the Forest Mage - he wagers two stars", "Venca o Mago da Floresta - ele aposta duas estrelas"),
+ (W(stage=[15,15]), "Beat the Forest Mage - a star on the line", "Venca o Mago da Floresta - uma estrela em jogo"),
  (W(stage=[16,16]), "Chapter 3 complete - the mountain pass waits", "Capitulo 3 completo - a passagem da montanha espera"),
 ]
 CHAPTER = dict(n=3, title=B("The Forest of Whispers", "A Floresta dos Sussurros"), region="kingdom_forest", stage=[13,16],
-               reward="five stars, Whisper Leaf, cards Megazowler and Mystic Horseman", unlock="the mountain pass (chapter 4)")
+               reward="four stars, Whisper Leaf, cards Megazowler and Mystic Horseman", unlock="the mountain pass (chapter 4)")
 QUESTS = [
  dict(id="q12_forest", kind="talk+duel+investigate", opt=False, title=B("The Forest of Whispers", "A Floresta dos Sussurros"), giver="(none)",
       steps=[("Beat Rex Raptor for a star", "Venca o Rex Raptor por uma estrela", "kingdom_forest.rex_spot"),
              ("Follow the three Star Marks", "Siga as tres Marcas de Estrela", "kingdom_forest.star_mark_1"),
-             ("Beat the Forest Mage for two stars", "Venca o Mago da Floresta por duas estrelas", "kingdom_forest.gate_spot")],
-      reward="five stars, Whisper Leaf, cards Megazowler and Mystic Horseman"),
+             ("Beat the Forest Mage for a star", "Venca o Mago da Floresta por uma estrela", "kingdom_forest.gate_spot")],
+      reward="four stars, Whisper Leaf, cards Megazowler and Mystic Horseman"),
 ]
 DECKS = {
  "Rex Forest": dict(duelist="Rex Raptor", tier=3, theme="Rex in the forest: a real dinosaur deck now", notes="Chapter 3 star duel: needs a few beach or forest upgrades.", cards={
