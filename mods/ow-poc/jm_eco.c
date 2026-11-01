@@ -279,7 +279,8 @@ void Eco_QuestTick(void)
 static const char *area_id(void)
 {
     /* The flour cellar is under the village and its arena data uses the village card pool. */
-    return paint_area_now() == 1 ? "cistern" : "village";
+    const char *a = Paint_AreaId();
+    return !strcmp(a, "cistern") ? "cistern" : a;
 }
 
 static JsonNode *pool_of_area(void)
@@ -601,9 +602,20 @@ int Eco_SellItems(EcoItem *out, int max)
 }
 
 /* ------------------------------------------------------- buying, selling */
+/* the arena whose ring alone gives this card ("ship"), or NULL: those are never sold nor dropped elsewhere */
+const char *Eco_Exclusive(int card)
+{
+    char key[12];
+    JsonNode *x = eco ? Json_Get(eco, "exclusive") : NULL;
+    if (!x || card <= 0) return NULL;
+    snprintf(key, sizeof(key), "%d", card);
+    return Json_Str(x, key, NULL);
+}
+
 int Eco_Buy(const EcoItem *it)
 {
     if (!it || it->locked || it->card <= 0) return 0;
+    if (it->kind != ECO_ITEM_PACK && Eco_Exclusive(it->card)) return 0;   /* an arena prize: the data never sells one, the rule holds anyway */
     if (!Eco_TakeCoins(it->price)) return 0;
     if (it->kind == ECO_ITEM_ONCE && it->bit >= 0 && it->bit < 64)
         jm.eco.bought[it->bit / 32] |= 1u << (it->bit % 32);

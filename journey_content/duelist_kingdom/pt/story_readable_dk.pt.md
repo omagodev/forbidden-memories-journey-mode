@@ -661,3 +661,115 @@ _Bakura mentions the green writing._
 
 - **Bakura**: A escrita verde na parede? Ja estava aqui antes de mim.
 - **Bakura**: Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia.
+
+### dk2_landing
+_Chapter 2 opens: the hero steps off the gangway onto the Shore of Illusions._
+
+- **Costa das Ilusoes**: Areia, tendas e uma placa pintada - Bem-vindos, insetos e campeoes.
+- **Mai**: Vai la, queridinho. Cuide dessa estrela. Te vejo no castelo.
+- **{name}**: Um espelho gigante no meio da praia? Isso nao e normal.
+- **Objetivo**: Olhe o espelho da praia.
+
+### dk2_mirror
+_Pegasus's recorded welcome in the beach mirror. Sets the star rules._
+
+- **Espelho**: O vidro ondula. Um homem de vermelho e cabelo prateado sorri.
+- **Pegasus**: Bem-vindos, duelistas, ao meu pequeno Reino! Isto e so uma gravacao.
+- **Pegasus**: Todo duelista leva estrelas. Venca e ganhe uma. Perca e entregue uma.
+- **Pegasus**: Dez estrelas abrem o portao do castelo. Zero estrelas... ninguem gosta.
+- **Pegasus**: Perca a ultima e voce acorda no Acampamento da Costa. Sou generoso.
+- **Pegasus**: Agora vao jogar! Estarei olhando. Estou sempre olhando.
+- **{name}**: Sempre olhando? Que medo. Uma estrela. Vamos achar um duelo.
+
+### dk2_mirror_after
+_The mirror after the recording._
+
+- **Espelho**: So o seu rosto agora, e um leve cheiro de geleia de morango.
+
+### dk2_weevil_ambush
+_Weevil jumps out from behind a palm with his loaded dice._
+
+- **Weevil**: Hihihi! Um novato com uma estrelinha brilhante. Que sorte a minha.
+- **{name}**: Quem e voce? E por que estava atras de uma palmeira?
+- **Weevil**: Weevil Underwood, campeao dos insetos! Vamos rolar quem comeca.
+- **Dados**: Weevil rola. Seis. Rola de novo. Seis. E de novo. Seis.
+- **{name}**: Esses dados sao viciados! Toda face e seis!
+- **Weevil**: Prove. Duele pela sua estrela, ou va embora chorando.
+- **Objetivo**: Venca o Weevil na praia. Cada um aposta uma estrela.
+
+### dk2_weevil_pre
+_Weevil's star duel (first wager of the Kingdom)._
+
+- **Weevil**: Uma estrela na areia. Quem vencer leva. Quem perder chora. Hihihi!
+- **Aposta de Estrela**: Apostar 1 estrela e duelar com Weevil agora?
+- **Weevil**: E entao? Meus insetos estao com fome. Duelar?  _[Duel? Yes/No]_
+
+### dk2_weevil_win
+_Weevil beaten: the hero's second star and the end of chapter 2._
+
+- **Weevil**: Impossivel! Meus insetos! Meus dados! Meu lindo plano!
+- **Weevil**: Leve sua estrela. E estes dados. Eles nunca gostaram de mim.
+- **Recompensa**: Voce ganhou uma estrela, os Dados Viciados e a carta Hercules Beetle.
+- **{name}**: Duas estrelas. Faltam oito. Lembrete - trazer meus dados.
+- **Fim do Capitulo 2**: Capitulo 3 - A Floresta dos Sussurros, na proxima parte.
+
+### dk2_weevil_lose
+_Weevil wins the wager._
+
+- **Weevil**: Hihihi! Sua estrela e minha. Insetos sempre vencem no fim.
+- **{name}**: Vou ficar mais forte. Cartas novas, depois revanche. Sem dados viciados.
+
+### dk2_weevil_after
+_Weevil after losing._
+
+- **Weevil**: Va embora. Eu e os dados nao estamos nos falando.
+
+### k1_eliminated
+_Last star lost anywhere in the Kingdom: wake at the Shore Camp with one star. Never a game over._
+
+- **Acampamento da Costa**: Voce acorda num catre na tenda. Uma ficha de estrela esta no seu peito.
+- **Staff do Reino**: Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista.
+- **{name}**: De volta a uma estrela. Hora de comprar cartas e treinar nas arenas.
+
+### dk2_camp
+_The Shore Camp sign: the safety net, first visit._
+
+- **Acampamento da Costa**: Catres, uma fogueira e uma placa - Perdeu suas estrelas? Descanse.
+- **Acampamento da Costa**: Letras miudas - Pegasus devolve uma estrela aos que caem.
+- **{name}**: Uma rede de seguranca. Bom. Mesmo assim nao pretendo usar.
+
+### dk2_camp_after
+_Shore Camp, later visits._
+
+- **Acampamento da Costa**: A fogueira estala. Alguns duelistas eliminados roncam.
+
+### dk2_hooded_shore
+_The hooded man (Shadi) at the end of the beach pier: one line, then gone._
+
+- **Homem Encapuzado**: O Reino testa mais que baralhos. Observe quem junta as estrelas.
+- **Cais**: Uma rajada de areia. O fim do cais esta vazio de novo.
+
+### dk2_jungle_early
+_The jungle path before Weevil._
+
+- **Trilha da Selva**: Uma placa - Floresta dos Sussurros. So duelistas com duas estrelas.
+
+### dk2_jungle_locked
+_The jungle path after chapter 2: the next part._
+
+- **Trilha da Selva**: A trilha da floresta espera. O capitulo 3 chega na proxima parte.
+
+### dk2_dock_dan
+_Dock Dan, the harbor cart._
+
+- **Dan do Cais**: Fresquinho do barco! Cartas baratas. Bom, quase baratas.
+
+### dk2_purser
+_Purser Pim, the ship's stall._
+
+- **Comissario Pim**: Lanches, cartas e remedio pra enjoo. So as cartas funcionam.
+
+### dk2_shell_sue
+_Shell Sue, the beach tent._
+
+- **Sue Concha**: Conchas, cartas e segredos. Compre algo, menino estrela.

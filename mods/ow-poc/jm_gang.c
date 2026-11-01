@@ -36,7 +36,7 @@ int Gang_Load(void)
 
 /* The place the player is in, by the id the data uses.  Only the home arc exists, so the painted
  * village and the cistern are all there is to tell apart; later parts add their own. */
-static const char *area_id(void) { return paint_area_now() ? "cistern" : "village"; }
+static const char *area_id(void) { return paint_area_now() == 2 ? "arena" : Paint_AreaId(); }
 
 /* Is this a place they work?  The cistern, indoors and the ship are not. */
 static int area_ok(void)

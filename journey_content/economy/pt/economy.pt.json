@@ -10,6 +10,7 @@
   "shops": {
    "village": "Barraca da Teana",
    "harbor": "Carrinho do Cais",
+   "ship": "Armario do Comissario",
    "beach": "Tenda das Conchas",
    "forest": "Cabana do Eremita",
    "mountain": "Tenda do Penhasco",
@@ -22,6 +23,7 @@
    "village": "Oasis",
    "harbor": "Porto",
    "beach": "Costa",
+   "ship": "Navio",
    "forest": "Floresta",
    "mountain": "Montanha",
    "meadow": "Campina",
@@ -34,6 +36,7 @@
   "keepers": {
    "teana": "Teana",
    "dock_dan": "Dan do Cais",
+   "purser": "Comissario Pim",
    "shell_sue": "Sue Concha",
    "hermit_hob": "Hob Eremita",
    "cliff_cass": "Cass Penhasco",
@@ -50,6 +53,7 @@
    "mountain": "Fosso da Mina",
    "meadow": "Ringue da Toca do Coelho",
    "desert": "Fosso da Tumba Afundada",
+   "ship": "Ringue do Porao",
    "fair": "Circo Sob a Feira"
   },
   "fighters": {
@@ -81,6 +85,10 @@
    "scarab_sia": "Sia Escaravelho",
    "dust_dara": "Dara Po",
    "tomb_lord": "Lorde Tumba",
+   "deck_dora": "Dora Conves",
+   "bilge_bo": "Bo Porao",
+   "rigger_rin": "Rin Cordame",
+   "captain_krill": "Capitao Krill",
    "clown_cleo": "Cleo Palhaca",
    "juggle_jo": "Jo Malabarista",
    "spark_sam": "Sam Faisca",
@@ -100,6 +108,7 @@
  "dialogue": {
   "keeper_greet.teana": "Cartas por moedas, amigo! Pode olhar.",
   "keeper_greet.dock_dan": "Fresquinho do barco! Cartas baratas.",
+  "keeper_greet.purser": "Bilhete conferido? Otimo. Cartas pra viagem.",
   "keeper_greet.shell_sue": "Conchas, cartas e segredos. Compre algo.",
   "keeper_greet.hermit_hob": "Hum. Visita. Cartas, se precisar.",
   "keeper_greet.cliff_cass": "As chances sao boas aqui. Cartas?",
@@ -116,6 +125,7 @@
   "arena_tip.mountain": "Mina velha. Apostadores e duelistas.",
   "arena_tip.meadow": "Uma toca de coelho no labirinto. E funda.",
   "arena_tip.desert": "Uma tumba enterrada. A areia esconde um ringue.",
+  "arena_tip.ship": "Abaixo do conves, depois dos barris. Duelos.",
   "arena_tip.fair": "Sob o circo ha um segundo show.",
   "arena_clear": "Escada vencida! A plateia vibra.",
   "arena_lost": "Voce perdeu. A plateia vaia.",
@@ -147,6 +157,10 @@
   "fighter_pre.scarab_sia": "Escaravelhos guardam esta tumba. E eu.",
   "fighter_pre.dust_dara": "Po ao po. Cartas as cartas.",
   "fighter_pre.tomb_lord": "Ninguem sai da minha tumba igual.",
+  "fighter_pre.deck_dora": "Esfregar o conves? Eu esfrego duelistas.",
+  "fighter_pre.bilge_bo": "Cheira a peixe aqui. Igual a voce.",
+  "fighter_pre.rigger_rin": "Eu subo mastros. Voce nao sobe nada.",
+  "fighter_pre.captain_krill": "Meu porao, minhas regras. Ganhe ou nade.",
   "fighter_pre.clown_cleo": "Ha ha! O show comeca abaixo do show.",
   "fighter_pre.juggle_jo": "Pega! Ops, carta errada.",
   "fighter_pre.spark_sam": "Cuidado com as faiscas. Elas mordem.",
@@ -228,6 +242,7 @@
   "arena_fee": "Entrada: %d moedas",
   "arena_enter": "Entrar",
   "arena_leave": "Sair",
+  "arena_exclusive": "Exclusiva da arena:",
   "arena_round": "Rodada %d de %d",
   "arena_champion": "Campeao",
   "arena_run_over": "Fim da corrida. Pague de novo.",
@@ -249,6 +264,7 @@
    "mountain": "Uma mina abandonada, apostadores nos trilhos.",
    "meadow": "Uma toca sob as sebes, um ringue cercado de cenouras.",
    "desert": "Uma tumba enterrada com tochas e um ringue de areia.",
+   "ship": "Um ringue de corda no porao, uma lamparina balancando.",
    "fair": "Um segundo circo sob a feira, ringue de serragem."
   }
  }

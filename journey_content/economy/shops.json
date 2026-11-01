@@ -4,7 +4,7 @@
   "buy_sell": "Every shop buys and sells. Sell price = round5(sell_rate * weq[rarity] * sell_base_win), one global price (no arbitrage between towns, and always below the cheapest buy price).",
   "no_healing": "There is no healing item and no healing service: duels do not carry life points, so nothing needs healing.",
   "stock_kinds": "always = fixed singles (commons) and packs; rotating = B and A cards re-picked every 6 won or lost duels, no storage needed; limited = one-time or capped purchases (bit in bought[]); each entry may have min_level, unlock.stage_min or unlock.flags_all.",
-  "no_shop": "cistern (quest dungeon), ship_deck (cutscene stage), castle_hall and castle_top (finale) have no shop; harbor opens at stage 5."
+  "no_shop": "cistern (quest dungeon), castle_hall and castle_top (finale) have no shop; harbor opens at stage 5."
  },
  "shops": [
   {
@@ -297,7 +297,7 @@
     ],
     "limited": [
      {
-      "card": "Harpie Lady Sisters",
+      "card": "Kaminari Attack",
       "rarity": "A",
       "price": 800,
       "max_buy": 1,
@@ -305,7 +305,7 @@
       "min_level": 7
      },
      {
-      "card": "Deepsea Shark",
+      "card": "Turtle Bird",
       "rarity": "A",
       "price": 800,
       "max_buy": 1,
@@ -489,7 +489,7 @@
     ],
     "limited": [
      {
-      "card": "Boulder Tortoise",
+      "card": "Turtle Bird",
       "rarity": "A",
       "price": 800,
       "max_buy": 1,
@@ -497,7 +497,7 @@
       "min_level": 8
      },
      {
-      "card": "Vermillion Sparrow",
+      "card": "30,000-Year White Turtle",
       "rarity": "A",
       "price": 800,
       "max_buy": 1,
@@ -1586,7 +1586,8 @@
      "forest",
      "mountain",
      "meadow",
-     "desert"
+     "desert",
+     "ship"
     ],
     "packs_only": true,
     "price_mult": 1.25,
@@ -1764,6 +1765,200 @@
       "kind": "grand",
       "price": 11400,
       "min_level": 23,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
+  },
+  {
+   "id": "ship",
+   "area": "ship_deck",
+   "name": "Purser's Locker",
+   "name_id": "shop.ship",
+   "pool": "ship",
+   "keeper": {
+    "id": "purser",
+    "name": "Purser Pim",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.purser"
+   },
+   "anchor": "ship_deck.shop_stall",
+   "price_win": 50,
+   "tier": 2,
+   "open": {
+    "stage_min": 7
+   },
+   "stock": {
+    "always": [
+     {
+      "card": "Umi",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Penguin Soldier",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Battle Warrior",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Kageningen",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Hero of the East",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     },
+     {
+      "card": "Supporter in the Shadows",
+      "rarity": "C",
+      "price": 40,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 4,
+      "price": 125,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 7,
+      "price": 400,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Turtle Bird",
+      "rarity": "A",
+      "price": 800,
+      "max_buy": 1,
+      "bit": 21,
+      "min_level": 7
+     },
+     {
+      "card": "Warrior of Tradition",
+      "rarity": "A",
+      "price": 800,
+      "max_buy": 1,
+      "bit": 22,
+      "min_level": 7
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 200,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 600,
+      "min_level": 7,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 1500,
+      "min_level": 16,
       "count": 5,
       "slots": [
        {

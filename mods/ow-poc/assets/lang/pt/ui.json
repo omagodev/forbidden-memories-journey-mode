@@ -181,7 +181,8 @@
     "Templo Final"
   ],
   "chapters": [
-    "A Vila dos Cochichos"
+    "A Vila dos Cochichos",
+    "A Costa das Ilusoes"
   ],
   "objectives": [
     "Duele com Bakura, o fantasma solitario",
@@ -207,7 +208,10 @@
     "Encontre o Mensageiro no fim do cais",
     "Despeca-se dos amigos e embarque",
     "Fale com a dama no convez",
-    "Va ate a proa do navio"
+    "Va ate a proa do navio",
+    "Olhe o espelho da praia",
+    "Venca o Weevil - cada um aposta uma estrela",
+    "Capitulo 2 completo - a floresta espera"
   ],
   "items": [
     "Cartao de Selos",
@@ -218,7 +222,10 @@
     "Tamaras",
     "Escaravelho do Fundador",
     "Bandana do Jono",
-    "Amuleto da Sorte"
+    "Amuleto da Sorte",
+    "Passagem Estelar",
+    "Pin do Inseto Dourado",
+    "Dados Viciados"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -229,7 +236,16 @@
     "farmer": "Kemet",
     "hooded_man": "Homem Encapuzado",
     "rex": "Rex Raptor",
-    "bakura": "Bakura"
+    "bakura": "Bakura",
+    "soldier": "Soldado Mago",
+    "shadi": "Shadi",
+    "mai": "Mai",
+    "inseto_kaiba": "InsetoKaiba",
+    "weevil": "Weevil",
+    "hooded_shore": "Homem Encapuzado",
+    "dock_dan": "Dan do Cais",
+    "purser": "Comissario Pim",
+    "shell_sue": "Sue Concha"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -248,7 +264,13 @@
     "mago_dev": "Mago.dev",
     "mago_dev_tee": "Mago.dev",
     "mago_hidden": "???",
-    "isis": "Isis"
+    "isis": "Isis",
+    "pegasus": "Pegasus",
+    "weevil": "Weevil",
+    "staff": "Staff do Reino",
+    "dock_dan": "Dan do Cais",
+    "purser": "Comissario Pim",
+    "shell_sue": "Sue Concha"
   },
   "map": {
     "title": "MAPA",
@@ -393,7 +415,12 @@
     "Meia-noite no Banco",
     "O Perdido: Escaravelho do Fundador",
     "O Ganho: A Bandana do Jono",
-    "O Dado: Os Bolinhos da Teana"
+    "O Dado: Os Bolinhos da Teana",
+    "O Exame do Porto",
+    "O Teste do Mensageiro",
+    "Adeus, Minha Vila",
+    "Regras do Mar",
+    "A Costa das Ilusoes"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
@@ -401,7 +428,12 @@
     "Sente no banco da praca ate anoitecer",
     "Pergunte ao Hakim sobre tesouros perdidos",
     "Encontre o Rex ou o Jono, em qualquer ordem",
-    "Pegue a Jarra de Agua com a Teana"
+    "Pegue a Jarra de Agua com a Teana",
+    "Cruze a ponte, o Guarda deixa",
+    "Ande ate o fim do cais",
+    "Fale com Simon, Teana e Jono no cais",
+    "Fale com Mai no convez",
+    "Olhe o espelho da praia"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
@@ -424,7 +456,12 @@
     "Cartao de Selos com tres espacos de selo",
     "Escaravelho do Fundador, cartas Killer Needle e The 13th Grave, selo Perdido",
     "Bandana do Jono, cartas Uraby e Dragon Treasure, selo Ganho",
-    "Amuleto da Sorte, carta Kuriboh, selo Dado"
+    "Amuleto da Sorte, carta Kuriboh, selo Dado",
+    "carta Warrior of Tradition; o portao do porto abre",
+    "Passagem Estelar, uma estrela, carta Illusionist Faceless Mage",
+    "carta Mystical Elf; o segredo do Simon",
+    "as regras das estrelas; chegar a ilha",
+    "a segunda estrela, Dados Viciados, carta Hercules Beetle"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -448,7 +485,10 @@
   },
   "painted": {
     "cistern": "Cisterna Antiga",
-    "arena": "Arena Secreta do Porão"
+    "arena": "Arena Secreta do Porao",
+    "harbor": "Porto do Poente",
+    "ship_deck": "O Olho Dourado (convez)",
+    "kingdom_beach": "Costa das Ilusoes"
   },
   "shop": {
     "title": "Loja de Cartas",
@@ -522,7 +562,8 @@
       "Ritual",
       "Equipamento"
     ],
-    "def": "DEF"
+    "def": "DEF",
+    "exclusive": "Exclusiva da arena"
   },
   "bag": {
     "title": "Mochila",

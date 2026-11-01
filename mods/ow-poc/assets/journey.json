@@ -29,7 +29,13 @@
   "mago_roof",
   "mago_glyph",
   "mago_passage",
-  "mago_mast"
+  "mago_mast",
+  "beach_arrived",
+  "pegasus_mirror",
+  "weevil_met",
+  "weevil_won",
+  "camp_met",
+  "hooded_shore"
  ],
  "areas": [
   {
@@ -313,11 +319,31 @@
    "name": "Lucky Charm",
    "flag": "treasure_given",
    "icon": "assets/icon_lucky_charm.bin"
+  },
+  {
+   "name": "Star Passage",
+   "flag": "shadi_won",
+   "icon": "assets/icon_stamp_card.bin"
+  },
+  {
+   "name": "Golden Bug Pin",
+   "flag": "inseto_won",
+   "icon": "assets/icon_founders_scarab.bin"
+  },
+  {
+   "name": "Loaded Dice",
+   "flag": "weevil_won"
   }
  ],
  "chapters": [
   {
+   "when": {
+    "stage_lt": 10
+   },
    "text": "The Whispering Village"
+  },
+  {
+   "text": "The Shore of Illusions"
   }
  ],
  "objectives": [
@@ -589,6 +615,26 @@
     "stage_lt": 8
    },
    "text": "Go to the bow of the ship"
+  },
+  {
+   "when": {
+    "stage_ge": 10,
+    "stage_lt": 11
+   },
+   "text": "Look into the mirror on the beach"
+  },
+  {
+   "when": {
+    "stage_ge": 11,
+    "stage_lt": 12
+   },
+   "text": "Beat Weevil - each of you wagers a star"
+  },
+  {
+   "when": {
+    "stage_ge": 12
+   },
+   "text": "Chapter 2 complete - the forest waits"
   }
  ],
  "triggers": [],
@@ -679,6 +725,15 @@
    "tile": [
     14.5,
     28.5
+   ],
+   "places": [
+    {
+     "when": {
+      "stage_ge": 6,
+      "stage_lt": 7
+     },
+     "anchor": "farewell_simon"
+    }
    ]
   },
   {
@@ -824,6 +879,15 @@
    "tile": [
     9.5,
     32.5
+   ],
+   "places": [
+    {
+     "when": {
+      "stage_ge": 6,
+      "stage_lt": 7
+     },
+     "anchor": "farewell_teana"
+    }
    ]
   },
   {
@@ -954,6 +1018,15 @@
    "tile": [
     19.5,
     32.5
+   ],
+   "places": [
+    {
+     "when": {
+      "stage_ge": 6,
+      "stage_lt": 7
+     },
+     "anchor": "farewell_jono"
+    }
    ]
   },
   {
@@ -1326,6 +1399,386 @@
     2.5,
     2.5
    ]
+  },
+  {
+   "id": "soldier",
+   "name": "Mage Soldier",
+   "mesh": "Knight_Male",
+   "anchor": "inspector_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 4,
+      "stage_lt": 6,
+      "lacks": [
+       "inspector_won"
+      ]
+     },
+     "scene": "dk1_inspector_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       618
+      ],
+      "flags": [
+       "inspector_won"
+      ],
+      "scene": "dk1_inspector_win"
+     },
+     "lose": {
+      "scene": "dk1_inspector_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 4
+     },
+     "scene": "dk1_inspector_after"
+    }
+   ],
+   "duelist_id": 18,
+   "portrait_id": 18,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 4
+     },
+     "anchor": "inspector_spot"
+    }
+   ]
+  },
+  {
+   "id": "shadi",
+   "name": "Shadi",
+   "mesh": "Wizard",
+   "anchor": "pier_end",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 5,
+      "stage_lt": 6,
+      "needs": [
+       "inspector_won"
+      ],
+      "lacks": [
+       "shadi_won"
+      ]
+     },
+     "scene": "dk1_shadi_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       42
+      ],
+      "flags": [
+       "shadi_won",
+       "mago_passage"
+      ],
+      "stars": 1,
+      "stage": 6,
+      "scene": "dk1_shadi_win"
+     },
+     "lose": {
+      "scene": "dk1_shadi_lose"
+     }
+    }
+   ],
+   "duelist_id": 13,
+   "portrait_id": 13,
+   "duelist": "dk_shadi",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 5,
+      "stage_lt": 6,
+      "needs": [
+       "inspector_won"
+      ],
+      "lacks": [
+       "shadi_won"
+      ]
+     },
+     "anchor": "pier_end"
+    }
+   ]
+  },
+  {
+   "id": "mai",
+   "name": "Mai",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "mai_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8,
+      "lacks": [
+       "mai_met"
+      ]
+     },
+     "scene": "dk1_mai_rules",
+     "effects": {
+      "flags": [
+       "mai_met"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8
+     },
+     "scene": "dk1_mai_after"
+    }
+   ],
+   "duelist_id": 11,
+   "portrait_id": 11,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8
+     },
+     "anchor": "mai_spot"
+    }
+   ]
+  },
+  {
+   "id": "inseto_kaiba",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "inseto_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8,
+      "lacks": [
+       "mai_met"
+      ]
+     },
+     "scene": "dk1_inseto_early"
+    },
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8,
+      "needs": [
+       "mai_met"
+      ],
+      "lacks": [
+       "inseto_won"
+      ]
+     },
+     "scene": "dk1_inseto_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       717
+      ],
+      "flags": [
+       "inseto_won"
+      ],
+      "scene": "dk1_inseto_win"
+     },
+     "lose": {
+      "scene": "dk1_inseto_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8
+     },
+     "scene": "dk1_inseto_after"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "duelist": "dk_inseto",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8
+     },
+     "anchor": "inseto_spot"
+    }
+   ]
+  },
+  {
+   "id": "weevil",
+   "name": "Weevil",
+   "mesh": "Suit_Male",
+   "anchor": "weevil_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 11,
+      "stage_lt": 12,
+      "needs": [
+       "weevil_met"
+      ],
+      "lacks": [
+       "weevil_won"
+      ]
+     },
+     "scene": "dk2_weevil_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       52
+      ],
+      "stage": 12,
+      "flags": [
+       "weevil_won"
+      ],
+      "scene": "dk2_weevil_win",
+      "wager": 1
+     },
+     "lose": {
+      "scene": "dk2_weevil_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 11
+     },
+     "scene": "dk2_weevil_after"
+    }
+   ],
+   "duelist_id": 10,
+   "portrait_id": 10,
+   "duelist": "dk_weevil",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 11,
+      "needs": [
+       "weevil_met"
+      ]
+     },
+     "anchor": "weevil_spot"
+    }
+   ]
+  },
+  {
+   "id": "hooded_shore",
+   "name": "Hooded Man",
+   "mesh": "Wizard",
+   "anchor": "pier_far",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 11,
+      "lacks": [
+       "hooded_shore"
+      ]
+     },
+     "scene": "dk2_hooded_shore",
+     "effects": {
+      "flags": [
+       "hooded_shore"
+      ]
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 11,
+      "lacks": [
+       "hooded_shore"
+      ]
+     },
+     "anchor": "pier_far"
+    }
+   ]
+  },
+  {
+   "id": "dock_dan",
+   "name": "Dock Dan",
+   "mesh": "Worker_Male",
+   "anchor": "harbor.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 5
+     },
+     "scene": "dk2_dock_dan",
+     "effects": {
+      "open_shop": "harbor"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 5
+     },
+     "anchor": "harbor.shop_stall"
+    }
+   ]
+  },
+  {
+   "id": "purser",
+   "name": "Purser Pim",
+   "mesh": "Worker_Male",
+   "anchor": "ship_deck.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8
+     },
+     "scene": "dk2_purser",
+     "effects": {
+      "open_shop": "ship"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8
+     },
+     "anchor": "ship_deck.shop_stall"
+    }
+   ]
+  },
+  {
+   "id": "shell_sue",
+   "name": "Shell Sue",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "kingdom_beach.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 10
+     },
+     "scene": "dk2_shell_sue",
+     "effects": {
+      "open_shop": "beach"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 10
+     },
+     "anchor": "kingdom_beach.shop_stall"
+    }
+   ]
   }
  ],
  "speakers": {
@@ -1384,6 +1837,24 @@
    "portrait_id": 16
   },
   "narrator": {
+   "portrait_id": 0
+  },
+  "pegasus": {
+   "portrait_id": 15
+  },
+  "weevil": {
+   "portrait_id": 10
+  },
+  "staff": {
+   "portrait_id": 0
+  },
+  "dock_dan": {
+   "portrait_id": 0
+  },
+  "purser": {
+   "portrait_id": 0
+  },
+  "shell_sue": {
    "portrait_id": 0
   }
  },
@@ -1594,7 +2065,99 @@
    "when": {
     "stage_ge": 4,
     "stage_lt": 5
-   }
+   },
+   "anchor": "bridge_north"
+  },
+  {
+   "when": {
+    "stage_ge": 5,
+    "stage_lt": 6,
+    "lacks": [
+     "inspector_won"
+    ]
+   },
+   "npc": "soldier"
+  },
+  {
+   "when": {
+    "stage_ge": 5,
+    "stage_lt": 6
+   },
+   "npc": "shadi"
+  },
+  {
+   "when": {
+    "stage_ge": 6,
+    "stage_lt": 7,
+    "lacks": [
+     "simon_farewell"
+    ]
+   },
+   "npc": "simon"
+  },
+  {
+   "when": {
+    "stage_ge": 6,
+    "stage_lt": 7,
+    "lacks": [
+     "teana_farewell"
+    ]
+   },
+   "npc": "teana"
+  },
+  {
+   "when": {
+    "stage_ge": 6,
+    "stage_lt": 7,
+    "lacks": [
+     "jono_farewell"
+    ]
+   },
+   "npc": "jono"
+  },
+  {
+   "when": {
+    "stage_ge": 6,
+    "stage_lt": 7
+   },
+   "anchor": "gangway"
+  },
+  {
+   "when": {
+    "stage_ge": 7,
+    "stage_lt": 8,
+    "lacks": [
+     "mai_met"
+    ]
+   },
+   "npc": "mai"
+  },
+  {
+   "when": {
+    "stage_ge": 7,
+    "stage_lt": 8
+   },
+   "anchor": "bow"
+  },
+  {
+   "when": {
+    "stage_ge": 10,
+    "stage_lt": 11
+   },
+   "anchor": "mirror_spot"
+  },
+  {
+   "when": {
+    "stage_ge": 11,
+    "stage_lt": 12
+   },
+   "npc": "weevil"
+  },
+  {
+   "when": {
+    "stage_ge": 12
+   },
+   "anchor": "jungle_path"
   }
  ],
  "journal": [
@@ -1894,8 +2457,110 @@
      }
     }
    ]
+  },
+  {
+   "id": "q07_harbor",
+   "active": {
+    "stage_ge": 4
+   },
+   "done": {
+    "needs": [
+     "inspector_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q08_courier",
+   "active": {
+    "stage_ge": 5,
+    "needs": [
+     "inspector_won"
+    ]
+   },
+   "done": {
+    "needs": [
+     "shadi_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q09_farewell",
+   "active": {
+    "stage_ge": 6
+   },
+   "done": {
+    "stage_ge": 7
+   },
+   "lines": []
+  },
+  {
+   "id": "q10_ship",
+   "active": {
+    "stage_ge": 7
+   },
+   "done": {
+    "stage_ge": 10
+   },
+   "lines": []
+  },
+  {
+   "id": "q11_shore",
+   "active": {
+    "stage_ge": 10
+   },
+   "done": {
+    "needs": [
+     "weevil_won"
+    ]
+   },
+   "lines": []
   }
  ],
+ "starter_deck": [
+  3,
+  3,
+  3,
+  47,
+  47,
+  27,
+  27,
+  65,
+  65,
+  61,
+  61,
+  30,
+  30,
+  113,
+  113,
+  8,
+  8,
+  8,
+  200,
+  200,
+  200,
+  208,
+  208,
+  209,
+  209,
+  300,
+  300,
+  210,
+  210,
+  50,
+  50,
+  339,
+  339,
+  339,
+  343,
+  343,
+  343,
+  330,
+  330,
+  344
+ ],
+ "starter_note": "a new journey's deck: 40 weak commons (journey_content/duelist_kingdom/decks_dk.json starter)",
  "objects": [
   {
    "id": "notice_sign",
@@ -2052,6 +2717,33 @@
    "reach": 62
   },
   {
+   "id": "bridge_north",
+   "anchor": "bridge_north",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 4,
+      "stage_lt": 6
+     },
+     "scene": "dk1_bridge_cross",
+     "effects": {
+      "stage": 5,
+      "warp": [
+       "harbor",
+       "spawn_gate"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_lt": 4
+     },
+     "scene": "dk1_bridge_locked"
+    }
+   ],
+   "reach": 80
+  },
+  {
    "id": "cistern_glyph",
    "anchor": "wall_glyph",
    "talk": [
@@ -2095,8 +2787,202 @@
    "reach": 80
   },
   {
+   "id": "harbor_bridge_back",
+   "anchor": "bridge_back",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 5
+     },
+     "scene": "dk1_bridge_back",
+     "effects": {
+      "warp": [
+       "village",
+       "bridge_north"
+      ]
+     }
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "ship_gangway",
+   "anchor": "gangway",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 6,
+      "stage_lt": 7,
+      "needs": [
+       "simon_farewell",
+       "teana_farewell",
+       "jono_farewell"
+      ]
+     },
+     "scene": "dk1_board",
+     "effects": {
+      "stage": 7,
+      "warp": [
+       "ship_deck",
+       "spawn_gangway"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_lt": 7
+     },
+     "scene": "dk1_gangway_locked"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "barrel",
+   "anchor": "barrel",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 7
+     },
+     "scene": "dk1_barrel"
+    }
+   ]
+  },
+  {
+   "id": "ship_bow",
+   "anchor": "bow",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8,
+      "needs": [
+       "mai_met"
+      ]
+     },
+     "scene": "dk1_arrival",
+     "effects": {
+      "flags": [
+       "mago_mast"
+      ],
+      "stage": 10,
+      "warp": [
+       "kingdom_beach",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 7,
+      "stage_lt": 8,
+      "lacks": [
+       "mai_met"
+      ]
+     },
+     "scene": "dk1_bow_wait"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "pegasus_mirror",
+   "anchor": "mirror_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 10,
+      "stage_lt": 11,
+      "lacks": [
+       "pegasus_mirror"
+      ]
+     },
+     "scene": "dk2_mirror",
+     "effects": {
+      "flags": [
+       "pegasus_mirror"
+      ],
+      "stage": 11
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 10
+     },
+     "scene": "dk2_mirror_after"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "shore_camp",
+   "anchor": "shore_camp",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 10,
+      "lacks": [
+       "camp_met"
+      ]
+     },
+     "scene": "dk2_camp",
+     "effects": {
+      "flags": [
+       "camp_met"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 10
+     },
+     "scene": "dk2_camp_after"
+    }
+   ],
+   "reach": 90
+  },
+  {
+   "id": "jungle_path",
+   "anchor": "jungle_path",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 12
+     },
+     "scene": "dk2_jungle_locked"
+    },
+    {
+     "when": {
+      "stage_ge": 10,
+      "stage_lt": 12
+     },
+     "scene": "dk2_jungle_early"
+    }
+   ],
+   "reach": 80
+  },
+  {
    "id": "arena_door_village",
-   "anchor": "arena_door",
+   "anchor": "village.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_harbor",
+   "anchor": "harbor.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_beach",
+   "anchor": "kingdom_beach.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_ship",
+   "anchor": "ship_deck.arena_door",
    "prop": "hatch",
    "reach": 0
   }
@@ -2109,7 +2995,10 @@
   "music": {
    "day": 10,
    "night": 25,
-   "cistern": 26
+   "cistern": 26,
+   "harbor": 18,
+   "ship_deck": 20,
+   "kingdom_beach": 30
   },
   "night": {
    "stage_ge": 2,
@@ -2157,6 +3046,59 @@
      1
     ],
     "vanish": "glitch"
+   },
+   {
+    "npc": "mago_dev",
+    "sprite": "robe",
+    "overlay": "aura",
+    "anchor": "breakwater",
+    "script": "dk1_shadi_win",
+    "pages": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "vanish": "glitch"
+   },
+   {
+    "npc": "mago_dev",
+    "sprite": "robe",
+    "overlay": "aura",
+    "anchor": "mast_top",
+    "script": "dk1_arrival",
+    "pages": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "vanish": "glitch"
+   }
+  ],
+  "blocks": [
+   {
+    "area": 3,
+    "rect": [
+     452,
+     180,
+     474,
+     720
+    ],
+    "when": {
+     "lacks": [
+      "inspector_won"
+     ]
+    }
+   },
+   {
+    "area": 3,
+    "rect": [
+     985,
+     300,
+     1070,
+     420
+    ]
    }
   ]
  },
@@ -2358,6 +3300,265 @@
    ],
    "anchor": "teana_stall",
    "time": "auto"
+  },
+  {
+   "name": "14 harbor gate (Inspector)",
+   "stage": 5,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given"
+   ],
+   "anchor": "spawn_gate",
+   "time": "auto",
+   "stars": 0
+  },
+  {
+   "name": "15 Courier at the pier end",
+   "stage": 5,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won"
+   ],
+   "anchor": "harbor_mid",
+   "time": "auto",
+   "stars": 0
+  },
+  {
+   "name": "16 farewells on the pier",
+   "stage": 6,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage"
+   ],
+   "anchor": "harbor_mid",
+   "time": "auto",
+   "stars": 1
+  },
+  {
+   "name": "17 on the ship (Mai, InsetoKaiba)",
+   "stage": 7,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell"
+   ],
+   "anchor": "spawn_gangway",
+   "time": "auto",
+   "stars": 1
+  },
+  {
+   "name": "18 beach landing (chapter 2)",
+   "stage": 10,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast"
+   ],
+   "anchor": "kingdom_beach.spawn",
+   "time": "auto",
+   "stars": 1
+  },
+  {
+   "name": "19 Weevil ambush",
+   "stage": 11,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror"
+   ],
+   "anchor": "beach_center",
+   "time": "auto",
+   "stars": 1
+  },
+  {
+   "name": "20 Weevil waits (wager)",
+   "stage": 11,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met"
+   ],
+   "anchor": "beach_center",
+   "time": "auto",
+   "stars": 1
+  },
+  {
+   "name": "21 chapter 2 done",
+   "stage": 12,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won"
+   ],
+   "anchor": "beach_center",
+   "time": "auto",
+   "stars": 2
   }
  ],
  "auto": [
@@ -2374,9 +3575,40 @@
    "result": {
     "stage": 4
    },
-   "scene": "dk1_treasures_done",
-   "then": "dk_part3_end"
+   "scene": "dk1_treasures_done"
+  },
+  {
+   "when": {
+    "stage_ge": 10,
+    "stage_lt": 11,
+    "lacks": [
+     "beach_arrived"
+    ],
+    "area": 5
+   },
+   "result": {
+    "flags": [
+     "beach_arrived"
+    ]
+   },
+   "scene": "dk2_landing"
+  },
+  {
+   "when": {
+    "stage_ge": 11,
+    "stage_lt": 12,
+    "lacks": [
+     "weevil_met"
+    ],
+    "area": 5
+   },
+   "result": {
+    "flags": [
+     "weevil_met"
+    ]
+   },
+   "scene": "dk2_weevil_ambush"
   }
  ],
- "story": "duelist_kingdom part 3"
+ "story": "duelist_kingdom chapters 1-2"
 }

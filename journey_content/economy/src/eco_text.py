@@ -6,6 +6,7 @@ Dialogue strings obey the story rules: 'A-Za-z0-9 .,!?'-' only, at most 3 lines 
 SHOP_NAMES = {
     "village":  ("Teana's Stall", "Barraca da Teana"),
     "harbor":   ("Dockside Cart", "Carrinho do Cais"),
+    "ship":     ("Purser's Locker", "Armario do Comissario"),
     "beach":    ("Shell Tent", "Tenda das Conchas"),
     "forest":   ("Hermit's Hut", "Cabana do Eremita"),
     "mountain": ("Cliffside Tent", "Tenda do Penhasco"),
@@ -15,7 +16,7 @@ SHOP_NAMES = {
     "gate":     ("Gate Pawn Stall", "Penhores do Portao"),
 }
 PLACE_NAMES = {   # short word used in pack names
-    "village": ("Oasis", "Oasis"), "harbor": ("Harbor", "Porto"), "beach": ("Shore", "Costa"),
+    "village": ("Oasis", "Oasis"), "harbor": ("Harbor", "Porto"), "beach": ("Shore", "Costa"), "ship": ("Ship", "Navio"),
     "forest": ("Forest", "Floresta"), "mountain": ("Mountain", "Montanha"), "meadow": ("Meadow", "Campina"),
     "desert": ("Desert", "Deserto"), "fair": ("Fair", "Feira"), "gate": ("Gate", "Portao"),
     "hall": ("Hall", "Salao"), "top": ("Dream", "Sonho"),
@@ -23,6 +24,7 @@ PLACE_NAMES = {   # short word used in pack names
 KEEPERS = {   # id: (EN name, PT name, greeting EN, greeting PT)
     "teana":      ("Teana", "Teana", "Cards for coins, friend! Browse away.", "Cartas por moedas, amigo! Pode olhar."),
     "dock_dan":   ("Dock Dan", "Dan do Cais", "Fresh off the boat! Cards, cheap.", "Fresquinho do barco! Cartas baratas."),
+    "purser":     ("Purser Pim", "Comissario Pim", "Tickets checked? Good. Cards for the trip.", "Bilhete conferido? Otimo. Cartas pra viagem."),
     "shell_sue":  ("Shell Sue", "Sue Concha", "Shells, cards and secrets. Buy something.", "Conchas, cartas e segredos. Compre algo."),
     "hermit_hob": ("Hermit Hob", "Hob Eremita", "Hrm. A visitor. Cards, if you must.", "Hum. Visita. Cartas, se precisar."),
     "cliff_cass": ("Cliff Cass", "Cass Penhasco", "The odds are good here. Cards, anyone?", "As chances sao boas aqui. Cartas?"),
@@ -58,6 +60,9 @@ ARENA_NAMES = {   # id: (EN, PT, setting EN, setting PT, tip EN, tip PT, keeper 
     "desert":   ("Sunken Tomb Pit", "Fosso da Tumba Afundada",
                  "A buried tomb with torches and a sand floor ring.", "Uma tumba enterrada com tochas e um ringue de areia.",
                  "A buried tomb. The sand hides a ring.", "Uma tumba enterrada. A areia esconde um ringue.", "nomad_nia"),
+    "ship":     ("Bilge Ring", "Ringue do Porao",
+                 "A ring of rope in the bilge, lit by one swinging lamp.", "Um ringue de corda no porao, uma lamparina balancando.",
+                 "Below deck, past the barrels. Duels. Bring coins.", "Abaixo do conves, depois dos barris. Duelos.", "purser"),
     "fair":     ("Underfair Big Top", "Circo Sob a Feira",
                  "A second circus under the fair, ring of sawdust.", "Um segundo circo sob a feira, ringue de serragem.",
                  "Under the big top there is a second show.", "Sob o circo ha um segundo show.", "bazaar_bea"),
@@ -119,6 +124,10 @@ FIGHTERS = [
     ("scarab_sia", "desert", "Scarab Sia", "Sia Escaravelho", "Scarabs guard this tomb. And me.", "Escaravelhos guardam esta tumba. E eu."),
     ("dust_dara",  "desert", "Dust Dara", "Dara Po", "Dust to dust. Cards to cards.", "Po ao po. Cartas as cartas."),
     ("tomb_lord",  "desert", "Tomb Lord", "Lorde Tumba", "None leave my tomb unchanged.", "Ninguem sai da minha tumba igual."),
+    ("deck_dora",  "ship", "Deck Dora", "Dora Conves", "Swab the deck? I swab duelists.", "Esfregar o conves? Eu esfrego duelistas."),
+    ("bilge_bo",   "ship", "Bilge Bo", "Bo Porao", "Smells like fish down here. Like you.", "Cheira a peixe aqui. Igual a voce."),
+    ("rigger_rin", "ship", "Rigger Rin", "Rin Cordame", "I climb masts. You climb nothing.", "Eu subo mastros. Voce nao sobe nada."),
+    ("captain_krill", "ship", "Captain Krill", "Capitao Krill", "My bilge, my rules. Win or swim.", "Meu porao, minhas regras. Ganhe ou nade."),
     ("clown_cleo", "fair", "Clown Cleo", "Cleo Palhaca", "Ha ha! The show begins below the show.", "Ha ha! O show comeca abaixo do show."),
     ("juggle_jo",  "fair", "Juggle Jo", "Jo Malabarista", "Catch! Oops, wrong card.", "Pega! Ops, carta errada."),
     ("spark_sam",  "fair", "Spark Sam", "Sam Faisca", "Watch the sparks. They bite.", "Cuidado com as faiscas. Elas mordem."),
@@ -169,6 +178,7 @@ UI = {
     "ambush_truce": ("The Jackals back off.", "Os Chacais recuam."),
     "arena_fee": ("Entry fee: %d coins", "Entrada: %d moedas"),
     "arena_enter": ("Enter", "Entrar"), "arena_leave": ("Leave", "Sair"),
+    "arena_exclusive": ("Only here:", "Exclusiva da arena:"),
     "arena_round": ("Round %d of %d", "Rodada %d de %d"),
     "arena_champion": ("Champion", "Campeao"),
     "arena_run_over": ("Run over. Pay again to retry.", "Fim da corrida. Pague de novo."),

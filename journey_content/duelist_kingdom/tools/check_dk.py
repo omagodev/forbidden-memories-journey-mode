@@ -78,7 +78,7 @@ def main():
     for lg, path in (("en", "en/story_dk.json"), ("pt", "pt/story_dk.pt.json")):
         s = json.load(open(os.path.join(ROOT, path), encoding="utf-8")); st[lg] = s
         flags = {f["name"] for f in s["flags"]}
-        if len({f["bit"] for f in s["flags"]}) != len(flags) or max(f["bit"] for f in s["flags"]) > 30: err("flag bits")
+        if len({f["bit"] for f in s["flags"]}) != len(flags) or max(f["bit"] for f in s["flags"]) > 63: err("flag bits (two 32-bit words: flags and kflags)")
         stages = {x["stage"] for x in s["stages"]}; anchors = s["anchors"]; spk = s["speakers"]
         items = {i["id"]: i["name"] for i in s["items"]}
         scripts = {}
@@ -141,6 +141,7 @@ def main():
             if len(h["text"]) > 60: warns.append("hud long: " + h["text"])
         for q in s["quests"]:
             for stp in q["steps"]: expand(stp["objective"], "quest " + q["id"])
+        referenced.add("k1_eliminated")   # played by the engine when the last star is lost (kingdom_outline star rules)
         for u in set(scripts) - referenced: warns.append("[%s] script never referenced: %s" % (lg, u))
         tot = sum(len(sc["pages"]) for sc in s["scripts"])
         print("%s: %d scripts, %d pages, %d npcs, %d objects, %d duels, %d quests" % (lg, len(scripts), tot, len(s["npcs"]), len(s["objects"]), len(s["duels"]), len(s["quests"])))

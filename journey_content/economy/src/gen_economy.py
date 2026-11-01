@@ -72,7 +72,7 @@ LOCS = [
       featured=["Giant Turtle Who Feeds on Flames", "Fire Kraken", "Ganigumo", "Hunter Spider", "Flame Viper"], extra_spells=[],
       theme="Turtles, jellyfish, fire and sand bugs of the Shore of Illusions (Weevil's beach)."),
  dict(id="forest", area="kingdom_forest", tier=3, arrival=6, shop=True, arena=True,
-      types=["Beast", "Beast-Warrior", "Plant", "Insect", "Dinosaur"], max_power=2150, s=["Bracchio-raidus"],
+      types=["Beast", "Beast-Warrior", "Plant", "Insect", "Dinosaur"], max_power=2150, s=[],
       featured=["Two-headed King Rex", "Hitotsu-me Giant", "Flower Wolf", "Man-eater Bug", "Trent"], extra_spells=[],
       theme="Beasts, wild warriors, thick plants, insects and Rex's dinosaurs of the Forest of Whispers."),
  dict(id="mountain", area="kingdom_mountain", tier=4, arrival=8, shop=True, arena=True,
@@ -94,13 +94,27 @@ LOCS = [
       extra_spells=["Swords of Revealing Light"], theme="Clowns, circus machines, sparks and festival dragons of the Star Fair."),
  dict(id="gate", area="castle_gate", tier=8, arrival=15, shop=True, arena=False,
       types=["Dragon", "Machine", "Warrior", "Insect"], max_power=2450, s=["Seiyaryu", "Kaiser Dragon", "Machine King", "Judge Man"],
-      featured=["Dungeon Worm", "Kwagar Hercules", "Metal Dragon", "Royal Guard"], extra_spells=["Swords of Revealing Light", "Stop Defense"],
+      featured=["Dungeon Worm", "Metal Dragon", "Royal Guard"], extra_spells=["Swords of Revealing Light", "Stop Defense"],
       theme="Dragons, guardian machines and warriors at the Castle Gate (plus InsetoKaiba's beetles)."),
  dict(id="hall", area="castle_hall", tier=8, arrival=17, shop=False, arena=False,
       types=["Fiend", "Spellcaster", "Fairy", "Dragon"], max_power=2450, s=["Soul Hunter", "Bickuribox", "Ushi Oni", "Seiyaryu"],
       featured=["Mabarrel", "Dark Witch", "Orion the Battle King"], extra_spells=["Swords of Revealing Light"],
       theme="Illusion-hall fiends, mages, fairies and dragons (no shop, drops only)."),
+ # last, so the arenas before it keep their save byte (arenas.json order is the save's order)
+ dict(id="ship", area="ship_deck", tier=2, arrival=4, shop=True, arena=True, stage_min=7,
+      types=["Fish", "Sea Serpent", "Aqua", "Winged Beast", "Warrior"], max_power=1950, s=[],
+      featured=["Rare Fish", "Tongyo", "Penguin Soldier"], extra_spells=[],
+      theme="Sea life, gulls and deckhand warriors of the Kingdom ship's bilge."),
 ]
+# Arena exclusives: each drops only in its own location's clandestine ring (arena_only in its pool), and
+# nowhere else: no shop, no pack, no other pool, no story reward (validate_economy.py checks all four).
+ARENA_EXCLUSIVE = {
+    "village": ["Bracchio-raidus", "Leogun", "Ancient One of the Deep Forest"],
+    "harbor": ["Aqua Dragon", "Kairyu-shin", "Harpie Lady Sisters"],
+    "ship": ["Deepsea Shark", "7 Colored Fish", "Skullbird"],
+    "beach": ["Vermillion Sparrow", "Kwagar Hercules", "Boulder Tortoise"],
+}
+EXCLUSIVE_OF = {c: loc for loc, cs in ARENA_EXCLUSIVE.items() for c in cs}
 LOC = {l["id"]: l for l in LOCS}
 # the 'top' room (Pegasus) uses the hall's pool: duels there drop from "hall"
 ARENA_ORDER = [l["id"] for l in LOCS if l["arena"]]
@@ -139,6 +153,10 @@ def build_pool(loc):
         if c == "S" and r["name"] not in wl: continue
         if c != "S" and power(r) > loc["max_power"]: continue
         ent[r["name"]] = c
+    for name in list(ent):
+        if name in EXCLUSIVE_OF and EXCLUSIVE_OF[name] != loc["id"]: del ent[name]   # another ring's prize
+    for name in ARENA_EXCLUSIVE.get(loc["id"], ()):
+        ent[name] = mon_class(CARDS[name]) if mon_class(CARDS[name]) != "C" else "B"
     for t in loc["types"]:
         for fld in TYPE_FIELD.get(t, []): ent[fld] = "C"
         for eq in TYPE_EQUIP.get(t, []):
@@ -154,7 +172,8 @@ def build_pool(loc):
         assert not banned(r) or name in ("Mooyan Curry",), name
         minlv = {"C": 1, "B": a, "A": a + 3, "S": a + 6}[cl]
         e = {"card": name, "id": r["id"], "rarity": cl, "weight": 3 if name in feat else 1, "min_level": max(1, minlv)}
-        if cl == "S": e["arena_only"] = True
+        if cl == "S" or name in ARENA_EXCLUSIVE.get(loc["id"], ()): e["arena_only"] = True
+        if name in ARENA_EXCLUSIVE.get(loc["id"], ()): e["exclusive"] = True
         if is_monster(r): e["kind"] = "monster"
         else: e["kind"] = "field" if name in FIELD else "equip" if r["type"] == "Equip" else "spell"
         out.append(e)
@@ -270,6 +289,7 @@ COPY_BY_TIER = {1: ["Villager 1", "Villager 2", "Villager 3"], 2: ["Mage Soldier
                 8: ["Guardian Neku", "Labyrinth Mage", "High Mage Kepura"]}   # placeholders: portrait + AI of a generic disc duelist, no story character
 FIGHTER_TYPES = {
  "doughboy": ["Plant", "Beast"], "beetle_ben": ["Insect"], "reed_ria": ["Reptile", "Beast"], "big_flour": ["Plant", "Insect", "Beast"],
+ "deck_dora": ["Warrior", "Aqua"], "bilge_bo": ["Fish"], "rigger_rin": ["Winged Beast", "Sea Serpent"], "captain_krill": ["Fish", "Sea Serpent", "Warrior"],
  "gull_gus": ["Winged Beast"], "eel_ed": ["Fish", "Sea Serpent"], "rope_rae": ["Aqua", "Thunder"], "old_barnac": ["Fish", "Aqua", "Sea Serpent"],
  "crab_cal": ["Aqua"], "flare_fay": ["Pyro", "Reptile"], "sand_fly": ["Insect"], "hull_hank": ["Aqua", "Insect", "Pyro"],
  "moss_mel": ["Plant"], "bark_bo": ["Beast"], "twig_tess": ["Insect"], "old_stump": ["Beast-Warrior", "Beast", "Dinosaur"],
@@ -342,7 +362,7 @@ def main():
       "rules": {
         "droppable_only_here": "A card can drop in a location only if it is in that location's pool. Every duel won in an area of that location (story duels, rematches, ambushes) and every arena bout rolls from that location's pool. Duels in castle_top use 'hall'. cistern and ship_deck keep their story rewards only.",
         "roll": "1) pick the context's odds (economy.json drop_odds), add the level shift (levels.json), 2) drop rarities with no available card (min_level, arena_only for non-arena contexts) fall to the next lower rarity, 3) pick a card of that rarity by weight.",
-        "area_to_pool": {"village": "village", "harbor": "harbor", "kingdom_beach": "beach", "kingdom_forest": "forest", "kingdom_mountain": "mountain",
+        "area_to_pool": {"village": "village", "harbor": "harbor", "ship_deck": "ship", "kingdom_beach": "beach", "kingdom_forest": "forest", "kingdom_mountain": "mountain",
                          "kingdom_meadow": "meadow", "kingdom_desert": "desert", "kingdom_fair": "fair", "castle_gate": "gate", "castle_hall": "hall", "castle_top": "hall",
                          "cistern": None, "ship_deck": None},
         "min_level": "C from level 1; B from the location's arrival level; A arrival+3; S arrival+6 (S is arena_only)",
@@ -385,13 +405,13 @@ def main():
     # --- shops
     shops = []
     bit = 0
-    keepers = {"village": "teana", "harbor": "dock_dan", "beach": "shell_sue", "forest": "hermit_hob", "mountain": "cliff_cass",
+    keepers = {"village": "teana", "harbor": "dock_dan", "ship": "purser", "beach": "shell_sue", "forest": "hermit_hob", "mountain": "cliff_cass",
                "meadow": "rose_rue", "desert": "nomad_nia", "fair": "bazaar_bea", "gate": "pawn_paul"}
     shop_anchor = {"village": "village.teana_stall"}
     for l in LOCS:
         if not l["shop"]: continue
         sid = l["id"]; w = WIN_COINS[l["tier"] - 1]
-        pool = POOLS[sid]
+        pool = [e for e in POOLS[sid] if not e.get("arena_only")]   # the rings' prizes are never sold
         price = lambda cl: r5(w * WEQ[cl])
         feat = {e["card"] for e in pool if e["weight"] == 3}
         always = []
@@ -446,7 +466,7 @@ def main():
         "buy_sell": "Every shop buys and sells. Sell price = round5(sell_rate * weq[rarity] * sell_base_win), one global price (no arbitrage between towns, and always below the cheapest buy price).",
         "no_healing": "There is no healing item and no healing service: duels do not carry life points, so nothing needs healing.",
         "stock_kinds": "always = fixed singles (commons) and packs; rotating = B and A cards re-picked every 6 won or lost duels, no storage needed; limited = one-time or capped purchases (bit in bought[]); each entry may have min_level, unlock.stage_min or unlock.flags_all.",
-        "no_shop": "cistern (quest dungeon), ship_deck (cutscene stage), castle_hall and castle_top (finale) have no shop; harbor opens at stage 5."},
+        "no_shop": "cistern (quest dungeon), castle_hall and castle_top (finale) have no shop; harbor opens at stage 5."},
       "shops": shops}
     json.dump(shop_doc, open(os.path.join(ROOT, "shops.json"), "w"), indent=1)
 
@@ -506,9 +526,9 @@ def main():
         "tutorial": {"no_ambush_before_stage": 3, "warmup_walk_seconds": 300, "first_ambush": {"member": "dusty", "stake_cap_coins": 20,
                       "note": "The first ambush is always Dusty with a coin cap of 20 and a one-page explanation."}},
         "grace_walk_seconds": {"after_win": 45, "after_loss": 90, "after_area_change": 20, "after_scene_or_menu": 10},
-        "frequency_by_area": {"village": 1.0, "kingdom_beach": 1.0, "kingdom_forest": 1.1, "kingdom_mountain": 1.1, "kingdom_meadow": 1.0, "kingdom_desert": 1.2},
-        "eligible_areas": ["village", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "kingdom_desert"],
-        "never_in": ["cistern", "harbor", "ship_deck", "kingdom_fair", "castle_gate", "castle_hall", "castle_top", "every arena_* interior", "every shop screen"],
+        "frequency_by_area": {"village": 1.0, "harbor": 1.0, "ship_deck": 0.8, "kingdom_beach": 1.0, "kingdom_forest": 1.1, "kingdom_mountain": 1.1, "kingdom_meadow": 1.0, "kingdom_desert": 1.2},
+        "eligible_areas": ["village", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "kingdom_desert"],
+        "never_in": ["cistern", "kingdom_fair", "castle_gate", "castle_hall", "castle_top", "every arena_* interior", "every shop screen"],
         "suppressed_while": ["a dialogue, banner or scene is on screen", "a menu or shop is open", "the quest arrow's target is within 150 units (a scripted beat is about to happen)",
                               "the player is within the safe radius of an anchor in safe_zones", "the player is on a stage window listed in blocked_stage_windows", "a duel just ended (grace)"],
         "safe_zones": [{"anchor": "village.teana_stall", "radius": 140}, {"anchor": "village.bakery_door", "radius": 120}, {"anchor": "village.house_ne_door", "radius": 110},

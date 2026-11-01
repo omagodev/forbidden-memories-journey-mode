@@ -6,6 +6,7 @@
   "area_to_pool": {
    "village": "village",
    "harbor": "harbor",
+   "ship_deck": null,
    "kingdom_beach": "beach",
    "kingdom_forest": "forest",
    "kingdom_mountain": "mountain",
@@ -15,8 +16,7 @@
    "castle_gate": "gate",
    "castle_hall": "hall",
    "castle_top": "hall",
-   "cistern": null,
-   "ship_deck": null
+   "cistern": null
   },
   "min_level": "C from level 1; B from the location's arrival level; A arrival+3; S arrival+6 (S is arena_only)",
   "banned": "no ritual cards, ritual-only or ritual-result monsters, no Exodia pieces, no card whose slot the old story replaced with a custom card ([309, 318, 342, 652, 653, 657, 672, 689, 702, 720]), no password-less monster over power 1950 (the legends)",
@@ -1032,6 +1032,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 4,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -1048,6 +1050,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 4,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -1065,6 +1069,7 @@
      "weight": 1,
      "min_level": 7,
      "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     }
    ]
@@ -1917,6 +1922,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 7,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -1925,27 +1932,13 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 7,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
      "card": "Catapult Turtle",
      "id": 89,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 7,
-     "kind": "monster"
-    },
-    {
-     "card": "Deepsea Shark",
-     "id": 437,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 7,
-     "kind": "monster"
-    },
-    {
-     "card": "7 Colored Fish",
-     "id": 440,
      "rarity": "A",
      "weight": 1,
      "min_level": 7,
@@ -2000,14 +1993,6 @@
      "kind": "monster"
     },
     {
-     "card": "Skullbird",
-     "id": 521,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 7,
-     "kind": "monster"
-    },
-    {
      "card": "Crow Goblin",
      "id": 577,
      "rarity": "A",
@@ -2030,6 +2015,7 @@
      "weight": 1,
      "min_level": 10,
      "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     }
    ]
@@ -3023,6 +3009,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 8,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -3031,6 +3019,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 8,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -3047,6 +3037,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 8,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -3073,9 +3065,7 @@
    ],
    "arrival_level": 6,
    "max_power": 2150,
-   "s_whitelist": [
-    "Bracchio-raidus"
-   ],
+   "s_whitelist": [],
    "entries": [
     {
      "card": "Hitotsu-me Giant",
@@ -4062,14 +4052,6 @@
      "kind": "monster"
     },
     {
-     "card": "Leogun",
-     "id": 403,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 9,
-     "kind": "monster"
-    },
-    {
      "card": "Pragtical",
      "id": 482,
      "rarity": "A",
@@ -4090,22 +4072,6 @@
      "id": 487,
      "rarity": "A",
      "weight": 3,
-     "min_level": 9,
-     "kind": "monster"
-    },
-    {
-     "card": "Kwagar Hercules",
-     "id": 533,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 9,
-     "kind": "monster"
-    },
-    {
-     "card": "Ancient One of the Deep Forest",
-     "id": 575,
-     "rarity": "A",
-     "weight": 1,
      "min_level": 9,
      "kind": "monster"
     },
@@ -4131,15 +4097,6 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 9,
-     "kind": "monster"
-    },
-    {
-     "card": "Bracchio-raidus",
-     "id": 509,
-     "rarity": "S",
-     "weight": 1,
-     "min_level": 12,
-     "arena_only": true,
      "kind": "monster"
     }
    ]
@@ -5243,14 +5200,6 @@
      "kind": "monster"
     },
     {
-     "card": "Harpie Lady Sisters",
-     "id": 63,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 11,
-     "kind": "monster"
-    },
-    {
      "card": "Giant Soldier of Stone",
      "id": 74,
      "rarity": "A",
@@ -5381,14 +5330,6 @@
     {
      "card": "Cyber Saurus",
      "id": 508,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 11,
-     "kind": "monster"
-    },
-    {
-     "card": "Skullbird",
-     "id": 521,
      "rarity": "A",
      "weight": 1,
      "min_level": 11,
@@ -6558,14 +6499,6 @@
      "kind": "monster"
     },
     {
-     "card": "Leogun",
-     "id": 403,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 12,
-     "kind": "monster"
-    },
-    {
      "card": "Garvas",
      "id": 483,
      "rarity": "A",
@@ -6600,14 +6533,6 @@
     {
      "card": "Dark Elf",
      "id": 551,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 12,
-     "kind": "monster"
-    },
-    {
-     "card": "Ancient One of the Deep Forest",
-     "id": 575,
      "rarity": "A",
      "weight": 1,
      "min_level": 12,
@@ -10711,14 +10636,6 @@
      "kind": "monster"
     },
     {
-     "card": "Kwagar Hercules",
-     "id": 533,
-     "rarity": "A",
-     "weight": 3,
-     "min_level": 18,
-     "kind": "monster"
-    },
-    {
      "card": "Tyhone #2",
      "id": 555,
      "rarity": "A",
@@ -12146,6 +12063,1366 @@
      "weight": 1,
      "min_level": 23,
      "arena_only": true,
+     "kind": "monster"
+    }
+   ]
+  },
+  {
+   "id": "ship",
+   "area": "ship_deck",
+   "name": "Ship",
+   "theme": "Sea life, gulls and deckhand warriors of the Kingdom ship's bilge.",
+   "types": [
+    "Fish",
+    "Sea Serpent",
+    "Aqua",
+    "Winged Beast",
+    "Warrior"
+   ],
+   "arrival_level": 4,
+   "max_power": 1950,
+   "s_whitelist": [],
+   "entries": [
+    {
+     "card": "Battle Warrior",
+     "id": 100,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Kageningen",
+     "id": 107,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Hero of the East",
+     "id": 110,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Supporter in the Shadows",
+     "id": 118,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Dream Clown",
+     "id": 120,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Dragon Statue",
+     "id": 138,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Toad Master",
+     "id": 140,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Monster Egg",
+     "id": 147,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Rhaimundos of the Red Sword",
+     "id": 151,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "The Melting Red Shadow",
+     "id": 152,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Hard Armor",
+     "id": 156,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "M-warrior #1",
+     "id": 160,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "M-warrior #2",
+     "id": 161,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Armaill",
+     "id": 172,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Monsturtle",
+     "id": 177,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Masked Clown",
+     "id": 182,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Eyearmor",
+     "id": 185,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Doron",
+     "id": 195,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Arma Knight",
+     "id": 196,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Penguin Knight",
+     "id": 199,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Dorover",
+     "id": 205,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Twin Long Rods #1",
+     "id": 206,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Droll Bird",
+     "id": 207,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Kagemusha of the Blue Flame",
+     "id": 214,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Trap Master",
+     "id": 224,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Skull Stalker",
+     "id": 226,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Hitodenchak",
+     "id": 227,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Wood Clown",
+     "id": 231,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Wodan the Resident of the Forest",
+     "id": 235,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Guardian of the Labyrinth",
+     "id": 236,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Vishwar Randi",
+     "id": 239,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Water Element",
+     "id": 243,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Root Water",
+     "id": 247,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Hyo",
+     "id": 250,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Enchanting Mermaid",
+     "id": 251,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Dimensional Warrior",
+     "id": 256,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Beastking of the Swamps",
+     "id": 258,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "The Little Swordsman of Aile",
+     "id": 262,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "The Furious Sea King",
+     "id": 265,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Princess of Tsurugi",
+     "id": 266,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Unknown Warrior of Fiend",
+     "id": 267,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Wetha",
+     "id": 270,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Change Slime",
+     "id": 289,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Moon Envoy",
+     "id": 290,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Psychic Kappa",
+     "id": 292,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Masaki the Legendary Swordsman",
+     "id": 293,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Dragoness the Wicked Knight",
+     "id": 294,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Sonic Maid",
+     "id": 299,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Kurama",
+     "id": 300,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Mountain",
+     "id": 332,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "field"
+    },
+    {
+     "card": "Sogen",
+     "id": 333,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "field"
+    },
+    {
+     "card": "Umi",
+     "id": 334,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "field"
+    },
+    {
+     "card": "Red Medicine",
+     "id": 339,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "spell"
+    },
+    {
+     "card": "Sparks",
+     "id": 343,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "spell"
+    },
+    {
+     "card": "Stuffed Animal",
+     "id": 354,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Flying Penguin",
+     "id": 361,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Zone Eater",
+     "id": 393,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Ooguchi",
+     "id": 398,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Swordsman from a Foreign Land",
+     "id": 399,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Ice Water",
+     "id": 431,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Waterdragon Fairy",
+     "id": 432,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Water Girl",
+     "id": 435,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "White Dolphin",
+     "id": 436,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Turu-Purun",
+     "id": 444,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Aqua Snake",
+     "id": 446,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Kappa Avenger",
+     "id": 450,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Kanikabuto",
+     "id": 451,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Zarigun",
+     "id": 452,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Armed Ninja",
+     "id": 469,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Sea Kamen",
+     "id": 474,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Ameba",
+     "id": 484,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Turtle Raccoon",
+     "id": 503,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Star Boy",
+     "id": 524,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Niwatori",
+     "id": 538,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Wow Warrior",
+     "id": 546,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Frog The Jam",
+     "id": 549,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Winged Dragon #2",
+     "id": 552,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Mushroom Man #2",
+     "id": 553,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Oscillo Hero",
+     "id": 559,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Greenkappa",
+     "id": 586,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Penguin Soldier",
+     "id": 602,
+     "rarity": "C",
+     "weight": 3,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Liquid Beast",
+     "id": 605,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Twin Long Rods #2",
+     "id": 606,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Night Lizard",
+     "id": 634,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Queen's Double",
+     "id": 635,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "monster"
+    },
+    {
+     "card": "Cursebreaker",
+     "id": 655,
+     "rarity": "C",
+     "weight": 1,
+     "min_level": 1,
+     "kind": "spell"
+    },
+    {
+     "card": "Tyhone",
+     "id": 13,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Celtic Guardian",
+     "id": 41,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Karbonala Warrior",
+     "id": 43,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Great White",
+     "id": 60,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Harpie Lady",
+     "id": 62,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Kojikocy",
+     "id": 66,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Fiend Kraken",
+     "id": 70,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Jellyfish",
+     "id": 71,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Axe Raider",
+     "id": 78,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Zanki",
+     "id": 93,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Spirit of the Books",
+     "id": 117,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Faith Bird",
+     "id": 125,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Ansatsu",
+     "id": 127,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Octoberser",
+     "id": 131,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Akihiron",
+     "id": 150,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "The Judgement Hand",
+     "id": 165,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Mysterious Puppeteer",
+     "id": 166,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Fiend Refrection #2",
+     "id": 186,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Turtle Tiger",
+     "id": 193,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Fiend Sword",
+     "id": 225,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Rare Fish",
+     "id": 230,
+     "rarity": "B",
+     "weight": 3,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Beautiful Headhuntress",
+     "id": 234,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Water Omotics",
+     "id": 249,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Mavelus",
+     "id": 272,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Protector of the Throne",
+     "id": 280,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Legendary Sword",
+     "id": 301,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "equip"
+    },
+    {
+     "card": "Axe of Despair",
+     "id": 304,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "equip"
+    },
+    {
+     "card": "Silver Bow and Arrow",
+     "id": 312,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "equip"
+    },
+    {
+     "card": "Follow Wind",
+     "id": 327,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "equip"
+    },
+    {
+     "card": "Power of Kaishin",
+     "id": 328,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "equip"
+    },
+    {
+     "card": "Kanan the Swordmistress",
+     "id": 352,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Takriminos",
+     "id": 353,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Water Magician",
+     "id": 430,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Bottom Dweller",
+     "id": 439,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Guardian of the Sea",
+     "id": 445,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Spike Seadra",
+     "id": 448,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Skull Red Bird",
+     "id": 466,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Peacock",
+     "id": 491,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Rainbow Marine Mermaid",
+     "id": 494,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Yado Karu",
+     "id": 497,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "D. Human",
+     "id": 502,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Crazy Fish",
+     "id": 507,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Fire Kraken",
+     "id": 519,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Misairuzame",
+     "id": 542,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Tongyo",
+     "id": 543,
+     "rarity": "B",
+     "weight": 3,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Behegon",
+     "id": 550,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Lava Battleguard",
+     "id": 554,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Takuhee",
+     "id": 581,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Weather Report",
+     "id": 583,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Giant Turtle Who Feeds on Flames",
+     "id": 593,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Fiend Refrection #1",
+     "id": 595,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Violent Rain",
+     "id": 599,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Armored Starfish",
+     "id": 615,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Marine Beast",
+     "id": 617,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Succubus Knight",
+     "id": 621,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "High Tide Gyojin",
+     "id": 624,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Fairy of the Fountain",
+     "id": 625,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Amazon of the Seas",
+     "id": 626,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Blue-winged Crown",
+     "id": 636,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Invader of the Throne",
+     "id": 641,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Gruesome Goo",
+     "id": 646,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Hyosube",
+     "id": 647,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Hibikime",
+     "id": 649,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "monster"
+    },
+    {
+     "card": "Kunai with Chain",
+     "id": 651,
+     "rarity": "B",
+     "weight": 1,
+     "min_level": 4,
+     "kind": "equip"
+    },
+    {
+     "card": "Swamp Battleguard",
+     "id": 12,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Flame Swordsman",
+     "id": 15,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Catapult Turtle",
+     "id": 89,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Monster Tamer",
+     "id": 376,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Giltia the D. Knight",
+     "id": 389,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Beautiful Beast Trainer",
+     "id": 434,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Deepsea Shark",
+     "id": 437,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "arena_only": true,
+     "exclusive": true,
+     "kind": "monster"
+    },
+    {
+     "card": "7 Colored Fish",
+     "id": 440,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "arena_only": true,
+     "exclusive": true,
+     "kind": "monster"
+    },
+    {
+     "card": "Giant Red Seasnake",
+     "id": 447,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "30,000-Year White Turtle",
+     "id": 449,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Wing Eagle",
+     "id": 464,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Queen Bird",
+     "id": 468,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Turtle Bird",
+     "id": 520,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Skullbird",
+     "id": 521,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "arena_only": true,
+     "exclusive": true,
+     "kind": "monster"
+    },
+    {
+     "card": "Crow Goblin",
+     "id": 577,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Warrior of Tradition",
+     "id": 618,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
+     "kind": "monster"
+    },
+    {
+     "card": "Amphibious Bugroth",
+     "id": 639,
+     "rarity": "A",
+     "weight": 1,
+     "min_level": 7,
      "kind": "monster"
     }
    ]

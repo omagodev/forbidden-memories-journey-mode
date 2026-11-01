@@ -153,6 +153,58 @@
     "Raigeki": 1
    },
    "notes": "Optional ship boss. Chapter 8 rematch uses the same theme with Javelin Beetle and Great Moth (tier 8)."
+  },
+  "Weevil Shore": {
+   "duelist": "Weevil Underwood",
+   "chapter": 2,
+   "difficulty_tier": 2,
+   "theme": "Weevil on the beach: weak bugs and armour, loaded dice",
+   "fixed": true,
+   "total": 40,
+   "cards": {
+    "Basic Insect": 3,
+    "Killer Needle": 3,
+    "Petit Moth": 3,
+    "Larvae Moth": 2,
+    "Big Insect": 2,
+    "Hercules Beetle": 1,
+    "Gokibore": 3,
+    "Giant Flea": 2,
+    "Needle Worm": 2,
+    "Cockroach Knight": 2,
+    "Man-eater Bug": 2,
+    "Insect Armor with Laser Cannon": 2,
+    "Forest": 3,
+    "Sparks": 3,
+    "Red Medicine": 2,
+    "Laser Cannon Armor": 2,
+    "Vile Germs": 3
+   },
+   "notes": "Chapter 2 star duel: beatable with a few upgrades."
+  }
+ },
+ "starter": {
+  "note": "The deck a new journey starts with: forty weak commons (strongest attack 1200). Beats Simon; struggles from the harbor on without new cards.",
+  "total": 40,
+  "cards": {
+   "Hitotsu-me Giant": 3,
+   "Torike": 2,
+   "Beaver Warrior": 2,
+   "Silver Fang": 2,
+   "Wolf": 2,
+   "Zombie Warrior": 2,
+   "Dark Gray": 2,
+   "Mushroom Man": 3,
+   "Petit Dragon": 3,
+   "Petit Angel": 2,
+   "Winged Cleaver": 2,
+   "Kurama": 2,
+   "Hinotama Soul": 2,
+   "Basic Insect": 2,
+   "Red Medicine": 3,
+   "Sparks": 3,
+   "Forest": 2,
+   "Hinotama": 1
   }
  }
 }

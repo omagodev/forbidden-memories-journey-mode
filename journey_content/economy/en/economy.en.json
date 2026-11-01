@@ -10,6 +10,7 @@
   "shops": {
    "village": "Teana's Stall",
    "harbor": "Dockside Cart",
+   "ship": "Purser's Locker",
    "beach": "Shell Tent",
    "forest": "Hermit's Hut",
    "mountain": "Cliffside Tent",
@@ -22,6 +23,7 @@
    "village": "Oasis",
    "harbor": "Harbor",
    "beach": "Shore",
+   "ship": "Ship",
    "forest": "Forest",
    "mountain": "Mountain",
    "meadow": "Meadow",
@@ -34,6 +36,7 @@
   "keepers": {
    "teana": "Teana",
    "dock_dan": "Dock Dan",
+   "purser": "Purser Pim",
    "shell_sue": "Shell Sue",
    "hermit_hob": "Hermit Hob",
    "cliff_cass": "Cliff Cass",
@@ -50,6 +53,7 @@
    "mountain": "Mine Shaft Pit",
    "meadow": "Rabbit Hole Ring",
    "desert": "Sunken Tomb Pit",
+   "ship": "Bilge Ring",
    "fair": "Underfair Big Top"
   },
   "fighters": {
@@ -81,6 +85,10 @@
    "scarab_sia": "Scarab Sia",
    "dust_dara": "Dust Dara",
    "tomb_lord": "Tomb Lord",
+   "deck_dora": "Deck Dora",
+   "bilge_bo": "Bilge Bo",
+   "rigger_rin": "Rigger Rin",
+   "captain_krill": "Captain Krill",
    "clown_cleo": "Clown Cleo",
    "juggle_jo": "Juggle Jo",
    "spark_sam": "Spark Sam",
@@ -100,6 +108,7 @@
  "dialogue": {
   "keeper_greet.teana": "Cards for coins, friend! Browse away.",
   "keeper_greet.dock_dan": "Fresh off the boat! Cards, cheap.",
+  "keeper_greet.purser": "Tickets checked? Good. Cards for the trip.",
   "keeper_greet.shell_sue": "Shells, cards and secrets. Buy something.",
   "keeper_greet.hermit_hob": "Hrm. A visitor. Cards, if you must.",
   "keeper_greet.cliff_cass": "The odds are good here. Cards, anyone?",
@@ -116,6 +125,7 @@
   "arena_tip.mountain": "Old mine shaft. Gamblers and duelists. Fee at the door.",
   "arena_tip.meadow": "A rabbit hole in the maze. It goes deep.",
   "arena_tip.desert": "A buried tomb. The sand hides a ring.",
+  "arena_tip.ship": "Below deck, past the barrels. Duels. Bring coins.",
   "arena_tip.fair": "Under the big top there is a second show.",
   "arena_clear": "Ladder cleared! The crowd roars.",
   "arena_lost": "You lost. The crowd boos.",
@@ -147,6 +157,10 @@
   "fighter_pre.scarab_sia": "Scarabs guard this tomb. And me.",
   "fighter_pre.dust_dara": "Dust to dust. Cards to cards.",
   "fighter_pre.tomb_lord": "None leave my tomb unchanged.",
+  "fighter_pre.deck_dora": "Swab the deck? I swab duelists.",
+  "fighter_pre.bilge_bo": "Smells like fish down here. Like you.",
+  "fighter_pre.rigger_rin": "I climb masts. You climb nothing.",
+  "fighter_pre.captain_krill": "My bilge, my rules. Win or swim.",
   "fighter_pre.clown_cleo": "Ha ha! The show begins below the show.",
   "fighter_pre.juggle_jo": "Catch! Oops, wrong card.",
   "fighter_pre.spark_sam": "Watch the sparks. They bite.",
@@ -228,6 +242,7 @@
   "arena_fee": "Entry fee: %d coins",
   "arena_enter": "Enter",
   "arena_leave": "Leave",
+  "arena_exclusive": "Only here:",
   "arena_round": "Round %d of %d",
   "arena_champion": "Champion",
   "arena_run_over": "Run over. Pay again to retry.",
@@ -249,6 +264,7 @@
    "mountain": "An abandoned mine shaft, gamblers on the rails.",
    "meadow": "A burrow under the hedges, a ring edged with carrots.",
    "desert": "A buried tomb with torches and a sand floor ring.",
+   "ship": "A ring of rope in the bilge, lit by one swinging lamp.",
    "fair": "A second circus under the fair, ring of sawdust."
   }
  }

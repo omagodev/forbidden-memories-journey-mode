@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+static char home_anchor[MAX_NPC][24];   /* the anchor journey.json gives each one; "places" may move him for a while */
 
 extern JsonNode *jm_rules;
 extern int Story_Cond(const JsonNode *c);
@@ -92,11 +93,18 @@ int World_Load(void)
         strncpy(p->name, Json_Str(n, "name", ""), sizeof(p->name) - 1);
         strncpy(p->mesh, Json_Str(n, "mesh", "Knight_Male"), sizeof(p->mesh) - 1);
         p->duelist_id = (int)Json_Num(n, "duelist_id", 0);
+        if (Json_Str(n, "duelist", NULL)) {    /* a duelist of the mod's own (duelists/<id>.json): the host says which id it got this run */
+            char identity[48];
+            snprintf(identity, sizeof(identity), "ow-poc:%s", Json_Str(n, "duelist", ""));
+            p->duelist_id = jm_host->duelist_id(jm_host, identity);
+            if (p->duelist_id <= 0) p->duelist_id = (int)Json_Num(n, "duelist_id", 0);
+        }
         p->portrait_id = (int)Json_Num(n, "portrait_id", 0);
         p->rules = Json_Get(n, "talk");
         p->moves = Json_Get(n, "places");
         p->base = Json_Get(n, "tile");
         strncpy(p->anchor, Json_Str(n, "anchor", ""), sizeof(p->anchor) - 1);
+        snprintf(home_anchor[npc_count - 1], sizeof(home_anchor[0]), "%s", p->anchor);
         p->mesh_ptr = Gfx_Mesh(p->mesh);
         p->yaw = 3.14159265f;
     }
@@ -126,11 +134,20 @@ void World_PlaceNpcs(void)
         Npc *p = &npcs[i];
         const JsonNode *where = p->base;
         JsonNode *m;
+        if (i < MAX_NPC - 1 && home_anchor[i][0]) snprintf(p->anchor, sizeof(p->anchor), "%s", home_anchor[i]);
         for (m = p->moves ? p->moves->child : NULL; m; m = m->next)
-            if (Story_Cond(Json_Get(m, "when"))) { where = Json_Get(m, "tile"); break; }
+            if (Story_Cond(Json_Get(m, "when"))) {
+                /* "anchor": he stands somewhere else in the painted places (the farewells on the pier); "tile" is the old map's */
+                if (Json_Str(m, "anchor", NULL)) { snprintf(p->anchor, sizeof(p->anchor), "%s", Json_Str(m, "anchor", "")); where = Json_Get(m, "tile") ? Json_Get(m, "tile") : p->base; if (!where) { p->hidden = 0; goto placed; } }
+                else where = Json_Get(m, "tile");
+                break;
+            }
         if (!where || where->type != 'a') { p->hidden = 1; continue; }
         p->hidden = 0;
         tile_vec(where, &p->x, &p->z);
+        continue;
+placed:
+        p->x = p->z = 2.5f * TS;           /* no tile on the old map: only the painted places show him */
     }
 }
 

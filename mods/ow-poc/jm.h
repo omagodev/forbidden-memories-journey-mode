@@ -236,6 +236,12 @@ typedef struct {
     unsigned char cg[8];         /* seven layered options plus render style (0 layered, 1 LPC); saved since version 4 */
     int cg_set;                  /* 1 when the creator made the hero; 0 on an older save, which keeps the painted hero */
     Economy eco;                 /* coins, xp and the rest of the economy (save version 5) */
+    unsigned kflags;             /* story flags 32..63 (the Kingdom's), save version 6; 0 on an older save */
+    int stars;                   /* Duelist Kingdom star chips (0 on an older save: the Shore Camp gives one back) */
+    int eliminations;            /* times the hero lost his last star and woke at the Shore Camp */
+    int pt_area;                 /* the painted area the save was made in (0 village; 3.. the harbor, ship, beach) */
+    int stars_beaten[2];         /* the named duelists already beaten for stars (bit by kingdom duel index) */
+    unsigned char arena_x[4];    /* arenas 9-12 (the ship's Bilge Ring onward): same bits as eco.arena[]; at the end so older saves load */
 } Journey;
 extern Journey jm;
 
@@ -315,6 +321,9 @@ void Paint_Set(float x, float y);
 int Paint_Anchor(const char *name, float *x, float *y);   /* a named place of a painted area in picture texels */
 int Paint_AnchorArea(const char *name);              /* 0 village, 1 cistern, 2 arena, -1 unknown */
 int Paint_Area(void);
+int Paint_SaveArea(void);
+void Paint_SetArea(int area);       /* before the picture is entered: where a loaded save resumes */           /* the area a save resumes in: the kingdom pictures, or 0 (the village) for the rest */
+const char *Paint_AreaId(void);     /* "village", "cistern", "harbor", "ship_deck", "kingdom_beach"; in an arena: the place its door is in */
 void Paint_Warp(const char *area, const char *anchor);   /* go there; changing area loads the other picture, with a fade in */
 void Paint_GoAnchor(const char *anchor);             /* debug: the same without the fade, whatever the area */
 int Paint_ArenaPadAt(void);                          /* standing in the empty challenger mark */
@@ -396,6 +405,7 @@ int Eco_OpenPack(int index, int *cards, int max);
 int Eco_CardClass(int card);                         /* 0 C, 1 B, 2 A, 3 S; -1 for a card with no class */
 int Eco_SellPrice(int card);                         /* 0 when it may not be sold */
 int Eco_Protected(int card);
+const char *Eco_Exclusive(int card);                 /* the arena id whose ring alone drops it, NULL for the rest */
 
 JsonNode *Eco_Block(const char *key);                /* a block of the data, for jm_gang.c */
 void Eco_Note(const char *text, int alert);          /* a line on the message queue */
@@ -434,6 +444,8 @@ int Arena_DoorAt(float x, float y);                  /* the player is at this pl
 float Arena_DoorDistance(float x, float y);          /* texels to it, -1 when this place has none */
 void Arena_Debug(char *out, size_t size, float x, float y);   /* why it does or does not answer */
 int Arena_Open(void);
+const char *Arena_PlaceName(void);
+void Journey_GiveStarter(void);                      /* the weak forty of a new journey (journey.json "starter_deck") */                   /* inside a ring: its name ("Bilge Ring"), NULL without data */
 const char *Arena_Name(void);
 int Arena_Input(unsigned short edge, int *start_duel);   /* 1 when the player is done with it */
 void Arena_Overlay(void);

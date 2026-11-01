@@ -254,6 +254,8 @@
   },
   "frequency_by_area": {
    "village": 1.0,
+   "harbor": 1.0,
+   "ship_deck": 0.8,
    "kingdom_beach": 1.0,
    "kingdom_forest": 1.1,
    "kingdom_mountain": 1.1,
@@ -262,6 +264,8 @@
   },
   "eligible_areas": [
    "village",
+   "harbor",
+   "ship_deck",
    "kingdom_beach",
    "kingdom_forest",
    "kingdom_mountain",
@@ -270,8 +274,6 @@
   ],
   "never_in": [
    "cistern",
-   "harbor",
-   "ship_deck",
    "kingdom_fair",
    "castle_gate",
    "castle_hall",

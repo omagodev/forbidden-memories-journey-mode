@@ -15,6 +15,7 @@
 #include "jm.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 static JsonNode *arenas;
@@ -35,37 +36,39 @@ int Arena_Load(void)
 }
 
 /* --------------------------------------------------------- what the save says */
-static int rung_of(int i) { return i >= 0 && i < 8 ? jm.eco.arena[i] & 7 : 0; }
-static int clears_of(int i) { return i >= 0 && i < 8 ? (jm.eco.arena[i] >> 3) & 15 : 0; }
-static int found_of(int i) { return i >= 0 && i < 8 ? (jm.eco.arena[i] >> 7) & 1 : 0; }
+static unsigned char *abyte(int i) { return i >= 0 && i < 8 ? &jm.eco.arena[i] : i >= 8 && i < 12 ? &jm.arena_x[i - 8] : NULL; }
+static int rung_of(int i) { unsigned char *b = abyte(i); return b ? *b & 7 : 0; }
+static int clears_of(int i) { unsigned char *b = abyte(i); return b ? (*b >> 3) & 15 : 0; }
+static int found_of(int i) { unsigned char *b = abyte(i); return b ? (*b >> 7) & 1 : 0; }
 static void set_rung(int i, int rung)
 {
-    if (i < 0 || i >= 8) return;
-    jm.eco.arena[i] = (unsigned char)((jm.eco.arena[i] & ~7) | (rung & 7));
+    unsigned char *b = abyte(i);
+    if (b) *b = (unsigned char)((*b & ~7) | (rung & 7));
 }
 static void add_clear(int i)
 {
+    unsigned char *b = abyte(i);
     int c = clears_of(i);
-    if (i < 0 || i >= 8 || c >= 15) return;
-    jm.eco.arena[i] = (unsigned char)((jm.eco.arena[i] & ~(15 << 3)) | ((c + 1) << 3));
+    if (b && c < 15) *b = (unsigned char)((*b & ~(15 << 3)) | ((c + 1) << 3));
 }
 static void set_found(int i)
 {
-    if (i >= 0 && i < 8) jm.eco.arena[i] |= 0x80;
+    unsigned char *b = abyte(i);
+    if (b) *b |= 0x80;
 }
 
 /* ------------------------------------------------------------- the door */
 static JsonNode *arena_of_area(int *index)
 {
     JsonNode *n;
-    const char *area = paint_area_now() == 0 ? "village" : paint_area_now() == 1 ? "cistern" : NULL;
+    const char *area = Paint_AreaId();      /* inside a ring: the place its door is in */
     int i = 0;
     if (!area) return NULL;
     for (n = arenas ? arenas->child : NULL; n; n = n->next, i++) {
         const char *anchor = Json_Str(n, "entry_anchor", "");
         /* "village.arena_door": the place is the part before the dot */
         if (strncmp(anchor, area, strlen(area)) || anchor[strlen(area)] != '.') continue;
-        if (index) *index = i;
+        if (index) *index = (int)Json_Num(n, "slot", i);   /* its place in arenas.json, so the save byte never moves */
         return n;
     }
     return NULL;
@@ -89,10 +92,9 @@ float Arena_DoorDistance(float x, float y)
     JsonNode *a = arena_of_area(NULL);
     const char *anchor;
     float ax, ay, dx, dy;
-    if (paint_area_now() != 0 || !a || !arenas) return -1.0f;
-    anchor = Json_Str(a, "entry_anchor", "");
-    anchor = strchr(anchor, '.');
-    if (!anchor || !Paint_Anchor(anchor + 1, &ax, &ay)) return -1.0f;
+    if (paint_area_now() == 2 || !a || !arenas) return -1.0f;
+    anchor = Json_Str(a, "entry_anchor", "");      /* "harbor.arena_door": the anchor of that area */
+    if (!Paint_Anchor(anchor, &ax, &ay)) return -1.0f;
     dx = x - ax;
     dy = y - ay;
     return (float)sqrt((double)(dx * dx + dy * dy));
@@ -139,6 +141,8 @@ int Arena_Open(void)
 }
 
 const char *Arena_Name(void) { return here ? EcoTr(Json_Str(here, "name_id", "")) : ""; }
+/* the ring the player stands in (from the place its door is in), before the ladder is opened */
+const char *Arena_PlaceName(void) { JsonNode *a = arena_of_area(NULL); return a ? EcoTr(Json_Str(a, "name_id", "")) : NULL; }
 
 /* ------------------------------------------------------------- the ladder */
 static JsonNode *rung_at(int rung) { return here ? Json_At(Json_Get(here, "ladder"), rung) : NULL; }
@@ -268,6 +272,19 @@ void Arena_Overlay(void)
         Ui_Text(px + pw - 34 * s, ry, buf, 0xF0C860);
     }
 
+    {                                       /* the cards only this ring gives */
+        char line[160], nm[40];
+        JsonNode *x = Eco_Block("exclusive"), *e;
+        int k = 0;
+        snprintf(line, sizeof(line), "%s", EcoTr("ui.arena_exclusive"));
+        for (e = x ? x->child : NULL; e; e = e->next)
+            if (e->key && !strcmp(e->str ? e->str : "", here_id)) {
+                nm[0] = 0;
+                Cards_NameUtf8(atoi(e->key), nm, sizeof(nm));
+                snprintf(line + strlen(line), sizeof(line) - strlen(line), "%s%s", k++ ? ", " : " ", nm);
+            }
+        if (k) Ui_Text(px + 14 * s, py + lh * (n + 3), line, 0xE0B040);
+    }
     if (rung > 0) Ui_Fmt1(buf, sizeof(buf), EcoTr("ui.arena_round"), rung + 1);
     else Ui_Fmt1(buf, sizeof(buf), EcoTr("ui.arena_fee"), (int)Json_Num(here, "fee", 0));
     Ui_Text(px + 14 * s, py + lh * (n + 4), buf, 0xC8C8C8);
@@ -285,6 +302,6 @@ void Arena_Overlay(void)
 unsigned Arena_Signature(void)
 {
     return 1234567891u + generation * 2246822519u + (unsigned)sel * 131u +
-           (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.arena[here_index & 7] * 7919u +
+           (unsigned)jm.eco.coins * 1009u + (unsigned)rung_of(here_index) * 7919u + (unsigned)clears_of(here_index) * 31u +
            (unsigned)(note_timer > 0) * 3331u;
 }

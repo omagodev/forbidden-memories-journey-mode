@@ -24,12 +24,17 @@
 
 static int loaded, load_failed;
 int paint_area;                    /* village, old cistern, or the secret flour-cellar arena */
-enum { AREA_VILLAGE, AREA_CISTERN, AREA_ARENA, AREA_COUNT };
+enum { AREA_VILLAGE, AREA_CISTERN, AREA_ARENA, AREA_HARBOR, AREA_SHIP, AREA_BEACH, AREA_COUNT };
+#define KINGDOM_ZONE(a) ((a) >= AREA_HARBOR)   /* the chapter 2 pictures: their people share sprite pages with the villagers */
 static const struct { const char *name, *pic, *col, *occ; int cw, ch, cell; } parea[AREA_COUNT] = {
     {"village", "assets/painted.raw", "assets/painted_col.bin", NULL, 160, 90, 8},
     {"cistern", "assets/painted_cistern.raw", "assets/painted_cistern_col.bin", "assets/painted_cistern_occ.bin", 320, 180, 4},
     {"arena_village", "assets/painted_arena.raw", "assets/painted_arena_col.bin", NULL, 160, 90, 8},
+    {"harbor", "assets/painted_harbor.raw", "assets/painted_harbor_col.bin", "assets/painted_harbor_occ.bin", 320, 180, 4},
+    {"ship_deck", "assets/painted_ship_deck.raw", "assets/painted_ship_deck_col.bin", "assets/painted_ship_deck_occ.bin", 320, 180, 4},
+    {"kingdom_beach", "assets/painted_beach.raw", "assets/painted_beach_col.bin", "assets/painted_beach_occ.bin", 320, 180, 4},
 };
+static int arena_from = AREA_VILLAGE;   /* every clandestine ring is the same cellar picture: this is the place its door is in */
 static unsigned char *col;         /* the collision mask: col_w x col_h cells of col_cell texels (the village 160 x 90 of 8, the cistern 320 x 180 of 4) */
 static int col_w = 160, col_h = 90, col_cell = 8;
 #define MAX_OCC 64
@@ -71,7 +76,8 @@ static int bench_at(float *x, float *y);
 #define SPR_CH 62
 #define SPR_FX 24
 #define SPR_FY 56
-enum { SPR_LPC_TEST, SPR_PLAYER_MESH, SPR_AI, SPR_SIMON, SPR_TEANA, SPR_JONO, SPR_GUARD, SPR_RIVAL, SPR_MAGO, SPR_BAKER, SPR_FARMER, SPR_REX, SPR_BAKURA, SPR_ARENA_CROWD, SPR_HERO, SPR_COUNT };
+enum { SPR_LPC_TEST, SPR_PLAYER_MESH, SPR_AI, SPR_SIMON, SPR_TEANA, SPR_JONO, SPR_GUARD, SPR_RIVAL, SPR_MAGO, SPR_BAKER, SPR_FARMER, SPR_REX, SPR_BAKURA, SPR_ARENA_CROWD, SPR_HERO,
+       SPR_SOLDIER, SPR_SHADI, SPR_MAI, SPR_WEEVIL, SPR_TRADER, SPR_CAMP, SPR_INSETO, SPR_COUNT };
 typedef struct { const char *file; int recolour; int nf, w, h, fx, fy; unsigned char *kind, *wt, *rgb; int ok, bank, page; } Spr;
 static Spr spr[SPR_COUNT] = {
     {"assets/spr_lpc_test.bin", 0}, {"assets/spr_player.bin", 1}, {"assets/spr_ai.bin", 0},
@@ -79,10 +85,22 @@ static Spr spr[SPR_COUNT] = {
     {"assets/spr_rival.bin", 0}, {"assets/spr_mago_robe.bin", 0}, {"assets/spr_baker.bin", 0}, {"assets/spr_farmer.bin", 0},
     {"assets/spr_rex.bin", 0}, {"assets/spr_bakura.bin", 0}, {"assets/spr_arena_crowd.bin", 0},
     {NULL, 0},      /* SPR_HERO: composed from the chargen layers (jm_chargen.c), no file */
+    {"assets/spr_soldier.bin", 0}, {"assets/spr_shadi.bin", 0}, {"assets/spr_mai.bin", 0}, {"assets/spr_weevil.bin", 0},
+    {"assets/spr_trader.bin", 0}, {"assets/spr_camp_merchant.bin", 0}, {"assets/spr_inseto.bin", 0},
 };
 /* Where each sheet lives: bank 13 has eight 256x256 pages. Frames are packed into as many columns as their recorded width permits. */
-static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 15, 13};
-static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 4, 2};   /* the arena's anonymous crowd temporarily owns bank 15 page 4; leaving reloads the village props there */
+static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 15, 13,   13, 15, 15, 15, 15, 13, 13};
+static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 4, 2,   7, 2, 3, 6, 7, 3, 5};
+/* who may own a page where: 0 everywhere, 1 only in the home town (village, cistern, cellar), 2 only in the chapter 2 pictures.
+ * The harbor, ship and beach people take the pages of the villagers who never leave home (and of the bench and hatches). */
+static const unsigned char spr_zone[SPR_COUNT] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0,   2, 2, 2, 2, 2, 2, 3};
+/* 3: only on the ship, where InsetoKaiba borrows Teana's page (she says goodbye on the pier and stays home); bank 15 page 4 is the props' */
+static int spr_zone_ok(int i, int area)
+{
+    if (spr_zone[i] == 3) return area == AREA_SHIP;
+    if (i == SPR_TEANA && area == AREA_SHIP) return 0;
+    return !spr_zone[i] || spr_zone[i] == (KINGDOM_ZONE(area) ? 2 : 1);
+}   /* the arena's anonymous crowd temporarily owns bank 15 page 4; leaving reloads the village props there */
 int paint_sprite = 1;               /* LPC proof of concept by default; debug Square still compares every renderer */
 static int spr_baked[SPR_COUNT];   /* cleared when the painted scene is entered: banks are reloaded then */
 static int face = 0;              /* 0 down, 1 left, 2 right, 3 up */
@@ -285,6 +303,7 @@ static void sprites_prepare(const int body_rgb[5])
     for (i = 0; i < SPR_COUNT; i++) {
         int fresh = !spr_baked[i];
         if (i == SPR_ARENA_CROWD && paint_area != AREA_ARENA) continue;   /* page 4 belongs to the village props everywhere else */
+        if (!spr_zone_ok(i, paint_area)) continue;
         if (!spr_load(i)) continue;
         if (i == SPR_LPC_TEST) { lpc_refresh(); fresh = !spr_baked[i]; }   /* the creator or a debug look changed the hero */
         if (fresh || (spr[i].recolour && !same)) { spr_bake(i, body_rgb); spr_baked[i] = 1; }
@@ -311,11 +330,23 @@ static PNpc pnpc[] = {
     {"Ninja_Sand", SPR_FARMER, 700, 470, 1.5708f, 1, 40},       /* Kemet the farmer, a short stroll */
     {"Suit_Male", SPR_REX, 1215, 425, 4.7124f, 0, 0},            /* Rex Raptor on the east road (the story places him) */
     {"Wizard", SPR_BAKURA, 638, 365, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0, AREA_CISTERN, 1.2f},   /* the ghost Bakura on the dais of the cistern: he hovers */
+    /* chapter 2: the harbor, the ship, the Shore of Illusions (the area follows the anchor journey.json gives them) */
+    {"Knight_Male", SPR_SOLDIER, 420, 330, 4.7124f, 0, 0},       /* the harbor inspector */
+    {"Wizard", SPR_SHADI, 860, 360, 4.7124f, 0, 0},              /* the Courier, Shadi */
+    {"Ninja_Sand_Female", SPR_MAI, 820, 260, 0.0f, 1, 40},     /* Mai Valentine, pacing the deck */
+    {"Suit_Male", SPR_INSETO, 470, 430, 0.0f, 0, 0},             /* InsetoKaiba */
+    {"Suit_Male", SPR_WEEVIL, 470, 330, 0.0f, 0, 0},             /* Weevil Underwood */
+    {"Worker_Male", SPR_TRADER, 360, 440, 0.0f, 0, 0},           /* Dock Dan, the harbor's cart */
+    {"Worker_Male", SPR_TRADER, 726, 430, 0.0f, 0, 0},           /* the purser's stall on the ship (same sheet) */
+    {"Ninja_Sand_Female", SPR_CAMP, 840, 300, 0.0f, 0, 0},     /* Shell Sue, the beach tent */
+    {"Wizard", SPR_RIVAL, 290, 640, 0.0f, 0, 0},                 /* the Hooded Man at the end of the beach pier (one line) */
 };
 #define NPN ((int)(sizeof(pnpc) / sizeof(pnpc[0])))
 static int npc_init;
 /* Which journey.json person each villager is (the order of pnpc[]), and the talk state. */
-static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_man", "baker", "farmer", "rex", "bakura"};
+static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_man", "baker", "farmer", "rex", "bakura",
+                                     "soldier", "shadi", "mai", "inseto_kaiba", "weevil", "dock_dan", "purser", "shell_sue", "hooded_shore"};
+static char pnpc_anchor[NPN][24];      /* the anchor each one was last placed at: the story moves people (the farewells) */
 #define GUARD 2
 static short guard_home[2] = {652, 168};   /* the bridge_north anchor (set from the table below) */
 static const short guard_aside[2] = {566, 176};   /* he steps aside once the bridge is open */
@@ -328,25 +359,58 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     {"mini_pyramid_hatch", 182, 278, 0}, {"hatch_prop", 148, 262, 0}, {"date_palm", 840, 345, 0}, {"river_bank", 480, 114, 0}, {"east_road", 1215, 425, 0}, {"rex_approach", 1128, 432, 0},
     {"spawn_stairs", 638, 222, 1}, {"exit_stairs", 639, 50, 1}, {"bakura_spot", 638, 365, 1}, {"wall_glyph", 388, 200, 1},
     {"arena_player", 640, 493, 2}, {"arena_opponent", 640, 184, 2}, {"arena_exit", 640, 574, 2},
+    /* the harbor: the boardwalk runs west-east from the village road to the gangplank */
+    {"spawn_gate", 70, 365, 3}, {"bridge_back", 24, 365, 3}, {"inspector_spot", 420, 330, 3}, {"harbor_mid", 560, 362, 3},
+    {"shop_stall", 360, 440, 3}, {"arena_door", 250, 238, 3}, {"pier_end", 860, 362, 3}, {"gangway", 960, 362, 3},
+    {"farewell_simon", 700, 300, 3}, {"farewell_teana", 770, 425, 3}, {"farewell_jono", 630, 425, 3}, {"breakwater", 975, 600, 3},
+    /* the ship: the Golden Eye's deck, the gangway at the bottom, the bow to the east */
+    {"spawn_gangway", 597, 520, 4}, {"mai_spot", 820, 260, 4}, {"inseto_spot", 470, 430, 4}, {"barrel", 350, 205, 4},
+    {"bow", 1080, 335, 4}, {"mast_top", 617, 300, 4}, {"shop_stall", 726, 430, 4}, {"arena_door", 310, 400, 4},
+    /* the Shore of Illusions */
+    {"spawn", 290, 540, 5}, {"mirror_spot", 660, 200, 5}, {"weevil_spot", 470, 330, 5}, {"shore_camp", 890, 445, 5},
+    {"shop_stall", 840, 300, 5}, {"arena_door", 180, 150, 5}, {"pier_far", 290, 640, 5}, {"jungle_path", 975, 80, 5},
+    {"beach_center", 560, 420, 5},
 };
+#define NANCHOR ((int)(sizeof(anchors) / sizeof(anchors[0])))
+/* "area.name" picks the anchor of that area; a bare name the one in the area the player is in, else the first of that name */
+static int anchor_find(const char *name)
+{
+    int i, a = -1, first = -1;
+    const char *dot = name ? strchr(name, '.') : NULL;
+    if (!name) return -1;
+    if (dot) {
+        for (i = 0; i < AREA_COUNT; i++)
+            if (!strncmp(parea[i].name, name, (size_t)(dot - name)) && parea[i].name[dot - name] == 0) a = i;
+        if (a < 0) return -1;
+        name = dot + 1;
+    }
+    for (i = 0; i < NANCHOR; i++) {
+        if (strcmp(anchors[i].name, name)) continue;
+        if (a >= 0) { if (anchors[i].area == a) return i; continue; }
+        if (anchors[i].area == paint_area) return i;
+        if (first < 0) first = i;
+    }
+    return first;
+}
 const char *Paint_AnchorName(int i) { return i >= 0 && i < (int)(sizeof(anchors) / sizeof(anchors[0])) ? anchors[i].name : NULL; }
 static int time_ov = -1;
 int Paint_ForcedTime(void) { return time_ov; }
 int Paint_AnchorArea(const char *name)
 {
-    int i;
-    for (i = 0; name && i < (int)(sizeof(anchors) / sizeof(anchors[0])); i++)
-        if (!strcmp(anchors[i].name, name)) return anchors[i].area;
-    return -1;
+    int i = anchor_find(name);
+    return i >= 0 ? anchors[i].area : -1;
 }
+const char *Paint_AreaId(void) { return parea[paint_area == AREA_ARENA ? arena_from : paint_area].name; }
+int Paint_SaveArea(void) { int a = paint_area == AREA_ARENA ? arena_from : paint_area; return KINGDOM_ZONE(a) ? a : 0; }
+void Paint_SetArea(int a) { paint_area = a >= 0 && a < AREA_COUNT && a != AREA_ARENA ? a : 0; arena_from = paint_area; }
 int Paint_Area(void) { return paint_area; }
 int paint_area_now(void) { return paint_area; }
 int Paint_Anchor(const char *name, float *x, float *y)
 {
-    int i;
-    for (i = 0; name && i < (int)(sizeof(anchors) / sizeof(anchors[0])); i++)
-        if (!strcmp(anchors[i].name, name)) { *x = anchors[i].x; *y = anchors[i].y; return 1; }
-    return 0;
+    int i = anchor_find(name);
+    if (i < 0) return 0;
+    *x = anchors[i].x; *y = anchors[i].y;
+    return 1;
 }
 static int ptalk[NPN];                  /* 1 while the player talks to him: he stands still and faces the player */
 static int guard_block;                 /* the bridge is shut: the Guard has not been moved yet */
@@ -498,6 +562,15 @@ static int blocked(float x, float y)
             if (bench_at(&bx, &by) && x >= bx - 37 && x <= bx + 37 && y >= by - 9 && y <= by + 2 && !sitting) return 1;
         }
     }
+    {   /* journey.json "painted": {"blocks": [{"area": n, "rect": [x0, y0, x1, y1], "when": cond}]}: a way shut until the story opens it */
+        const JsonNode *po = Json_Get(jm_rules, "painted"), *n;
+        for (n = po ? Json_Get(po, "blocks") : NULL, n = n ? n->child : NULL; n; n = n->next) {
+            const JsonNode *r = Json_Get(n, "rect");
+            if ((int)Json_Num(n, "area", -1) != paint_area || !r) continue;
+            if (x >= Json_At(r, 0)->num && y >= Json_At(r, 1)->num && x <= Json_At(r, 2)->num && y <= Json_At(r, 3)->num &&
+                (!Json_Get(n, "when") || Story_Cond(Json_Get(n, "when")))) return 1;
+        }
+    }
     return blocked_at(x - 5, y) || blocked_at(x + 5, y) || blocked_at(x, y - 3) || blocked_at(x, y + 2);
 }
 
@@ -532,7 +605,7 @@ static int ow_of(int i)
 }
 /* at night the villagers who live in the picture's houses are indoors (Teana, Jono, Hakim, Kemet): the plaza is empty for the hooded man */
 static int night_away(int i) { return night_t > 0.6f && (i == 1 || i == 3 || i == 5 || i == 6); }
-static int npc_here(int i) { int k = ow_of(i); return k >= 0 && pnpc[i].area == paint_area && !npcs[k].hidden && !night_away(i); }
+static int npc_here(int i) { int k = ow_of(i); return k >= 0 && pnpc[i].area == paint_area && !npcs[k].hidden && !night_away(i) && spr_zone_ok(pnpc[i].spr, paint_area); }
 /* the bridge is open: journey.json's "painted": {"bridge_open": cond} holds (without it: the Guard has been moved) */
 static int npc_moved(int i);
 static int bridge_open(void)
@@ -572,10 +645,15 @@ static void npcs_update(void)
         float nx, ny, step = 0.8f;
         if (!npc_init) { n->ax = n->x; n->ay = n->y; n->dirn = 1; n->pause = 30 * i; }
         n->moving = 0;
-        if (!npc_init) {   /* each villager stands at the anchor journey.json names for him */
+        {   /* each one stands at the anchor journey.json names for him; the story can move him (the farewells at the pier) */
             int k = ow_of(i);
             float ax, ay;
-            if (k >= 0 && Paint_Anchor(npcs[k].anchor, &ax, &ay)) { n->x = n->ax = ax; n->y = n->ay = ay; if (i == GUARD) { guard_home[0] = (short)ax; guard_home[1] = (short)ay; } }
+            if (k >= 0 && (!npc_init || strcmp(pnpc_anchor[i], npcs[k].anchor)) && Paint_Anchor(npcs[k].anchor, &ax, &ay)) {
+                n->x = n->ax = ax; n->y = n->ay = ay;
+                n->area = Paint_AnchorArea(npcs[k].anchor);
+                snprintf(pnpc_anchor[i], sizeof(pnpc_anchor[i]), "%s", npcs[k].anchor);
+                if (i == GUARD) { guard_home[0] = (short)ax; guard_home[1] = (short)ay; }
+            }
         }
         if (n->area != paint_area) continue;
         if (i == GUARD) {   /* the Guard bars the bridge until the story opens it; then he steps aside */
@@ -1083,7 +1161,11 @@ void Paint_Info(float *x, float *y, float *sx, float *sy)
 {
     *sx = scr_x; *sy = scr_y;
     if (paint_area == AREA_CISTERN && Paint_Anchor("mini_pyramid_hatch", x, y)) return;
-    if (paint_area == AREA_ARENA && Paint_Anchor("arena_door", x, y)) return;
+    if (paint_area == AREA_ARENA) {
+        char a[40];
+        snprintf(a, sizeof(a), "%s.arena_door", parea[arena_from].name);
+        if (Paint_Anchor(a, x, y)) return;
+    }
     *x = pt_x; *y = pt_y;
 }
 void Paint_Set(float x, float y) { pt_x = x; pt_y = y; }
@@ -1092,11 +1174,14 @@ void Paint_Warp(const char *area_name, const char *anchor)
 {
     float x, y;
     int a = -1, i;
+    char q[48];
     for (i = 0; i < AREA_COUNT; i++) if (area_name && !strcmp(parea[i].name, area_name)) a = i;
+    if (a >= 0 && anchor && !strchr(anchor, '.')) { snprintf(q, sizeof(q), "%s.%s", parea[a].name, anchor); if (anchor_find(q) >= 0) anchor = q; }
     if (a < 0) a = Paint_AnchorArea(anchor);
     if (a < 0 || !Paint_Anchor(anchor, &x, &y)) { LOG("painted: no place %s", anchor ? anchor : "?"); return; }
     memset(ptalk, 0, sizeof(ptalk));
     pt_x = x; pt_y = y; face = a == AREA_ARENA ? 3 : 0; walking = 0;
+    if (a == AREA_ARENA && paint_area != AREA_ARENA) arena_from = paint_area;
     if (a != paint_area) { paint_area = a; Paint_Enter(); fade_in = 30; }
     else Paint_Enter_Scroll();
     LOG("painted: now in the %s at %d,%d", parea[paint_area].name, (int)x, (int)y);
@@ -1406,6 +1491,7 @@ int Paint_Target(float *tx, float *ty)
         *tx = (EXIT_X0 + EXIT_X1) / 2.0f; *ty = 48.0f + 40.0f;   /* the bridge */
         return 1;
     }
+    if (paint_area == AREA_VILLAGE && jm.stage >= 4) { *tx = (EXIT_X0 + EXIT_X1) / 2.0f; *ty = 48.0f + 40.0f; return 1; }   /* the story is past the bridge */
     return 0;
 }
 

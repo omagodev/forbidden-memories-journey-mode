@@ -374,3 +374,25 @@ OBSERVER_EVENTS = [
  dict(id="mast_top", n=4, npc="mago_dev", sprite="robe", overlay="aura", area="ship_deck", anchor="mast_top", show_during=dict(script="dk1_arrival", pages=[0, 3]), vanish="glitch", flag="mago_mast",
       note="Sits at the top of the mast watching the island. Mai cannot see him."),
 ]
+
+# ---------------------------------------------------------------- chapter 2 (the Shore of Illusions): dk_chapter2.py
+import dk_chapter2 as _C2
+SPEAKERS.update(_C2.SPEAKERS)
+FLAGS += _C2.FLAGS
+STAGES = sorted(STAGES + _C2.STAGES)
+AREAS = [a if a[0] != "kingdom_beach" else ("kingdom_beach", "Shore of Illusions", "Costa das Ilusoes",
+         "First area of the Kingdom: landing pier, a standing mirror, tents of the Shore Camp, a stall, a sea cave, a jungle path.", "exists (painted, chapter 2)")
+         for a in AREAS]
+ANCHORS["kingdom_beach"] = _C2.ANCHORS["kingdom_beach"]
+ANCHORS["harbor"].update(_C2.ANCHORS["harbor_extra"]); ANCHORS["ship_deck"].update(_C2.ANCHORS["ship_extra"])
+ITEMS += _C2.ITEMS
+NPCS += _C2.NPCS
+NPC_SPEAKER.update(_C2.NPC_SPEAKER)
+OBJECTS += _C2.OBJECTS
+DUELS += _C2.DUELS
+TRANSITIONS += _C2.TRANSITIONS
+HUD += _C2.HUD
+CHAPTERS.append(_C2.CHAPTER)
+QUESTS += _C2.QUESTS
+DECKS.update(_C2.DECKS)
+STARTER_DECK = _C2.STARTER_DECK

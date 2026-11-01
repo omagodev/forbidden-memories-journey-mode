@@ -591,6 +591,82 @@
     "Dragon"
    ],
    "text_id": "fighter_pre.spark_sam"
+  },
+  {
+   "id": "deck_dora",
+   "arena": "ship",
+   "rung": 1,
+   "name": "Deck Dora",
+   "tier": 2,
+   "duelist": {
+    "id": "eco_deck_dora",
+    "copy": "Villager 1",
+    "name": "Deck Dora",
+    "slot": 81
+   },
+   "deck": "Deck Dora",
+   "types": [
+    "Warrior",
+    "Aqua"
+   ],
+   "text_id": "fighter_pre.deck_dora"
+  },
+  {
+   "id": "bilge_bo",
+   "arena": "ship",
+   "rung": 2,
+   "name": "Bilge Bo",
+   "tier": 3,
+   "duelist": {
+    "id": "eco_bilge_bo",
+    "copy": "Forest Mage",
+    "name": "Bilge Bo",
+    "slot": 82
+   },
+   "deck": "Bilge Bo",
+   "types": [
+    "Fish"
+   ],
+   "text_id": "fighter_pre.bilge_bo"
+  },
+  {
+   "id": "rigger_rin",
+   "arena": "ship",
+   "rung": 3,
+   "name": "Rigger Rin",
+   "tier": 3,
+   "duelist": {
+    "id": "eco_rigger_rin",
+    "copy": "Ocean Mage",
+    "name": "Rigger Rin",
+    "slot": 83
+   },
+   "deck": "Rigger Rin",
+   "types": [
+    "Winged Beast",
+    "Sea Serpent"
+   ],
+   "text_id": "fighter_pre.rigger_rin"
+  },
+  {
+   "id": "captain_krill",
+   "arena": "ship",
+   "rung": 4,
+   "name": "Captain Krill",
+   "tier": 4,
+   "duelist": {
+    "id": "eco_captain_krill",
+    "copy": "Mountain Mage",
+    "name": "Captain Krill",
+    "slot": 84
+   },
+   "deck": "Captain Krill",
+   "types": [
+    "Fish",
+    "Sea Serpent",
+    "Warrior"
+   ],
+   "text_id": "fighter_pre.captain_krill"
   }
  ],
  "arenas": [
@@ -1348,6 +1424,102 @@
    },
    "repeat_clear": {
     "coins": 300,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "ship",
+   "location": "ship",
+   "area": "ship_deck",
+   "interior_area": "arena_ship",
+   "name": "Bilge Ring",
+   "setting": "A ring of rope in the bilge, lit by one swinging lamp.",
+   "keeper": "purser",
+   "tip_id": "arena_tip.ship",
+   "name_id": "arena.ship",
+   "entry_anchor": "ship_deck.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 2,
+    "stage_min": 7
+   },
+   "fee": 50,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "deck_dora",
+     "tier": 2,
+     "deck": "Deck Dora",
+     "champion": false,
+     "coins": 40,
+     "xp_base": 16,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "bilge_bo",
+     "tier": 3,
+     "deck": "Bilge Bo",
+     "champion": false,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "rigger_rin",
+     "tier": 3,
+     "deck": "Rigger Rin",
+     "champion": false,
+     "coins": 65,
+     "xp_base": 24,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "captain_krill",
+     "tier": 4,
+     "deck": "Captain Krill",
+     "champion": true,
+     "coins": 95,
+     "xp_base": 34,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "ship",
+   "first_clear": {
+    "coins": 360,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.ship"
+   },
+   "repeat_clear": {
+    "coins": 120,
     "xp_mult": 0.0,
     "drops": {
      "context": "arena_clear",

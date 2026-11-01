@@ -42,6 +42,7 @@ def card(name, where):
 
 def r5(x): return int(round(x / 5.0)) * 5
 RAR = ("C", "B", "A", "S")
+KINGDOM_STAR_DUELS = {"weevil"}   # chapter 2 duels that wager star chips (the home town never does)
 
 # ---------------------------------------------------------------- load
 ECO = load("economy.json"); SHOPS = load("shops.json"); POOLS = load("card_pools.json"); GANG = load("gang.json")
@@ -60,8 +61,8 @@ try:
 except Exception as e:
     BASES = set(); warn("could not read duelist names: %s" % e)
 story_flags = {f["name"] for f in STORY["flags"]}
-if len(story_flags) + ECO["state"]["flags_used"] > 32: err("flag budget exceeded: %d story + %d economy" % (len(story_flags), ECO["state"]["flags_used"]))
-if ECO["state"]["flags_used"] != 0: err("the economy must not use story flags (30 of 32 are taken)")
+if len(story_flags) + ECO["state"]["flags_used"] > 64: err("flag budget exceeded: %d story + %d economy" % (len(story_flags), ECO["state"]["flags_used"]))
+if ECO["state"]["flags_used"] != 0: err("the economy must not use story flags (the story owns all 64 bits)")
 story_areas = {a["id"] for a in STORY["areas"]} | {a["id"] for a in OUTLINE["areas"]}
 new_areas = {a["id"] for a in ECO["new_areas"]}
 known_areas = story_areas | new_areas
@@ -248,8 +249,8 @@ for s in SHOPS["shops"]:
     if s["area"] != POOL[s["pool"]]["area"]: err("%s: shop area != pool area" % w)
 for rar in RAR:
     if min_buy[rar] < 10 ** 9 and sell_price(rar) >= min_buy[rar]: err("sell price %d of %s is not below the cheapest buy price %d" % (sell_price(rar), rar, min_buy[rar]))
-if len(shop_ids) != 9: err("expected 9 shops, found %d" % len(shop_ids))
-for l in ("cistern", "ship_deck", "castle_hall", "castle_top"):
+if len(shop_ids) != 10: err("expected 10 shops, found %d" % len(shop_ids))
+for l in ("cistern", "castle_hall", "castle_top"):
     if any(s["area"] == l for s in SHOPS["shops"]): err("area %s must have no shop" % l)
 infos.append("shops: " + ", ".join(sorted(shop_ids)) + "; one-time purchase bits used %d/64" % len(used_bits))
 
@@ -365,7 +366,8 @@ for a in ARENAS["arenas"]:
     if p80 > 3.5 * sum(r["coins"] for r in a["ladder"]) / 4: warn("%s: very strong player earns a lot per run" % w)
     fc = a["first_clear"]
     if fc["coins"] <= 0: err("%s: first clear" % w)
-if len(arena_ids) != 8: err("expected 8 arenas, got %d" % len(arena_ids))
+if len(arena_ids) != 9: err("expected 9 arenas, got %d" % len(arena_ids))
+if len(arena_ids) > 12: err("the save has 12 arena bytes (eco.arena[8] + arena_x[4])")
 if "old_jackal" not in [r["fighter"] for r in next(a for a in ARENAS["arenas"] if a["id"] == "fair")["ladder"]]: err("the Underfair champion must be Old Jackal")
 for l in ("cistern", "ship_deck", "castle_gate", "castle_hall", "castle_top"):
     if any(a["location"] == l for a in ARENAS["arenas"]): err("area %s must have no arena" % l)
@@ -383,7 +385,7 @@ for q, v in ec["rewards_story"]["quest_coins"].items():
 story_duel_ids = {d["id"] for d in STORY["duels"]}
 for d in ec["rewards_story"]["duels"]:
     if d["id"] not in story_duel_ids: err("story duel %s unknown" % d["id"])
-    if d["stars_wager"]: err("a home-town duel with stars_wager: the star system must stay as it is")
+    if d["stars_wager"] and d["id"] not in KINGDOM_STAR_DUELS: err("a home-town duel with stars_wager: the star system must stay as it is")
 story_give = set()
 def walk(n):
     if isinstance(n, dict):
@@ -395,6 +397,36 @@ def walk(n):
 walk(STORY)
 if set(ec["rewards_story"]["protected_cards"]) != story_give: err("protected_cards differ from the story's give_card effects")
 for n in ec["rewards_story"]["protected_cards"]: card(n, "protected card")
+# ---------------------------------------------------------------- arena exclusives
+# A card marked exclusive drops only in its own ring: arena_only in exactly one pool, in no other pool,
+# never sold (always, limited, packs draw from pools but skip arena_only), never a story reward or in the starter deck.
+excl = {}
+for p in POOLS["pools"]:
+    for e in p["entries"]:
+        if e.get("exclusive"):
+            if e["card"] in excl: err("exclusive %s in two pools (%s, %s)" % (e["card"], excl[e["card"]], p["id"]))
+            excl[e["card"]] = p["id"]
+            if not e.get("arena_only"): err("exclusive %s is not arena_only in %s" % (e["card"], p["id"]))
+            if p["id"] not in {a["pool"] for a in ARENAS["arenas"]}: err("exclusive %s: pool %s has no arena" % (e["card"], p["id"]))
+for p in POOLS["pools"]:
+    for e in p["entries"]:
+        if e["card"] in excl and excl[e["card"]] != p["id"]: err("exclusive %s of %s also in pool %s" % (e["card"], excl[e["card"]], p["id"]))
+for s in SHOPS["shops"]:
+    st = s["stock"]
+    for e in st["always"] + st["limited"]:
+        if e["card"] in excl: err("exclusive %s is sold in shop %s" % (e["card"], s["id"]))
+for n in excl:
+    if n in story_give: err("exclusive %s is a story reward" % n)
+try:
+    STARTER = json.load(open(os.path.join(DK, "decks_dk.json"), encoding="utf-8"))["starter"]["cards"]
+    for n in excl:
+        if n in STARTER: err("exclusive %s is in the starter deck" % n)
+    if sum(STARTER.values()) != 40: err("the starter deck has %d cards" % sum(STARTER.values()))
+except KeyError:
+    err("decks_dk.json has no starter deck")
+for need in ("village", "harbor", "ship", "beach"):
+    if sum(1 for v in excl.values() if v == need) < 3: err("arena %s has fewer than 3 exclusives" % need)
+infos.append("arena exclusives: " + "; ".join("%s: %s" % (k, ", ".join(sorted(c for c, v in excl.items() if v == k))) for k in sorted(set(excl.values()))))
 for k in ec["files"].values():
     if not os.path.exists(os.path.join(HERE, k)): err("files: %s missing" % k)
 # coin timeline of the home arc (deterministic part): quests + story duel wins at level ~1-5

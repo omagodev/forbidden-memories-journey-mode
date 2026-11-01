@@ -719,3 +719,7 @@ sc("dk1_bakura_glyph", "Bakura mentions the green writing.", [
  X("bakura", "It never helps and never harms. It only watches. I like it. Good company.",
    "Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia."),
 ])
+
+# ---------------------------------------------------------------- chapter 2 (the Shore of Illusions): dk_chapter2.py
+import dk_chapter2 as _C2
+_C2.scripts(sc, H, X, N)

@@ -1661,13 +1661,296 @@
    ]
   },
   {
-   "id": "dk_part3_end",
+   "id": "dk2_landing",
    "pages": [
     {
      "speaker": "narrator",
-     "label": "Part 3 complete",
-     "kind": "complete",
-     "text": "That is all for this test build. Next: across the bridge to the harbor (part 4)."
+     "text": "Sand, tents and a painted sign - Welcome, bugs and champions.",
+     "label": "Shore of Illusions",
+     "kind": "caption"
+    },
+    {
+     "speaker": "mai",
+     "text": "Off you go, sweetie. Keep that star warm. See you at the castle."
+    },
+    {
+     "speaker": "atos",
+     "text": "A giant mirror in the middle of the beach? That is not normal."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Look into the mirror on the beach.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk2_mirror",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The glass ripples. A man in red with silver hair smiles out of it.",
+     "label": "Mirror",
+     "kind": "caption"
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Welcome, duelists, to my little Kingdom! This is only a recording."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Every duelist carries stars. Win, and you take one. Lose, and you give one."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Ten stars open my castle gate. Zero stars... nobody likes zero."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Lose your last one and you wake at the Shore Camp. I am generous once."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Now go and play! I will be watching. I am always watching."
+    },
+    {
+     "speaker": "atos",
+     "text": "Always watching? Creepy. One star. Let's find a duel."
+    }
+   ]
+  },
+  {
+   "id": "dk2_mirror_after",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Only your own face now, and a faint smell of strawberry jam.",
+     "label": "Mirror",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_ambush",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hihihi! A rookie with one shiny little star. How lucky for me."
+    },
+    {
+     "speaker": "atos",
+     "text": "Who are you? And why were you hiding behind a palm tree?"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Weevil Underwood, champion of bugs! Let's roll to see who starts."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Weevil rolls. Six. He rolls again. Six. And again. Six.",
+     "label": "Dice",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Those dice are loaded! Every face is a six!"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Prove it. Duel me for your star, or walk away and cry."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Beat Weevil on the beach. Each of you wagers a star.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_pre",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "One star on the sand. Winner takes it. Loser cries. Hihihi!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Wager 1 star and duel Weevil now?",
+     "label": "Star Wager",
+     "kind": "caption"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Well? My bugs are hungry. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_win",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Impossible! My bugs! My dice! My beautiful plan!"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Take your star. And these dice. They never liked me anyway."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You got a star, the Loaded Dice and the card Hercules Beetle.",
+     "label": "Reward",
+     "kind": "item"
+    },
+    {
+     "speaker": "atos",
+     "text": "Two stars. Eight to go. Note to self - bring my own dice."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Chapter 3 - The Forest of Whispers, in the next part.",
+     "label": "End of Chapter 2",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_lose",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hihihi! Your star is mine. Bugs always win in the end."
+    },
+    {
+     "speaker": "atos",
+     "text": "I'll get stronger. New cards, then a rematch. No loaded dice."
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_after",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Go away. The dice and I are not speaking."
+    }
+   ]
+  },
+  {
+   "id": "k1_eliminated",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "You wake on a cot in a tent. A star chip rests on your chest.",
+     "label": "Shore Camp",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pegasus sends his regards. One free star. Do better, duelist."
+    },
+    {
+     "speaker": "atos",
+     "text": "Back to one star. Time to buy cards and train in the arenas."
+    }
+   ]
+  },
+  {
+   "id": "dk2_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Cots, a fire and a sign - Lost your stars? Rest here.",
+     "label": "Shore Camp",
+     "kind": "caption"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Fine print - Pegasus gives back one star to the fallen.",
+     "label": "Shore Camp",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "A safety net. Good. I still don't plan on using it."
+    }
+   ]
+  },
+  {
+   "id": "dk2_camp_after",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The fire crackles. A few eliminated duelists snore.",
+     "label": "Shore Camp",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_hooded_shore",
+   "pages": [
+    {
+     "speaker": "hooded_man",
+     "text": "The Kingdom tests more than decks. Watch who collects the stars."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A gust of sand. The end of the pier is empty again.",
+     "label": "Pier",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_jungle_early",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A sign - Forest of Whispers. Duelists with two stars only.",
+     "label": "Jungle Path",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_jungle_locked",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The forest path waits. Chapter 3 arrives in the next part.",
+     "label": "Jungle Path",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_dock_dan",
+   "pages": [
+    {
+     "speaker": "dock_dan",
+     "text": "Fresh off the boat! Cards, cheap. Well, cheap-ish."
+    }
+   ]
+  },
+  {
+   "id": "dk2_purser",
+   "pages": [
+    {
+     "speaker": "purser",
+     "text": "Snacks, cards and seasick pills. Only the cards work."
+    }
+   ]
+  },
+  {
+   "id": "dk2_shell_sue",
+   "pages": [
+    {
+     "speaker": "shell_sue",
+     "text": "Shells, cards and secrets. Buy something, star boy."
     }
    ]
   }

@@ -22,6 +22,7 @@ JOURNEY MODE is an unofficial, non-commercial fan mod for Yu-Gi-Oh! Forbidden Me
 * The illustrated maps, character sprites and sprite sheets of Journey Mode (home town, Duelist Kingdom areas, NPCs) are **AI-generated** images, then processed and baked into game formats by the scripts in `mods/ow-poc/tools/`. The characters are original or fan-made, inspired by Forbidden Memories characters; they are not official art. The AI-generated sprite sheets in `mods/ow-poc/tools/sprite_sheets/` are included as the sources of those scripts.
 * Part 3 adds more of the same: the cistern map, the Rex Raptor and Bakura ghost sprites, the hatch and torch props and the item icons are AI-generated and baked by `mods/ow-poc/tools/build_part3_assets.py`. Like all the characters, they are inspired by Forbidden Memories and are not official art.
 * The underground arena background and crowd (`art_dk/arena/`) and the shop art (the keeper and the card-shop interior in `art_dk/shop/`) are AI-generated, baked by `mods/ow-poc/tools/build_arena_assets.py`, `make_shop_art.py` and `bake_shop_ui.py`.
+* Chapter 2 brings the harbor, ship deck and Shore of Illusions maps and the sprites of the harbor soldier, Shadi's courier, Mai, Weevil, InsetoKaiba, the purser and the camp merchant: AI-generated, baked into `mods/ow-poc/assets/` by `mods/ow-poc/tools/build_kingdom_assets.py`. Inspired by Forbidden Memories characters; not official art.
 * The "InsetoKaiba" rival is a stylized parody character; it uses no real person's name or likeness.
 
 ## Content

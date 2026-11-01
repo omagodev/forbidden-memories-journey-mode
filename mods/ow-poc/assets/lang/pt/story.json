@@ -1661,13 +1661,296 @@
    ]
   },
   {
-   "id": "dk_part3_end",
+   "id": "dk2_landing",
    "pages": [
     {
      "speaker": "narrator",
-     "label": "Parte 3 completa",
-     "kind": "complete",
-     "text": "E tudo por esta versao de teste. Proximo: a ponte e o porto (parte 4)."
+     "text": "Areia, tendas e uma placa pintada - Bem-vindos, insetos e campeoes.",
+     "label": "Costa das Ilusoes",
+     "kind": "caption"
+    },
+    {
+     "speaker": "mai",
+     "text": "Vai la, queridinho. Cuide dessa estrela. Te vejo no castelo."
+    },
+    {
+     "speaker": "atos",
+     "text": "Um espelho gigante no meio da praia? Isso nao e normal."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Olhe o espelho da praia.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk2_mirror",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O vidro ondula. Um homem de vermelho e cabelo prateado sorri.",
+     "label": "Espelho",
+     "kind": "caption"
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Bem-vindos, duelistas, ao meu pequeno Reino! Isto e so uma gravacao."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Todo duelista leva estrelas. Venca e ganhe uma. Perca e entregue uma."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Dez estrelas abrem o portao do castelo. Zero estrelas... ninguem gosta."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Perca a ultima e voce acorda no Acampamento da Costa. Sou generoso."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Agora vao jogar! Estarei olhando. Estou sempre olhando."
+    },
+    {
+     "speaker": "atos",
+     "text": "Sempre olhando? Que medo. Uma estrela. Vamos achar um duelo."
+    }
+   ]
+  },
+  {
+   "id": "dk2_mirror_after",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "So o seu rosto agora, e um leve cheiro de geleia de morango.",
+     "label": "Espelho",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_ambush",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hihihi! Um novato com uma estrelinha brilhante. Que sorte a minha."
+    },
+    {
+     "speaker": "atos",
+     "text": "Quem e voce? E por que estava atras de uma palmeira?"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Weevil Underwood, campeao dos insetos! Vamos rolar quem comeca."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Weevil rola. Seis. Rola de novo. Seis. E de novo. Seis.",
+     "label": "Dados",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Esses dados sao viciados! Toda face e seis!"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Prove. Duele pela sua estrela, ou va embora chorando."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Venca o Weevil na praia. Cada um aposta uma estrela.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_pre",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Uma estrela na areia. Quem vencer leva. Quem perder chora. Hihihi!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Apostar 1 estrela e duelar com Weevil agora?",
+     "label": "Aposta de Estrela",
+     "kind": "caption"
+    },
+    {
+     "speaker": "weevil",
+     "text": "E entao? Meus insetos estao com fome. Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_win",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Impossivel! Meus insetos! Meus dados! Meu lindo plano!"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Leve sua estrela. E estes dados. Eles nunca gostaram de mim."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou uma estrela, os Dados Viciados e a carta Hercules Beetle.",
+     "label": "Recompensa",
+     "kind": "item"
+    },
+    {
+     "speaker": "atos",
+     "text": "Duas estrelas. Faltam oito. Lembrete - trazer meus dados."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Capitulo 3 - A Floresta dos Sussurros, na proxima parte.",
+     "label": "Fim do Capitulo 2",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_lose",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hihihi! Sua estrela e minha. Insetos sempre vencem no fim."
+    },
+    {
+     "speaker": "atos",
+     "text": "Vou ficar mais forte. Cartas novas, depois revanche. Sem dados viciados."
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_after",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Va embora. Eu e os dados nao estamos nos falando."
+    }
+   ]
+  },
+  {
+   "id": "k1_eliminated",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Voce acorda num catre na tenda. Uma ficha de estrela esta no seu peito.",
+     "label": "Acampamento da Costa",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."
+    },
+    {
+     "speaker": "atos",
+     "text": "De volta a uma estrela. Hora de comprar cartas e treinar nas arenas."
+    }
+   ]
+  },
+  {
+   "id": "dk2_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Catres, uma fogueira e uma placa - Perdeu suas estrelas? Descanse.",
+     "label": "Acampamento da Costa",
+     "kind": "caption"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Letras miudas - Pegasus devolve uma estrela aos que caem.",
+     "label": "Acampamento da Costa",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Uma rede de seguranca. Bom. Mesmo assim nao pretendo usar."
+    }
+   ]
+  },
+  {
+   "id": "dk2_camp_after",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A fogueira estala. Alguns duelistas eliminados roncam.",
+     "label": "Acampamento da Costa",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_hooded_shore",
+   "pages": [
+    {
+     "speaker": "hooded_man",
+     "text": "O Reino testa mais que baralhos. Observe quem junta as estrelas."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma rajada de areia. O fim do cais esta vazio de novo.",
+     "label": "Cais",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_jungle_early",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma placa - Floresta dos Sussurros. So duelistas com duas estrelas.",
+     "label": "Trilha da Selva",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_jungle_locked",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A trilha da floresta espera. O capitulo 3 chega na proxima parte.",
+     "label": "Trilha da Selva",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk2_dock_dan",
+   "pages": [
+    {
+     "speaker": "dock_dan",
+     "text": "Fresquinho do barco! Cartas baratas. Bom, quase baratas."
+    }
+   ]
+  },
+  {
+   "id": "dk2_purser",
+   "pages": [
+    {
+     "speaker": "purser",
+     "text": "Lanches, cartas e remedio pra enjoo. So as cartas funcionam."
+    }
+   ]
+  },
+  {
+   "id": "dk2_shell_sue",
+   "pages": [
+    {
+     "speaker": "shell_sue",
+     "text": "Conchas, cartas e segredos. Compre algo, menino estrela."
     }
    ]
   }

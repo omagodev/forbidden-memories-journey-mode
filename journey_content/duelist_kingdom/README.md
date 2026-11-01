@@ -73,3 +73,31 @@ Appearances 5-7 and the payoff are drafted as checked pages in `kingdom_outline.
 ## Credits / notes
 
 Story and dialogue: Atos Vinicius with Grok Bot. Duelist Kingdom is the setting of a well-known anime; this content uses only the idea of the setting with original characters, quests and text. InsetoKaiba is a fictional parody character (stylized caricature, original dialogue); no real person's name or likeness is used in the data.
+
+## Starter deck and the difficulty curve
+
+A new journey replaces the deck with `decks_dk.json` → `starter` (40 cards, highest ATK 1200):
+3 Hitotsu-me Giant, 2 Torike, 2 Beaver Warrior, 2 Silver Fang, 2 Wolf, 2 Zombie Warrior, 2 Dark Gray,
+3 Mushroom Man, 3 Petit Dragon, 2 Petit Angel, 2 Winged Cleaver, 2 Kurama, 2 Hinotama Soul, 2 Basic Insect,
+3 Red Medicine, 3 Sparks, 2 Forest, 1 Hinotama.
+
+The intended curve:
+
+| Step | Opponent tier | With the starter only |
+|---|---|---|
+| Simon's test (home town) | 1 | winnable: his deck is just as plain |
+| Kemet, Jono, Teana's quests | 1 | close; fusions (Forest + beasts) carry it |
+| Harbor Inspector, Shadi's Courier | 2 | hard: buy 2-3 B cards at Dock Dan's or win a Jackal ambush first |
+| Ship (InsetoKaiba) and chapter 2 (Weevil, tier 2 + star wager) | 2 | a loss more often than not without upgrades |
+
+Upgrades come from each place's local pool (story wins, gang ambushes), its shop, and its clandestine arena.
+Each arena keeps three **arena-exclusive** cards: `arena_only` in that one pool, absent from every other
+pool, shop, pack and story reward (checked by `journey_content/economy/validate_economy.py`; the mod also
+refuses to sell them and shows "Arena exclusive" / "Exclusiva da arena").
+
+| Arena | Exclusives |
+|---|---|
+| Flour Cellar Ring (village) | Bracchio-raidus, Leogun, Ancient One of the Deep Forest |
+| Net Loft Pit (harbor) | Aqua Dragon, Kairyu-shin, Harpie Lady Sisters |
+| Bilge Ring (ship) | Deepsea Shark, 7 Colored Fish, Skullbird |
+| Wreck Pit (beach) | Vermillion Sparrow, Kwagar Hercules, Boulder Tortoise |

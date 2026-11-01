@@ -334,6 +334,26 @@ static void ensure_deck(void)
     LOG("journey: starter deck given (the save had none)");
 }
 
+/* A new journey starts with the story's weak forty (journey.json "starter_deck"): the player has to
+ * win, drop or buy better cards on the way.  The deck is replaced; the chest only ever gains copies. */
+void Journey_GiveStarter(void)
+{
+    const JsonNode *list = Json_Get(jm_rules, "starter_deck"), *n;
+    int i = 0, need[723] = {0};
+    if (!list || Json_Count(list) != 40) return;
+    for (n = list->child; n && i < 40; n = n->next) {
+        int id = (int)n->num;
+        if (id < 1 || id > 722) return;
+        need[id]++;
+    }
+    for (n = list->child; n && i < 40; n = n->next, i++) {
+        int id = (int)n->num;
+        gDuel_awPlayerDeck[i] = (u16)id;
+        if (gLibrary_abCardChest[id - 1] < need[id]) gLibrary_abCardChest[id - 1] = (u8)need[id];
+    }
+    LOG("journey: starter deck given (40 weak cards)");
+}
+
 static void duel_returned(void);
 static void arm_duel(int npc)
 {
@@ -370,11 +390,28 @@ static void duel_returned(void)
     const JsonNode *r = won ? duel_win : duel_lose;
     /* whether this win was had before is read now: applying the result sets the flags that say so */
     int rematch = won && Story_ResultDone(duel_win);
+    int beaten_before = Story_ResultDone(duel_win), eliminated = 0;
     area = -1;                              /* the duel's song ended the village's: start it again */
     if (in_paint_flow) { Paint_Enter(); paint_auto = 1; }    /* the duel took the banks: the painted village is loaded again behind the scene */
     if (won) jm.wins++; else jm.losses++;
     LOG("journey: duel over, %s (wins %d, losses %d)", won ? "won" : "lost", jm.wins, jm.losses);
     if (won) Story_ApplyResult(duel_win);
+    {   /* Duelist Kingdom: a named duelist wagers his star the first time; a rematch is free (kingdom_outline.json star rules) */
+        const JsonNode *wg = duel_win ? Json_Get(duel_win, "wager") : NULL;
+        if (wg && !beaten_before) {
+            int n = wg->num > 0 ? (int)wg->num : 1;
+            if (won) { jm.stars += n; if (jm.stars > 12) jm.stars = 12; }
+            else if (--jm.stars <= 0) {      /* the last star is gone: never a game over, he wakes at the Shore Camp with one */
+                jm.stars = 1;
+                jm.eliminations++;
+                eliminated = 1;
+                snprintf(jm_pwarp_area, sizeof(jm_pwarp_area), "kingdom_beach");
+                snprintf(jm_pwarp_anchor, sizeof(jm_pwarp_anchor), "shore_camp");
+                jm_pwarp = 1;
+            }
+            LOG("journey: star duel %s, stars %d (eliminations %d)", won ? "won" : "lost", jm.stars, jm.eliminations);
+        }
+    }
     duel_live = 0;
     if (duel_is_gang) { duel_is_gang = 0; Gang_Result(won); }
     else if (duel_is_arena) { duel_is_arena = 0; Arena_Result(won); }
@@ -385,7 +422,11 @@ static void duel_returned(void)
     duel_npc = -1;
     apply_warp();
     if (card_show && !Paint_CardArt(card_show)) card_show = 0;   /* no picture: no reveal */
-    if (r && Json_Str(r, "scene", NULL)) {
+    if (eliminated && Story_PageCount("k1_eliminated") > 0) {
+        begin_scene("k1_eliminated", 0, 1);
+        scene_then = NULL;
+        scene_choice = NULL;
+    } else if (r && Json_Str(r, "scene", NULL)) {
         begin_scene(Json_Str(r, "scene", NULL), 0, 1);
         scene_then = Json_Str(r, "then", NULL);
         scene_choice = Json_Get(r, "choice");
@@ -435,7 +476,12 @@ static int track_cfg(const char *key)
 static const char *place_name(void)
 {
     if (painted_ctx() && Paint_Area() == 1) return Tr("painted.cistern");
-    if (painted_ctx() && Paint_Area() == 2) return Tr("painted.arena");
+    if (painted_ctx() && Paint_Area() == 2) { const char *n = Arena_PlaceName(); return n && *n ? n : Tr("painted.arena"); }
+    if (painted_ctx() && Paint_Area() >= 3) {
+        static char key[40];
+        snprintf(key, sizeof(key), "painted.%s", Paint_AreaId());
+        return Tr(key);
+    }
     return World_AreaName(area < 0 ? 0 : area);
 }
 
@@ -445,6 +491,7 @@ static void music_tick(void)
     if (pc != pm_ctx) { pm_ctx = pc; area = -1; pm_cur = -1; pm_timer = 0; }     /* into or out of the painted village: its own song */
     if (pc && track_cfg("day") >= 0) {
         int want = Paint_Area() == 1 && track_cfg("cistern") >= 0 ? track_cfg("cistern") : track_cfg(Paint_IsNight() && track_cfg("night") >= 0 ? "night" : "day");
+        if (Paint_Area() >= 3 && track_cfg(Paint_AreaId()) >= 0) want = track_cfg(Paint_AreaId());   /* the harbor, the ship, the beach: their own songs */
         if (area < 0) { area = area_cand = a; area_banner = 150; area_timer = 0; pm_cur = -1; pm_timer = 0; }
         if (pm_cur < 0) { SD_BGMPlay(0x7000 + (u32)want * 0x10); pm_cur = want; LOG("journey: music %d (%s)", want, Paint_Area() == 1 ? "cistern" : want == track_cfg("night") ? "night" : "day"); }
         else if (want != pm_cur && !pm_timer) { SD_BGMFadeOut(); pm_timer = 45; pm_cur = want; }
@@ -534,7 +581,8 @@ static void go_screen(int mode, int ret)
 static void new_journey(void)
 {
     Story_Reset();
-    paint_area = 0;
+    Paint_SetArea(0);
+    Journey_GiveStarter();
     ensure_deck();
     World_Spawn(&jm.x, &jm.z);
     cam_x = jm.x;
@@ -561,7 +609,7 @@ static void continue_journey(void)
 {
     if (!Save_Read()) { new_journey(); return; }
     Lang_Set(jm.lang);
-    paint_area = 0;                        /* a save keeps the hatch (the village) even if it was made in the cistern */
+    Paint_SetArea(jm.pt_area);             /* a save keeps the hatch (the village) even if it was made in the cistern; the chapter 2 pictures are kept */
     Dbg_Apply();
     Story_Regrant();
     ensure_deck();
@@ -760,7 +808,14 @@ static void run(int first)
         {
             int paint_result = Paint_Tick(pad, edge);
             if (paint_result == 2) {          /* the player reached the bottom edge of the cellar stairs */
-                Paint_Warp("village", "arena_door");
+                { char from[24]; snprintf(from, sizeof(from), "%s", Paint_AreaId()); Paint_Warp(from, "arena_door"); }
+                area = -1;
+                cooldown = 18;
+            } else if (paint_result && paint_exit && jm.stage >= 4) {   /* across the open bridge: the harbor road */
+                paint_exit = 0;
+                if (jm.stage < 5) jm.stage = 5;
+                Paint_Warp("harbor", "spawn_gate");
+                World_PlaceNpcs();
                 area = -1;
                 cooldown = 18;
             } else if (paint_result) {
@@ -1320,8 +1375,9 @@ static void hud_panel(int w, int s, int top, int vis)
 
     /* the star chips the game counts, and the purse */
     draw_icon(tx, bary + 9 * s, s, ICON_ITEM, 0xE0C040, 0xFFF0A0);
-    snprintf(buf, sizeof(buf), "%u", (unsigned)gLibrary_dwStarchips);
-    jm_host->draw_text(jm_host, tx + 15 * s, bary + 15 * s, buf, 0xFFE9A0, s);
+    if (jm.stage >= 6 && jm.stars > 0) snprintf(buf, sizeof(buf), "%d/10", jm.stars);   /* the Kingdom's star chips: ten open the castle */
+    else snprintf(buf, sizeof(buf), "%u", (unsigned)gLibrary_dwStarchips);
+    jm_host->draw_text(jm_host, tx + 15 * s, bary + 15 * s, buf, jm.stage >= 6 && jm.stars > 0 ? 0xFFD040 : 0xFFE9A0, s);
     draw_icon(tx + barw / 2, bary + 9 * s, s, ICON_COIN, 0xD8A838, 0xFFE090);
     snprintf(buf, sizeof(buf), "%d", jm.eco.coins);
     jm_host->draw_text(jm_host, tx + barw / 2 + 15 * s, bary + 15 * s, buf, 0xFFE9A0, s);
@@ -1617,14 +1673,14 @@ static unsigned overlay_sig(void)
         float a, b, c, d;
         Paint_Info(&a, &b, &c, &d);
         return 7u + (unsigned)(Paint_NearNpc() + 2) * 131u + (near_object() ? 77u : 0u) + (unsigned)minimap_on * 17u + (unsigned)mini_big * 29u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
-               (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) + (unsigned)(Lang_Current() * 1237) + (unsigned)Dev_BarOn() * 3331u +
+               (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7 + (int)jm.kflags * 13 + jm.stars * 977) + (unsigned)(Lang_Current() * 1237) + (unsigned)Dev_BarOn() * 3331u +
                (unsigned)(minimap_on ? (int)(frame_no / 10 & 1) * 100003 + (int)a / 12 * 4421 + (int)b / 12 * 977 : 0) +
                (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.xp * 97u + (unsigned)gLibrary_dwStarchips * 131u +
                (unsigned)near_arena_door() * 7u;        /* the pill comes and goes as he walks up to it */
     }
     return (state == ST_SCENE || state == ST_ASK ? (unsigned)(scene_idx * 131 + cur_kind * 17 + (cur_kind ? notif_age : 0) * 3571 + (cur_name ? (unsigned char)cur_name[0] * 31 : 0)) : 0u) + 1u + (unsigned)state * 977u + (unsigned)(area + 2) * 31u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
            (unsigned)(near_npc() + 2) * 131u + (unsigned)ask_sel * 17u + (unsigned)choose_sel * 3u + (unsigned)(state == ST_CONFIRM) * 7001u + Ui_Signature() * 13u +
-           (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7) +
+           (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7 + (int)jm.kflags * 13 + jm.stars * 977) +
            (has_poi() ? 5u : 0u) + (unsigned)Dev_BarOn() * 3331u + (unsigned)(Lang_Current() * 1237 + lang_sel * 53 + minimap_on * 7) +
            ((state == ST_WALK && minimap_on) || state == ST_MAP ? (unsigned)((int)(jm.x / TS) * 4421 + (int)(jm.z / TS) * 977 + (int)(frame_no / 10 & 1) * 100003) : 0u);
 }

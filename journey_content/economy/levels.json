@@ -56,7 +56,8 @@
    "deck_power_cap": 58,
    "events": [
     "arena:village",
-    "arena:harbor"
+    "arena:harbor",
+    "arena:ship"
    ]
   },
   {

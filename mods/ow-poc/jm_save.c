@@ -7,7 +7,7 @@
 #include <string.h>
 
 #define MAGIC 0x31534A4Du      /* "MJS1" */
-#define VERSION 5          /* 2 added the language, 3 the painted village position, 4 the layered hero, 5 the economy; older files (176 bytes of Journey and up) still load */
+#define VERSION 6          /* 2 added the language, 3 the painted village position, 4 the layered hero, 5 the economy, 6 the Kingdom (flags 32-63, stars, the area); older files (176 bytes of Journey and up) still load */
 
 typedef struct { unsigned magic, version, size; Journey data; } File;
 
@@ -32,7 +32,7 @@ int Save_Write(void)
     File file;
     FILE *f;
     size_t n;
-    if (Paint_Loaded()) { float a, b, c, d; Paint_Info(&a, &b, &c, &d); jm.pt_x = a; jm.pt_y = b; jm.pt_set = 1; }
+    if (Paint_Loaded()) { float a, b, c, d; Paint_Info(&a, &b, &c, &d); jm.pt_x = a; jm.pt_y = b; jm.pt_set = 1; jm.pt_area = Paint_SaveArea(); }
     Lang_PrefWrite(jm.lang);
     file.magic = MAGIC;
     file.version = VERSION;

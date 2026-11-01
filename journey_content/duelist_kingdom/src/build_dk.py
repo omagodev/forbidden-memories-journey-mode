@@ -28,8 +28,8 @@ def lang_story(lg):
         r["dialogue_rules"] = o["rules"]; return r
     duels = []
     for d in D.DUELS:
-        duels.append(dict(id=d["id"], npc=d["npc"], duelist_id=d["duelist_id"], chapter=1, deck=d["deck"], difficulty_tier=d["tier"], pre_script=d["pre"], win_script=d["win"], lose_script=d["lose"],
-                          win_flag=d["win_flag"], on_win=d["on_win"], rewards_first_win_only=True, stars_wager=False, note=d["note"]))
+        duels.append(dict(id=d["id"], npc=d["npc"], duelist_id=d["duelist_id"], chapter=2 if d["pre"].startswith("dk2") else 1, deck=d["deck"], difficulty_tier=d["tier"], pre_script=d["pre"], win_script=d["win"], lose_script=d["lose"],
+                          win_flag=d["win_flag"], on_win=d["on_win"], rewards_first_win_only=True, stars_wager=d.get("stars", 0) > 0, **({"stars": d["stars"]} if d.get("stars") else {}), note=d["note"]))
     quests = []
     for q in D.QUESTS:
         quests.append(dict(id=q["id"], kind=q["kind"], optional=q["opt"], title=q["title"][L], giver=q["giver"],
@@ -52,7 +52,7 @@ def lang_story(lg):
      "speakers": sp, "flags": flags, "stages": [dict(stage=s, note=n) for s, n in D.STAGES], "chapters": chapters, "areas": areas, "anchors": D.ANCHORS,
      "npcs": [npc_json(n) for n in D.NPCS], "objects": [obj_json(o) for o in D.OBJECTS], "items": items, "new_duelists": D.NEW_DUELISTS,
      "observer_events": [dict(id=e["id"], n=e["n"], npc=e["npc"], sprite=e["sprite"], overlay=e["overlay"], area=e["area"], anchor=e["anchor"], **({"show_during": e["show_during"], "vanish": e["vanish"]} if "show_during" in e else {"interact_object": e["interact_object"]}), flag=e["flag"], note=e["note"]) for e in D.OBSERVER_EVENTS], "quests": quests, "duels": duels, "transitions": D.TRANSITIONS, "hud_objectives": hud, "scripts": scripts,
-     "editor_notes": ["Home-town arc only (chapter 1). Kingdom arc: ../kingdom_outline.json.", "Anchors are symbolic: <area>.<anchor>. The engine dev binds them to picture or map coordinates."],
+     "editor_notes": ["Chapter 1 (home town, harbor, ship) and chapter 2 (the Shore of Illusions, dk_chapter2.py). Kingdom arc: ../kingdom_outline.json.", "Anchors are symbolic: <area>.<anchor>. The engine dev binds them to picture or map coordinates."],
     }
 
 def ui(lg):
@@ -87,7 +87,8 @@ def main():
         dump(os.path.join(ROOT, sub, "ui_dk.%s.json" % lg), ui(lg))
         open(os.path.join(ROOT, sub, "story_readable_dk.%s.md" % lg), "w", encoding="utf-8").write(readable(lg, st))
     decks = {"rules": "Same as ../../decks.json: 40 cards, max 3 copies, at least 14 distinct, no Ritual cards. The 'deck' key of a duel is looked up here first, then in ../../decks.json.",
-             "decks": {k: dict(duelist=v["duelist"], chapter=1, difficulty_tier=v["tier"], theme=v["theme"], fixed=True, total=sum(v["cards"].values()), cards=v["cards"], notes=v["notes"]) for k, v in D.DECKS.items()}}
+             "decks": {k: dict(duelist=v["duelist"], chapter=2 if k == "Weevil Shore" else 1, difficulty_tier=v["tier"], theme=v["theme"], fixed=True, total=sum(v["cards"].values()), cards=v["cards"], notes=v["notes"]) for k, v in D.DECKS.items()},
+             "starter": dict(note="The deck a new journey starts with: forty weak commons (strongest attack 1200). Beats Simon; struggles from the harbor on without new cards.", total=sum(D.STARTER_DECK.values()), cards=D.STARTER_DECK)}
     dump(os.path.join(ROOT, "decks_dk.json"), decks)
     ko = {"schema": "journey-dk-outline/1", "star_rules": K.STAR_RULES,
           "areas": [dict(id=a[0], name_en=a[1], name_pt=a[2], setting=a[3]) for a in K.KINGDOM_AREAS],

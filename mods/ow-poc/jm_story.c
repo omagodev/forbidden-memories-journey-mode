@@ -25,7 +25,7 @@ static JsonNode *story;               /* assets/story.json */
 static JsonNode *scenes;              /* its "scenes" array */
 extern u8 gLibrary_abCardChest[];
 
-#define MAX_FLAGS 32
+#define MAX_FLAGS 64
 static char flag_names[MAX_FLAGS][24];
 static int flag_count;
 
@@ -75,13 +75,15 @@ int Story_FlagBit(const char *name)
 int Story_Has(const char *flag)
 {
     int b = Story_FlagBit(flag);
+    if (b >= 32) return jm.kflags >> (b - 32) & 1;
     return b >= 0 && (jm.flags >> b & 1);
 }
 
 void Story_Set(const char *flag)
 {
     int b = Story_FlagBit(flag);
-    if (b >= 0) jm.flags |= 1u << b;
+    if (b >= 32) jm.kflags |= 1u << (b - 32);
+    else if (b >= 0) jm.flags |= 1u << b;
 }
 
 void Story_Reset(void)
@@ -129,6 +131,7 @@ static int cond(const JsonNode *c)
     if (Json_Get(c, "row_lt") && row >= (int)Json_Num(c, "row_lt", 0)) return 0;
     if (Json_Get(c, "row_gt") && row <= (int)Json_Num(c, "row_gt", 0)) return 0;
     if (Json_Get(c, "area") && paint_area_now() != (int)Json_Num(c, "area", 0)) return 0;
+    if (Json_Get(c, "stars_min") && jm.stars < (int)Json_Num(c, "stars_min", 0)) return 0;
     if (Json_Get(c, "coins_min") && jm.eco.coins < (int)Json_Num(c, "coins_min", 0)) return 0;
     if (Json_Get(c, "level_min") && Eco_Level() < (int)Json_Num(c, "level_min", 0)) return 0;
     if (Json_Get(c, "level_max") && Eco_Level() > (int)Json_Num(c, "level_max", 99)) return 0;
@@ -374,6 +377,11 @@ void Story_ApplyResult(const JsonNode *r)
         jm_pwarp = 1;
     }
     if (Json_Get(r, "stage") && jm.stage < (int)Json_Num(r, "stage", 0)) jm.stage = (int)Json_Num(r, "stage", 0);
+    if (Json_Get(r, "stars")) {        /* "stars": n, the Star Passage's first chip; the kingdom's wagers are settled after a duel (ow_poc.c) */
+        jm.stars += (int)Json_Num(r, "stars", 0);
+        if (jm.stars > 12) jm.stars = 12;
+        if (jm.stars < 0) jm.stars = 0;
+    }
     for (c = Json_Get(r, "cards"), n = c ? c->child : NULL; n; n = n->next) Story_Cards((int)n->num);
     /* the economy's own results (journey_content/economy: "effects_new") */
     if (Json_Get(r, "give_coins")) Eco_GiveCoins((int)Json_Num(r, "give_coins", 0));

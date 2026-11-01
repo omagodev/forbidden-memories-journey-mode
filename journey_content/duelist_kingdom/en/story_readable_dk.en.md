@@ -661,3 +661,115 @@ _Bakura mentions the green writing._
 
 - **Bakura**: The green writing on the wall? It was here before me.
 - **Bakura**: It never helps and never harms. It only watches. I like it. Good company.
+
+### dk2_landing
+_Chapter 2 opens: the hero steps off the gangway onto the Shore of Illusions._
+
+- **Shore of Illusions**: Sand, tents and a painted sign - Welcome, bugs and champions.
+- **Mai**: Off you go, sweetie. Keep that star warm. See you at the castle.
+- **{name}**: A giant mirror in the middle of the beach? That is not normal.
+- **Objective**: Look into the mirror on the beach.
+
+### dk2_mirror
+_Pegasus's recorded welcome in the beach mirror. Sets the star rules._
+
+- **Mirror**: The glass ripples. A man in red with silver hair smiles out of it.
+- **Pegasus**: Welcome, duelists, to my little Kingdom! This is only a recording.
+- **Pegasus**: Every duelist carries stars. Win, and you take one. Lose, and you give one.
+- **Pegasus**: Ten stars open my castle gate. Zero stars... nobody likes zero.
+- **Pegasus**: Lose your last one and you wake at the Shore Camp. I am generous once.
+- **Pegasus**: Now go and play! I will be watching. I am always watching.
+- **{name}**: Always watching? Creepy. One star. Let's find a duel.
+
+### dk2_mirror_after
+_The mirror after the recording._
+
+- **Mirror**: Only your own face now, and a faint smell of strawberry jam.
+
+### dk2_weevil_ambush
+_Weevil jumps out from behind a palm with his loaded dice._
+
+- **Weevil**: Hihihi! A rookie with one shiny little star. How lucky for me.
+- **{name}**: Who are you? And why were you hiding behind a palm tree?
+- **Weevil**: Weevil Underwood, champion of bugs! Let's roll to see who starts.
+- **Dice**: Weevil rolls. Six. He rolls again. Six. And again. Six.
+- **{name}**: Those dice are loaded! Every face is a six!
+- **Weevil**: Prove it. Duel me for your star, or walk away and cry.
+- **Objective**: Beat Weevil on the beach. Each of you wagers a star.
+
+### dk2_weevil_pre
+_Weevil's star duel (first wager of the Kingdom)._
+
+- **Weevil**: One star on the sand. Winner takes it. Loser cries. Hihihi!
+- **Star Wager**: Wager 1 star and duel Weevil now?
+- **Weevil**: Well? My bugs are hungry. Duel?  _[Duel? Yes/No]_
+
+### dk2_weevil_win
+_Weevil beaten: the hero's second star and the end of chapter 2._
+
+- **Weevil**: Impossible! My bugs! My dice! My beautiful plan!
+- **Weevil**: Take your star. And these dice. They never liked me anyway.
+- **Reward**: You got a star, the Loaded Dice and the card Hercules Beetle.
+- **{name}**: Two stars. Eight to go. Note to self - bring my own dice.
+- **End of Chapter 2**: Chapter 3 - The Forest of Whispers, in the next part.
+
+### dk2_weevil_lose
+_Weevil wins the wager._
+
+- **Weevil**: Hihihi! Your star is mine. Bugs always win in the end.
+- **{name}**: I'll get stronger. New cards, then a rematch. No loaded dice.
+
+### dk2_weevil_after
+_Weevil after losing._
+
+- **Weevil**: Go away. The dice and I are not speaking.
+
+### k1_eliminated
+_Last star lost anywhere in the Kingdom: wake at the Shore Camp with one star. Never a game over._
+
+- **Shore Camp**: You wake on a cot in a tent. A star chip rests on your chest.
+- **Kingdom Staff**: Pegasus sends his regards. One free star. Do better, duelist.
+- **{name}**: Back to one star. Time to buy cards and train in the arenas.
+
+### dk2_camp
+_The Shore Camp sign: the safety net, first visit._
+
+- **Shore Camp**: Cots, a fire and a sign - Lost your stars? Rest here.
+- **Shore Camp**: Fine print - Pegasus gives back one star to the fallen.
+- **{name}**: A safety net. Good. I still don't plan on using it.
+
+### dk2_camp_after
+_Shore Camp, later visits._
+
+- **Shore Camp**: The fire crackles. A few eliminated duelists snore.
+
+### dk2_hooded_shore
+_The hooded man (Shadi) at the end of the beach pier: one line, then gone._
+
+- **Hooded Man**: The Kingdom tests more than decks. Watch who collects the stars.
+- **Pier**: A gust of sand. The end of the pier is empty again.
+
+### dk2_jungle_early
+_The jungle path before Weevil._
+
+- **Jungle Path**: A sign - Forest of Whispers. Duelists with two stars only.
+
+### dk2_jungle_locked
+_The jungle path after chapter 2: the next part._
+
+- **Jungle Path**: The forest path waits. Chapter 3 arrives in the next part.
+
+### dk2_dock_dan
+_Dock Dan, the harbor cart._
+
+- **Dock Dan**: Fresh off the boat! Cards, cheap. Well, cheap-ish.
+
+### dk2_purser
+_Purser Pim, the ship's stall._
+
+- **Purser Pim**: Snacks, cards and seasick pills. Only the cards work.
+
+### dk2_shell_sue
+_Shell Sue, the beach tent._
+
+- **Shell Sue**: Shells, cards and secrets. Buy something, star boy.

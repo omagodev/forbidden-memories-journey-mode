@@ -14,6 +14,9 @@ O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direç�
 - Sprites LPC de caminhada para o elenco principal
 - Ícones pequenos de dica de tecla no lugar das barras de ação grandes
 - Cenários de teste rápido (pulam para qualquer ponto da história)
+- Porto, convés do navio e Costa das Ilusões ilustrados, cada um com loja, conjunto de cartas, emboscadas da gangue e arena clandestina
+- Capítulo 2 do Reino dos Duelistas (a Costa das Ilusões): o espelho do Pegasus, a emboscada do Weevil, apostas de estrelas, o Acampamento da Costa
+- Um deck inicial fraco de 40 cartas; três cartas exclusivas por arena (nunca vendidas, nunca caem em outro lugar)
 
 ## 🚧 Em andamento
 - **Economia:** dinheiro, uma loja em cada cidade, drop de cartas só do conjunto local
@@ -22,8 +25,7 @@ O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direç�
 - Balancear a dificuldade entre a economia, a gangue e as arenas
 
 ## 🔜 Próximos passos
-- Porto e convés do navio ilustrados; o resto do capítulo 1 em mapas de verdade
-- Capítulos 2 a 10 do Reino dos Duelistas: apostas de estrelas, zonas da ilha, o castelo e o Pegasus
+- Capítulos 3 a 10 do Reino dos Duelistas: zonas da ilha, o castelo e o Pegasus
 - As aparições do Mago.dev como observador e o final
 - Mais cidades, cada uma com sua loja, seu conjunto de cartas e sua arena
 - Texto em português com acentos

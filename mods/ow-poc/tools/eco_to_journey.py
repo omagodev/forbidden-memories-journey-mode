@@ -21,8 +21,8 @@ RARITIES = ("C", "B", "A", "S")
 # Only the places the game can reach are copied: the runtime reader makes a node per JSON value, and
 # the whole catalogue (10 pools, 9 shops) is 136 KB of it for areas the story does not open yet.  Add
 # an id here when its part lands; "--all" writes everything (for a data check, not for the game).
-POOLS_NOW = ("village",)
-SHOPS_NOW = ("village",)
+POOLS_NOW = ("village", "harbor", "ship", "beach")
+SHOPS_NOW = ("village", "harbor", "ship", "beach")
 
 
 def load(name):
@@ -72,6 +72,9 @@ def main():
         if not every and p["id"] not in POOLS_NOW: continue
         out["pools"][p["id"]] = [{"i": e["id"], "r": e["rarity"], "w": e["weight"], "l": e["min_level"],
                                   **({"a": 1} if e.get("arena_only") else {})} for e in p["entries"]]
+
+    # The arena exclusives of every pool (also the places not open yet): card id -> the arena whose ring alone drops it
+    out["exclusive"] = {str(e["id"]): p["id"] for p in pools["pools"] for e in p["entries"] if e.get("exclusive")}
 
     # The shops, as the screen needs them.  Card names stay here: a stall lists a fixed stock.
     out["shops"] = {}
@@ -175,7 +178,7 @@ def merge_into_story(out):
     objects = story.setdefault("objects", [])
     have = {o.get("id") for o in objects}
     for sid, a in out["arenas"].items():
-        anchor = a["entry_anchor"].split(".", 1)[-1]
+        anchor = a["entry_anchor"]          # "harbor.arena_door": several places have an arena_door
         oid = "arena_door_%s" % sid
         if oid in have:
             continue
@@ -198,7 +201,7 @@ def write(path, data):
 # ---------------------------------------------------------------- the gang and the arenas
 # The gang roams every open-air area, so all seven of them come across; the arenas are tied to a
 # place, so only the ones whose place exists are written, as the pools and shops are.
-ARENAS_NOW = ("village",)
+ARENAS_NOW = ("village", "harbor", "ship", "beach")
 # No art for the gang yet, so each is drawn from a villager's sheet in a colour of his own.  Sand and
 # rag tones, in the order the design lists them: dusty pup, scrap junker, fang brute, viper, hex
 # lady, granite brute, old boss.  Replace this when the sprites exist.
@@ -263,11 +266,11 @@ def gang_runtime(gang, every):
 def arenas_runtime(arenas, every):
     fighters = {f["id"]: f for f in arenas["fighters"]}
     out = {}
-    for a in arenas["arenas"]:
+    for slot, a in enumerate(arenas["arenas"]):
         if not every and a["id"] not in ARENAS_NOW:
             continue
-        out[a["id"]] = {
-            "name_id": a["name_id"], "tip_id": a["tip_id"], "keeper": a.get("keeper", ""),
+        out[a["id"]] = {"slot": slot,
+            "name_id": "names.arenas." + a["id"], "tip_id": a["tip_id"], "keeper": a.get("keeper", ""),
             "entry_anchor": a["entry_anchor"], "interior_area": a["interior_area"],
             "pool": a["pool"], "fee": a["fee"], "unlock": a["unlock"],
             "ladder": [{
@@ -330,7 +333,7 @@ def write_duelists(gang, arenas, decks, out, every):
         fh.write("\n")
     # a duelist written before but no longer wanted would stay on the grid for ever
     for name in sorted(os.listdir(folder)):
-        if name.endswith(".json") and name[:-5] not in kept:
+        if name.startswith("eco_") and name.endswith(".json") and name[:-5] not in kept:   # dk_* are the story's
             os.remove(os.path.join(folder, name))
             print("removed duelists/%s" % name)
     for name in sorted(set(missing)):

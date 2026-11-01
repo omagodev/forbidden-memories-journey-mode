@@ -131,6 +131,42 @@
    "short": "(label)",
    "portrait": 254,
    "note": "No portrait. Every narrator page carries its own label."
+  },
+  "pegasus": {
+   "name": "Pegasus",
+   "short": "Pegasus",
+   "portrait": 15,
+   "note": "A recording in the beach mirror (chapter 2)."
+  },
+  "weevil": {
+   "name": "Weevil",
+   "short": "Weevil",
+   "portrait": 10,
+   "note": "Weevil Underwood, the bug champion with loaded dice."
+  },
+  "staff": {
+   "name": "Staff do Reino",
+   "short": "Staff",
+   "portrait": 254,
+   "note": "Pegasus's camp staff (voice only)."
+  },
+  "dock_dan": {
+   "name": "Dan do Cais",
+   "short": "Dan",
+   "portrait": 254,
+   "note": "Harbor stall keeper (economy)."
+  },
+  "purser": {
+   "name": "Comissario Pim",
+   "short": "Pim",
+   "portrait": 254,
+   "note": "Ship stall keeper (economy)."
+  },
+  "shell_sue": {
+   "name": "Sue Concha",
+   "short": "Sue",
+   "portrait": 254,
+   "note": "Beach tent keeper (economy)."
   }
  },
  "flags": [
@@ -313,6 +349,42 @@
    "bit": 29,
    "value": 536870912,
    "note": "Observer glimpse 4: top of the ship's mast."
+  },
+  {
+   "name": "beach_arrived",
+   "bit": 30,
+   "value": 1073741824,
+   "note": "Chapter 2: landed on the Shore of Illusions."
+  },
+  {
+   "name": "pegasus_mirror",
+   "bit": 31,
+   "value": 2147483648,
+   "note": "Heard Pegasus's recorded welcome."
+  },
+  {
+   "name": "weevil_met",
+   "bit": 32,
+   "value": 4294967296,
+   "note": "Weevil's ambush on the beach."
+  },
+  {
+   "name": "weevil_won",
+   "bit": 33,
+   "value": 8589934592,
+   "note": "Weevil beaten: second star, end of chapter 2."
+  },
+  {
+   "name": "camp_met",
+   "bit": 34,
+   "value": 17179869184,
+   "note": "Optional: read the Shore Camp sign."
+  },
+  {
+   "name": "hooded_shore",
+   "bit": 35,
+   "value": 34359738368,
+   "note": "Optional: the hooded man's line on the beach pier."
   }
  ],
  "stages": [
@@ -351,6 +423,14 @@
   {
    "stage": 10,
    "note": "Chapter 2 start: Duelist Kingdom (see kingdom_outline.json)"
+  },
+  {
+   "stage": 11,
+   "note": "Chapter 2: the mirror heard, Weevil waits"
+  },
+  {
+   "stage": 12,
+   "note": "Chapter 2 complete: the forest path is the next part"
   }
  ],
  "chapters": [
@@ -364,6 +444,17 @@
    ],
    "reward": "Star Passage, 1 star",
    "unlock": "Duelist Kingdom"
+  },
+  {
+   "n": 2,
+   "title": "A Costa das Ilusoes",
+   "region": "kingdom_beach",
+   "stage": [
+    10,
+    12
+   ],
+   "reward": "a second star, Loaded Dice, card Hercules Beetle",
+   "unlock": "Forest of Whispers (chapter 3)"
   }
  ],
  "areas": [
@@ -394,8 +485,8 @@
   {
    "id": "kingdom_beach",
    "name": "Costa das Ilusoes",
-   "setting": "First area of the Kingdom, outline only (see kingdom_outline.json).",
-   "art": "later"
+   "setting": "First area of the Kingdom: landing pier, a standing mirror, tents of the Shore Camp, a stall, a sea cave, a jungle path.",
+   "art": "exists (painted, chapter 2)"
   }
  ],
  "anchors": {
@@ -430,7 +521,9 @@
    "farewell_jono": "Pier, right of center.",
    "breakwater": "OBSERVER: far stone breakwater across the water. Robe sprite + green aura, never walkable.",
    "gangway": "Gangway of the white ship (ship appears at stage 6).",
-   "bridge_back": "Edge back to the bridge/village."
+   "bridge_back": "Edge back to the bridge/village.",
+   "shop_stall": "Dock Dan's cart on the boardwalk.",
+   "arena_door": "Warehouse door (top left): the Net Loft Pit."
   },
   "ship_deck": {
    "spawn_gangway": "Top of the gangway.",
@@ -438,10 +531,19 @@
    "inseto_spot": "Center deck, striking a pose.",
    "barrel": "Barrel next to the mast.",
    "mast_top": "OBSERVER: top of the mast (crow's nest). Robe sprite + green aura, never walkable.",
-   "bow": "Front of the ship."
+   "bow": "Front of the ship.",
+   "shop_stall": "Purser Pim's stall on deck.",
+   "arena_door": "Cargo hatch: the Bilge Ring below deck."
   },
   "kingdom_beach": {
-   "spawn": "Beach where the ship lands (engine dev binds when the Kingdom arc is built)."
+   "spawn": "Top of the landing pier (bottom left).",
+   "mirror_spot": "In front of the standing mirror (top centre).",
+   "weevil_spot": "Sand left of centre, by the palms.",
+   "shore_camp": "By the campfire among the tents (right).",
+   "shop_stall": "Shell Sue's striped stall.",
+   "arena_door": "The sea cave in the cliff (top left): the Wreck Pit.",
+   "pier_far": "Far end of the landing pier (the hooded man).",
+   "jungle_path": "Path into the jungle (top right)."
   }
  },
  "npcs": [
@@ -1428,6 +1530,152 @@
      "script": "dk1_inseto_after"
     }
    ]
+  },
+  {
+   "id": "weevil",
+   "name": "Weevil",
+   "portrait_speaker": "weevil",
+   "area": "kingdom_beach",
+   "anchor": "weevil_spot",
+   "duelist_id": 10,
+   "stages": [
+    11,
+    99
+   ],
+   "visible": "placed",
+   "note": "Appears after the mirror; his ambush scene plays by itself the first time.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       11,
+       11
+      ],
+      "flags_all": [
+       "weevil_met"
+      ],
+      "flags_none": [
+       "weevil_won"
+      ]
+     },
+     "script": "dk2_weevil_pre",
+     "duel": "weevil"
+    },
+    {
+     "when": {
+      "stage": [
+       11,
+       99
+      ]
+     },
+     "script": "dk2_weevil_after"
+    }
+   ]
+  },
+  {
+   "id": "hooded_shore",
+   "name": "Homem Encapuzado",
+   "portrait_speaker": "hooded_man",
+   "area": "kingdom_beach",
+   "anchor": "pier_far",
+   "duelist_id": null,
+   "stages": [
+    11,
+    99
+   ],
+   "visible": "placed",
+   "note": "Shadi in his hood, one line; gone once heard.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       11,
+       99
+      ],
+      "flags_none": [
+       "hooded_shore"
+      ]
+     },
+     "script": "dk2_hooded_shore",
+     "effects": [
+      {
+       "set_flag": "hooded_shore"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dock_dan",
+   "name": "Dan do Cais",
+   "portrait_speaker": "dock_dan",
+   "area": "harbor",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    5,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       5,
+       99
+      ]
+     },
+     "script": "dk2_dock_dan"
+    }
+   ]
+  },
+  {
+   "id": "purser",
+   "name": "Comissario Pim",
+   "portrait_speaker": "purser",
+   "area": "ship_deck",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    7,
+    7
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       7,
+       7
+      ]
+     },
+     "script": "dk2_purser"
+    }
+   ]
+  },
+  {
+   "id": "shell_sue",
+   "name": "Sue Concha",
+   "portrait_speaker": "shell_sue",
+   "area": "kingdom_beach",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    10,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       10,
+       99
+      ]
+     },
+     "script": "dk2_shell_sue"
+    }
+   ]
   }
  ],
  "objects": [
@@ -1775,6 +2023,103 @@
      "script": "dk1_bow_wait"
     }
    ]
+  },
+  {
+   "id": "pegasus_mirror",
+   "name": "Espelho de pe",
+   "area": "kingdom_beach",
+   "anchor": "mirror_spot",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       10,
+       10
+      ],
+      "flags_none": [
+       "pegasus_mirror"
+      ]
+     },
+     "script": "dk2_mirror",
+     "effects": [
+      {
+       "set_flag": "pegasus_mirror"
+      },
+      {
+       "set_stage": 11
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       10,
+       99
+      ]
+     },
+     "script": "dk2_mirror_after"
+    }
+   ]
+  },
+  {
+   "id": "shore_camp",
+   "name": "Acampamento da Costa",
+   "area": "kingdom_beach",
+   "anchor": "shore_camp",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       10,
+       99
+      ],
+      "flags_none": [
+       "camp_met"
+      ]
+     },
+     "script": "dk2_camp",
+     "effects": [
+      {
+       "set_flag": "camp_met"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       10,
+       99
+      ]
+     },
+     "script": "dk2_camp_after"
+    }
+   ]
+  },
+  {
+   "id": "jungle_path",
+   "name": "Trilha da selva",
+   "area": "kingdom_beach",
+   "anchor": "jungle_path",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       12,
+       99
+      ]
+     },
+     "script": "dk2_jungle_locked"
+    },
+    {
+     "when": {
+      "stage": [
+       10,
+       11
+      ]
+     },
+     "script": "dk2_jungle_early"
+    }
+   ]
   }
  ],
  "items": [
@@ -1855,6 +2200,12 @@
    "name": "Pin do Inseto Dourado",
    "description": "O pin de besouro dourado do InsetoKaiba. Pura vaidade.",
    "source": "InsetoKaiba"
+  },
+  {
+   "id": "loaded_dice",
+   "name": "Dados Viciados",
+   "description": "Os dados do Weevil. Toda face e seis.",
+   "source": "Weevil"
   }
  ],
  "new_duelists": [
@@ -2187,6 +2538,52 @@
     }
    ],
    "reward": "Golden Bug Pin, card Javelin Beetle"
+  },
+  {
+   "id": "q11_shore",
+   "kind": "talk+duel",
+   "optional": false,
+   "title": "A Costa das Ilusoes",
+   "giver": "pegasus",
+   "steps": [
+    {
+     "objective": "Olhe o espelho da praia",
+     "anchor": "kingdom_beach.mirror_spot"
+    },
+    {
+     "objective": "Venca o Weevil por uma estrela",
+     "anchor": "kingdom_beach.weevil_spot"
+    }
+   ],
+   "reward": "a second star, Loaded Dice, card Hercules Beetle"
+  },
+  {
+   "id": "s05_camp",
+   "kind": "investigate",
+   "optional": true,
+   "title": "A Rede de Seguranca",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Leia a placa do Acampamento",
+     "anchor": "kingdom_beach.shore_camp"
+    }
+   ],
+   "reward": "you know where you wake up"
+  },
+  {
+   "id": "s06_hooded",
+   "kind": "talk",
+   "optional": true,
+   "title": "Areia no Cais",
+   "giver": "hooded_man",
+   "steps": [
+    {
+     "objective": "Fale com o vulto de capuz no cais",
+     "anchor": "kingdom_beach.pier_far"
+    }
+   ],
+   "reward": "a warning"
   }
  ],
  "duels": [
@@ -2436,6 +2833,33 @@
    "rewards_first_win_only": true,
    "stars_wager": false,
    "note": "Optional boss on the ship. No stars at risk (the Kingdom has not started). Rematch in Chapter 8."
+  },
+  {
+   "id": "weevil",
+   "npc": "weevil",
+   "duelist_id": 10,
+   "chapter": 2,
+   "deck": "Weevil Shore",
+   "difficulty_tier": 2,
+   "pre_script": "dk2_weevil_pre",
+   "win_script": "dk2_weevil_win",
+   "lose_script": "dk2_weevil_lose",
+   "win_flag": "weevil_won",
+   "on_win": [
+    {
+     "give_card": "Hercules Beetle"
+    },
+    {
+     "give_item": "loaded_dice"
+    },
+    {
+     "set_stage": 12
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 1,
+   "note": "The first star wager of the Kingdom (+1 / -1 star). Losing the last star wakes the hero at the Shore Camp."
   }
  ],
  "transitions": [
@@ -2645,6 +3069,50 @@
     }
    ],
    "script": "dk1_arrival"
+  },
+  {
+   "id": "landing",
+   "when": {
+    "stage": [
+     10,
+     10
+    ],
+    "flags_none": [
+     "beach_arrived"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true",
+    "area": "kingdom_beach"
+   },
+   "effects": [
+    {
+     "set_flag": "beach_arrived"
+    }
+   ],
+   "script": "dk2_landing"
+  },
+  {
+   "id": "weevil_ambush",
+   "when": {
+    "stage": [
+     11,
+     11
+    ],
+    "flags_none": [
+     "weevil_met"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true",
+    "area": "kingdom_beach"
+   },
+   "effects": [
+    {
+     "set_flag": "weevil_met"
+    }
+   ],
+   "script": "dk2_weevil_ambush"
   }
  ],
  "hud_objectives": [
@@ -2939,6 +3407,33 @@
     ]
    },
    "text": "Va ate a proa do navio"
+  },
+  {
+   "when": {
+    "stage": [
+     10,
+     10
+    ]
+   },
+   "text": "Olhe o espelho da praia"
+  },
+  {
+   "when": {
+    "stage": [
+     11,
+     11
+    ]
+   },
+   "text": "Venca o Weevil - cada um aposta uma estrela"
+  },
+  {
+   "when": {
+    "stage": [
+     12,
+     99
+    ]
+   },
+   "text": "Capitulo 2 completo - a floresta espera"
   }
  ],
  "scripts": [
@@ -4850,10 +5345,339 @@
      "text": "Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia."
     }
    ]
+  },
+  {
+   "id": "dk2_landing",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Chapter 2 opens: the hero steps off the gangway onto the Shore of Illusions.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Areia, tendas e uma placa pintada - Bem-vindos, insetos e campeoes.",
+     "label": "Costa das Ilusoes"
+    },
+    {
+     "speaker": "mai",
+     "text": "Vai la, queridinho. Cuide dessa estrela. Te vejo no castelo."
+    },
+    {
+     "speaker": "atos",
+     "text": "Um espelho gigante no meio da praia? Isso nao e normal."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Olhe o espelho da praia.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk2_mirror",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Pegasus's recorded welcome in the beach mirror. Sets the star rules.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O vidro ondula. Um homem de vermelho e cabelo prateado sorri.",
+     "label": "Espelho"
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Bem-vindos, duelistas, ao meu pequeno Reino! Isto e so uma gravacao."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Todo duelista leva estrelas. Venca e ganhe uma. Perca e entregue uma."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Dez estrelas abrem o portao do castelo. Zero estrelas... ninguem gosta."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Perca a ultima e voce acorda no Acampamento da Costa. Sou generoso."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Agora vao jogar! Estarei olhando. Estou sempre olhando."
+    },
+    {
+     "speaker": "atos",
+     "text": "Sempre olhando? Que medo. Uma estrela. Vamos achar um duelo."
+    }
+   ]
+  },
+  {
+   "id": "dk2_mirror_after",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "The mirror after the recording.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "So o seu rosto agora, e um leve cheiro de geleia de morango.",
+     "label": "Espelho"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_ambush",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Weevil jumps out from behind a palm with his loaded dice.",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hihihi! Um novato com uma estrelinha brilhante. Que sorte a minha."
+    },
+    {
+     "speaker": "atos",
+     "text": "Quem e voce? E por que estava atras de uma palmeira?"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Weevil Underwood, campeao dos insetos! Vamos rolar quem comeca."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Weevil rola. Seis. Rola de novo. Seis. E de novo. Seis.",
+     "label": "Dados"
+    },
+    {
+     "speaker": "atos",
+     "text": "Esses dados sao viciados! Toda face e seis!"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Prove. Duele pela sua estrela, ou va embora chorando."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Venca o Weevil na praia. Cada um aposta uma estrela.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_pre",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Weevil's star duel (first wager of the Kingdom).",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Uma estrela na areia. Quem vencer leva. Quem perder chora. Hihihi!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Apostar 1 estrela e duelar com Weevil agora?",
+     "label": "Aposta de Estrela"
+    },
+    {
+     "speaker": "weevil",
+     "text": "E entao? Meus insetos estao com fome. Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_win",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Weevil beaten: the hero's second star and the end of chapter 2.",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Impossivel! Meus insetos! Meus dados! Meu lindo plano!"
+    },
+    {
+     "speaker": "weevil",
+     "text": "Leve sua estrela. E estes dados. Eles nunca gostaram de mim."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce ganhou uma estrela, os Dados Viciados e a carta Hercules Beetle.",
+     "label": "Recompensa"
+    },
+    {
+     "speaker": "atos",
+     "text": "Duas estrelas. Faltam oito. Lembrete - trazer meus dados."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Capitulo 3 - A Floresta dos Sussurros, na proxima parte.",
+     "label": "Fim do Capitulo 2"
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_lose",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Weevil wins the wager.",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Hihihi! Sua estrela e minha. Insetos sempre vencem no fim."
+    },
+    {
+     "speaker": "atos",
+     "text": "Vou ficar mais forte. Cartas novas, depois revanche. Sem dados viciados."
+    }
+   ]
+  },
+  {
+   "id": "dk2_weevil_after",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Weevil after losing.",
+   "pages": [
+    {
+     "speaker": "weevil",
+     "text": "Va embora. Eu e os dados nao estamos nos falando."
+    }
+   ]
+  },
+  {
+   "id": "k1_eliminated",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Last star lost anywhere in the Kingdom: wake at the Shore Camp with one star. Never a game over.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Voce acorda num catre na tenda. Uma ficha de estrela esta no seu peito.",
+     "label": "Acampamento da Costa"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."
+    },
+    {
+     "speaker": "atos",
+     "text": "De volta a uma estrela. Hora de comprar cartas e treinar nas arenas."
+    }
+   ]
+  },
+  {
+   "id": "dk2_camp",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "The Shore Camp sign: the safety net, first visit.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Catres, uma fogueira e uma placa - Perdeu suas estrelas? Descanse.",
+     "label": "Acampamento da Costa"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Letras miudas - Pegasus devolve uma estrela aos que caem.",
+     "label": "Acampamento da Costa"
+    },
+    {
+     "speaker": "atos",
+     "text": "Uma rede de seguranca. Bom. Mesmo assim nao pretendo usar."
+    }
+   ]
+  },
+  {
+   "id": "dk2_camp_after",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Shore Camp, later visits.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A fogueira estala. Alguns duelistas eliminados roncam.",
+     "label": "Acampamento da Costa"
+    }
+   ]
+  },
+  {
+   "id": "dk2_hooded_shore",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "The hooded man (Shadi) at the end of the beach pier: one line, then gone.",
+   "pages": [
+    {
+     "speaker": "hooded_man",
+     "text": "O Reino testa mais que baralhos. Observe quem junta as estrelas."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma rajada de areia. O fim do cais esta vazio de novo.",
+     "label": "Cais"
+    }
+   ]
+  },
+  {
+   "id": "dk2_jungle_early",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "The jungle path before Weevil.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma placa - Floresta dos Sussurros. So duelistas com duas estrelas.",
+     "label": "Trilha da Selva"
+    }
+   ]
+  },
+  {
+   "id": "dk2_jungle_locked",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "The jungle path after chapter 2: the next part.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A trilha da floresta espera. O capitulo 3 chega na proxima parte.",
+     "label": "Trilha da Selva"
+    }
+   ]
+  },
+  {
+   "id": "dk2_dock_dan",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Dock Dan, the harbor cart.",
+   "pages": [
+    {
+     "speaker": "dock_dan",
+     "text": "Fresquinho do barco! Cartas baratas. Bom, quase baratas."
+    }
+   ]
+  },
+  {
+   "id": "dk2_purser",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Purser Pim, the ship's stall.",
+   "pages": [
+    {
+     "speaker": "purser",
+     "text": "Lanches, cartas e remedio pra enjoo. So as cartas funcionam."
+    }
+   ]
+  },
+  {
+   "id": "dk2_shell_sue",
+   "legacy_id": null,
+   "chapter": 2,
+   "desc": "Shell Sue, the beach tent.",
+   "pages": [
+    {
+     "speaker": "shell_sue",
+     "text": "Conchas, cartas e segredos. Compre algo, menino estrela."
+    }
+   ]
   }
  ],
  "editor_notes": [
-  "Home-town arc only (chapter 1). Kingdom arc: ../kingdom_outline.json.",
+  "Chapter 1 (home town, harbor, ship) and chapter 2 (the Shore of Illusions, dk_chapter2.py). Kingdom arc: ../kingdom_outline.json.",
   "Anchors are symbolic: <area>.<anchor>. The engine dev binds them to picture or map coordinates."
  ]
 }

@@ -44,7 +44,9 @@ You are a young duelist from **Oasis Village**, a sleepy desert town where every
 
 * **Chapter 1: Home town.** Prove yourself in Simon's test duel. On a quiet night a hooded stranger hands you a Stamp Card. Earn three stamps through creative quests (something lost, something won, something given), pass the harbor exam and face Shadi's trial. Win the **Star Passage** and your first star, just like Joey did, then say goodbye at the pier.
 * **On the ship** you meet Mai, learn the star rules, and run into **InsetoKaiba**: an arrogant, insect-obsessed rival in a white coat with a pompadour, and a parody you won't forget.
-* **The Kingdom (chapters 2-10, outlined):** the Shore of Illusions, the Forest of Whispers, the Mountain Pass, the Meadow Maze, the Desert of Lost Stars and the Star Fair. Win stars, lose stars, never get a game over. Reach **10 stars** to open the castle gate and climb to Pegasus's Dream Room.
+* **Chapter 2: the Shore of Illusions (playable).** Land on the island, hear Pegasus's rules from a mirror on the sand, survive Weevil's ambush with his loaded dice and wager your first stars. Lose your last star and you wake at the **Shore Camp** with one star back: never a game over.
+* **Play the long way.** The starter deck is forty weak commons on purpose. Win cards from the local pool, buy them in each town's shop, beat the **Dune Jackals** gang or the **clandestine arenas**: every arena keeps three cards that drop nowhere else.
+* **The Kingdom (chapters 3-10, outlined):** the Shore of Illusions, the Forest of Whispers, the Mountain Pass, the Meadow Maze, the Desert of Lost Stars and the Star Fair. Win stars, lose stars, never get a game over. Reach **10 stars** to open the castle gate and climb to Pegasus's Dream Room.
 * **Mago.dev, the observer.** A mage who *programs reality* but never interferes. You'll catch glimpses of him on rooftops, in green glyphs on a cistern wall and at the top of a mast... until the very end.
 
 The full outline is in [`journey_content/duelist_kingdom/`](journey_content/duelist_kingdom/README.md), and every line of dialogue in reading order is in [English](journey_content/duelist_kingdom/en/story_readable_dk.en.md) and [Portuguese](journey_content/duelist_kingdom/pt/story_readable_dk.pt.md). Spoilers, of course.
@@ -152,8 +154,10 @@ The highlights (full list in [ROADMAP.md](ROADMAP.md)):
 - [x] Character creator with layered sprites
 - [x] Underground arena with animated fire
 - [ ] Economy, gang and arenas: balance and polish
-- [ ] Duelist Kingdom chapters 2-10
-- [ ] More illustrated areas: harbor, ship and the island zones
+- [x] Illustrated harbor, ship deck and Shore of Illusions; chapter 2 playable
+- [x] Weak starter deck and arena-exclusive cards
+- [ ] Duelist Kingdom chapters 3-10
+- [ ] More illustrated island zones
 - [ ] 🌐 **Online multiplayer**: duel your friends from the map
 
 ## Built on the shoulders of giants

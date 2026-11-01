@@ -14,6 +14,9 @@ Journey Mode is a hobby project, so there are no dates here, just the direction.
 - LPC walking sprites for the main cast
 - Small key-hint icons instead of big action bars
 - Fast test scenarios (jump to any story point)
+- Illustrated harbor, ship deck and Shore of Illusions, each with its shop, card pool, gang ambushes and clandestine arena
+- Duelist Kingdom chapter 2 (the Shore of Illusions): Pegasus's mirror, Weevil's ambush, star wagers, the Shore Camp
+- A weak 40-card starter deck; three arena-exclusive cards per arena (never sold, never dropped elsewhere)
 
 ## 🚧 In progress
 - **Economy:** money, a shop in every town, card drops only from the local pool
@@ -22,8 +25,7 @@ Journey Mode is a hobby project, so there are no dates here, just the direction.
 - Balancing difficulty across the economy, the gang and the arenas
 
 ## 🔜 Next
-- Illustrated harbor and ship deck; the rest of chapter 1 on real maps
-- Duelist Kingdom chapters 2-10: star wagers, island zones, the castle and Pegasus
+- Duelist Kingdom chapters 3-10: island zones, the castle and Pegasus
 - Mago.dev's observer appearances and the ending
 - More towns, each with its own shop, card pool and arena
 - Accented Portuguese text

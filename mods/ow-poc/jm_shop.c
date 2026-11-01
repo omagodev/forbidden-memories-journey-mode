@@ -720,6 +720,12 @@ static void detail_panel(void)
         else if (it->kind == ECO_ITEM_PACK) b[0] = 0;
         else Ui_Fmt1(b, sizeof(b), T("shop.owned"), it->owned);
         if (b[0]) fit(px + S(18), ty + S(52), pw - S(36), b, it->locked ? RED : SOFT, ss);
+        if (it->kind != ECO_ITEM_PACK && Eco_Exclusive(card)) {      /* a ring's prize the player won and may now sell */
+            char an[40];
+            snprintf(an, sizeof(an), "names.arenas.%s", Eco_Exclusive(card));
+            snprintf(b, sizeof(b), "%s: %s", T("shop.exclusive"), EcoTr(an));
+            fit(px + S(18), ty + S(74), pw - S(36), L1(b), GOLD, ss);
+        }
     }
     /* quantity, total, button */
     {

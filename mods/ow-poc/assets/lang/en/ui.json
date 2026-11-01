@@ -181,7 +181,8 @@
     "Final Temple"
   ],
   "chapters": [
-    "The Whispering Village"
+    "The Whispering Village",
+    "The Shore of Illusions"
   ],
   "objectives": [
     "Duel Bakura the lonely ghost",
@@ -207,7 +208,10 @@
     "Meet the Courier at the end of the pier",
     "Say goodbye to your friends, then board",
     "Talk to the lady on deck",
-    "Go to the bow of the ship"
+    "Go to the bow of the ship",
+    "Look into the mirror on the beach",
+    "Beat Weevil - each of you wagers a star",
+    "Chapter 2 complete - the forest waits"
   ],
   "items": [
     "Stamp Card",
@@ -218,7 +222,10 @@
     "Dates",
     "Founder's Scarab",
     "Jono's Bandana",
-    "Lucky Charm"
+    "Lucky Charm",
+    "Star Passage",
+    "Golden Bug Pin",
+    "Loaded Dice"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -229,7 +236,16 @@
     "farmer": "Kemet",
     "hooded_man": "Hooded Man",
     "rex": "Rex Raptor",
-    "bakura": "Bakura"
+    "bakura": "Bakura",
+    "soldier": "Mage Soldier",
+    "shadi": "Shadi",
+    "mai": "Mai",
+    "inseto_kaiba": "InsetoKaiba",
+    "weevil": "Weevil",
+    "hooded_shore": "Hooded Man",
+    "dock_dan": "Dock Dan",
+    "purser": "Purser Pim",
+    "shell_sue": "Shell Sue"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -248,7 +264,13 @@
     "mago_dev": "Mago.dev",
     "mago_dev_tee": "Mago.dev",
     "mago_hidden": "???",
-    "isis": "Isis"
+    "isis": "Isis",
+    "pegasus": "Pegasus",
+    "weevil": "Weevil",
+    "staff": "Kingdom Staff",
+    "dock_dan": "Dock Dan",
+    "purser": "Purser Pim",
+    "shell_sue": "Shell Sue"
   },
   "map": {
     "title": "MAP",
@@ -385,7 +407,12 @@
     "Midnight at the Bench",
     "The Lost: Founder's Scarab",
     "The Won: Jono's Bandana",
-    "The Given: Teana's Cakes"
+    "The Given: Teana's Cakes",
+    "The Harbor Exam",
+    "The Courier's Trial",
+    "Goodbye, Home Town",
+    "Rules of the Sea",
+    "The Shore of Illusions"
   ],
   "quest_objectives": [
     "Ask Teana, Jono and the Guard",
@@ -393,7 +420,12 @@
     "Sit on the plaza bench until night",
     "Ask Hakim about lost treasures",
     "Meet Rex or Jono, any order",
-    "Take the Water Jug from Teana"
+    "Take the Water Jug from Teana",
+    "Cross the bridge, the Guard lets you pass",
+    "Walk to the end of the pier",
+    "Talk to Simon, Teana and Jono on the pier",
+    "Talk to Mai on deck",
+    "Look into the mirror on the beach"
   ],
   "quest_steps": [
     "Sit on the plaza bench until night",
@@ -416,7 +448,12 @@
     "Stamp Card with three stamp slots",
     "Founder's Scarab, cards Killer Needle and The 13th Grave, stamp Lost",
     "Jono's Bandana, cards Uraby and Dragon Treasure, stamp Won",
-    "Lucky Charm, card Kuriboh, stamp Given"
+    "Lucky Charm, card Kuriboh, stamp Given",
+    "card Warrior of Tradition; the harbor gate opens",
+    "Star Passage, a star, card Illusionist Faceless Mage",
+    "card Mystical Elf; Simon's secret",
+    "the star rules; land on the island",
+    "a second star, Loaded Dice, card Hercules Beetle"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -440,7 +477,10 @@
   },
   "painted": {
     "cistern": "Old Cistern",
-    "arena": "Secret Cellar Arena"
+    "arena": "Secret Cellar Arena",
+    "harbor": "Sunset Harbor",
+    "ship_deck": "The Golden Eye (ship deck)",
+    "kingdom_beach": "Shore of Illusions"
   },
   "shop": {
     "title": "Card Shop",
@@ -514,7 +554,8 @@
       "Ritual",
       "Equip"
     ],
-    "def": "DEF"
+    "def": "DEF",
+    "exclusive": "Arena exclusive"
   },
   "bag": {
     "title": "Backpack",
