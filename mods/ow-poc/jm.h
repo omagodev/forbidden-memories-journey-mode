@@ -275,7 +275,21 @@ void Story_Expand(const char *text, char *out, int size);   /* {name} and {a|b} 
 int Story_PageCount(const char *scene);
 int Story_Page(const char *scene, int index, Page *out);
 int Story_ItemList(char names[][32], int max);
-int Story_Cards(int id);                             /* grants a card to the chest */
+int Story_Cards(int id);
+const char *Story_CardGiver(int id);                 /* the story duelist who gives a card; NULL if none */
+int Story_GotCards(int *out, int max);               /* the cards the story gave */
+int Story_Items(int *out, int max);                  /* held items, as journey.json item indices */
+const char *Story_ItemName(int i); const char *Story_ItemFile(int i); const char *Story_ItemFlag(int i);
+int Jm_ItemIcon(int x, int y, int px, const char *file);   /* an item's 24x24 icon, px screen pixels a texel */
+extern int Cards_Seen(int id);
+extern int Cards_NameUtf8(int id, char *out, size_t size);
+const char *Jm_L1(const char *utf8);                 /* UTF-8 folded to the overlay font's Latin-1 */
+int Jm_CardArt(int card, int big, int x, int y, int w, int h);
+unsigned Jm_ArtLoads(void);
+void Jm_CardLine(int card, char *b, size_t n);
+void Jm_CardBadge(int x, int y, int card);
+unsigned Jm_TypeFrame(int card);
+void Bag_Open(void); int Bag_Input(unsigned short edge); void Bag_Overlay(void); unsigned Bag_Signature(void);                             /* grants a card to the chest */
 int Story_Auto(Talk *out);                           /* an "auto" rule of journey.json that holds now (stage change, then a scene), applied once */
 extern int jm_pwarp;                                 /* set by a result with "warp": [area, anchor]: the painted player goes there when the scene is over */
 extern char jm_pwarp_area[16], jm_pwarp_anchor[24];

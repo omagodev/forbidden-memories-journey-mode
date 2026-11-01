@@ -20,7 +20,7 @@ no license.
   colour, skin, outfit colour and portrait, with a 3D preview; Start begins
   the story.
 * Map: arrows walk (Circle runs), X talks or examines, Start opens the menu
-  (Deck editor, Items, Status, Save, Back to title), Triangle on the
+  (Deck editor, Backpack, Status, Save, Back to title), Triangle on the
   creation screen goes back.
 * A person's dialogue ends with Yes/No when he wants a duel; Yes starts the
   game's own duel (deck screen, field, result), and you are back on the map

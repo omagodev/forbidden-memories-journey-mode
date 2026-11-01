@@ -267,31 +267,37 @@
  "items": [
   {
    "name": "Stamp Card",
-   "flag": "courier_met"
+   "flag": "courier_met",
+   "icon": "assets/icon_stamp_card.bin"
   },
   {
    "name": "Lantern",
-   "flag": "farmer_won"
+   "flag": "farmer_won",
+   "icon": "assets/icon_lantern.bin"
   },
   {
    "name": "Water Jug",
    "flag": "jug_taken",
-   "until": "got_water"
+   "until": "got_water",
+   "icon": "assets/icon_water_jug.bin"
   },
   {
    "name": "Honey Jar",
    "flag": "got_honey",
-   "until": "treasure_given"
+   "until": "treasure_given",
+   "icon": "assets/icon_honey_jar.bin"
   },
   {
    "name": "River Water",
    "flag": "got_water",
-   "until": "treasure_given"
+   "until": "treasure_given",
+   "icon": "assets/icon_river_water.bin"
   },
   {
    "name": "Dates",
    "flag": "got_dates",
-   "until": "treasure_given"
+   "until": "treasure_given",
+   "icon": "assets/icon_dates.bin"
   },
   {
    "name": "Founder's Scarab",

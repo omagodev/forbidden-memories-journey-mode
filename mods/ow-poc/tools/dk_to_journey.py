@@ -46,14 +46,15 @@ DEBUG_PRESETS = [
 ]
 # a narrator page with a label is not speech: its kind decides the banner (en labels; pt pages follow the same index)
 LABEL_KIND = {"Objective": "objective", "Reward": "item", "You got": "item", "Stamp": "item", "End of Chapter 1": "complete"}
-NOTIFY = {"en": {"objective": "NEW OBJECTIVE", "item": "ITEM OBTAINED", "complete": "QUEST COMPLETE", "caption": "", "press": "X: continue"},
-          "pt": {"objective": "NOVO OBJETIVO", "item": "ITEM OBTIDO", "complete": "MISSAO CUMPRIDA", "caption": "", "press": "X: continuar"}}
+NOTIFY = {"en": {"objective": "NEW OBJECTIVE", "item": "ITEM OBTAINED", "complete": "QUEST COMPLETE", "caption": "", "press": "X: continue", "card": "CARD OBTAINED"},
+          "pt": {"objective": "NOVO OBJETIVO", "item": "ITEM OBTIDO", "complete": "MISSAO CUMPRIDA", "caption": "", "press": "X: continuar", "card": "CARTA OBTIDA"}}
 PART_END = {}      # a duel win that ends the part (a "then" script after the win scene); part 3 ends by an "auto" rule instead
 # effects the runtime derives from state instead of executing (items from flags, time of day / placement from "painted" and "places")
 DERIVED = {"give_item", "set_time", "remove_npc", "place_npc"}
 # items are derived from flags; "until" is the flag that uses them up (the jug is filled at the river, the ingredients go into the cakes); icon files exist for the treasures
-ITEM_FLAG = {"stamp_card": ("courier_met", None, None), "lantern": ("farmer_won", None, None), "jug": ("jug_taken", "got_water", None),
-             "honey": ("got_honey", "treasure_given", None), "river_water": ("got_water", "treasure_given", None), "dates": ("got_dates", "treasure_given", None),
+ITEM_FLAG = {"stamp_card": ("courier_met", None, "assets/icon_stamp_card.bin"), "lantern": ("farmer_won", None, "assets/icon_lantern.bin"),
+             "jug": ("jug_taken", "got_water", "assets/icon_water_jug.bin"), "honey": ("got_honey", "treasure_given", "assets/icon_honey_jar.bin"),
+             "river_water": ("got_water", "treasure_given", "assets/icon_river_water.bin"), "dates": ("got_dates", "treasure_given", "assets/icon_dates.bin"),
              "scarab": ("treasure_lost", None, "assets/icon_founders_scarab.bin"), "bandana": ("treasure_won", None, "assets/icon_jonos_bandana.bin"),
              "charm": ("treasure_given", None, "assets/icon_lucky_charm.bin")}
 ITEM_ORDER = ["stamp_card", "lantern", "jug", "honey", "river_water", "dates", "scarab", "bandana", "charm"]

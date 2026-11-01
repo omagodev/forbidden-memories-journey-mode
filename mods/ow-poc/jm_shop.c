@@ -791,3 +791,17 @@ unsigned Shop_Signature(void)
            (unsigned)qty * 7027u + (unsigned)filter * 104729u + (unsigned)sort_by * 1299709u + art_loads * 15485863u +
            (unsigned)(keeper_px != NULL) * 179u + (unsigned)(bg != NULL) * 191u;
 }
+
+/* the shop's card pictures and labels, for the backpack (jm_bag.c) */
+const char *Jm_L1(const char *utf8) { return L1(utf8); }
+int Jm_CardArt(int card, int big, int x, int y, int w, int h)
+{
+    const unsigned *px = big ? big_of(card) : thumb_of(card);
+    if (!px) return 0;
+    picture(px, big ? ART_W : THUMB_W, big ? ART_H : THUMB_H, x, y, w, h);
+    return 1;
+}
+unsigned Jm_ArtLoads(void) { return art_loads; }
+void Jm_CardLine(int card, char *b, size_t n) { type_line(card, b, n); }
+void Jm_CardBadge(int x, int y, int card) { badge(x, y, card); }
+unsigned Jm_TypeFrame(int card) { return type_frame(card_type(card)); }

@@ -119,9 +119,9 @@ Toda cidade tem uma loja da Teana: compre cartas avulsas com a arte real do jogo
 
 <div align="center">
 
-![O menu Start dentro do jogo: editor de deck, itens, status, salvar e idioma.](docs/media/start_menu.png)
+![O menu Start dentro do jogo: editor de deck, mochila, status, salvar e idioma.](docs/media/start_menu.png)
 
-*O menu Start dentro do jogo: editor de deck, itens, status, salvar e idioma.*
+*O menu Start dentro do jogo: editor de deck, mochila, status, salvar e idioma. A Mochila guarda os itens da história (cada um com seu ícone) e as cartas que a história te deu; X abre os detalhes.*
 
 </div>
 

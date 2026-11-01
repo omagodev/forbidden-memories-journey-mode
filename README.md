@@ -111,9 +111,9 @@ Every town has a shop run by Teana: buy single cards with the real game art, ope
 
 <div align="center">
 
-![The in-game Start menu: deck editor, items, status, save and language.](docs/media/start_menu.png)
+![The in-game Start menu: deck editor, backpack, status, save and language.](docs/media/start_menu.png)
 
-*The in-game Start menu: deck editor, items, status, save and language.*
+*The in-game Start menu: deck editor, backpack, status, save and language. The Backpack holds the story's items (each with its own icon) and the cards the story gave; X opens the details.*
 
 </div>
 

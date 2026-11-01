@@ -139,7 +139,7 @@
   "menu": {
     "items": [
       "Deck editor",
-      "Items",
+      "Backpack",
       "Status",
       "Save",
       "Back to title",
@@ -435,7 +435,8 @@
     "item": "ITEM OBTAINED",
     "complete": "QUEST COMPLETE",
     "caption": "",
-    "press": "X: continue"
+    "press": "X: continue",
+    "card": "CARD OBTAINED"
   },
   "painted": {
     "cistern": "Old Cistern",
@@ -514,5 +515,56 @@
       "Equip"
     ],
     "def": "DEF"
+  },
+  "bag": {
+    "title": "Backpack",
+    "subtitle": "What the journey gave you: items and cards from the story.",
+    "tab_items": "Items",
+    "tab_cards": "Story cards",
+    "no_cards": "No story cards yet",
+    "hint_empty": "Nothing to show here",
+    "details": "Details",
+    "back": "Back",
+    "k_tab": "Tab",
+    "k_move": "Move",
+    "origin": "Where it came from",
+    "level": "Level %d",
+    "card_from": "Given by %s in the story.",
+    "courier_met": {
+      "desc": "A courier's card with a row of stamps. It proves you are on the town's errand list.",
+      "from": "The courier, the day you met him."
+    },
+    "farmer_won": {
+      "desc": "An oil lantern that lights the dark corners of the old roads.",
+      "from": "Kemet the farmer, after you beat him in a duel."
+    },
+    "jug_taken": {
+      "desc": "An empty clay jug, waiting to be filled.",
+      "from": "Taken for Teana's errand; fill it at the river."
+    },
+    "got_honey": {
+      "desc": "A small pot of golden honey for the festival cakes.",
+      "from": "Gathered for Teana's cakes."
+    },
+    "got_water": {
+      "desc": "The jug, now full of cool river water.",
+      "from": "Filled at the river."
+    },
+    "got_dates": {
+      "desc": "A bunch of sweet, ripe dates.",
+      "from": "Gathered for Teana's cakes."
+    },
+    "treasure_lost": {
+      "desc": "An old golden scarab said to belong to the town's founder.",
+      "from": "Found during the search for the lost treasure."
+    },
+    "treasure_won": {
+      "desc": "Jono's red bandana, a token of a hard-won duel.",
+      "from": "Jono, after the duel for the treasure."
+    },
+    "treasure_given": {
+      "desc": "A little charm for luck, given in thanks.",
+      "from": "Teana, in thanks for the ingredients."
+    }
   }
 }

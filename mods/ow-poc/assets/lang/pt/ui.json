@@ -139,7 +139,7 @@
   "menu": {
     "items": [
       "Editor de deck",
-      "Itens",
+      "Mochila",
       "Status",
       "Salvar",
       "Voltar ao titulo",
@@ -443,7 +443,8 @@
     "item": "ITEM OBTIDO",
     "complete": "MISSAO CUMPRIDA",
     "caption": "",
-    "press": "X: continuar"
+    "press": "X: continuar",
+    "card": "CARTA OBTIDA"
   },
   "painted": {
     "cistern": "Cisterna Antiga",
@@ -522,5 +523,56 @@
       "Equipamento"
     ],
     "def": "DEF"
+  },
+  "bag": {
+    "title": "Mochila",
+    "subtitle": "O que a jornada te deu: itens e cartas da história.",
+    "tab_items": "Itens",
+    "tab_cards": "Cartas da história",
+    "no_cards": "Nenhuma carta da história ainda",
+    "hint_empty": "Nada para mostrar aqui",
+    "details": "Detalhes",
+    "back": "Voltar",
+    "k_tab": "Aba",
+    "k_move": "Mover",
+    "origin": "De onde veio",
+    "level": "Nível %d",
+    "card_from": "Dada por %s na história.",
+    "courier_met": {
+      "desc": "Um cartão de mensageiro com uma fileira de selos. Prova que você está na lista de recados da cidade.",
+      "from": "O mensageiro, no dia em que vocês se conheceram."
+    },
+    "farmer_won": {
+      "desc": "Uma lanterna a óleo que ilumina os cantos escuros das estradas antigas.",
+      "from": "Kemet, o fazendeiro, depois que você o venceu num duelo."
+    },
+    "jug_taken": {
+      "desc": "Uma jarra de barro vazia, esperando ser enchida.",
+      "from": "Pega para o recado da Teana; encha no rio."
+    },
+    "got_honey": {
+      "desc": "Um potinho de mel dourado para os bolos da festa.",
+      "from": "Colhido para os bolos da Teana."
+    },
+    "got_water": {
+      "desc": "A jarra, agora cheia de água fresca do rio.",
+      "from": "Enchida no rio."
+    },
+    "got_dates": {
+      "desc": "Um cacho de tâmaras doces e maduras.",
+      "from": "Colhidas para os bolos da Teana."
+    },
+    "treasure_lost": {
+      "desc": "Um antigo escaravelho dourado que dizem ter sido do fundador da cidade.",
+      "from": "Achado na busca pelo tesouro perdido."
+    },
+    "treasure_won": {
+      "desc": "A bandana vermelha do Jono, lembrança de um duelo difícil.",
+      "from": "Jono, depois do duelo pelo tesouro."
+    },
+    "treasure_given": {
+      "desc": "Um pequeno amuleto da sorte, dado como agradecimento.",
+      "from": "Teana, como agradecimento pelos ingredientes."
+    }
   }
 }

@@ -13,6 +13,8 @@
 #include "pc/platform/mod_mode.h"
 #include "pc/text/glyphs.h"
 #include "jm.h"
+extern void Cards_MarkSeen(int id);
+extern int Cards_Seen(int id);
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -262,7 +264,9 @@ int Story_Cards(int id)
 {
     int i;
     if (id < 1 || id > 722) return 0;
-    if (gLibrary_abCardChest[id] < 99) gLibrary_abCardChest[id]++;
+    if (gLibrary_abCardChest[id - 1] < 99) gLibrary_abCardChest[id - 1]++;   /* the chest's byte for card n is n - 1 */
+    Cards_MarkSeen(id);
+    LOG("journey: card %d given (seen %d)", id, Cards_Seen(id));                 /* the chest lists it by name (an unseen card is a blank row there) */
     for (i = 0; i < jm.got_count; i++)
         if (jm.got_cards[i] == id) return 1;
     if (jm.got_count < 48) jm.got_cards[jm.got_count++] = (unsigned short)id;
@@ -275,9 +279,56 @@ void Story_Regrant(void)
     int i;
     for (i = 0; i < jm.got_count; i++) {
         int id = jm.got_cards[i];
-        if (id >= 1 && id <= 722 && !gLibrary_abCardChest[id]) gLibrary_abCardChest[id] = 1;
+        if (id >= 1 && id <= 722 && !gLibrary_abCardChest[id - 1]) gLibrary_abCardChest[id - 1] = 1;
+        if (id >= 1 && id <= 722) Cards_MarkSeen(id);    /* older saves gave it without marking it seen */
     }
 }
+
+/* does this rule subtree give the card (a "cards" array holding id)? */
+static int gives_card(const JsonNode *n, int id)
+{
+    for (; n; n = n->next) {
+        if (n->key && !strcmp(n->key, "cards") && n->type == 'a') {
+            const JsonNode *c;
+            for (c = n->child; c; c = c->next) if (c->type == 'n' && (int)c->num == id) return 1;
+        }
+        if (n->child && gives_card(n->child, id)) return 1;
+    }
+    return 0;
+}
+
+/* who in the story gives a card (the duelist's name); NULL for a card from a shop or a pack */
+const char *Story_CardGiver(int id)
+{
+    JsonNode *o = Json_Get(jm_rules, "npcs"), *n;
+    for (n = o ? o->child : NULL; n; n = n->next)
+        if (n->child && gives_card(n->child, id)) return Json_Str(n, "name", "?");
+    return NULL;
+}
+
+/* the cards the story gave (not the shop's), in the order they came */
+int Story_GotCards(int *out, int max)
+{
+    int i, k = 0;
+    for (i = 0; i < jm.got_count && k < max; i++)
+        if (Story_CardGiver(jm.got_cards[i])) out[k++] = jm.got_cards[i];
+    return k;
+}
+
+/* the items held now, as indices of journey.json "items" */
+int Story_Items(int *out, int max)
+{
+    JsonNode *o = Json_Get(jm_rules, "items"), *n;
+    int k = 0, i = 0;
+    for (n = o ? o->child : NULL; n && k < max; n = n->next, i++)
+        if (Story_Has(Json_Str(n, "flag", "")) && !(Json_Get(n, "until") && Story_Has(Json_Str(n, "until", "")))) out[k++] = i;
+    return k;
+}
+
+/* item i's name (the language's), icon file and flag */
+const char *Story_ItemName(int i) { JsonNode *n = Json_At(Json_Get(jm_rules, "items"), i); return n ? TrAt("items", i, Json_Str(n, "name", "?")) : "?"; }
+const char *Story_ItemFile(int i) { JsonNode *n = Json_At(Json_Get(jm_rules, "items"), i); return n ? Json_Str(n, "icon", NULL) : NULL; }
+const char *Story_ItemFlag(int i) { JsonNode *n = Json_At(Json_Get(jm_rules, "items"), i); return n ? Json_Str(n, "flag", "") : ""; }
 
 int jm_warp;
 int jm_shop_req;                      /* an "open_shop" result asked for a shop: its screen opens after the scene */

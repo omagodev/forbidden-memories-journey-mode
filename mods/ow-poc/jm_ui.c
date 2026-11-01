@@ -871,6 +871,7 @@ void Ui_MenuOpen(void) { msel = 0; msub = 0; qsel = 1; }
 
 int Ui_MenuInput(unsigned short edge)
 {
+    if (msub && msel == M_ITEMS) { if (Bag_Input(edge)) msub = 0; return 0; }   /* the backpack, its own screen */
     if (msub) {
         if (msel == M_TITLE) {
             if (edge & (PAD_LEFT | PAD_RIGHT | PAD_UP | PAD_DOWN)) qsel ^= 1;
@@ -898,6 +899,7 @@ int Ui_MenuInput(unsigned short edge)
             msub = 1;
             break;
         case M_TITLE: msub = 1; qsel = 1; break;
+        case M_ITEMS: Bag_Open(); msub = 1; break;
         default: msub = 1; break;
         }
     }
@@ -908,6 +910,7 @@ void Ui_MenuOverlay(void)
 {
     int x, y, w, h, lh, i;
     char buf[64], nb[48];
+    if (msub && msel == M_ITEMS) { Bag_Overlay(); return; }
     metrics();
     lh = line_h();
     jm_host->fill(jm_host, 0, 0, ui_w, ui_h, 0, 110);
@@ -987,5 +990,5 @@ unsigned Ui_Signature(void)
 {
     return create_sig() * 31u + (unsigned)( msel * 131 + msub * 1009 + qsel * 17 + jm.gender * 3 + jm.hair * 5 + jm.hair_col * 7 + jm.skin * 11 +
                       jm.outfit * 13 + jm.portrait * 19 + (int)jm.name[0] * 23 + (int)jm.name[1] * 29 + Lang_Current() * 37 + Dev_BarOn() * 43 + (int)Cg_Signature() * 47) +
-           (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.xp * 7919u;
+           (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.xp * 7919u + (msub && msel == M_ITEMS ? Bag_Signature() : 0u);
 }

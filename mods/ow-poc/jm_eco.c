@@ -477,7 +477,7 @@ static unsigned fnv1a32(const char *s)
     return h;
 }
 
-static int owned_of(int card) { return card > 0 && card <= 722 ? gLibrary_abCardChest[card] : 0; }
+static int owned_of(int card) { return card > 0 && card <= 722 ? gLibrary_abCardChest[card - 1] : 0;   /* the chest's byte for card n is n - 1 */ }
 
 static void add_item(EcoItem *out, int *n, int max, int card, int price, int level_min, int bit, int kind)
 {
@@ -616,7 +616,7 @@ int Eco_Sell(const EcoItem *it)
 {
     if (!it || it->card <= 0 || it->owned <= 0) return 0;
     if (Eco_Protected(it->card) || owned_of(it->card) <= 0) return 0;
-    gLibrary_abCardChest[it->card]--;
+    gLibrary_abCardChest[it->card - 1]--;
     Eco_GiveCoins(it->price);
     LOG("journey: sold card %d for %d", it->card, it->price);
     return 1;

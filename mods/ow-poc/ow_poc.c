@@ -329,7 +329,7 @@ static void ensure_deck(void)
     if (!empty) return;
     for (i = 0; i < 40; i++) {
         gDuel_awPlayerDeck[i] = (u16)(1 + i);
-        if (gLibrary_abCardChest[1 + i] < 3) gLibrary_abCardChest[1 + i] = 3;
+        if (gLibrary_abCardChest[i] < 3) gLibrary_abCardChest[i] = 3;   /* card 1 + i: the chest's byte for card n is n - 1 */
     }
     LOG("journey: starter deck given (the save had none)");
 }
@@ -1161,12 +1161,13 @@ static const char *const ICON_CAPTION[12] = {     /* a feather */
     "....#####+..", "...#####+...", "..####+.....", ".###+.......", "##+.........", "#..........." };
 
 /* an item's own 24 x 24 picture (assets/icon_*.bin: index bytes, then a 16 colour palette), drawn as runs of rectangles; 0 when it has none */
-static int draw_item_icon(int x, int y, int px, const char *file)
+int Jm_ItemIcon(int x, int y, int px, const char *file)
 {
-    static struct { char name[64]; unsigned char idx[576]; unsigned clut[16]; int ok; } cache[6];
+    static struct { char name[64]; unsigned char idx[576]; unsigned clut[16]; int ok; } cache[12];
     int i, r, c;
-    for (i = 0; i < 6 && cache[i].name[0]; i++) if (!strcmp(cache[i].name, file)) break;
-    if (i == 6) return 0;
+    if (!file) return 0;
+    for (i = 0; i < 12 && cache[i].name[0]; i++) if (!strcmp(cache[i].name, file)) break;
+    if (i == 12) return 0;
     if (!cache[i].name[0]) {
         long sz = 0;
         unsigned char *d = Jm_Slurp(file, &sz);
@@ -1359,15 +1360,24 @@ static void dialog_extras(int w, int h, int s, int lh, int top, int vis)
         static const unsigned BG[5] = {0, 0x082438, 0x2A1A06, 0x0C2A12, 0x2A2418};
         static const char *const KEY[5] = {"", "objective", "item", "complete", "caption"};
         char lines[6][100], title[64], key[40];
-        int n, pw = w * 62 / 100, ph, px = 3 * s, x, y, a, pulse, i, tx;
+        int n, pw = w * 62 / 100, ph, px = 3 * s, x, y, a, pulse, i, tx, card = 0;
         int age = notif_age, slide = age < 18 ? (18 - age) * (18 - age) * lh / 90 : 0;
         const char *label;
         const char *const *icon = cur_kind == 1 ? ICON_OBJECTIVE : cur_kind == 2 ? ICON_ITEM : cur_kind == 3 ? ICON_COMPLETE : ICON_CAPTION;
         snprintf(key, sizeof(key), "notify.%s", KEY[cur_kind]);
+        if (cur_kind == 2) {                 /* a reward that names a card the story gave: CARD OBTAINED, with its picture */
+            char cn[48];
+            for (i = 0; i < jm.got_count; i++) {
+                cn[0] = 0;
+                Cards_NameUtf8(jm.got_cards[i], cn, sizeof(cn));
+                if (cn[0] && strstr(notif_text, cn)) { card = jm.got_cards[i]; snprintf(key, sizeof(key), "notify.card"); break; }
+            }
+        }
         label = cur_kind == 4 && notif_label[0] ? notif_label : Tr(key);
         snprintf(title, sizeof(title), "%s", label);
         n = wrap_lines(notif_text, pw - 12 * px - 16 * s, s, lines, 5);
         ph = lh * (n + 3);
+        if (card && ph < 18 * px * 96 / 102 + 12 * s) ph = 18 * px * 96 / 102 + 12 * s;
         x = (w - pw) / 2;
         y = top + vis / 5 - slide;
         a = age < 10 ? age * 25 : 255;
@@ -1378,10 +1388,14 @@ static void dialog_extras(int w, int h, int s, int lh, int top, int vis)
         jm_host->fill(jm_host, x, y, pw, lh + 4 * s, BORDER[cur_kind], a / 3);
         {
             const char *ifile = NULL;
-            if (cur_kind == 2 && Story_ItemIcon(notif_text, &ifile) && draw_item_icon(x + 10 * s - 2 * s, y + lh / 2 - 10 * s, px * 2 / 3, ifile)) ;
+            if (card) {
+                int aw = 18 * px, ah = aw * 96 / 102, ax = x + 8 * s, ay = y + 6 * s;
+                jm_host->fill(jm_host, ax - 2 * s, ay - 2 * s, aw + 4 * s, ah + 4 * s, Jm_TypeFrame(card), 255);
+                if (!Jm_CardArt(card, 1, ax, ay, aw, ah)) draw_icon(x + 10 * s, y + lh / 2 - 4 * s, px, icon, BORDER[cur_kind], BORDER2[cur_kind]);
+            } else if (cur_kind == 2 && Story_ItemIcon(notif_text, &ifile) && Jm_ItemIcon(x + 10 * s - 2 * s, y + lh / 2 - 10 * s, px * 2 / 3, ifile)) ;
             else draw_icon(x + 10 * s, y + lh / 2 - 4 * s, px, icon, BORDER[cur_kind], BORDER2[cur_kind]);
         }
-        tx = x + 12 * px + 22 * s;
+        tx = x + (card ? 18 : 12) * px + 22 * s;
         jm_host->draw_text(jm_host, tx, y + lh / 2 + 2 * s, title, BORDER2[cur_kind], s + 1);
         for (i = 0; i < n; i++) jm_host->draw_text(jm_host, tx - 8 * s, y + lh * (i + 2) + lh / 4, lines[i], 0xFFFFFF, s);
         if (age > 24 && ((age / 20) & 1) == 0) jm_host->draw_text(jm_host, x + pw - 120 * s, y + ph - lh / 2 - s, Tr("notify.press"), BORDER2[cur_kind], s);
