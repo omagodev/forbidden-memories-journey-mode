@@ -374,7 +374,7 @@ SCENARIOS.update({
                ("press", "cross"), ("until", "scene dk2_camp", 300), ("wait", 90), ("snap", "camp_talk")], expect=["scene dk2_camp", "dev mode 0"]),
     "final_gang": dict(desc="player view: a Jackal ambush on the ship", preset="17 on the ship (Mai, InsetoKaiba)", lang=1,
         debug={"coins": 300, "walked": 400, "teleport": "ship_deck.hangout_b"},
-        steps=REL + [("hold", "left", 4), ("until", "stood by", 1500), ("wait", 120), ("snap", "ambush"), ("press", "cross", 5, 40), ("wait", 60), ("snap", "ambush2")],
+        steps=REL + [("hold", "left", 4), ("until", "stood by", 1500), ("wait", 400), ("snap", "ambush"), ("press", "cross", 5, 40), ("wait", 60), ("snap", "ambush2")],
         expect=["stood by", "dev mode 0"]),
     "final_mai": dict(desc="player view: Mai's portrait and sprite", preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.mai_spot"},
         steps=REL + [("press", "cross"), ("until", "scene dk1_mai", 300), ("wait", 90), ("snap", "mai_talk")], expect=["scene dk1_mai"]),
@@ -430,6 +430,6 @@ SCENARIOS.update({
         steps=REL + [("snap", "end"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")], expect=["dev mode 0"]),
     "final3_gang": dict(desc="player view: a Jackal ambush in the forest", preset="24 Star Marks", lang=1,
         debug={"coins": 300, "walked": 400, "teleport": "kingdom_forest.hangout_b"},
-        steps=REL + [("hold", "left", 4), ("until", "stood by", 1500), ("wait", 120), ("snap", "ambush"), ("press", "cross", 5, 40), ("wait", 60), ("snap", "ambush2")],
+        steps=REL + [("hold", "left", 4), ("until", "stood by", 1500), ("wait", 30), ("snap", "ambush0"), ("wait", 400), ("snap", "ambush"), ("press", "cross", 5, 40), ("wait", 60), ("snap", "ambush2")],
         expect=["stood by", "dev mode 0"]),
 })

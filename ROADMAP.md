@@ -16,6 +16,7 @@ Journey Mode is a hobby project, so there are no dates here, just the direction.
 - Fast test scenarios (jump to any story point)
 - Illustrated harbor, ship deck and Shore of Illusions, each with its shop, card pool, gang ambushes and clandestine arena
 - Duelist Kingdom chapter 2 (the Shore of Illusions): Pegasus's mirror, Weevil's ambush, star wagers, the Shore Camp
+- Duelist Kingdom chapter 3 (the Forest of Whispers): Rex Raptor's star wager, three Star Marks, the hidden clearing, the Forest Mage's two-star wager; Hermit Hob's shop, forest card pool, gang ambushes and the Hollow Log Ring with three arena-exclusive cards
 - A weak 40-card starter deck; three arena-exclusive cards per arena (never sold, never dropped elsewhere)
 
 ## 🚧 In progress

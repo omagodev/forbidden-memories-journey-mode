@@ -46,7 +46,9 @@ Você é um jovem duelista da **Vila Oásis**, uma cidade tranquila no deserto o
 * **No navio** você conhece a Mai, aprende as regras das estrelas e esbarra no **InsetoKaiba**: um rival arrogante e obcecado por insetos, de jaleco branco e topete. Uma paródia inesquecível.
 * **Capítulo 2: a Costa das Ilusões (jogável).** Desembarque na ilha, ouça as regras do Pegasus num espelho na areia, sobreviva à emboscada do Weevil com seus dados viciados e aposte suas primeiras estrelas. Perdeu a última estrela? Você acorda no **Acampamento da Costa** com uma estrela de volta: nunca tem game over.
 * **Jogue o caminho longo.** O deck inicial são quarenta cartas comuns e fracas, de propósito. Ganhe cartas do conjunto local, compre na loja de cada cidade, vença a gangue dos **Chacais da Duna** ou as **arenas clandestinas**: cada arena guarda três cartas que não caem em nenhum outro lugar.
-* **O Reino (capítulos 3 a 10, roteirizados):** Costa das Ilusões, Floresta dos Sussurros, Passagem da Montanha, Labirinto da Campina, Deserto das Estrelas Perdidas e Feira das Estrelas. Ganhe e perca estrelas, mas nunca tome game over. Junte **10 estrelas** para abrir o portão do castelo e subir até a Sala dos Sonhos do Pegasus.
+* **Capítulo 3: a Floresta dos Sussurros (jogável).** Pegue a trilha da selva até uma floresta antiga onde alguém entalha estrelas na casca das árvores. Vença um Rex Raptor perdido e furioso por uma estrela, siga as três Marcas de Estrela para abrir a clareira escondida atrás do portão de pedra e enfrente o mestre da zona, o Mago da Floresta, que aposta duas estrelas. A cabana do Eremita Hob e o Ringue do Tronco Oco (com três cartas que não existem em outro lugar) ajudam um baralho fraco a se recuperar.
+
+* **O Reino (capítulos 4 a 10, roteirizados):** Passagem da Montanha, Labirinto da Campina, Deserto das Estrelas Perdidas e Feira das Estrelas. Ganhe e perca estrelas, mas nunca tome game over. Junte **10 estrelas** para abrir o portão do castelo e subir até a Sala dos Sonhos do Pegasus.
 * **Mago.dev, o observador.** Um mago que *programa a realidade*, mas nunca interfere. Você vai vê-lo de relance em telhados, em runas verdes na parede de uma cisterna, no alto de um mastro... até o final.
 
 O roteiro completo está em [`journey_content/duelist_kingdom/`](journey_content/duelist_kingdom/README.md), e todos os diálogos em ordem de leitura estão em [português](journey_content/duelist_kingdom/pt/story_readable_dk.pt.md) e [inglês](journey_content/duelist_kingdom/en/story_readable_dk.en.md). Com spoilers, claro.
@@ -163,6 +165,7 @@ Os destaques (lista completa no [ROADMAP.pt-BR.md](ROADMAP.pt-BR.md)):
 - [x] Arena subterrânea com fogo animado
 - [ ] Economia, gangue e arenas: balanceamento e polimento
 - [x] Porto, convés do navio e Costa das Ilusões ilustrados; capítulo 2 jogável
+- [x] Floresta dos Sussurros ilustrada; capítulo 3 jogável
 - [x] Deck inicial fraco e cartas exclusivas das arenas
 - [ ] Capítulos 3 a 10 do Reino dos Duelistas
 - [ ] Mais zonas ilustradas da ilha

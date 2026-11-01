@@ -16,6 +16,7 @@ O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direç�
 - Cenários de teste rápido (pulam para qualquer ponto da história)
 - Porto, convés do navio e Costa das Ilusões ilustrados, cada um com loja, conjunto de cartas, emboscadas da gangue e arena clandestina
 - Capítulo 2 do Reino dos Duelistas (a Costa das Ilusões): o espelho do Pegasus, a emboscada do Weevil, apostas de estrelas, o Acampamento da Costa
+- Capítulo 3 do Reino dos Duelistas (a Floresta dos Sussurros): a aposta de estrela do Rex Raptor, três Marcas de Estrela, a clareira escondida, a aposta de duas estrelas do Mago da Floresta; loja do Eremita Hob, conjunto de cartas da floresta, emboscadas da gangue e o Ringue do Tronco Oco com três cartas exclusivas
 - Um deck inicial fraco de 40 cartas; três cartas exclusivas por arena (nunca vendidas, nunca caem em outro lugar)
 
 ## 🚧 Em andamento
