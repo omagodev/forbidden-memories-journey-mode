@@ -92,6 +92,7 @@ static int apply_preset(int i)
     if (!p) return 0;
     jm.flags = 0; jm.kflags = 0;
     jm.stars = (int)Json_Num(p, "stars", jm.stage >= 10 ? 1 : 0);
+    jm.stars_owed = 0;
     set_flags(Json_Get(p, "flags"), 1);
     jm.stage = (int)Json_Num(p, "stage", jm.stage);
     if (Paint_Anchor(Json_Str(p, "anchor", ""), &x, &y)) { Paint_GoAnchor(Json_Str(p, "anchor", "")); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }   /* the anchor may be in the cistern */
@@ -124,6 +125,7 @@ void Dbg_Apply(void)
     /* the economy, so a test does not have to be played up to: coins and xp outright, and
      * "gang_ready" to stand where the Jackals have finished watching and are about to move */
     if (Json_Get(cfg, "stars")) jm.stars = (int)Json_Num(cfg, "stars", jm.stars);
+    if (Json_Get(cfg, "stars_owed")) jm.stars_owed = (int)Json_Num(cfg, "stars_owed", 0);   /* stars left with duelists not beaten yet (a loss path) */
     if (Json_Get(cfg, "coins")) jm.eco.coins = (int)Json_Num(cfg, "coins", jm.eco.coins);
     if (Json_Num(cfg, "starter", 0)) Journey_GiveStarter();   /* "starter": true  the new journey's deck, on Continue */
     if (Json_Get(cfg, "xp")) jm.eco.xp = (int)Json_Num(cfg, "xp", jm.eco.xp);

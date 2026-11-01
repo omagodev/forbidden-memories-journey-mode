@@ -134,8 +134,8 @@ ITEM_FLAG = {"stamp_card": ("courier_met", None, "assets/icon_stamp_card.bin"), 
 ITEM_ORDER = ["stamp_card", "lantern", "jug", "honey", "river_water", "dates", "scarab", "bandana", "charm", "star_passage", "bug_pin", "loaded_dice", "whisper_leaf", "star_chisel", "star_chips"]
 # Mochila texts for the Kingdom's items, accented (the UI font has them; the dialogue font is ASCII): (description, where from)
 BAG_TEXT = {
- "en": {"star_chips": ("The Kingdom's star chips. Only the story's gatekeepers and zone masters hand them out, one each, and a lost one stays with the duelist who took it until you beat him. Ten open the castle.", "Shadi's Star Passage, then the duelists who guard each zone.")},
- "pt": {"star_chips": ("As fichas de estrela do Reino. Só os guardiões e mestres de zona da história as entregam, uma cada, e uma estrela perdida fica com quem a tomou até você vencê-lo. Dez abrem o castelo.", "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."),
+ "en": {"star_chips": ("Only gatekeepers and zone masters give one. A lost star waits with its taker until you win. Ten open the castle.", "Shadi's Star Passage, then the duelists who guard each zone.")},
+ "pt": {"star_chips": ("Só guardiões e mestres de zona dão uma. A perdida fica com quem a tomou até você vencer. Dez abrem o castelo.", "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."),
         "star_passage": ("Seu bilhete para o Reino dos Duelistas.", "Shadi, no porto."),
         "bug_pin": ("O broche dourado do InsetoKaiba. Ele jura que vai pegar de volta.", "InsetoKaiba, no navio."),
         "loaded_dice": ("Os dados viciados do Weevil. Melhor nunca usar.", "Weevil, na Costa das Ilusões."),

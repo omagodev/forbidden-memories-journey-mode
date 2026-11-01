@@ -945,10 +945,7 @@
       "stage_ge": 3,
       "stage_lt": 6
      },
-     "scene": "dk1_teana_after",
-     "effects": {
-      "open_shop": "village"
-     }
+     "scene": "dk1_teana_after"
     },
     {
      "when": {
@@ -969,10 +966,7 @@
      "when": {
       "stage_ge": 6
      },
-     "scene": "dk1_teana_after_farewell",
-     "effects": {
-      "open_shop": "village"
-     }
+     "scene": "dk1_teana_after_farewell"
     }
    ],
    "duelist_id": 2,
@@ -1808,10 +1802,7 @@
      "when": {
       "stage_ge": 5
      },
-     "scene": "dk2_dock_dan",
-     "effects": {
-      "open_shop": "harbor"
-     }
+     "scene": "dk2_dock_dan"
     }
    ],
    "duelist_id": 0,
@@ -1836,10 +1827,7 @@
       "stage_ge": 7,
       "stage_lt": 8
      },
-     "scene": "dk2_purser",
-     "effects": {
-      "open_shop": "ship"
-     }
+     "scene": "dk2_purser"
     }
    ],
    "duelist_id": 0,
@@ -1864,10 +1852,7 @@
      "when": {
       "stage_ge": 10
      },
-     "scene": "dk2_shell_sue",
-     "effects": {
-      "open_shop": "beach"
-     }
+     "scene": "dk2_shell_sue"
     }
    ],
    "duelist_id": 0,
@@ -2002,10 +1987,7 @@
      "when": {
       "stage_ge": 13
      },
-     "scene": "dk3_hermit",
-     "effects": {
-      "open_shop": "forest"
-     }
+     "scene": "dk3_hermit"
     }
    ],
    "duelist_id": 0,
@@ -2235,10 +2217,7 @@
      "when": {
       "stage_ge": 17
      },
-     "scene": "dk4_cliff_cass",
-     "effects": {
-      "open_shop": "mountain"
-     }
+     "scene": "dk4_cliff_cass"
     }
    ],
    "duelist_id": 0,
@@ -3846,42 +3825,6 @@
     }
    ],
    "reach": 80
-  },
-  {
-   "id": "arena_door_village",
-   "anchor": "village.arena_door",
-   "prop": "hatch",
-   "reach": 0
-  },
-  {
-   "id": "arena_door_harbor",
-   "anchor": "harbor.arena_door",
-   "prop": "hatch",
-   "reach": 0
-  },
-  {
-   "id": "arena_door_beach",
-   "anchor": "kingdom_beach.arena_door",
-   "prop": "hatch",
-   "reach": 0
-  },
-  {
-   "id": "arena_door_forest",
-   "anchor": "kingdom_forest.arena_door",
-   "prop": "hatch",
-   "reach": 0
-  },
-  {
-   "id": "arena_door_mountain",
-   "anchor": "kingdom_mountain.arena_door",
-   "prop": "hatch",
-   "reach": 0
-  },
-  {
-   "id": "arena_door_ship",
-   "anchor": "ship_deck.arena_door",
-   "prop": "hatch",
-   "reach": 0
   }
  ],
  "intro": "dk1_intro",

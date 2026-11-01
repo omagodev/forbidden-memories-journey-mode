@@ -664,7 +664,7 @@
       "from": "Croquet, in the Star Cave"
     },
     "star_chips": {
-      "desc": "The Kingdom's star chips. Only the story's gatekeepers and zone masters hand them out, one each, and a lost one stays with the duelist who took it until you beat him. Ten open the castle.",
+      "desc": "Only gatekeepers and zone masters give one. A lost star waits with its taker until you win. Ten open the castle.",
       "from": "Shadi's Star Passage, then the duelists who guard each zone."
     }
   }

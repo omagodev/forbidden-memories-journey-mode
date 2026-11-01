@@ -16,8 +16,23 @@ Journey Mode is a hobby project, so there are no dates here, just the direction.
 - Fast test scenarios (jump to any story point)
 - Illustrated harbor, ship deck and Shore of Illusions, each with its shop, card pool, gang ambushes and clandestine arena
 - Duelist Kingdom chapter 2 (the Shore of Illusions): Pegasus's mirror, Weevil's ambush, star wagers, the Shore Camp
-- Duelist Kingdom chapter 3 (the Forest of Whispers): Rex Raptor's star wager, three Star Marks, the hidden clearing, the Forest Mage's two-star wager; Hermit Hob's shop, forest card pool, gang ambushes and the Hollow Log Ring with three arena-exclusive cards
-- Duelist Kingdom chapter 4 (the Mountain Pass): Bandit Keith's Double or Nothing toll at the rope bridge, Mai's rival duel, the star-carver caught in the cave, the Mountain Mage's two-star wager (ten stars); Cliff Cass's tent, mountain card pool, gang ambushes and the Mine Shaft Pit with three arena-exclusive cards; trail-camp respawn in the forest and the pass
+- Duelist Kingdom chapter 3 (the Forest of Whispers): Rex Raptor's star wager, three Star Marks, the hidden clearing, the Forest Mage's one-star wager; Hermit Hob's shop, forest card pool, gang ambushes and the Hollow Log Ring with three arena-exclusive cards
+- Duelist Kingdom chapter 4 (the Mountain Pass): Bandit Keith's one-star toll at the rope bridge, Mai's pride duel (no star), the star-carver caught in the cave, the Mountain Mage's one-star wager (six stars); Cliff Cass's tent, mountain card pool, gang ambushes and the Mine Shaft Pit with three arena-exclusive cards; trail-camp respawn in the forest and the pass
+
+### Star Chips: the curve (fixed for every future chapter)
+
+Stars are story items, kept in the Mochila as *Star Chips xN*. Exactly ten exist, one per gatekeeper; minor duelists, rivals' pride duels, arenas and the gang never give one. A lost wager costs one star, which stays with that duelist until you beat him (the win gives it back); losing the last one wakes you at the area's camp with one. Every gate checks the stars earned so far, so no duel can be skipped.
+
+| Chapter | Star from | Total | Gate that checks it |
+|---|---|---|---|
+| 1 Home town / harbor | Shadi (Star Passage) | 1 | - |
+| 2 Shore of Illusions | Weevil | 2 | jungle path: 2 |
+| 3 Forest of Whispers | Rex Raptor, Forest Mage | 3, 4 | Forest Mage: 3; mountain pass: 4 |
+| 4 Mountain Pass | Bandit Keith, Mountain Mage | 5, 6 | Keith: 4; Mountain Mage: 5; summit arch: 6 |
+| 5 Meadow Maze | Meadow Mage | 7 | (planned) maze centre: 6 |
+| 6 Desert of Lost Stars | Desert Mage | 8 | (planned) |
+| 7 Star Fair | ring champion | 9 | (planned) |
+| 8 Castle Gate | InsetoKaiba, gate guardian | 10 | the castle lock: exactly 10 |
 - A weak 40-card starter deck; three arena-exclusive cards per arena (never sold, never dropped elsewhere)
 
 ## 🚧 In progress

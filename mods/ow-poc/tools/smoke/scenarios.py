@@ -351,7 +351,7 @@ SCENARIOS.update({
     "e2e_weevil_lose": dict(desc="Weevil's wager lost with the last star: the Shore Camp, one star back, no game over; then the rematch is won",
         preset="20 Weevil waits (wager)", lang=1, debug=dict(skip_dialogue=True, lose_duels=True, stars=1),
         steps=beat("dk2_weevil_pre", "weevil_pre") + [("until", "star duel lost", 900), ("until", "scene k1_eliminated", 600), ("wait", 600), ("snap", "camp_wakeup")],
-        expect=["star duel lost, stars 1 (eliminations 1)", "scene k1_eliminated"]),
+        expect=["star duel lost, stars 1 (eliminations 1", "scene k1_eliminated"]),
     "e2e_gang_harbor": dict(desc="a Jackal ambush in the harbor (west end, away from the objective)", preset="14 harbor gate (Inspector)", lang=0,
         debug={"skip_dialogue": True, "win_duels": True, "coins": 300, "gang_ready": True, "teleport": "harbor.hangout_b"},
         steps=[("wait", 60), ("press", ["r1", "l1", "circle"], 4, 30)] + [s for i in range(8) for s in (("hold", "right", 25), ("hold", "left", 25))] + [("snap", "ambush"), ("press", "cross", 5, 30), ("press", "cross", 5, 30), ("until", "duel over", 900), ("wait", 200), ("snap", "after_ambush")], expect=["ambush won"]),
@@ -450,8 +450,8 @@ SCENARIOS.update({
         steps=[("until", "scene dk4_arrival", 600), ("wait", 300), ("snap", "mountain")], expect=["scene dk4_arrival", "journey: music 22"]),
     "cap4_keith": dict(desc="Keith's Double or Nothing (win: +2)", preset="29 Keith's toll (wager)", lang=0, debug=E2E,
         steps=beat("dk4_keith_pre", "keith_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "won")], expect=["star duel won, stars 5", "saved (stage 18"]),
-    "cap4_keith_lose": dict(desc="Keith's toll lost with the last star: wake at the mountain's trail camp, not the beach", preset="29 Keith's toll (wager)", lang=1,
-        debug=dict(skip_dialogue=True, lose_duels=True, stars=1),
+    "cap4_keith_lose": dict(desc="Keith's toll lost with the last star (three already lost to others): wake at the mountain's trail camp, not the beach", preset="29 Keith's toll (wager)", lang=1,
+        debug=dict(skip_dialogue=True, lose_duels=True, stars=1, stars_owed=3),
         steps=beat("dk4_keith_pre", "keith_pre") + [("until", "star duel lost", 900), ("until", "scene k3_eliminated", 600), ("wait", 600), ("snap", "trail_camp")],
         expect=["star duel lost, stars 1", "scene k3_eliminated"]),
     "cap4_forest_lose": dict(desc="Rex's wager lost with the last star: wake at the forest's trail camp (the chapter 3 gap)", preset="23 Rex waits (wager)", lang=1,
@@ -513,4 +513,12 @@ SCENARIOS.update({
         expect=["star duel lost, stars 2 (eliminations 0, owed 1)", ("scene dk3_mage_pre", 2)], forbid=["scene dk3_mage_short"]),
     "stars_bag": dict(desc="player view: the Mochila shows the Star Chips with their count and text", preset="33 chapter 4 done", lang=1, debug={"teleport": "kingdom_mountain.hangout_a"},
         steps=REL + [("press", "start", 5, 30), ("press", "down", 5, 14), ("press", "cross", 5, 30), ("wait", 20)] + [("press", "right", 5, 10)] * 20 + [("wait", 20), ("snap", "bag_stars"), ("press", "cross", 5, 30), ("wait", 20), ("snap", "star_details")], expect=["dev mode 0"]),
+})
+SCENARIOS.update({
+    "final_stars_mage_short": dict(desc="player view: the Mountain Mage refuses four stars", preset="32 Mountain Mage (wager)", lang=1, debug={"stars": 4, "teleport": "kingdom_mountain.gate_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk4_mage_short", 300), ("wait", 90), ("snap", "refused")], expect=["scene dk4_mage_short", "dev mode 0"]),
+    "final_stars_pass_short": dict(desc="player view: the pass stays shut under four stars", preset="27 chapter 3 done", lang=1, debug={"stars": 3, "teleport": "kingdom_forest.pass_road"},
+        steps=REL + [("press", "cross"), ("until", "scene dk3_pass_locked", 300), ("wait", 90), ("snap", "pass_shut")], expect=["scene dk3_pass_locked", "dev mode 0"]),
+    "final_stars_gate_short": dict(desc="player view: the summit arch counts six stars", preset="32 Mountain Mage (wager)", lang=1, debug={"stars": 5, "teleport": "kingdom_mountain.summit_gate"},
+        steps=REL + [("press", "cross"), ("until", "scene dk4_gate_shut", 300), ("wait", 90), ("snap", "gate_shut")], expect=["scene dk4_gate_shut", "dev mode 0"]),
 })
