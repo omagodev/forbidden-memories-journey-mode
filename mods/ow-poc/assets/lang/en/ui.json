@@ -182,7 +182,8 @@
   ],
   "chapters": [
     "The Whispering Village",
-    "The Shore of Illusions"
+    "The Shore of Illusions",
+    "The Forest of Whispers"
   ],
   "objectives": [
     "Duel Bakura the lonely ghost",
@@ -211,7 +212,11 @@
     "Go to the bow of the ship",
     "Look into the mirror on the beach",
     "Beat Weevil - each of you wagers a star",
-    "Chapter 2 complete - the forest waits"
+    "Chapter 2 complete - the forest waits",
+    "Find the duelist shouting in the forest",
+    "Follow the three Star Marks on the trees",
+    "Beat the Forest Mage - he wagers two stars",
+    "Chapter 3 complete - the mountain pass waits"
   ],
   "items": [
     "Stamp Card",
@@ -225,7 +230,8 @@
     "Lucky Charm",
     "Star Passage",
     "Golden Bug Pin",
-    "Loaded Dice"
+    "Loaded Dice",
+    "Whisper Leaf"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -245,7 +251,10 @@
     "hooded_shore": "Hooded Man",
     "dock_dan": "Dock Dan",
     "purser": "Purser Pim",
-    "shell_sue": "Shell Sue"
+    "shell_sue": "Shell Sue",
+    "rex_forest": "Rex Raptor",
+    "forest_mage": "Forest Mage",
+    "hermit_hob": "Hermit Hob"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -270,7 +279,9 @@
     "staff": "Kingdom Staff",
     "dock_dan": "Dock Dan",
     "purser": "Purser Pim",
-    "shell_sue": "Shell Sue"
+    "shell_sue": "Shell Sue",
+    "forest_mage": "Forest Mage",
+    "hermit_hob": "Hermit Hob"
   },
   "map": {
     "title": "MAP",
@@ -412,7 +423,8 @@
     "The Courier's Trial",
     "Goodbye, Home Town",
     "Rules of the Sea",
-    "The Shore of Illusions"
+    "The Shore of Illusions",
+    "The Forest of Whispers"
   ],
   "quest_objectives": [
     "Ask Teana, Jono and the Guard",
@@ -425,7 +437,8 @@
     "Walk to the end of the pier",
     "Talk to Simon, Teana and Jono on the pier",
     "Talk to Mai on deck",
-    "Look into the mirror on the beach"
+    "Look into the mirror on the beach",
+    "Beat Rex Raptor for a star"
   ],
   "quest_steps": [
     "Sit on the plaza bench until night",
@@ -453,7 +466,8 @@
     "Star Passage, a star, card Illusionist Faceless Mage",
     "card Mystical Elf; Simon's secret",
     "the star rules; land on the island",
-    "a second star, Loaded Dice, card Hercules Beetle"
+    "a second star, Loaded Dice, card Hercules Beetle",
+    "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -480,7 +494,8 @@
     "arena": "Secret Cellar Arena",
     "harbor": "Sunset Harbor",
     "ship_deck": "The Golden Eye (ship deck)",
-    "kingdom_beach": "Shore of Illusions"
+    "kingdom_beach": "Shore of Illusions",
+    "kingdom_forest": "Forest of Whispers"
   },
   "shop": {
     "title": "Card Shop",

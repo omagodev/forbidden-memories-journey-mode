@@ -182,7 +182,8 @@
   ],
   "chapters": [
     "A Vila dos Cochichos",
-    "A Costa das Ilusoes"
+    "A Costa das Ilusoes",
+    "A Floresta dos Sussurros"
   ],
   "objectives": [
     "Duele com Bakura, o fantasma solitario",
@@ -211,7 +212,11 @@
     "Va ate a proa do navio",
     "Olhe o espelho da praia",
     "Venca o Weevil - cada um aposta uma estrela",
-    "Capitulo 2 completo - a floresta espera"
+    "Capitulo 2 completo - a floresta espera",
+    "Ache o duelista que grita na floresta",
+    "Siga as tres Marcas de Estrela nas arvores",
+    "Venca o Mago da Floresta - ele aposta duas estrelas",
+    "Capitulo 3 completo - a passagem da montanha espera"
   ],
   "items": [
     "Cartao de Selos",
@@ -225,7 +230,8 @@
     "Amuleto da Sorte",
     "Passagem Estelar",
     "Pin do Inseto Dourado",
-    "Dados Viciados"
+    "Dados Viciados",
+    "Folha Sussurrante"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -245,7 +251,10 @@
     "hooded_shore": "Homem Encapuzado",
     "dock_dan": "Dan do Cais",
     "purser": "Comissario Pim",
-    "shell_sue": "Sue Concha"
+    "shell_sue": "Sue Concha",
+    "rex_forest": "Rex Raptor",
+    "forest_mage": "Mago da Floresta",
+    "hermit_hob": "Eremita Hob"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -270,7 +279,9 @@
     "staff": "Staff do Reino",
     "dock_dan": "Dan do Cais",
     "purser": "Comissario Pim",
-    "shell_sue": "Sue Concha"
+    "shell_sue": "Sue Concha",
+    "forest_mage": "Mago da Floresta",
+    "hermit_hob": "Eremita Hob"
   },
   "map": {
     "title": "MAPA",
@@ -420,7 +431,8 @@
     "O Teste do Mensageiro",
     "Adeus, Minha Vila",
     "Regras do Mar",
-    "A Costa das Ilusoes"
+    "A Costa das Ilusoes",
+    "A Floresta dos Sussurros"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
@@ -433,7 +445,8 @@
     "Ande ate o fim do cais",
     "Fale com Simon, Teana e Jono no cais",
     "Fale com Mai no convez",
-    "Olhe o espelho da praia"
+    "Olhe o espelho da praia",
+    "Venca o Rex Raptor por uma estrela"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
@@ -461,7 +474,8 @@
     "Passagem Estelar, uma estrela, carta Illusionist Faceless Mage",
     "carta Mystical Elf; o segredo do Simon",
     "as regras das estrelas; chegar a ilha",
-    "a segunda estrela, Dados Viciados, carta Hercules Beetle"
+    "a segunda estrela, Dados Viciados, carta Hercules Beetle",
+    "cinco estrelas, Folha Sussurrante, cartas Megazowler e Mystic Horseman"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -488,7 +502,8 @@
     "arena": "Arena Secreta do Porao",
     "harbor": "Porto do Poente",
     "ship_deck": "O Olho Dourado (convez)",
-    "kingdom_beach": "Costa das Ilusoes"
+    "kingdom_beach": "Costa das Ilusoes",
+    "kingdom_forest": "Floresta dos Sussurros"
   },
   "shop": {
     "title": "Loja de Cartas",

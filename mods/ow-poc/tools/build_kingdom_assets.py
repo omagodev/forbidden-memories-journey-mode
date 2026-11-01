@@ -122,7 +122,25 @@ def beach():
     pack("beach", ART + "/kingdom/backgrounds/dk_beach_1280x720.jpg", walk, occ)
 
 
-harbor(); ship_deck(); beach()
+def forest():
+    """The Forest of Whispers: the paths and the grass are walkable (a colour test on the blurred picture), the
+    trees, rocks and bushes are not; the canopies that hang over a path are drawn over the player."""
+    src = ART + "/raw/dk_forest_raw.jpg"
+    pic = Image.open(src).convert("RGB")
+    hsv = np.array(pic.filter(ImageFilter.GaussianBlur(5)).convert("HSV")).astype(np.float32)
+    h, v = hsv[..., 0] * 360 / 255, hsv[..., 2] / 255
+    walk = (h < 78) & (v > 0.48)
+    walk = np.array(Image.fromarray(walk.astype(np.uint8) * 255).filter(ImageFilter.MedianFilter(15))) > 127
+    walk &= ~shape_mask([("r", 0, 0, 1280, 30), ("r", 480, 70, 640, 215)])        # the top edge; the stone gate itself
+    walk |= shape_mask([("r", 150, 640, 260, 720), ("r", 520, 200, 590, 260)])    # the south path in from the beach; the gate's steps
+    trees = [((360, 470, 590, 640), 690), ((640, 480, 880, 650), 700), ((1100, 400, 1280, 560), 620), ((740, 50, 920, 210), 260),
+             ((0, 290, 160, 450), 520), ((170, 80, 360, 230), 300)]
+    occ = [(shape_mask([("r",) + r]) & ~walk, base) for r, base in trees]
+    pack("forest", src, walk, occ)
+
+
+harbor(); ship_deck(); beach(); forest()
+shutil.copy(ART + "/kingdom/baked/spr_forest_mage.bin", OUT + "/spr_forest_mage.bin")
 for n in ("mai", "weevil", "shadi", "soldier", "trader", "camp_merchant"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
-shutil.copy(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "art_dk/baked/spr_inseto.bin"), OUT + "/spr_inseto.bin")
+shutil.copy(ART + "/baked/spr_inseto.bin", OUT + "/spr_inseto.bin")

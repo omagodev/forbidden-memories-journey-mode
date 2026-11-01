@@ -167,6 +167,18 @@
    "short": "Sue",
    "portrait": 254,
    "note": "Beach tent keeper (economy)."
+  },
+  "forest_mage": {
+   "name": "Forest Mage",
+   "short": "Forest Mage",
+   "portrait": 23,
+   "note": "Master of the Forest of Whispers (chapter 3 zone master)."
+  },
+  "hermit_hob": {
+   "name": "Hermit Hob",
+   "short": "Hob",
+   "portrait": 254,
+   "note": "Forest hut keeper (economy)."
   }
  },
  "flags": [
@@ -385,6 +397,42 @@
    "bit": 35,
    "value": 34359738368,
    "note": "Optional: the hooded man's line on the beach pier."
+  },
+  {
+   "name": "forest_arrived",
+   "bit": 36,
+   "value": 68719476736,
+   "note": "Chapter 3: entered the Forest of Whispers."
+  },
+  {
+   "name": "rex_forest_won",
+   "bit": 37,
+   "value": 137438953472,
+   "note": "Rex beaten in the forest: third star."
+  },
+  {
+   "name": "star_mark_1",
+   "bit": 38,
+   "value": 274877906944,
+   "note": "Read the first Star Mark."
+  },
+  {
+   "name": "star_mark_2",
+   "bit": 39,
+   "value": 549755813888,
+   "note": "Read the second Star Mark."
+  },
+  {
+   "name": "star_mark_3",
+   "bit": 40,
+   "value": 1099511627776,
+   "note": "Read the third Star Mark."
+  },
+  {
+   "name": "forest_mage_won",
+   "bit": 41,
+   "value": 2199023255552,
+   "note": "Forest Mage beaten: five stars, end of chapter 3."
   }
  ],
  "stages": [
@@ -431,6 +479,22 @@
   {
    "stage": 12,
    "note": "Chapter 2 complete: the forest path is the next part"
+  },
+  {
+   "stage": 13,
+   "note": "Chapter 3: in the forest, Rex is lost"
+  },
+  {
+   "stage": 14,
+   "note": "Chapter 3: follow the three Star Marks"
+  },
+  {
+   "stage": 15,
+   "note": "Chapter 3: the clearing is open, the Forest Mage waits"
+  },
+  {
+   "stage": 16,
+   "note": "Chapter 3 complete: the mountain pass is the next part"
   }
  ],
  "chapters": [
@@ -455,6 +519,17 @@
    ],
    "reward": "a second star, Loaded Dice, card Hercules Beetle",
    "unlock": "Forest of Whispers (chapter 3)"
+  },
+  {
+   "n": 3,
+   "title": "The Forest of Whispers",
+   "region": "kingdom_forest",
+   "stage": [
+    13,
+    16
+   ],
+   "reward": "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman",
+   "unlock": "the mountain pass (chapter 4)"
   }
  ],
  "areas": [
@@ -487,6 +562,12 @@
    "name": "Shore of Illusions",
    "setting": "First area of the Kingdom: landing pier, a standing mirror, tents of the Shore Camp, a stall, a sea cave, a jungle path.",
    "art": "exists (painted, chapter 2)"
+  },
+  {
+   "id": "kingdom_forest",
+   "name": "Forest of Whispers",
+   "setting": "Second Kingdom area: a cross of paths in an old forest, a stone gate with a blue glow (the hidden clearing), a hermit's hut, a hollow stump.",
+   "art": "exists (painted, chapter 3)"
   }
  ],
  "anchors": {
@@ -544,6 +625,20 @@
    "arena_door": "The sea cave in the cliff (top left): the Wreck Pit.",
    "pier_far": "Far end of the landing pier (the hooded man).",
    "jungle_path": "Path into the jungle (top right)."
+  },
+  "kingdom_forest": {
+   "spawn": "South path in from the beach (bottom left).",
+   "rex_spot": "The crossing of the paths, centre.",
+   "shop_stall": "Hermit Hob's sign by the bushes.",
+   "star_mark_1": "A tree trunk on the west path.",
+   "star_mark_2": "A tree on the north-east path.",
+   "star_mark_3": "A tree on the east path.",
+   "gate_spot": "The stone gate with the blue glow (top): the hidden clearing.",
+   "arena_door": "The hollow stump (left): the Hollow Log Ring.",
+   "pass_road": "The road to the mountains (top right).",
+   "forest_center": "Centre of the cross of paths.",
+   "hangout_a": "East grass.",
+   "hangout_b": "South-west grass."
   }
  },
  "npcs": [
@@ -1676,6 +1771,106 @@
      "script": "dk2_shell_sue"
     }
    ]
+  },
+  {
+   "id": "rex_forest",
+   "name": "Rex Raptor",
+   "portrait_speaker": "rex",
+   "area": "kingdom_forest",
+   "anchor": "rex_spot",
+   "duelist_id": 9,
+   "stages": [
+    13,
+    99
+   ],
+   "visible": "placed",
+   "note": "Rex Raptor again, lost in the forest; a star wager.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       13,
+       13
+      ],
+      "flags_none": [
+       "rex_forest_won"
+      ]
+     },
+     "script": "dk3_rex_pre",
+     "duel": "rex_forest"
+    },
+    {
+     "when": {
+      "stage": [
+       13,
+       99
+      ]
+     },
+     "script": "dk3_rex_after"
+    }
+   ]
+  },
+  {
+   "id": "forest_mage",
+   "name": "Forest Mage",
+   "portrait_speaker": "forest_mage",
+   "area": "kingdom_forest",
+   "anchor": "gate_spot",
+   "duelist_id": 23,
+   "stages": [
+    15,
+    99
+   ],
+   "visible": "placed",
+   "note": "The zone master at the stone gate once the clearing is open.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       15,
+       15
+      ],
+      "flags_none": [
+       "forest_mage_won"
+      ]
+     },
+     "script": "dk3_mage_pre",
+     "duel": "forest_mage"
+    },
+    {
+     "when": {
+      "stage": [
+       15,
+       99
+      ]
+     },
+     "script": "dk3_mage_after"
+    }
+   ]
+  },
+  {
+   "id": "hermit_hob",
+   "name": "Hermit Hob",
+   "portrait_speaker": "hermit_hob",
+   "area": "kingdom_forest",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    13,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       13,
+       99
+      ]
+     },
+     "script": "dk3_hermit"
+    }
+   ]
   }
  ],
  "objects": [
@@ -2104,15 +2299,6 @@
     {
      "when": {
       "stage": [
-       12,
-       99
-      ]
-     },
-     "script": "dk2_jungle_locked"
-    },
-    {
-     "when": {
-      "stage": [
        10,
        11
       ]
@@ -2120,6 +2306,158 @@
      "script": "dk2_jungle_early"
     }
    ]
+  },
+  {
+   "id": "star_mark_1",
+   "name": "Star Mark",
+   "area": "kingdom_forest",
+   "anchor": "star_mark_1",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       14,
+       99
+      ],
+      "flags_none": [
+       "star_mark_1"
+      ]
+     },
+     "script": "dk3_mark_1",
+     "effects": [
+      {
+       "set_flag": "star_mark_1"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       13,
+       99
+      ]
+     },
+     "script": "dk3_mark_seen"
+    }
+   ]
+  },
+  {
+   "id": "star_mark_2",
+   "name": "Star Mark",
+   "area": "kingdom_forest",
+   "anchor": "star_mark_2",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       14,
+       99
+      ],
+      "flags_none": [
+       "star_mark_2"
+      ]
+     },
+     "script": "dk3_mark_2",
+     "effects": [
+      {
+       "set_flag": "star_mark_2"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       13,
+       99
+      ]
+     },
+     "script": "dk3_mark_seen"
+    }
+   ]
+  },
+  {
+   "id": "star_mark_3",
+   "name": "Star Mark",
+   "area": "kingdom_forest",
+   "anchor": "star_mark_3",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       14,
+       99
+      ],
+      "flags_none": [
+       "star_mark_3"
+      ]
+     },
+     "script": "dk3_mark_3",
+     "effects": [
+      {
+       "set_flag": "star_mark_3"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       13,
+       99
+      ]
+     },
+     "script": "dk3_mark_seen"
+    }
+   ]
+  },
+  {
+   "id": "forest_gate",
+   "name": "Stone gate",
+   "area": "kingdom_forest",
+   "anchor": "gate_spot",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       13,
+       14
+      ]
+     },
+     "script": "dk3_gate_shut"
+    }
+   ]
+  },
+  {
+   "id": "pass_road",
+   "name": "Mountain pass",
+   "area": "kingdom_forest",
+   "anchor": "pass_road",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       16,
+       99
+      ]
+     },
+     "script": "dk3_pass_locked"
+    },
+    {
+     "when": {
+      "stage": [
+       13,
+       15
+      ]
+     },
+     "script": "dk3_pass_early"
+    }
+   ]
+  },
+  {
+   "id": "forest_exit",
+   "name": "South path",
+   "area": "kingdom_forest",
+   "anchor": "spawn",
+   "dialogue_rules": []
   }
  ],
  "items": [
@@ -2206,6 +2544,12 @@
    "name": "Loaded Dice",
    "description": "Weevil's dice. Every face is a six.",
    "source": "Weevil"
+  },
+  {
+   "id": "whisper_leaf",
+   "name": "Whisper Leaf",
+   "description": "A leaf that rustles when a star is near.",
+   "source": "the Forest Mage"
   }
  ],
  "new_duelists": [
@@ -2584,6 +2928,28 @@
     }
    ],
    "reward": "a warning"
+  },
+  {
+   "id": "q12_forest",
+   "kind": "talk+duel+investigate",
+   "optional": false,
+   "title": "The Forest of Whispers",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Beat Rex Raptor for a star",
+     "anchor": "kingdom_forest.rex_spot"
+    },
+    {
+     "objective": "Follow the three Star Marks",
+     "anchor": "kingdom_forest.star_mark_1"
+    },
+    {
+     "objective": "Beat the Forest Mage for two stars",
+     "anchor": "kingdom_forest.gate_spot"
+    }
+   ],
+   "reward": "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman"
   }
  ],
  "duels": [
@@ -2860,6 +3226,57 @@
    "stars_wager": true,
    "stars": 1,
    "note": "The first star wager of the Kingdom (+1 / -1 star). Losing the last star wakes the hero at the Shore Camp."
+  },
+  {
+   "id": "rex_forest",
+   "npc": "rex_forest",
+   "duelist_id": 9,
+   "chapter": 1,
+   "deck": "Rex Forest",
+   "difficulty_tier": 3,
+   "pre_script": "dk3_rex_pre",
+   "win_script": "dk3_rex_win",
+   "lose_script": "dk3_rex_lose",
+   "win_flag": "rex_forest_won",
+   "on_win": [
+    {
+     "give_card": "Megazowler"
+    },
+    {
+     "set_stage": 14
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 1,
+   "note": "Star wager (+1 / -1). Rex's dinosaurs: the first wall after the weak starter."
+  },
+  {
+   "id": "forest_mage",
+   "npc": "forest_mage",
+   "duelist_id": 23,
+   "chapter": 1,
+   "deck": "Forest Mage Grove",
+   "difficulty_tier": 4,
+   "pre_script": "dk3_mage_pre",
+   "win_script": "dk3_mage_win",
+   "lose_script": "dk3_mage_lose",
+   "win_flag": "forest_mage_won",
+   "on_win": [
+    {
+     "give_card": "Mystic Horseman"
+    },
+    {
+     "give_item": "whisper_leaf"
+    },
+    {
+     "set_stage": 16
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Zone master: +2 stars on a win, -1 on a loss. Needs forest cards or arena wins."
   }
  ],
  "transitions": [
@@ -3113,6 +3530,121 @@
     }
    ],
    "script": "dk2_weevil_ambush"
+  },
+  {
+   "id": "enter_forest",
+   "when": {
+    "stage": [
+     12,
+     12
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "jungle_path"
+   },
+   "effects": [
+    {
+     "set_stage": 13
+    },
+    {
+     "teleport": {
+      "area": "kingdom_forest",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk3_enter"
+  },
+  {
+   "id": "to_forest",
+   "when": {
+    "stage": [
+     13,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "jungle_path"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_forest",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk3_to_forest"
+  },
+  {
+   "id": "to_beach",
+   "when": {
+    "stage": [
+     13,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "forest_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_beach",
+      "anchor": "jungle_path"
+     }
+    }
+   ],
+   "script": "dk3_to_beach"
+  },
+  {
+   "id": "forest_arrival",
+   "when": {
+    "stage": [
+     13,
+     13
+    ],
+    "flags_none": [
+     "forest_arrived"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true",
+    "area": "kingdom_forest"
+   },
+   "effects": [
+    {
+     "set_flag": "forest_arrived"
+    }
+   ],
+   "script": "dk3_arrival"
+  },
+  {
+   "id": "clearing_open",
+   "when": {
+    "stage": [
+     14,
+     14
+    ],
+    "flags_all": [
+     "star_mark_1",
+     "star_mark_2",
+     "star_mark_3"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true",
+    "area": "kingdom_forest"
+   },
+   "effects": [
+    {
+     "set_stage": 15
+    }
+   ],
+   "script": "dk3_clearing_open"
   }
  ],
  "hud_objectives": [
@@ -3430,10 +3962,46 @@
    "when": {
     "stage": [
      12,
-     99
+     12
     ]
    },
    "text": "Chapter 2 complete - the forest waits"
+  },
+  {
+   "when": {
+    "stage": [
+     13,
+     13
+    ]
+   },
+   "text": "Find the duelist shouting in the forest"
+  },
+  {
+   "when": {
+    "stage": [
+     14,
+     14
+    ]
+   },
+   "text": "Follow the three Star Marks on the trees"
+  },
+  {
+   "when": {
+    "stage": [
+     15,
+     15
+    ]
+   },
+   "text": "Beat the Forest Mage - he wagers two stars"
+  },
+  {
+   "when": {
+    "stage": [
+     16,
+     99
+    ]
+   },
+   "text": "Chapter 3 complete - the mountain pass waits"
   }
  ],
  "scripts": [
@@ -5507,7 +6075,7 @@
     },
     {
      "speaker": "narrator",
-     "text": "Chapter 3 - The Forest of Whispers, in the next part.",
+     "text": "Next - the Forest of Whispers, up the jungle path.",
      "label": "End of Chapter 2"
     }
    ]
@@ -5627,19 +6195,6 @@
    ]
   },
   {
-   "id": "dk2_jungle_locked",
-   "legacy_id": null,
-   "chapter": 2,
-   "desc": "The jungle path after chapter 2: the next part.",
-   "pages": [
-    {
-     "speaker": "narrator",
-     "text": "The forest path waits. Chapter 3 arrives in the next part.",
-     "label": "Jungle Path"
-    }
-   ]
-  },
-  {
    "id": "dk2_dock_dan",
    "legacy_id": null,
    "chapter": 2,
@@ -5672,6 +6227,394 @@
     {
      "speaker": "shell_sue",
      "text": "Shells, cards and secrets. Buy something, star boy."
+    }
+   ]
+  },
+  {
+   "id": "dk3_enter",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "Chapter 2 -> 3: the hero takes the jungle path into the Forest of Whispers.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Two stars glow on your glove. The sign lets you pass.",
+     "label": "Jungle Path"
+    },
+    {
+     "speaker": "atos",
+     "text": "Forest of Whispers. If the trees start talking, I'm leaving."
+    }
+   ]
+  },
+  {
+   "id": "dk3_to_forest",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The jungle path after the first visit.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The path climbs back into the whispering trees.",
+     "label": "Jungle Path"
+    }
+   ]
+  },
+  {
+   "id": "dk3_to_beach",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The south path back to the Shore of Illusions.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The trees thin out. You smell the sea again.",
+     "label": "Forest Edge"
+    }
+   ]
+  },
+  {
+   "id": "dk3_arrival",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "Chapter 3 opens: the forest, the star cuts and a furious voice.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Leaves rustle with no wind. Something is cut into the bark.",
+     "label": "Forest of Whispers"
+    },
+    {
+     "speaker": "atos",
+     "text": "A star... carved into the tree. Fresh cut. Someone was here."
+    },
+    {
+     "speaker": "rex",
+     "text": "THIS WAY? NO! THAT WAY! Stupid trees keep moving!"
+    },
+    {
+     "speaker": "atos",
+     "text": "That shouting sounds familiar. Rex Raptor, from home?"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Find the duelist shouting in the forest.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_pre",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "Rex, lost for hours, blames the hero: a star wager.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "You! The kid from the village! Did you move the trees?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Trees don't move, Rex. You're lost. Since when?"
+    },
+    {
+     "speaker": "rex",
+     "text": "Since breakfast! My dinos are hungry and so am I. Star on the line!"
+    },
+    {
+     "speaker": "atos",
+     "text": "One star each, then. And after that I show you the way out."
+    },
+    {
+     "speaker": "rex",
+     "text": "Deal! Duel me right now, star for star?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_win",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "Rex loses his star and calms down.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Extinct... again. Fine. Take the star. You earned it."
+    },
+    {
+     "speaker": "rex",
+     "text": "I saw those carved stars. Three of them. They point somewhere."
+    },
+    {
+     "speaker": "rex",
+     "text": "I followed them in circles. You try. I'm going to eat a mushroom."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star and the card Megazowler.",
+     "label": "You got"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Follow the three Star Marks on the trees.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_lose",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "Rex wins the star.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "HA! Rawr! Still got it! Now which way is out?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Ugh. My deck needs bigger teeth. The forest shop, maybe."
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_after",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "Rex after the duel, eating a mushroom.",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "This mushroom tastes like socks. Go follow your stars."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_1",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The first Star Mark (west).",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A star cut deep in the bark. One point aims east.",
+     "label": "Star Mark"
+    },
+    {
+     "speaker": "atos",
+     "text": "One. The cut is clean, like a chisel. Not an animal."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_2",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The second Star Mark (north-east).",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Another star, higher up. Its point aims at the stone gate.",
+     "label": "Star Mark"
+    },
+    {
+     "speaker": "atos",
+     "text": "Two. Whoever carves these is tall. Or brought a ladder."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_3",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The third Star Mark (east).",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A third star, still sticky with sap. It points to the gate too.",
+     "label": "Star Mark"
+    },
+    {
+     "speaker": "atos",
+     "text": "Three. Same hand. Same star. Who is marking this island?"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_seen",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "A Star Mark already read.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The carved star. You already followed this one.",
+     "label": "Star Mark"
+    }
+   ]
+  },
+  {
+   "id": "dk3_gate_shut",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The stone gate before the three marks.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Old stones and a cold blue glow. It will not let you in.",
+     "label": "Stone Gate"
+    }
+   ]
+  },
+  {
+   "id": "dk3_clearing_open",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The three marks read: the stone gate opens on the hidden clearing.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The three stars glow at once. The gate hums and the mist parts.",
+     "label": "Stone Gate"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Three stars read, three steps true. The clearing welcomes you."
+    },
+    {
+     "speaker": "atos",
+     "text": "You carved them? The stars on the trees?"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Not I. They appear each moon. I only guard where they point."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duel the Forest Mage at the stone gate.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_pre",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The Forest Mage, zone master: a two-star wager.",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "I am the master of this wood. My wager is two stars."
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Yours is one. The forest is generous. Its roots are not."
+    },
+    {
+     "speaker": "atos",
+     "text": "Two stars would put me at five. Let's grow some."
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Then draw, sprout. Shall the roots begin?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_win",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The Forest Mage loses: two stars, the leaf, end of chapter 3.",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "The roots bow. Take my two stars, and this leaf."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Two stars, the Whisper Leaf and the card Mystic Horseman.",
+     "label": "You got"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Whoever carves the stars walks every zone. Ask the mountains."
+    },
+    {
+     "speaker": "atos",
+     "text": "Five stars. And a star-carver nobody has ever seen."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Forest of Whispers is behind you. The mountain pass waits.",
+     "label": "End of Chapter 3"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_lose",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The Forest Mage keeps his stars.",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "Roots hold. Come back with a stronger deck, little sprout."
+    },
+    {
+     "speaker": "atos",
+     "text": "Hermit Hob's hut and the Hollow Log Ring. Time to train."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_after",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The Forest Mage after the duel.",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "The leaf will whisper when a star is near. Listen to it."
+    }
+   ]
+  },
+  {
+   "id": "dk3_pass_early",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The mountain pass before the clearing.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A rope bars the road - Zone master's leave required.",
+     "label": "Mountain Pass"
+    }
+   ]
+  },
+  {
+   "id": "dk3_pass_locked",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "The mountain pass after chapter 3: the next part.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The road climbs into the clouds. Chapter 4 arrives in the next part.",
+     "label": "Mountain Pass"
+    }
+   ]
+  },
+  {
+   "id": "dk3_hermit",
+   "legacy_id": null,
+   "chapter": 3,
+   "desc": "Hermit Hob, the forest hut.",
+   "pages": [
+    {
+     "speaker": "hermit_hob",
+     "text": "Mushrooms, moss and cards. The cards are the least weird."
     }
    ]
   }

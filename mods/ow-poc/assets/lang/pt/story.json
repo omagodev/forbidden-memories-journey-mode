@@ -1811,7 +1811,7 @@
     },
     {
      "speaker": "narrator",
-     "text": "Capitulo 3 - A Floresta dos Sussurros, na proxima parte.",
+     "text": "A seguir - a Floresta dos Sussurros, pela trilha da selva.",
      "label": "Fim do Capitulo 2",
      "kind": "complete"
     }
@@ -1917,17 +1917,6 @@
    ]
   },
   {
-   "id": "dk2_jungle_locked",
-   "pages": [
-    {
-     "speaker": "narrator",
-     "text": "A trilha da floresta espera. O capitulo 3 chega na proxima parte.",
-     "label": "Trilha da Selva",
-     "kind": "caption"
-    }
-   ]
-  },
-  {
    "id": "dk2_dock_dan",
    "pages": [
     {
@@ -1951,6 +1940,349 @@
     {
      "speaker": "shell_sue",
      "text": "Conchas, cartas e segredos. Compre algo, menino estrela."
+    }
+   ]
+  },
+  {
+   "id": "dk3_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Duas estrelas brilham na sua luva. A placa deixa voce passar.",
+     "label": "Trilha da Selva",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Floresta dos Sussurros. Se as arvores falarem, eu vou embora."
+    }
+   ]
+  },
+  {
+   "id": "dk3_to_forest",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A trilha volta a subir entre as arvores que sussurram.",
+     "label": "Trilha da Selva",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_to_beach",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "As arvores rareiam. Voce sente o cheiro do mar de novo.",
+     "label": "Beira da Floresta",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Folhas mexem sem vento. Ha algo cortado na casca.",
+     "label": "Floresta",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Uma estrela... entalhada na arvore. Corte fresco. Alguem passou."
+    },
+    {
+     "speaker": "rex",
+     "text": "POR AQUI? NAO! POR ALI! Essas arvores idiotas ficam mudando!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Esse grito e familiar. Rex Raptor, la de casa?"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Ache o duelista que grita na floresta.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_pre",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Voce! O moleque da vila! Foi voce que mexeu nas arvores?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Arvore nao anda, Rex. Voce ta perdido. Desde quando?"
+    },
+    {
+     "speaker": "rex",
+     "text": "Desde o cafe! Meus dinos tem fome e eu tambem. Estrela em jogo!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Uma estrela cada, entao. Depois eu te mostro a saida."
+    },
+    {
+     "speaker": "rex",
+     "text": "Fechado! Duela comigo agora, estrela por estrela?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_win",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Extinto... de novo. Ta bom. Leva a estrela. Mereceu."
+    },
+    {
+     "speaker": "rex",
+     "text": "Eu vi essas estrelas entalhadas. Sao tres. Elas apontam pra algo."
+    },
+    {
+     "speaker": "rex",
+     "text": "Segui em circulos. Tenta voce. Vou comer um cogumelo."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela e a carta Megazowler.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Siga as tres Marcas de Estrela nas arvores.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_lose",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "HA! Rawr! Ainda mando bem! Agora, qual e a saida?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Argh. Meu baralho precisa de dentes maiores. A loja, talvez."
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_after",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Esse cogumelo tem gosto de meia. Vai seguir suas estrelas."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_1",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela funda na casca. Uma ponta mira o leste.",
+     "label": "Marca de Estrela",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Uma. O corte e limpo, de cinzel. Nao foi bicho."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_2",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Outra estrela, mais alta. A ponta mira o portao de pedra.",
+     "label": "Marca de Estrela",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Duas. Quem entalha isso e alto. Ou trouxe uma escada."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_3",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma terceira estrela, ainda com seiva. Tambem aponta pro portao.",
+     "label": "Marca de Estrela",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Tres. Mesma mao. Mesma estrela. Quem marca esta ilha?"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_seen",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A estrela entalhada. Voce ja seguiu esta.",
+     "label": "Marca de Estrela",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_gate_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Pedras velhas e um brilho azul frio. Nao deixa voce entrar.",
+     "label": "Portao de Pedra",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_clearing_open",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "As tres estrelas brilham juntas. O portao zumbe e a nevoa abre.",
+     "label": "Portao de Pedra",
+     "kind": "caption"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Tres estrelas lidas, tres passos certos. A clareira te recebe."
+    },
+    {
+     "speaker": "atos",
+     "text": "Foi voce que entalhou? As estrelas nas arvores?"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Eu nao. Elas surgem a cada lua. Eu so guardo onde apontam."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duele com o Mago da Floresta no portao.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_pre",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "Sou o mestre deste bosque. Minha aposta e de duas estrelas."
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "A sua e uma. A floresta e generosa. As raizes, nao."
+    },
+    {
+     "speaker": "atos",
+     "text": "Duas estrelas me levam a cinco. Vamos plantar."
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Entao compre, brotinho. As raizes podem comecar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_win",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "As raizes se curvam. Leve minhas duas estrelas, e esta folha."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duas estrelas, a Folha Sussurrante e a carta Mystic Horseman.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Quem entalha as estrelas anda por toda zona. Pergunte as montanhas."
+    },
+    {
+     "speaker": "atos",
+     "text": "Cinco estrelas. E um entalhador que ninguem nunca viu."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A Floresta dos Sussurros ficou para tras. A passagem da montanha espera.",
+     "label": "Fim do Capitulo 3",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_lose",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "As raizes seguram. Volte com um baralho mais forte, brotinho."
+    },
+    {
+     "speaker": "atos",
+     "text": "A cabana do Hob e o Ringue do Tronco Oco. Hora de treinar."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_after",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "A folha sussurra quando uma estrela esta perto. Escute."
+    }
+   ]
+  },
+  {
+   "id": "dk3_pass_early",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma corda bloqueia a estrada - Exige licenca do mestre da zona.",
+     "label": "Passagem da Montanha",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_pass_locked",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A estrada sobe as nuvens. O capitulo 4 chega na proxima parte.",
+     "label": "Passagem da Montanha",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_hermit",
+   "pages": [
+    {
+     "speaker": "hermit_hob",
+     "text": "Cogumelos, musgo e cartas. As cartas sao o menos estranho."
     }
    ]
   }

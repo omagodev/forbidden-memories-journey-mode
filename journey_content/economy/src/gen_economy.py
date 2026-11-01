@@ -71,7 +71,7 @@ LOCS = [
       types=["Aqua", "Pyro", "Insect", "Reptile"], max_power=2050, s=[],
       featured=["Giant Turtle Who Feeds on Flames", "Fire Kraken", "Ganigumo", "Hunter Spider", "Flame Viper"], extra_spells=[],
       theme="Turtles, jellyfish, fire and sand bugs of the Shore of Illusions (Weevil's beach)."),
- dict(id="forest", area="kingdom_forest", tier=3, arrival=6, shop=True, arena=True,
+ dict(id="forest", area="kingdom_forest", tier=3, arrival=6, shop=True, arena=True, stage_min=13,
       types=["Beast", "Beast-Warrior", "Plant", "Insect", "Dinosaur"], max_power=2150, s=[],
       featured=["Two-headed King Rex", "Hitotsu-me Giant", "Flower Wolf", "Man-eater Bug", "Trent"], extra_spells=[],
       theme="Beasts, wild warriors, thick plants, insects and Rex's dinosaurs of the Forest of Whispers."),
@@ -113,6 +113,7 @@ ARENA_EXCLUSIVE = {
     "harbor": ["Aqua Dragon", "Kairyu-shin", "Harpie Lady Sisters"],
     "ship": ["Deepsea Shark", "7 Colored Fish", "Skullbird"],
     "beach": ["Vermillion Sparrow", "Kwagar Hercules", "Boulder Tortoise"],
+    "forest": ["Rude Kaiser", "Garoozis", "Rose Spectre of Dunn"],
 }
 EXCLUSIVE_OF = {c: loc for loc, cs in ARENA_EXCLUSIVE.items() for c in cs}
 LOC = {l["id"]: l for l in LOCS}

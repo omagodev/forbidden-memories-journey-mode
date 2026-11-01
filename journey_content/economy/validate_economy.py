@@ -42,7 +42,7 @@ def card(name, where):
 
 def r5(x): return int(round(x / 5.0)) * 5
 RAR = ("C", "B", "A", "S")
-KINGDOM_STAR_DUELS = {"weevil"}   # chapter 2 duels that wager star chips (the home town never does)
+KINGDOM_STAR_DUELS = {"weevil", "rex_forest", "forest_mage"}   # chapter 2-3 duels that wager star chips (the home town never does)
 
 # ---------------------------------------------------------------- load
 ECO = load("economy.json"); SHOPS = load("shops.json"); POOLS = load("card_pools.json"); GANG = load("gang.json")
@@ -424,7 +424,7 @@ try:
     if sum(STARTER.values()) != 40: err("the starter deck has %d cards" % sum(STARTER.values()))
 except KeyError:
     err("decks_dk.json has no starter deck")
-for need in ("village", "harbor", "ship", "beach"):
+for need in ("village", "harbor", "ship", "beach", "forest"):
     if sum(1 for v in excl.values() if v == need) < 3: err("arena %s has fewer than 3 exclusives" % need)
 infos.append("arena exclusives: " + "; ".join("%s: %s" % (k, ", ".join(sorted(c for c, v in excl.items() if v == k))) for k in sorted(set(excl.values()))))
 for k in ec["files"].values():

@@ -64,8 +64,8 @@ def scripts(sc, H, X, N):
        "Voce ganhou uma estrela, os Dados Viciados e a carta Hercules Beetle."),
      H("Two stars. Eight to go. Note to self - bring my own dice.",
        "Duas estrelas. Faltam oito. Lembrete - trazer meus dados."),
-     N("End of Chapter 2", "Fim do Capitulo 2", "Chapter 3 - The Forest of Whispers, in the next part.",
-       "Capitulo 3 - A Floresta dos Sussurros, na proxima parte."),
+     N("End of Chapter 2", "Fim do Capitulo 2", "Next - the Forest of Whispers, up the jungle path.",
+       "A seguir - a Floresta dos Sussurros, pela trilha da selva."),
     ], chapter=2)
     sc("dk2_weevil_lose", "Weevil wins the wager.", [
      X("weevil", "Hihihi! Your star is mine. Bugs always win in the end.",
@@ -105,10 +105,6 @@ def scripts(sc, H, X, N):
     sc("dk2_jungle_early", "The jungle path before Weevil.", [
      N("Jungle Path", "Trilha da Selva", "A sign - Forest of Whispers. Duelists with two stars only.",
        "Uma placa - Floresta dos Sussurros. So duelistas com duas estrelas."),
-    ], chapter=2)
-    sc("dk2_jungle_locked", "The jungle path after chapter 2: the next part.", [
-     N("Jungle Path", "Trilha da Selva", "The forest path waits. Chapter 3 arrives in the next part.",
-       "A trilha da floresta espera. O capitulo 3 chega na proxima parte."),
     ], chapter=2)
     # the stall keepers of the new places: a greeting, then the stall opens (the economy converter adds open_shop)
     sc("dk2_dock_dan", "Dock Dan, the harbor cart.", [
@@ -168,7 +164,7 @@ OBJECTS = [
   W(when=W(stage=[10,99], flags_none=["camp_met"]), script="dk2_camp", effects=[W(set_flag="camp_met")]),
   W(when=W(stage=[10,99]), script="dk2_camp_after")]),
  dict(id="jungle_path", name=B("Jungle path", "Trilha da selva"), area="kingdom_beach", anchor="jungle_path", rules=[
-  W(when=W(stage=[12,99]), script="dk2_jungle_locked"), W(when=W(stage=[10,11]), script="dk2_jungle_early")]),
+  W(when=W(stage=[10,11]), script="dk2_jungle_early")]),
 ]
 DUELS = [
  dict(id="weevil", npc="weevil", duelist_id=10, deck="Weevil Shore", tier=2, pre="dk2_weevil_pre", win="dk2_weevil_win", lose="dk2_weevil_lose", win_flag="weevil_won",
@@ -182,7 +178,7 @@ TRANSITIONS = [
 HUD = [
  (W(stage=[10,10]), "Look into the mirror on the beach", "Olhe o espelho da praia"),
  (W(stage=[11,11]), "Beat Weevil - each of you wagers a star", "Venca o Weevil - cada um aposta uma estrela"),
- (W(stage=[12,99]), "Chapter 2 complete - the forest waits", "Capitulo 2 completo - a floresta espera"),
+ (W(stage=[12,12]), "Chapter 2 complete - the forest waits", "Capitulo 2 completo - a floresta espera"),
 ]
 CHAPTER = dict(n=2, title=B("The Shore of Illusions", "A Costa das Ilusoes"), region="kingdom_beach", stage=[10,12], reward="a second star, Loaded Dice, card Hercules Beetle", unlock="Forest of Whispers (chapter 3)")
 QUESTS = [

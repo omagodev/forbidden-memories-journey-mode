@@ -1811,7 +1811,7 @@
     },
     {
      "speaker": "narrator",
-     "text": "Chapter 3 - The Forest of Whispers, in the next part.",
+     "text": "Next - the Forest of Whispers, up the jungle path.",
      "label": "End of Chapter 2",
      "kind": "complete"
     }
@@ -1917,17 +1917,6 @@
    ]
   },
   {
-   "id": "dk2_jungle_locked",
-   "pages": [
-    {
-     "speaker": "narrator",
-     "text": "The forest path waits. Chapter 3 arrives in the next part.",
-     "label": "Jungle Path",
-     "kind": "caption"
-    }
-   ]
-  },
-  {
    "id": "dk2_dock_dan",
    "pages": [
     {
@@ -1951,6 +1940,349 @@
     {
      "speaker": "shell_sue",
      "text": "Shells, cards and secrets. Buy something, star boy."
+    }
+   ]
+  },
+  {
+   "id": "dk3_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Two stars glow on your glove. The sign lets you pass.",
+     "label": "Jungle Path",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Forest of Whispers. If the trees start talking, I'm leaving."
+    }
+   ]
+  },
+  {
+   "id": "dk3_to_forest",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The path climbs back into the whispering trees.",
+     "label": "Jungle Path",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_to_beach",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The trees thin out. You smell the sea again.",
+     "label": "Forest Edge",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Leaves rustle with no wind. Something is cut into the bark.",
+     "label": "Forest of Whispers",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "A star... carved into the tree. Fresh cut. Someone was here."
+    },
+    {
+     "speaker": "rex",
+     "text": "THIS WAY? NO! THAT WAY! Stupid trees keep moving!"
+    },
+    {
+     "speaker": "atos",
+     "text": "That shouting sounds familiar. Rex Raptor, from home?"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Find the duelist shouting in the forest.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_pre",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "You! The kid from the village! Did you move the trees?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Trees don't move, Rex. You're lost. Since when?"
+    },
+    {
+     "speaker": "rex",
+     "text": "Since breakfast! My dinos are hungry and so am I. Star on the line!"
+    },
+    {
+     "speaker": "atos",
+     "text": "One star each, then. And after that I show you the way out."
+    },
+    {
+     "speaker": "rex",
+     "text": "Deal! Duel me right now, star for star?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_win",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "Extinct... again. Fine. Take the star. You earned it."
+    },
+    {
+     "speaker": "rex",
+     "text": "I saw those carved stars. Three of them. They point somewhere."
+    },
+    {
+     "speaker": "rex",
+     "text": "I followed them in circles. You try. I'm going to eat a mushroom."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star and the card Megazowler.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Follow the three Star Marks on the trees.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_lose",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "HA! Rawr! Still got it! Now which way is out?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Ugh. My deck needs bigger teeth. The forest shop, maybe."
+    }
+   ]
+  },
+  {
+   "id": "dk3_rex_after",
+   "pages": [
+    {
+     "speaker": "rex",
+     "text": "This mushroom tastes like socks. Go follow your stars."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_1",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A star cut deep in the bark. One point aims east.",
+     "label": "Star Mark",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "One. The cut is clean, like a chisel. Not an animal."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_2",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Another star, higher up. Its point aims at the stone gate.",
+     "label": "Star Mark",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Two. Whoever carves these is tall. Or brought a ladder."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_3",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A third star, still sticky with sap. It points to the gate too.",
+     "label": "Star Mark",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Three. Same hand. Same star. Who is marking this island?"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mark_seen",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The carved star. You already followed this one.",
+     "label": "Star Mark",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_gate_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Old stones and a cold blue glow. It will not let you in.",
+     "label": "Stone Gate",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_clearing_open",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The three stars glow at once. The gate hums and the mist parts.",
+     "label": "Stone Gate",
+     "kind": "caption"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Three stars read, three steps true. The clearing welcomes you."
+    },
+    {
+     "speaker": "atos",
+     "text": "You carved them? The stars on the trees?"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Not I. They appear each moon. I only guard where they point."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duel the Forest Mage at the stone gate.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_pre",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "I am the master of this wood. My wager is two stars."
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Yours is one. The forest is generous. Its roots are not."
+    },
+    {
+     "speaker": "atos",
+     "text": "Two stars would put me at five. Let's grow some."
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Then draw, sprout. Shall the roots begin?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_win",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "The roots bow. Take my two stars, and this leaf."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Two stars, the Whisper Leaf and the card Mystic Horseman.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "forest_mage",
+     "text": "Whoever carves the stars walks every zone. Ask the mountains."
+    },
+    {
+     "speaker": "atos",
+     "text": "Five stars. And a star-carver nobody has ever seen."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Forest of Whispers is behind you. The mountain pass waits.",
+     "label": "End of Chapter 3",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_lose",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "Roots hold. Come back with a stronger deck, little sprout."
+    },
+    {
+     "speaker": "atos",
+     "text": "Hermit Hob's hut and the Hollow Log Ring. Time to train."
+    }
+   ]
+  },
+  {
+   "id": "dk3_mage_after",
+   "pages": [
+    {
+     "speaker": "forest_mage",
+     "text": "The leaf will whisper when a star is near. Listen to it."
+    }
+   ]
+  },
+  {
+   "id": "dk3_pass_early",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A rope bars the road - Zone master's leave required.",
+     "label": "Mountain Pass",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_pass_locked",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The road climbs into the clouds. Chapter 4 arrives in the next part.",
+     "label": "Mountain Pass",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk3_hermit",
+   "pages": [
+    {
+     "speaker": "hermit_hob",
+     "text": "Mushrooms, moss and cards. The cards are the least weird."
     }
    ]
   }

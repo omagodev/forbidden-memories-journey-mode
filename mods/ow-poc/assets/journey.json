@@ -35,7 +35,13 @@
   "weevil_met",
   "weevil_won",
   "camp_met",
-  "hooded_shore"
+  "hooded_shore",
+  "forest_arrived",
+  "rex_forest_won",
+  "star_mark_1",
+  "star_mark_2",
+  "star_mark_3",
+  "forest_mage_won"
  ],
  "areas": [
   {
@@ -333,6 +339,10 @@
   {
    "name": "Loaded Dice",
    "flag": "weevil_won"
+  },
+  {
+   "name": "Whisper Leaf",
+   "flag": "forest_mage_won"
   }
  ],
  "chapters": [
@@ -343,7 +353,13 @@
    "text": "The Whispering Village"
   },
   {
+   "when": {
+    "stage_lt": 13
+   },
    "text": "The Shore of Illusions"
+  },
+  {
+   "text": "The Forest of Whispers"
   }
  ],
  "objectives": [
@@ -632,9 +648,37 @@
   },
   {
    "when": {
-    "stage_ge": 12
+    "stage_ge": 12,
+    "stage_lt": 13
    },
    "text": "Chapter 2 complete - the forest waits"
+  },
+  {
+   "when": {
+    "stage_ge": 13,
+    "stage_lt": 14
+   },
+   "text": "Find the duelist shouting in the forest"
+  },
+  {
+   "when": {
+    "stage_ge": 14,
+    "stage_lt": 15
+   },
+   "text": "Follow the three Star Marks on the trees"
+  },
+  {
+   "when": {
+    "stage_ge": 15,
+    "stage_lt": 16
+   },
+   "text": "Beat the Forest Mage - he wagers two stars"
+  },
+  {
+   "when": {
+    "stage_ge": 16
+   },
+   "text": "Chapter 3 complete - the mountain pass waits"
   }
  ],
  "triggers": [],
@@ -1779,6 +1823,133 @@
      "anchor": "kingdom_beach.shop_stall"
     }
    ]
+  },
+  {
+   "id": "rex_forest",
+   "name": "Rex Raptor",
+   "mesh": "Suit_Male",
+   "anchor": "kingdom_forest.rex_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 13,
+      "stage_lt": 14,
+      "lacks": [
+       "rex_forest_won"
+      ]
+     },
+     "scene": "dk3_rex_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       79
+      ],
+      "stage": 14,
+      "flags": [
+       "rex_forest_won"
+      ],
+      "scene": "dk3_rex_win",
+      "wager": 1
+     },
+     "lose": {
+      "scene": "dk3_rex_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 13
+     },
+     "scene": "dk3_rex_after"
+    }
+   ],
+   "duelist_id": 9,
+   "portrait_id": 9,
+   "duelist": "dk_rex_forest",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 13
+     },
+     "anchor": "kingdom_forest.rex_spot"
+    }
+   ]
+  },
+  {
+   "id": "forest_mage",
+   "name": "Forest Mage",
+   "mesh": "Wizard",
+   "anchor": "kingdom_forest.gate_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 15,
+      "stage_lt": 16,
+      "lacks": [
+       "forest_mage_won"
+      ]
+     },
+     "scene": "dk3_mage_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       91
+      ],
+      "stage": 16,
+      "flags": [
+       "forest_mage_won"
+      ],
+      "scene": "dk3_mage_win",
+      "wager": 2
+     },
+     "lose": {
+      "scene": "dk3_mage_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 15
+     },
+     "scene": "dk3_mage_after"
+    }
+   ],
+   "duelist_id": 23,
+   "portrait_id": 23,
+   "duelist": "dk_forest_mage",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 15
+     },
+     "anchor": "kingdom_forest.gate_spot"
+    }
+   ]
+  },
+  {
+   "id": "hermit_hob",
+   "name": "Hermit Hob",
+   "mesh": "Worker_Male",
+   "anchor": "kingdom_forest.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 13
+     },
+     "scene": "dk3_hermit",
+     "effects": {
+      "open_shop": "forest"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 13
+     },
+     "anchor": "kingdom_forest.shop_stall"
+    }
+   ]
   }
  ],
  "speakers": {
@@ -1858,6 +2029,12 @@
    "portrait_id": 0
   },
   "shell_sue": {
+   "portrait_id": 0
+  },
+  "forest_mage": {
+   "portrait_id": 23
+  },
+  "hermit_hob": {
    "portrait_id": 0
   }
  },
@@ -2186,9 +2363,60 @@
   },
   {
    "when": {
-    "stage_ge": 12
+    "stage_ge": 12,
+    "stage_lt": 13
    },
    "anchor": "jungle_path"
+  },
+  {
+   "when": {
+    "stage_ge": 13,
+    "stage_lt": 14
+   },
+   "npc": "rex_forest"
+  },
+  {
+   "when": {
+    "stage_ge": 14,
+    "stage_lt": 15,
+    "lacks": [
+     "star_mark_1"
+    ]
+   },
+   "anchor": "star_mark_1"
+  },
+  {
+   "when": {
+    "stage_ge": 14,
+    "stage_lt": 15,
+    "lacks": [
+     "star_mark_2"
+    ]
+   },
+   "anchor": "star_mark_2"
+  },
+  {
+   "when": {
+    "stage_ge": 14,
+    "stage_lt": 15,
+    "lacks": [
+     "star_mark_3"
+    ]
+   },
+   "anchor": "star_mark_3"
+  },
+  {
+   "when": {
+    "stage_ge": 15,
+    "stage_lt": 16
+   },
+   "npc": "forest_mage"
+  },
+  {
+   "when": {
+    "stage_ge": 16
+   },
+   "anchor": "pass_road"
   }
  ],
  "journal": [
@@ -2544,6 +2772,18 @@
    "done": {
     "needs": [
      "weevil_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q12_forest",
+   "active": {
+    "stage_ge": 13
+   },
+   "done": {
+    "needs": [
+     "forest_mage_won"
     ]
    },
    "lines": []
@@ -2979,9 +3219,29 @@
    "talk": [
     {
      "when": {
-      "stage_ge": 12
+      "stage_ge": 13
      },
-     "scene": "dk2_jungle_locked"
+     "scene": "dk3_to_forest",
+     "effects": {
+      "warp": [
+       "kingdom_forest",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 12,
+      "stage_lt": 13
+     },
+     "scene": "dk3_enter",
+     "effects": {
+      "stage": 13,
+      "warp": [
+       "kingdom_forest",
+       "spawn"
+      ]
+     }
     },
     {
      "when": {
@@ -2989,6 +3249,140 @@
       "stage_lt": 12
      },
      "scene": "dk2_jungle_early"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "star_mark_1",
+   "anchor": "star_mark_1",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 14,
+      "lacks": [
+       "star_mark_1"
+      ]
+     },
+     "scene": "dk3_mark_1",
+     "effects": {
+      "flags": [
+       "star_mark_1"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 13
+     },
+     "scene": "dk3_mark_seen"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "star_mark_2",
+   "anchor": "star_mark_2",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 14,
+      "lacks": [
+       "star_mark_2"
+      ]
+     },
+     "scene": "dk3_mark_2",
+     "effects": {
+      "flags": [
+       "star_mark_2"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 13
+     },
+     "scene": "dk3_mark_seen"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "star_mark_3",
+   "anchor": "star_mark_3",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 14,
+      "lacks": [
+       "star_mark_3"
+      ]
+     },
+     "scene": "dk3_mark_3",
+     "effects": {
+      "flags": [
+       "star_mark_3"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 13
+     },
+     "scene": "dk3_mark_seen"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "forest_gate",
+   "anchor": "gate_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 13,
+      "stage_lt": 15
+     },
+     "scene": "dk3_gate_shut"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "pass_road",
+   "anchor": "pass_road",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 16
+     },
+     "scene": "dk3_pass_locked"
+    },
+    {
+     "when": {
+      "stage_ge": 13,
+      "stage_lt": 16
+     },
+     "scene": "dk3_pass_early"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "forest_exit",
+   "anchor": "spawn",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 13
+     },
+     "scene": "dk3_to_beach",
+     "effects": {
+      "warp": [
+       "kingdom_beach",
+       "jungle_path"
+      ]
+     }
     }
    ],
    "reach": 80
@@ -3012,6 +3406,12 @@
    "reach": 0
   },
   {
+   "id": "arena_door_forest",
+   "anchor": "kingdom_forest.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
    "id": "arena_door_ship",
    "anchor": "ship_deck.arena_door",
    "prop": "hatch",
@@ -3029,7 +3429,8 @@
    "cistern": 26,
    "harbor": 18,
    "ship_deck": 20,
-   "kingdom_beach": 30
+   "kingdom_beach": 30,
+   "kingdom_forest": 21
   },
   "night": {
    "stage_ge": 2,
@@ -3590,6 +3991,264 @@
    "anchor": "beach_center",
    "time": "auto",
    "stars": 2
+  },
+  {
+   "name": "22 forest arrival (chapter 3)",
+   "stage": 13,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore"
+   ],
+   "anchor": "kingdom_forest.spawn",
+   "time": "auto",
+   "stars": 2
+  },
+  {
+   "name": "23 Rex waits (wager)",
+   "stage": 13,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived"
+   ],
+   "anchor": "kingdom_forest.forest_center",
+   "time": "auto",
+   "stars": 2
+  },
+  {
+   "name": "24 Star Marks",
+   "stage": 14,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won"
+   ],
+   "anchor": "kingdom_forest.forest_center",
+   "time": "auto",
+   "stars": 3
+  },
+  {
+   "name": "25 two marks read",
+   "stage": 14,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2"
+   ],
+   "anchor": "kingdom_forest.hangout_a",
+   "time": "auto",
+   "stars": 3
+  },
+  {
+   "name": "26 Forest Mage (wager)",
+   "stage": 15,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3"
+   ],
+   "anchor": "kingdom_forest.forest_center",
+   "time": "auto",
+   "stars": 3
+  },
+  {
+   "name": "27 chapter 3 done",
+   "stage": 16,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won"
+   ],
+   "anchor": "kingdom_forest.forest_center",
+   "time": "auto",
+   "stars": 5
   }
  ],
  "auto": [
@@ -3639,7 +4298,39 @@
     ]
    },
    "scene": "dk2_weevil_ambush"
+  },
+  {
+   "when": {
+    "stage_ge": 13,
+    "stage_lt": 14,
+    "lacks": [
+     "forest_arrived"
+    ],
+    "area": 6
+   },
+   "result": {
+    "flags": [
+     "forest_arrived"
+    ]
+   },
+   "scene": "dk3_arrival"
+  },
+  {
+   "when": {
+    "stage_ge": 14,
+    "stage_lt": 15,
+    "needs": [
+     "star_mark_1",
+     "star_mark_2",
+     "star_mark_3"
+    ],
+    "area": 6
+   },
+   "result": {
+    "stage": 15
+   },
+   "scene": "dk3_clearing_open"
   }
  ],
- "story": "duelist_kingdom chapters 1-2"
+ "story": "duelist_kingdom chapters 1-3"
 }

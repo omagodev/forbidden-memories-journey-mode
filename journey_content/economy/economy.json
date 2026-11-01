@@ -196,6 +196,16 @@
     "id": "weevil",
     "tier": 2,
     "stars_wager": true
+   },
+   {
+    "id": "rex_forest",
+    "tier": 3,
+    "stars_wager": true
+   },
+   {
+    "id": "forest_mage",
+    "tier": 4,
+    "stars_wager": true
    }
   ],
   "protected_cards": [
@@ -206,7 +216,9 @@
    "Killer Needle",
    "Kuriboh",
    "Magician of Faith",
+   "Megazowler",
    "Mooyan Curry",
+   "Mystic Horseman",
    "Mystical Elf",
    "The 13th Grave",
    "Uraby",

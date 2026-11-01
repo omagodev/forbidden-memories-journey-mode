@@ -711,7 +711,7 @@ _Weevil beaten: the hero's second star and the end of chapter 2._
 - **Weevil**: Leve sua estrela. E estes dados. Eles nunca gostaram de mim.
 - **Recompensa**: Voce ganhou uma estrela, os Dados Viciados e a carta Hercules Beetle.
 - **{name}**: Duas estrelas. Faltam oito. Lembrete - trazer meus dados.
-- **Fim do Capitulo 2**: Capitulo 3 - A Floresta dos Sussurros, na proxima parte.
+- **Fim do Capitulo 2**: A seguir - a Floresta dos Sussurros, pela trilha da selva.
 
 ### dk2_weevil_lose
 _Weevil wins the wager._
@@ -754,11 +754,6 @@ _The jungle path before Weevil._
 
 - **Trilha da Selva**: Uma placa - Floresta dos Sussurros. So duelistas com duas estrelas.
 
-### dk2_jungle_locked
-_The jungle path after chapter 2: the next part._
-
-- **Trilha da Selva**: A trilha da floresta espera. O capitulo 3 chega na proxima parte.
-
 ### dk2_dock_dan
 _Dock Dan, the harbor cart._
 
@@ -773,3 +768,137 @@ _Purser Pim, the ship's stall._
 _Shell Sue, the beach tent._
 
 - **Sue Concha**: Conchas, cartas e segredos. Compre algo, menino estrela.
+
+### dk3_enter
+_Chapter 2 -> 3: the hero takes the jungle path into the Forest of Whispers._
+
+- **Trilha da Selva**: Duas estrelas brilham na sua luva. A placa deixa voce passar.
+- **{name}**: Floresta dos Sussurros. Se as arvores falarem, eu vou embora.
+
+### dk3_to_forest
+_The jungle path after the first visit._
+
+- **Trilha da Selva**: A trilha volta a subir entre as arvores que sussurram.
+
+### dk3_to_beach
+_The south path back to the Shore of Illusions._
+
+- **Beira da Floresta**: As arvores rareiam. Voce sente o cheiro do mar de novo.
+
+### dk3_arrival
+_Chapter 3 opens: the forest, the star cuts and a furious voice._
+
+- **Floresta**: Folhas mexem sem vento. Ha algo cortado na casca.
+- **{name}**: Uma estrela... entalhada na arvore. Corte fresco. Alguem passou.
+- **Rex Raptor**: POR AQUI? NAO! POR ALI! Essas arvores idiotas ficam mudando!
+- **{name}**: Esse grito e familiar. Rex Raptor, la de casa?
+- **Objetivo**: Ache o duelista que grita na floresta.
+
+### dk3_rex_pre
+_Rex, lost for hours, blames the hero: a star wager._
+
+- **Rex Raptor**: Voce! O moleque da vila! Foi voce que mexeu nas arvores?
+- **{name}**: Arvore nao anda, Rex. Voce ta perdido. Desde quando?
+- **Rex Raptor**: Desde o cafe! Meus dinos tem fome e eu tambem. Estrela em jogo!
+- **{name}**: Uma estrela cada, entao. Depois eu te mostro a saida.
+- **Rex Raptor**: Fechado! Duela comigo agora, estrela por estrela?  _[Duel? Yes/No]_
+
+### dk3_rex_win
+_Rex loses his star and calms down._
+
+- **Rex Raptor**: Extinto... de novo. Ta bom. Leva a estrela. Mereceu.
+- **Rex Raptor**: Eu vi essas estrelas entalhadas. Sao tres. Elas apontam pra algo.
+- **Rex Raptor**: Segui em circulos. Tenta voce. Vou comer um cogumelo.
+- **Voce ganhou**: Uma estrela e a carta Megazowler.
+- **Objetivo**: Siga as tres Marcas de Estrela nas arvores.
+
+### dk3_rex_lose
+_Rex wins the star._
+
+- **Rex Raptor**: HA! Rawr! Ainda mando bem! Agora, qual e a saida?
+- **{name}**: Argh. Meu baralho precisa de dentes maiores. A loja, talvez.
+
+### dk3_rex_after
+_Rex after the duel, eating a mushroom._
+
+- **Rex Raptor**: Esse cogumelo tem gosto de meia. Vai seguir suas estrelas.
+
+### dk3_mark_1
+_The first Star Mark (west)._
+
+- **Marca de Estrela**: Uma estrela funda na casca. Uma ponta mira o leste.
+- **{name}**: Uma. O corte e limpo, de cinzel. Nao foi bicho.
+
+### dk3_mark_2
+_The second Star Mark (north-east)._
+
+- **Marca de Estrela**: Outra estrela, mais alta. A ponta mira o portao de pedra.
+- **{name}**: Duas. Quem entalha isso e alto. Ou trouxe uma escada.
+
+### dk3_mark_3
+_The third Star Mark (east)._
+
+- **Marca de Estrela**: Uma terceira estrela, ainda com seiva. Tambem aponta pro portao.
+- **{name}**: Tres. Mesma mao. Mesma estrela. Quem marca esta ilha?
+
+### dk3_mark_seen
+_A Star Mark already read._
+
+- **Marca de Estrela**: A estrela entalhada. Voce ja seguiu esta.
+
+### dk3_gate_shut
+_The stone gate before the three marks._
+
+- **Portao de Pedra**: Pedras velhas e um brilho azul frio. Nao deixa voce entrar.
+
+### dk3_clearing_open
+_The three marks read: the stone gate opens on the hidden clearing._
+
+- **Portao de Pedra**: As tres estrelas brilham juntas. O portao zumbe e a nevoa abre.
+- **Mago da Floresta**: Tres estrelas lidas, tres passos certos. A clareira te recebe.
+- **{name}**: Foi voce que entalhou? As estrelas nas arvores?
+- **Mago da Floresta**: Eu nao. Elas surgem a cada lua. Eu so guardo onde apontam.
+- **Objetivo**: Duele com o Mago da Floresta no portao.
+
+### dk3_mage_pre
+_The Forest Mage, zone master: a two-star wager._
+
+- **Mago da Floresta**: Sou o mestre deste bosque. Minha aposta e de duas estrelas.
+- **Mago da Floresta**: A sua e uma. A floresta e generosa. As raizes, nao.
+- **{name}**: Duas estrelas me levam a cinco. Vamos plantar.
+- **Mago da Floresta**: Entao compre, brotinho. As raizes podem comecar?  _[Duel? Yes/No]_
+
+### dk3_mage_win
+_The Forest Mage loses: two stars, the leaf, end of chapter 3._
+
+- **Mago da Floresta**: As raizes se curvam. Leve minhas duas estrelas, e esta folha.
+- **Voce ganhou**: Duas estrelas, a Folha Sussurrante e a carta Mystic Horseman.
+- **Mago da Floresta**: Quem entalha as estrelas anda por toda zona. Pergunte as montanhas.
+- **{name}**: Cinco estrelas. E um entalhador que ninguem nunca viu.
+- **Fim do Capitulo 3**: A Floresta dos Sussurros ficou para tras. A passagem da montanha espera.
+
+### dk3_mage_lose
+_The Forest Mage keeps his stars._
+
+- **Mago da Floresta**: As raizes seguram. Volte com um baralho mais forte, brotinho.
+- **{name}**: A cabana do Hob e o Ringue do Tronco Oco. Hora de treinar.
+
+### dk3_mage_after
+_The Forest Mage after the duel._
+
+- **Mago da Floresta**: A folha sussurra quando uma estrela esta perto. Escute.
+
+### dk3_pass_early
+_The mountain pass before the clearing._
+
+- **Passagem da Montanha**: Uma corda bloqueia a estrada - Exige licenca do mestre da zona.
+
+### dk3_pass_locked
+_The mountain pass after chapter 3: the next part._
+
+- **Passagem da Montanha**: A estrada sobe as nuvens. O capitulo 4 chega na proxima parte.
+
+### dk3_hermit
+_Hermit Hob, the forest hut._
+
+- **Eremita Hob**: Cogumelos, musgo e cartas. As cartas sao o menos estranho.

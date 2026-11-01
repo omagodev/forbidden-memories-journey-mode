@@ -181,6 +181,63 @@
     "Vile Germs": 3
    },
    "notes": "Chapter 2 star duel: beatable with a few upgrades."
+  },
+  "Rex Forest": {
+   "duelist": "Rex Raptor",
+   "chapter": 1,
+   "difficulty_tier": 3,
+   "theme": "Rex in the forest: a real dinosaur deck now",
+   "fixed": true,
+   "total": 40,
+   "cards": {
+    "Two-headed King Rex": 2,
+    "Sword Arm of Dragon": 2,
+    "Megazowler": 2,
+    "Uraby": 3,
+    "Crawling Dragon #2": 2,
+    "Tomozaurus": 3,
+    "Little D": 3,
+    "Anthrosaurus": 3,
+    "Petit Dragon": 3,
+    "Grappler": 2,
+    "Ancient Lizard Warrior": 2,
+    "Dragon Treasure": 2,
+    "Mountain": 3,
+    "Sparks": 3,
+    "Red Medicine": 2,
+    "Hinotama": 3
+   },
+   "notes": "Chapter 3 star duel: needs a few beach or forest upgrades."
+  },
+  "Forest Mage Grove": {
+   "duelist": "Forest Mage",
+   "chapter": 1,
+   "difficulty_tier": 4,
+   "theme": "Plants and beasts of the wood, Forest field",
+   "fixed": true,
+   "total": 40,
+   "cards": {
+    "Trent": 2,
+    "Queen of Autumn Leaves": 2,
+    "Darkworld Thorns": 2,
+    "Arlownay": 2,
+    "Bean Soldier": 3,
+    "Laughing Flower": 2,
+    "Ancient Tree of Enlightenment": 2,
+    "Yashinoki": 3,
+    "Living Vase": 2,
+    "Flower Wolf": 2,
+    "Mystic Horseman": 2,
+    "Garvas": 2,
+    "Prevent Rat": 2,
+    "Battle Steer": 2,
+    "Mystical Elf": 1,
+    "Forest": 3,
+    "Sparks": 2,
+    "Goblin's Secret Remedy": 2,
+    "Raise Body Heat": 2
+   },
+   "notes": "Chapter 3 zone master (2 stars): beatable with forest cards and arena wins."
   }
  },
  "starter": {

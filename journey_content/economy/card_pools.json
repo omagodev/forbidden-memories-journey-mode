@@ -4009,6 +4009,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 9,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -4049,6 +4051,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 9,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -4081,6 +4085,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 9,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -6541,14 +6547,6 @@
     {
      "card": "Dark Witch",
      "id": 582,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 12,
-     "kind": "monster"
-    },
-    {
-     "card": "Rose Spectre of Dunn",
-     "id": 594,
      "rarity": "A",
      "weight": 1,
      "min_level": 12,

@@ -396,3 +396,21 @@ CHAPTERS.append(_C2.CHAPTER)
 QUESTS += _C2.QUESTS
 DECKS.update(_C2.DECKS)
 STARTER_DECK = _C2.STARTER_DECK
+
+# ---------------------------------------------------------------- chapter 3 (the Forest of Whispers): dk_chapter3.py
+import dk_chapter3 as _C3
+SPEAKERS.update(_C3.SPEAKERS)
+FLAGS += _C3.FLAGS
+STAGES = sorted(STAGES + _C3.STAGES)
+AREAS.append(("kingdom_forest", "Forest of Whispers", "Floresta dos Sussurros", "Second Kingdom area: a cross of paths in an old forest, a stone gate with a blue glow (the hidden clearing), a hermit's hut, a hollow stump.", "exists (painted, chapter 3)"))
+ANCHORS["kingdom_forest"] = _C3.ANCHORS["kingdom_forest"]
+ITEMS += _C3.ITEMS
+NPCS += _C3.NPCS
+NPC_SPEAKER.update(_C3.NPC_SPEAKER)
+OBJECTS += _C3.OBJECTS
+DUELS += _C3.DUELS
+TRANSITIONS += _C3.TRANSITIONS
+HUD += _C3.HUD
+CHAPTERS.append(_C3.CHAPTER)
+QUESTS += _C3.QUESTS
+DECKS.update(_C3.DECKS)

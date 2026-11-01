@@ -766,6 +766,7 @@ static void run(int first)
         if (!cooldown) {                       /* a state of the story that starts a scene by itself (the three stamps) */
             Talk at;
             if (Story_Auto(&at)) {
+                World_PlaceNpcs();             /* its result may bring someone out (the Forest Mage at the opened gate) */
                 Paint_TalkStart(-1);
                 in_paint_flow = 1;
                 start_talk(&at);

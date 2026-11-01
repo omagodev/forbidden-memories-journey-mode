@@ -723,3 +723,7 @@ sc("dk1_bakura_glyph", "Bakura mentions the green writing.", [
 # ---------------------------------------------------------------- chapter 2 (the Shore of Illusions): dk_chapter2.py
 import dk_chapter2 as _C2
 _C2.scripts(sc, H, X, N)
+
+# ---------------------------------------------------------------- chapter 3 (the Forest of Whispers): dk_chapter3.py
+import dk_chapter3 as _C3
+_C3.scripts(sc, H, X, N)

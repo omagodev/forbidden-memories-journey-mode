@@ -615,7 +615,9 @@
    "anchor": "kingdom_forest.shop_stall",
    "price_win": 80,
    "tier": 3,
-   "open": {},
+   "open": {
+    "stage_min": 13
+   },
    "stock": {
     "always": [
      {

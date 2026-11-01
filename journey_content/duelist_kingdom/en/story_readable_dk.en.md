@@ -711,7 +711,7 @@ _Weevil beaten: the hero's second star and the end of chapter 2._
 - **Weevil**: Take your star. And these dice. They never liked me anyway.
 - **Reward**: You got a star, the Loaded Dice and the card Hercules Beetle.
 - **{name}**: Two stars. Eight to go. Note to self - bring my own dice.
-- **End of Chapter 2**: Chapter 3 - The Forest of Whispers, in the next part.
+- **End of Chapter 2**: Next - the Forest of Whispers, up the jungle path.
 
 ### dk2_weevil_lose
 _Weevil wins the wager._
@@ -754,11 +754,6 @@ _The jungle path before Weevil._
 
 - **Jungle Path**: A sign - Forest of Whispers. Duelists with two stars only.
 
-### dk2_jungle_locked
-_The jungle path after chapter 2: the next part._
-
-- **Jungle Path**: The forest path waits. Chapter 3 arrives in the next part.
-
 ### dk2_dock_dan
 _Dock Dan, the harbor cart._
 
@@ -773,3 +768,137 @@ _Purser Pim, the ship's stall._
 _Shell Sue, the beach tent._
 
 - **Shell Sue**: Shells, cards and secrets. Buy something, star boy.
+
+### dk3_enter
+_Chapter 2 -> 3: the hero takes the jungle path into the Forest of Whispers._
+
+- **Jungle Path**: Two stars glow on your glove. The sign lets you pass.
+- **{name}**: Forest of Whispers. If the trees start talking, I'm leaving.
+
+### dk3_to_forest
+_The jungle path after the first visit._
+
+- **Jungle Path**: The path climbs back into the whispering trees.
+
+### dk3_to_beach
+_The south path back to the Shore of Illusions._
+
+- **Forest Edge**: The trees thin out. You smell the sea again.
+
+### dk3_arrival
+_Chapter 3 opens: the forest, the star cuts and a furious voice._
+
+- **Forest of Whispers**: Leaves rustle with no wind. Something is cut into the bark.
+- **{name}**: A star... carved into the tree. Fresh cut. Someone was here.
+- **Rex Raptor**: THIS WAY? NO! THAT WAY! Stupid trees keep moving!
+- **{name}**: That shouting sounds familiar. Rex Raptor, from home?
+- **Objective**: Find the duelist shouting in the forest.
+
+### dk3_rex_pre
+_Rex, lost for hours, blames the hero: a star wager._
+
+- **Rex Raptor**: You! The kid from the village! Did you move the trees?
+- **{name}**: Trees don't move, Rex. You're lost. Since when?
+- **Rex Raptor**: Since breakfast! My dinos are hungry and so am I. Star on the line!
+- **{name}**: One star each, then. And after that I show you the way out.
+- **Rex Raptor**: Deal! Duel me right now, star for star?  _[Duel? Yes/No]_
+
+### dk3_rex_win
+_Rex loses his star and calms down._
+
+- **Rex Raptor**: Extinct... again. Fine. Take the star. You earned it.
+- **Rex Raptor**: I saw those carved stars. Three of them. They point somewhere.
+- **Rex Raptor**: I followed them in circles. You try. I'm going to eat a mushroom.
+- **You got**: A star and the card Megazowler.
+- **Objective**: Follow the three Star Marks on the trees.
+
+### dk3_rex_lose
+_Rex wins the star._
+
+- **Rex Raptor**: HA! Rawr! Still got it! Now which way is out?
+- **{name}**: Ugh. My deck needs bigger teeth. The forest shop, maybe.
+
+### dk3_rex_after
+_Rex after the duel, eating a mushroom._
+
+- **Rex Raptor**: This mushroom tastes like socks. Go follow your stars.
+
+### dk3_mark_1
+_The first Star Mark (west)._
+
+- **Star Mark**: A star cut deep in the bark. One point aims east.
+- **{name}**: One. The cut is clean, like a chisel. Not an animal.
+
+### dk3_mark_2
+_The second Star Mark (north-east)._
+
+- **Star Mark**: Another star, higher up. Its point aims at the stone gate.
+- **{name}**: Two. Whoever carves these is tall. Or brought a ladder.
+
+### dk3_mark_3
+_The third Star Mark (east)._
+
+- **Star Mark**: A third star, still sticky with sap. It points to the gate too.
+- **{name}**: Three. Same hand. Same star. Who is marking this island?
+
+### dk3_mark_seen
+_A Star Mark already read._
+
+- **Star Mark**: The carved star. You already followed this one.
+
+### dk3_gate_shut
+_The stone gate before the three marks._
+
+- **Stone Gate**: Old stones and a cold blue glow. It will not let you in.
+
+### dk3_clearing_open
+_The three marks read: the stone gate opens on the hidden clearing._
+
+- **Stone Gate**: The three stars glow at once. The gate hums and the mist parts.
+- **Forest Mage**: Three stars read, three steps true. The clearing welcomes you.
+- **{name}**: You carved them? The stars on the trees?
+- **Forest Mage**: Not I. They appear each moon. I only guard where they point.
+- **Objective**: Duel the Forest Mage at the stone gate.
+
+### dk3_mage_pre
+_The Forest Mage, zone master: a two-star wager._
+
+- **Forest Mage**: I am the master of this wood. My wager is two stars.
+- **Forest Mage**: Yours is one. The forest is generous. Its roots are not.
+- **{name}**: Two stars would put me at five. Let's grow some.
+- **Forest Mage**: Then draw, sprout. Shall the roots begin?  _[Duel? Yes/No]_
+
+### dk3_mage_win
+_The Forest Mage loses: two stars, the leaf, end of chapter 3._
+
+- **Forest Mage**: The roots bow. Take my two stars, and this leaf.
+- **You got**: Two stars, the Whisper Leaf and the card Mystic Horseman.
+- **Forest Mage**: Whoever carves the stars walks every zone. Ask the mountains.
+- **{name}**: Five stars. And a star-carver nobody has ever seen.
+- **End of Chapter 3**: The Forest of Whispers is behind you. The mountain pass waits.
+
+### dk3_mage_lose
+_The Forest Mage keeps his stars._
+
+- **Forest Mage**: Roots hold. Come back with a stronger deck, little sprout.
+- **{name}**: Hermit Hob's hut and the Hollow Log Ring. Time to train.
+
+### dk3_mage_after
+_The Forest Mage after the duel._
+
+- **Forest Mage**: The leaf will whisper when a star is near. Listen to it.
+
+### dk3_pass_early
+_The mountain pass before the clearing._
+
+- **Mountain Pass**: A rope bars the road - Zone master's leave required.
+
+### dk3_pass_locked
+_The mountain pass after chapter 3: the next part._
+
+- **Mountain Pass**: The road climbs into the clouds. Chapter 4 arrives in the next part.
+
+### dk3_hermit
+_Hermit Hob, the forest hut._
+
+- **Hermit Hob**: Mushrooms, moss and cards. The cards are the least weird.

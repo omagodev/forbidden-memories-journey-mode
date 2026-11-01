@@ -5,7 +5,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-static char home_anchor[MAX_NPC][24];   /* the anchor journey.json gives each one; "places" may move him for a while */
+static char home_anchor[MAX_NPC][40];   /* the anchor journey.json gives each one; "places" may move him for a while */
 
 extern JsonNode *jm_rules;
 extern int Story_Cond(const JsonNode *c);

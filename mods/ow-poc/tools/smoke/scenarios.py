@@ -343,11 +343,11 @@ SCENARIOS.update({
             + [("until", "scene dk2_landing", 600), ("wait", 600), ("snap", "beach")]
             + beat("dk2_mirror", "mirror", after=600) + [("until", "scene dk2_weevil_ambush", 900), ("wait", 600), ("snap", "weevil_ambush")]
             + beat("dk2_weevil_pre", "weevil_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "weevil_won")]
-            + beat("dk2_hooded_shore", "hooded", after=500) + beat("dk2_camp", "camp", after=500) + beat("dk2_jungle_locked", "jungle_end", after=300)
+            + beat("dk2_hooded_shore", "hooded", after=500) + beat("dk2_camp", "camp", after=500) + beat("dk3_enter", "jungle_to_forest", after=300)
             + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")],
         expect=["scene dk1_inspector_pre", "scene dk1_shadi_pre", "scene dk1_board", "scene dk1_mai_rules", "scene dk1_inseto_pre", "scene dk1_arrival",
                 "observer mago", "scene dk2_landing", "scene dk2_mirror", "scene dk2_weevil_ambush", "star duel won, stars 2", "saved (stage 12",
-                "scene dk2_hooded_shore", "scene dk2_camp", "scene dk2_jungle_locked", "journey: music 18", "journey: music 20", "journey: music 30"]),
+                "scene dk2_hooded_shore", "scene dk2_camp", "scene dk3_enter", "journey: music 18", "journey: music 20", "journey: music 30"]),
     "e2e_weevil_lose": dict(desc="Weevil's wager lost with the last star: the Shore Camp, one star back, no game over; then the rematch is won",
         preset="20 Weevil waits (wager)", lang=1, debug=dict(skip_dialogue=True, lose_duels=True, stars=1),
         steps=beat("dk2_weevil_pre", "weevil_pre") + [("until", "star duel lost", 900), ("until", "scene k1_eliminated", 600), ("wait", 600), ("snap", "camp_wakeup")],
@@ -380,4 +380,56 @@ SCENARIOS.update({
         steps=REL + [("press", "cross"), ("until", "scene dk1_mai", 300), ("wait", 90), ("snap", "mai_talk")], expect=["scene dk1_mai"]),
     "final_inseto": dict(desc="player view: InsetoKaiba's portrait and sprite", preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.inseto_spot"},
         steps=REL + [("press", "cross"), ("until", "scene dk1_inseto", 300), ("wait", 90), ("snap", "inseto_talk")], expect=["scene dk1_inseto"]),
+})
+
+FOREST_E2E = (beat("dk3_rex_pre", "rex_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "rex_won")]
+    + beat("dk3_mark_1", "mark1", after=300) + beat("dk3_mark_2", "mark2", after=300) + beat("dk3_mark_3", "mark3", after=100)
+    + [("until", "scene dk3_clearing_open", 900), ("wait", 600), ("snap", "clearing_open")]
+    + beat("dk3_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 900), ("snap", "mage_won")]
+    + beat("dk3_pass_locked", "pass_end", after=300) + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")])
+SCENARIOS.update({
+    "e2e_ch2_to_ch3": dict(desc="chapter 2 -> 3: Weevil's wager won, the camp, the jungle path into the forest, Rex's wager, three Star Marks, the clearing, the Forest Mage's 2-star wager, chapter 3 end",
+        preset="20 Weevil waits (wager)", lang=1, debug=dict(E2E, coins=300),
+        steps=beat("dk2_weevil_pre", "weevil_pre") + [("until", "star duel won", 900), ("wait", 600)]
+            + beat("dk2_hooded_shore", "hooded", after=500) + beat("dk2_camp", "camp", after=500)
+            + beat("dk3_enter", "jungle_path", after=100) + [("until", "journey: music 21", 900), ("until", "scene dk3_arrival", 900), ("wait", 600), ("snap", "forest")]
+            + FOREST_E2E,
+        expect=["star duel won, stars 2", "scene dk3_enter", "journey: music 21", "scene dk3_arrival", "star duel won, stars 3", "scene dk3_mark_1", "scene dk3_mark_2",
+                "scene dk3_mark_3", "scene dk3_clearing_open", "star duel won, stars 5", "saved (stage 16", "scene dk3_pass_locked"]),
+    "cap3_arrival": dict(desc="chapter 3 opens: the forest, the arrival scene", preset="22 forest arrival (chapter 3)", lang=0, debug={"skip_dialogue": True},
+        steps=[("until", "scene dk3_arrival", 600), ("wait", 300), ("snap", "forest")], expect=["scene dk3_arrival", "journey: music 21"]),
+    "cap3_rex": dict(desc="Rex's wager (win)", preset="23 Rex waits (wager)", lang=0, debug=E2E,
+        steps=beat("dk3_rex_pre", "rex_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "won")], expect=["star duel won, stars 3", "saved (stage 14"]),
+    "cap3_rex_lose": dict(desc="Rex's wager lost: one star less", preset="23 Rex waits (wager)", lang=1, debug=dict(skip_dialogue=True, lose_duels=True),
+        steps=beat("dk3_rex_pre", "rex_pre") + [("until", "star duel lost", 900), ("wait", 600), ("snap", "lost")], expect=["star duel lost, stars 1"]),
+    "cap3_marks": dict(desc="the three Star Marks open the clearing", preset="24 Star Marks", lang=0, debug=E2E,
+        steps=beat("dk3_mark_1", "mark1", after=300) + beat("dk3_mark_2", "mark2", after=300) + beat("dk3_mark_3", "mark3", after=100)
+            + [("until", "scene dk3_clearing_open", 900), ("wait", 600), ("snap", "clearing")], expect=["scene dk3_clearing_open", "saved (stage 15"]),
+    "cap3_mage": dict(desc="the Forest Mage's two-star wager (win), chapter 3 end", preset="26 Forest Mage (wager)", lang=0, debug=E2E,
+        steps=beat("dk3_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 900), ("snap", "won")], expect=["star duel won, stars 5", "saved (stage 16"]),
+    "cap3_gang": dict(desc="a Jackal ambush in the forest", preset="24 Star Marks", lang=1,
+        debug={"skip_dialogue": True, "win_duels": True, "coins": 300, "gang_ready": True, "teleport": "kingdom_forest.hangout_b"},
+        steps=[("wait", 60), ("press", ["r1", "l1", "circle"], 4, 30)] + WALK[:16] + [("snap", "ambush"), ("press", "cross", 5, 30), ("press", "cross", 5, 30), ("until", "duel over", 900), ("wait", 200), ("snap", "after_ambush")], expect=["ambush won"]),
+    "cap3_arena": dict(desc="the Hollow Log Ring (forest arena) with its exclusives", preset="24 Star Marks", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 600, "teleport": "kingdom_forest.arena_door"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 120), ("press", "cross"), ("wait", 40), ("snap", "arena")], expect=[]),
+    "cap3_shop": dict(desc="Hermit Hob's hut (forest shop)", preset="24 Star Marks", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 600, "teleport": "kingdom_forest.shop_stall"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 200), ("press", "cross"), ("wait", 120), ("snap", "shop")], expect=[]),
+    # player views (no debug.json)
+    "final3_forest": dict(desc="player view: the forest with Rex and Hob", preset="23 Rex waits (wager)", lang=1, debug={"teleport": "kingdom_forest.forest_center"},
+        steps=REL + [("snap", "forest")], expect=["dev mode 0"]),
+    "final3_rex": dict(desc="player view: Rex's duel intro", preset="23 Rex waits (wager)", lang=1, debug={"teleport": "kingdom_forest.rex_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk3_rex_pre", 300), ("wait", 90), ("snap", "rex_intro")], expect=["scene dk3_rex_pre"]),
+    "final3_mark": dict(desc="player view: a Star Mark", preset="24 Star Marks", lang=1, debug={"teleport": "kingdom_forest.star_mark_1"},
+        steps=REL + [("press", "cross"), ("until", "scene dk3_mark_1", 300), ("wait", 90), ("snap", "mark")], expect=["scene dk3_mark_1"]),
+    "final3_mage": dict(desc="player view: the Forest Mage at the gate", preset="26 Forest Mage (wager)", lang=1, debug={"teleport": "kingdom_forest.gate_spot"},
+        steps=REL + [("hold", "down", 14), ("press", "up", 3, 10), ("snap", "gate"), ("press", "cross"), ("until", "scene dk3_mage", 300), ("wait", 90), ("snap", "mage_intro"),
+                     ("press", "cross", 5, 60), ("wait", 60), ("snap", "mage_intro2")], expect=["scene dk3_mage_pre", "dev mode 0"]),
+    "final3_end": dict(desc="player view: chapter 3 complete, five stars", preset="27 chapter 3 done", lang=1, debug={"teleport": "kingdom_forest.forest_center"},
+        steps=REL + [("snap", "end"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")], expect=["dev mode 0"]),
+    "final3_gang": dict(desc="player view: a Jackal ambush in the forest", preset="24 Star Marks", lang=1,
+        debug={"coins": 300, "walked": 400, "teleport": "kingdom_forest.hangout_b"},
+        steps=REL + [("hold", "left", 4), ("until", "stood by", 1500), ("wait", 120), ("snap", "ambush"), ("press", "cross", 5, 40), ("wait", 60), ("snap", "ambush2")],
+        expect=["stood by", "dev mode 0"]),
 })
