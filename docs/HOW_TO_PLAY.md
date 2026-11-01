@@ -10,7 +10,7 @@ No compiling needed: download the ready-to-run Windows build.
 - Nothing to install: no emulator and no compiling.
 
 ## Steps
-1. Download `JourneyMode_<version>_Windows.zip` from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest).
+1. Download [`JourneyMode_v0.6.0-alpha_Windows.zip`](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.0-alpha/JourneyMode_v0.6.0-alpha_Windows.zip) (or the newest one in [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest)).
 2. Extract the **whole** zip into a folder (don't run it from inside the zip).
 3. Copy your `.bin` into the `game` folder, or pick it with **Choose ROM...** on the first launch.
 4. Double-click **`JOGAR_JourneyMode.bat`** (recommended, it turns on HD text) or `memories-pc.exe`.
@@ -27,6 +27,12 @@ No compiling needed: download the ready-to-run Windows build.
 | R / Z | Turn sprite / switch view |
 | F10 | Menu bar (video, controls, language) |
 | Esc | Quit |
+
+## Star Chips (Duelist Kingdom)
+- Before every star duel you **choose your bet**: left/right from 1 up to the smaller of your stars and your rival's, X to duel, S to back out.
+- Win and you take the bet from him. Lose and he **keeps** it; challenge him again to win it back.
+- **If your stars run out, it is GAME OVER**: you go back to the title and CONTINUE loads your last save (the game never saves at zero stars). Never bet your last star lightly.
+- The gates count only the stars in your hand; ten open the castle.
 
 Saves go to `Documents\My Games\YFM Re-Decomp`. Found a bug? [Open an issue](https://github.com/omagodev/forbidden-memories-journey-mode/issues) and attach `game.log` from the game folder.
 

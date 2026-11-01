@@ -672,7 +672,7 @@
       "from": "Croquet, na Caverna da Estrela."
     },
     "star_chips": {
-      "desc": "Você aposta antes de cada duelo; a aposta perdida fica com o rival. Dez abrem o castelo. ZERO ESTRELAS = FIM DE JOGO.",
+      "desc": "Aposta perdida fica com o rival. Dez abrem o castelo. ZERO = FIM DE JOGO.",
       "from": "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."
     }
   },
@@ -684,7 +684,7 @@
     "stars": "estrelas",
     "star": "estrela",
     "win": "Vitória: você toma %d dele.",
-    "lose": "Derrota: ele fica com %d suas.",
+    "lose": "Derrota: ele fica com %d das suas.",
     "rematch": "Revanche: só as estrelas que ele ganhou de você estão em jogo.",
     "warn": "Se suas estrelas acabarem, a jornada termina. FIM DE JOGO.",
     "allin": "Tudo ou nada! Perder este duelo é FIM DE JOGO.",

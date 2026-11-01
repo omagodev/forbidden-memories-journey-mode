@@ -15,24 +15,25 @@ Journey Mode is a hobby project, so there are no dates here, just the direction.
 - Small key-hint icons instead of big action bars
 - Fast test scenarios (jump to any story point)
 - Illustrated harbor, ship deck and Shore of Illusions, each with its shop, card pool, gang ambushes and clandestine arena
-- Duelist Kingdom chapter 2 (the Shore of Illusions): Pegasus's mirror, Weevil's ambush, star wagers, the Shore Camp
-- Duelist Kingdom chapter 3 (the Forest of Whispers): Rex Raptor's star wager, three Star Marks, the hidden clearing, the Forest Mage's one-star wager; Hermit Hob's shop, forest card pool, gang ambushes and the Hollow Log Ring with three arena-exclusive cards
-- Duelist Kingdom chapter 4 (the Mountain Pass): Bandit Keith's one-star toll at the rope bridge, Mai's pride duel (no star), the star-carver caught in the cave, the Mountain Mage's one-star wager (six stars); Cliff Cass's tent, mountain card pool, gang ambushes and the Mine Shaft Pit with three arena-exclusive cards; trail-camp respawn in the forest and the pass
+- Duelist Kingdom chapter 2 (the Shore of Illusions): Pegasus's mirror, Weevil's ambush, the Shore Camp
+- Duelist Kingdom chapter 3 (the Forest of Whispers): Rex Raptor's star wager, three Star Marks, the hidden clearing, the Forest Mage (holds three stars); Hermit Hob's shop, forest card pool, gang ambushes and the Hollow Log Ring with three arena-exclusive cards
+- Duelist Kingdom chapter 4 (the Mountain Pass): Bandit Keith's toll at the rope bridge (holds three stars), Mai's pride duel (no star), the star-carver caught in the cave, the Mountain Mage (holds four; six stars at the minimum bet); Cliff Cass's tent, mountain card pool, gang ambushes and the Mine Shaft Pit with three arena-exclusive cards; trail camps in the forest and the pass
+- Star wagers: a picker before every star duel (1 up to min(yours, his)), each gatekeeper holds his own stars (saved), lost bets stay with him and a rematch wins them back; zero stars = GAME OVER, warned by Shadi, Pegasus, the camps, the picker and the Mochila
 
 ### Star Chips: the curve (fixed for every future chapter)
 
-Stars are story items, kept in the Mochila as *Star Chips xN*. Exactly ten exist, one per gatekeeper; minor duelists, rivals' pride duels, arenas and the gang never give one. A lost wager costs one star, which stays with that duelist until you beat him (the win gives it back); losing the last one wakes you at the area's camp with one. Every gate checks the stars earned so far, so no duel can be skipped.
+Stars are story items, kept in the Mochila as *Star Chips xN*. Only the gatekeepers hold them (Weevil 2, Rex Raptor 2, Forest Mage 3, Bandit Keith 3, Mountain Mage 4); minor duelists, pride duels, arenas and the gang never give one. Before every star duel a **wager picker** opens: bet from 1 up to min(your stars, his stars). A win takes the bet from him; a loss leaves it with him (his count grows), and a rematch, even after the story win, can win back what he took. **Zero stars is GAME OVER** (back to the title; nothing is saved at zero, so Continue loads your last save). Shadi, Pegasus's mirror, the Shore Camp sign, the trail camp staff, the picker and the Mochila all warn about it. The totals below assume the minimum bet (1); bigger bets jump ahead or end the journey. Gates count only the stars in your hand.
 
 | Chapter | Star from | Total | Gate that checks it |
 |---|---|---|---|
 | 1 Home town / harbor | Shadi (Star Passage) | 1 | - |
 | 2 Shore of Illusions | Weevil | 2 | jungle path: 2 |
-| 3 Forest of Whispers | Rex Raptor, Forest Mage | 3, 4 | Forest Mage: 3; mountain pass: 4 |
-| 4 Mountain Pass | Bandit Keith, Mountain Mage | 5, 6 | Keith: 4; Mountain Mage: 5; summit arch: 6 |
+| 3 Forest of Whispers | Rex Raptor, Forest Mage | 3, 4 | mountain pass: 4 |
+| 4 Mountain Pass | Bandit Keith, Mountain Mage | 5, 6 | summit arch: 6 |
 | 5 Meadow Maze | Meadow Mage | 7 | (planned) maze centre: 6 |
 | 6 Desert of Lost Stars | Desert Mage | 8 | (planned) |
 | 7 Star Fair | ring champion | 9 | (planned) |
-| 8 Castle Gate | InsetoKaiba, gate guardian | 10 | the castle lock: exactly 10 |
+| 8 Castle Gate | InsetoKaiba, gate guardian | 10 | the castle lock: at least 10 |
 - A weak 40-card starter deck; three arena-exclusive cards per arena (never sold, never dropped elsewhere)
 
 ## 🚧 In progress

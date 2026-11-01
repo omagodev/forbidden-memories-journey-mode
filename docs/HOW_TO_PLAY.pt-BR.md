@@ -10,7 +10,7 @@ Não precisa compilar: baixe a versão pronta para Windows.
 - Não precisa instalar nada, nem emulador, nem compilar.
 
 ## Passo a passo
-1. Baixe o `JourneyMode_<versão>_Windows.zip` em [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest).
+1. Baixe o [`JourneyMode_v0.6.0-alpha_Windows.zip`](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.0-alpha/JourneyMode_v0.6.0-alpha_Windows.zip) (ou o mais novo em [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest)).
 2. Extraia o zip **inteiro** numa pasta (não rode de dentro do zip).
 3. Copie seu `.bin` para a pasta `game`, ou escolha em **Choose ROM...** na primeira vez.
 4. Clique duas vezes em **`JOGAR_JourneyMode.bat`** (recomendado, liga o texto HD) ou no `memories-pc.exe`.
@@ -27,6 +27,12 @@ Não precisa compilar: baixe a versão pronta para Windows.
 | R / Z | Girar o sprite / trocar a visão |
 | F10 | Barra de menu (vídeo, controles, idioma) |
 | Esc | Sair |
+
+## Fichas de Estrela (Reino dos Duelistas)
+- Antes de cada duelo de estrelas você **escolhe a aposta**: esquerda/direita de 1 até o menor entre as suas estrelas e as do rival, X para duelar, S para desistir.
+- Vencendo, você toma a aposta dele. Perdendo, ele **fica** com ela; desafie de novo para recuperar.
+- **Se suas estrelas acabarem, é FIM DE JOGO**: você volta ao título e CONTINUAR carrega seu último save (o jogo nunca salva com zero estrelas). Nunca aposte a última à toa.
+- Os portões contam só as estrelas na sua mão; dez abrem o castelo.
 
 Saves ficam em `Documentos\My Games\YFM Re-Decomp`. Achou um bug? [Abra uma issue](https://github.com/omagodev/forbidden-memories-journey-mode/issues) com o `game.log` da pasta do jogo.
 

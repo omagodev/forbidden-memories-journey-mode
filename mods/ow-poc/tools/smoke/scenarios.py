@@ -529,9 +529,9 @@ SCENARIOS.update({
     # player view of the wager (shots/wager/)
     "final_wager_picker": dict(desc="player view: the wager picker before Keith (4 stars, he holds 3), first time: the game-over warning", preset="29 Keith's toll (wager)", lang=1,
         debug={"wager": -1, "teleport": "kingdom_mountain.keith_spot"},
-        steps=REL + [("press", "cross"), ("until", "scene dk4_keith_pre", 300)] + [("press", "cross", 5, 40)] * 5 + [("wait", 60), ("snap", "picker"),
+        steps=REL + [("press", "cross"), ("until", "scene dk4_keith_pre", 300), ("mash", "wager picker", 1500), ("wait", 60), ("snap", "picker"),
               ("press", "right", 5, 20), ("press", "right", 5, 20), ("wait", 30), ("snap", "picker_bet3"), ("press", "right", 5, 20), ("wait", 30), ("snap", "picker_allin")],
-        expect=["scene dk4_keith_pre", "dev mode 0"]),
+        expect=["scene dk4_keith_pre", "wager picker (max 3, keith holds 3)", "dev mode 0"]),
     "final_wager_win": dict(desc="player view: won a 2-star bet against the Forest Mage", preset="26 Forest Mage (wager)", lang=1,
         debug={"skip_dialogue": True, "win_duels": True, "wager": 2},
         steps=beat("dk3_mage_pre", "pre") + [("until", "star duel won", 900), ("wait", 300)] + REL + [("wait", 30), ("snap", "win_result")],
@@ -544,9 +544,9 @@ SCENARIOS.update({
         debug={"skip_dialogue": True, "lose_duels": True, "wager": 1},
         steps=beat("dk2_weevil_pre", "pre") + [("until", "GAME OVER", 900), ("wait", 150), ("snap", "game_over")],
         expect=["GAME OVER"]),
-    "final_wager_warn": dict(desc="player view: the trail camp staff warns that zero stars ends the journey", preset="28 mountain arrival (chapter 4)", lang=1,
+    "final_wager_warn": dict(desc="player view: the trail camp staff warns that zero stars ends the journey", preset="29 Keith's toll (wager)", lang=1,
         debug={"teleport": "kingdom_mountain.trail_camp"},
-        steps=REL + [("press", "cross"), ("until", "scene dk4_trail_camp", 300), ("wait", 40), ("press", "cross"), ("wait", 120), ("snap", "warning")], expect=["scene dk4_trail_camp", "dev mode 0"]),
+        steps=REL + [("press", "cross"), ("until", "scene dk4_trail_camp", 300), ("wait", 40), ("press", "cross"), ("wait", 400), ("snap", "warning")], expect=["scene dk4_trail_camp", "dev mode 0"]),
     "final_wager_bag": dict(desc="player view: the Star Chips in the Mochila with the GAME OVER line", preset="33 chapter 4 done", lang=1, debug={"teleport": "kingdom_mountain.hangout_a"},
         steps=REL + [("press", "start", 5, 30), ("press", "down", 5, 14), ("press", "cross", 5, 30), ("wait", 20)] + [("press", "right", 5, 10)] * 20 + [("wait", 20), ("press", "cross", 5, 30), ("wait", 20), ("snap", "star_details")], expect=["dev mode 0"]),
 })

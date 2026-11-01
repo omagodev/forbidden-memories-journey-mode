@@ -664,7 +664,7 @@
       "from": "Croquet, in the Star Cave"
     },
     "star_chips": {
-      "desc": "You bet them before each star duel; a lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.",
+      "desc": "A lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.",
       "from": "Shadi's Star Passage, then the duelists who guard each zone."
     }
   },

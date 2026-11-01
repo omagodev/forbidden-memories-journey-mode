@@ -134,8 +134,8 @@ ITEM_FLAG = {"stamp_card": ("courier_met", None, "assets/icon_stamp_card.bin"), 
 ITEM_ORDER = ["stamp_card", "lantern", "jug", "honey", "river_water", "dates", "scarab", "bandana", "charm", "star_passage", "bug_pin", "loaded_dice", "whisper_leaf", "star_chisel", "star_chips"]
 # Mochila texts for the Kingdom's items, accented (the UI font has them; the dialogue font is ASCII): (description, where from)
 BAG_TEXT = {
- "en": {"star_chips": ("You bet them before each star duel; a lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.", "Shadi's Star Passage, then the duelists who guard each zone.")},
- "pt": {"star_chips": ("Você aposta antes de cada duelo; a aposta perdida fica com o rival. Dez abrem o castelo. ZERO ESTRELAS = FIM DE JOGO.", "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."),
+ "en": {"star_chips": ("A lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.", "Shadi's Star Passage, then the duelists who guard each zone.")},
+ "pt": {"star_chips": ("Aposta perdida fica com o rival. Dez abrem o castelo. ZERO = FIM DE JOGO.", "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."),
         "star_passage": ("Seu bilhete para o Reino dos Duelistas.", "Shadi, no porto."),
         "bug_pin": ("O broche dourado do InsetoKaiba. Ele jura que vai pegar de volta.", "InsetoKaiba, no navio."),
         "loaded_dice": ("Os dados viciados do Weevil. Melhor nunca usar.", "Weevil, na Costa das Ilusões."),
@@ -153,7 +153,7 @@ WAGER_UI = {
         "go_title": "GAME OVER", "go_line1": "Your last Star Chip is gone.", "go_line2": "The Kingdom's gates close behind you.",
         "go_line3": "Continue loads your last save.", "go_key": "Title"},
  "pt": {"title": "Aposta de Estrelas", "subtitle": "Escolha quantas estrelas apostar", "you": "Você", "bet": "Aposta", "stars": "estrelas", "star": "estrela",
-        "win": "Vitória: você toma %d dele.", "lose": "Derrota: ele fica com %d suas.", "rematch": "Revanche: só as estrelas que ele ganhou de você estão em jogo.",
+        "win": "Vitória: você toma %d dele.", "lose": "Derrota: ele fica com %d das suas.", "rematch": "Revanche: só as estrelas que ele ganhou de você estão em jogo.",
         "warn": "Se suas estrelas acabarem, a jornada termina. FIM DE JOGO.", "allin": "Tudo ou nada! Perder este duelo é FIM DE JOGO.",
         "k_bet": "Aposta", "k_duel": "Duelar", "k_back": "Voltar",
         "go_title": "FIM DE JOGO", "go_line1": "Sua última Ficha de Estrela se foi.", "go_line2": "Os portões do Reino se fecham atrás de você.",

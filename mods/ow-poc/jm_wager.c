@@ -54,8 +54,13 @@ void Wager_Open(const JsonNode *win)
     cur = win;
     maxbet = Wager_Max(win);
     held_now = held_of(win);
+    {   /* pinned now: the story win's flags are set before the bet is settled */
+        int sl = (int)Json_Num(win, "slot", 0);
+        if (sl >= 0 && sl < 16) jm.duel_held[sl] = (unsigned char)(held_now + 1);
+    }
     rematch_now = Json_Num(win, "rematch", 0) != 0;
     bet = 1;
+    LOG("journey: wager picker (max %d, %s holds %d)", maxbet, Json_Str(win, "wid", "?"), held_now);
     Wager_Input(0xFFFF);
 }
 
