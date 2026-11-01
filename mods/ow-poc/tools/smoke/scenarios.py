@@ -386,7 +386,7 @@ FOREST_E2E = (beat("dk3_rex_pre", "rex_pre") + [("until", "star duel won", 900),
     + beat("dk3_mark_1", "mark1", after=300) + beat("dk3_mark_2", "mark2", after=300) + beat("dk3_mark_3", "mark3", after=100)
     + [("until", "scene dk3_clearing_open", 900), ("wait", 600), ("snap", "clearing_open")]
     + beat("dk3_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 900), ("snap", "mage_won")]
-    + beat("dk3_pass_locked", "pass_end", after=300) + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")])
+    + beat("dk4_enter", "pass_to_mountain", after=300) + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")])
 SCENARIOS.update({
     "e2e_ch2_to_ch3": dict(desc="chapter 2 -> 3: Weevil's wager won, the camp, the jungle path into the forest, Rex's wager, three Star Marks, the clearing, the Forest Mage's 2-star wager, chapter 3 end",
         preset="20 Weevil waits (wager)", lang=1, debug=dict(E2E, coins=300),
@@ -395,7 +395,7 @@ SCENARIOS.update({
             + beat("dk3_enter", "jungle_path", after=100) + [("until", "journey: music 21", 900), ("until", "scene dk3_arrival", 900), ("wait", 600), ("snap", "forest")]
             + FOREST_E2E,
         expect=["star duel won, stars 2", "scene dk3_enter", "journey: music 21", "scene dk3_arrival", "star duel won, stars 3", "scene dk3_mark_1", "scene dk3_mark_2",
-                "scene dk3_mark_3", "scene dk3_clearing_open", "star duel won, stars 5", "saved (stage 16", "scene dk3_pass_locked"]),
+                "scene dk3_mark_3", "scene dk3_clearing_open", "star duel won, stars 5", "saved (stage 16", "scene dk4_enter"]),
     "cap3_arrival": dict(desc="chapter 3 opens: the forest, the arrival scene", preset="22 forest arrival (chapter 3)", lang=0, debug={"skip_dialogue": True},
         steps=[("until", "scene dk3_arrival", 600), ("wait", 300), ("snap", "forest")], expect=["scene dk3_arrival", "journey: music 21"]),
     "cap3_rex": dict(desc="Rex's wager (win)", preset="23 Rex waits (wager)", lang=0, debug=E2E,

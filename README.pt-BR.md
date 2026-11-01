@@ -47,6 +47,7 @@ Você é um jovem duelista da **Vila Oásis**, uma cidade tranquila no deserto o
 * **Capítulo 2: a Costa das Ilusões (jogável).** Desembarque na ilha, ouça as regras do Pegasus num espelho na areia, sobreviva à emboscada do Weevil com seus dados viciados e aposte suas primeiras estrelas. Perdeu a última estrela? Você acorda no **Acampamento da Costa** com uma estrela de volta: nunca tem game over.
 * **Jogue o caminho longo.** O deck inicial são quarenta cartas comuns e fracas, de propósito. Ganhe cartas do conjunto local, compre na loja de cada cidade, vença a gangue dos **Chacais da Duna** ou as **arenas clandestinas**: cada arena guarda três cartas que não caem em nenhum outro lugar.
 * **Capítulo 3: a Floresta dos Sussurros (jogável).** Pegue a trilha da selva até uma floresta antiga onde alguém entalha estrelas na casca das árvores. Vença um Rex Raptor perdido e furioso por uma estrela, siga as três Marcas de Estrela para abrir a clareira escondida atrás do portão de pedra e enfrente o mestre da zona, o Mago da Floresta, que aposta duas estrelas. A cabana do Eremita Hob e o Ringue do Tronco Oco (com três cartas que não existem em outro lugar) ajudam um baralho fraco a se recuperar.
+* **Capítulo 4: a Passagem da Montanha (jogável).** A estrada da floresta sobe até um abismo com uma única ponte de corda, onde o Bandit Keith cobra um pedágio de Dobro ou Nada. Do outro lado a Mai espera para um duelo de rivais, e na caverna sob a grande estrela entalhada você finalmente flagra o entalhador em ação. O Mago da Montanha guarda o portão do cume com uma aposta de duas estrelas: vença e você terá dez estrelas, o bastante para a estrada do castelo. A Tenda do Penhasco da Cliff Cass e o Fosso da Mina (mais três cartas exclusivas de arena) ajudam, e perder a última estrela aqui em cima te acorda no acampamento da trilha, não lá na praia.
 
 * **O Reino (capítulos 4 a 10, roteirizados):** Passagem da Montanha, Labirinto da Campina, Deserto das Estrelas Perdidas e Feira das Estrelas. Ganhe e perca estrelas, mas nunca tome game over. Junte **10 estrelas** para abrir o portão do castelo e subir até a Sala dos Sonhos do Pegasus.
 * **Mago.dev, o observador.** Um mago que *programa a realidade*, mas nunca interfere. Você vai vê-lo de relance em telhados, em runas verdes na parede de uma cisterna, no alto de um mastro... até o final.
@@ -166,6 +167,7 @@ Os destaques (lista completa no [ROADMAP.pt-BR.md](ROADMAP.pt-BR.md)):
 - [ ] Economia, gangue e arenas: balanceamento e polimento
 - [x] Porto, convés do navio e Costa das Ilusões ilustrados; capítulo 2 jogável
 - [x] Floresta dos Sussurros ilustrada; capítulo 3 jogável
+- [x] Passagem da Montanha ilustrada; capítulo 4 jogável
 - [x] Deck inicial fraco e cartas exclusivas das arenas
 - [ ] Capítulos 3 a 10 do Reino dos Duelistas
 - [ ] Mais zonas ilustradas da ilha

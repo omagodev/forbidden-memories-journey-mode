@@ -47,6 +47,7 @@ You are a young duelist from **Oasis Village**, a sleepy desert town where every
 * **Chapter 2: the Shore of Illusions (playable).** Land on the island, hear Pegasus's rules from a mirror on the sand, survive Weevil's ambush with his loaded dice and wager your first stars. Lose your last star and you wake at the **Shore Camp** with one star back: never a game over.
 * **Play the long way.** The starter deck is forty weak commons on purpose. Win cards from the local pool, buy them in each town's shop, beat the **Dune Jackals** gang or the **clandestine arenas**: every arena keeps three cards that drop nowhere else.
 * **Chapter 3: the Forest of Whispers (playable).** Take the jungle path into an old forest where someone carves stars into the bark. Beat a lost, furious Rex Raptor for a star, follow three Star Marks to open the hidden clearing behind the stone gate, and face its zone master, the Forest Mage, who wagers two stars. Hermit Hob's hut and the Hollow Log Ring (with three cards found nowhere else) help a weak deck catch up.
+* **Chapter 4: the Mountain Pass (playable).** The forest road climbs to a chasm with one rope bridge, where Bandit Keith runs a Double or Nothing toll. Across it Mai waits for a rival duel, and in the cave under the big carved star you finally catch the star-carver at work. The Mountain Mage guards the summit gate with a two-star wager: win and you hold ten stars, enough for the castle road. Cliff Cass's Cliffside Tent and the Mine Shaft Pit (three more arena-only cards) help, and losing your last star up here wakes you at the trail camp, not back on the beach.
 
 * **The Kingdom (chapters 4-10, outlined):** the Mountain Pass, the Meadow Maze, the Desert of Lost Stars and the Star Fair. Win stars, lose stars, never get a game over. Reach **10 stars** to open the castle gate and climb to Pegasus's Dream Room.
 * **Mago.dev, the observer.** A mage who *programs reality* but never interferes. You'll catch glimpses of him on rooftops, in green glyphs on a cistern wall and at the top of a mast... until the very end.
@@ -158,6 +159,7 @@ The highlights (full list in [ROADMAP.md](ROADMAP.md)):
 - [ ] Economy, gang and arenas: balance and polish
 - [x] Illustrated harbor, ship deck and Shore of Illusions; chapter 2 playable
 - [x] Illustrated Forest of Whispers; chapter 3 playable
+- [x] Illustrated Mountain Pass; chapter 4 playable
 - [x] Weak starter deck and arena-exclusive cards
 - [ ] Duelist Kingdom chapters 3-10
 - [ ] More illustrated island zones
