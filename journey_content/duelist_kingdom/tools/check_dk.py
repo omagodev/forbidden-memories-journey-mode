@@ -35,7 +35,7 @@ def wrap(s):
     return lines
 def cond_ok(when, flags, where):
     for k in when:
-        if k not in ("stage", "flags_all", "flags_any", "flags_none", "earned", "earned_lt"): err("%s: unknown condition %s" % (where, k))
+        if k not in ("stage", "flags_all", "flags_any", "flags_none", "earned", "earned_lt", "stars"): err("%s: unknown condition %s" % (where, k))
     for k in ("flags_all", "flags_any", "flags_none"):
         for f in when.get(k, []):
             if f not in flags: err("%s: unknown flag %s" % (where, f))
@@ -142,7 +142,7 @@ def main():
         for q in s["quests"]:
             for stp in q["steps"]: expand(stp["objective"], "quest " + q["id"])
         referenced.add("k1_eliminated"); referenced.add("k3_eliminated")   # played by the engine when the last star is lost (kingdom_outline star rules)
-        for u in set(scripts) - referenced: warns.append("[%s] script never referenced: %s" % (lg, u))
+        for u in set(scripts) - referenced - {"dk_wager_rematch"}: warns.append("[%s] script never referenced: %s" % (lg, u))
         tot = sum(len(sc["pages"]) for sc in s["scripts"])
         print("%s: %d scripts, %d pages, %d npcs, %d objects, %d duels, %d quests" % (lg, len(scripts), tot, len(s["npcs"]), len(s["objects"]), len(s["duels"]), len(s["quests"])))
     # observer events (Mago.dev) and outline pages

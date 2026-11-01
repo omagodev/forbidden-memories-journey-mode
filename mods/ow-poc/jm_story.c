@@ -135,6 +135,12 @@ static int cond(const JsonNode *c)
     /* "earned_min": the stars the story has handed out so far (held, plus those a loss left with a duelist until he is beaten) */
     if (Json_Get(c, "earned_min") && jm.stars + jm.stars_owed < (int)Json_Num(c, "earned_min", 0)) return 0;
     if (Json_Get(c, "earned_lt") && jm.stars + jm.stars_owed >= (int)Json_Num(c, "earned_lt", 0)) return 0;
+    if (Json_Get(c, "wager_extra")) {   /* [slot, count, beaten flag]: a beaten star duelist still holds stars he won from the hero */
+        const JsonNode *we = Json_Get(c, "wager_extra");
+        int sl = Json_At(we, 0) ? (int)Json_At(we, 0)->num : 0, base = Json_At(we, 1) ? (int)Json_At(we, 1)->num : 1;
+        const char *bf = Json_At(we, 2) ? Json_At(we, 2)->str : NULL;
+        if (Wager_HeldRaw(sl, base, bf) <= base - 1 || jm.stars <= 0) return 0;
+    }
     if (Json_Get(c, "coins_min") && jm.eco.coins < (int)Json_Num(c, "coins_min", 0)) return 0;
     if (Json_Get(c, "level_min") && Eco_Level() < (int)Json_Num(c, "level_min", 0)) return 0;
     if (Json_Get(c, "level_max") && Eco_Level() > (int)Json_Num(c, "level_max", 99)) return 0;

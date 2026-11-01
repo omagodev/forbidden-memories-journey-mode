@@ -46,6 +46,8 @@ void Dev_Set(int v)
 int Dbg_Skip(void) { return on && skip; }
 static int lose;
 int Dbg_WinDuels(void) { return on && (win || lose); }   /* no duel is played */
+static int wager_dbg;
+int Dbg_Wager(void) { return on ? wager_dbg : 0; }   /* debug "wager": n the picker bets n by itself, -1 waits for the pad */
 int Dbg_LoseDuels(void) { return on && lose; }           /* ...and it counts as lost */
 
 void Dbg_Init(void)
@@ -69,7 +71,8 @@ void Dbg_Init(void)
     on = 1;
     skip = Json_Num(cfg, "skip_dialogue", 0) != 0;
     win = Json_Num(cfg, "win_duels", 0) != 0;
-    lose = Json_Num(cfg, "lose_duels", 0) != 0;   /* "lose_duels": true  a duel is not played: it counts as lost */
+    lose = Json_Num(cfg, "lose_duels", 0) != 0;
+    wager_dbg = (int)Json_Num(cfg, "wager", 0);   /* "lose_duels": true  a duel is not played: it counts as lost */
     LOG("debug: ON (skip dialogue %d, win duels %d)", skip, win);
 }
 
@@ -93,6 +96,8 @@ static int apply_preset(int i)
     jm.flags = 0; jm.kflags = 0;
     jm.stars = (int)Json_Num(p, "stars", jm.stage >= 10 ? 1 : 0);
     jm.stars_owed = 0;
+    memset(jm.duel_held, 0, sizeof(jm.duel_held));
+    jm.wager_seen = 0;
     set_flags(Json_Get(p, "flags"), 1);
     jm.stage = (int)Json_Num(p, "stage", jm.stage);
     if (Paint_Anchor(Json_Str(p, "anchor", ""), &x, &y)) { Paint_GoAnchor(Json_Str(p, "anchor", "")); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; }   /* the anchor may be in the cistern */
@@ -125,7 +130,12 @@ void Dbg_Apply(void)
     /* the economy, so a test does not have to be played up to: coins and xp outright, and
      * "gang_ready" to stand where the Jackals have finished watching and are about to move */
     if (Json_Get(cfg, "stars")) jm.stars = (int)Json_Num(cfg, "stars", jm.stars);
-    if (Json_Get(cfg, "stars_owed")) jm.stars_owed = (int)Json_Num(cfg, "stars_owed", 0);   /* stars left with duelists not beaten yet (a loss path) */
+    if (Json_Get(cfg, "held")) {        /* "held": {"slot": stars}: a star duelist's count (a loss path) */
+        const JsonNode *n;
+        for (n = Json_Get(cfg, "held")->child; n; n = n->next)
+            if (n->key && atoi(n->key) >= 0 && atoi(n->key) < 16) jm.duel_held[atoi(n->key)] = (unsigned char)((int)n->num + 1);
+    }
+    if (Json_Get(cfg, "wager_seen")) jm.wager_seen = (int)Json_Num(cfg, "wager_seen", 0);
     if (Json_Get(cfg, "coins")) jm.eco.coins = (int)Json_Num(cfg, "coins", jm.eco.coins);
     if (Json_Num(cfg, "starter", 0)) Journey_GiveStarter();   /* "starter": true  the new journey's deck, on Continue */
     if (Json_Get(cfg, "xp")) jm.eco.xp = (int)Json_Num(cfg, "xp", jm.eco.xp);

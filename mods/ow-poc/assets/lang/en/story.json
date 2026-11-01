@@ -1269,6 +1269,18 @@
     },
     {
      "speaker": "shadi",
+     "text": "Before each star duel you pick the wager. Lose, and your rival keeps it."
+    },
+    {
+     "speaker": "shadi",
+     "text": "If your last star is lost, there is no camp and no second chance. Your journey ends there."
+    },
+    {
+     "speaker": "atos",
+     "text": "Game over, then. I will never bet my last star lightly."
+    },
+    {
+     "speaker": "shadi",
      "text": "Ten stars open the castle. Pegasus waits at the top. Your friends came to see you off."
     },
     {
@@ -1700,7 +1712,7 @@
     },
     {
      "speaker": "pegasus",
-     "text": "Every duelist carries stars. Win, and you take one. Lose, and you give one."
+     "text": "Every duelist carries stars. Before a duel you both wager. The winner takes the pot."
     },
     {
      "speaker": "pegasus",
@@ -1708,7 +1720,7 @@
     },
     {
      "speaker": "pegasus",
-     "text": "Lose your last one and you wake at the Shore Camp. I am generous once."
+     "text": "Lose your last one and you are out of my Kingdom. Game over. No refunds."
     },
     {
      "speaker": "pegasus",
@@ -1773,13 +1785,7 @@
    "pages": [
     {
      "speaker": "weevil",
-     "text": "One star on the sand. Winner takes it. Loser cries. Hihihi!"
-    },
-    {
-     "speaker": "narrator",
-     "text": "Wager 1 star and duel Weevil now?",
-     "label": "Star Wager",
-     "kind": "caption"
+     "text": "I hold two stars. Bet what you dare. Winner takes it. Loser cries. Hihihi!"
     },
     {
      "speaker": "weevil",
@@ -1840,21 +1846,12 @@
    ]
   },
   {
-   "id": "k1_eliminated",
+   "id": "dk_wager_rematch",
    "pages": [
     {
-     "speaker": "narrator",
-     "text": "You wake on a cot in a tent. A star chip rests on your chest.",
-     "label": "Shore Camp",
-     "kind": "caption"
-    },
-    {
-     "speaker": "staff",
-     "text": "Pegasus sends his regards. One free star. Do better, duelist."
-    },
-    {
      "speaker": "atos",
-     "text": "Back to one star. Time to buy cards and train in the arenas."
+     "text": "You still hold the stars you took from me. I want them back. Duel?",
+     "ask": true
     }
    ]
   },
@@ -1869,13 +1866,13 @@
     },
     {
      "speaker": "narrator",
-     "text": "Fine print - Pegasus gives back one star to the fallen.",
+     "text": "Fine print - Zero stars means the end of your journey. No star is ever given back.",
      "label": "Shore Camp",
      "kind": "caption"
     },
     {
      "speaker": "atos",
-     "text": "A safety net. Good. I still don't plan on using it."
+     "text": "No safety net. Then I never bet my last star."
     }
    ]
   },
@@ -2187,11 +2184,11 @@
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "I am the master of this wood. My wager is one star."
+     "text": "I am the master of this wood. Three stars sleep in my roots."
     },
     {
      "speaker": "forest_mage",
-     "text": "Yours is one too. The forest is fair. Its roots are not."
+     "text": "Wager what you dare. The forest is fair. Its roots are not."
     },
     {
      "speaker": "atos",
@@ -2278,15 +2275,6 @@
    ]
   },
   {
-   "id": "dk3_mage_short",
-   "pages": [
-    {
-     "speaker": "forest_mage",
-     "text": "Three stars, sprout, or the roots stay shut. Earn them first."
-    }
-   ]
-  },
-  {
    "id": "dk3_hermit",
    "pages": [
     {
@@ -2362,11 +2350,11 @@
    "pages": [
     {
      "speaker": "keith",
-     "text": "House rules. Toll is one star. You win, you cross with mine."
+     "text": "House rules. I got three stars in the pot. Bet what you got. Win, you cross."
     },
     {
      "speaker": "keith",
-     "text": "You lose, the toll's mine and you walk back down. Fair, huh?"
+     "text": "You lose, your stars stay with me. Lose 'em all and you're done for good. Fair, huh?"
     },
     {
      "speaker": "atos",
@@ -2423,15 +2411,6 @@
     {
      "speaker": "keith",
      "text": "Beat it. I'm counting chips. Bridge is yours, sucker."
-    }
-   ]
-  },
-  {
-   "id": "dk4_keith_short",
-   "pages": [
-    {
-     "speaker": "keith",
-     "text": "Four stars minimum, kid. I don't rob the broke. Scram."
     }
    ]
   },
@@ -2589,7 +2568,7 @@
     },
     {
      "speaker": "mountain_mage",
-     "text": "One star against one. The mountain does not bend."
+     "text": "Four stars rest on this summit. Wager as many as your nerve allows."
     },
     {
      "speaker": "atos",
@@ -2599,15 +2578,6 @@
      "speaker": "mountain_mage",
      "text": "Then stand firm, pebble. Shall the stone speak?",
      "ask": true
-    }
-   ]
-  },
-  {
-   "id": "dk4_mage_short",
-   "pages": [
-    {
-     "speaker": "mountain_mage",
-     "text": "Five stars, pebble. Win back what you lost, then climb."
     }
    ]
   },
@@ -2690,25 +2660,10 @@
      "text": "A tarp, a cot and a lantern. Kingdom staff keep it lit.",
      "label": "Trail Camp",
      "kind": "caption"
-    }
-   ]
-  },
-  {
-   "id": "k3_eliminated",
-   "pages": [
-    {
-     "speaker": "narrator",
-     "text": "You wake under a tarp. A star chip rests on your chest.",
-     "label": "Trail Camp",
-     "kind": "caption"
     },
     {
      "speaker": "staff",
-     "text": "Pegasus sends his regards. One free star. Do better, duelist."
-    },
-    {
-     "speaker": "atos",
-     "text": "Back to one star. Shop, arena, thieves. Train, then climb."
+     "text": "Careful up there. Nobody here gives stars back. Lose your last and your journey is over."
     }
    ]
   }

@@ -510,6 +510,9 @@ _Shadi beaten - the Passage and the first star._
 - **Shadi**: Duelistas convidados entram com tres estrelas. Os da Passagem entram com apenas uma.
 - **{name}**: Uma estrela? Isso e quase nada!
 - **Shadi**: E tudo que precisa. Vencer rende uma estrela. Perder custa uma. Com zero, volta pra casa.
+- **Shadi**: Antes de cada duelo de estrelas voce escolhe a aposta. Perdeu, o rival fica com ela.
+- **Shadi**: Se a ultima estrela se for, nao ha acampamento nem segunda chance. A jornada acaba ali.
+- **{name}**: Game over, entao. Nunca vou apostar a ultima a toa.
 - **Shadi**: Dez estrelas abrem o castelo. Pegasus espera no topo. Seus amigos vieram se despedir.
 - **Recompensa**: Voce ganhou a Passagem Estelar, uma Ficha de Estrela e a carta Illusionist Faceless Mage.
 - **Estrelas**: Voce tem 1 estrela. O navio branco chega ao cais.
@@ -675,9 +678,9 @@ _Pegasus's recorded welcome in the beach mirror. Sets the star rules._
 
 - **Espelho**: O vidro ondula. Um homem de vermelho e cabelo prateado sorri.
 - **Pegasus**: Bem-vindos, duelistas, ao meu pequeno Reino! Isto e so uma gravacao.
-- **Pegasus**: Todo duelista leva estrelas. Venca e ganhe uma. Perca e entregue uma.
+- **Pegasus**: Todo duelista leva estrelas. Antes do duelo os dois apostam. Quem vence leva tudo.
 - **Pegasus**: Dez estrelas abrem o portao do castelo. Zero estrelas... ninguem gosta.
-- **Pegasus**: Perca a ultima e voce acorda no Acampamento da Costa. Sou generoso.
+- **Pegasus**: Perca a ultima e voce esta fora do meu Reino. Game over. Sem reembolso.
 - **Pegasus**: Agora vao jogar! Estarei olhando. Estou sempre olhando.
 - **{name}**: Sempre olhando? Que medo. Uma estrela. Vamos achar um duelo.
 
@@ -700,8 +703,7 @@ _Weevil jumps out from behind a palm with his loaded dice._
 ### dk2_weevil_pre
 _Weevil's star duel (first wager of the Kingdom)._
 
-- **Weevil**: Uma estrela na areia. Quem vencer leva. Quem perder chora. Hihihi!
-- **Aposta de Estrela**: Apostar 1 estrela e duelar com Weevil agora?
+- **Weevil**: Tenho duas estrelas. Aposte o que tiver coragem. Quem perder chora. Hihihi!
 - **Weevil**: E entao? Meus insetos estao com fome. Duelar?  _[Duel? Yes/No]_
 
 ### dk2_weevil_win
@@ -724,19 +726,17 @@ _Weevil after losing._
 
 - **Weevil**: Va embora. Eu e os dados nao estamos nos falando.
 
-### k1_eliminated
-_Last star lost anywhere in the Kingdom: wake at the Shore Camp with one star. Never a game over._
+### dk_wager_rematch
+_A beaten star duelist still holds stars he won from the hero: a rematch wager to win them back._
 
-- **Acampamento da Costa**: Voce acorda num catre na tenda. Uma ficha de estrela esta no seu peito.
-- **Staff do Reino**: Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista.
-- **{name}**: De volta a uma estrela. Hora de comprar cartas e treinar nas arenas.
+- **{name}**: Voce ainda tem as estrelas que tirou de mim. Quero de volta. Duelar?  _[Duel? Yes/No]_
 
 ### dk2_camp
 _The Shore Camp sign: the safety net, first visit._
 
 - **Acampamento da Costa**: Catres, uma fogueira e uma placa - Perdeu suas estrelas? Descanse.
-- **Acampamento da Costa**: Letras miudas - Pegasus devolve uma estrela aos que caem.
-- **{name}**: Uma rede de seguranca. Bom. Mesmo assim nao pretendo usar.
+- **Acampamento da Costa**: Letras miudas - Zero estrelas e o fim da jornada. Nenhuma estrela e devolvida.
+- **{name}**: Sem rede de seguranca. Entao nunca aposto a minha ultima.
 
 ### dk2_camp_after
 _Shore Camp, later visits._
@@ -863,8 +863,8 @@ _The three marks read: the stone gate opens on the hidden clearing._
 ### dk3_mage_pre
 _The Forest Mage, zone master: a two-star wager._
 
-- **Mago da Floresta**: Sou o mestre deste bosque. Minha aposta e uma estrela.
-- **Mago da Floresta**: A sua tambem. A floresta e justa. As raizes, nao.
+- **Mago da Floresta**: Sou o mestre deste bosque. Tres estrelas dormem nas minhas raizes.
+- **Mago da Floresta**: Aposte o que ousar. A floresta e justa. As raizes, nao.
 - **{name}**: Mais uma estrela e sao quatro. Vamos plantar.
 - **Mago da Floresta**: Entao compre, brotinho. As raizes podem comecar?  _[Duel? Yes/No]_
 
@@ -898,11 +898,6 @@ _The mountain pass after chapter 3: the next part._
 
 - **Passagem da Montanha**: A corda segue firme. A passagem so deixa entrar quem tem quatro estrelas.
 
-### dk3_mage_short
-_The Forest Mage refuses a duelist under three stars._
-
-- **Mago da Floresta**: Tres estrelas, brotinho, ou as raizes nao abrem. Conquiste antes.
-
 ### dk3_hermit
 _Hermit Hob, the forest hut._
 
@@ -935,8 +930,8 @@ _Chapter 4 opens: the pass, the chasm and a toll at the bridge._
 ### dk4_keith_pre
 _Keith's toll: a one-star wager to cross the bridge._
 
-- **Bandit Keith**: Regra da casa. O pedagio e uma estrela. Ganhou, passa com a minha.
-- **Bandit Keith**: Perdeu, o pedagio e meu e voce desce a pe. Justo, ne?
+- **Bandit Keith**: Regra da casa. Tenho tres estrelas na mesa. Aposte o que tiver. Ganhou, passa.
+- **Bandit Keith**: Perdeu, suas estrelas ficam comigo. Perdeu todas, ja era pra sempre. Justo, ne?
 - **{name}**: Justo pra voce. Esse baralho cheira a caca-niquel viciado.
 - **Bandit Keith**: Na America a gente chama de estrategia. Embaralha ou some?  _[Duel? Yes/No]_
 
@@ -958,11 +953,6 @@ _Keith wins the toll._
 _Keith after the duel, counting chips._
 
 - **Bandit Keith**: Some daqui. To contando fichas. A ponte e sua, otario.
-
-### dk4_keith_short
-_Keith turns away a duelist under four stars._
-
-- **Bandit Keith**: Quatro estrelas no minimo, moleque. Nao roubo duro. Some.
 
 ### dk4_mai_pre
 _Mai on the far side of the bridge: the rival duel from the ship._
@@ -1022,14 +1012,9 @@ _The summit gate before the Mountain Mage comes out._
 _The Mountain Mage, zone master: a one-star wager at the summit gate._
 
 - **Mago da Montanha**: Poucos chegam ao cume com cinco estrelas. Menos saem com seis.
-- **Mago da Montanha**: Uma estrela contra uma. A montanha nao se curva.
+- **Mago da Montanha**: Quatro estrelas repousam neste cume. Aposte quantas sua coragem deixar.
 - **{name}**: Dez estrelas abrem o castelo. Nao desco agora.
 - **Mago da Montanha**: Entao fique firme, pedrinha. A pedra pode falar?  _[Duel? Yes/No]_
-
-### dk4_mage_short
-_The Mountain Mage refuses a duelist under five stars._
-
-- **Mago da Montanha**: Cinco estrelas, pedrinha. Recupere o que perdeu e suba.
 
 ### dk4_mage_win
 _The Mountain Mage loses: six stars, end of chapter 4._
@@ -1062,13 +1047,7 @@ _Cliff Cass, the mountain tent._
 - **Cliff Cass**: Corda, grampos, cartas. So as cartas salvam alguem.
 
 ### dk4_trail_camp
-_The trail camp: where you wake if the last star is lost up here._
+_The trail camp: a lantern, and the game-over warning._
 
 - **Acampamento**: Uma lona, um catre e um lampiao. A equipe do Reino o mantem.
-
-### k3_eliminated
-_Last star lost in the forest or the mountains: wake at the area's trail camp with one star._
-
-- **Acampamento**: Voce acorda sob uma lona. Uma ficha de estrela esta no seu peito.
-- **Staff do Reino**: Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista.
-- **{name}**: De volta a uma estrela. Loja, arena, ladroes. Treino e subo.
+- **Staff do Reino**: Cuidado la em cima. Aqui ninguem devolve estrela. Perdeu a ultima, a jornada acabou.

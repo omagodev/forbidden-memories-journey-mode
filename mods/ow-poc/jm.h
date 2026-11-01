@@ -243,7 +243,9 @@ typedef struct {
     int pt_area;                 /* the painted area the save was made in (0 village; 3.. the harbor, ship, beach) */
     int stars_beaten[2];         /* the named duelists already beaten for stars (bit by kingdom duel index) */
     unsigned char arena_x[4];    /* arenas 9-12 (the ship's Bilge Ring onward): same bits as eco.arena[]; at the end so older saves load */
-    int stars_owed;              /* stars lost in first-time wagers and not won back yet: the next first-time star win returns them (0 on an older save) */
+    int stars_owed;              /* legacy (0.5.3): stars lost and owed back; a loaded save hands them back to the hero (jm_save.c) */
+    unsigned char duel_held[16]; /* the stars each star duelist holds now, plus 1 (0: his content count; slot = journey.json win "slot") */
+    int wager_seen;              /* the picker's game-over warning has been shown once */
 } Journey;
 extern Journey jm;
 
@@ -299,6 +301,15 @@ unsigned Jm_ArtLoads(void);
 void Jm_CardLine(int card, char *b, size_t n);
 void Jm_CardBadge(int x, int y, int card);
 unsigned Jm_TypeFrame(int card);
+/* jm_wager.c: the star wager picker and the game-over screen */
+int Wager_HeldRaw(int slot, int base, const char *beaten_flag);
+int Wager_Max(const JsonNode *win);                 /* the biggest bet now, 0 = no star duel */
+void Wager_Open(const JsonNode *win);
+int Wager_Input(unsigned short edge);               /* 0 stay, 1 duel, 2 back out */
+int Wager_Bet(void);
+void Wager_Settle(const JsonNode *win, int bet, int won);
+void Wager_Overlay(void); unsigned Wager_Signature(void);
+void GameOver_Overlay(int age); unsigned GameOver_Signature(int age);
 void Bag_Open(void); int Bag_Input(unsigned short edge); void Bag_Overlay(void); unsigned Bag_Signature(void);                             /* grants a card to the chest */
 int Story_Auto(Talk *out);                           /* an "auto" rule of journey.json that holds now (stage change, then a scene), applied once */
 extern int jm_pwarp;                                 /* set by a result with "warp": [area, anchor]: the painted player goes there when the scene is over */
@@ -323,6 +334,7 @@ void Lang_PrefWrite(int i);
 void Paint_Info(float *x, float *y, float *sx, float *sy);
 void Paint_Set(float x, float y);
 int Paint_Target(float *tx, float *ty);              /* the guide arrow's target in this area */
+int Dbg_Wager(void);
 int Dbg_LoseDuels(void);                             /* debug "lose_duels": a skipped duel counts as lost */
 int Paint_Anchor(const char *name, float *x, float *y);   /* a named place of a painted area in picture texels */
 int Paint_AnchorArea(const char *name);              /* 0 village, 1 cistern, 2 arena, -1 unknown */

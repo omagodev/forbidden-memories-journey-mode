@@ -1937,23 +1937,10 @@
       ],
       "flags_none": [
        "forest_mage_won"
-      ],
-      "earned": 3
+      ]
      },
      "script": "dk3_mage_pre",
      "duel": "forest_mage"
-    },
-    {
-     "when": {
-      "stage": [
-       15,
-       15
-      ],
-      "flags_none": [
-       "forest_mage_won"
-      ]
-     },
-     "script": "dk3_mage_short"
     },
     {
      "when": {
@@ -2002,22 +1989,8 @@
     99
    ],
    "visible": "placed",
-   "note": "Bandit Keith's toll bridge: a one-star wager; needs four stars to be challenged.",
+   "note": "Bandit Keith's toll bridge: he holds 3 stars; the player picks the wager.",
    "dialogue_rules": [
-    {
-     "when": {
-      "stage": [
-       17,
-       17
-      ],
-      "flags_none": [
-       "keith_won"
-      ],
-      "earned": 4
-     },
-     "script": "dk4_keith_pre",
-     "duel": "keith"
-    },
     {
      "when": {
       "stage": [
@@ -2028,7 +2001,8 @@
        "keith_won"
       ]
      },
-     "script": "dk4_keith_short"
+     "script": "dk4_keith_pre",
+     "duel": "keith"
     },
     {
      "when": {
@@ -2140,23 +2114,10 @@
       ],
       "flags_none": [
        "mountain_mage_won"
-      ],
-      "earned": 5
+      ]
      },
      "script": "dk4_mage_pre",
      "duel": "mountain_mage"
-    },
-    {
-     "when": {
-      "stage": [
-       20,
-       20
-      ],
-      "flags_none": [
-       "mountain_mage_won"
-      ]
-     },
-     "script": "dk4_mage_short"
     },
     {
      "when": {
@@ -2818,7 +2779,7 @@
        21,
        99
       ],
-      "earned": 6
+      "stars": 6
      },
      "script": "dk4_castle_road"
     },
@@ -3667,8 +3628,8 @@
    ],
    "rewards_first_win_only": true,
    "stars_wager": true,
-   "stars": 1,
-   "note": "The first star wager of the Kingdom (+1 / -1 star). Losing the last star wakes the hero at the Shore Camp."
+   "stars": 2,
+   "note": "Weevil holds 2 stars; the player bets 1..min(his, Weevil's). Losing the last star is a game over."
   },
   {
    "id": "rex_forest",
@@ -3691,8 +3652,8 @@
    ],
    "rewards_first_win_only": true,
    "stars_wager": true,
-   "stars": 1,
-   "note": "Star wager (+1 / -1). Rex's dinosaurs: the first wall after the weak starter."
+   "stars": 2,
+   "note": "Rex holds 2 stars; star wager. Rex's dinosaurs: the first wall after the weak starter."
   },
   {
    "id": "forest_mage",
@@ -3718,8 +3679,8 @@
    ],
    "rewards_first_win_only": true,
    "stars_wager": true,
-   "stars": 1,
-   "note": "Zone master: +1 star on a win, -1 on a loss (won back with the win). Needs three stars to accept. Needs forest cards or arena wins."
+   "stars": 3,
+   "note": "Zone master, holds 3 stars: bet 1 for the curve, more for a risky jump. Needs forest cards or arena wins."
   },
   {
    "id": "keith",
@@ -3742,7 +3703,7 @@
    ],
    "rewards_first_win_only": true,
    "stars_wager": true,
-   "stars": 1,
+   "stars": 3,
    "note": "Toll: +1 star on a win, -1 on a loss (won back with the win). Machines: needs forest and mountain upgrades."
   },
   {
@@ -3789,8 +3750,8 @@
    ],
    "rewards_first_win_only": true,
    "stars_wager": true,
-   "stars": 1,
-   "note": "Zone master: +1 star on a win, -1 on a loss (won back with the win). Needs five stars to accept. Needs mountain cards or Mine Shaft Pit wins."
+   "stars": 4,
+   "note": "Zone master, holds 4 stars: bet 1 for the curve, more for a risky jump. Needs mountain cards or Mine Shaft Pit wins."
   }
  ],
  "transitions": [
@@ -4052,7 +4013,7 @@
      12,
      12
     ],
-    "earned": 2
+    "stars": 2
    },
    "trigger": {
     "kind": "interact",
@@ -4168,7 +4129,7 @@
      16,
      16
     ],
-    "earned": 4
+    "stars": 4
    },
    "trigger": {
     "kind": "interact",
@@ -6123,6 +6084,18 @@
     },
     {
      "speaker": "shadi",
+     "text": "Antes de cada duelo de estrelas voce escolhe a aposta. Perdeu, o rival fica com ela."
+    },
+    {
+     "speaker": "shadi",
+     "text": "Se a ultima estrela se for, nao ha acampamento nem segunda chance. A jornada acaba ali."
+    },
+    {
+     "speaker": "atos",
+     "text": "Game over, entao. Nunca vou apostar a ultima a toa."
+    },
+    {
+     "speaker": "shadi",
      "text": "Dez estrelas abrem o castelo. Pegasus espera no topo. Seus amigos vieram se despedir."
     },
     {
@@ -6609,7 +6582,7 @@
     },
     {
      "speaker": "pegasus",
-     "text": "Todo duelista leva estrelas. Venca e ganhe uma. Perca e entregue uma."
+     "text": "Todo duelista leva estrelas. Antes do duelo os dois apostam. Quem vence leva tudo."
     },
     {
      "speaker": "pegasus",
@@ -6617,7 +6590,7 @@
     },
     {
      "speaker": "pegasus",
-     "text": "Perca a ultima e voce acorda no Acampamento da Costa. Sou generoso."
+     "text": "Perca a ultima e voce esta fora do meu Reino. Game over. Sem reembolso."
     },
     {
      "speaker": "pegasus",
@@ -6688,12 +6661,7 @@
    "pages": [
     {
      "speaker": "weevil",
-     "text": "Uma estrela na areia. Quem vencer leva. Quem perder chora. Hihihi!"
-    },
-    {
-     "speaker": "narrator",
-     "text": "Apostar 1 estrela e duelar com Weevil agora?",
-     "label": "Aposta de Estrela"
+     "text": "Tenho duas estrelas. Aposte o que tiver coragem. Quem perder chora. Hihihi!"
     },
     {
      "speaker": "weevil",
@@ -6761,23 +6729,15 @@
    ]
   },
   {
-   "id": "k1_eliminated",
+   "id": "dk_wager_rematch",
    "legacy_id": null,
    "chapter": 2,
-   "desc": "Last star lost anywhere in the Kingdom: wake at the Shore Camp with one star. Never a game over.",
+   "desc": "A beaten star duelist still holds stars he won from the hero: a rematch wager to win them back.",
    "pages": [
     {
-     "speaker": "narrator",
-     "text": "Voce acorda num catre na tenda. Uma ficha de estrela esta no seu peito.",
-     "label": "Acampamento da Costa"
-    },
-    {
-     "speaker": "staff",
-     "text": "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."
-    },
-    {
      "speaker": "atos",
-     "text": "De volta a uma estrela. Hora de comprar cartas e treinar nas arenas."
+     "text": "Voce ainda tem as estrelas que tirou de mim. Quero de volta. Duelar?",
+     "ask": true
     }
    ]
   },
@@ -6794,12 +6754,12 @@
     },
     {
      "speaker": "narrator",
-     "text": "Letras miudas - Pegasus devolve uma estrela aos que caem.",
+     "text": "Letras miudas - Zero estrelas e o fim da jornada. Nenhuma estrela e devolvida.",
      "label": "Acampamento da Costa"
     },
     {
      "speaker": "atos",
-     "text": "Uma rede de seguranca. Bom. Mesmo assim nao pretendo usar."
+     "text": "Sem rede de seguranca. Entao nunca aposto a minha ultima."
     }
    ]
   },
@@ -7157,11 +7117,11 @@
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "Sou o mestre deste bosque. Minha aposta e uma estrela."
+     "text": "Sou o mestre deste bosque. Tres estrelas dormem nas minhas raizes."
     },
     {
      "speaker": "forest_mage",
-     "text": "A sua tambem. A floresta e justa. As raizes, nao."
+     "text": "Aposte o que ousar. A floresta e justa. As raizes, nao."
     },
     {
      "speaker": "atos",
@@ -7259,18 +7219,6 @@
    ]
   },
   {
-   "id": "dk3_mage_short",
-   "legacy_id": null,
-   "chapter": 3,
-   "desc": "The Forest Mage refuses a duelist under three stars.",
-   "pages": [
-    {
-     "speaker": "forest_mage",
-     "text": "Tres estrelas, brotinho, ou as raizes nao abrem. Conquiste antes."
-    }
-   ]
-  },
-  {
    "id": "dk3_hermit",
    "legacy_id": null,
    "chapter": 3,
@@ -7359,11 +7307,11 @@
    "pages": [
     {
      "speaker": "keith",
-     "text": "Regra da casa. O pedagio e uma estrela. Ganhou, passa com a minha."
+     "text": "Regra da casa. Tenho tres estrelas na mesa. Aposte o que tiver. Ganhou, passa."
     },
     {
      "speaker": "keith",
-     "text": "Perdeu, o pedagio e meu e voce desce a pe. Justo, ne?"
+     "text": "Perdeu, suas estrelas ficam comigo. Perdeu todas, ja era pra sempre. Justo, ne?"
     },
     {
      "speaker": "atos",
@@ -7427,18 +7375,6 @@
     {
      "speaker": "keith",
      "text": "Some daqui. To contando fichas. A ponte e sua, otario."
-    }
-   ]
-  },
-  {
-   "id": "dk4_keith_short",
-   "legacy_id": null,
-   "chapter": 4,
-   "desc": "Keith turns away a duelist under four stars.",
-   "pages": [
-    {
-     "speaker": "keith",
-     "text": "Quatro estrelas no minimo, moleque. Nao roubo duro. Some."
     }
    ]
   },
@@ -7615,7 +7551,7 @@
     },
     {
      "speaker": "mountain_mage",
-     "text": "Uma estrela contra uma. A montanha nao se curva."
+     "text": "Quatro estrelas repousam neste cume. Aposte quantas sua coragem deixar."
     },
     {
      "speaker": "atos",
@@ -7625,18 +7561,6 @@
      "speaker": "mountain_mage",
      "text": "Entao fique firme, pedrinha. A pedra pode falar?",
      "ask": true
-    }
-   ]
-  },
-  {
-   "id": "dk4_mage_short",
-   "legacy_id": null,
-   "chapter": 4,
-   "desc": "The Mountain Mage refuses a duelist under five stars.",
-   "pages": [
-    {
-     "speaker": "mountain_mage",
-     "text": "Cinco estrelas, pedrinha. Recupere o que perdeu e suba."
     }
    ]
   },
@@ -7727,33 +7651,16 @@
    "id": "dk4_trail_camp",
    "legacy_id": null,
    "chapter": 4,
-   "desc": "The trail camp: where you wake if the last star is lost up here.",
+   "desc": "The trail camp: a lantern, and the game-over warning.",
    "pages": [
     {
      "speaker": "narrator",
      "text": "Uma lona, um catre e um lampiao. A equipe do Reino o mantem.",
      "label": "Acampamento"
-    }
-   ]
-  },
-  {
-   "id": "k3_eliminated",
-   "legacy_id": null,
-   "chapter": 4,
-   "desc": "Last star lost in the forest or the mountains: wake at the area's trail camp with one star.",
-   "pages": [
-    {
-     "speaker": "narrator",
-     "text": "Voce acorda sob uma lona. Uma ficha de estrela esta no seu peito.",
-     "label": "Acampamento"
     },
     {
      "speaker": "staff",
-     "text": "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."
-    },
-    {
-     "speaker": "atos",
-     "text": "De volta a uma estrela. Loja, arena, ladroes. Treino e subo."
+     "text": "Cuidado la em cima. Aqui ninguem devolve estrela. Perdeu a ultima, a jornada acabou."
     }
    ]
   }

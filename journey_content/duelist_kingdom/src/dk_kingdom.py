@@ -2,14 +2,14 @@
 """Kingdom arc outline (chapters 2-9) and the star system. Outline only: no dialogue pages yet."""
 STAR_RULES = {
  "start_stars": 1, "castle_threshold": 10, "max_stars": 10, "min_stars": 0,
- "win": "+1 star, only from the story's gatekeepers and zone masters (never +2, never from minor duelists, arenas or the gang). A win also gives back every star lost before (stars_owed).",
- "lose": "-1 star; the star stays with that duelist until he is beaten (jm.stars_owed), so the curve below is never broken by losses.",
- "zero_stars": "Eliminated: the hero wakes at the area's camp (Shore Camp, or the trail camp in the forest and the pass) with 1 star ('Pegasus's staff is generous once'), eliminations counter +1. Never a game over.",
- "each_duelist_once": "Every named duelist can be beaten for stars once. Their rematch is free (no star change) for cards only.",
- "wager": "A star duel starts with a 'Wager 1 star?' Yes/No page after the normal pre-duel ask. Practice duels (no wager) exist for tutorial duels like the ship.",
- "star_budget": "Exactly 10 stars exist in the story, one per gate: ch1 Shadi 1, ch2 Weevil 2, ch3 Rex 3 and Forest Mage 4, ch4 Bandit Keith 5 and Mountain Mage 6, ch5 Meadow Mage 7, ch6 Desert Mage 8, ch7 the Star Fair ring champion 9, ch8 InsetoKaiba at the Castle Gate 10. Every gate checks the stars earned so far (earned_min), and the Castle Gate opens only with 10.",
+ "win": "Before every star duel the hero picks a wager from 1 to min(his stars, the rival's stars). A win takes that many stars from the rival.",
+ "lose": "The rival keeps the wagered stars (his count grows). A beaten rival who still holds stars won from the hero (more than his count after a minimum loss) offers a rematch wager to win them back.",
+ "zero_stars": "GAME OVER: losing the last star ends the journey (game-over screen, back to the title, Continue loads the last save; nothing is saved at zero stars). Shadi, Pegasus's mirror, the Shore Camp sign and the trail camp staff warn about it.",
+ "each_duelist_once": "Every named star duelist holds a fixed number of stars (Weevil 2, Rex 2, Forest Mage 3, Bandit Keith 3, Mountain Mage 4). The story win happens once; later rematches only win back stars he took from the hero.",
+ "wager": "A star duel opens the wager picker after the pre-duel ask (left/right to change the bet, X to duel, S to back out).",
+ "star_budget": "Betting the minimum (1) on every story duel gives the curve: ch1 Shadi 1, ch2 Weevil 2, ch3 Rex 3 and Forest Mage 4, ch4 Bandit Keith 5 and Mountain Mage 6, then one per gate up to 10. Bigger bets can jump ahead (or end the journey). Area gates count only stars in hand; the Castle Gate opens only with 10.",
  "curve": [1, 2, 4, 6, 7, 8, 9, 10],
- "variables": {"stars": "int 0..10", "stars_owed": "int, stars lost to a duelist not yet beaten", "eliminations": "int", "kflags": "second 31-bit flag word used from stage 10 on (home-town flags are frozen)"},
+ "variables": {"stars": "int 0..10", "duel_held": "per star duelist, the stars he holds now (save, slot by duel order)", "kflags": "second 31-bit flag word used from stage 10 on (home-town flags are frozen)"},
  "hud": "A star icon with the number next to the objective line.",
 }
 KINGDOM_AREAS = [

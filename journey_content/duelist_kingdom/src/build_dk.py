@@ -62,7 +62,7 @@ def ui(lg):
      "menu": {"journal": t("Journal", "Diario"), "rumors": t("Rumors", "Boatos"), "backpack": t("Backpack", "Mochila"), "stamp_card": t("Stamp Card", "Cartao de Selos")},
      "stamp_card": {"slots": [t("Lost", "Perdido"), t("Won", "Ganho"), t("Given", "Dado")], "empty": t("Empty", "Vazio")},
      "star_ui": {"wager": t("Wager 1 star?", "Apostar 1 estrela?"), "gain": t("You took a star! Stars: %d", "Voce tomou uma estrela! Estrelas: %d"), "loss": t("You lost a star. Stars: %d", "Voce perdeu uma estrela. Estrelas: %d"),
-                 "eliminated": t("Out of stars! Pegasus's staff gives you one more chance.", "Sem estrelas! A equipe de Pegasus da mais uma chance.")},
+                 "eliminated": t("Out of stars! Your journey is over.", "Sem estrelas! Sua jornada acabou.")},
      "time": {"night": t("Night", "Noite"), "day": t("Day", "Dia")},
      "areas": {a[0]: (a[1] if L == "en" else a[2]) for a in D.AREAS},
      "notebook": [t("Rumor 1: a hooded man pays with golden stars and talks about a Kingdom.", "Boato 1: um homem de capuz paga com estrelas douradas e fala de um Reino."),

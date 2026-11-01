@@ -1269,6 +1269,18 @@
     },
     {
      "speaker": "shadi",
+     "text": "Antes de cada duelo de estrelas voce escolhe a aposta. Perdeu, o rival fica com ela."
+    },
+    {
+     "speaker": "shadi",
+     "text": "Se a ultima estrela se for, nao ha acampamento nem segunda chance. A jornada acaba ali."
+    },
+    {
+     "speaker": "atos",
+     "text": "Game over, entao. Nunca vou apostar a ultima a toa."
+    },
+    {
+     "speaker": "shadi",
      "text": "Dez estrelas abrem o castelo. Pegasus espera no topo. Seus amigos vieram se despedir."
     },
     {
@@ -1700,7 +1712,7 @@
     },
     {
      "speaker": "pegasus",
-     "text": "Todo duelista leva estrelas. Venca e ganhe uma. Perca e entregue uma."
+     "text": "Todo duelista leva estrelas. Antes do duelo os dois apostam. Quem vence leva tudo."
     },
     {
      "speaker": "pegasus",
@@ -1708,7 +1720,7 @@
     },
     {
      "speaker": "pegasus",
-     "text": "Perca a ultima e voce acorda no Acampamento da Costa. Sou generoso."
+     "text": "Perca a ultima e voce esta fora do meu Reino. Game over. Sem reembolso."
     },
     {
      "speaker": "pegasus",
@@ -1773,13 +1785,7 @@
    "pages": [
     {
      "speaker": "weevil",
-     "text": "Uma estrela na areia. Quem vencer leva. Quem perder chora. Hihihi!"
-    },
-    {
-     "speaker": "narrator",
-     "text": "Apostar 1 estrela e duelar com Weevil agora?",
-     "label": "Aposta de Estrela",
-     "kind": "caption"
+     "text": "Tenho duas estrelas. Aposte o que tiver coragem. Quem perder chora. Hihihi!"
     },
     {
      "speaker": "weevil",
@@ -1840,21 +1846,12 @@
    ]
   },
   {
-   "id": "k1_eliminated",
+   "id": "dk_wager_rematch",
    "pages": [
     {
-     "speaker": "narrator",
-     "text": "Voce acorda num catre na tenda. Uma ficha de estrela esta no seu peito.",
-     "label": "Acampamento da Costa",
-     "kind": "caption"
-    },
-    {
-     "speaker": "staff",
-     "text": "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."
-    },
-    {
      "speaker": "atos",
-     "text": "De volta a uma estrela. Hora de comprar cartas e treinar nas arenas."
+     "text": "Voce ainda tem as estrelas que tirou de mim. Quero de volta. Duelar?",
+     "ask": true
     }
    ]
   },
@@ -1869,13 +1866,13 @@
     },
     {
      "speaker": "narrator",
-     "text": "Letras miudas - Pegasus devolve uma estrela aos que caem.",
+     "text": "Letras miudas - Zero estrelas e o fim da jornada. Nenhuma estrela e devolvida.",
      "label": "Acampamento da Costa",
      "kind": "caption"
     },
     {
      "speaker": "atos",
-     "text": "Uma rede de seguranca. Bom. Mesmo assim nao pretendo usar."
+     "text": "Sem rede de seguranca. Entao nunca aposto a minha ultima."
     }
    ]
   },
@@ -2187,11 +2184,11 @@
    "pages": [
     {
      "speaker": "forest_mage",
-     "text": "Sou o mestre deste bosque. Minha aposta e uma estrela."
+     "text": "Sou o mestre deste bosque. Tres estrelas dormem nas minhas raizes."
     },
     {
      "speaker": "forest_mage",
-     "text": "A sua tambem. A floresta e justa. As raizes, nao."
+     "text": "Aposte o que ousar. A floresta e justa. As raizes, nao."
     },
     {
      "speaker": "atos",
@@ -2278,15 +2275,6 @@
    ]
   },
   {
-   "id": "dk3_mage_short",
-   "pages": [
-    {
-     "speaker": "forest_mage",
-     "text": "Tres estrelas, brotinho, ou as raizes nao abrem. Conquiste antes."
-    }
-   ]
-  },
-  {
    "id": "dk3_hermit",
    "pages": [
     {
@@ -2362,11 +2350,11 @@
    "pages": [
     {
      "speaker": "keith",
-     "text": "Regra da casa. O pedagio e uma estrela. Ganhou, passa com a minha."
+     "text": "Regra da casa. Tenho tres estrelas na mesa. Aposte o que tiver. Ganhou, passa."
     },
     {
      "speaker": "keith",
-     "text": "Perdeu, o pedagio e meu e voce desce a pe. Justo, ne?"
+     "text": "Perdeu, suas estrelas ficam comigo. Perdeu todas, ja era pra sempre. Justo, ne?"
     },
     {
      "speaker": "atos",
@@ -2423,15 +2411,6 @@
     {
      "speaker": "keith",
      "text": "Some daqui. To contando fichas. A ponte e sua, otario."
-    }
-   ]
-  },
-  {
-   "id": "dk4_keith_short",
-   "pages": [
-    {
-     "speaker": "keith",
-     "text": "Quatro estrelas no minimo, moleque. Nao roubo duro. Some."
     }
    ]
   },
@@ -2589,7 +2568,7 @@
     },
     {
      "speaker": "mountain_mage",
-     "text": "Uma estrela contra uma. A montanha nao se curva."
+     "text": "Quatro estrelas repousam neste cume. Aposte quantas sua coragem deixar."
     },
     {
      "speaker": "atos",
@@ -2599,15 +2578,6 @@
      "speaker": "mountain_mage",
      "text": "Entao fique firme, pedrinha. A pedra pode falar?",
      "ask": true
-    }
-   ]
-  },
-  {
-   "id": "dk4_mage_short",
-   "pages": [
-    {
-     "speaker": "mountain_mage",
-     "text": "Cinco estrelas, pedrinha. Recupere o que perdeu e suba."
     }
    ]
   },
@@ -2690,25 +2660,10 @@
      "text": "Uma lona, um catre e um lampiao. A equipe do Reino o mantem.",
      "label": "Acampamento",
      "kind": "caption"
-    }
-   ]
-  },
-  {
-   "id": "k3_eliminated",
-   "pages": [
-    {
-     "speaker": "narrator",
-     "text": "Voce acorda sob uma lona. Uma ficha de estrela esta no seu peito.",
-     "label": "Acampamento",
-     "kind": "caption"
     },
     {
      "speaker": "staff",
-     "text": "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."
-    },
-    {
-     "speaker": "atos",
-     "text": "De volta a uma estrela. Loja, arena, ladroes. Treino e subo."
+     "text": "Cuidado la em cima. Aqui ninguem devolve estrela. Perdeu a ultima, a jornada acabou."
     }
    ]
   }

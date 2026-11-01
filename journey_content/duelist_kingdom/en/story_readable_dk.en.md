@@ -510,6 +510,9 @@ _Shadi beaten - the Passage and the first star._
 - **Shadi**: Invited duelists enter with three stars. Passage duelists enter with only one.
 - **{name}**: One star? That is hardly anything!
 - **Shadi**: It is all you need to begin. Win a duel, take a star. Lose and one goes. At zero, you go home.
+- **Shadi**: Before each star duel you pick the wager. Lose, and your rival keeps it.
+- **Shadi**: If your last star is lost, there is no camp and no second chance. Your journey ends there.
+- **{name}**: Game over, then. I will never bet my last star lightly.
 - **Shadi**: Ten stars open the castle. Pegasus waits at the top. Your friends came to see you off.
 - **Reward**: You got the Star Passage, a Star Chip and the card Illusionist Faceless Mage.
 - **Stars**: You have 1 star. The white ship arrives at the pier.
@@ -675,9 +678,9 @@ _Pegasus's recorded welcome in the beach mirror. Sets the star rules._
 
 - **Mirror**: The glass ripples. A man in red with silver hair smiles out of it.
 - **Pegasus**: Welcome, duelists, to my little Kingdom! This is only a recording.
-- **Pegasus**: Every duelist carries stars. Win, and you take one. Lose, and you give one.
+- **Pegasus**: Every duelist carries stars. Before a duel you both wager. The winner takes the pot.
 - **Pegasus**: Ten stars open my castle gate. Zero stars... nobody likes zero.
-- **Pegasus**: Lose your last one and you wake at the Shore Camp. I am generous once.
+- **Pegasus**: Lose your last one and you are out of my Kingdom. Game over. No refunds.
 - **Pegasus**: Now go and play! I will be watching. I am always watching.
 - **{name}**: Always watching? Creepy. One star. Let's find a duel.
 
@@ -700,8 +703,7 @@ _Weevil jumps out from behind a palm with his loaded dice._
 ### dk2_weevil_pre
 _Weevil's star duel (first wager of the Kingdom)._
 
-- **Weevil**: One star on the sand. Winner takes it. Loser cries. Hihihi!
-- **Star Wager**: Wager 1 star and duel Weevil now?
+- **Weevil**: I hold two stars. Bet what you dare. Winner takes it. Loser cries. Hihihi!
 - **Weevil**: Well? My bugs are hungry. Duel?  _[Duel? Yes/No]_
 
 ### dk2_weevil_win
@@ -724,19 +726,17 @@ _Weevil after losing._
 
 - **Weevil**: Go away. The dice and I are not speaking.
 
-### k1_eliminated
-_Last star lost anywhere in the Kingdom: wake at the Shore Camp with one star. Never a game over._
+### dk_wager_rematch
+_A beaten star duelist still holds stars he won from the hero: a rematch wager to win them back._
 
-- **Shore Camp**: You wake on a cot in a tent. A star chip rests on your chest.
-- **Kingdom Staff**: Pegasus sends his regards. One free star. Do better, duelist.
-- **{name}**: Back to one star. Time to buy cards and train in the arenas.
+- **{name}**: You still hold the stars you took from me. I want them back. Duel?  _[Duel? Yes/No]_
 
 ### dk2_camp
 _The Shore Camp sign: the safety net, first visit._
 
 - **Shore Camp**: Cots, a fire and a sign - Lost your stars? Rest here.
-- **Shore Camp**: Fine print - Pegasus gives back one star to the fallen.
-- **{name}**: A safety net. Good. I still don't plan on using it.
+- **Shore Camp**: Fine print - Zero stars means the end of your journey. No star is ever given back.
+- **{name}**: No safety net. Then I never bet my last star.
 
 ### dk2_camp_after
 _Shore Camp, later visits._
@@ -863,8 +863,8 @@ _The three marks read: the stone gate opens on the hidden clearing._
 ### dk3_mage_pre
 _The Forest Mage, zone master: a two-star wager._
 
-- **Forest Mage**: I am the master of this wood. My wager is one star.
-- **Forest Mage**: Yours is one too. The forest is fair. Its roots are not.
+- **Forest Mage**: I am the master of this wood. Three stars sleep in my roots.
+- **Forest Mage**: Wager what you dare. The forest is fair. Its roots are not.
 - **{name}**: One more star makes four. Let's grow some.
 - **Forest Mage**: Then draw, sprout. Shall the roots begin?  _[Duel? Yes/No]_
 
@@ -898,11 +898,6 @@ _The mountain pass after chapter 3: the next part._
 
 - **Mountain Pass**: The rope stays tight. The pass lets in only duelists with four stars.
 
-### dk3_mage_short
-_The Forest Mage refuses a duelist under three stars._
-
-- **Forest Mage**: Three stars, sprout, or the roots stay shut. Earn them first.
-
 ### dk3_hermit
 _Hermit Hob, the forest hut._
 
@@ -935,8 +930,8 @@ _Chapter 4 opens: the pass, the chasm and a toll at the bridge._
 ### dk4_keith_pre
 _Keith's toll: a one-star wager to cross the bridge._
 
-- **Bandit Keith**: House rules. Toll is one star. You win, you cross with mine.
-- **Bandit Keith**: You lose, the toll's mine and you walk back down. Fair, huh?
+- **Bandit Keith**: House rules. I got three stars in the pot. Bet what you got. Win, you cross.
+- **Bandit Keith**: You lose, your stars stay with me. Lose 'em all and you're done for good. Fair, huh?
 - **{name}**: Fair for you. That deck smells like rigged slot machines.
 - **Bandit Keith**: In America we call it strategy. Shuffle up or scram?  _[Duel? Yes/No]_
 
@@ -958,11 +953,6 @@ _Keith wins the toll._
 _Keith after the duel, counting chips._
 
 - **Bandit Keith**: Beat it. I'm counting chips. Bridge is yours, sucker.
-
-### dk4_keith_short
-_Keith turns away a duelist under four stars._
-
-- **Bandit Keith**: Four stars minimum, kid. I don't rob the broke. Scram.
 
 ### dk4_mai_pre
 _Mai on the far side of the bridge: the rival duel from the ship._
@@ -1022,14 +1012,9 @@ _The summit gate before the Mountain Mage comes out._
 _The Mountain Mage, zone master: a one-star wager at the summit gate._
 
 - **Mountain Mage**: Few reach the summit with five stars. Fewer leave with six.
-- **Mountain Mage**: One star against one. The mountain does not bend.
+- **Mountain Mage**: Four stars rest on this summit. Wager as many as your nerve allows.
 - **{name}**: Ten stars open the castle. I'm not going back down now.
 - **Mountain Mage**: Then stand firm, pebble. Shall the stone speak?  _[Duel? Yes/No]_
-
-### dk4_mage_short
-_The Mountain Mage refuses a duelist under five stars._
-
-- **Mountain Mage**: Five stars, pebble. Win back what you lost, then climb.
 
 ### dk4_mage_win
 _The Mountain Mage loses: six stars, end of chapter 4._
@@ -1062,13 +1047,7 @@ _Cliff Cass, the mountain tent._
 - **Cliff Cass**: Rope, pitons, cards. Only the cards ever save anyone.
 
 ### dk4_trail_camp
-_The trail camp: where you wake if the last star is lost up here._
+_The trail camp: a lantern, and the game-over warning._
 
 - **Trail Camp**: A tarp, a cot and a lantern. Kingdom staff keep it lit.
-
-### k3_eliminated
-_Last star lost in the forest or the mountains: wake at the area's trail camp with one star._
-
-- **Trail Camp**: You wake under a tarp. A star chip rests on your chest.
-- **Kingdom Staff**: Pegasus sends his regards. One free star. Do better, duelist.
-- **{name}**: Back to one star. Shop, arena, thieves. Train, then climb.
+- **Kingdom Staff**: Careful up there. Nobody here gives stars back. Lose your last and your journey is over.

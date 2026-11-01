@@ -18,12 +18,12 @@ def scripts(sc, H, X, N):
        "O vidro ondula. Um homem de vermelho e cabelo prateado sorri."),
      X("pegasus", "Welcome, duelists, to my little Kingdom! This is only a recording.",
        "Bem-vindos, duelistas, ao meu pequeno Reino! Isto e so uma gravacao."),
-     X("pegasus", "Every duelist carries stars. Win, and you take one. Lose, and you give one.",
-       "Todo duelista leva estrelas. Venca e ganhe uma. Perca e entregue uma."),
+     X("pegasus", "Every duelist carries stars. Before a duel you both wager. The winner takes the pot.",
+       "Todo duelista leva estrelas. Antes do duelo os dois apostam. Quem vence leva tudo."),
      X("pegasus", "Ten stars open my castle gate. Zero stars... nobody likes zero.",
        "Dez estrelas abrem o portao do castelo. Zero estrelas... ninguem gosta."),
-     X("pegasus", "Lose your last one and you wake at the Shore Camp. I am generous once.",
-       "Perca a ultima e voce acorda no Acampamento da Costa. Sou generoso."),
+     X("pegasus", "Lose your last one and you are out of my Kingdom. Game over. No refunds.",
+       "Perca a ultima e voce esta fora do meu Reino. Game over. Sem reembolso."),
      X("pegasus", "Now go and play! I will be watching. I am always watching.",
        "Agora vao jogar! Estarei olhando. Estou sempre olhando."),
      H("Always watching? Creepy. One star. Let's find a duel.",
@@ -49,10 +49,8 @@ def scripts(sc, H, X, N):
        "Venca o Weevil na praia. Cada um aposta uma estrela."),
     ], chapter=2)
     sc("dk2_weevil_pre", "Weevil's star duel (first wager of the Kingdom).", [
-     X("weevil", "One star on the sand. Winner takes it. Loser cries. Hihihi!",
-       "Uma estrela na areia. Quem vencer leva. Quem perder chora. Hihihi!"),
-     N("Star Wager", "Aposta de Estrela", "Wager 1 star and duel Weevil now?",
-       "Apostar 1 estrela e duelar com Weevil agora?"),
+     X("weevil", "I hold two stars. Bet what you dare. Winner takes it. Loser cries. Hihihi!",
+       "Tenho duas estrelas. Aposte o que tiver coragem. Quem perder chora. Hihihi!"),
      X("weevil", "Well? My bugs are hungry. Duel?", "E entao? Meus insetos estao com fome. Duelar?", True),
     ], chapter=2)
     sc("dk2_weevil_win", "Weevil beaten: the hero's second star and the end of chapter 2.", [
@@ -76,21 +74,17 @@ def scripts(sc, H, X, N):
     sc("dk2_weevil_after", "Weevil after losing.", [
      X("weevil", "Go away. The dice and I are not speaking.", "Va embora. Eu e os dados nao estamos nos falando."),
     ], chapter=2)
-    sc("k1_eliminated", "Last star lost anywhere in the Kingdom: wake at the Shore Camp with one star. Never a game over.", [
-     N("Shore Camp", "Acampamento da Costa", "You wake on a cot in a tent. A star chip rests on your chest.",
-       "Voce acorda num catre na tenda. Uma ficha de estrela esta no seu peito."),
-     X("staff", "Pegasus sends his regards. One free star. Do better, duelist.",
-       "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."),
-     H("Back to one star. Time to buy cards and train in the arenas.",
-       "De volta a uma estrela. Hora de comprar cartas e treinar nas arenas."),
+    sc("dk_wager_rematch", "A beaten star duelist still holds stars he won from the hero: a rematch wager to win them back.", [
+     H("You still hold the stars you took from me. I want them back. Duel?",
+       "Voce ainda tem as estrelas que tirou de mim. Quero de volta. Duelar?", True),
     ], chapter=2)
     sc("dk2_camp", "The Shore Camp sign: the safety net, first visit.", [
      N("Shore Camp", "Acampamento da Costa", "Cots, a fire and a sign - Lost your stars? Rest here.",
        "Catres, uma fogueira e uma placa - Perdeu suas estrelas? Descanse."),
-     N("Shore Camp", "Acampamento da Costa", "Fine print - Pegasus gives back one star to the fallen.",
-       "Letras miudas - Pegasus devolve uma estrela aos que caem."),
-     H("A safety net. Good. I still don't plan on using it.",
-       "Uma rede de seguranca. Bom. Mesmo assim nao pretendo usar."),
+     N("Shore Camp", "Acampamento da Costa", "Fine print - Zero stars means the end of your journey. No star is ever given back.",
+       "Letras miudas - Zero estrelas e o fim da jornada. Nenhuma estrela e devolvida."),
+     H("No safety net. Then I never bet my last star.",
+       "Sem rede de seguranca. Entao nunca aposto a minha ultima."),
     ], chapter=2)
     sc("dk2_camp_after", "Shore Camp, later visits.", [
      N("Shore Camp", "Acampamento da Costa", "The fire crackles. A few eliminated duelists snore.",
@@ -168,8 +162,8 @@ OBJECTS = [
 ]
 DUELS = [
  dict(id="weevil", npc="weevil", duelist_id=10, deck="Weevil Shore", tier=2, pre="dk2_weevil_pre", win="dk2_weevil_win", lose="dk2_weevil_lose", win_flag="weevil_won",
-      on_win=[W(give_card="Hercules Beetle"), W(give_item="loaded_dice"), W(set_stage=12)], stars=1,
-      note="The first star wager of the Kingdom (+1 / -1 star). Losing the last star wakes the hero at the Shore Camp."),
+      on_win=[W(give_card="Hercules Beetle"), W(give_item="loaded_dice"), W(set_stage=12)], stars=2,
+      note="Weevil holds 2 stars; the player bets 1..min(his, Weevil's). Losing the last star is a game over."),
 ]
 TRANSITIONS = [
  dict(id="landing", when=W(stage=[10,10], flags_none=["beach_arrived"]), trigger=W(kind="when_true", area="kingdom_beach"), effects=[W(set_flag="beach_arrived")], script="dk2_landing"),

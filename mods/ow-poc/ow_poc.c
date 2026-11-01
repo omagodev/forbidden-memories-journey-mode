@@ -60,9 +60,10 @@ static s32 drop_pick(s32 pool_index)
     }
 }
 
-enum { ST_CONFIRM, ST_CREATE, ST_WALK, ST_SCENE, ST_ASK, ST_MENU, ST_TO_DUEL, ST_LEAVE, ST_LANG, ST_MAP, ST_PAINT, ST_JOURNAL, ST_SHOP, ST_AMBUSH, ST_ARENA, ST_CARD };
+enum { ST_CONFIRM, ST_CREATE, ST_WALK, ST_SCENE, ST_ASK, ST_MENU, ST_TO_DUEL, ST_LEAVE, ST_LANG, ST_MAP, ST_PAINT, ST_JOURNAL, ST_SHOP, ST_AMBUSH, ST_ARENA, ST_CARD, ST_WAGER, ST_GAMEOVER };
 enum { REQ_NONE, REQ_NEW, REQ_CONTINUE };   /* what the title's NEW GAME / CONTINUE asked for */
 enum { RET_NONE, RET_DUEL, RET_NAME, RET_DECK };
+static int wager_bet, gameover_age;      /* the bet of the star duel being played; frames of the game-over screen */
 static int state = ST_LEAVE, after_return = RET_NONE, menu_request = REQ_NONE;
 static int paint_auto;   /* the painted village is the first thing a walk shows; L1 still toggles */
 static int ready, choose_sel, lang_sel, minimap_on = 1;   /* choose_sel: the confirm box's cursor (0 start the new game, 1 cancel) */
@@ -396,36 +397,18 @@ static void duel_returned(void)
     int won = (D_8009B362 == 0);
     const JsonNode *r = won ? duel_win : duel_lose;
     /* whether this win was had before is read now: applying the result sets the flags that say so */
-    int rematch = won && Story_ResultDone(duel_win);
-    int beaten_before = Story_ResultDone(duel_win), eliminated = 0;
-    const char *elim_scene = "k1_eliminated";
+    int rematch = won && (Story_ResultDone(duel_win) || (duel_win && Json_Num(duel_win, "rematch", 0) != 0));
+    int eliminated = 0;
     area = -1;                              /* the duel's song ended the village's: start it again */
     if (in_paint_flow) { Paint_Enter(); paint_auto = 1; }    /* the duel took the banks: the painted village is loaded again behind the scene */
     if (won) jm.wins++; else jm.losses++;
     LOG("journey: duel over, %s (wins %d, losses %d)", won ? "won" : "lost", jm.wins, jm.losses);
     if (won) Story_ApplyResult(duel_win);
-    {   /* Duelist Kingdom: a named duelist wagers his star the first time; a rematch is free (kingdom_outline.json star rules) */
-        const JsonNode *wg = duel_win ? Json_Get(duel_win, "wager") : NULL;
-        if (wg && !beaten_before) {
-            int n = wg->num > 0 ? (int)wg->num : 1;
-            if (won) { jm.stars += n + jm.stars_owed; jm.stars_owed = 0; if (jm.stars > 10) jm.stars = 10; }   /* a win also takes back the stars lost before */
-            else if (jm.stars_owed++, --jm.stars <= 0) {      /* the last star is gone: never a game over, he wakes at the Shore Camp with one */
-                jm.stars = 1;
-                if (jm.stars_owed > 0) jm.stars_owed--;   /* the camp's free star is one of the lost ones */
-                jm.eliminations++;
-                eliminated = 1;
-                {   /* the forest and the pass have a trail camp of their own: no walk back from the beach */
-                    const char *here = Paint_AreaId();
-                    int trail = here && (!strcmp(here, "kingdom_forest") || !strcmp(here, "kingdom_mountain"));
-                    snprintf(jm_pwarp_area, sizeof(jm_pwarp_area), "%s", trail ? here : "kingdom_beach");
-                    snprintf(jm_pwarp_anchor, sizeof(jm_pwarp_anchor), "%s", trail ? "trail_camp" : "shore_camp");
-                    elim_scene = trail ? "k3_eliminated" : "k1_eliminated";
-                }
-                jm_pwarp = 1;
-            }
-            LOG("journey: star duel %s, stars %d (eliminations %d, owed %d)", won ? "won" : "lost", jm.stars, jm.eliminations, jm.stars_owed);
-        }
+    if (wager_bet > 0 && duel_win) {      /* Duelist Kingdom: the bet goes to the winner (jm_wager.c); the last star lost is a game over */
+        Wager_Settle(duel_win, wager_bet, won);
+        if (jm.stars <= 0) eliminated = 1;
     }
+    wager_bet = 0;
     duel_live = 0;
     if (duel_is_gang) { duel_is_gang = 0; Gang_Result(won); }
     else if (duel_is_arena) { duel_is_arena = 0; Arena_Result(won); }
@@ -436,11 +419,18 @@ static void duel_returned(void)
     duel_npc = -1;
     apply_warp();
     if (card_show && !Paint_CardArt(card_show)) card_show = 0;   /* no picture: no reveal */
-    if (eliminated && Story_PageCount(elim_scene) <= 0) elim_scene = "k1_eliminated";
-    if (eliminated && Story_PageCount(elim_scene) > 0) {
-        begin_scene(elim_scene, 0, 1);
+    if (eliminated) {                      /* no stars left: the journey is over */
+        jm.eliminations++;
+        LOG("journey: GAME OVER (no stars)");
+        Say_Close();
+        in_paint_flow = 0;
+        Paint_TalkEnd();
+        gameover_age = 0;
+        state = ST_GAMEOVER;
         scene_then = NULL;
         scene_choice = NULL;
+        card_show = 0;
+        return;
     } else if (r && Json_Str(r, "scene", NULL)) {
         begin_scene(Json_Str(r, "scene", NULL), 0, 1);
         scene_then = Json_Str(r, "then", NULL);
@@ -713,6 +703,18 @@ static void run(int first)
         }
         if (edge & PAD_TRIANGLE) state = ST_LEAVE;
         break;
+    case ST_WAGER: {
+        int r;
+        music_tick();
+        r = Wager_Input(edge);
+        if (r == 1) { wager_bet = Wager_Bet(); LOG("journey: wager %d", wager_bet); arm_duel(pend_duel); }
+        else if (r == 2) { duel_win = duel_lose = NULL; pend_duel = -1; end_scene(); }
+        break;
+    }
+    case ST_GAMEOVER:
+        gameover_age++;
+        if (gameover_age > 60 && (edge & (PAD_CROSS | PAD_START))) state = ST_LEAVE;   /* back to the title: Continue loads the last save */
+        break;
     case ST_SHOP:
         if (Shop_Input(edge)) { state = ST_PAINT; cooldown = 12; }
         break;
@@ -894,7 +896,8 @@ static void run(int first)
         if (edge & (PAD_LEFT | PAD_RIGHT | PAD_UP | PAD_DOWN)) ask_sel ^= 1;
         if (Dbg_Skip() && dbg_age > 12) { ask_sel = 0; edge |= PAD_CROSS; }
         if (edge & PAD_CROSS) {
-            if (ask_sel == 0 && pend_duel >= 0) { arm_duel(pend_duel); break; }
+            if (ask_sel == 0 && pend_duel >= 0 && Wager_Max(duel_win) > 0) { Wager_Open(duel_win); state = ST_WAGER; break; }   /* a star duel: the bet first */
+            if (ask_sel == 0 && pend_duel >= 0) { wager_bet = 0; arm_duel(pend_duel); break; }
             if (pend_duel < 0 && scene_choice) {
                 const JsonNode *ans = Json_Get(scene_choice, ask_sel == 0 ? "yes" : "no");
                 scene_choice = NULL;
@@ -998,7 +1001,7 @@ static void frame_hook(void)
     Gfx_Begin();
     if (state == ST_CREATE) { Ui_DrawCreate(); return; }
     if (state == ST_CONFIRM || state == ST_LANG || state == ST_MAP) { Gfx_Backdrop(0x08061C, 0x2A2060); Gfx_End(); return; }
-    if (state == ST_PAINT || state == ST_JOURNAL || state == ST_SHOP || state == ST_ARENA || state == ST_AMBUSH || state == ST_CARD || (state == ST_MENU && menu_from_paint) || (in_paint_flow && (state == ST_SCENE || state == ST_ASK))) {
+    if (state == ST_PAINT || state == ST_JOURNAL || state == ST_SHOP || state == ST_ARENA || state == ST_AMBUSH || state == ST_CARD || (state == ST_MENU && menu_from_paint) || state == ST_WAGER || state == ST_GAMEOVER || (in_paint_flow && (state == ST_SCENE || state == ST_ASK))) {
         Ui_BodyColours(colours);
         paint_markers = state == ST_PAINT;
         Paint_Draw(Gfx_Mesh(Ui_BodyMesh()), colours);
@@ -1550,6 +1553,8 @@ static void overlay(void)
         return;
     }
     if (state == ST_SHOP) { Shop_Overlay(); return; }
+    if (state == ST_WAGER) { Wager_Overlay(); return; }
+    if (state == ST_GAMEOVER) { GameOver_Overlay(gameover_age); return; }
     if (state == ST_ARENA) { Arena_Overlay(); return; }
     if (state == ST_CONFIRM) {
         int x = w / 6, y = top + vis / 4, pw = w * 2 / 3;
@@ -1686,6 +1691,8 @@ static unsigned overlay_sig(void)
     if (!Paint_Loaded()) return 3u + (unsigned)(frame_no / 14) * 131u;   /* the waiting dots */
     if (state == ST_CARD) return 17u + (unsigned)card_age * 131u;
     if (state == ST_SHOP) return 11u + Shop_Signature();
+    if (state == ST_WAGER) return 19u + Wager_Signature();
+    if (state == ST_GAMEOVER) return 23u + GameOver_Signature(gameover_age);
     if (state == ST_ARENA) return 13u + Arena_Signature();
     if (state == ST_PAINT) {
         float a, b, c, d;

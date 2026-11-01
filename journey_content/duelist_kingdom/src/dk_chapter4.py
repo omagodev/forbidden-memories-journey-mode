@@ -30,10 +30,10 @@ def scripts(sc, H, X, N):
      N("Objective", "Objetivo", "Talk to the man guarding the rope bridge.", "Fale com o homem que guarda a ponte de corda."),
     ], chapter=4)
     sc("dk4_keith_pre", "Keith's toll: a one-star wager to cross the bridge.", [
-     X("keith", "House rules. Toll is one star. You win, you cross with mine.",
-       "Regra da casa. O pedagio e uma estrela. Ganhou, passa com a minha."),
-     X("keith", "You lose, the toll's mine and you walk back down. Fair, huh?",
-       "Perdeu, o pedagio e meu e voce desce a pe. Justo, ne?"),
+     X("keith", "House rules. I got three stars in the pot. Bet what you got. Win, you cross.",
+       "Regra da casa. Tenho tres estrelas na mesa. Aposte o que tiver. Ganhou, passa."),
+     X("keith", "You lose, your stars stay with me. Lose 'em all and you're done for good. Fair, huh?",
+       "Perdeu, suas estrelas ficam comigo. Perdeu todas, ja era pra sempre. Justo, ne?"),
      H("Fair for you. That deck smells like rigged slot machines.",
        "Justo pra voce. Esse baralho cheira a caca-niquel viciado."),
      X("keith", "In America we call it strategy. Shuffle up or scram?",
@@ -56,10 +56,6 @@ def scripts(sc, H, X, N):
     sc("dk4_keith_after", "Keith after the duel, counting chips.", [
      X("keith", "Beat it. I'm counting chips. Bridge is yours, sucker.",
        "Some daqui. To contando fichas. A ponte e sua, otario."),
-    ], chapter=4)
-    sc("dk4_keith_short", "Keith turns away a duelist under four stars.", [
-     X("keith", "Four stars minimum, kid. I don't rob the broke. Scram.",
-       "Quatro estrelas no minimo, moleque. Nao roubo duro. Some."),
     ], chapter=4)
     sc("dk4_mai_pre", "Mai on the far side of the bridge: the rival duel from the ship.", [
      X("mai", "Took you long enough. I was starting to like the view.",
@@ -120,16 +116,12 @@ def scripts(sc, H, X, N):
     sc("dk4_mage_pre", "The Mountain Mage, zone master: a one-star wager at the summit gate.", [
      X("mountain_mage", "Few reach the summit with five stars. Fewer leave with six.",
        "Poucos chegam ao cume com cinco estrelas. Menos saem com seis."),
-     X("mountain_mage", "One star against one. The mountain does not bend.",
-       "Uma estrela contra uma. A montanha nao se curva."),
+     X("mountain_mage", "Four stars rest on this summit. Wager as many as your nerve allows.",
+       "Quatro estrelas repousam neste cume. Aposte quantas sua coragem deixar."),
      H("Ten stars open the castle. I'm not going back down now.",
        "Dez estrelas abrem o castelo. Nao desco agora."),
      X("mountain_mage", "Then stand firm, pebble. Shall the stone speak?",
        "Entao fique firme, pedrinha. A pedra pode falar?", ask=True),
-    ], chapter=4)
-    sc("dk4_mage_short", "The Mountain Mage refuses a duelist under five stars.", [
-     X("mountain_mage", "Five stars, pebble. Win back what you lost, then climb.",
-       "Cinco estrelas, pedrinha. Recupere o que perdeu e suba."),
     ], chapter=4)
     sc("dk4_mage_win", "The Mountain Mage loses: six stars, end of chapter 4.", [
      X("mountain_mage", "The stone cracks. My star, and my stone soldier.",
@@ -161,17 +153,11 @@ def scripts(sc, H, X, N):
      X("cliff_cass", "Rope, pitons, cards. Only the cards ever save anyone.",
        "Corda, grampos, cartas. So as cartas salvam alguem."),
     ], chapter=4)
-    sc("dk4_trail_camp", "The trail camp: where you wake if the last star is lost up here.", [
+    sc("dk4_trail_camp", "The trail camp: a lantern, and the game-over warning.", [
      N("Trail Camp", "Acampamento", "A tarp, a cot and a lantern. Kingdom staff keep it lit.",
        "Uma lona, um catre e um lampiao. A equipe do Reino o mantem."),
-    ], chapter=4)
-    sc("k3_eliminated", "Last star lost in the forest or the mountains: wake at the area's trail camp with one star.", [
-     N("Trail Camp", "Acampamento", "You wake under a tarp. A star chip rests on your chest.",
-       "Voce acorda sob uma lona. Uma ficha de estrela esta no seu peito."),
-     X("staff", "Pegasus sends his regards. One free star. Do better, duelist.",
-       "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."),
-     H("Back to one star. Shop, arena, thieves. Train, then climb.",
-       "De volta a uma estrela. Loja, arena, ladroes. Treino e subo."),
+     X("staff", "Careful up there. Nobody here gives stars back. Lose your last and your journey is over.",
+       "Cuidado la em cima. Aqui ninguem devolve estrela. Perdeu a ultima, a jornada acabou."),
     ], chapter=4)
 
 SPEAKERS = {
@@ -199,9 +185,8 @@ ITEMS = [("star_chips", "Star Chips", "Fichas de Estrela", "Story star chips. On
 def W(**k): return k
 NPCS = [
  dict(id="keith", area="kingdom_mountain", anchor="keith_spot", duelist_id=12, stages=[17, 99], visible="placed",
-      note="Bandit Keith's toll bridge: a one-star wager; needs four stars to be challenged.",
-      rules=[W(when=W(stage=[17,17], flags_none=["keith_won"], earned=4), script="dk4_keith_pre", duel="keith"),
-             W(when=W(stage=[17,17], flags_none=["keith_won"]), script="dk4_keith_short"),
+      note="Bandit Keith's toll bridge: he holds 3 stars; the player picks the wager.",
+      rules=[W(when=W(stage=[17,17], flags_none=["keith_won"]), script="dk4_keith_pre", duel="keith"),
              W(when=W(stage=[17,99]), script="dk4_keith_after")]),
  dict(id="mai_mountain", area="kingdom_mountain", anchor="mai_spot", duelist_id=11, stages=[18, 99], visible="placed",
       note="Mai, the rival from the ship, across the bridge: a pride duel, no star.",
@@ -213,8 +198,7 @@ NPCS = [
                effects=[W(set_flag="carver_found"), W(give_item="star_chisel"), W(set_stage=20)])]),
  dict(id="mountain_mage", area="kingdom_mountain", anchor="gate_spot", duelist_id=25, stages=[20, 99], visible="placed",
       note="The zone master at the summit gate once the carver is found.",
-      rules=[W(when=W(stage=[20,20], flags_none=["mountain_mage_won"], earned=5), script="dk4_mage_pre", duel="mountain_mage"),
-             W(when=W(stage=[20,20], flags_none=["mountain_mage_won"]), script="dk4_mage_short"),
+      rules=[W(when=W(stage=[20,20], flags_none=["mountain_mage_won"]), script="dk4_mage_pre", duel="mountain_mage"),
              W(when=W(stage=[20,99]), script="dk4_mage_after")]),
  dict(id="cliff_cass", area="kingdom_mountain", anchor="shop_stall", duelist_id=None, stages=[17, 99], visible="always", rules=[W(when=W(stage=[17,99]), script="dk4_cliff_cass")]),
 ]
@@ -224,7 +208,7 @@ OBJECTS = [
  dict(id="star_cave", name=B("Star Cave", "Caverna da Estrela"), area="kingdom_mountain", anchor="cave_spot", rules=[
   W(when=W(stage=[20,99]), script="dk4_cave_empty"), W(when=W(stage=[17,18]), script="dk4_cave_dark")]),
  dict(id="summit_gate", name=B("Summit gate", "Portao do cume"), area="kingdom_mountain", anchor="summit_gate", rules=[
-  W(when=W(stage=[21,99], earned=6), script="dk4_castle_road"), W(when=W(stage=[17,99]), script="dk4_gate_shut")]),
+  W(when=W(stage=[21,99], stars=6), script="dk4_castle_road"), W(when=W(stage=[17,99]), script="dk4_gate_shut")]),
  dict(id="rope_bridge_far", name=B("Rope bridge", "Ponte de corda"), area="kingdom_mountain", anchor="mai_spot", rules=[]),
  dict(id="trail_camp", name=B("Trail camp", "Acampamento da trilha"), area="kingdom_mountain", anchor="trail_camp", rules=[
   W(when=W(stage=[17,99]), script="dk4_trail_camp")]),
@@ -232,16 +216,16 @@ OBJECTS = [
 ]
 DUELS = [
  dict(id="keith", npc="keith", duelist_id=12, deck="Keith Toll", tier=4, pre="dk4_keith_pre", win="dk4_keith_win", lose="dk4_keith_lose", win_flag="keith_won",
-      on_win=[W(give_card="Pendulum Machine"), W(set_stage=18)], stars=1,
+      on_win=[W(give_card="Pendulum Machine"), W(set_stage=18)], stars=3,
       note="Toll: +1 star on a win, -1 on a loss (won back with the win). Machines: needs forest and mountain upgrades."),
  dict(id="mai_mountain", npc="mai_mountain", duelist_id=11, deck="Mai Cliff", tier=4, pre="dk4_mai_pre", win="dk4_mai_win", lose="dk4_mai_lose", win_flag="mai_mountain_won",
       on_win=[W(give_card="Harpie Lady"), W(set_stage=19)], note="Pride duel, no star: stars come only from the zone's gatekeepers. Mai's harpies, now with real support."),
  dict(id="mountain_mage", npc="mountain_mage", duelist_id=25, deck="Mountain Mage Summit", tier=5, pre="dk4_mage_pre", win="dk4_mage_win", lose="dk4_mage_lose", win_flag="mountain_mage_won",
-      on_win=[W(give_card="Giant Soldier of Stone"), W(set_stage=21)], stars=1,
-      note="Zone master: +1 star on a win, -1 on a loss (won back with the win). Needs five stars to accept. Needs mountain cards or Mine Shaft Pit wins."),
+      on_win=[W(give_card="Giant Soldier of Stone"), W(set_stage=21)], stars=4,
+      note="Zone master, holds 4 stars: bet 1 for the curve, more for a risky jump. Needs mountain cards or Mine Shaft Pit wins."),
 ]
 TRANSITIONS = [
- dict(id="enter_mountain", when=W(stage=[16,16], earned=4), trigger=W(kind="interact", object="pass_road"), effects=[W(set_stage=17), W(teleport=W(area="kingdom_mountain", anchor="spawn"))], script="dk4_enter"),
+ dict(id="enter_mountain", when=W(stage=[16,16], stars=4), trigger=W(kind="interact", object="pass_road"), effects=[W(set_stage=17), W(teleport=W(area="kingdom_mountain", anchor="spawn"))], script="dk4_enter"),
  dict(id="to_mountain", when=W(stage=[17,99]), trigger=W(kind="interact", object="pass_road"), effects=[W(teleport=W(area="kingdom_mountain", anchor="spawn"))], script="dk4_to_mountain"),
  dict(id="to_forest", when=W(stage=[17,99]), trigger=W(kind="interact", object="mountain_exit"), effects=[W(teleport=W(area="kingdom_forest", anchor="pass_road"))], script="dk4_to_forest"),
  dict(id="mountain_arrival", when=W(stage=[17,17], flags_none=["mountain_arrived"]), trigger=W(kind="when_true", area="kingdom_mountain"), effects=[W(set_flag="mountain_arrived")], script="dk4_arrival"),

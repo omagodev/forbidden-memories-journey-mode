@@ -664,8 +664,36 @@
       "from": "Croquet, in the Star Cave"
     },
     "star_chips": {
-      "desc": "Only gatekeepers and zone masters give one. A lost star waits with its taker until you win. Ten open the castle.",
+      "desc": "You bet them before each star duel; a lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.",
       "from": "Shadi's Star Passage, then the duelists who guard each zone."
+    }
+  },
+  "wager": {
+    "title": "Star Wager",
+    "subtitle": "Choose how many stars to bet",
+    "you": "You",
+    "bet": "Bet",
+    "stars": "stars",
+    "star": "star",
+    "win": "Win: you take %d from him.",
+    "lose": "Lose: he keeps %d of yours.",
+    "rematch": "Rematch: only the stars he won from you are at stake.",
+    "warn": "If your stars run out, your journey ends. GAME OVER.",
+    "allin": "All-in! Losing this duel is GAME OVER.",
+    "k_bet": "Bet",
+    "k_duel": "Duel",
+    "k_back": "Back",
+    "go_title": "GAME OVER",
+    "go_line1": "Your last Star Chip is gone.",
+    "go_line2": "The Kingdom's gates close behind you.",
+    "go_line3": "Continue loads your last save.",
+    "go_key": "Title",
+    "names": {
+      "weevil": "Weevil",
+      "rex_forest": "Rex Raptor",
+      "forest_mage": "Forest Mage",
+      "keith": "Bandit Keith",
+      "mountain_mage": "Mountain Mage"
     }
   }
 }

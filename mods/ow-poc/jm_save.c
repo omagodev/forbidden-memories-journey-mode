@@ -34,6 +34,7 @@ int Save_Write(void)
     size_t n;
     if (Paint_Loaded()) { float a, b, c, d; Paint_Info(&a, &b, &c, &d); jm.pt_x = a; jm.pt_y = b; jm.pt_set = 1; jm.pt_area = Paint_SaveArea(); }
     Lang_PrefWrite(jm.lang);
+    if (jm.stage >= 10 && jm.stars <= 0) { LOG("journey: no save at zero stars (game over)"); return 0; }
     file.magic = MAGIC;
     file.version = VERSION;
     file.size = sizeof(Journey);
@@ -63,6 +64,8 @@ int Save_Read(void)
     jm = file.data;
     if (file.size < sizeof(Journey)) memset((char *)&jm + file.size, 0, sizeof(Journey) - file.size);
     jm.name[sizeof(jm.name) - 1] = 0;
+    if (jm.stars_owed > 0) { jm.stars += jm.stars_owed; if (jm.stars > 10) jm.stars = 10; jm.stars_owed = 0; }   /* 0.5.3's owed stars come back: the wagers replace them */
+    if (jm.stage >= 10 && jm.stars <= 0) jm.stars = 1;      /* a 0.5.x save at zero (never written now) */
     LOG("journey: loaded (stage %d, flags %08x, %s)", jm.stage, jm.flags, jm.name);
     return 1;
 }

@@ -1709,6 +1709,28 @@
    "talk": [
     {
      "when": {
+      "needs": [
+       "weevil_won"
+      ],
+      "wager_extra": [
+       0,
+       2,
+       "weevil_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 2,
+      "slot": 0,
+      "wid": "weevil",
+      "beaten": "weevil_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
       "stage_ge": 11,
       "stage_lt": 12,
       "needs": [
@@ -1729,7 +1751,10 @@
        "weevil_won"
       ],
       "scene": "dk2_weevil_win",
-      "wager": 1
+      "wager": 2,
+      "slot": 0,
+      "wid": "weevil",
+      "beaten": "weevil_won"
      },
      "lose": {
       "scene": "dk2_weevil_lose"
@@ -1874,6 +1899,28 @@
    "talk": [
     {
      "when": {
+      "needs": [
+       "rex_forest_won"
+      ],
+      "wager_extra": [
+       1,
+       2,
+       "rex_forest_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 2,
+      "slot": 1,
+      "wid": "rex_forest",
+      "beaten": "rex_forest_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
       "stage_ge": 13,
       "stage_lt": 14,
       "lacks": [
@@ -1891,7 +1938,10 @@
        "rex_forest_won"
       ],
       "scene": "dk3_rex_win",
-      "wager": 1
+      "wager": 2,
+      "slot": 1,
+      "wid": "rex_forest",
+      "beaten": "rex_forest_won"
      },
      "lose": {
       "scene": "dk3_rex_lose"
@@ -1924,12 +1974,33 @@
    "talk": [
     {
      "when": {
+      "needs": [
+       "forest_mage_won"
+      ],
+      "wager_extra": [
+       2,
+       3,
+       "forest_mage_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 3,
+      "slot": 2,
+      "wid": "forest_mage",
+      "beaten": "forest_mage_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
       "stage_ge": 15,
       "stage_lt": 16,
       "lacks": [
        "forest_mage_won"
-      ],
-      "earned_min": 3
+      ]
      },
      "scene": "dk3_mage_pre",
      "duel": true,
@@ -1942,21 +2013,14 @@
        "forest_mage_won"
       ],
       "scene": "dk3_mage_win",
-      "wager": 1
+      "wager": 3,
+      "slot": 2,
+      "wid": "forest_mage",
+      "beaten": "forest_mage_won"
      },
      "lose": {
       "scene": "dk3_mage_lose"
      }
-    },
-    {
-     "when": {
-      "stage_ge": 15,
-      "stage_lt": 16,
-      "lacks": [
-       "forest_mage_won"
-      ]
-     },
-     "scene": "dk3_mage_short"
     },
     {
      "when": {
@@ -2009,12 +2073,33 @@
    "talk": [
     {
      "when": {
+      "needs": [
+       "keith_won"
+      ],
+      "wager_extra": [
+       3,
+       3,
+       "keith_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 3,
+      "slot": 3,
+      "wid": "keith",
+      "beaten": "keith_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
       "stage_ge": 17,
       "stage_lt": 18,
       "lacks": [
        "keith_won"
-      ],
-      "earned_min": 4
+      ]
      },
      "scene": "dk4_keith_pre",
      "duel": true,
@@ -2027,21 +2112,14 @@
        "keith_won"
       ],
       "scene": "dk4_keith_win",
-      "wager": 1
+      "wager": 3,
+      "slot": 3,
+      "wid": "keith",
+      "beaten": "keith_won"
      },
      "lose": {
       "scene": "dk4_keith_lose"
      }
-    },
-    {
-     "when": {
-      "stage_ge": 17,
-      "stage_lt": 18,
-      "lacks": [
-       "keith_won"
-      ]
-     },
-     "scene": "dk4_keith_short"
     },
     {
      "when": {
@@ -2154,12 +2232,33 @@
    "talk": [
     {
      "when": {
+      "needs": [
+       "mountain_mage_won"
+      ],
+      "wager_extra": [
+       4,
+       4,
+       "mountain_mage_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 4,
+      "slot": 4,
+      "wid": "mountain_mage",
+      "beaten": "mountain_mage_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
       "stage_ge": 20,
       "stage_lt": 21,
       "lacks": [
        "mountain_mage_won"
-      ],
-      "earned_min": 5
+      ]
      },
      "scene": "dk4_mage_pre",
      "duel": true,
@@ -2172,21 +2271,14 @@
        "mountain_mage_won"
       ],
       "scene": "dk4_mage_win",
-      "wager": 1
+      "wager": 4,
+      "slot": 4,
+      "wid": "mountain_mage",
+      "beaten": "mountain_mage_won"
      },
      "lose": {
       "scene": "dk4_mage_lose"
      }
-    },
-    {
-     "when": {
-      "stage_ge": 20,
-      "stage_lt": 21,
-      "lacks": [
-       "mountain_mage_won"
-      ]
-     },
-     "scene": "dk4_mage_short"
     },
     {
      "when": {
@@ -3572,7 +3664,7 @@
      "when": {
       "stage_ge": 12,
       "stage_lt": 13,
-      "earned_min": 2
+      "stars_min": 2
      },
      "scene": "dk3_enter",
      "effects": {
@@ -3708,7 +3800,7 @@
      "when": {
       "stage_ge": 16,
       "stage_lt": 17,
-      "earned_min": 4
+      "stars_min": 4
      },
      "scene": "dk4_enter",
      "effects": {
@@ -3781,7 +3873,7 @@
     {
      "when": {
       "stage_ge": 21,
-      "earned_min": 6
+      "stars_min": 6
      },
      "scene": "dk4_castle_road"
     },

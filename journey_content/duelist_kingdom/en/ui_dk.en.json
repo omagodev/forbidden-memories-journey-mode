@@ -22,7 +22,7 @@
   "wager": "Wager 1 star?",
   "gain": "You took a star! Stars: %d",
   "loss": "You lost a star. Stars: %d",
-  "eliminated": "Out of stars! Pegasus's staff gives you one more chance."
+  "eliminated": "Out of stars! Your journey is over."
  },
  "time": {
   "night": "Night",

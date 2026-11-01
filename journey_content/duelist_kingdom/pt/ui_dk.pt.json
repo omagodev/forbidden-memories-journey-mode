@@ -22,7 +22,7 @@
   "wager": "Apostar 1 estrela?",
   "gain": "Voce tomou uma estrela! Estrelas: %d",
   "loss": "Voce perdeu uma estrela. Estrelas: %d",
-  "eliminated": "Sem estrelas! A equipe de Pegasus da mais uma chance."
+  "eliminated": "Sem estrelas! Sua jornada acabou."
  },
  "time": {
   "night": "Noite",

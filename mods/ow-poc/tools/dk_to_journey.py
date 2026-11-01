@@ -134,13 +134,30 @@ ITEM_FLAG = {"stamp_card": ("courier_met", None, "assets/icon_stamp_card.bin"), 
 ITEM_ORDER = ["stamp_card", "lantern", "jug", "honey", "river_water", "dates", "scarab", "bandana", "charm", "star_passage", "bug_pin", "loaded_dice", "whisper_leaf", "star_chisel", "star_chips"]
 # Mochila texts for the Kingdom's items, accented (the UI font has them; the dialogue font is ASCII): (description, where from)
 BAG_TEXT = {
- "en": {"star_chips": ("Only gatekeepers and zone masters give one. A lost star waits with its taker until you win. Ten open the castle.", "Shadi's Star Passage, then the duelists who guard each zone.")},
- "pt": {"star_chips": ("Só guardiões e mestres de zona dão uma. A perdida fica com quem a tomou até você vencer. Dez abrem o castelo.", "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."),
+ "en": {"star_chips": ("You bet them before each star duel; a lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.", "Shadi's Star Passage, then the duelists who guard each zone.")},
+ "pt": {"star_chips": ("Você aposta antes de cada duelo; a aposta perdida fica com o rival. Dez abrem o castelo. ZERO ESTRELAS = FIM DE JOGO.", "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."),
         "star_passage": ("Seu bilhete para o Reino dos Duelistas.", "Shadi, no porto."),
         "bug_pin": ("O broche dourado do InsetoKaiba. Ele jura que vai pegar de volta.", "InsetoKaiba, no navio."),
         "loaded_dice": ("Os dados viciados do Weevil. Melhor nunca usar.", "Weevil, na Costa das Ilusões."),
         "whisper_leaf": ("Uma folha que farfalha perto de uma estrela.", "O Mago da Floresta."),
         "star_chisel": ("O cinzel do Croquet. A ponta ainda brilha como estrela.", "Croquet, na Caverna da Estrela.")},
+}
+WAGER_NAMES = {"weevil": ("Weevil", "Weevil"), "rex_forest": ("Rex Raptor", "Rex Raptor"), "forest_mage": ("Forest Mage", "Mago da Floresta"),
+               "keith": ("Bandit Keith", "Bandit Keith"), "mountain_mage": ("Mountain Mage", "Mago da Montanha")}
+# the wager picker and the game-over screen (jm_wager.c); the UI font has accents
+WAGER_UI = {
+ "en": {"title": "Star Wager", "subtitle": "Choose how many stars to bet", "you": "You", "bet": "Bet", "stars": "stars", "star": "star",
+        "win": "Win: you take %d from him.", "lose": "Lose: he keeps %d of yours.", "rematch": "Rematch: only the stars he won from you are at stake.",
+        "warn": "If your stars run out, your journey ends. GAME OVER.", "allin": "All-in! Losing this duel is GAME OVER.",
+        "k_bet": "Bet", "k_duel": "Duel", "k_back": "Back",
+        "go_title": "GAME OVER", "go_line1": "Your last Star Chip is gone.", "go_line2": "The Kingdom's gates close behind you.",
+        "go_line3": "Continue loads your last save.", "go_key": "Title"},
+ "pt": {"title": "Aposta de Estrelas", "subtitle": "Escolha quantas estrelas apostar", "you": "Você", "bet": "Aposta", "stars": "estrelas", "star": "estrela",
+        "win": "Vitória: você toma %d dele.", "lose": "Derrota: ele fica com %d suas.", "rematch": "Revanche: só as estrelas que ele ganhou de você estão em jogo.",
+        "warn": "Se suas estrelas acabarem, a jornada termina. FIM DE JOGO.", "allin": "Tudo ou nada! Perder este duelo é FIM DE JOGO.",
+        "k_bet": "Aposta", "k_duel": "Duelar", "k_back": "Voltar",
+        "go_title": "FIM DE JOGO", "go_line1": "Sua última Ficha de Estrela se foi.", "go_line2": "Os portões do Reino se fecham atrás de você.",
+        "go_line3": "Continuar carrega o último save.", "go_key": "Título"},
 }
 warnings = []
 
@@ -170,7 +187,7 @@ def when(w):
             if v[1] < 99: out["stage_lt"] = v[1] + 1
         elif k == "flags_all": out["needs"] = v
         elif k == "flags_none": out["lacks"] = v
-        elif k == "earned": out["earned_min"] = v      # stars handed out so far (held + lost-and-owed): a star gate
+        elif k in ("earned", "stars"): out["stars_min"] = v   # a star gate: stars in hand only
         elif k == "earned_lt": out["earned_lt"] = v
         elif k == "flags_any": warnings.append("flags_any not supported: %r" % (w,))
         else: warnings.append("condition key %s ignored" % k)
@@ -200,8 +217,11 @@ def part_end_script(lang):
     return {"id": "dk_part3_end", "pages": [{"speaker": "narrator", "label": t[0], "kind": "complete", "text": t[1] + " " + t[2]}]}
 
 
+WAGER_SLOTS = {}
+
+
 def talk_rules(rules, scripts, duels, flags_extra=None):
-    talk = []
+    talk, rematch = [], []
     for r in rules:
         assert r["script"] in scripts, r["script"]
         t = {"when": when(r.get("when")), "scene": r["script"]}
@@ -210,7 +230,11 @@ def talk_rules(rules, scripts, duels, flags_extra=None):
             win = result(d.get("on_win"))
             win.setdefault("flags", []).insert(0, d["win_flag"])
             win["scene"] = d["win_script"]
-            if d.get("stars"): win["wager"] = d["stars"]       # a Kingdom star duel: +stars the first win, -1 a loss (ow_poc.c)
+            if d.get("stars"):                                  # a Kingdom star duel: the wager picker (jm_wager.c)
+                slot = WAGER_SLOTS.setdefault(d["id"], len(WAGER_SLOTS))
+                win.update(wager=d["stars"], slot=slot, wid=d["id"], beaten=d["win_flag"])
+                rematch.append({"when": {"needs": [d["win_flag"]], "wager_extra": [slot, d["stars"], d["win_flag"]]}, "scene": "dk_wager_rematch", "duel": True,
+                                "win": {"wager": d["stars"], "slot": slot, "wid": d["id"], "beaten": d["win_flag"], "rematch": 1}, "lose": {}})
             if d["id"] in PART_END: win["then"] = PART_END[d["id"]]
             t["duel"] = True
             t["win"] = win
@@ -219,7 +243,7 @@ def talk_rules(rules, scripts, duels, flags_extra=None):
             t["effects"] = result(r["effects"])
         if not t["when"]: del t["when"]
         talk.append(t)
-    return talk
+    return rematch + talk          # a beaten star duelist holding stars won from the hero offers the rematch wager first
 
 
 def build():
@@ -493,6 +517,7 @@ def build():
         ui["hint"]["painted"] = ex["hint_painted"]
         ui["messages"]["part_end"] = ex["part_end"]
         ui["notify"] = NOTIFY[code]
+        ui["wager"] = dict(WAGER_UI[code], names={d: WAGER_NAMES[d][0 if code == "en" else 1] for d in WAGER_NAMES})
         ui.setdefault("painted", {})
         # the Kingdom's items get their Mochila text from the story (the home town's are in base_ui_*.json)
         bag = ui.setdefault("bag", {})

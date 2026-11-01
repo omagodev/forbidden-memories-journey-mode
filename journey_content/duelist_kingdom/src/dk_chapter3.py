@@ -99,10 +99,10 @@ def scripts(sc, H, X, N):
      N("Objective", "Objetivo", "Duel the Forest Mage at the stone gate.", "Duele com o Mago da Floresta no portao."),
     ], chapter=3)
     sc("dk3_mage_pre", "The Forest Mage, zone master: a two-star wager.", [
-     X("forest_mage", "I am the master of this wood. My wager is one star.",
-       "Sou o mestre deste bosque. Minha aposta e uma estrela."),
-     X("forest_mage", "Yours is one too. The forest is fair. Its roots are not.",
-       "A sua tambem. A floresta e justa. As raizes, nao."),
+     X("forest_mage", "I am the master of this wood. Three stars sleep in my roots.",
+       "Sou o mestre deste bosque. Tres estrelas dormem nas minhas raizes."),
+     X("forest_mage", "Wager what you dare. The forest is fair. Its roots are not.",
+       "Aposte o que ousar. A floresta e justa. As raizes, nao."),
      H("One more star makes four. Let's grow some.",
        "Mais uma estrela e sao quatro. Vamos plantar."),
      X("forest_mage", "Then draw, sprout. Shall the roots begin?",
@@ -138,10 +138,6 @@ def scripts(sc, H, X, N):
      N("Mountain Pass", "Passagem da Montanha", "The rope stays tight. The pass lets in only duelists with four stars.",
        "A corda segue firme. A passagem so deixa entrar quem tem quatro estrelas."),
     ], chapter=3)
-    sc("dk3_mage_short", "The Forest Mage refuses a duelist under three stars.", [
-     X("forest_mage", "Three stars, sprout, or the roots stay shut. Earn them first.",
-       "Tres estrelas, brotinho, ou as raizes nao abrem. Conquiste antes."),
-    ], chapter=3)
     sc("dk3_hermit", "Hermit Hob, the forest hut.", [
      X("hermit_hob", "Mushrooms, moss and cards. The cards are the least weird.",
        "Cogumelos, musgo e cartas. As cartas sao o menos estranho."),
@@ -172,8 +168,7 @@ NPCS = [
              W(when=W(stage=[13,99]), script="dk3_rex_after")]),
  dict(id="forest_mage", area="kingdom_forest", anchor="gate_spot", duelist_id=23, stages=[15, 99], visible="placed",
       note="The zone master at the stone gate once the clearing is open.",
-      rules=[W(when=W(stage=[15,15], flags_none=["forest_mage_won"], earned=3), script="dk3_mage_pre", duel="forest_mage"),
-             W(when=W(stage=[15,15], flags_none=["forest_mage_won"]), script="dk3_mage_short"),
+      rules=[W(when=W(stage=[15,15], flags_none=["forest_mage_won"]), script="dk3_mage_pre", duel="forest_mage"),
              W(when=W(stage=[15,99]), script="dk3_mage_after")]),
  dict(id="hermit_hob", area="kingdom_forest", anchor="shop_stall", duelist_id=None, stages=[13, 99], visible="always", rules=[W(when=W(stage=[13,99]), script="dk3_hermit")]),
 ]
@@ -193,13 +188,13 @@ OBJECTS = [_mark(1), _mark(2), _mark(3),
 ]
 DUELS = [
  dict(id="rex_forest", npc="rex_forest", duelist_id=9, deck="Rex Forest", tier=3, pre="dk3_rex_pre", win="dk3_rex_win", lose="dk3_rex_lose", win_flag="rex_forest_won",
-      on_win=[W(give_card="Megazowler"), W(set_stage=14)], stars=1, note="Star wager (+1 / -1). Rex's dinosaurs: the first wall after the weak starter."),
+      on_win=[W(give_card="Megazowler"), W(set_stage=14)], stars=2, note="Rex holds 2 stars; star wager. Rex's dinosaurs: the first wall after the weak starter."),
  dict(id="forest_mage", npc="forest_mage", duelist_id=23, deck="Forest Mage Grove", tier=4, pre="dk3_mage_pre", win="dk3_mage_win", lose="dk3_mage_lose", win_flag="forest_mage_won",
-      on_win=[W(give_card="Mystic Horseman"), W(give_item="whisper_leaf"), W(set_stage=16)], stars=1,
-      note="Zone master: +1 star on a win, -1 on a loss (won back with the win). Needs three stars to accept. Needs forest cards or arena wins."),
+      on_win=[W(give_card="Mystic Horseman"), W(give_item="whisper_leaf"), W(set_stage=16)], stars=3,
+      note="Zone master, holds 3 stars: bet 1 for the curve, more for a risky jump. Needs forest cards or arena wins."),
 ]
 TRANSITIONS = [
- dict(id="enter_forest", when=W(stage=[12,12], earned=2), trigger=W(kind="interact", object="jungle_path"), effects=[W(set_stage=13), W(teleport=W(area="kingdom_forest", anchor="spawn"))], script="dk3_enter"),
+ dict(id="enter_forest", when=W(stage=[12,12], stars=2), trigger=W(kind="interact", object="jungle_path"), effects=[W(set_stage=13), W(teleport=W(area="kingdom_forest", anchor="spawn"))], script="dk3_enter"),
  dict(id="to_forest", when=W(stage=[13,99]), trigger=W(kind="interact", object="jungle_path"), effects=[W(teleport=W(area="kingdom_forest", anchor="spawn"))], script="dk3_to_forest"),
  dict(id="to_beach", when=W(stage=[13,99]), trigger=W(kind="interact", object="forest_exit"), effects=[W(teleport=W(area="kingdom_beach", anchor="jungle_path"))], script="dk3_to_beach"),
  dict(id="forest_arrival", when=W(stage=[13,13], flags_none=["forest_arrived"]), trigger=W(kind="when_true", area="kingdom_forest"), effects=[W(set_flag="forest_arrived")], script="dk3_arrival"),

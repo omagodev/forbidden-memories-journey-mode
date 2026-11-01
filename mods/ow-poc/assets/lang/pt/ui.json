@@ -672,8 +672,36 @@
       "from": "Croquet, na Caverna da Estrela."
     },
     "star_chips": {
-      "desc": "Só guardiões e mestres de zona dão uma. A perdida fica com quem a tomou até você vencer. Dez abrem o castelo.",
+      "desc": "Você aposta antes de cada duelo; a aposta perdida fica com o rival. Dez abrem o castelo. ZERO ESTRELAS = FIM DE JOGO.",
       "from": "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."
+    }
+  },
+  "wager": {
+    "title": "Aposta de Estrelas",
+    "subtitle": "Escolha quantas estrelas apostar",
+    "you": "Você",
+    "bet": "Aposta",
+    "stars": "estrelas",
+    "star": "estrela",
+    "win": "Vitória: você toma %d dele.",
+    "lose": "Derrota: ele fica com %d suas.",
+    "rematch": "Revanche: só as estrelas que ele ganhou de você estão em jogo.",
+    "warn": "Se suas estrelas acabarem, a jornada termina. FIM DE JOGO.",
+    "allin": "Tudo ou nada! Perder este duelo é FIM DE JOGO.",
+    "k_bet": "Aposta",
+    "k_duel": "Duelar",
+    "k_back": "Voltar",
+    "go_title": "FIM DE JOGO",
+    "go_line1": "Sua última Ficha de Estrela se foi.",
+    "go_line2": "Os portões do Reino se fecham atrás de você.",
+    "go_line3": "Continuar carrega o último save.",
+    "go_key": "Título",
+    "names": {
+      "weevil": "Weevil",
+      "rex_forest": "Rex Raptor",
+      "forest_mage": "Mago da Floresta",
+      "keith": "Bandit Keith",
+      "mountain_mage": "Mago da Montanha"
     }
   }
 }
