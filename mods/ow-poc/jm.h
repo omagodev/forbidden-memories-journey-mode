@@ -130,6 +130,7 @@ void Gfx_PortraitAt(int x, int y, int size, int ax, int ay, int ot_index, unsign
 void Gfx_RectAt(int x, int y, int w, int h, int r, int g, int b, int ot_index, unsigned depth);
 void Gfx_Rect(int x, int y, int w, int h, int r, int g, int b);
 void Gfx_Backdrop(int top_rgb, int bottom_rgb);
+int Gfx_LoadFaceFile(const char *path);               /* a 48x48 record of our own (assets/portrait_*.bin) */
 int Gfx_LoadFace(int duelist);                       /* disc portrait into the speaker slot */
 extern unsigned gfx_frame;
 extern float gfx_sort_override;
@@ -318,6 +319,8 @@ int Lang_PrefRead(void);                             /* the language chosen the 
 void Lang_PrefWrite(int i);
 void Paint_Info(float *x, float *y, float *sx, float *sy);
 void Paint_Set(float x, float y);
+int Paint_Target(float *tx, float *ty);              /* the guide arrow's target in this area */
+int Dbg_LoseDuels(void);                             /* debug "lose_duels": a skipped duel counts as lost */
 int Paint_Anchor(const char *name, float *x, float *y);   /* a named place of a painted area in picture texels */
 int Paint_AnchorArea(const char *name);              /* 0 village, 1 cistern, 2 arena, -1 unknown */
 int Paint_Area(void);

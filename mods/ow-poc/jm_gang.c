@@ -91,6 +91,9 @@ static int pick_member(void)
  * which two changes as the player duels, so the same corner is not theirs for ever. */
 static const char *const hangouts[] = {"east_road", "notice_sign", "date_palm", "river_bank", "plaza_center", "bakery_door"};
 #define HANGOUTS ((int)(sizeof(hangouts) / sizeof(hangouts[0])))
+/* the harbor, the ship and the beach have two corners each, off the story's own spots (the village names
+ * meant village places there: a bare name falls back to the first area that has it) */
+static const char *const hangouts_kingdom[] = {"hangout_a", "hangout_b"};
 
 int Gang_Figures(GangFigure *out, int max)
 {
@@ -101,8 +104,12 @@ int Gang_Figures(GangFigure *out, int max)
     for (i = 0; i < 2 && n < max; i++) {
         int spot = (int)((seed >> (i * 5)) % HANGOUTS);
         int who = (int)((seed >> (i * 7 + 3)) % (unsigned)count);
+        const char *area = Paint_AreaId();
+        char name[48];
         float x, y;
-        if (!Paint_Anchor(hangouts[spot], &x, &y)) continue;
+        if (area && strcmp(area, "village")) snprintf(name, sizeof(name), "%s.%s", area, hangouts_kingdom[i]);
+        else snprintf(name, sizeof(name), "village.%s", hangouts[spot]);
+        if (!Paint_Anchor(name, &x, &y)) continue;
         out[n].x = x + (i ? 34.0f : -34.0f);      /* two of them, a step apart */
         out[n].y = y + (i ? 8.0f : 0.0f);
         out[n].member = who;

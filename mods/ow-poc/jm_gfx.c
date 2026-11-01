@@ -161,6 +161,26 @@ int Gfx_LoadFace(int duelist)
     return 1;
 }
 
+/* A portrait of the mod's own (a parody rival, the observer): the disc's record layout, from a file. */
+int Gfx_LoadFaceFile(const char *path)
+{
+    long size = 0;
+    unsigned char *record = Jm_Slurp(path, &size);
+    u16 *bank = SoftGpu_Bank(BANK);
+    const u16 *palette;
+    int x, y;
+    if (!record || size < (long)PORTRAIT_RECORD || !bank) { free(record); return 0; }
+    palette = (const u16 *)(record + 0x900);
+    for (y = 0; y < 48; y++)
+        for (x = 0; x < 48; x++) {
+            int index = record[y * 48 + x];
+            u16 c = index < 64 ? palette[index] : 0;
+            bank[(size_t)(DYN_PORT_Y + y) * SOFT_GPU_WIDTH + DYN_PORT_X + x] = c ? (u16)(c | 0x8000) : 0;
+        }
+    free(record);
+    return 1;
+}
+
 /* ---------------------------------------------------------------- camera */
 static float PITCH_C = 0.7071f, PITCH_S = 0.7071f;
 #define FOCAL 380.0f

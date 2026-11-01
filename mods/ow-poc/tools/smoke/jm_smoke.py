@@ -106,6 +106,13 @@ class Run:
         elif op == "until":
             if not self.until(s[1], s[2] if len(s) > 2 else 900): self.problems.append("timeout waiting for log %r" % s[1])
         elif op == "snap": self.snap(s[1])
+        elif op == "release":                 # the player's view: no debug.json, Dev mode off, Continue from the save just made
+            for f in ("debug.json",): (self.data / f).unlink(missing_ok=True)
+            (self.data / "devmode.cfg").write_text("0\n")
+            try: self.g.close()
+            except Exception: pass            # noqa: BLE001
+            time.sleep(1)
+            self.start()
         elif op == "restart":                 # close the game and start it again on the same user folder (settings that persist)
             try: self.g.close()
             except Exception: pass            # noqa: BLE001

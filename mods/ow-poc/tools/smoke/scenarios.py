@@ -321,4 +321,63 @@ SCENARIOS.update({
         steps=[("wait", 60), ("press", "cross"), ("wait", 120), ("press", "cross"), ("wait", 40), ("snap", "arena")], expect=[]),
     "cap2_starter_deck": dict(desc="the weak starter deck in the deck editor", preset="6 Hakim's hint (Kemet next)", settings={"deck_slots": 0}, debug={"starter": True},
         steps=[("press", "start", 5, 30), ("press", "cross", 5, 30), ("wait", 400), ("snap", "deck_editor")], expect=["starter deck given"]),
+
+})
+GO = ("press", ["r1", "l1", "cross"], 4, 30)          # debug chord: stand next to the objective
+def beat(scene, label, frames=900, after=200):
+    return [("press", "circle", 4, 20), GO, ("wait", 20), ("press", "cross"), ("until", "scene " + scene, frames), ("wait", after), ("snap", label)]
+SAVE = [("wait", 60), ("press", "start", 5, 30), ("press", "down", 5, 20), ("press", "cross", 5, 30), ("press", "triangle", 5, 20),
+        ("press", "down", 5, 20), ("press", "down", 5, 20), ("press", "cross", 5, 40), ("press", "triangle", 5, 20), ("press", "triangle", 5, 30), ("wait", 30)]
+REL = SAVE + [("release",), ("wait", 120)]
+WALK = [s for i in range(14) for s in (("hold", "right", 90), ("hold", "down", 30), ("hold", "left", 90), ("hold", "up", 30))]
+E2E = dict(skip_dialogue=True, win_duels=True)
+SCENARIOS.update({
+    "e2e_harbor_to_beach": dict(desc="play-through: Inspector, gate, Courier, farewells, board, Mai, InsetoKaiba, the mast cameo, the beach, the mirror, Weevil won, chapter 2 end",
+        preset="14 harbor gate (Inspector)", lang=1, debug=dict(E2E, coins=300),
+        steps=beat("dk1_inspector_pre", "inspector") + [("until", "duel over", 900), ("wait", 300), ("snap", "gate_open")]
+            + beat("dk1_shadi_pre", "courier") + [("until", "duel over", 900), ("until", "observer", 900), ("wait", 30), ("snap", "breakwater_mago"), ("until", "saved (stage 6", 1500), ("wait", 200)]
+            + beat("dk1_simon_farewell", "simon_farewell", after=400) + beat("dk1_teana_farewell", "teana_farewell", after=400) + beat("dk1_jono_thanks", "jono_thanks", after=400) + beat("dk1_jono_farewell", "jono_farewell", after=400)
+            + beat("dk1_board", "board", after=100) + [("until", "journey: music 20", 900), ("wait", 200), ("snap", "ship")]
+            + beat("dk1_mai_rules", "mai", after=500) + beat("dk1_inseto_pre", "inseto") + [("until", "duel over", 900), ("wait", 400)]
+            + beat("dk1_arrival", "bow", after=20) + [("until", "observer", 600), ("wait", 20), ("snap", "mast_mago"), ("until", "journey: music 30", 1500), ("wait", 100)]
+            + [("until", "scene dk2_landing", 600), ("wait", 600), ("snap", "beach")]
+            + beat("dk2_mirror", "mirror", after=600) + [("until", "scene dk2_weevil_ambush", 900), ("wait", 600), ("snap", "weevil_ambush")]
+            + beat("dk2_weevil_pre", "weevil_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "weevil_won")]
+            + beat("dk2_hooded_shore", "hooded", after=500) + beat("dk2_camp", "camp", after=500) + beat("dk2_jungle_locked", "jungle_end", after=300)
+            + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")],
+        expect=["scene dk1_inspector_pre", "scene dk1_shadi_pre", "scene dk1_board", "scene dk1_mai_rules", "scene dk1_inseto_pre", "scene dk1_arrival",
+                "observer mago", "scene dk2_landing", "scene dk2_mirror", "scene dk2_weevil_ambush", "star duel won, stars 2", "saved (stage 12",
+                "scene dk2_hooded_shore", "scene dk2_camp", "scene dk2_jungle_locked", "journey: music 18", "journey: music 20", "journey: music 30"]),
+    "e2e_weevil_lose": dict(desc="Weevil's wager lost with the last star: the Shore Camp, one star back, no game over; then the rematch is won",
+        preset="20 Weevil waits (wager)", lang=1, debug=dict(skip_dialogue=True, lose_duels=True, stars=1),
+        steps=beat("dk2_weevil_pre", "weevil_pre") + [("until", "star duel lost", 900), ("until", "scene k1_eliminated", 600), ("wait", 600), ("snap", "camp_wakeup")],
+        expect=["star duel lost, stars 1 (eliminations 1)", "scene k1_eliminated"]),
+    "e2e_gang_harbor": dict(desc="a Jackal ambush in the harbor (west end, away from the objective)", preset="14 harbor gate (Inspector)", lang=0,
+        debug={"skip_dialogue": True, "win_duels": True, "coins": 300, "gang_ready": True, "teleport": "harbor.hangout_b"},
+        steps=[("wait", 60), ("press", ["r1", "l1", "circle"], 4, 30)] + [s for i in range(8) for s in (("hold", "right", 25), ("hold", "left", 25))] + [("snap", "ambush"), ("press", "cross", 5, 30), ("press", "cross", 5, 30), ("until", "duel over", 900), ("wait", 200), ("snap", "after_ambush")], expect=["ambush won"]),
+    "e2e_gang_ship": dict(desc="a Jackal ambush on the ship", preset="17 on the ship (Mai, InsetoKaiba)", lang=1,
+        debug={"skip_dialogue": True, "win_duels": True, "coins": 300, "gang_ready": True, "teleport": "ship_deck.hangout_b"},
+        steps=[("wait", 60), ("press", ["r1", "l1", "circle"], 4, 30)] + WALK[:16] + [("snap", "ambush"), ("press", "cross", 5, 30), ("press", "cross", 5, 30), ("until", "duel over", 900), ("wait", 200), ("snap", "after_ambush")], expect=["ambush won"]),
+    # ---- the player's view: the state is made with debug.json, saved from the START menu, then the game restarts without it
+    "final_harbor": dict(desc="player view: the harbor", preset="15 Courier at the pier end", lang=1, debug={"teleport": "harbor.harbor_mid"},
+        steps=REL + [("snap", "harbor")], expect=["dev mode 0"]),
+    "final_ship": dict(desc="player view: the ship with Mai and InsetoKaiba", preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.mast_top"},
+        steps=REL + [("snap", "ship")], expect=["dev mode 0"]),
+    "final_beach": dict(desc="player view: the Shore of Illusions", preset="21 chapter 2 done", lang=1, debug={"teleport": "kingdom_beach.beach_center"},
+        steps=REL + [("snap", "beach")], expect=["dev mode 0"]),
+    "final_weevil": dict(desc="player view: Weevil's duel intro", preset="20 Weevil waits (wager)", lang=1, debug={"teleport": "kingdom_beach.weevil_spot"},
+        steps=REL + [("hold", "down", 6), ("press", "up", 3, 10), ("press", "cross"), ("until", "scene dk2_weevil_pre", 300), ("wait", 90), ("snap", "weevil_intro"),
+                     ("press", "cross", 5, 60), ("wait", 60), ("snap", "weevil_intro2")], expect=["scene dk2_weevil_pre"]),
+    "final_camp": dict(desc="player view: woken at the Shore Camp with one star after losing the last one", preset="20 Weevil waits (wager)", lang=1,
+        debug={"skip_dialogue": True, "lose_duels": True, "stars": 1},
+        steps=beat("dk2_weevil_pre", "pre") + [("until", "scene k1_eliminated", 900), ("wait", 900)] + REL + [("snap", "camp"),
+               ("press", "cross"), ("until", "scene dk2_camp", 300), ("wait", 90), ("snap", "camp_talk")], expect=["scene dk2_camp", "dev mode 0"]),
+    "final_gang": dict(desc="player view: a Jackal ambush on the ship", preset="17 on the ship (Mai, InsetoKaiba)", lang=1,
+        debug={"coins": 300, "walked": 400, "teleport": "ship_deck.hangout_b"},
+        steps=REL + [("hold", "left", 4), ("until", "stood by", 1500), ("wait", 120), ("snap", "ambush"), ("press", "cross", 5, 40), ("wait", 60), ("snap", "ambush2")],
+        expect=["stood by", "dev mode 0"]),
+    "final_mai": dict(desc="player view: Mai's portrait and sprite", preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.mai_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk1_mai", 300), ("wait", 90), ("snap", "mai_talk")], expect=["scene dk1_mai"]),
+    "final_inseto": dict(desc="player view: InsetoKaiba's portrait and sprite", preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.inseto_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk1_inseto", 300), ("wait", 90), ("snap", "inseto_talk")], expect=["scene dk1_inseto"]),
 })

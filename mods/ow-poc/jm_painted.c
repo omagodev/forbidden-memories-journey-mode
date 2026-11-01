@@ -362,14 +362,14 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     /* the harbor: the boardwalk runs west-east from the village road to the gangplank */
     {"spawn_gate", 70, 365, 3}, {"bridge_back", 24, 365, 3}, {"inspector_spot", 420, 330, 3}, {"harbor_mid", 560, 362, 3},
     {"shop_stall", 360, 440, 3}, {"arena_door", 250, 238, 3}, {"pier_end", 860, 362, 3}, {"gangway", 960, 362, 3},
-    {"farewell_simon", 700, 300, 3}, {"farewell_teana", 770, 425, 3}, {"farewell_jono", 630, 425, 3}, {"breakwater", 975, 600, 3},
+    {"farewell_simon", 700, 300, 3}, {"farewell_teana", 770, 425, 3}, {"farewell_jono", 630, 425, 3}, {"breakwater", 975, 600, 3}, {"hangout_a", 600, 470, 3}, {"hangout_b", 300, 300, 3},
     /* the ship: the Golden Eye's deck, the gangway at the bottom, the bow to the east */
     {"spawn_gangway", 597, 520, 4}, {"mai_spot", 820, 260, 4}, {"inseto_spot", 470, 430, 4}, {"barrel", 350, 205, 4},
-    {"bow", 1080, 335, 4}, {"mast_top", 617, 300, 4}, {"shop_stall", 726, 430, 4}, {"arena_door", 310, 400, 4},
+    {"bow", 1080, 335, 4}, {"mast_top", 617, 300, 4}, {"hangout_a", 400, 300, 4}, {"hangout_b", 900, 380, 4}, {"shop_stall", 726, 430, 4}, {"arena_door", 310, 400, 4},
     /* the Shore of Illusions */
     {"spawn", 290, 540, 5}, {"mirror_spot", 660, 200, 5}, {"weevil_spot", 470, 330, 5}, {"shore_camp", 890, 445, 5},
     {"shop_stall", 840, 300, 5}, {"arena_door", 180, 150, 5}, {"pier_far", 290, 640, 5}, {"jungle_path", 975, 80, 5},
-    {"beach_center", 560, 420, 5},
+    {"beach_center", 560, 420, 5}, {"hangout_a", 400, 500, 5}, {"hangout_b", 660, 260, 5},
 };
 #define NANCHOR ((int)(sizeof(anchors) / sizeof(anchors[0])))
 /* "area.name" picks the anchor of that area; a bare name the one in the area the player is in, else the first of that name */

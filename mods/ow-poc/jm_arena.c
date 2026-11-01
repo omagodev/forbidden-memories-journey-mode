@@ -267,7 +267,10 @@ void Arena_Overlay(void)
         snprintf(buf, sizeof(buf), "%d. %s", i + 1, Json_Str(r, "name", "?"));
         if (i == rung && rung > 0) Ui_Text(px + 8 * s, ry, ">", 0x40E0E0);
         Ui_Text(px + 24 * s, ry, buf, rgb);
-        if ((int)Json_Num(r, "champion", 0)) Ui_Text(px + pw - 90 * s, ry, EcoTr("ui.arena_champion"), 0xFFE9A0);
+        if ((int)Json_Num(r, "champion", 0)) {   /* right-aligned, a gap before the coin column (it touched "95" in PT) */
+            const char *ch = EcoTr("ui.arena_champion");
+            Ui_Text(px + pw - 50 * s - jm_host->text_width(jm_host, ch, s), ry, ch, 0xFFE9A0);
+        }
         snprintf(buf, sizeof(buf), "%d", (int)Json_Num(r, "coins", 0));
         Ui_Text(px + pw - 34 * s, ry, buf, 0xF0C860);
     }

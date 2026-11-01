@@ -1822,13 +1822,16 @@
    "portrait_id": 11
   },
   "inseto": {
-   "portrait_id": 0
+   "portrait_id": 0,
+   "portrait_file": "assets/portrait_inseto.bin"
   },
   "mago_dev": {
-   "portrait_id": 0
+   "portrait_id": 0,
+   "portrait_file": "assets/portrait_mago_hood.bin"
   },
   "mago_dev_tee": {
-   "portrait_id": 0
+   "portrait_id": 0,
+   "portrait_file": "assets/portrait_mago_tee.bin"
   },
   "mago_hidden": {
    "portrait_id": 0
@@ -2135,6 +2138,16 @@
   {
    "when": {
     "stage_ge": 7,
+    "stage_lt": 8,
+    "lacks": [
+     "inseto_won"
+    ]
+   },
+   "npc": "inseto_kaiba"
+  },
+  {
+   "when": {
+    "stage_ge": 7,
     "stage_lt": 8
    },
    "anchor": "bow"
@@ -2152,6 +2165,24 @@
     "stage_lt": 12
    },
    "npc": "weevil"
+  },
+  {
+   "when": {
+    "stage_ge": 12,
+    "lacks": [
+     "hooded_shore"
+    ]
+   },
+   "npc": "hooded_shore"
+  },
+  {
+   "when": {
+    "stage_ge": 12,
+    "lacks": [
+     "camp_met"
+    ]
+   },
+   "anchor": "shore_camp"
   },
   {
    "when": {

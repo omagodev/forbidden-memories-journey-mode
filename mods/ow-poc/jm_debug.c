@@ -44,7 +44,9 @@ void Dev_Set(int v)
     LOG("journey: dev mode %d (saved)", devbar);
 }
 int Dbg_Skip(void) { return on && skip; }
-int Dbg_WinDuels(void) { return on && win; }
+static int lose;
+int Dbg_WinDuels(void) { return on && (win || lose); }   /* no duel is played */
+int Dbg_LoseDuels(void) { return on && lose; }           /* ...and it counts as lost */
 
 void Dbg_Init(void)
 {
@@ -67,6 +69,7 @@ void Dbg_Init(void)
     on = 1;
     skip = Json_Num(cfg, "skip_dialogue", 0) != 0;
     win = Json_Num(cfg, "win_duels", 0) != 0;
+    lose = Json_Num(cfg, "lose_duels", 0) != 0;   /* "lose_duels": true  a duel is not played: it counts as lost */
     LOG("debug: ON (skip dialogue %d, win duels %d)", skip, win);
 }
 
@@ -164,6 +167,12 @@ int Dbg_Keys(unsigned short pad, unsigned short edge, int *swallow)
         name = Paint_AnchorName(anchor_at);
         if (!name) { anchor_at = 0; name = Paint_AnchorName(0); }
         if (name && Paint_Anchor(name, &x, &y)) { Paint_GoAnchor(name); jm.pt_x = x; jm.pt_y = y; jm.pt_set = 1; Ui_Message(name); LOG("debug: teleport %s", name); return 1; }
+        return 0;
+    }
+    if (edge & PAD_CROSS) {                /* stand next to the objective (the guide arrow's target), for the smoke tests' play-through */
+        float x, y;
+        if (Paint_Target(&x, &y)) { Paint_Set(x, y + 22.0f); jm.pt_x = x; jm.pt_y = y + 22.0f; jm.pt_set = 1; LOG("debug: to objective %d,%d", (int)x, (int)y); return 1; }
+        LOG("debug: no objective here");
         return 0;
     }
     if (edge & PAD_CIRCLE) {               /* bring the Jackals over on the next step */

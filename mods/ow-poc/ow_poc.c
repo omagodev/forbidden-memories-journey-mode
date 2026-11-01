@@ -224,6 +224,13 @@ static void speaker(const Page *p, const char **name, int *ax, int *ay)
     for (i = 0; i < npc_count; i++)
         if (!strcmp(npcs[i].id, p->who)) { *name = npc_name(i); face = npcs[i].portrait_id; }
     if (!strcmp(p->who, "narrator")) face = 0;
+    if (sp && Json_Str(sp, "portrait_file", NULL)) {       /* InsetoKaiba, Mago.dev: faces the disc does not have */
+        const char *file = Json_Str(sp, "portrait_file", "");
+        int key = -1000 - (int)(strlen(file) * 31 + (unsigned char)file[strlen(file) > 5 ? strlen(file) - 5 : 0]);
+        if (key != loaded_face && Gfx_LoadFaceFile(file)) loaded_face = key;
+        if (key == loaded_face) { *ax = DYN_PORT_X; *ay = DYN_PORT_Y; }
+        return;
+    }
     if (face > 0) {
         if (face != loaded_face && Gfx_LoadFace(face)) loaded_face = face;
         if (face == loaded_face) { *ax = DYN_PORT_X; *ay = DYN_PORT_Y; }
@@ -362,7 +369,7 @@ static void arm_duel(int npc)
         Say_Close();
         portrait_x = -1;
         jm.duels++;
-        D_8009B362 = 0;
+        D_8009B362 = Dbg_LoseDuels() ? 1 : 0;
         after_return = RET_DUEL;
         duel_npc = npc;
         duel_returned();
@@ -720,6 +727,7 @@ static void run(int first)
             arena_return = 1;
             in_paint_flow = 1;
             Eco_SetDropContext("arena_bout");
+            duel_win = duel_lose = NULL;    /* not the last story duel's result (its scene played again after an ambush) */
             arm_duel(ECO_NPC);
         }
         break;
@@ -739,6 +747,7 @@ static void run(int first)
             duel_is_gang = 1;
             in_paint_flow = 1;
             Eco_SetDropContext("ambush_win");
+            duel_win = duel_lose = NULL;    /* not the last story duel's result (its scene played again after an ambush) */
             arm_duel(ECO_NPC);
         }
         break;

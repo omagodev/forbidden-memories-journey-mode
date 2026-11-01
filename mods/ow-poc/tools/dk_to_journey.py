@@ -186,6 +186,9 @@ def build():
         pid = v["portrait"]
         speakers[k] = {"portrait_id": pid if 0 < pid <= 40 else 0}
     speakers["atos"] = {"portrait": "player"}
+    # faces the disc does not have (art_dk/portraits, the disc's 48x48 record layout)
+    for k, f in (("inseto", "portrait_inseto"), ("mago_dev", "portrait_mago_hood"), ("mago_hood", "portrait_mago_hood"), ("mago_dev_tee", "portrait_mago_tee")):
+        if k in speakers: speakers[k]["portrait_file"] = "assets/%s.bin" % f
     scripts = {s["id"]: s for s in en["scripts"]}
     npcs = []
     for n in en["npcs"]:
@@ -274,9 +277,12 @@ def build():
         {"when": {"stage_ge": 6, "stage_lt": 7, "lacks": ["jono_farewell"]}, "npc": "jono"},
         {"when": {"stage_ge": 6, "stage_lt": 7}, "anchor": "gangway"},
         {"when": {"stage_ge": 7, "stage_lt": 8, "lacks": ["mai_met"]}, "npc": "mai"},
+        {"when": {"stage_ge": 7, "stage_lt": 8, "lacks": ["inseto_won"]}, "npc": "inseto_kaiba"},   # the rival's duel, then the bow
         {"when": {"stage_ge": 7, "stage_lt": 8}, "anchor": "bow"},
         {"when": {"stage_ge": 10, "stage_lt": 11}, "anchor": "mirror_spot"},
         {"when": {"stage_ge": 11, "stage_lt": 12}, "npc": "weevil"},
+        {"when": {"stage_ge": 12, "lacks": ["hooded_shore"]}, "npc": "hooded_shore"},
+        {"when": {"stage_ge": 12, "lacks": ["camp_met"]}, "anchor": "shore_camp"},
         {"when": {"stage_ge": 12}, "anchor": "jungle_path"},
     ]
     steps = {q["id"]: [s["objective"] for s in q["steps"]] for q in en["quests"]}
