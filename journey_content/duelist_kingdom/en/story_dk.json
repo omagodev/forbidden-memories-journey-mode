@@ -179,6 +179,30 @@
    "short": "Hob",
    "portrait": 254,
    "note": "Forest hut keeper (economy)."
+  },
+  "keith": {
+   "name": "Bandit Keith",
+   "short": "Keith",
+   "portrait": 12,
+   "note": "Gambler who runs a toll on the rope bridge (chapter 4)."
+  },
+  "mountain_mage": {
+   "name": "Mountain Mage",
+   "short": "Mountain Mage",
+   "portrait": 25,
+   "note": "Master of the Mountain Pass (chapter 4 zone master)."
+  },
+  "croquet": {
+   "name": "Croquet",
+   "short": "Croquet",
+   "portrait": 254,
+   "note": "Pegasus's steward, the star-carver. Voice only (hooded)."
+  },
+  "cliff_cass": {
+   "name": "Cliff Cass",
+   "short": "Cass",
+   "portrait": 254,
+   "note": "Mountain tent keeper (economy)."
   }
  },
  "flags": [
@@ -433,6 +457,36 @@
    "bit": 41,
    "value": 2199023255552,
    "note": "Forest Mage beaten: five stars, end of chapter 3."
+  },
+  {
+   "name": "mountain_arrived",
+   "bit": 42,
+   "value": 4398046511104,
+   "note": "Chapter 4: entered the Mountain Pass."
+  },
+  {
+   "name": "keith_won",
+   "bit": 43,
+   "value": 8796093022208,
+   "note": "Keith beaten at the bridge: seven stars."
+  },
+  {
+   "name": "mai_mountain_won",
+   "bit": 44,
+   "value": 17592186044416,
+   "note": "Mai beaten across the bridge: eight stars."
+  },
+  {
+   "name": "carver_found",
+   "bit": 45,
+   "value": 35184372088832,
+   "note": "Croquet caught carving: the Star Chisel."
+  },
+  {
+   "name": "mountain_mage_won",
+   "bit": 46,
+   "value": 70368744177664,
+   "note": "Mountain Mage beaten: ten stars, end of chapter 4."
   }
  ],
  "stages": [
@@ -495,6 +549,26 @@
   {
    "stage": 16,
    "note": "Chapter 3 complete: the mountain pass is the next part"
+  },
+  {
+   "stage": 17,
+   "note": "Chapter 4: the pass, Keith's toll at the bridge"
+  },
+  {
+   "stage": 18,
+   "note": "Chapter 4: across the bridge, Mai waits"
+  },
+  {
+   "stage": 19,
+   "note": "Chapter 4: the star-carver in the cave"
+  },
+  {
+   "stage": 20,
+   "note": "Chapter 4: the Mountain Mage at the summit gate"
+  },
+  {
+   "stage": 21,
+   "note": "Chapter 4 complete: the castle road is the next part"
   }
  ],
  "chapters": [
@@ -530,6 +604,17 @@
    ],
    "reward": "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman",
    "unlock": "the mountain pass (chapter 4)"
+  },
+  {
+   "n": 4,
+   "title": "The Mountain Pass",
+   "region": "kingdom_mountain",
+   "stage": [
+    17,
+    21
+   ],
+   "reward": "ten stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone",
+   "unlock": "the castle road (chapter 5)"
   }
  ],
  "areas": [
@@ -568,6 +653,12 @@
    "name": "Forest of Whispers",
    "setting": "Second Kingdom area: a cross of paths in an old forest, a stone gate with a blue glow (the hidden clearing), a hermit's hut, a hollow stump.",
    "art": "exists (painted, chapter 3)"
+  },
+  {
+   "id": "kingdom_mountain",
+   "name": "Mountain Pass",
+   "setting": "Third Kingdom area: a chasm and a rope bridge, an old mine shaft, a cliff tent, a cave under a carved star, the summit gate.",
+   "art": "exists (illustrated, chapter 4)"
   }
  ],
  "anchors": {
@@ -639,6 +730,20 @@
    "forest_center": "Centre of the cross of paths.",
    "hangout_a": "East grass.",
    "hangout_b": "South-west grass."
+  },
+  "kingdom_mountain": {
+   "spawn": "Pine trail up from the forest (bottom left).",
+   "trail_camp": "A tarp by the trail (bottom left).",
+   "keith_spot": "West end of the rope bridge.",
+   "shop_stall": "Cliff Cass's tent (centre left).",
+   "arena_door": "The old mine shaft (top left): the Mine Shaft Pit.",
+   "mai_spot": "East side, past the bridge.",
+   "cave_spot": "The cave mouth under the big carved star (right).",
+   "gate_spot": "The steps of the summit gate (top).",
+   "summit_gate": "The stone arch at the top: the castle road.",
+   "pass_center": "The open trail west of the chasm.",
+   "hangout_a": "East trail.",
+   "hangout_b": "West trail by the pines."
   }
  },
  "npcs": [
@@ -1871,6 +1976,183 @@
      "script": "dk3_hermit"
     }
    ]
+  },
+  {
+   "id": "keith",
+   "name": "Bandit Keith",
+   "portrait_speaker": "keith",
+   "area": "kingdom_mountain",
+   "anchor": "keith_spot",
+   "duelist_id": 12,
+   "stages": [
+    17,
+    99
+   ],
+   "visible": "placed",
+   "note": "Bandit Keith's toll bridge: Double or Nothing (wins 2 stars, loses 1).",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       17,
+       17
+      ],
+      "flags_none": [
+       "keith_won"
+      ]
+     },
+     "script": "dk4_keith_pre",
+     "duel": "keith"
+    },
+    {
+     "when": {
+      "stage": [
+       17,
+       99
+      ]
+     },
+     "script": "dk4_keith_after"
+    }
+   ]
+  },
+  {
+   "id": "mai_mountain",
+   "name": "Mai",
+   "portrait_speaker": "mai",
+   "area": "kingdom_mountain",
+   "anchor": "mai_spot",
+   "duelist_id": 11,
+   "stages": [
+    18,
+    99
+   ],
+   "visible": "placed",
+   "note": "Mai, the rival from the ship, across the bridge: a star wager.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       18,
+       18
+      ],
+      "flags_none": [
+       "mai_mountain_won"
+      ]
+     },
+     "script": "dk4_mai_pre",
+     "duel": "mai_mountain"
+    },
+    {
+     "when": {
+      "stage": [
+       18,
+       99
+      ]
+     },
+     "script": "dk4_mai_after"
+    }
+   ]
+  },
+  {
+   "id": "star_carver",
+   "name": "Croquet",
+   "portrait_speaker": "croquet",
+   "area": "kingdom_mountain",
+   "anchor": "cave_spot",
+   "duelist_id": null,
+   "stages": [
+    19,
+    19
+   ],
+   "visible": "placed",
+   "note": "Croquet, hooded, carving a star in the cave: the payoff of the Star Marks; gone after the scene.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       19,
+       19
+      ],
+      "flags_none": [
+       "carver_found"
+      ]
+     },
+     "script": "dk4_carver",
+     "effects": [
+      {
+       "set_flag": "carver_found"
+      },
+      {
+       "give_item": "star_chisel"
+      },
+      {
+       "set_stage": 20
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mountain_mage",
+   "name": "Mountain Mage",
+   "portrait_speaker": "mountain_mage",
+   "area": "kingdom_mountain",
+   "anchor": "gate_spot",
+   "duelist_id": 25,
+   "stages": [
+    20,
+    99
+   ],
+   "visible": "placed",
+   "note": "The zone master at the summit gate once the carver is found.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       20,
+       20
+      ],
+      "flags_none": [
+       "mountain_mage_won"
+      ]
+     },
+     "script": "dk4_mage_pre",
+     "duel": "mountain_mage"
+    },
+    {
+     "when": {
+      "stage": [
+       20,
+       99
+      ]
+     },
+     "script": "dk4_mage_after"
+    }
+   ]
+  },
+  {
+   "id": "cliff_cass",
+   "name": "Cliff Cass",
+   "portrait_speaker": "cliff_cass",
+   "area": "kingdom_mountain",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    17,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       17,
+       99
+      ]
+     },
+     "script": "dk4_cliff_cass"
+    }
+   ]
   }
  ],
  "objects": [
@@ -2458,6 +2740,89 @@
    "area": "kingdom_forest",
    "anchor": "spawn",
    "dialogue_rules": []
+  },
+  {
+   "id": "star_cave",
+   "name": "Star Cave",
+   "area": "kingdom_mountain",
+   "anchor": "cave_spot",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       20,
+       99
+      ]
+     },
+     "script": "dk4_cave_empty"
+    },
+    {
+     "when": {
+      "stage": [
+       17,
+       18
+      ]
+     },
+     "script": "dk4_cave_dark"
+    }
+   ]
+  },
+  {
+   "id": "summit_gate",
+   "name": "Summit gate",
+   "area": "kingdom_mountain",
+   "anchor": "summit_gate",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       21,
+       99
+      ]
+     },
+     "script": "dk4_castle_road"
+    },
+    {
+     "when": {
+      "stage": [
+       17,
+       20
+      ]
+     },
+     "script": "dk4_gate_shut"
+    }
+   ]
+  },
+  {
+   "id": "rope_bridge_far",
+   "name": "Rope bridge",
+   "area": "kingdom_mountain",
+   "anchor": "mai_spot",
+   "dialogue_rules": []
+  },
+  {
+   "id": "trail_camp",
+   "name": "Trail camp",
+   "area": "kingdom_mountain",
+   "anchor": "trail_camp",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       17,
+       99
+      ]
+     },
+     "script": "dk4_trail_camp"
+    }
+   ]
+  },
+  {
+   "id": "mountain_exit",
+   "name": "Pine trail",
+   "area": "kingdom_mountain",
+   "anchor": "spawn",
+   "dialogue_rules": []
   }
  ],
  "items": [
@@ -2550,6 +2915,12 @@
    "name": "Whisper Leaf",
    "description": "A leaf that rustles when a star is near.",
    "source": "the Forest Mage"
+  },
+  {
+   "id": "star_chisel",
+   "name": "Star Chisel",
+   "description": "Croquet's chisel. The tip still glows like a star.",
+   "source": "Croquet, in the Star Cave"
   }
  ],
  "new_duelists": [
@@ -2950,6 +3321,32 @@
     }
    ],
    "reward": "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman"
+  },
+  {
+   "id": "q13_mountain",
+   "kind": "talk+duel+investigate",
+   "optional": false,
+   "title": "The Mountain Pass",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Beat Bandit Keith at the bridge",
+     "anchor": "kingdom_mountain.keith_spot"
+    },
+    {
+     "objective": "Beat Mai across the bridge",
+     "anchor": "kingdom_mountain.mai_spot"
+    },
+    {
+     "objective": "Find the star-carver in the cave",
+     "anchor": "kingdom_mountain.cave_spot"
+    },
+    {
+     "objective": "Beat the Mountain Mage for two stars",
+     "anchor": "kingdom_mountain.gate_spot"
+    }
+   ],
+   "reward": "ten stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"
   }
  ],
  "duels": [
@@ -3277,6 +3674,78 @@
    "stars_wager": true,
    "stars": 2,
    "note": "Zone master: +2 stars on a win, -1 on a loss. Needs forest cards or arena wins."
+  },
+  {
+   "id": "keith",
+   "npc": "keith",
+   "duelist_id": 12,
+   "chapter": 1,
+   "deck": "Keith Toll",
+   "difficulty_tier": 4,
+   "pre_script": "dk4_keith_pre",
+   "win_script": "dk4_keith_win",
+   "lose_script": "dk4_keith_lose",
+   "win_flag": "keith_won",
+   "on_win": [
+    {
+     "give_card": "Pendulum Machine"
+    },
+    {
+     "set_stage": 18
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Double or Nothing: +2 stars on a win, -1 on a loss. Machines: needs forest and mountain upgrades."
+  },
+  {
+   "id": "mai_mountain",
+   "npc": "mai_mountain",
+   "duelist_id": 11,
+   "chapter": 1,
+   "deck": "Mai Cliff",
+   "difficulty_tier": 4,
+   "pre_script": "dk4_mai_pre",
+   "win_script": "dk4_mai_win",
+   "lose_script": "dk4_mai_lose",
+   "win_flag": "mai_mountain_won",
+   "on_win": [
+    {
+     "give_card": "Harpie Lady"
+    },
+    {
+     "set_stage": 19
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 1,
+   "note": "Star wager (+1 / -1). Mai's harpies, now with real support."
+  },
+  {
+   "id": "mountain_mage",
+   "npc": "mountain_mage",
+   "duelist_id": 25,
+   "chapter": 1,
+   "deck": "Mountain Mage Summit",
+   "difficulty_tier": 5,
+   "pre_script": "dk4_mage_pre",
+   "win_script": "dk4_mage_win",
+   "lose_script": "dk4_mage_lose",
+   "win_flag": "mountain_mage_won",
+   "on_win": [
+    {
+     "give_card": "Giant Soldier of Stone"
+    },
+    {
+     "set_stage": 21
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Zone master: +2 stars on a win, -1 on a loss. Needs mountain cards or Mine Shaft Pit wins."
   }
  ],
  "transitions": [
@@ -3645,6 +4114,97 @@
     }
    ],
    "script": "dk3_clearing_open"
+  },
+  {
+   "id": "enter_mountain",
+   "when": {
+    "stage": [
+     16,
+     16
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "pass_road"
+   },
+   "effects": [
+    {
+     "set_stage": 17
+    },
+    {
+     "teleport": {
+      "area": "kingdom_mountain",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk4_enter"
+  },
+  {
+   "id": "to_mountain",
+   "when": {
+    "stage": [
+     17,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "pass_road"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_mountain",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk4_to_mountain"
+  },
+  {
+   "id": "to_forest",
+   "when": {
+    "stage": [
+     17,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "mountain_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_forest",
+      "anchor": "pass_road"
+     }
+    }
+   ],
+   "script": "dk4_to_forest"
+  },
+  {
+   "id": "mountain_arrival",
+   "when": {
+    "stage": [
+     17,
+     17
+    ],
+    "flags_none": [
+     "mountain_arrived"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true",
+    "area": "kingdom_mountain"
+   },
+   "effects": [
+    {
+     "set_flag": "mountain_arrived"
+    }
+   ],
+   "script": "dk4_arrival"
   }
  ],
  "hud_objectives": [
@@ -4002,6 +4562,51 @@
     ]
    },
    "text": "Chapter 3 complete - the mountain pass waits"
+  },
+  {
+   "when": {
+    "stage": [
+     17,
+     17
+    ]
+   },
+   "text": "Beat Bandit Keith at the bridge - Double or Nothing"
+  },
+  {
+   "when": {
+    "stage": [
+     18,
+     18
+    ]
+   },
+   "text": "Cross the bridge - Mai waits on the far side"
+  },
+  {
+   "when": {
+    "stage": [
+     19,
+     19
+    ]
+   },
+   "text": "Find who carves the stars in the cave"
+  },
+  {
+   "when": {
+    "stage": [
+     20,
+     20
+    ]
+   },
+   "text": "Beat the Mountain Mage - he wagers two stars"
+  },
+  {
+   "when": {
+    "stage": [
+     21,
+     99
+    ]
+   },
+   "text": "Chapter 4 complete - the castle road waits"
   }
  ],
  "scripts": [
@@ -6615,6 +7220,457 @@
     {
      "speaker": "hermit_hob",
      "text": "Mushrooms, moss and cards. The cards are the least weird."
+    }
+   ]
+  },
+  {
+   "id": "dk4_enter",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Chapter 3 -> 4: the hero climbs the forest road into the Mountain Pass.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Five stars glow on your glove. The rope falls away.",
+     "label": "Mountain Pass"
+    },
+    {
+     "speaker": "atos",
+     "text": "Up we go. The castle has to be somewhere above the clouds."
+    }
+   ]
+  },
+  {
+   "id": "dk4_to_mountain",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The forest road after the first visit.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The road climbs back into the rocks and the wind.",
+     "label": "Mountain Road"
+    }
+   ]
+  },
+  {
+   "id": "dk4_to_forest",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The trail back down to the forest.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The wind drops. Pine smell. The forest is below.",
+     "label": "Pine Trail"
+    }
+   ]
+  },
+  {
+   "id": "dk4_arrival",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Chapter 4 opens: the pass, the chasm and a toll at the bridge.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A chasm splits the pass. One rope bridge. One man on it.",
+     "label": "Mountain Pass"
+    },
+    {
+     "speaker": "atos",
+     "text": "Another star cut in the rock, up by that cave. Bigger this time."
+    },
+    {
+     "speaker": "keith",
+     "text": "Toll bridge, kid! Nobody crosses Bandit Keith for free."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Talk to the man guarding the rope bridge.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_pre",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Keith's Double or Nothing: a two-star wager to cross the bridge.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "House rules. Double or Nothing. You win, I pay two stars."
+    },
+    {
+     "speaker": "keith",
+     "text": "You lose, you pay one and walk back down. Sweet deal, huh?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Sweet for you. That deck smells like rigged slot machines."
+    },
+    {
+     "speaker": "keith",
+     "text": "In America we call it strategy. Shuffle up or scram?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_win",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Keith pays up and opens the bridge.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Tch. Machines jammed. Here, two stars. And this junk."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Two stars and the card Pendulum Machine.",
+     "label": "You got"
+    },
+    {
+     "speaker": "keith",
+     "text": "Blondie's waiting on the other side. She's no pushover."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Cross the rope bridge.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_lose",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Keith wins the toll.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Jackpot! Thanks for the star, kid. Bridge stays closed."
+    },
+    {
+     "speaker": "atos",
+     "text": "His machines hit hard. Cliff Cass's tent, or the mine pit."
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_after",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Keith after the duel, counting chips.",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Beat it. I'm counting chips. Bridge is yours, sucker."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_pre",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Mai on the far side of the bridge: the rival duel from the ship.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Took you long enough. I was starting to like the view."
+    },
+    {
+     "speaker": "atos",
+     "text": "Mai! You came up the pass alone? Keith let you through?"
+    },
+    {
+     "speaker": "mai",
+     "text": "Keith owed me. You owe me a duel. One star, no tricks."
+    },
+    {
+     "speaker": "mai",
+     "text": "Show me the ship wasn't luck. Ready, kid?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_win",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Mai loses with style and points at the cave.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Not bad. My ladies needed a lesson in humility."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star and the card Harpie Lady.",
+     "label": "You got"
+    },
+    {
+     "speaker": "mai",
+     "text": "Free tip. Someone taps stone in that cave every night."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Find who carves the stars in the cave.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_lose",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Mai keeps her star.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Pretty cards, weak hand. Come back when you've grown."
+    },
+    {
+     "speaker": "atos",
+     "text": "She wasn't kidding. I need sky cards. The mine pit has them."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_after",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Mai after the duel.",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Go on, detective. The cave. I'll keep the view."
+    }
+   ]
+  },
+  {
+   "id": "dk4_cave_dark",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The cave before Mai's tip.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A huge star cut over the mouth. Inside, only cold and dark.",
+     "label": "Star Cave"
+    }
+   ]
+  },
+  {
+   "id": "dk4_carver",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The star-carver caught at work: Croquet, Pegasus's steward. The payoff of the Star Marks.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Tap. Tap. A hooded man is chiseling a star into the wall.",
+     "label": "Star Cave"
+    },
+    {
+     "speaker": "atos",
+     "text": "Got you! The beach, the forest, here. You carve the stars!"
+    },
+    {
+     "speaker": "croquet",
+     "text": "Ahem. Croquet, steward of Master Pegasus. Guilty."
+    },
+    {
+     "speaker": "croquet",
+     "text": "Each star is a window. The Master watches who walks by."
+    },
+    {
+     "speaker": "atos",
+     "text": "He's been watching me since the shore? Why me?"
+    },
+    {
+     "speaker": "croquet",
+     "text": "He watches everyone. You he watches... closely. Good day."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Star Chisel he left behind.",
+     "label": "You got"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Climb to the summit gate.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_cave_empty",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The cave after Croquet is gone.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Only stone dust and the fresh star. He is long gone.",
+     "label": "Star Cave"
+    }
+   ]
+  },
+  {
+   "id": "dk4_gate_shut",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The summit gate before the Mountain Mage comes out.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A stone arch in the clouds. The wind pushes you back.",
+     "label": "Summit Gate"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_pre",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The Mountain Mage, zone master: a two-star wager at the summit gate.",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "Few reach the summit with eight stars. Fewer leave with ten."
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "I wager two. You wager one. The mountain does not bend."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten stars opens the castle. I'm not going back down now."
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "Then stand firm, pebble. Shall the stone speak?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_win",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The Mountain Mage loses: ten stars, end of chapter 4.",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "The stone cracks. Two stars, and my stone soldier."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Two stars and the card Giant Soldier of Stone.",
+     "label": "You got"
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "Croquet came this way too. The castle knows you are coming."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten stars. And a host who's been watching me the whole way."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Mountain Pass is behind you. The castle road opens.",
+     "label": "End of Chapter 4"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_lose",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The Mountain Mage keeps his stars.",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "Pebbles roll back down. Return heavier, little one."
+    },
+    {
+     "speaker": "atos",
+     "text": "Stone beats me. Cliff Cass and the Mine Shaft Pit, then."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_after",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The Mountain Mage after the duel.",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "The road beyond the arch is yours. Mind the eyes on it."
+    }
+   ]
+  },
+  {
+   "id": "dk4_castle_road",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The summit gate after chapter 4: the next part.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The castle shines above the clouds. Chapter 5 arrives in the next part.",
+     "label": "Castle Road"
+    }
+   ]
+  },
+  {
+   "id": "dk4_cliff_cass",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Cliff Cass, the mountain tent.",
+   "pages": [
+    {
+     "speaker": "cliff_cass",
+     "text": "Rope, pitons, cards. Only the cards ever save anyone."
+    }
+   ]
+  },
+  {
+   "id": "dk4_trail_camp",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "The trail camp: where you wake if the last star is lost up here.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A tarp, a cot and a lantern. Kingdom staff keep it lit.",
+     "label": "Trail Camp"
+    }
+   ]
+  },
+  {
+   "id": "k3_eliminated",
+   "legacy_id": null,
+   "chapter": 4,
+   "desc": "Last star lost in the forest or the mountains: wake at the area's trail camp with one star.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "You wake under a tarp. A star chip rests on your chest.",
+     "label": "Trail Camp"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pegasus sends his regards. One free star. Do better, duelist."
+    },
+    {
+     "speaker": "atos",
+     "text": "Back to one star. Shop, arena, thieves. Train, then climb."
     }
    ]
   }

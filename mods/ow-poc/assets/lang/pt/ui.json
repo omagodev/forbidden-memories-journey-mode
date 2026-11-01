@@ -183,7 +183,8 @@
   "chapters": [
     "A Vila dos Cochichos",
     "A Costa das Ilusoes",
-    "A Floresta dos Sussurros"
+    "A Floresta dos Sussurros",
+    "A Passagem da Montanha"
   ],
   "objectives": [
     "Duele com Bakura, o fantasma solitario",
@@ -216,7 +217,12 @@
     "Ache o duelista que grita na floresta",
     "Siga as tres Marcas de Estrela nas arvores",
     "Venca o Mago da Floresta - ele aposta duas estrelas",
-    "Capitulo 3 completo - a passagem da montanha espera"
+    "Capitulo 3 completo - a passagem da montanha espera",
+    "Venca o Bandit Keith na ponte - Dobro ou Nada",
+    "Atravesse a ponte - Mai espera do outro lado",
+    "Descubra quem entalha as estrelas na caverna",
+    "Venca o Mago da Montanha - ele aposta duas estrelas",
+    "Capitulo 4 completo - a estrada do castelo espera"
   ],
   "items": [
     "Cartao de Selos",
@@ -231,7 +237,8 @@
     "Passagem Estelar",
     "Pin do Inseto Dourado",
     "Dados Viciados",
-    "Folha Sussurrante"
+    "Folha Sussurrante",
+    "Cinzel Estelar"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -254,7 +261,12 @@
     "shell_sue": "Sue Concha",
     "rex_forest": "Rex Raptor",
     "forest_mage": "Mago da Floresta",
-    "hermit_hob": "Eremita Hob"
+    "hermit_hob": "Eremita Hob",
+    "keith": "Bandit Keith",
+    "mai_mountain": "Mai",
+    "star_carver": "Croquet",
+    "mountain_mage": "Mago da Montanha",
+    "cliff_cass": "Cliff Cass"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -281,7 +293,11 @@
     "purser": "Comissario Pim",
     "shell_sue": "Sue Concha",
     "forest_mage": "Mago da Floresta",
-    "hermit_hob": "Eremita Hob"
+    "hermit_hob": "Eremita Hob",
+    "keith": "Bandit Keith",
+    "mountain_mage": "Mago da Montanha",
+    "croquet": "Croquet",
+    "cliff_cass": "Cliff Cass"
   },
   "map": {
     "title": "MAPA",
@@ -432,7 +448,8 @@
     "Adeus, Minha Vila",
     "Regras do Mar",
     "A Costa das Ilusoes",
-    "A Floresta dos Sussurros"
+    "A Floresta dos Sussurros",
+    "A Passagem da Montanha"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
@@ -446,7 +463,8 @@
     "Fale com Simon, Teana e Jono no cais",
     "Fale com Mai no convez",
     "Olhe o espelho da praia",
-    "Venca o Rex Raptor por uma estrela"
+    "Venca o Rex Raptor por uma estrela",
+    "Venca o Bandit Keith na ponte"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
@@ -475,7 +493,8 @@
     "carta Mystical Elf; o segredo do Simon",
     "as regras das estrelas; chegar a ilha",
     "a segunda estrela, Dados Viciados, carta Hercules Beetle",
-    "cinco estrelas, Folha Sussurrante, cartas Megazowler e Mystic Horseman"
+    "cinco estrelas, Folha Sussurrante, cartas Megazowler e Mystic Horseman",
+    "dez estrelas, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -503,7 +522,8 @@
     "harbor": "Porto do Poente",
     "ship_deck": "O Olho Dourado (convez)",
     "kingdom_beach": "Costa das Ilusoes",
-    "kingdom_forest": "Floresta dos Sussurros"
+    "kingdom_forest": "Floresta dos Sussurros",
+    "kingdom_mountain": "Passagem da Montanha"
   },
   "shop": {
     "title": "Loja de Cartas",

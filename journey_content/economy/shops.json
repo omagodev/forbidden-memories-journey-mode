@@ -809,7 +809,9 @@
    "anchor": "kingdom_mountain.shop_stall",
    "price_win": 120,
    "tier": 4,
-   "open": {},
+   "open": {
+    "stage_min": 17
+   },
    "stock": {
     "always": [
      {
@@ -889,7 +891,7 @@
       "min_level": 11
      },
      {
-      "card": "Punished Eagle",
+      "card": "Mystical Sand",
       "rarity": "A",
       "price": 1920,
       "max_buy": 1,

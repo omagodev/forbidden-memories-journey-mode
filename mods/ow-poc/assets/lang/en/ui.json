@@ -183,7 +183,8 @@
   "chapters": [
     "The Whispering Village",
     "The Shore of Illusions",
-    "The Forest of Whispers"
+    "The Forest of Whispers",
+    "The Mountain Pass"
   ],
   "objectives": [
     "Duel Bakura the lonely ghost",
@@ -216,7 +217,12 @@
     "Find the duelist shouting in the forest",
     "Follow the three Star Marks on the trees",
     "Beat the Forest Mage - he wagers two stars",
-    "Chapter 3 complete - the mountain pass waits"
+    "Chapter 3 complete - the mountain pass waits",
+    "Beat Bandit Keith at the bridge - Double or Nothing",
+    "Cross the bridge - Mai waits on the far side",
+    "Find who carves the stars in the cave",
+    "Beat the Mountain Mage - he wagers two stars",
+    "Chapter 4 complete - the castle road waits"
   ],
   "items": [
     "Stamp Card",
@@ -231,7 +237,8 @@
     "Star Passage",
     "Golden Bug Pin",
     "Loaded Dice",
-    "Whisper Leaf"
+    "Whisper Leaf",
+    "Star Chisel"
   ],
   "npc_names": {
     "simon": "Simon Muran",
@@ -254,7 +261,12 @@
     "shell_sue": "Shell Sue",
     "rex_forest": "Rex Raptor",
     "forest_mage": "Forest Mage",
-    "hermit_hob": "Hermit Hob"
+    "hermit_hob": "Hermit Hob",
+    "keith": "Bandit Keith",
+    "mai_mountain": "Mai",
+    "star_carver": "Croquet",
+    "mountain_mage": "Mountain Mage",
+    "cliff_cass": "Cliff Cass"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -281,7 +293,11 @@
     "purser": "Purser Pim",
     "shell_sue": "Shell Sue",
     "forest_mage": "Forest Mage",
-    "hermit_hob": "Hermit Hob"
+    "hermit_hob": "Hermit Hob",
+    "keith": "Bandit Keith",
+    "mountain_mage": "Mountain Mage",
+    "croquet": "Croquet",
+    "cliff_cass": "Cliff Cass"
   },
   "map": {
     "title": "MAP",
@@ -424,7 +440,8 @@
     "Goodbye, Home Town",
     "Rules of the Sea",
     "The Shore of Illusions",
-    "The Forest of Whispers"
+    "The Forest of Whispers",
+    "The Mountain Pass"
   ],
   "quest_objectives": [
     "Ask Teana, Jono and the Guard",
@@ -438,7 +455,8 @@
     "Talk to Simon, Teana and Jono on the pier",
     "Talk to Mai on deck",
     "Look into the mirror on the beach",
-    "Beat Rex Raptor for a star"
+    "Beat Rex Raptor for a star",
+    "Beat Bandit Keith at the bridge"
   ],
   "quest_steps": [
     "Sit on the plaza bench until night",
@@ -467,7 +485,8 @@
     "card Mystical Elf; Simon's secret",
     "the star rules; land on the island",
     "a second star, Loaded Dice, card Hercules Beetle",
-    "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman"
+    "five stars, Whisper Leaf, cards Megazowler and Mystic Horseman",
+    "ten stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -495,7 +514,8 @@
     "harbor": "Sunset Harbor",
     "ship_deck": "The Golden Eye (ship deck)",
     "kingdom_beach": "Shore of Illusions",
-    "kingdom_forest": "Forest of Whispers"
+    "kingdom_forest": "Forest of Whispers",
+    "kingdom_mountain": "Mountain Pass"
   },
   "shop": {
     "title": "Card Shop",

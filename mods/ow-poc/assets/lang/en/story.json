@@ -2285,6 +2285,405 @@
      "text": "Mushrooms, moss and cards. The cards are the least weird."
     }
    ]
+  },
+  {
+   "id": "dk4_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Five stars glow on your glove. The rope falls away.",
+     "label": "Mountain Pass",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Up we go. The castle has to be somewhere above the clouds."
+    }
+   ]
+  },
+  {
+   "id": "dk4_to_mountain",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The road climbs back into the rocks and the wind.",
+     "label": "Mountain Road",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_to_forest",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The wind drops. Pine smell. The forest is below.",
+     "label": "Pine Trail",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A chasm splits the pass. One rope bridge. One man on it.",
+     "label": "Mountain Pass",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Another star cut in the rock, up by that cave. Bigger this time."
+    },
+    {
+     "speaker": "keith",
+     "text": "Toll bridge, kid! Nobody crosses Bandit Keith for free."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Talk to the man guarding the rope bridge.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_pre",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "House rules. Double or Nothing. You win, I pay two stars."
+    },
+    {
+     "speaker": "keith",
+     "text": "You lose, you pay one and walk back down. Sweet deal, huh?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Sweet for you. That deck smells like rigged slot machines."
+    },
+    {
+     "speaker": "keith",
+     "text": "In America we call it strategy. Shuffle up or scram?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_win",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Tch. Machines jammed. Here, two stars. And this junk."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Two stars and the card Pendulum Machine.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "keith",
+     "text": "Blondie's waiting on the other side. She's no pushover."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Cross the rope bridge.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_lose",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Jackpot! Thanks for the star, kid. Bridge stays closed."
+    },
+    {
+     "speaker": "atos",
+     "text": "His machines hit hard. Cliff Cass's tent, or the mine pit."
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_after",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Beat it. I'm counting chips. Bridge is yours, sucker."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_pre",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Took you long enough. I was starting to like the view."
+    },
+    {
+     "speaker": "atos",
+     "text": "Mai! You came up the pass alone? Keith let you through?"
+    },
+    {
+     "speaker": "mai",
+     "text": "Keith owed me. You owe me a duel. One star, no tricks."
+    },
+    {
+     "speaker": "mai",
+     "text": "Show me the ship wasn't luck. Ready, kid?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_win",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Not bad. My ladies needed a lesson in humility."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star and the card Harpie Lady.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "mai",
+     "text": "Free tip. Someone taps stone in that cave every night."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Find who carves the stars in the cave.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_lose",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Pretty cards, weak hand. Come back when you've grown."
+    },
+    {
+     "speaker": "atos",
+     "text": "She wasn't kidding. I need sky cards. The mine pit has them."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_after",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Go on, detective. The cave. I'll keep the view."
+    }
+   ]
+  },
+  {
+   "id": "dk4_cave_dark",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A huge star cut over the mouth. Inside, only cold and dark.",
+     "label": "Star Cave",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_carver",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Tap. Tap. A hooded man is chiseling a star into the wall.",
+     "label": "Star Cave",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Got you! The beach, the forest, here. You carve the stars!"
+    },
+    {
+     "speaker": "croquet",
+     "text": "Ahem. Croquet, steward of Master Pegasus. Guilty."
+    },
+    {
+     "speaker": "croquet",
+     "text": "Each star is a window. The Master watches who walks by."
+    },
+    {
+     "speaker": "atos",
+     "text": "He's been watching me since the shore? Why me?"
+    },
+    {
+     "speaker": "croquet",
+     "text": "He watches everyone. You he watches... closely. Good day."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Star Chisel he left behind.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Climb to the summit gate.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_cave_empty",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Only stone dust and the fresh star. He is long gone.",
+     "label": "Star Cave",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_gate_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A stone arch in the clouds. The wind pushes you back.",
+     "label": "Summit Gate",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_pre",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "Few reach the summit with eight stars. Fewer leave with ten."
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "I wager two. You wager one. The mountain does not bend."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten stars opens the castle. I'm not going back down now."
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "Then stand firm, pebble. Shall the stone speak?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_win",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "The stone cracks. Two stars, and my stone soldier."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Two stars and the card Giant Soldier of Stone.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "Croquet came this way too. The castle knows you are coming."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten stars. And a host who's been watching me the whole way."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Mountain Pass is behind you. The castle road opens.",
+     "label": "End of Chapter 4",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_lose",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "Pebbles roll back down. Return heavier, little one."
+    },
+    {
+     "speaker": "atos",
+     "text": "Stone beats me. Cliff Cass and the Mine Shaft Pit, then."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_after",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "The road beyond the arch is yours. Mind the eyes on it."
+    }
+   ]
+  },
+  {
+   "id": "dk4_castle_road",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The castle shines above the clouds. Chapter 5 arrives in the next part.",
+     "label": "Castle Road",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_cliff_cass",
+   "pages": [
+    {
+     "speaker": "cliff_cass",
+     "text": "Rope, pitons, cards. Only the cards ever save anyone."
+    }
+   ]
+  },
+  {
+   "id": "dk4_trail_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A tarp, a cot and a lantern. Kingdom staff keep it lit.",
+     "label": "Trail Camp",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "k3_eliminated",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "You wake under a tarp. A star chip rests on your chest.",
+     "label": "Trail Camp",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pegasus sends his regards. One free star. Do better, duelist."
+    },
+    {
+     "speaker": "atos",
+     "text": "Back to one star. Shop, arena, thieves. Train, then climb."
+    }
+   ]
   }
  ]
 }

@@ -727,3 +727,7 @@ _C2.scripts(sc, H, X, N)
 # ---------------------------------------------------------------- chapter 3 (the Forest of Whispers): dk_chapter3.py
 import dk_chapter3 as _C3
 _C3.scripts(sc, H, X, N)
+
+# ---------------------------------------------------------------- chapter 4 (the Mountain Pass): dk_chapter4.py
+import dk_chapter4 as _C4
+_C4.scripts(sc, H, X, N)

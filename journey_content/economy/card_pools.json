@@ -5275,6 +5275,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 11,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -5307,6 +5309,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 11,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -5323,6 +5327,8 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 11,
+     "arena_only": true,
+     "exclusive": true,
      "kind": "monster"
     },
     {
@@ -7495,22 +7501,6 @@
     {
      "card": "Emperor of the Land and Sea",
      "id": 400,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 14,
-     "kind": "monster"
-    },
-    {
-     "card": "Stone D.",
-     "id": 426,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 14,
-     "kind": "monster"
-    },
-    {
-     "card": "Millennium Golem",
-     "id": 453,
      "rarity": "A",
      "weight": 1,
      "min_level": 14,

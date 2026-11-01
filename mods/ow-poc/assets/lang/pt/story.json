@@ -2285,6 +2285,405 @@
      "text": "Cogumelos, musgo e cartas. As cartas sao o menos estranho."
     }
    ]
+  },
+  {
+   "id": "dk4_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Cinco estrelas brilham na luva. A corda cai sozinha.",
+     "label": "Passagem da Montanha",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Pra cima. O castelo tem que estar acima das nuvens."
+    }
+   ]
+  },
+  {
+   "id": "dk4_to_mountain",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A estrada volta a subir entre as pedras e o vento.",
+     "label": "Estrada da Montanha",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_to_forest",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O vento para. Cheiro de pinheiro. A floresta fica abaixo.",
+     "label": "Trilha dos Pinheiros",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Um abismo corta a passagem. Uma ponte de corda. Um homem nela.",
+     "label": "Passagem",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Outra estrela entalhada na rocha, perto da caverna. Maior."
+    },
+    {
+     "speaker": "keith",
+     "text": "Ponte com pedagio, moleque! Ninguem passa pelo Bandit Keith de graca."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Fale com o homem que guarda a ponte de corda.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_pre",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Regra da casa. Dobro ou Nada. Voce ganha, eu pago duas estrelas."
+    },
+    {
+     "speaker": "keith",
+     "text": "Voce perde, paga uma e desce a pe. Negocio doce, ne?"
+    },
+    {
+     "speaker": "atos",
+     "text": "Doce pra voce. Esse baralho cheira a caca-niquel viciado."
+    },
+    {
+     "speaker": "keith",
+     "text": "Na America a gente chama de estrategia. Embaralha ou some?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_win",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Tch. As maquinas travaram. Toma, duas estrelas. E essa sucata."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duas estrelas e a carta Pendulum Machine.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "keith",
+     "text": "A loirinha te espera do outro lado. Ela nao e moleza."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Atravesse a ponte de corda.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_lose",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Jackpot! Valeu pela estrela, moleque. A ponte segue fechada."
+    },
+    {
+     "speaker": "atos",
+     "text": "As maquinas dele batem forte. A tenda da Cass, ou o poco da mina."
+    }
+   ]
+  },
+  {
+   "id": "dk4_keith_after",
+   "pages": [
+    {
+     "speaker": "keith",
+     "text": "Some daqui. To contando fichas. A ponte e sua, otario."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_pre",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Demorou, hein. Eu ja estava gostando da vista."
+    },
+    {
+     "speaker": "atos",
+     "text": "Mai! Voce subiu sozinha? O Keith te deixou passar?"
+    },
+    {
+     "speaker": "mai",
+     "text": "O Keith me devia. Voce me deve um duelo. Uma estrela, sem truque."
+    },
+    {
+     "speaker": "mai",
+     "text": "Me mostra que o navio nao foi sorte. Pronto, garoto?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_win",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Nada mal. Minhas damas precisavam de uma licao."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela e a carta Harpie Lady.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "mai",
+     "text": "Dica gratis. Alguem bate na pedra daquela caverna toda noite."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Descubra quem entalha as estrelas na caverna.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_lose",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Cartas bonitas, mao fraca. Volte quando crescer."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ela nao estava brincando. Preciso de cartas do ceu. A mina tem."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mai_after",
+   "pages": [
+    {
+     "speaker": "mai",
+     "text": "Vai, detetive. A caverna. Eu fico com a vista."
+    }
+   ]
+  },
+  {
+   "id": "dk4_cave_dark",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela enorme sobre a entrada. Dentro, so frio e escuro.",
+     "label": "Caverna da Estrela",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_carver",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Tec. Tec. Um homem de capuz entalha uma estrela na parede.",
+     "label": "Caverna da Estrela",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Te peguei! A praia, a floresta, aqui. Voce entalha as estrelas!"
+    },
+    {
+     "speaker": "croquet",
+     "text": "Aham. Croquet, mordomo do Mestre Pegasus. Culpado."
+    },
+    {
+     "speaker": "croquet",
+     "text": "Cada estrela e uma janela. O Mestre ve quem passa por elas."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele me observa desde a praia? Por que eu?"
+    },
+    {
+     "speaker": "croquet",
+     "text": "Ele observa todos. Voce, ele observa... de perto. Bom dia."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Cinzel Estelar que ele deixou para tras.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Suba ate o portao do cume.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk4_cave_empty",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "So po de pedra e a estrela fresca. Ele ja sumiu.",
+     "label": "Caverna da Estrela",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_gate_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Um arco de pedra nas nuvens. O vento empurra voce de volta.",
+     "label": "Portao do Cume",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_pre",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "Poucos chegam ao cume com oito estrelas. Menos saem com dez."
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "Aposto duas. Voce aposta uma. A montanha nao se curva."
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez estrelas abrem o castelo. Nao desco agora."
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "Entao fique firme, pedrinha. A pedra pode falar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_win",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "A pedra racha. Duas estrelas, e meu soldado de pedra."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duas estrelas e a carta Giant Soldier of Stone.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "mountain_mage",
+     "text": "Croquet passou por aqui. O castelo sabe que voce vem."
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez estrelas. E um anfitriao que me observa o caminho todo."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A Passagem da Montanha ficou para tras. A estrada do castelo abre.",
+     "label": "Fim do Capitulo 4",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_lose",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "Pedrinhas rolam morro abaixo. Volte mais pesado, pequeno."
+    },
+    {
+     "speaker": "atos",
+     "text": "A pedra me venceu. A Cliff Cass e o Poco da Mina, entao."
+    }
+   ]
+  },
+  {
+   "id": "dk4_mage_after",
+   "pages": [
+    {
+     "speaker": "mountain_mage",
+     "text": "A estrada alem do arco e sua. Cuidado com os olhos nela."
+    }
+   ]
+  },
+  {
+   "id": "dk4_castle_road",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O castelo brilha acima das nuvens. O capitulo 5 chega na proxima parte.",
+     "label": "Estrada do Castelo",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk4_cliff_cass",
+   "pages": [
+    {
+     "speaker": "cliff_cass",
+     "text": "Corda, grampos, cartas. So as cartas salvam alguem."
+    }
+   ]
+  },
+  {
+   "id": "dk4_trail_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona, um catre e um lampiao. A equipe do Reino o mantem.",
+     "label": "Acampamento",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "k3_eliminated",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Voce acorda sob uma lona. Uma ficha de estrela esta no seu peito.",
+     "label": "Acampamento",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista."
+    },
+    {
+     "speaker": "atos",
+     "text": "De volta a uma estrela. Loja, arena, ladroes. Treino e subo."
+    }
+   ]
   }
  ]
 }

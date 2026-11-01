@@ -1071,7 +1071,8 @@
     "crowd"
    ],
    "unlock": {
-    "level_min": 6
+    "level_min": 6,
+    "stage_min": 17
    },
    "fee": 120,
    "ladder": [

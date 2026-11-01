@@ -902,3 +902,158 @@ _The mountain pass after chapter 3: the next part._
 _Hermit Hob, the forest hut._
 
 - **Hermit Hob**: Mushrooms, moss and cards. The cards are the least weird.
+
+### dk4_enter
+_Chapter 3 -> 4: the hero climbs the forest road into the Mountain Pass._
+
+- **Mountain Pass**: Five stars glow on your glove. The rope falls away.
+- **{name}**: Up we go. The castle has to be somewhere above the clouds.
+
+### dk4_to_mountain
+_The forest road after the first visit._
+
+- **Mountain Road**: The road climbs back into the rocks and the wind.
+
+### dk4_to_forest
+_The trail back down to the forest._
+
+- **Pine Trail**: The wind drops. Pine smell. The forest is below.
+
+### dk4_arrival
+_Chapter 4 opens: the pass, the chasm and a toll at the bridge._
+
+- **Mountain Pass**: A chasm splits the pass. One rope bridge. One man on it.
+- **{name}**: Another star cut in the rock, up by that cave. Bigger this time.
+- **Bandit Keith**: Toll bridge, kid! Nobody crosses Bandit Keith for free.
+- **Objective**: Talk to the man guarding the rope bridge.
+
+### dk4_keith_pre
+_Keith's Double or Nothing: a two-star wager to cross the bridge._
+
+- **Bandit Keith**: House rules. Double or Nothing. You win, I pay two stars.
+- **Bandit Keith**: You lose, you pay one and walk back down. Sweet deal, huh?
+- **{name}**: Sweet for you. That deck smells like rigged slot machines.
+- **Bandit Keith**: In America we call it strategy. Shuffle up or scram?  _[Duel? Yes/No]_
+
+### dk4_keith_win
+_Keith pays up and opens the bridge._
+
+- **Bandit Keith**: Tch. Machines jammed. Here, two stars. And this junk.
+- **You got**: Two stars and the card Pendulum Machine.
+- **Bandit Keith**: Blondie's waiting on the other side. She's no pushover.
+- **Objective**: Cross the rope bridge.
+
+### dk4_keith_lose
+_Keith wins the toll._
+
+- **Bandit Keith**: Jackpot! Thanks for the star, kid. Bridge stays closed.
+- **{name}**: His machines hit hard. Cliff Cass's tent, or the mine pit.
+
+### dk4_keith_after
+_Keith after the duel, counting chips._
+
+- **Bandit Keith**: Beat it. I'm counting chips. Bridge is yours, sucker.
+
+### dk4_mai_pre
+_Mai on the far side of the bridge: the rival duel from the ship._
+
+- **Mai**: Took you long enough. I was starting to like the view.
+- **{name}**: Mai! You came up the pass alone? Keith let you through?
+- **Mai**: Keith owed me. You owe me a duel. One star, no tricks.
+- **Mai**: Show me the ship wasn't luck. Ready, kid?  _[Duel? Yes/No]_
+
+### dk4_mai_win
+_Mai loses with style and points at the cave._
+
+- **Mai**: Not bad. My ladies needed a lesson in humility.
+- **You got**: A star and the card Harpie Lady.
+- **Mai**: Free tip. Someone taps stone in that cave every night.
+- **Objective**: Find who carves the stars in the cave.
+
+### dk4_mai_lose
+_Mai keeps her star._
+
+- **Mai**: Pretty cards, weak hand. Come back when you've grown.
+- **{name}**: She wasn't kidding. I need sky cards. The mine pit has them.
+
+### dk4_mai_after
+_Mai after the duel._
+
+- **Mai**: Go on, detective. The cave. I'll keep the view.
+
+### dk4_cave_dark
+_The cave before Mai's tip._
+
+- **Star Cave**: A huge star cut over the mouth. Inside, only cold and dark.
+
+### dk4_carver
+_The star-carver caught at work: Croquet, Pegasus's steward. The payoff of the Star Marks._
+
+- **Star Cave**: Tap. Tap. A hooded man is chiseling a star into the wall.
+- **{name}**: Got you! The beach, the forest, here. You carve the stars!
+- **Croquet**: Ahem. Croquet, steward of Master Pegasus. Guilty.
+- **Croquet**: Each star is a window. The Master watches who walks by.
+- **{name}**: He's been watching me since the shore? Why me?
+- **Croquet**: He watches everyone. You he watches... closely. Good day.
+- **You got**: The Star Chisel he left behind.
+- **Objective**: Climb to the summit gate.
+
+### dk4_cave_empty
+_The cave after Croquet is gone._
+
+- **Star Cave**: Only stone dust and the fresh star. He is long gone.
+
+### dk4_gate_shut
+_The summit gate before the Mountain Mage comes out._
+
+- **Summit Gate**: A stone arch in the clouds. The wind pushes you back.
+
+### dk4_mage_pre
+_The Mountain Mage, zone master: a two-star wager at the summit gate._
+
+- **Mountain Mage**: Few reach the summit with eight stars. Fewer leave with ten.
+- **Mountain Mage**: I wager two. You wager one. The mountain does not bend.
+- **{name}**: Ten stars opens the castle. I'm not going back down now.
+- **Mountain Mage**: Then stand firm, pebble. Shall the stone speak?  _[Duel? Yes/No]_
+
+### dk4_mage_win
+_The Mountain Mage loses: ten stars, end of chapter 4._
+
+- **Mountain Mage**: The stone cracks. Two stars, and my stone soldier.
+- **You got**: Two stars and the card Giant Soldier of Stone.
+- **Mountain Mage**: Croquet came this way too. The castle knows you are coming.
+- **{name}**: Ten stars. And a host who's been watching me the whole way.
+- **End of Chapter 4**: The Mountain Pass is behind you. The castle road opens.
+
+### dk4_mage_lose
+_The Mountain Mage keeps his stars._
+
+- **Mountain Mage**: Pebbles roll back down. Return heavier, little one.
+- **{name}**: Stone beats me. Cliff Cass and the Mine Shaft Pit, then.
+
+### dk4_mage_after
+_The Mountain Mage after the duel._
+
+- **Mountain Mage**: The road beyond the arch is yours. Mind the eyes on it.
+
+### dk4_castle_road
+_The summit gate after chapter 4: the next part._
+
+- **Castle Road**: The castle shines above the clouds. Chapter 5 arrives in the next part.
+
+### dk4_cliff_cass
+_Cliff Cass, the mountain tent._
+
+- **Cliff Cass**: Rope, pitons, cards. Only the cards ever save anyone.
+
+### dk4_trail_camp
+_The trail camp: where you wake if the last star is lost up here._
+
+- **Trail Camp**: A tarp, a cot and a lantern. Kingdom staff keep it lit.
+
+### k3_eliminated
+_Last star lost in the forest or the mountains: wake at the area's trail camp with one star._
+
+- **Trail Camp**: You wake under a tarp. A star chip rests on your chest.
+- **Kingdom Staff**: Pegasus sends his regards. One free star. Do better, duelist.
+- **{name}**: Back to one star. Shop, arena, thieves. Train, then climb.

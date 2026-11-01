@@ -75,7 +75,7 @@ LOCS = [
       types=["Beast", "Beast-Warrior", "Plant", "Insect", "Dinosaur"], max_power=2150, s=[],
       featured=["Two-headed King Rex", "Hitotsu-me Giant", "Flower Wolf", "Man-eater Bug", "Trent"], extra_spells=[],
       theme="Beasts, wild warriors, thick plants, insects and Rex's dinosaurs of the Forest of Whispers."),
- dict(id="mountain", area="kingdom_mountain", tier=4, arrival=8, shop=True, arena=True,
+ dict(id="mountain", area="kingdom_mountain", tier=4, arrival=8, shop=True, arena=True, stage_min=17,
       types=["Rock", "Warrior", "Machine", "Winged Beast"], max_power=2250, s=["Machine King", "Judge Man"],
       featured=["Giant Soldier of Stone", "Cyber Soldier", "Skull Red Bird", "Zanki", "Dice Armadillo"], extra_spells=[],
       theme="Rocks, gamblers' machines, harpy-like birds and warriors of the Mountain Pass."),
@@ -114,6 +114,7 @@ ARENA_EXCLUSIVE = {
     "ship": ["Deepsea Shark", "7 Colored Fish", "Skullbird"],
     "beach": ["Vermillion Sparrow", "Kwagar Hercules", "Boulder Tortoise"],
     "forest": ["Rude Kaiser", "Garoozis", "Rose Spectre of Dunn"],
+    "mountain": ["Millennium Golem", "Stone D.", "Punished Eagle"],
 }
 EXCLUSIVE_OF = {c: loc for loc, cs in ARENA_EXCLUSIVE.items() for c in cs}
 LOC = {l["id"]: l for l in LOCS}

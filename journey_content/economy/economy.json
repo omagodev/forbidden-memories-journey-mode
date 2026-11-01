@@ -206,10 +206,27 @@
     "id": "forest_mage",
     "tier": 4,
     "stars_wager": true
+   },
+   {
+    "id": "keith",
+    "tier": 4,
+    "stars_wager": true
+   },
+   {
+    "id": "mai_mountain",
+    "tier": 4,
+    "stars_wager": true
+   },
+   {
+    "id": "mountain_mage",
+    "tier": 5,
+    "stars_wager": true
    }
   ],
   "protected_cards": [
    "Dragon Treasure",
+   "Giant Soldier of Stone",
+   "Harpie Lady",
    "Hercules Beetle",
    "Illusionist Faceless Mage",
    "Javelin Beetle",
@@ -220,6 +237,7 @@
    "Mooyan Curry",
    "Mystic Horseman",
    "Mystical Elf",
+   "Pendulum Machine",
    "The 13th Grave",
    "Uraby",
    "Warrior of Tradition"

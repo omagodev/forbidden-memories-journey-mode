@@ -414,3 +414,23 @@ HUD += _C3.HUD
 CHAPTERS.append(_C3.CHAPTER)
 QUESTS += _C3.QUESTS
 DECKS.update(_C3.DECKS)
+
+# ---------------------------------------------------------------- chapter 4 (the Mountain Pass): dk_chapter4.py
+import dk_chapter4 as _C4
+SPEAKERS.update(_C4.SPEAKERS)
+FLAGS += _C4.FLAGS
+STAGES = sorted(STAGES + _C4.STAGES)
+for _i, _a in enumerate(AREAS):
+    if _a[0] == "kingdom_mountain": del AREAS[_i]; break
+AREAS.append(("kingdom_mountain", "Mountain Pass", "Passagem da Montanha", "Third Kingdom area: a chasm and a rope bridge, an old mine shaft, a cliff tent, a cave under a carved star, the summit gate.", "exists (illustrated, chapter 4)"))
+ANCHORS["kingdom_mountain"] = _C4.ANCHORS["kingdom_mountain"]
+ITEMS += _C4.ITEMS
+NPCS += _C4.NPCS
+NPC_SPEAKER.update(_C4.NPC_SPEAKER)
+OBJECTS += _C4.OBJECTS
+DUELS += _C4.DUELS
+TRANSITIONS += _C4.TRANSITIONS
+HUD += _C4.HUD
+CHAPTERS.append(_C4.CHAPTER)
+QUESTS += _C4.QUESTS
+DECKS.update(_C4.DECKS)

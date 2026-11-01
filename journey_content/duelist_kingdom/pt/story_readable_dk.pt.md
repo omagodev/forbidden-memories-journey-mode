@@ -902,3 +902,158 @@ _The mountain pass after chapter 3: the next part._
 _Hermit Hob, the forest hut._
 
 - **Eremita Hob**: Cogumelos, musgo e cartas. As cartas sao o menos estranho.
+
+### dk4_enter
+_Chapter 3 -> 4: the hero climbs the forest road into the Mountain Pass._
+
+- **Passagem da Montanha**: Cinco estrelas brilham na luva. A corda cai sozinha.
+- **{name}**: Pra cima. O castelo tem que estar acima das nuvens.
+
+### dk4_to_mountain
+_The forest road after the first visit._
+
+- **Estrada da Montanha**: A estrada volta a subir entre as pedras e o vento.
+
+### dk4_to_forest
+_The trail back down to the forest._
+
+- **Trilha dos Pinheiros**: O vento para. Cheiro de pinheiro. A floresta fica abaixo.
+
+### dk4_arrival
+_Chapter 4 opens: the pass, the chasm and a toll at the bridge._
+
+- **Passagem**: Um abismo corta a passagem. Uma ponte de corda. Um homem nela.
+- **{name}**: Outra estrela entalhada na rocha, perto da caverna. Maior.
+- **Bandit Keith**: Ponte com pedagio, moleque! Ninguem passa pelo Bandit Keith de graca.
+- **Objetivo**: Fale com o homem que guarda a ponte de corda.
+
+### dk4_keith_pre
+_Keith's Double or Nothing: a two-star wager to cross the bridge._
+
+- **Bandit Keith**: Regra da casa. Dobro ou Nada. Voce ganha, eu pago duas estrelas.
+- **Bandit Keith**: Voce perde, paga uma e desce a pe. Negocio doce, ne?
+- **{name}**: Doce pra voce. Esse baralho cheira a caca-niquel viciado.
+- **Bandit Keith**: Na America a gente chama de estrategia. Embaralha ou some?  _[Duel? Yes/No]_
+
+### dk4_keith_win
+_Keith pays up and opens the bridge._
+
+- **Bandit Keith**: Tch. As maquinas travaram. Toma, duas estrelas. E essa sucata.
+- **Voce ganhou**: Duas estrelas e a carta Pendulum Machine.
+- **Bandit Keith**: A loirinha te espera do outro lado. Ela nao e moleza.
+- **Objetivo**: Atravesse a ponte de corda.
+
+### dk4_keith_lose
+_Keith wins the toll._
+
+- **Bandit Keith**: Jackpot! Valeu pela estrela, moleque. A ponte segue fechada.
+- **{name}**: As maquinas dele batem forte. A tenda da Cass, ou o poco da mina.
+
+### dk4_keith_after
+_Keith after the duel, counting chips._
+
+- **Bandit Keith**: Some daqui. To contando fichas. A ponte e sua, otario.
+
+### dk4_mai_pre
+_Mai on the far side of the bridge: the rival duel from the ship._
+
+- **Mai**: Demorou, hein. Eu ja estava gostando da vista.
+- **{name}**: Mai! Voce subiu sozinha? O Keith te deixou passar?
+- **Mai**: O Keith me devia. Voce me deve um duelo. Uma estrela, sem truque.
+- **Mai**: Me mostra que o navio nao foi sorte. Pronto, garoto?  _[Duel? Yes/No]_
+
+### dk4_mai_win
+_Mai loses with style and points at the cave._
+
+- **Mai**: Nada mal. Minhas damas precisavam de uma licao.
+- **Voce ganhou**: Uma estrela e a carta Harpie Lady.
+- **Mai**: Dica gratis. Alguem bate na pedra daquela caverna toda noite.
+- **Objetivo**: Descubra quem entalha as estrelas na caverna.
+
+### dk4_mai_lose
+_Mai keeps her star._
+
+- **Mai**: Cartas bonitas, mao fraca. Volte quando crescer.
+- **{name}**: Ela nao estava brincando. Preciso de cartas do ceu. A mina tem.
+
+### dk4_mai_after
+_Mai after the duel._
+
+- **Mai**: Vai, detetive. A caverna. Eu fico com a vista.
+
+### dk4_cave_dark
+_The cave before Mai's tip._
+
+- **Caverna da Estrela**: Uma estrela enorme sobre a entrada. Dentro, so frio e escuro.
+
+### dk4_carver
+_The star-carver caught at work: Croquet, Pegasus's steward. The payoff of the Star Marks._
+
+- **Caverna da Estrela**: Tec. Tec. Um homem de capuz entalha uma estrela na parede.
+- **{name}**: Te peguei! A praia, a floresta, aqui. Voce entalha as estrelas!
+- **Croquet**: Aham. Croquet, mordomo do Mestre Pegasus. Culpado.
+- **Croquet**: Cada estrela e uma janela. O Mestre ve quem passa por elas.
+- **{name}**: Ele me observa desde a praia? Por que eu?
+- **Croquet**: Ele observa todos. Voce, ele observa... de perto. Bom dia.
+- **Voce ganhou**: O Cinzel Estelar que ele deixou para tras.
+- **Objetivo**: Suba ate o portao do cume.
+
+### dk4_cave_empty
+_The cave after Croquet is gone._
+
+- **Caverna da Estrela**: So po de pedra e a estrela fresca. Ele ja sumiu.
+
+### dk4_gate_shut
+_The summit gate before the Mountain Mage comes out._
+
+- **Portao do Cume**: Um arco de pedra nas nuvens. O vento empurra voce de volta.
+
+### dk4_mage_pre
+_The Mountain Mage, zone master: a two-star wager at the summit gate._
+
+- **Mago da Montanha**: Poucos chegam ao cume com oito estrelas. Menos saem com dez.
+- **Mago da Montanha**: Aposto duas. Voce aposta uma. A montanha nao se curva.
+- **{name}**: Dez estrelas abrem o castelo. Nao desco agora.
+- **Mago da Montanha**: Entao fique firme, pedrinha. A pedra pode falar?  _[Duel? Yes/No]_
+
+### dk4_mage_win
+_The Mountain Mage loses: ten stars, end of chapter 4._
+
+- **Mago da Montanha**: A pedra racha. Duas estrelas, e meu soldado de pedra.
+- **Voce ganhou**: Duas estrelas e a carta Giant Soldier of Stone.
+- **Mago da Montanha**: Croquet passou por aqui. O castelo sabe que voce vem.
+- **{name}**: Dez estrelas. E um anfitriao que me observa o caminho todo.
+- **Fim do Capitulo 4**: A Passagem da Montanha ficou para tras. A estrada do castelo abre.
+
+### dk4_mage_lose
+_The Mountain Mage keeps his stars._
+
+- **Mago da Montanha**: Pedrinhas rolam morro abaixo. Volte mais pesado, pequeno.
+- **{name}**: A pedra me venceu. A Cliff Cass e o Poco da Mina, entao.
+
+### dk4_mage_after
+_The Mountain Mage after the duel._
+
+- **Mago da Montanha**: A estrada alem do arco e sua. Cuidado com os olhos nela.
+
+### dk4_castle_road
+_The summit gate after chapter 4: the next part._
+
+- **Estrada do Castelo**: O castelo brilha acima das nuvens. O capitulo 5 chega na proxima parte.
+
+### dk4_cliff_cass
+_Cliff Cass, the mountain tent._
+
+- **Cliff Cass**: Corda, grampos, cartas. So as cartas salvam alguem.
+
+### dk4_trail_camp
+_The trail camp: where you wake if the last star is lost up here._
+
+- **Acampamento**: Uma lona, um catre e um lampiao. A equipe do Reino o mantem.
+
+### k3_eliminated
+_Last star lost in the forest or the mountains: wake at the area's trail camp with one star._
+
+- **Acampamento**: Voce acorda sob uma lona. Uma ficha de estrela esta no seu peito.
+- **Staff do Reino**: Pegasus manda lembrancas. Uma estrela gratis. Faca melhor, duelista.
+- **{name}**: De volta a uma estrela. Loja, arena, ladroes. Treino e subo.
