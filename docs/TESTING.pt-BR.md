@@ -10,7 +10,7 @@ Você precisa da sua própria cópia legal do disco americano (SLUS-01411). Não
 
 Depois do Cartão de Carimbos (fim da parte 2), a história abre três missões que podem ser feitas em qualquer ordem. Cada uma dá um carimbo (Perdido / Vencido / Doado). Quando os três brilham, o guarda deixa você atravessar a ponte para o porto; o porto em si é a parte 4, então por enquanto aparece um banner "Missão concluída" e a história termina em "Parte 3 concluída".
 
-* **Missão 4, O Perdido.** Ganhe a lanterna do Kemet (parte 2), vá até a pequena pirâmide na borda da vila e aperte X no alçapão. Ele abre para a cisterna, uma nova área pintada (abóbada de arenito, água, tochas, mapa 320x180). Um glifo na parede chama o observador Mago.dev, que some numa falha; aí aparece o fantasma do Bakura. Converse com ele e duele (deck "Yami Bakura"). Vitória: o Escaravelho do Fundador e o carimbo Perdido. A escada por onde você entrou leva de volta para fora.
+* **Missão 4, O Perdido.** Ganhe a lanterna do Kemet (parte 2), vá até a pequena pirâmide na borda da vila e aperte X no alçapão. Ele abre para a cisterna, uma nova área ilustrada (abóbada de arenito, água, tochas, mapa 320x180). Um glifo na parede chama o observador Mago.dev, que some numa falha; aí aparece o fantasma do Bakura. Converse com ele e duele (deck "Yami Bakura"). Vitória: o Escaravelho do Fundador e o carimbo Perdido. A escada por onde você entrou leva de volta para fora.
 * **Missão 5, O Vencido.** O Jono perdeu a bandana para o Rex Raptor, que fica na estrada leste enquanto esta missão está aberta. Duele com o Rex (deck "Rex Raptor"), ganhe a Bandana do Jono e leve de volta para ganhar o carimbo Vencido.
 * **Missão 6, O Doado.** A Teana quer mel (do padeiro Hakim), água do rio (encha a jarra dela na margem do rio) e tâmaras (sacuda a tamareira). Leve tudo para ela, vença o duelo dela (deck "Teana") e ganhe o Amuleto da Sorte e o carimbo Doado.
 
@@ -22,7 +22,7 @@ Setas andam, S corre, X conversa ou examina, A abre o diário, Shift direito o m
 
 ### Ajuda de debug (desligada por padrão)
 
-Renomeie `mods/ow-poc/debug.json.OFF` para `debug.json` (pacote do Windows) ou crie `mods/ow-poc/debug.json` (`{}` basta). Sem esse arquivo nenhuma tecla de debug faz nada. Você precisa de um save do Journey (NOVO JOGO, ande alguns passos, ENTER > Salvar, depois CONTINUAR).
+Renomeie `mods/ow-poc/debug.json.OFF` para `debug.json` (repositório) ou crie `mods/ow-poc/debug.json` (`{}` basta). Sem esse arquivo nenhuma tecla de debug faz nada. Você precisa de um save do Journey (NOVO JOGO, ande alguns passos, ENTER > Salvar, depois CONTINUAR).
 
 Segure R1 (W), depois L1 (Q) e:
 
@@ -49,9 +49,9 @@ Cenários da parte 3: `dk_part3_hatch_locked`, `dk_part3_cistern`, `dk_part3_gly
 ### Limitações conhecidas (parte 3)
 
 * Os duelos com Rex, Bakura e Teana são duelos de verdade no jogo, mas os cenários automáticos só os conferem com a opção de debug "vencer duelos"; jogá-los de verdade não foi testado.
-* A cisterna é uma imagem pintada só com o brilho das tochas (sem água animada). O mapa de colisão foi feito à mão, então algum ponto pode diferir da imagem por alguns passos.
+* A cisterna é uma única ilustração iluminada só pelo brilho das tochas (sem água animada). O mapa de colisão foi feito à mão, então algum ponto pode diferir da imagem por alguns passos.
 * O sprite do Bakura é desenhado com dithering, então o rosto fica pequeno e suave.
 * Salvar dentro da cisterna faz você voltar ao alçapão na vila quando continua.
-* O glifo do Mago.dev é desenhado por código, não por um asset pintado.
+* O glifo do Mago.dev é desenhado por código, não por uma arte ilustrada.
 * A música da cisterna e os novos efeitos sonoros foram escolhidos por medição, não de ouvido (`journey.json` `"painted": {"music": ...}`).
 * O executável do Windows não foi rodado pelo autor com a parte 3; a lógica foi conferida no Linux (Xvfb) com o mesmo objeto do mod.

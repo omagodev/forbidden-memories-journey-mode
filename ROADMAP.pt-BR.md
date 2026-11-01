@@ -5,14 +5,14 @@
 O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direção. Cada item vai virar uma issue no GitHub; fique à vontade para pegar uma.
 
 ## ✅ Feito
-- Vila natal pintada (Vila Oásis), cisterna e arena subterrânea, com água, fogo e palmeiras animados
+- Vila natal ilustrada (Vila Oásis), cisterna e arena subterrânea, com água, fogo e palmeiras animados
 - NPCs no mapa ligados aos duelistas do Forbidden Memories; duelos de verdade com o motor original
 - Diálogo com o nome de quem fala na caixa de texto, pergunta de sim/não, banners de objetivo e de item
 - Missões, diário, seta de objetivo e minimapa
 - Criador de personagem com sprites em camadas (corpo, roupa, cabelo, acessório)
 - Capítulo 1 do Reino dos Duelistas (da vila natal até o navio), em inglês e português
 - Sprites LPC de caminhada para o elenco principal
-- Ícones pequenos de dica de tecla no lugar das barras de ação grandes; opção de modo dev nas opções do menu START
+- Ícones pequenos de dica de tecla no lugar das barras de ação grandes
 - Cenários de teste rápido (pulam para qualquer ponto da história)
 
 ## 🚧 Em andamento
@@ -22,7 +22,7 @@ O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direç�
 - Balancear a dificuldade entre a economia, a gangue e as arenas
 
 ## 🔜 Próximos passos
-- Porto e convés do navio pintados; o resto do capítulo 1 em mapas de verdade
+- Porto e convés do navio ilustrados; o resto do capítulo 1 em mapas de verdade
 - Capítulos 2 a 10 do Reino dos Duelistas: apostas de estrelas, zonas da ilha, o castelo e o Pegasus
 - As aparições do Mago.dev como observador e o final
 - Mais cidades, cada uma com sua loja, seu conjunto de cartas e sua arena

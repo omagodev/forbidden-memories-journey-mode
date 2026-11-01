@@ -820,6 +820,7 @@ unsigned Ui_Signature(void);
 enum { M_DECK, M_ITEMS, M_STATUS, M_SAVE, M_LANG, M_DEV, M_TITLE, M_CLOSE, M_COUNT };
 static const int menu_text[M_COUNT] = {0, 1, 2, 3, -1, -2, 4, 5};   /* index in ui "menu.items"; the language and Dev mode rows are made */
 static int msel, msub, qsel;
+static int menu_shown(int i) { return i != M_DEV || Dbg_On(); }   /* the Dev mode row exists only with debug.json */
 
 static const char *menu_name(int i, char *buf, size_t size)
 {
@@ -848,8 +849,8 @@ int Ui_MenuInput(unsigned short edge)
     }
     if (msel == M_LANG && (edge & (PAD_LEFT | PAD_RIGHT))) { Lang_Set((Lang_Current() + (edge & PAD_LEFT ? Lang_Count() - 1 : 1)) % Lang_Count()); jm_save_requested = 1; }
     if (msel == M_DEV && (edge & (PAD_LEFT | PAD_RIGHT))) Dev_Set(!Dev_BarOn());
-    if (edge & PAD_UP) msel = (msel + M_COUNT - 1) % M_COUNT;
-    if (edge & PAD_DOWN) msel = (msel + 1) % M_COUNT;
+    if (edge & PAD_UP) do msel = (msel + M_COUNT - 1) % M_COUNT; while (!menu_shown(msel));
+    if (edge & PAD_DOWN) do msel = (msel + 1) % M_COUNT; while (!menu_shown(msel));
     if (edge & (PAD_CIRCLE | PAD_START | PAD_TRIANGLE)) return 1;
     if (edge & PAD_CROSS) {
         switch (msel) {
@@ -859,7 +860,7 @@ int Ui_MenuInput(unsigned short edge)
             Lang_Set((Lang_Current() + 1) % Lang_Count());
             jm_save_requested = 1;
             break;
-        case M_DEV: Dev_Set(!Dev_BarOn()); break;
+        case M_DEV: if (Dbg_On()) Dev_Set(!Dev_BarOn()); break;
         case M_SAVE:
             jm_save_requested = 1;
             msub = 1;
@@ -882,14 +883,17 @@ void Ui_MenuOverlay(void)
     y = ui_top + ui_vis / 16;
     w = ui_w / 4;
     for (i = 0; i < M_COUNT; i++) {          /* the box is as wide as its longest row (a language or Dev mode label may be long) */
-        int rw = jm_host->text_width(jm_host, menu_name(i, nb, sizeof(nb)), ui_s) + 22 * ui_s + 14 * ui_s;
+        int rw;
+        if (!menu_shown(i)) continue;
+        rw = jm_host->text_width(jm_host, menu_name(i, nb, sizeof(nb)), ui_s) + 22 * ui_s + 14 * ui_s;
         if (rw > w) w = rw;
     }
-    h = lh * (M_COUNT + 3);
+    h = lh * (M_COUNT - !menu_shown(M_DEV) + 3);
     panel(x, y, w, h);
     text(x + 12 * ui_s, y + lh, jm.name, 0xFFE9A0);
-    for (i = 0; i < M_COUNT; i++) {
-        int ry = y + lh * (i + 2) + lh / 2;
+    for (i = 0, nb[0] = 0; i < M_COUNT; i++) {
+        int row = i - (i > M_DEV && !menu_shown(M_DEV)), ry = y + lh * (row + 2) + lh / 2;
+        if (!menu_shown(i)) continue;
         if (i == msel) text(x + 6 * ui_s, ry, ">", 0xFFFFFF);
         text(x + 22 * ui_s, ry, menu_name(i, nb, sizeof(nb)), i == msel ? 0x40E0E0 : 0xB8B8B8);
     }

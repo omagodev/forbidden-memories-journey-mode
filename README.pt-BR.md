@@ -3,7 +3,7 @@
 # ⚔️ Journey Mode
 ### Um modo RPG com história para *Yu-Gi-Oh! Forbidden Memories*
 
-Ande por mapas pintados, converse com os duelistas do Forbidden Memories, faça missões e trave duelos de verdade com o próprio motor do jogo.
+Explore mapas ilustrados, converse com os duelistas do Forbidden Memories, faça missões e trave duelos de verdade com o próprio motor do jogo.
 
 [![Release](https://img.shields.io/github/v/release/omagodev/forbidden-memories-journey-mode?include_prereleases&label=release)](https://github.com/omagodev/forbidden-memories-journey-mode/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -13,7 +13,7 @@ Ande por mapas pintados, converse com os duelistas do Forbidden Memories, faça 
 
 <a href="README.md"><img src="https://img.shields.io/badge/Read_in_English-0a3d91?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM%2FrhtAAABfklEQVR42u2WMUsCYRzGfxeSplgQGAQJIlFD2GJQRDRItUY4tdTgN7DP0QcImhxqS6KpkKbQApeShiJISIIyhdS7zpZriDsyThHktSPe3%2FTnfeDu4f%2FwPncgkUgkEkej%2BKMJw%2Bd1o2pNAMy527OD50eB7hRcAGuLEc6yBcLBMeqqDtSsMzu9XP3W05k8Uzvb4jcIsLEyRzqT5%2BccmQ5SV3WKpbKtDlDL74s3uLW%2BROr4osWQeQbQST8NjfztBgEKd09tN9gXg%2BYLQxMB%2FD5PW0N2kfclYp%2FXzfzsJFc3DwDWHBgdBqBcrdnqqtYkv7ks3mBsYaYrQ7%2F188tb4TWj%2BKMJw4z2tVKjoelWnXzonwAMeQZt9WKpLDxil7kRgJe3d3xet9V1gFXQAA1NR9WaLXoldy3eoFm67Xqvk56LJ8VGfLh3ZPTyjNVIWOwlMQzDwMEoJ%2BMx5xpUFFyiP%2Fb%2FP%2BJsPOlogwOO%2F6N2esSu%2B92Uszfo9JqRSCQSiaQ3vgD3Gx4lB45C0AAAAABJRU5ErkJggg%3D%3D" alt="🇺🇸 Read in English"></a>
 
-![Vila natal pintada com diálogo](docs/media/village_dialogue.png)
+![A vila natal ilustrada, com diálogo](docs/media/village_dialogue.png)
 
 </div>
 
@@ -23,13 +23,13 @@ Ande por mapas pintados, converse com os duelistas do Forbidden Memories, faça 
 
 O Journey Mode é um projeto de fã, feito por diversão. Peguei o trabalho incrível da comunidade do Forbidden Memories, adaptei e quis criar uma **história de RPG** em cima do jogo com que cresci.
 
-A ideia central: os duelistas da memória do jogo estão **ligados diretamente aos NPCs do mapa**. Você chega no Simon, na Teana, no Jono ou no Rex Raptor numa vila pintada, conversa com eles, e quando o duelo começa é o duelo de verdade do Forbidden Memories, com os decks, a IA e as fusões originais.
+A ideia central: os duelistas da memória do jogo estão **ligados diretamente aos NPCs do mapa**. Você chega no Simon, na Teana, no Jono ou no Rex Raptor numa vila ilustrada, conversa com eles, e quando o duelo começa é o duelo de verdade do Forbidden Memories, com os decks, a IA e as fusões originais.
 
 ## Por que sprites e não 3D?
 
 Meu objetivo inicial era um jogo que ainda rodasse num **PlayStation 1**. Comecei com mapas 3D low-poly, mas o motor gráfico do PS1 aguenta uma quantidade limitada de vértices e o resultado não me agradou.
 
-Então troquei para **fundos 2D pintados com sprites**. Eles são muito mais leves que modelos 3D, e com alguns truques (camadas, palmeiras balançando, água e fogo animados, oclusores que você atravessa por trás) dá pra fazer o jogador sentir que está num mapa bonito e rico, coisa que o 3D não permitia com aquele limite de vértices. Hoje o modo roda no port nativo para PC, mas mantém esse espírito da era PS1.
+Então troquei para **cenários ilustrados em 2D com sprites**. Eles são muito mais leves que modelos 3D, e com alguns truques (camadas, palmeiras balançando, água e fogo animados, oclusores que você atravessa por trás) dá pra fazer o jogador sentir que está num mapa bonito e rico, coisa que o 3D não permitia com aquele limite de vértices. Hoje o modo roda no port nativo para PC, mas mantém esse espírito da era PS1.
 
 | | |
 |---|---|
@@ -88,7 +88,7 @@ São mais de **250 milhões** de combinações possíveis (6 × 2 × 21 × 10 ×
 
 ## Funcionalidades
 
-- 🗺️ **Mapas pintados:** vila natal, cisterna e arena subterrânea, com água, fogo e palmeiras animados
+- 🗺️ **Mapas ilustrados:** vila natal, cisterna e arena subterrânea, com água, fogo e palmeiras animados
 - 🧑‍🤝‍🧑 **NPCs ligados aos duelistas do Forbidden Memories:** converse, faça missões e duele com o motor original
 - 🎭 **Criador de personagem** montado em camadas (corpo, roupa, cabelo, acessório)
 - 📜 **Missões, objetivos e diário**, com seta de objetivo e minimapa
@@ -96,7 +96,6 @@ São mais de **250 milhões** de combinações possíveis (6 × 2 × 21 × 10 ×
 - 🥷 **Gangue de duelistas (inicial):** te abordam com uma certa frequência, você não pode fugir, e se eles ganham levam seu dinheiro
 - 🔥 **Arenas clandestinas (inicial):** farme cartas locais e suba de nível
 - 🌐 **Inglês e português**
-- 🛠️ **Modo dev** e cenários de teste rápido que pulam direto para qualquer ponto da história
 
 ## Como jogar
 
@@ -129,12 +128,12 @@ Ideias, bugs e pull requests são muito bem-vindos: veja o [CONTRIBUTING.pt-BR.m
 
 Os destaques (lista completa no [ROADMAP.pt-BR.md](ROADMAP.pt-BR.md)):
 
-- [x] Vila natal pintada, NPCs, diálogos, missões e capítulo 1
+- [x] Vila natal ilustrada, NPCs, diálogos, missões e capítulo 1
 - [x] Criador de personagem com sprites em camadas
 - [x] Arena subterrânea com fogo animado
 - [ ] Economia, gangue e arenas: balanceamento e polimento
 - [ ] Capítulos 2 a 10 do Reino dos Duelistas
-- [ ] Mais áreas pintadas: porto, navio e as zonas da ilha
+- [ ] Mais áreas ilustradas: porto, navio e as zonas da ilha
 - [ ] 🌐 **Multiplayer online**: duele com seus amigos direto do mapa
 
 ## Nos ombros de gigantes

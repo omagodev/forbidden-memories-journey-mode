@@ -9,15 +9,15 @@ Escrito em 2026-10-25. Os comandos abaixo foram copiados de scripts deste reposi
 ## 1. O que é este projeto
 
 O Journey Mode é um modo de história / mundo aberto para Yu-Gi-Oh! Forbidden Memories. É um mod em C (`mods/ow-poc`) que roda no port nativo para PC
-"FM Recompiled" (código do port sob licença MIT, SDL3 + OpenGL + um rasterizador em CPU que emula a GPU do PS1). O mod adiciona um mundo 2D pintado
-(fundos pintados de 1280x720 + sprites pintados de 48x62), diálogos, missões, duelos com um deck por duelista, um arquivo de save e um criador de personagem.
+"FM Recompiled" (código do port sob licença MIT, SDL3 + OpenGL + um rasterizador em CPU que emula a GPU do PS1). O mod adiciona um mundo 2D ilustrado
+(cenários ilustrados de 1280x720 + sprites de personagens de 48x62), diálogos, missões, duelos com um deck por duelista, um arquivo de save e um criador de personagem.
 
 Você precisa da sua **própria imagem legal do disco americano (SLUS-01411)**. Não há dados do jogo neste repositório e nenhum deve ser commitado, nunca.
 
 ### Estado atual (partes entregues)
 | Parte | Conteúdo | Status |
 |---|---|---|
-| 1-2 | Vila natal pintada, sprites de NPCs, missões 1-3 da história do Reino dos Duelistas, música, estradas | entregue, testado pelo autor no Windows |
+| 1-2 | Vila natal ilustrada, sprites de NPCs, missões 1-3 da história do Reino dos Duelistas, música, estradas | entregue, testado pelo autor no Windows |
 | 2b/2c | Correções de menu, opção de debug, UI de diálogo (nome de quem fala em amarelo + dois-pontos na caixa de texto, banners, painel Sim/Não) | entregue |
 | 3 | Cisterna, duelo com o fantasma do Bakura, Rex Raptor / bandana do Jono, tarefas + duelo da Teana (missões 4-6), observador Mago.dev no glifo | compilado, 26 cenários de smoke passaram no Linux; **o exe do Windows nunca foi rodado pelo autor da parte 3 em diante** |
 | 3b | Pequena dica de ação (pílula do botão X) no lugar da barra grande; "Dev mode" ON/OFF no menu START | compilado |
@@ -30,7 +30,7 @@ A história termina em "Parte 3 concluída" (fim do arco da vila natal). O porto
 ## 2. Estrutura do repositório
 - `src/`, `tools/pc/`, `config/`, `Makefile`, `CMakeLists.txt`, `play.sh`, `play.bat`, `build-pc.sh`: o port FM Recompiled (código upstream; veja o CREDITS.pt-BR.md).
 - `mods/ow-poc/`: **o mod Journey Mode.**
-  - `ow_poc.c` ponto de entrada; `jm_painted.c` motor do mundo pintado (mapas, sprites, colisão, NPCs, áreas); `jm_ui.c` menus/diálogo/banners; `jm_lang.c`; `jm_save.c`; `jm_debug.c`; `jm_chargen.c` criador de personagem; `jm.h`.
+  - `ow_poc.c` ponto de entrada; `jm_painted.c` motor do mundo ilustrado (mapas, sprites, colisão, NPCs, áreas); `jm_ui.c` menus/diálogo/banners; `jm_lang.c`; `jm_save.c`; `jm_debug.c`; `jm_chargen.c` criador de personagem; `jm.h`.
   - `assets/` dados convertidos (mapas `painted*.raw`, `painted_col.bin`, sprites `spr_*.bin`, objetos, `chargen/`, `lang/`, `journey.json` = história gerada).
   - `ow-poc.o` o objeto do mod de 32 bits pré-compilado (recompile depois de qualquer mudança em `.c`).
   - `mod.json`, `debug.json.OFF` (renomeie para `debug.json` para ativar a ajuda de debug).
@@ -64,11 +64,11 @@ Leia `mods/ow-poc/tools/TESTING.md` (detalhes completos). O essencial, rodando d
 - Limitações: o harness não consegue jogar um duelo real até o fim de forma confiável, então os cenários usam `win_duels`.
 
 ## 5. Teclas do jogo (release)
-Setas andam, S (Círculo) corre, X (Xis) conversa/examina, A (Triângulo) diário, Shift direito (Select) minimapa, Enter (Start) menu principal (itens, editor de deck, status, salvar, idioma, Dev mode, voltar ao título), E (L2) água, R (R2) árvores. O Dev mode no menu START liga/desliga a linha de informação do mod no topo e fica salvo em `devmode.cfg`.
+Setas andam, S (Círculo) corre, X (Xis) conversa/examina, A (Triângulo) diário, Shift direito (Select) minimapa, Enter (Start) menu principal (itens, editor de deck, status, salvar, idioma, Dev mode, voltar ao título), E (L2) água, R (R2) árvores. Só para desenvolvedores: com um `debug.json` ativo, aparece uma linha Dev mode no menu START que liga/desliga a linha de informação do mod no topo (salva em `devmode.cfg`). Sem `debug.json` (toda versão para jogadores) a linha some e a barra não pode ser ligada.
 
 ## 6. Criando conteúdo e arte
 - **História:** edite `journey_content/duelist_kingdom/src/dk_*.py` / os JSON em EN e PT, rode `fast.sh --convert` (o conversor `mods/ow-poc/tools/dk_to_journey.py` -> `journey.json`; adicione um preset de debug para cada novo estágio de missão em `DEBUG_PRESETS`). Confira com `journey_content/duelist_kingdom/tools/check_dk.py` e `validate_story.py`. Flags: 30 de 32 usadas, então estado novo deve virar contador no save, não flag. O texto em PT é só ASCII (fonte original do jogo).
-- **Restrições do pipeline pintado:** fundos de 1280x720 divididos em quads de 128x128; recortes de oclusores ordenados por profundidade pelo Y da linha de base; grade de colisão 160x90 (células de 8 texels); o valor de texel 0 é a única transparência (sem alfa); RGB555; vizinho mais próximo. Os bancos de textura 1-15 são compartilhados com os duelos (que usam 1-12), então os bancos são recarregados a cada entrada: palmeiras 1,2,3,7,12; água 4-6; imagem 8-11; atlas 14; sprites banco 13 (páginas: kenney 0-1, jogador 2, ai 3, simon 4, teana 5, jono 6, guarda 7) e banco 15 (páginas 6-7 Rex/Bakura; o resto livre).
+- **Restrições do pipeline dos mapas ilustrados:** fundos de 1280x720 divididos em quads de 128x128; recortes de oclusores ordenados por profundidade pelo Y da linha de base; grade de colisão 160x90 (células de 8 texels); o valor de texel 0 é a única transparência (sem alfa); RGB555; vizinho mais próximo. Os bancos de textura 1-15 são compartilhados com os duelos (que usam 1-12), então os bancos são recarregados a cada entrada: palmeiras 1,2,3,7,12; água 4-6; imagem 8-11; atlas 14; sprites banco 13 (páginas: kenney 0-1, jogador 2, ai 3, simon 4, teana 5, jono 6, guarda 7) e banco 15 (páginas 6-7 Rex/Bakura; o resto livre).
 - **Sprites:** 48x62 texels, 4 direções, parado + caminhada de 4 passos, contorno de 1px. Scripts de conversão: `art_dk/tools/bake_dk.py`, `bake_npcs.py`, `bake_sprites.py`, `art_dk/part3/tools/bake_p3.py`, e `mods/ow-poc/tools/bake_ai.py`, `build_part3_assets.py` (o caminho padrão de arte dentro dele é o caminho do ambiente antigo: passe sua pasta `art_dk` como argumento 1).
 - **Camadas do criador de personagem:** geradas proceduralmente por `art_dk/chargen/tools/` (`python3 tools/build.py && python3 tools/make_previews.py && python3 tools/verify.py` dentro de `art_dk/chargen`), depois `python3 mods/ow-poc/tools/import_chargen.py` copia o manifesto + as camadas empacotadas para `mods/ow-poc/assets/chargen/`. Formato: `mods/ow-poc/tools/CHARGEN_FORMAT.md`. Pares evitados: spiky+cap, hood_down+scarf, long+scarf.
 - Alguns scripts ainda têm padrões absolutos antigos como `/workspace/study/fmrecomp/...`; troque pelo argumento do script ou edite a constante.
@@ -87,7 +87,7 @@ Requisitos do usuário: uma loja em cada cidade (dinheiro), drop de cartas só d
 - Confira com o FM Editor as combinações de equipamento/carta de campo nos conjuntos antes de lançar.
 
 ## 9. Pacote para Windows (como os zips do autor foram feitos)
-Um pacote é uma pasta com: `memories-pc.exe` + `SDL3.dll` (de `tmp/pc/win32/` depois do `build-pc.sh`), `languages/`, `LICENSE`, `game/README.txt` (uma pasta `game` vazia para o disco do usuário), `mods/` (os mods padrão mais `mods/ow-poc` contendo só `ow-poc.o`, `mod.json`, `assets/` e `debug.json.OFF`), `JOGAR_JourneyMode.bat` (define `MEMORIES_HD_TEXT=1` e abre o `memories-pc.exe`) e arquivos README. O exe do Windows não mudou da parte 2c em diante: só `ow-poc.o`, `mod.json` e `assets/` mudam entre pacotes. Nunca distribua uma imagem de disco nem um `debug.json` ativo. Não há script no repositório que gere esse zip; no ambiente do autor isso foi feito à mão.
+Um pacote é uma pasta com: `memories-pc.exe` + `SDL3.dll` (de `tmp/pc/win32/` depois do `build-pc.sh`), `languages/`, `LICENSE`, `game/README.txt` (uma pasta `game` vazia para o disco do usuário), `mods/` (os mods padrão mais `mods/ow-poc` contendo só `ow-poc.o`, `mod.json` e `assets/`; desde a v0.5.2-alpha o pacote não traz mais o `debug.json.OFF`), `JOGAR_JourneyMode.bat` (define `MEMORIES_HD_TEXT=1` e abre o `memories-pc.exe`) e arquivos README. O exe do Windows não mudou da parte 2c em diante: só `ow-poc.o`, `mod.json` e `assets/` mudam entre pacotes. Nunca distribua uma imagem de disco nem um `debug.json` ativo. Não há script no repositório que gere esse zip; no ambiente do autor isso foi feito à mão.
 
 ## 10. Limitações conhecidas / TODO
 - O exe do Windows não foi verificado nas partes 3 a 4a; o harness do Linux é o único teste automatizado.

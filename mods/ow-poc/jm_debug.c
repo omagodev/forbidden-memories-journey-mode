@@ -34,7 +34,7 @@ void Dev_Load(void)
     devbar = c == '0' ? 0 : c == '1' ? 1 : on;
     LOG("journey: dev mode %d (%s)", devbar, c == '0' || c == '1' ? "file" : on ? "default, debug.json" : "default");
 }
-int Dev_BarOn(void) { return devbar < 0 ? on : devbar; }
+int Dev_BarOn(void) { return on && (devbar < 0 ? 1 : devbar); }   /* developers only: needs debug.json, never in a player build */
 void Dev_Set(int v)
 {
     FILE *f;

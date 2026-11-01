@@ -9,15 +9,15 @@ Written 2026-10-25. Commands below are copied from scripts in this repository; *
 ## 1. What this project is
 
 Journey Mode is a story / open-world mode for Yu-Gi-Oh! Forbidden Memories. It is a C code mod (`mods/ow-poc`) that runs on the native PC port
-"FM Recompiled" (MIT-licensed port code, SDL3 + OpenGL + a CPU rasteriser that emulates the PS1 GPU). The mod adds a painted 2D world
-(1280x720 painted backgrounds + 48x62 painted sprites), dialogue, quests, duels with a deck per duelist, a save file and a character creator.
+"FM Recompiled" (MIT-licensed port code, SDL3 + OpenGL + a CPU rasteriser that emulates the PS1 GPU). The mod adds an illustrated 2D world
+(1280x720 illustrated backgrounds + 48x62 character sprites), dialogue, quests, duels with a deck per duelist, a save file and a character creator.
 
 You need your **own legal USA disc image (SLUS-01411)**. No game data is in this repository and none must ever be committed.
 
 ### Current state (parts delivered)
 | Part | Content | Status |
 |---|---|---|
-| 1-2 | Painted home town, NPC sprites, Duelist Kingdom story quests 1-3, music, roads | delivered, tested by the author on Windows |
+| 1-2 | Illustrated home town, NPC sprites, Duelist Kingdom story quests 1-3, music, roads | delivered, tested by the author on Windows |
 | 2b/2c | Menu fixes, debug option, dialogue UI (yellow speaker name + colon in the text box, banners, Yes/No panel) | delivered |
 | 3 | Cistern, Bakura ghost duel, Rex Raptor / Jono's bandana, Teana's errands + duel (quests 4-6), Mago.dev glyph observer | built, 26 smoke scenarios passed on Linux; **the Windows exe was never run by the author for part 3+** |
 | 3b | Small action hint (X button pill) instead of the big bar; "Dev mode" ON/OFF in the START menu | built |
@@ -30,7 +30,7 @@ The story ends at "Part 3 complete" (end of the home-town arc). The harbor, ship
 ## 2. Repository layout
 - `src/`, `tools/pc/`, `config/`, `Makefile`, `CMakeLists.txt`, `play.sh`, `play.bat`, `build-pc.sh`: the FM Recompiled port (upstream code; see CREDITS.md).
 - `mods/ow-poc/`: **the Journey Mode mod.**
-  - `ow_poc.c` entry; `jm_painted.c` painted world engine (maps, sprites, collision, NPCs, areas); `jm_ui.c` menus/dialogue/banners; `jm_lang.c`; `jm_save.c`; `jm_debug.c`; `jm_chargen.c` character creator; `jm.h`.
+  - `ow_poc.c` entry; `jm_painted.c` illustrated-world engine (maps, sprites, collision, NPCs, areas); `jm_ui.c` menus/dialogue/banners; `jm_lang.c`; `jm_save.c`; `jm_debug.c`; `jm_chargen.c` character creator; `jm.h`.
   - `assets/` baked data (maps `painted*.raw`, `painted_col.bin`, sprites `spr_*.bin`, props, `chargen/`, `lang/`, `journey.json` = generated story).
   - `ow-poc.o` the prebuilt 32-bit mod object (rebuild it after any `.c` change).
   - `mod.json`, `debug.json.OFF` (rename to `debug.json` to enable the debug aid).
@@ -64,11 +64,11 @@ Read `mods/ow-poc/tools/TESTING.md` (full detail). Essentials, run from the repo
 - Limits: the harness cannot reliably play a real duel to its end, so scenarios use `win_duels`.
 
 ## 5. Game keys (release)
-Arrows walk, S (Circle) run, X (Cross) talk/examine, A (Triangle) journal, Right Shift (Select) minimap, Enter (Start) main menu (items, deck editor, status, save, language, Dev mode, back to title), E (L2) water, R (R2) trees. Dev mode in the START menu toggles the mod's top info line and persists in `devmode.cfg`.
+Arrows walk, S (Circle) run, X (Cross) talk/examine, A (Triangle) journal, Right Shift (Select) minimap, Enter (Start) main menu (items, deck editor, status, save, language, Dev mode, back to title), E (L2) water, R (R2) trees. Developers only: with an active `debug.json`, a Dev mode row appears in the START menu and toggles the mod's top info line (kept in `devmode.cfg`). Without `debug.json` (every player build) the row is hidden and the bar can't be turned on.
 
 ## 6. Authoring content and art
 - **Story:** edit `journey_content/duelist_kingdom/src/dk_*.py` / the EN and PT JSON, run `fast.sh --convert` (the converter `mods/ow-poc/tools/dk_to_journey.py` -> `journey.json`; add one debug preset per new quest stage in `DEBUG_PRESETS`). Check with `journey_content/duelist_kingdom/tools/check_dk.py` and `validate_story.py`. Flags: 30 of 32 used, so new state should be save counters, not flags. PT text is ASCII only (retail font).
-- **Painted pipeline constraints:** 1280x720 backgrounds tiled into 128x128 quads; occluder cutouts depth-sorted by base-line Y; collision grid 160x90 (8-texel cells); texel value 0 is the only transparency (no alpha); RGB555; nearest-neighbour. Texture banks 1-15 are shared with duels (which use 1-12), so banks reload on every entry: palms 1,2,3,7,12; water 4-6; picture 8-11; atlas 14; sprites bank 13 (pages: kenney 0-1, player 2, ai 3, simon 4, teana 5, jono 6, guard 7) and bank 15 (pages 6-7 Rex/Bakura; the rest free).
+- **Illustrated-map pipeline constraints:** 1280x720 backgrounds tiled into 128x128 quads; occluder cutouts depth-sorted by base-line Y; collision grid 160x90 (8-texel cells); texel value 0 is the only transparency (no alpha); RGB555; nearest-neighbour. Texture banks 1-15 are shared with duels (which use 1-12), so banks reload on every entry: palms 1,2,3,7,12; water 4-6; picture 8-11; atlas 14; sprites bank 13 (pages: kenney 0-1, player 2, ai 3, simon 4, teana 5, jono 6, guard 7) and bank 15 (pages 6-7 Rex/Bakura; the rest free).
 - **Sprites:** 48x62 texels, 4 directions, idle + 4-step walk, 1px outline. Bake scripts: `art_dk/tools/bake_dk.py`, `bake_npcs.py`, `bake_sprites.py`, `art_dk/part3/tools/bake_p3.py`, and `mods/ow-poc/tools/bake_ai.py`, `build_part3_assets.py` (default art path inside it is the old workspace path: pass your `art_dk` folder as argument 1).
 - **Character creator layers:** generated procedurally by `art_dk/chargen/tools/` (`python3 tools/build.py && python3 tools/make_previews.py && python3 tools/verify.py` inside `art_dk/chargen`), then `python3 mods/ow-poc/tools/import_chargen.py` copies manifest + packed layers into `mods/ow-poc/assets/chargen/`. Format: `mods/ow-poc/tools/CHARGEN_FORMAT.md`. Avoided pairs: spiky+cap, hood_down+scarf, long+scarf.
 - Some scripts still contain old absolute defaults like `/workspace/study/fmrecomp/...`; override them with the script argument or edit the constant.
@@ -87,7 +87,7 @@ User requirements: a shop in every town (money), card drops only from the local 
 - Check equip/field-card matches in the pools with the FM Editor before shipping.
 
 ## 9. Windows package (how the author's zips were made)
-A package is a folder with: `memories-pc.exe` + `SDL3.dll` (from `tmp/pc/win32/` after `build-pc.sh`), `languages/`, `LICENSE`, `game/README.txt` (an empty `game` folder for the user's disc), `mods/` (the stock mods plus `mods/ow-poc` containing only `ow-poc.o`, `mod.json`, `assets/`, and `debug.json.OFF`), `JOGAR_JourneyMode.bat` (sets `MEMORIES_HD_TEXT=1` and starts `memories-pc.exe`), and README files. The Windows exe was unchanged from part 2c onward: only `ow-poc.o`, `mod.json` and `assets/` change between packages. Never ship a disc image or an active `debug.json`. There is no script in the repo that zips this; the author's workspace did it by hand.
+A package is a folder with: `memories-pc.exe` + `SDL3.dll` (from `tmp/pc/win32/` after `build-pc.sh`), `languages/`, `LICENSE`, `game/README.txt` (an empty `game` folder for the user's disc), `mods/` (the stock mods plus `mods/ow-poc` containing only `ow-poc.o`, `mod.json` and `assets/`; since v0.5.2-alpha the package no longer ships `debug.json.OFF`), `JOGAR_JourneyMode.bat` (sets `MEMORIES_HD_TEXT=1` and starts `memories-pc.exe`), and README files. The Windows exe was unchanged from part 2c onward: only `ow-poc.o`, `mod.json` and `assets/` change between packages. Never ship a disc image or an active `debug.json`. There is no script in the repo that zips this; the author's workspace did it by hand.
 
 ## 10. Known limits / TODO
 - Windows exe not verified for parts 3 to 4a; the Linux harness is the only automated test.

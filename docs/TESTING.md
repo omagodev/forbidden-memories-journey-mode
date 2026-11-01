@@ -10,7 +10,7 @@ You need your own legal copy of the USA disc (SLUS-01411). No game data is in th
 
 After the Stamp Card (end of part 2) the story opens three quests that can be done in any order. Each gives one stamp (Lost / Won / Given). When all three glow, the guard lets you cross the bridge to the harbor; the harbor itself is part 4, so for now you get a "Quest complete" banner and the story ends at "Part 3 complete".
 
-* **Quest 4, The Lost.** Win Kemet's lantern (part 2), walk to the little pyramid at the village edge and press X at the hatch. It opens onto the cistern, a new painted area (sandstone vault, water, torches, 320x180 map). A glyph on the wall brings the Mago.dev observer, who glitches away; then the ghost Bakura appears. Talk to him and duel him (deck "Yami Bakura"). Win: the Founder's Scarab and the Lost stamp. The stairs where you came in lead back out.
+* **Quest 4, The Lost.** Win Kemet's lantern (part 2), walk to the little pyramid at the village edge and press X at the hatch. It opens onto the cistern, a new illustrated area (sandstone vault, water, torches, 320x180 map). A glyph on the wall brings the Mago.dev observer, who glitches away; then the ghost Bakura appears. Talk to him and duel him (deck "Yami Bakura"). Win: the Founder's Scarab and the Lost stamp. The stairs where you came in lead back out.
 * **Quest 5, The Won.** Jono lost his bandana to Rex Raptor, who stands on the east road while this quest is open. Duel Rex (deck "Rex Raptor"), win Jono's Bandana and bring it back for the Won stamp.
 * **Quest 6, The Given.** Teana wants honey (from Hakim the baker), river water (fill her jug at the river bank) and dates (shake the date palm). Bring them to her, win her duel (deck "Teana") and get the Lucky Charm and the Given stamp.
 
@@ -22,7 +22,7 @@ Arrows walk, S runs, X talks or examines, A opens the journal, Right Shift the m
 
 ### Debug aid (off by default)
 
-Rename `mods/ow-poc/debug.json.OFF` to `debug.json` (Windows package) or create `mods/ow-poc/debug.json` (`{}` is enough). Without that file no debug key does anything. You need a Journey save (NEW GAME, walk a few steps, ENTER > Save, then CONTINUE).
+Rename `mods/ow-poc/debug.json.OFF` to `debug.json` (repository) or create `mods/ow-poc/debug.json` (`{}` is enough). Without that file no debug key does anything. You need a Journey save (NEW GAME, walk a few steps, ENTER > Save, then CONTINUE).
 
 Hold R1 (W), then L1 (Q) and:
 
@@ -49,9 +49,9 @@ Part 3 scenarios: `dk_part3_hatch_locked`, `dk_part3_cistern`, `dk_part3_glyph`,
 ### Known limits (part 3)
 
 * The duels with Rex, Bakura and Teana are real duels in the game, but the automated scenarios only check them with the debug "win duels" option; playing them for real is untested.
-* The cistern is a painted picture with torch glow only (no animated water). Its collision map is hand-made, so a spot may differ from the picture by a few steps.
+* The cistern is a single illustration lit only by torch glow (no animated water). Its collision map is hand-made, so a spot may differ from the picture by a few steps.
 * The Bakura sprite is drawn with a dither, so the face is small and soft.
 * Saving inside the cistern returns you to the hatch in the village when you continue.
-* The Mago.dev glyph is drawn by code, not by a painted asset.
+* The Mago.dev glyph is drawn by code, not by an illustrated asset.
 * The cistern song and the new sound effects were chosen by measurement, not by ear (`journey.json` `"painted": {"music": ...}`).
 * The Windows executable has not been run by the author with part 3; the logic was checked on Linux (Xvfb) with the same mod object.

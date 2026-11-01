@@ -221,12 +221,12 @@ SCENARIOS.update({
                ("press", "right", 5, 30), ("wait", 10), ("snap", "menu_dev_on_again_pt")],
         expect=["journey: dev mode 0 (saved)", "journey: dev mode 1 (saved)"]),
     "ui_devmode_release": dict(
-        desc="release build (no debug.json): the top bar is off by default, the menu shows Dev mode OFF, X turns it on",
+        desc="release build (no debug.json): no top bar and no Dev mode row in the START menu; Down from Language goes straight to Back to title",
         no_debug_json=True,
-        steps=[("wait", 60), ("snap", "release_default"), ("press", "start", 5, 30), ("wait", 20),
+        steps=[("wait", 60), ("snap", "release_default"), ("press", "start", 5, 30), ("wait", 20), ("snap", "menu_release"),
                ("press", "down", 5, 14), ("press", "down", 5, 14), ("press", "down", 5, 14), ("press", "down", 5, 14), ("press", "down", 5, 14),
-               ("snap", "menu_off"), ("press", "cross", 5, 30), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "bar_on")],
-        expect=["journey: dev mode 0 (default)", "journey: dev mode 1 (saved)"]),
+               ("snap", "row_after_language"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "no_bar")],
+        expect=["journey: dev mode 0 (default)"]),
     "ui_menu_rows_en": dict(
         desc="every START menu row fits inside the box (EN): Language and Dev mode selected, Back to title question open",
         preset="3 Simon won (bench next)", lang=0,
