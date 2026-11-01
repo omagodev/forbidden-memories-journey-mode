@@ -86,6 +86,26 @@ São mais de **250 milhões** de combinações possíveis (6 × 2 × 21 × 10 ×
 
 </div>
 
+## Loja de cartas
+
+Toda cidade tem uma loja da Teana: compre cartas avulsas com a arte real do jogo, abra pacotes ou venda suas cópias repetidas. Preços, níveis e estoque vêm do sistema de economia.
+
+<div align="center">
+
+**Aba Cartas**
+
+![Aba Cartas](docs/media/shop_pt_cards_selected.png)
+
+**Aba Pacotes**
+
+![Aba Pacotes](docs/media/shop_pt_packs.png)
+
+**Aba Vender**
+
+![Aba Vender](docs/media/shop_pt_sell.png)
+
+</div>
+
 ## Funcionalidades
 
 - 🗺️ **Mapas ilustrados:** vila natal, cisterna e arena subterrânea, com água, fogo e palmeiras animados

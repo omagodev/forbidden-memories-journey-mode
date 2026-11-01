@@ -86,6 +86,18 @@ That is more than **250 million** possible combinations (6 × 2 × 21 × 10 × 1
 
 </div>
 
+## Card shop
+
+Every town has a shop run by Teana: buy single cards with the real game art, open packs, or sell your spare copies. Prices, levels and stock come from the economy system.
+
+<div align="center">
+
+**Cards tab**
+
+![Cards tab](docs/media/shop_en_cards_selected.png)
+
+</div>
+
 ## Features
 
 - 🗺️ **Illustrated maps:** a home town, a cistern and an underground arena, with animated water, fire and swaying palms
