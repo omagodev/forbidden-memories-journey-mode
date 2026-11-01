@@ -24,7 +24,7 @@
 
 static int loaded, load_failed;
 int paint_area;                    /* village, old cistern, or the secret flour-cellar arena */
-enum { AREA_VILLAGE, AREA_CISTERN, AREA_ARENA, AREA_HARBOR, AREA_SHIP, AREA_BEACH, AREA_FOREST, AREA_COUNT };
+enum { AREA_VILLAGE, AREA_CISTERN, AREA_ARENA, AREA_HARBOR, AREA_SHIP, AREA_BEACH, AREA_FOREST, AREA_MOUNTAIN, AREA_COUNT };
 #define KINGDOM_ZONE(a) ((a) >= AREA_HARBOR)   /* the chapter 2 pictures: their people share sprite pages with the villagers */
 static const struct { const char *name, *pic, *col, *occ; int cw, ch, cell; } parea[AREA_COUNT] = {
     {"village", "assets/painted.raw", "assets/painted_col.bin", NULL, 160, 90, 8},
@@ -34,6 +34,7 @@ static const struct { const char *name, *pic, *col, *occ; int cw, ch, cell; } pa
     {"ship_deck", "assets/painted_ship_deck.raw", "assets/painted_ship_deck_col.bin", "assets/painted_ship_deck_occ.bin", 320, 180, 4},
     {"kingdom_beach", "assets/painted_beach.raw", "assets/painted_beach_col.bin", "assets/painted_beach_occ.bin", 320, 180, 4},
     {"kingdom_forest", "assets/painted_forest.raw", "assets/painted_forest_col.bin", "assets/painted_forest_occ.bin", 320, 180, 4},
+    {"kingdom_mountain", "assets/painted_mountain.raw", "assets/painted_mountain_col.bin", "assets/painted_mountain_occ.bin", 320, 180, 4},
 };
 static int arena_from = AREA_VILLAGE;   /* every clandestine ring is the same cellar picture: this is the place its door is in */
 static unsigned char *col;         /* the collision mask: col_w x col_h cells of col_cell texels (the village 160 x 90 of 8, the cistern 320 x 180 of 4) */
@@ -78,7 +79,7 @@ static int bench_at(float *x, float *y);
 #define SPR_FX 24
 #define SPR_FY 56
 enum { SPR_LPC_TEST, SPR_PLAYER_MESH, SPR_AI, SPR_SIMON, SPR_TEANA, SPR_JONO, SPR_GUARD, SPR_RIVAL, SPR_MAGO, SPR_BAKER, SPR_FARMER, SPR_REX, SPR_BAKURA, SPR_ARENA_CROWD, SPR_HERO,
-       SPR_SOLDIER, SPR_SHADI, SPR_MAI, SPR_WEEVIL, SPR_TRADER, SPR_CAMP, SPR_INSETO, SPR_FOREST_MAGE, SPR_COUNT };
+       SPR_SOLDIER, SPR_SHADI, SPR_MAI, SPR_WEEVIL, SPR_TRADER, SPR_CAMP, SPR_INSETO, SPR_FOREST_MAGE, SPR_KEITH, SPR_MOUNTAIN_MAGE, SPR_COUNT };
 typedef struct { const char *file; int recolour; int nf, w, h, fx, fy; unsigned char *kind, *wt, *rgb; int ok, bank, page; } Spr;
 static Spr spr[SPR_COUNT] = {
     {"assets/spr_lpc_test.bin", 0}, {"assets/spr_player.bin", 1}, {"assets/spr_ai.bin", 0},
@@ -88,19 +89,21 @@ static Spr spr[SPR_COUNT] = {
     {NULL, 0},      /* SPR_HERO: composed from the chargen layers (jm_chargen.c), no file */
     {"assets/spr_soldier.bin", 0}, {"assets/spr_shadi.bin", 0}, {"assets/spr_mai.bin", 0}, {"assets/spr_weevil.bin", 0},
     {"assets/spr_trader.bin", 0}, {"assets/spr_camp_merchant.bin", 0}, {"assets/spr_inseto.bin", 0}, {"assets/spr_forest_mage.bin", 0},
+    {"assets/spr_keith.bin", 0}, {"assets/spr_mountain_mage.bin", 0},
 };
 /* Where each sheet lives: bank 13 has eight 256x256 pages. Frames are packed into as many columns as their recorded width permits. */
-static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 15, 13,   13, 15, 15, 15, 15, 13, 13, 15};
-static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 4, 2,   7, 2, 3, 6, 7, 3, 5, 2};
+static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 15, 13,   13, 15, 15, 15, 15, 13, 13, 15, 15, 15};
+static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 4, 2,   7, 2, 3, 6, 7, 3, 5, 2, 6, 2};
 /* who may own a page where: 0 everywhere, 1 only in the home town (village, cistern, cellar), 2 only in the chapter 2 pictures.
  * The harbor, ship and beach people take the pages of the villagers who never leave home (and of the bench and hatches). */
-static const unsigned char spr_zone[SPR_COUNT] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0,   2, 2, 2, 2, 2, 2, 3, 4};
+static const unsigned char spr_zone[SPR_COUNT] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0,   2, 2, 2, 2, 2, 2, 3, 4, 5, 5};
 /* 3: only on the ship, where InsetoKaiba borrows Teana's page (she says goodbye on the pier and stays home); bank 15 page 4 is the props' */
 static int spr_zone_ok(int i, int area)
 {
     if (spr_zone[i] == 3) return area == AREA_SHIP;
     if (spr_zone[i] == 4) return area == AREA_FOREST;      /* the Forest Mage takes Shadi's page in the forest */
-    if (area == AREA_FOREST && (i == SPR_SHADI || i == SPR_WEEVIL)) return 0;
+    if (spr_zone[i] == 5) return area == AREA_MOUNTAIN;    /* Keith takes Weevil's page and the Mountain Mage Shadi's on the pass */
+    if ((area == AREA_FOREST || area == AREA_MOUNTAIN) && (i == SPR_SHADI || i == SPR_WEEVIL)) return 0;
     if (i == SPR_REX && area == AREA_FOREST) return 1;     /* Rex shares Weevil's page: in the forest it is his */
     if (i == SPR_TEANA && area == AREA_SHIP) return 0;
     return !spr_zone[i] || spr_zone[i] == (KINGDOM_ZONE(area) ? 2 : 1);
@@ -348,13 +351,20 @@ static PNpc pnpc[] = {
     {"Suit_Male", SPR_REX, 620, 410, 0.0f, 1, 30},               /* Rex Raptor, lost and stomping about */
     {"Wizard", SPR_FOREST_MAGE, 553, 262, 0.0f, 0, 0},           /* the Forest Mage at the stone gate */
     {"Worker_Male", SPR_TRADER, 440, 330, 0.0f, 0, 0},           /* Hermit Hob, the forest hut (same sheet as Dan) */
+    /* chapter 4: the Mountain Pass */
+    {"Suit_Male", SPR_KEITH, 540, 478, 4.7124f, 0, 0},           /* Bandit Keith at the west end of the rope bridge */
+    {"Ninja_Sand_Female", SPR_MAI, 850, 470, 0.0f, 1, 30},     /* Mai across the bridge */
+    {"Wizard", SPR_RIVAL, 1030, 395, 0.0f, 0, 0},                /* Croquet, hooded, carving at the cave */
+    {"Wizard", SPR_MOUNTAIN_MAGE, 740, 235, 0.0f, 0, 0},         /* the Mountain Mage at the summit gate */
+    {"Ninja_Sand_Female", SPR_CAMP, 430, 427, 0.0f, 0, 0},     /* Cliff Cass, the cliffside tent (same sheet as Sue) */
 };
 #define NPN ((int)(sizeof(pnpc) / sizeof(pnpc[0])))
 static int npc_init;
 /* Which journey.json person each villager is (the order of pnpc[]), and the talk state. */
 static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_man", "baker", "farmer", "rex", "bakura",
                                      "soldier", "shadi", "mai", "inseto_kaiba", "weevil", "dock_dan", "purser", "shell_sue", "hooded_shore",
-                                     "rex_forest", "forest_mage", "hermit_hob"};
+                                     "rex_forest", "forest_mage", "hermit_hob",
+                                     "keith", "mai_mountain", "star_carver", "mountain_mage", "cliff_cass"};
 static char pnpc_anchor[NPN][40];      /* the anchor each one was last placed at: the story moves people (the farewells) */
 #define GUARD 2
 static short guard_home[2] = {652, 168};   /* the bridge_north anchor (set from the table below) */
@@ -383,6 +393,11 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     {"spawn", 205, 680, 6}, {"rex_spot", 620, 410, 6}, {"shop_stall", 440, 330, 6}, {"star_mark_1", 260, 330, 6},
     {"star_mark_2", 950, 260, 6}, {"star_mark_3", 1080, 420, 6}, {"gate_spot", 553, 262, 6}, {"arena_door", 240, 500, 6},
     {"pass_road", 990, 150, 6}, {"forest_center", 600, 450, 6}, {"hangout_a", 747, 440, 6}, {"hangout_b", 610, 560, 6},
+    {"trail_camp", 230, 640, 6},   /* where the last star lost in the forest wakes you */
+    /* the Mountain Pass: up from the forest at the bottom left, the rope bridge over the chasm, the summit gate at the top */
+    {"spawn", 225, 690, 7}, {"trail_camp", 288, 650, 7}, {"keith_spot", 540, 478, 7}, {"shop_stall", 430, 427, 7},
+    {"arena_door", 260, 300, 7}, {"mai_spot", 850, 470, 7}, {"cave_spot", 1030, 395, 7}, {"gate_spot", 740, 235, 7},
+    {"summit_gate", 845, 162, 7}, {"pass_center", 330, 520, 7}, {"hangout_a", 880, 560, 7}, {"hangout_b", 200, 450, 7},
 };
 #define NANCHOR ((int)(sizeof(anchors) / sizeof(anchors[0])))
 /* "area.name" picks the anchor of that area; a bare name the one in the area the player is in, else the first of that name */

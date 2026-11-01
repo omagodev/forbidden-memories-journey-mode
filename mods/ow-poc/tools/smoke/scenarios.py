@@ -433,3 +433,62 @@ SCENARIOS.update({
         steps=REL + [("hold", "left", 4), ("until", "stood by", 1500), ("wait", 30), ("snap", "ambush0"), ("wait", 400), ("snap", "ambush"), ("press", "cross", 5, 40), ("wait", 60), ("snap", "ambush2")],
         expect=["stood by", "dev mode 0"]),
 })
+
+MOUNTAIN_E2E = (beat("dk4_keith_pre", "keith_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "keith_won")]
+    + beat("dk4_mai_pre", "mai_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "mai_won")]
+    + beat("dk4_carver", "carver", after=600)
+    + beat("dk4_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 900), ("snap", "mage_won")]
+    + beat("dk4_castle_road", "castle_road", after=300) + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")])
+SCENARIOS.update({
+    "e2e_ch3_to_ch4": dict(desc="chapter 3 -> 4: the forest road into the Mountain Pass, Keith's Double or Nothing, Mai across the bridge, the star-carver, the Mountain Mage, chapter 4 end",
+        preset="27 chapter 3 done", lang=1, debug=dict(E2E, coins=300),
+        steps=beat("dk4_enter", "pass_road", after=100) + [("until", "journey: music 22", 900), ("until", "scene dk4_arrival", 900), ("wait", 600), ("snap", "mountain")]
+            + MOUNTAIN_E2E,
+        expect=["scene dk4_enter", "journey: music 22", "scene dk4_arrival", "star duel won, stars 7", "scene dk4_mai_pre", "star duel won, stars 8",
+                "scene dk4_carver", "saved (stage 20", "star duel won, stars 10", "saved (stage 21", "scene dk4_castle_road"]),
+    "cap4_arrival": dict(desc="chapter 4 opens: the pass, the arrival scene", preset="28 mountain arrival (chapter 4)", lang=0, debug={"skip_dialogue": True},
+        steps=[("until", "scene dk4_arrival", 600), ("wait", 300), ("snap", "mountain")], expect=["scene dk4_arrival", "journey: music 22"]),
+    "cap4_keith": dict(desc="Keith's Double or Nothing (win: +2)", preset="29 Keith's toll (wager)", lang=0, debug=E2E,
+        steps=beat("dk4_keith_pre", "keith_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "won")], expect=["star duel won, stars 7", "saved (stage 18"]),
+    "cap4_keith_lose": dict(desc="Keith's toll lost with the last star: wake at the mountain's trail camp, not the beach", preset="29 Keith's toll (wager)", lang=1,
+        debug=dict(skip_dialogue=True, lose_duels=True, stars=1),
+        steps=beat("dk4_keith_pre", "keith_pre") + [("until", "star duel lost", 900), ("until", "scene k3_eliminated", 600), ("wait", 600), ("snap", "trail_camp")],
+        expect=["star duel lost, stars 1", "scene k3_eliminated"]),
+    "cap4_forest_lose": dict(desc="Rex's wager lost with the last star: wake at the forest's trail camp (the chapter 3 gap)", preset="23 Rex waits (wager)", lang=1,
+        debug=dict(skip_dialogue=True, lose_duels=True, stars=1),
+        steps=beat("dk3_rex_pre", "rex_pre") + [("until", "star duel lost", 900), ("until", "scene k3_eliminated", 600), ("wait", 600), ("snap", "trail_camp")],
+        expect=["star duel lost, stars 1", "scene k3_eliminated"]),
+    "cap4_mai": dict(desc="Mai's wager (win)", preset="30 Mai across the bridge (wager)", lang=0, debug=E2E,
+        steps=beat("dk4_mai_pre", "mai_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "won")], expect=["star duel won, stars 8", "saved (stage 19"]),
+    "cap4_carver": dict(desc="the star-carver in the cave", preset="31 the star-carver's cave", lang=0, debug=E2E,
+        steps=beat("dk4_carver", "carver", after=600), expect=["scene dk4_carver", "saved (stage 20"]),
+    "cap4_mage": dict(desc="the Mountain Mage's two-star wager (win), chapter 4 end", preset="32 Mountain Mage (wager)", lang=0, debug=E2E,
+        steps=beat("dk4_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 900), ("snap", "won")], expect=["star duel won, stars 10", "saved (stage 21"]),
+    "cap4_gang": dict(desc="a Jackal ambush on the pass", preset="30 Mai across the bridge (wager)", lang=1,
+        debug={"skip_dialogue": True, "win_duels": True, "coins": 300, "gang_ready": True, "teleport": "kingdom_mountain.hangout_b"},
+        steps=[("wait", 60), ("press", ["r1", "l1", "circle"], 4, 30)] + WALK[:16] + [("snap", "ambush"), ("press", "cross", 5, 30), ("press", "cross", 5, 30), ("until", "duel over", 900), ("wait", 200), ("snap", "after_ambush")], expect=["ambush won"]),
+    "cap4_arena": dict(desc="the Mine Shaft Pit (mountain arena) with its exclusives", preset="30 Mai across the bridge (wager)", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "kingdom_mountain.arena_door"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 120), ("press", "cross"), ("wait", 40), ("snap", "arena")], expect=[]),
+    "cap4_shop": dict(desc="Cliff Cass's tent (mountain shop)", preset="30 Mai across the bridge (wager)", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "kingdom_mountain.shop_stall"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 200), ("press", "cross"), ("wait", 120), ("snap", "shop")], expect=[]),
+    # player views (no debug.json)
+    "final4_mountain": dict(desc="player view: the pass with Keith and Cliff Cass", preset="29 Keith's toll (wager)", lang=1, debug={"teleport": "kingdom_mountain.pass_center"},
+        steps=REL + [("snap", "mountain")], expect=["dev mode 0"]),
+    "final4_keith": dict(desc="player view: Keith's toll intro", preset="29 Keith's toll (wager)", lang=1, debug={"teleport": "kingdom_mountain.keith_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk4_keith_pre", 300), ("wait", 90), ("snap", "keith_intro"), ("press", "cross", 5, 60), ("wait", 60), ("snap", "keith_intro2")], expect=["scene dk4_keith_pre"]),
+    "final4_mai": dict(desc="player view: Mai across the bridge", preset="30 Mai across the bridge (wager)", lang=1, debug={"teleport": "kingdom_mountain.mai_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk4_mai_pre", 300), ("wait", 90), ("snap", "mai_intro")], expect=["scene dk4_mai_pre"]),
+    "final4_carver": dict(desc="player view: the star-carver caught in the cave", preset="31 the star-carver's cave", lang=1, debug={"teleport": "kingdom_mountain.cave_spot"},
+        steps=REL + [("hold", "down", 14), ("press", "up", 3, 10), ("snap", "cave"), ("press", "cross"), ("until", "scene dk4_carver", 300), ("wait", 90), ("snap", "carver1"),
+                     ("press", "cross", 5, 60), ("press", "cross", 5, 60), ("wait", 60), ("snap", "carver2"), ("press", "cross", 5, 60), ("wait", 60), ("snap", "carver3")], expect=["scene dk4_carver"]),
+    "final4_mage": dict(desc="player view: the Mountain Mage at the summit gate", preset="32 Mountain Mage (wager)", lang=1, debug={"teleport": "kingdom_mountain.gate_spot"},
+        steps=REL + [("hold", "down", 14), ("press", "up", 3, 10), ("snap", "gate"), ("press", "cross"), ("until", "scene dk4_mage", 300), ("wait", 90), ("snap", "mage_intro")], expect=["scene dk4_mage_pre", "dev mode 0"]),
+    "final4_end": dict(desc="player view: chapter 4 complete, ten stars", preset="33 chapter 4 done", lang=1, debug={"teleport": "kingdom_mountain.hangout_a"},
+        steps=REL + [("snap", "end"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")], expect=["dev mode 0"]),
+    "final4_gang": dict(desc="player view: a Jackal ambush on the pass", preset="30 Mai across the bridge (wager)", lang=1,
+        debug={"coins": 300, "walked": 400, "teleport": "kingdom_mountain.hangout_b"},
+        steps=REL + [("hold", "left", 4), ("until", "stood by", 1500), ("wait", 120), ("snap", "ambush"), ("press", "cross", 5, 40), ("wait", 60), ("snap", "ambush2")],
+        expect=["stood by", "dev mode 0"]),
+})

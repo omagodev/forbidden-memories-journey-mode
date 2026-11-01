@@ -691,7 +691,8 @@
   },
   {
    "when": {
-    "stage_ge": 16
+    "stage_ge": 16,
+    "stage_lt": 17
    },
    "text": "Chapter 3 complete - the mountain pass waits"
   },

@@ -204,7 +204,7 @@ HUD = [
  (W(stage=[13,13]), "Find the duelist shouting in the forest", "Ache o duelista que grita na floresta"),
  (W(stage=[14,14]), "Follow the three Star Marks on the trees", "Siga as tres Marcas de Estrela nas arvores"),
  (W(stage=[15,15]), "Beat the Forest Mage - he wagers two stars", "Venca o Mago da Floresta - ele aposta duas estrelas"),
- (W(stage=[16,99]), "Chapter 3 complete - the mountain pass waits", "Capitulo 3 completo - a passagem da montanha espera"),
+ (W(stage=[16,16]), "Chapter 3 complete - the mountain pass waits", "Capitulo 3 completo - a passagem da montanha espera"),
 ]
 CHAPTER = dict(n=3, title=B("The Forest of Whispers", "A Floresta dos Sussurros"), region="kingdom_forest", stage=[13,16],
                reward="five stars, Whisper Leaf, cards Megazowler and Mystic Horseman", unlock="the mountain pass (chapter 4)")

@@ -338,7 +338,7 @@ int jm_shop_req;                      /* an "open_shop" result asked for a shop:
 char jm_shop_req_id[16];
 float jm_warp_x, jm_warp_z;
 int jm_pwarp;
-char jm_pwarp_area[16], jm_pwarp_anchor[24];
+char jm_pwarp_area[32], jm_pwarp_anchor[24];
 
 /* 1 when every flag this result sets is set already: the duel has been won before, so it pays the
  * rematch rate.  A result that sets no flag cannot be told apart and counts as a first win. */

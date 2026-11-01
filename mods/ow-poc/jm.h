@@ -299,7 +299,7 @@ unsigned Jm_TypeFrame(int card);
 void Bag_Open(void); int Bag_Input(unsigned short edge); void Bag_Overlay(void); unsigned Bag_Signature(void);                             /* grants a card to the chest */
 int Story_Auto(Talk *out);                           /* an "auto" rule of journey.json that holds now (stage change, then a scene), applied once */
 extern int jm_pwarp;                                 /* set by a result with "warp": [area, anchor]: the painted player goes there when the scene is over */
-extern char jm_pwarp_area[16], jm_pwarp_anchor[24];
+extern char jm_pwarp_area[32], jm_pwarp_anchor[24];
 int Story_ItemIcon(const char *text, const char **file);   /* the icon file of an item named in a banner's text, if journey.json gives it one */
 int paint_area_now(void);                            /* 0 village, 1 cistern, 2 secret arena (also story "area") */
 

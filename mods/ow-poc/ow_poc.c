@@ -398,6 +398,7 @@ static void duel_returned(void)
     /* whether this win was had before is read now: applying the result sets the flags that say so */
     int rematch = won && Story_ResultDone(duel_win);
     int beaten_before = Story_ResultDone(duel_win), eliminated = 0;
+    const char *elim_scene = "k1_eliminated";
     area = -1;                              /* the duel's song ended the village's: start it again */
     if (in_paint_flow) { Paint_Enter(); paint_auto = 1; }    /* the duel took the banks: the painted village is loaded again behind the scene */
     if (won) jm.wins++; else jm.losses++;
@@ -412,8 +413,13 @@ static void duel_returned(void)
                 jm.stars = 1;
                 jm.eliminations++;
                 eliminated = 1;
-                snprintf(jm_pwarp_area, sizeof(jm_pwarp_area), "kingdom_beach");
-                snprintf(jm_pwarp_anchor, sizeof(jm_pwarp_anchor), "shore_camp");
+                {   /* the forest and the pass have a trail camp of their own: no walk back from the beach */
+                    const char *here = Paint_AreaId();
+                    int trail = here && (!strcmp(here, "kingdom_forest") || !strcmp(here, "kingdom_mountain"));
+                    snprintf(jm_pwarp_area, sizeof(jm_pwarp_area), "%s", trail ? here : "kingdom_beach");
+                    snprintf(jm_pwarp_anchor, sizeof(jm_pwarp_anchor), "%s", trail ? "trail_camp" : "shore_camp");
+                    elim_scene = trail ? "k3_eliminated" : "k1_eliminated";
+                }
                 jm_pwarp = 1;
             }
             LOG("journey: star duel %s, stars %d (eliminations %d)", won ? "won" : "lost", jm.stars, jm.eliminations);
@@ -429,8 +435,9 @@ static void duel_returned(void)
     duel_npc = -1;
     apply_warp();
     if (card_show && !Paint_CardArt(card_show)) card_show = 0;   /* no picture: no reveal */
-    if (eliminated && Story_PageCount("k1_eliminated") > 0) {
-        begin_scene("k1_eliminated", 0, 1);
+    if (eliminated && Story_PageCount(elim_scene) <= 0) elim_scene = "k1_eliminated";
+    if (eliminated && Story_PageCount(elim_scene) > 0) {
+        begin_scene(elim_scene, 0, 1);
         scene_then = NULL;
         scene_choice = NULL;
     } else if (r && Json_Str(r, "scene", NULL)) {
