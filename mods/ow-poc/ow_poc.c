@@ -1467,55 +1467,34 @@ static void hud_panel(int w, int s, int top, int vis)
     jm_host->draw_text(jm_host, tx + barw / 2 + 15 * s, bary + 15 * s, buf, 0xFFE9A0, s);
 }
 
-/* Always-on mission shortcut: the current objective stays on screen; Triangle (keyboard A) opens the journal. */
+/* Always-on mission shortcut: corner pill; Triangle (keyboard A) opens the journal. */
 static void objective_chip(int w, int s, int lh, int top, int vis)
 {
-    const char *obj = Story_Objective();
-    const char *lab;
-    char shown[128];
-    int hx, hy, hbw, hbh, face, d, ph, pad, keyw, labw, gap, max_text, tw, px, py, bx, by, pw, n;
-    if (!obj || !obj[0]) return;
-    lab = Tr("hint.journal_short");
-    hud_box(w, s, top, vis, &hx, &hy, &hbw, &hbh, &face);
-    d = lh - 7 * s;
+    const char *lab = Tr("hint.journal_short");
+    int d = lh - 7 * s, ph = lh - 1 * s, pad = 4 * s, gap = 6 * s;
+    int keyw, labw, pw, x, y, bx, by;
+    if (!lab || !lab[0]) return;
     if (d < 10 * s) d = 10 * s;
-    ph = lh - 1 * s;
-    pad = 4 * s;
-    gap = 6 * s;
     keyw = jm_host->text_width(jm_host, "A", s);
     labw = jm_host->text_width(jm_host, lab, s);
-    /* Sit to the right of the status panel, clear of the minimap on the far right. */
-    max_text = w - (hx + hbw + 12 * s) - 52 * (2 * s) - 36 * s - (pad * 2 + d + gap * 2 + labw + 4 * s);
-    if (max_text < 48 * s) max_text = 48 * s;
-    snprintf(shown, sizeof(shown), "%s", obj);
-    n = (int)strlen(shown);
-    while (n > 4 && jm_host->text_width(jm_host, shown, s) > max_text) {
-        shown[n - 1] = 0;
-        n--;
-        if (n >= 3) { shown[n - 1] = '.'; shown[n - 2] = '.'; shown[n - 3] = '.'; }
+    pw = pad + d + gap + labw + pad;
+    x = w - pw - 16 * s;
+    y = top + 12 * s;   /* top-right corner; leave the bottom-right for talk/examine */
+    if (Dev_BarOn()) y = top + 6 + (lh + 4) * 3;
+    /* if minimap is on, sit just under it */
+    if (minimap_on) {
+        int c = 2 * s + (mini_big ? 2 * s : 0);
+        int my = top + (Dev_BarOn() ? 2 * lh + 26 * s : lh + 14 * s);
+        int mh = 48 * c;   /* painted minimap is roughly 48 cells tall at scale c */
+        if (state == ST_PAINT) y = my + mh + 8 * s;
     }
-    tw = jm_host->text_width(jm_host, shown, s);
-    pw = pad + d + gap + tw + gap + labw + pad;
-    px = hx + hbw + 10 * s;
-    py = hy + (hbh - ph) / 2;
-    if (py < top + 4 * s) py = top + 4 * s;
-    if (Dev_BarOn()) {                   /* sit under the debug status lines */
-        int dy = top + 6 + (lh + 4) * 3;
-        if (py < dy) py = dy;
-    }
-    if (px + pw > w - 10 * s) {
-        px = w / 48;
-        py = hy + hbh + 6 * s;   /* wrap under the status panel on narrow windows */
-        if (Dev_BarOn() && py < top + 6 + (lh + 4) * 3) py = top + 6 + (lh + 4) * 3;
-    }
-    round_fill(px, py, pw, ph, 0x000000, 150);
-    bx = px + pad;
-    by = py + (ph - d) / 2;
+    round_fill(x, y, pw, ph, 0x000000, 150);
+    bx = x + pad;
+    by = y + (ph - d) / 2;
     round_fill(bx - s, by - s, d + 2 * s, d + 2 * s, 0xE8C050, 235);
     round_fill(bx + s, by + s, d - 2 * s, d - 2 * s, 0x141C48, 255);
     jm_host->draw_text(jm_host, bx + (d - keyw) / 2, by + d / 2, "A", 0xFFE9A0, s);
-    jm_host->draw_text(jm_host, bx + d + gap, py + ph / 2, shown, 0xF4F4F4, s);
-    jm_host->draw_text(jm_host, bx + d + gap + tw + gap, py + ph / 2, lab, 0xC8A03C, s);
+    jm_host->draw_text(jm_host, bx + d + gap, y + ph / 2, lab, 0xF4F4F4, s);
 }
 
 /* greedy wrap of `text` into lines of at most `maxw` pixels */

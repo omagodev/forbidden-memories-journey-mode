@@ -55,7 +55,7 @@ Plugue um gamepad USB ou Bluetooth — o SDL reconhece sozinho. Stick e D-pad an
 Teclado e controle compartilham as mesmas acoes: mapa, loja, apostas e duelos seguem o seu remap.
 
 
-O chip de missao no topo mostra o objetivo atual; aperte **A / Triangulo / Y** para abrir o diario de missoes.
+O atalho **ver missoes** no canto (A / Triangulo / Y) abre o diario de missoes.
 ## Fichas de Estrela (Reino dos Duelistas)
 - Antes de cada duelo de estrelas você **escolhe a aposta**: esquerda/direita de 1 até o menor entre as suas estrelas e as do rival, X para duelar, S para desistir.
 - Vencendo, você toma a aposta dele. Perdendo, ele **fica** com ela; desafie de novo para recuperar.

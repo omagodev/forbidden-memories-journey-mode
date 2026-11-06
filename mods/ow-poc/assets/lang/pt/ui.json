@@ -26,7 +26,7 @@
   "examine_short": "Examinar",
   "controls": "Andar: setas ou stick   Correr: Circulo/B   Falar: Cross/A   Menu: Start",
   "painted": "Setas: andar   Circulo: correr   X: falar   Triangulo: diario   Select: mapa liga/desliga   Start: menu",
-  "journal_short": "Missões"
+  "journal_short": "ver missoes"
  },
  "ask": {
   "yes": "Sim",

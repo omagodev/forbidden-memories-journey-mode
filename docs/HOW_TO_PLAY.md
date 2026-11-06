@@ -55,7 +55,7 @@ Plug in a USB or Bluetooth gamepad — SDL maps it automatically. Stick and D-pa
 Keyboard and gamepad share the same actions, so Journey Mode, shops, wagers and duels all follow your remap.
 
 
-The top mission chip shows your current objective; press **A / Triangle / Y** to open the full missions diary.
+The top-right **view missions** pill (A / Triangle / Y) opens the missions diary.
 ## Star Chips (Duelist Kingdom)
 - Before every star duel you **choose your bet**: left/right from 1 up to the smaller of your stars and your rival's, X to duel, S to back out.
 - Win and you take the bet from him. Lose and he **keeps** it; challenge him again to win it back.
