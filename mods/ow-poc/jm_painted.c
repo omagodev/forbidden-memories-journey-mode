@@ -10,6 +10,7 @@
 #include "jm.h"
 #include "painted_data.h"
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -1672,7 +1673,8 @@ void Paint_MiniMap(int x, int y, int c, int s)
 
 /* ---------------------------------------------------------------- talk portraits from the map sprites
  * The square face in the dialogue box is cut from the same sheet the person walks with on the map (facing down, standing frame): a
- * 24x24 window over the head and shoulders, doubled to the 48x48 speaker slot, so the talk avatar always looks like the sprite. */
+ * preset 48x48 head-and-shoulders portrait built offline from that sheet (assets/faces/<sheet>.face); the creator's own hero, composed at run
+ * time, is still cut live from its standing frame. */
 static const struct { const char *who; int spr; } face_alias[] = {
     {"inseto", SPR_INSETO}, {"isis", SPR_ISIS}, {"pegasus", SPR_PEGASUS}, {"heishin", SPR_HEISHIN}, {"croquet", SPR_RIVAL},
     {"mago_dev", SPR_MAGO}, {"mago_dev_tee", SPR_MAGO}, {"mago_hidden", SPR_MAGO}, {"atos", SPR_LPC_TEST}, {"player", SPR_LPC_TEST},
@@ -1691,7 +1693,24 @@ int Paint_LoadSpriteFace(int i)
     Spr *s;
     int x, y, top = 999, x0 = 999, x1 = -1, side, sc, cx;
     const unsigned char *k, *c;
-    if (i < 0 || i >= SPR_COUNT || !spr_load(i)) return 0;
+    if (i < 0 || i >= SPR_COUNT) return 0;
+    if (spr[i].file && !(i == SPR_LPC_TEST && Cg_Ready())) {   /* preset framed offline (tools/make_talk_faces.py) */
+        char path[96];
+        const char *b = strrchr(spr[i].file, '/');
+        long size = 0;
+        unsigned char *d;
+        b = b ? b + 5 : spr[i].file + 4;                     /* skip "/spr_" */
+        snprintf(path, sizeof path, "assets/faces/%.*s.face", (int)(strlen(b) - 4), b);
+        d = Jm_Slurp(path, &size);
+        if (d && size == 48 * 48 * 2) {
+            int n;
+            for (n = 0; n < 48 * 48; n++) img[n] = (unsigned short)(d[n * 2] | d[n * 2 + 1] << 8);
+            free(d);
+            return Gfx_LoadFaceRgb(img);
+        }
+        free(d);
+    }
+    if (!spr_load(i)) return 0;                              /* no preset (the creator's hero): cut live */
     s = &spr[i];
     k = s->kind; c = s->rgb;                                  /* cell 0: facing down, standing */
     for (y = 0; y < s->h && top == 999; y++) for (x = 0; x < s->w; x++) if (k[y * s->w + x] == 0) { top = y; break; }
