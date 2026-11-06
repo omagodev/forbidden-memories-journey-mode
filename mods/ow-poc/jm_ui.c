@@ -221,7 +221,7 @@ int Ui_CreateInput(unsigned short edge)
         break;
     case STEP_CONFIRM:
         if (edge & (PAD_CROSS | PAD_START)) {
-            if (jm.name[0]) { jm.cg_set = 1; return 1; }
+            if (jm.name[0]) { jm.cg_set = 1; Paint_BakeHeroFace(1); return 1; }
             step = STEP_NAME;
             return 0;
         }

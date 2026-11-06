@@ -491,6 +491,7 @@ void Shop_Overlay(void);
 unsigned Shop_Signature(void);
 
 /* ----------------------------------------------------------- chargen (jm_chargen.c): the hero assembled from layers */
+int Paint_BakeHeroFace(int force);                     /* the hero's talk preset from jm.cg/jm.gender (data dir hero.face) */
 int Cg_Ready(void);                                  /* assets/lpc_parts/manifest.json is there and usable */
 int Cg_CatCount(void);
 const char *Cg_CatLabel(int c);

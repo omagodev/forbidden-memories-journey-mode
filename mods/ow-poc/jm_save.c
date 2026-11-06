@@ -65,6 +65,7 @@ int Save_Read(void)
     jm.name[sizeof(jm.name) - 1] = 0;
     if (jm.stars_owed > 0) { jm.stars += jm.stars_owed; if (jm.stars > 10) jm.stars = 10; jm.stars_owed = 0; }   /* 0.5.3's owed stars come back: the wagers replace them */
     if (jm.stage >= 10 && jm.stars <= 0) jm.stars = 1;      /* a 0.5.x save at zero (never written now) */
+    if (jm.cg_set) Paint_BakeHeroFace(0);                  /* the saved look's talk preset (re-baked if it changed) */
     LOG("journey: loaded (stage %d, flags %08x, %s)", jm.stage, jm.flags, jm.name);
     return 1;
 }
