@@ -766,11 +766,11 @@ GATE_E2E = (beat("dk8_inseto_pre", "inseto_pre") + [("until", "star duel won", 1
 SCENARIOS.update({
     "e2e_ch7_to_ch8": dict(desc="chapter 7 -> 8: castle road into the plaza, InsetoKaiba rematch, chapter 8 end",
         preset="45 chapter 7 done", lang=1, debug=dict(E2E, coins=300, teleport="kingdom_fair.castle_gate"),
-        steps=beat("dk8_arrival", "arch", after=100) + [("until", "journey: music 25", 900), ("wait", 400), ("snap", "gate")]
+        steps=beat("dk8_arrival", "arch", after=100) + [("until", "journey: music 51", 900), ("wait", 400), ("snap", "gate")]
             + GATE_E2E,
-        expect=["scene dk8_arrival", "journey: music 25", "star duel won, bet 1, stars 10", "saved (stage 32", "scene dk8_castle_announce"]),
+        expect=["scene dk8_arrival", "journey: music 51", "star duel won, bet 1, stars 10", "saved (stage 32", "scene dk8_castle_announce"]),
     "cap8_arrival": dict(quick=True, desc="chapter 8 opens: the castle gate plaza", preset="46 gate arrival (chapter 8)", lang=0, debug={"skip_dialogue": True},
-        steps=[("until", "journey: music 25", 600), ("wait", 200), ("snap", "gate")], expect=["journey: music 25"]),
+        steps=[("until", "journey: music 51", 600), ("wait", 200), ("snap", "gate")], expect=["journey: music 51"]),
     "cap8_inseto": dict(quick=True, desc="InsetoKaiba gate rematch (win), chapter 8 end", preset="47 InsetoKaiba at the lock (wager)", lang=0,
         debug=dict(E2E, teleport="castle_gate.gate_spot"),
         steps=[("wait", 60), ("press", "cross"), ("until", "scene dk8_inseto_pre", 600), ("wait", 100), ("snap", "inseto_pre"),
@@ -789,6 +789,33 @@ SCENARIOS.update({
     "cap8_camp": dict(quick=True, desc="gate camp warns that zero stars ends the journey", preset="47 InsetoKaiba at the lock (wager)", lang=1,
         debug={"skip_dialogue": True, "teleport": "castle_gate.gate_camp"},
         steps=[("wait", 40), ("press", "cross"), ("until", "scene dk8_gate_camp", 300), ("wait", 60), ("snap", "camp")], expect=["scene dk8_gate_camp"]),
+
+    "music_tension_wager": dict(
+        desc="star wager opens the tension cue",
+        preset="47 InsetoKaiba at the lock (wager)", lang=1,
+        debug={"skip_dialogue": True, "teleport": "castle_gate.gate_spot"},
+        steps=[("until", "journey: music 51", 600), ("wait", 30),
+               ("press", ["cross"], 1, 20), ("until", "ask", 600),
+               ("press", ["cross"], 1, 20), ("until", "journey: music cue tension_wager", 900),
+               ("until", "journey: music 54", 900), ("snap", "wager")],
+        expect=["journey: music cue tension_wager", "journey: music 54"]),
+    "music_epic_heishin": dict(
+        desc="Heishin pre-duel plays epic_heishin",
+        preset="50 Heishin at the crown (wager)", lang=1,
+        debug={"skip_dialogue": False, "teleport": "castle_hall.heishin_spot"},
+        steps=[("until", "journey: music 52", 600), ("press", ["cross"], 1, 20),
+               ("until", "scene dk9_heishin_pre", 900), ("until", "journey: music cue epic_heishin", 900),
+               ("until", "journey: music 55", 900), ("snap", "heishin")],
+        expect=["scene dk9_heishin_pre", "journey: music cue epic_heishin", "journey: music 55"]),
+    "music_epic_festival": dict(
+        desc="Festival epilogue plays epic_festival",
+        preset="54 chapter 10 wish", lang=1,
+        debug={"skip_dialogue": True, "teleport": "castle_top.wish_orbs"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk10_epilogue", 900),
+               ("until", "journey: music cue epic_festival", 900),
+               ("until", "journey: music 57", 900), ("snap", "festival")],
+        expect=["scene dk10_epilogue", "journey: music cue epic_festival", "journey: music 57"]),
+
     "final8_gate": dict(desc="player view: the Castle Gate", preset="47 InsetoKaiba at the lock (wager)", lang=1, debug={"teleport": "castle_gate.gate_center"},
         steps=REL + [("snap", "gate")], expect=["dev mode 0"]),
     "final8_inseto": dict(desc="player view: InsetoKaiba at the star-lock", preset="47 InsetoKaiba at the lock (wager)", lang=1, debug={"teleport": "castle_gate.gate_spot"},
@@ -809,16 +836,16 @@ DREAM_E2E = (beat("dk10_pegasus_pre", "pegasus_pre") + [("until", "star duel won
 SCENARIOS.update({
     "e2e_ch8_to_ch9": dict(desc="chapter 8 -> 9: castle door into the hall, Heishin, chapter 9 end",
         preset="48 chapter 8 done", lang=1, debug=dict(E2E, coins=300, teleport="castle_gate.castle_door"),
-        steps=beat("dk9_arrival", "arch", after=100) + [("until", "journey: music 26", 900), ("wait", 400), ("snap", "hall")]
+        steps=beat("dk9_arrival", "arch", after=100) + [("until", "journey: music 52", 900), ("wait", 400), ("snap", "hall")]
             + HALL_E2E,
-        expect=["scene dk9_arrival", "journey: music 26", "star duel won, bet 1, stars 10", "saved (stage 34"]),
+        expect=["scene dk9_arrival", "journey: music 52", "star duel won, bet 1, stars 10", "saved (stage 34"]),
     "e2e_ch9_to_ch10": dict(desc="chapter 9 -> 10: dream stairs, Pegasus, Festival epilogue",
         preset="51 chapter 9 done", lang=1, debug=dict(E2E, coins=300, teleport="castle_hall.dream_stairs"),
         steps=beat("dk10_arrival", "stairs", after=100) + [("until", "journey: music 27", 900), ("wait", 400), ("snap", "dream")]
             + DREAM_E2E,
         expect=["scene dk10_arrival", "journey: music 27", "star duel won, bet 1, stars 10", "saved (stage 36"],),
     "cap9_arrival": dict(quick=True, desc="chapter 9 opens: Castle Hall", preset="49 hall arrival (chapter 9)", lang=0, debug={"skip_dialogue": True},
-        steps=[("until", "journey: music 26", 600), ("wait", 200), ("snap", "hall")], expect=["journey: music 26"]),
+        steps=[("until", "journey: music 52", 600), ("wait", 200), ("snap", "hall")], expect=["journey: music 52"]),
     "cap9_heishin": dict(quick=True, desc="Heishin crown wager (win), chapter 9 end", preset="50 Heishin at the crown (wager)", lang=0,
         debug=dict(E2E, teleport="castle_hall.heishin_spot"),
         steps=[("wait", 60), ("press", "cross"), ("until", "scene dk9_heishin_pre", 600), ("wait", 100), ("snap", "pre"),

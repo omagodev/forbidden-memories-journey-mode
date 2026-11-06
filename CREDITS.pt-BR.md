@@ -18,6 +18,9 @@ O JOURNEY MODE é um mod de fã, não oficial e sem fins comerciais, para Yu-Gi-
 * Sprites de personagens do **Liberated Pixel Cup (LPC)**, via o [Universal LPC Spritesheet Character Generator](https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator), de vários artistas (bluecarrot16, JaidynReiman, Benjamin K. Smith, Evert, Eliza Wyatt, TheraHedwig, Johannes Sjolund, Stephen Challener e outros), sob OGA-BY 3.0, CC-BY-SA 3.0 e GPL 3.0. Os autores, licenças e links de cada camada estão em `mods/ow-poc/assets/lpc_runtime_credits.csv` e `mods/ow-poc/assets/lpc_test_credits.txt`. Os sprites `spr_lpc_*.bin` gerados são obras derivadas sob as mesmas licenças.
 * **QuickJS**, de Fabrice Bellard e Charlie Gordon (MIT), veja patches/QUICKJS_LICENSE
 
+## Trilha sonora
+* **Trilha sonora do Modo Jornada** (loops sintetizados originais em `mods/ow-poc/assets/music/`): temas de exploração por área ilustrada, tensão da aposta de estrelas, cues de Heishin / Pegasus / Festival. Não é a música do disco da Konami; ver `mods/ow-poc/assets/music/README.pt-BR.md`.
+
 ## Arte
 * Os mapas ilustrados, sprites de personagens e folhas de sprites do Journey Mode (vila natal, áreas do Reino dos Duelistas, NPCs) são imagens **geradas por IA**, depois processadas e convertidas para os formatos do jogo pelos scripts em `mods/ow-poc/tools/`. Os personagens são originais ou feitos por fã, inspirados nos personagens do Forbidden Memories; não são arte oficial. As folhas de sprites geradas por IA em `mods/ow-poc/tools/sprite_sheets/` estão incluídas como fonte desses scripts.
 * A parte 3 traz mais do mesmo: o mapa da cisterna, os sprites do Rex Raptor e do fantasma do Bakura, os objetos do alçapão e da tocha e os ícones de itens são gerados por IA e convertidos por `mods/ow-poc/tools/build_part3_assets.py`. Como todos os personagens, são inspirados no Forbidden Memories e não são arte oficial.

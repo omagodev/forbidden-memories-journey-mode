@@ -263,6 +263,13 @@ static void open_page(void)
     if (in_paint_flow) Paint_PageEvent(scene_id, scene_idx);     /* the sun sets, the observer shows */
 }
 
+/* music cues (defs used by begin_scene / duel return; exploration tick is below) */
+static int music_cue = -1;
+static const char *music_cue_tag;
+static int track_cfg(const char *key);
+static void Jm_MusicCue(int track, const char *tag);
+static void Jm_MusicClear(void);
+
 static void begin_scene(const char *id, int intro, int result)
 {
     scene_id = id;
@@ -273,6 +280,14 @@ static void begin_scene(const char *id, int intro, int result)
     pend_duel = -1;
     if (scene_n < 1) { LOG("journey: no scene %s", id ? id : "(null)"); scene_then = NULL; scene_choice = NULL; state = ST_PAINT; if (in_paint_flow) { in_paint_flow = 0; Paint_TalkEnd(); } return; }
     LOG("journey: scene %s (%d pages)", id, scene_n);
+    /* epic / festival cues for the Kingdom finale */
+    if (id && !strcmp(id, "dk9_heishin_pre") && track_cfg("epic_heishin") >= 0)
+        Jm_MusicCue(track_cfg("epic_heishin"), "epic_heishin");
+    else if (id && !strcmp(id, "dk10_pegasus_pre") && track_cfg("epic_pegasus") >= 0)
+        Jm_MusicCue(track_cfg("epic_pegasus"), "epic_pegasus");
+    else if (id && (!strcmp(id, "dk10_epilogue") || !strcmp(id, "dk10_wish_orb") || !strcmp(id, "dk10_pegasus_win"))
+             && track_cfg("epic_festival") >= 0)
+        Jm_MusicCue(track_cfg("epic_festival"), "epic_festival");
     open_page();
 }
 
@@ -407,6 +422,7 @@ static void duel_returned(void)
     if (won) jm.wins++; else jm.losses++;
     LOG("journey: duel over, %s (wins %d, losses %d)", won ? "won" : "lost", jm.wins, jm.losses);
     if (won) Story_ApplyResult(duel_win);
+    if (music_cue >= 0 && music_cue_tag && strcmp(music_cue_tag, "epic_festival") != 0) Jm_MusicClear();
     if (wager_bet > 0 && duel_win) {      /* Duelist Kingdom: the bet goes to the winner (jm_wager.c); the last star lost is a game over */
         Wager_Settle(duel_win, wager_bet, won);
         if (jm.stars <= 0) eliminated = 1;
@@ -470,14 +486,40 @@ static int in_village(void) { return World_Area(jm.x, jm.z) == 0 && (int)(jm.z /
 
 /* The painted village has its own songs (journey.json "painted": {"music": {"day": track, "night": track}}, a track being the sound
  * driver's song number / 16 - 0x700): the day song plays while the village is shown, the night song once night has fallen (the bench
- * scene and until the Stamp Card is given).  `area < 0` restarts the music (after a duel, the intro, a warp). */
+ * scene and until the Stamp Card is given).  `area < 0` restarts the music (after a duel, the intro, a warp).
+ * Cue tracks (tension_wager, epic_heishin, epic_pegasus, epic_festival) override exploration until cleared. */
 static int pm_cur = -1, pm_timer, pm_ctx = -1;
 static int menu_from_paint;                /* the START menu was opened in the painted village: the picture stays behind it, and Close returns to it */
-static int painted_ctx(void) { return state == ST_PAINT || state == ST_JOURNAL || state == ST_SHOP || state == ST_ARENA || state == ST_AMBUSH || in_paint_flow || (state == ST_MENU && menu_from_paint); }
+static int painted_ctx(void) { return state == ST_PAINT || state == ST_JOURNAL || state == ST_SHOP || state == ST_ARENA || state == ST_AMBUSH || in_paint_flow || (state == ST_MENU && menu_from_paint) || state == ST_WAGER; }
 static int track_cfg(const char *key)
 {
     const JsonNode *po = Json_Get(jm_rules, "painted"), *mu = po ? Json_Get(po, "music") : NULL;
     return (int)Json_Num(mu, key, -1);
+}
+static void music_play_track(int track, const char *tag)
+{
+    SD_BGMPlay(0x7000 + (u32)track * 0x10);
+    pm_cur = track;
+    LOG("journey: music %d (%s)", track, tag ? tag : "?");
+}
+static void Jm_MusicCue(int track, const char *tag)
+{
+    if (track < 0) return;
+    if (music_cue == track && pm_cur == track) return;
+    music_cue = track;
+    music_cue_tag = tag;
+    LOG("journey: music cue %s", tag ? tag : "?");
+    /* Start at once so the cue is heard before a debug wager auto-confirms (~30 frames). */
+    music_play_track(track, tag);
+}
+static void Jm_MusicClear(void)
+{
+    if (music_cue < 0) return;
+    music_cue = -1;
+    music_cue_tag = NULL;
+    pm_cur = -1;
+    pm_timer = 0;
+    area = -1;                             /* music_tick restarts the area song */
 }
 
 /* the place name of the HUD and the banner: the painted areas have their own (ui.json "painted"), else the old map's */
@@ -493,17 +535,34 @@ static const char *place_name(void)
     return World_AreaName(area < 0 ? 0 : area);
 }
 
+static const char *music_tag_for(int want)
+{
+    if (music_cue >= 0 && want == music_cue && music_cue_tag) return music_cue_tag;
+    if (Paint_Area() == 1) return "cistern";
+    if (Paint_Area() >= 3) return Paint_AreaId();
+    if (want == track_cfg("night")) return "night";
+    if (want == track_cfg("day")) return "day";
+    return "area";
+}
 static void music_tick(void)
 {
     int a = World_Area(jm.x, jm.z), pc = painted_ctx();
     if (pc != pm_ctx) { pm_ctx = pc; area = -1; pm_cur = -1; pm_timer = 0; }     /* into or out of the painted village: its own song */
+    if (music_cue >= 0) {
+        int want = music_cue;
+        if (pm_cur < 0) music_play_track(want, music_tag_for(want));
+        else if (want != pm_cur && !pm_timer) { SD_BGMFadeOut(); pm_timer = 45; pm_cur = want; }
+        if (pm_timer && --pm_timer == 0) music_play_track(pm_cur, music_tag_for(pm_cur));
+        if (area_banner > 0) area_banner--;
+        return;
+    }
     if (pc && track_cfg("day") >= 0) {
         int want = Paint_Area() == 1 && track_cfg("cistern") >= 0 ? track_cfg("cistern") : track_cfg(Paint_IsNight() && track_cfg("night") >= 0 ? "night" : "day");
         if (Paint_Area() >= 3 && track_cfg(Paint_AreaId()) >= 0) want = track_cfg(Paint_AreaId());   /* the harbor, the ship, the beach: their own songs */
         if (area < 0) { area = area_cand = a; area_banner = 150; area_timer = 0; pm_cur = -1; pm_timer = 0; }
-        if (pm_cur < 0) { SD_BGMPlay(0x7000 + (u32)want * 0x10); pm_cur = want; LOG("journey: music %d (%s)", want, Paint_Area() == 1 ? "cistern" : want == track_cfg("night") ? "night" : "day"); }
+        if (pm_cur < 0) music_play_track(want, music_tag_for(want));
         else if (want != pm_cur && !pm_timer) { SD_BGMFadeOut(); pm_timer = 45; pm_cur = want; }
-        if (pm_timer && --pm_timer == 0) { SD_BGMPlay(0x7000 + (u32)pm_cur * 0x10); LOG("journey: music %d (%s)", pm_cur, Paint_Area() == 1 ? "cistern" : pm_cur == track_cfg("night") ? "night" : "day"); }
+        if (pm_timer && --pm_timer == 0) music_play_track(pm_cur, music_tag_for(pm_cur));
         if (area_banner > 0) area_banner--;
         return;
     }
@@ -710,8 +769,8 @@ static void run(int first)
         int r;
         music_tick();
         r = Wager_Input(edge);
-        if (r == 1) { wager_bet = Wager_Bet(); LOG("journey: wager %d", wager_bet); arm_duel(pend_duel); }
-        else if (r == 2) { duel_win = duel_lose = NULL; pend_duel = -1; end_scene(); }
+        if (r == 1) { wager_bet = Wager_Bet(); LOG("journey: wager %d", wager_bet); Jm_MusicClear(); arm_duel(pend_duel); }
+        else if (r == 2) { Jm_MusicClear(); duel_win = duel_lose = NULL; pend_duel = -1; end_scene(); }
         break;
     }
     case ST_GAMEOVER:
@@ -899,7 +958,7 @@ static void run(int first)
         if (edge & (PAD_LEFT | PAD_RIGHT | PAD_UP | PAD_DOWN)) ask_sel ^= 1;
         if (Dbg_Skip() && dbg_age > 12) { ask_sel = 0; edge |= PAD_CROSS; }
         if (edge & PAD_CROSS) {
-            if (ask_sel == 0 && pend_duel >= 0 && Wager_Max(duel_win) > 0) { Wager_Open(duel_win); state = ST_WAGER; break; }   /* a star duel: the bet first */
+            if (ask_sel == 0 && pend_duel >= 0 && Wager_Max(duel_win) > 0) { Wager_Open(duel_win); if (track_cfg("tension_wager") >= 0) Jm_MusicCue(track_cfg("tension_wager"), "tension_wager"); state = ST_WAGER; break; }   /* a star duel: the bet first */
             if (ask_sel == 0 && pend_duel >= 0) { wager_bet = 0; arm_duel(pend_duel); break; }
             if (pend_duel < 0 && scene_choice) {
                 const JsonNode *ans = Json_Get(scene_choice, ask_sel == 0 ? "yes" : "no");

@@ -5980,9 +5980,13 @@
    "kingdom_meadow": 19,
    "kingdom_desert": 23,
    "kingdom_fair": 24,
-   "castle_gate": 25,
-   "castle_hall": 26,
-   "castle_top": 27
+   "castle_gate": 51,
+   "castle_hall": 52,
+   "castle_top": 27,
+   "tension_wager": 54,
+   "epic_heishin": 55,
+   "epic_pegasus": 56,
+   "epic_festival": 57
   },
   "night": {
    "stage_ge": 2,

@@ -110,8 +110,7 @@ STARTER_NOTE = "a new journey's deck: 40 weak commons (journey_content/duelist_k
 PLACES = {"rex": [{"when": {"stage_ge": 3}, "tile": [37.5, 29.5]}]}
 # the village's songs, sound-driver package numbers (song 0x7000 + 16 * n): 10 is the game's own campaign-map song (sustained, quiet),
 # 25 a slow pad that swells in; both measured steady and low in activity (see DK_PART2_README)
-VILLAGE_MUSIC = {"day": 10, "night": 25, "cistern": 26,
-                 "harbor": 18, "ship_deck": 20, "kingdom_beach": 30, "kingdom_forest": 21, "kingdom_mountain": 22, "kingdom_meadow": 19, "kingdom_desert": 23, "kingdom_fair": 24, "castle_gate": 25, "castle_hall": 26, "castle_top": 27}   # the disc's Nile River, Desert Temple and Tournament Island songs      # 26: the Sand Ruins song, a low sustained pad: the cistern is dim and quiet
+VILLAGE_MUSIC = {"day": 10, "night": 25, "cistern": 26, "harbor": 18, "ship_deck": 20, "kingdom_beach": 30, "kingdom_forest": 21, "kingdom_mountain": 22, "kingdom_meadow": 19, "kingdom_desert": 23, "kingdom_fair": 24, "castle_gate": 51, "castle_hall": 52, "castle_top": 27, "tension_wager": 54, "epic_heishin": 55, "epic_pegasus": 56, "epic_festival": 57}   # the disc's Nile River, Desert Temple and Tournament Island songs      # 26: the Sand Ruins song, a low sustained pad: the cistern is dim and quiet
 # debug presets (jm_debug.c: L1+R1+Up/Down in the village, or "preset" in debug.json): a state of the story to jump to
 _H3 = ["heard_teana", "heard_jono", "heard_guard"]
 _B = _H3 + ["simon_won", "mago_roof", "courier_met", "baker_hint"]

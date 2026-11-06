@@ -1,7 +1,7 @@
 {
   "id": "ow-poc",
   "name": "Journey Mode",
-  "version": "0.4",
+  "version": "0.6.6",
   "author": "Atos Vinicius",
   "description": "A story mode with a walkable 3D world: character creation, 30 people in 16 areas over eight chapters, the game's own text boxes and duels with a deck for each duelist, area music, a title menu of NEW GAME / CONTINUE / OPTIONS, a START menu, a save file and two endings. Characters: Quaternius (CC0); props: PSX Nature Free by heyheythere (CC BY 4.0).",
   "min_api": 10,
@@ -2210,6 +2210,82 @@
       "Swordstalker": 2,
       "Ansatsu": 2,
       "Legendary Sword": 2
+    }
+  },
+  "audio": {
+    "music": {
+      "0x70A0": {
+        "file": "assets/music/village_day.ogg",
+        "loop": true
+      },
+      "0x7190": {
+        "file": "assets/music/village_night.ogg",
+        "loop": true
+      },
+      "0x71A0": {
+        "file": "assets/music/cistern.ogg",
+        "loop": true
+      },
+      "0x7120": {
+        "file": "assets/music/harbor.ogg",
+        "loop": true
+      },
+      "0x7140": {
+        "file": "assets/music/ship.ogg",
+        "loop": true
+      },
+      "0x71E0": {
+        "file": "assets/music/beach.ogg",
+        "loop": true
+      },
+      "0x7150": {
+        "file": "assets/music/forest.ogg",
+        "loop": true
+      },
+      "0x7160": {
+        "file": "assets/music/mountain.ogg",
+        "loop": true
+      },
+      "0x7130": {
+        "file": "assets/music/meadow.ogg",
+        "loop": true
+      },
+      "0x7170": {
+        "file": "assets/music/desert.ogg",
+        "loop": true
+      },
+      "0x7180": {
+        "file": "assets/music/fair.ogg",
+        "loop": true
+      },
+      "0x7330": {
+        "file": "assets/music/castle_gate.ogg",
+        "loop": true
+      },
+      "0x7340": {
+        "file": "assets/music/castle_hall.ogg",
+        "loop": true
+      },
+      "0x71B0": {
+        "file": "assets/music/castle_dream.ogg",
+        "loop": true
+      },
+      "0x7360": {
+        "file": "assets/music/tension_wager.ogg",
+        "loop": true
+      },
+      "0x7370": {
+        "file": "assets/music/epic_heishin.ogg",
+        "loop": true
+      },
+      "0x7380": {
+        "file": "assets/music/epic_pegasus.ogg",
+        "loop": true
+      },
+      "0x7390": {
+        "file": "assets/music/epic_festival.ogg",
+        "loop": true
+      }
     }
   }
 }
