@@ -760,3 +760,43 @@ SCENARIOS.update({
         steps=[("wait", 40), ("press", "cross"), ("until", "scene dk7_gate_shut", 300), ("wait", 40), ("snap", "shut")],
         expect=["scene dk7_gate_shut"]),
 })
+
+GATE_E2E = (beat("dk8_inseto_pre", "inseto_pre") + [("until", "star duel won", 1200), ("wait", 600), ("snap", "inseto_won")]
+    + beat("dk8_castle_announce", "castle_announce", after=200) + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")])
+SCENARIOS.update({
+    "e2e_ch7_to_ch8": dict(desc="chapter 7 -> 8: castle road into the plaza, InsetoKaiba rematch, chapter 8 end",
+        preset="45 chapter 7 done", lang=1, debug=dict(E2E, coins=300, teleport="kingdom_fair.castle_gate"),
+        steps=beat("dk8_arrival", "arch", after=100) + [("until", "journey: music 25", 900), ("wait", 400), ("snap", "gate")]
+            + GATE_E2E,
+        expect=["scene dk8_arrival", "journey: music 25", "star duel won, bet 1, stars 10", "saved (stage 32", "scene dk8_castle_announce"]),
+    "cap8_arrival": dict(quick=True, desc="chapter 8 opens: the castle gate plaza", preset="46 gate arrival (chapter 8)", lang=0, debug={"skip_dialogue": True},
+        steps=[("until", "journey: music 25", 600), ("wait", 200), ("snap", "gate")], expect=["journey: music 25"]),
+    "cap8_inseto": dict(quick=True, desc="InsetoKaiba gate rematch (win), chapter 8 end", preset="47 InsetoKaiba at the lock (wager)", lang=0,
+        debug=dict(E2E, teleport="castle_gate.gate_spot"),
+        steps=[("wait", 60), ("press", "cross"), ("until", "scene dk8_inseto_pre", 600), ("wait", 100), ("snap", "inseto_pre"),
+               ("until", "star duel won", 1200), ("wait", 600), ("snap", "won")], expect=["scene dk8_inseto_pre", "star duel won, bet 1, stars 10", "saved (stage 32"]),
+    "cap8_inseto_lose": dict(desc="InsetoKaiba wager lost: one star less, stays at the gate", preset="47 InsetoKaiba at the lock (wager)", lang=1,
+        debug=dict(skip_dialogue=True, lose_duels=True, wager=1, teleport="castle_gate.gate_spot"),
+        steps=[("wait", 60), ("press", "cross"), ("until", "scene dk8_inseto_pre", 600), ("wait", 100), ("snap", "inseto_pre"),
+               ("until", "star duel lost", 1200), ("wait", 400), ("snap", "lost")],
+        expect=["scene dk8_inseto_pre", "star duel lost, bet 1, stars 8 (inseto_gate holds 3)"], forbid=["GAME OVER", "kingdom_beach"]),
+    "cap8_shop": dict(desc="Pawn Paul's Gate Pawn Stall", preset="47 InsetoKaiba at the lock (wager)", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "castle_gate.shop_stall"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 200), ("press", "cross"), ("wait", 120), ("snap", "shop")], expect=[]),
+    "cap8_arena": dict(desc="the Moat Pit (gate arena) with its exclusives", preset="47 InsetoKaiba at the lock (wager)", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "castle_gate.arena_door"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 120), ("press", "cross"), ("wait", 40), ("snap", "arena")], expect=[]),
+    "cap8_camp": dict(quick=True, desc="gate camp warns that zero stars ends the journey", preset="47 InsetoKaiba at the lock (wager)", lang=1,
+        debug={"skip_dialogue": True, "teleport": "castle_gate.gate_camp"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk8_gate_camp", 300), ("wait", 60), ("snap", "camp")], expect=["scene dk8_gate_camp"]),
+    "final8_gate": dict(desc="player view: the Castle Gate", preset="47 InsetoKaiba at the lock (wager)", lang=1, debug={"teleport": "castle_gate.gate_center"},
+        steps=REL + [("snap", "gate")], expect=["dev mode 0"]),
+    "final8_inseto": dict(desc="player view: InsetoKaiba at the star-lock", preset="47 InsetoKaiba at the lock (wager)", lang=1, debug={"teleport": "castle_gate.gate_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk8_inseto_pre", 300), ("wait", 90), ("snap", "inseto")], expect=["scene dk8_inseto_pre"]),
+    "final8_end": dict(desc="player view: chapter 8 complete, ten stars", preset="48 chapter 8 done", lang=1, debug={"teleport": "castle_gate.gate_center"},
+        steps=REL + [("snap", "end"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")], expect=["dev mode 0"]),
+    "quick_gate_dream": dict(quick=True, desc="QUICK: castle door announces Dream Room at 10 stars", preset="48 chapter 8 done", lang=1,
+        debug={"skip_dialogue": True, "teleport": "castle_gate.castle_door"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk8_castle_announce", 300), ("wait", 40), ("snap", "announce")],
+        expect=["scene dk8_castle_announce"]),
+})
