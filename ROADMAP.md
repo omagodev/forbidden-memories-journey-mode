@@ -5,7 +5,8 @@
 Journey Mode is a hobby project, so there are no dates here, just the direction. Each item will become a GitHub issue; feel free to pick one up.
 
 ## ✅ Done
-- Original area / tension / epic soundtrack (Ogg replace + scene cues)
+- - Start menu Controls row opens the PC remapper; HOW_TO_PLAY covers gamepad defaults
+Original area / tension / epic soundtrack (Ogg replace + scene cues)
 - Illustrated home town (Oasis Village), cistern and underground arena, with animated water, fire and palms
 - NPCs on the map linked to Forbidden Memories duelists; real duels with the original engine
 - Dialogue with the speaker's name in the text box, a yes/no ask, objective and item banners

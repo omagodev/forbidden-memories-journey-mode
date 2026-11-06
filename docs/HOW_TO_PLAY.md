@@ -22,11 +22,37 @@ No compiling needed: download the ready-to-run Windows build.
 |---|---|
 | Arrows | Move / navigate |
 | X or Enter | Confirm / talk |
-| S | Back |
-| Q / E | Switch tabs (character creator) |
-| R / Z | Turn sprite / switch view |
+| S | Back / cancel (Circle) |
+| A | Journal / map (Triangle) |
+| Z | Square (shop tabs / extras) |
+| Q / W | L1 / R1 |
+| E / R | L2 / R2 |
+| Enter | Start (pause menu) |
+| Right Shift | Select (minimap) |
 | F10 | Menu bar (video, controls, language) |
 | Esc | Quit |
+
+## Controller (Xbox / PlayStation / Switch-style)
+Plug in a USB or Bluetooth gamepad — SDL maps it automatically. Stick and D-pad both move.
+
+| Button | Action |
+|---|---|
+| Left stick / D-pad | Move / navigate |
+| A / South (✕) | Confirm / talk |
+| B / East (○) | Back / run (hold on the map) |
+| Y / North (△) | Journal (illustrated map) / world map |
+| X / West (□) | Square actions (shop / UI) |
+| Start | Pause menu |
+| Select / View / − | Minimap |
+| LB / RB | L1 / R1 |
+| LT / RT | L2 / R2 |
+
+## Remap keys and buttons
+1. In Journey Mode open **Start → Controls** (opens the PC Controls window), **or** press **F10 → Game → Controls…**.
+2. Click a row and press the key or button you want. Conflicts are moved automatically.
+3. **Apply** or **OK** — bindings save to `controls.txt` in your user folder (`Documents\My Games\YFM Re-Decomp`).
+
+Keyboard and gamepad share the same actions, so Journey Mode, shops, wagers and duels all follow your remap.
 
 ## Star Chips (Duelist Kingdom)
 - Before every star duel you **choose your bet**: left/right from 1 up to the smaller of your stars and your rival's, X to duel, S to back out.

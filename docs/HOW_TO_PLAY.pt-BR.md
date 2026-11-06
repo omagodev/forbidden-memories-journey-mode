@@ -22,11 +22,37 @@ Não precisa compilar: baixe a versão pronta para Windows.
 |---|---|
 | Setas | Andar / navegar |
 | X ou Enter | Confirmar / conversar |
-| S | Voltar |
-| Q / E | Trocar de aba (criação de personagem) |
-| R / Z | Girar o sprite / trocar a visão |
+| S | Voltar / cancelar (Circulo) |
+| A | Diario / mapa (Triangulo) |
+| Z | Quadrado (abas da loja / extras) |
+| Q / W | L1 / R1 |
+| E / R | L2 / R2 |
+| Enter | Start (menu de pausa) |
+| Shift direito | Select (minimapa) |
 | F10 | Barra de menu (vídeo, controles, idioma) |
 | Esc | Sair |
+
+## Controle (Xbox / PlayStation / estilo Switch)
+Plugue um gamepad USB ou Bluetooth — o SDL reconhece sozinho. Stick e D-pad andam.
+
+| Botao | Acao |
+|---|---|
+| Stick esquerdo / D-pad | Andar / navegar |
+| A / South (✕) | Confirmar / falar |
+| B / East (○) | Voltar / correr (segure no mapa) |
+| Y / North (△) | Diario (mapa ilustrado) / mapa do mundo |
+| X / West (□) | Acoes de Quadrado (loja / UI) |
+| Start | Menu de pausa |
+| Select / View / − | Minimapa |
+| LB / RB | L1 / R1 |
+| LT / RT | L2 / R2 |
+
+## Remapear teclas e botoes
+1. No Journey Mode abra **Start → Controles** (abre a janela Controles do PC), **ou** pressione **F10 → Game → Controls…**.
+2. Clique na linha e aperte a tecla ou o botao desejado. Conflitos sao movidos automaticamente.
+3. **Apply** ou **OK** — o mapeamento fica em `controls.txt` na pasta do usuario (`Documentos\My Games\YFM Re-Decomp`).
+
+Teclado e controle compartilham as mesmas acoes: mapa, loja, apostas e duelos seguem o seu remap.
 
 ## Fichas de Estrela (Reino dos Duelistas)
 - Antes de cada duelo de estrelas você **escolhe a aposta**: esquerda/direita de 1 até o menor entre as suas estrelas e as do rival, X para duelar, S para desistir.

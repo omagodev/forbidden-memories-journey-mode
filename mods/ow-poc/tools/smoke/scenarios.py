@@ -73,6 +73,14 @@ SCENARIOS = {
         steps=[("press", "cross"), ("until", "scene dk1_farmer_pre", 300), ("wait", 200), ("press", "cross", 5, 200), ("press", "cross", 5, 300), ("snap", "ask_page"), ("press", "down", 5, 30), ("snap", "ask_no"), ("press", "up", 5, 30),
                ("press", "cross", 5, 250), ("snap", "after_yes")],
         expect=["scene dk1_farmer_pre"]),
+    "menu_controls_row": dict(
+        quick=True,
+        desc="START menu has Controls; confirm opens the PC remapper (or shows the in-menu hint)",
+        preset="6 Hakim's hint (Kemet next)", lang=0,
+        steps=[("press", "start", 5, 30), ("wait", 20),
+               ("press", "down", 5, 14), ("press", "down", 5, 14), ("press", "down", 5, 14), ("press", "down", 5, 14),
+               ("snap", "controls_row"), ("press", "cross", 5, 40), ("wait", 40), ("snap", "controls_open")],
+        expect=["journey: 267 scenes"]),
     "painted_menu": dict(
         desc="START opens the main menu over the painted village (items, status, save), Triangle closes it, the village is back and walkable",
         preset="6 Hakim's hint (Kemet next)",

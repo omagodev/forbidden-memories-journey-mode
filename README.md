@@ -124,7 +124,7 @@ Every town has a shop run by Teana: buy single cards with the real game art, ope
 
 ## Play
 
-> 📥 **No compiling needed.** Grab the Windows build [**JourneyMode_v0.6.0-alpha_Windows.zip**](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.0-alpha/JourneyMode_v0.6.0-alpha_Windows.zip) from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Full guide: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
+> 📥 **No compiling needed.** Grab the Windows build [**JourneyMode_v0.6.6-alpha_Windows.zip**](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.6-alpha/JourneyMode_v0.6.6-alpha_Windows.zip) from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Full guide: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
 
 1. Download the latest build from [**Releases**](https://github.com/omagodev/forbidden-memories-journey-mode/releases) and extract it.
 2. Copy your `.bin` into the `game` folder, then run `JOGAR_JourneyMode.bat` (or `memories-pc.exe`).

@@ -849,8 +849,8 @@ static unsigned create_sig(void)
 unsigned Ui_Signature(void);
 
 /* --------------------------------------------------------------- START menu */
-enum { M_DECK, M_ITEMS, M_STATUS, M_SAVE, M_LANG, M_DEV, M_TITLE, M_CLOSE, M_COUNT };
-static const int menu_text[M_COUNT] = {0, 1, 2, 3, -1, -2, 4, 5};   /* index in ui "menu.items"; the language and Dev mode rows are made */
+enum { M_DECK, M_ITEMS, M_STATUS, M_SAVE, M_CONTROLS, M_LANG, M_DEV, M_TITLE, M_CLOSE, M_COUNT };
+static const int menu_text[M_COUNT] = {0, 1, 2, 3, 4, -1, -2, 5, 6};   /* index in ui "menu.items"; language and Dev mode rows are made */
 static int msel, msub, qsel;
 static int menu_shown(int i) { return i != M_DEV || Dbg_On(); }   /* the Dev mode row exists only with debug.json */
 
@@ -889,6 +889,13 @@ int Ui_MenuInput(unsigned short edge)
         switch (msel) {
         case M_DECK: return 2;
         case M_CLOSE: return 1;
+        case M_CONTROLS: {
+            typedef void (*JmOpenControls)(void);
+            JmOpenControls open = (JmOpenControls)jm_host->symbol(jm_host, "Platform_OpenControls");
+            if (open) { open(); return 1; }   /* PC Controls window (keyboard + gamepad rebind) */
+            msub = 1;                        /* fallback: in-menu hint if the host has no Controls UI */
+            break;
+        }
         case M_LANG:
             Lang_Set((Lang_Current() + 1) % Lang_Count());
             jm_save_requested = 1;
@@ -934,7 +941,7 @@ void Ui_MenuOverlay(void)
     }
     if (!msub) return;
     {
-        int px = x + w + 8 * ui_s, pw = ui_w / 2, ph = lh * (msel == M_STATUS && Eco_Ready() ? 13 : 11), py = y;
+        int px = x + w + 8 * ui_s, pw = ui_w / 2, ph = lh * (msel == M_STATUS && Eco_Ready() ? 13 : msel == M_CONTROLS ? 9 : 11), py = y;
         panel(px, py, pw, ph);
         text(px + 12 * ui_s, py + lh, menu_name(msel, nb, sizeof(nb)), 0xFFE9A0);
         if (msel == M_ITEMS) {
@@ -974,6 +981,11 @@ void Ui_MenuOverlay(void)
                     text(px + 14 * ui_s, py + lh * 11, buf, 0xE0E0E0);
                 }
             }
+        } else if (msel == M_CONTROLS) {
+            text(px + 14 * ui_s, py + lh * 2, Tr("menu.controls_help1"), 0xE0E0E0);
+            text(px + 14 * ui_s, py + lh * 3, Tr("menu.controls_help2"), 0xE0E0E0);
+            text(px + 14 * ui_s, py + lh * 5, Tr("menu.controls_help3"), 0x909090);
+            text(px + 14 * ui_s, py + lh * 6, Tr("menu.controls_help4"), 0x909090);
         } else if (msel == M_SAVE) {
             text(px + 14 * ui_s, py + lh * 2 + lh / 2, Tr(jm_save_ok ? "menu.saved" : "menu.save_failed"), jm_save_ok ? 0x60F060 : 0xF06060);
         } else if (msel == M_TITLE) {
