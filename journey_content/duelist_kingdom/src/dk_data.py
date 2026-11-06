@@ -10,6 +10,7 @@ SPEAKERS = {  # key: (name_en, name_pt, short, portrait, note)
  "guard": ("Guard", "Guarda", "Guard", 5, "Villager 2 portrait."),
  "baker": ("Hakim", "Hakim", "Hakim", 4, "Villager 1 portrait: the baker."),
  "farmer": ("Kemet", "Kemet", "Kemet", 6, "Villager 3 portrait: the date farmer."),
+ "academy_teacher": ("Professor Nabil", "Professor Nabil", "Nabil", 4, "An ordinary villager who runs a free Duel Academy in the plaza."),
  "hooded_man": ("Hooded Man", "Homem Encapuzado", "Hooded", 254, "Voice only (no portrait). It is Shadi in disguise; the portrait appears at the reveal."),
  "bakura": ("Bakura", "Bakura", "Bakura", 14, "Lonely cistern ghost (Yami Bakura portrait)."),
  "rex": ("Rex Raptor", "Rex Raptor", "Rex", 9, "Wandering dinosaur duelist."),
@@ -71,6 +72,7 @@ ANCHORS = {  # area: {anchor: (hint for the painted picture / map author)}
   "bridge_north": "The wooden bridge at the top center: guard post and exit to the harbor road.",
   "mago_roof": "OBSERVER: far rooftop edge of the NE house (top-right), seen from the plaza at night. Robe sprite + green aura overlay, never walkable.",
   "east_road": "East end of the horizontal golden road (right edge).",
+  "academy_corner": "Open ground by the notice board: Nabil's informal outdoor Duel Academy.",
  },
  "cistern": {"wall_glyph": "OBSERVER: carved wall panel where green characters flicker (green aura overlay).", "spawn_stairs": "Bottom of the stone steps.", "bakura_spot": "Center platform with the floating light.", "exit_stairs": "The stairs going up."},
  "harbor": {
@@ -157,6 +159,17 @@ NPCS = [
   W(when=W(stage=[3,99], flags_all=["baker_hint"], flags_none=["farmer_won"]), script="dk1_farmer_pre", duel="farmer"),
   W(when=W(stage=[3,99], flags_none=["farmer_won"]), script="dk1_farmer_nohint"),
   W(when=W(stage=[3,99]), script="dk1_farmer_after")]),
+ dict(id="academy_teacher", area="village", anchor="academy_corner", duelist_id=4, stages=[0, 99], visible="always",
+      note="Optional, persistent rules tutorial. Each conversation advances one short class; the final class unlocks practice duels.",
+      rules=[
+  W(when=W(stage=[0,99], flags_none=["academy_started"]), script="dk1_academy_intro", effects=[W(set_flag="academy_started")]),
+  W(when=W(stage=[0,99], flags_all=["academy_started"], flags_none=["academy_basics"]), script="dk1_academy_basics", effects=[W(set_flag="academy_basics")]),
+  W(when=W(stage=[0,99], flags_all=["academy_basics"], flags_none=["academy_guardians"]), script="dk1_academy_guardians", effects=[W(set_flag="academy_guardians")]),
+  W(when=W(stage=[0,99], flags_all=["academy_guardians"], flags_none=["academy_fields"]), script="dk1_academy_fields", effects=[W(set_flag="academy_fields")]),
+  W(when=W(stage=[0,99], flags_all=["academy_fields"], flags_none=["academy_power"]), script="dk1_academy_power", effects=[W(set_flag="academy_power")]),
+  W(when=W(stage=[0,99], flags_all=["academy_power"], flags_none=["academy_fusions"]), script="dk1_academy_fusions", effects=[W(set_flag="academy_fusions")]),
+  W(when=W(stage=[0,99], flags_all=["academy_fusions"], flags_none=["academy_graduate"]), script="dk1_academy_exam", duel="academy"),
+  W(when=W(stage=[0,99], flags_all=["academy_graduate"]), script="dk1_academy_review", duel="academy_rematch")]),
  dict(id="hooded_man", area="village", anchor="plaza_center", duelist_id=None, stages=[2, 2], visible="placed",
       note="Placed by the bench script at night; removed after the riddle.",
       rules=[W(when=W(stage=[2,2], flags_none=["courier_met"]), script="dk1_hooded_riddle",
@@ -247,6 +260,10 @@ DUELS = [  # id, npc, duelist_id, deck, tier, pre, win, lose, win_flag, on_win, 
       note="Courier's trial. Win = Passage + 1 star + friends appear."),
  dict(id="inseto", npc="inseto_kaiba", duelist_id="inseto_kaiba", deck="InsetoKaiba", tier=5, pre="dk1_inseto_pre", win="dk1_inseto_win", lose="dk1_inseto_lose", win_flag="inseto_won",
       on_win=[W(give_card="Javelin Beetle"), W(give_item="bug_pin")], note="Optional boss on the ship. No stars at risk (the Kingdom has not started). Rematch in Chapter 8."),
+ dict(id="academy", npc="academy_teacher", duelist_id=4, deck="Villager 1", tier=1, pre="dk1_academy_exam", win="dk1_academy_win", lose="dk1_academy_lose", win_flag="academy_graduate",
+      on_win=[], note="Optional final class. A harmless practice duel after all five rules lessons."),
+ dict(id="academy_rematch", npc="academy_teacher", duelist_id=4, deck="Villager 1", tier=1, pre="dk1_academy_review", win="dk1_academy_rematch_win", lose="dk1_academy_lose", win_flag="academy_graduate",
+      on_win=[], note="Repeatable practice duel after graduation; no additional reward."),
 ]
 
 TRANSITIONS = [
@@ -434,3 +451,15 @@ HUD += _C4.HUD
 CHAPTERS.append(_C4.CHAPTER)
 QUESTS += _C4.QUESTS
 DECKS.update(_C4.DECKS)
+
+# Appended after every released chapter flag so existing save bits keep their
+# meaning.  These optional academy lessons use the previously unused tail.
+FLAGS += [
+ ("academy_started", "Professor Nabil introduced the optional Duel Academy."),
+ ("academy_basics", "Academy class 1 complete: turns, hand and battle."),
+ ("academy_guardians", "Academy class 2 complete: Guardian Star cycles."),
+ ("academy_fields", "Academy class 3 complete: terrain bonuses."),
+ ("academy_power", "Academy class 4 complete: equips and stacked bonuses."),
+ ("academy_fusions", "Academy class 5 complete: ordered fusion chains."),
+ ("academy_graduate", "Won Professor Nabil's optional practice duel."),
+]

@@ -46,7 +46,14 @@
   "keith_won",
   "mai_mountain_won",
   "carver_found",
-  "mountain_mage_won"
+  "mountain_mage_won",
+  "academy_started",
+  "academy_basics",
+  "academy_guardians",
+  "academy_fields",
+  "academy_power",
+  "academy_fusions",
+  "academy_graduate"
  ],
  "areas": [
   {
@@ -1338,6 +1345,152 @@
    ]
   },
   {
+   "id": "academy_teacher",
+   "name": "Professor Nabil",
+   "mesh": "Doctor_Male_Young",
+   "anchor": "academy_corner",
+   "talk": [
+    {
+     "when": {
+      "lacks": [
+       "academy_started"
+      ]
+     },
+     "scene": "dk1_academy_intro",
+     "effects": {
+      "flags": [
+       "academy_started"
+      ]
+     }
+    },
+    {
+     "when": {
+      "needs": [
+       "academy_started"
+      ],
+      "lacks": [
+       "academy_basics"
+      ]
+     },
+     "scene": "dk1_academy_basics",
+     "effects": {
+      "flags": [
+       "academy_basics"
+      ]
+     }
+    },
+    {
+     "when": {
+      "needs": [
+       "academy_basics"
+      ],
+      "lacks": [
+       "academy_guardians"
+      ]
+     },
+     "scene": "dk1_academy_guardians",
+     "effects": {
+      "flags": [
+       "academy_guardians"
+      ]
+     }
+    },
+    {
+     "when": {
+      "needs": [
+       "academy_guardians"
+      ],
+      "lacks": [
+       "academy_fields"
+      ]
+     },
+     "scene": "dk1_academy_fields",
+     "effects": {
+      "flags": [
+       "academy_fields"
+      ]
+     }
+    },
+    {
+     "when": {
+      "needs": [
+       "academy_fields"
+      ],
+      "lacks": [
+       "academy_power"
+      ]
+     },
+     "scene": "dk1_academy_power",
+     "effects": {
+      "flags": [
+       "academy_power"
+      ]
+     }
+    },
+    {
+     "when": {
+      "needs": [
+       "academy_power"
+      ],
+      "lacks": [
+       "academy_fusions"
+      ]
+     },
+     "scene": "dk1_academy_fusions",
+     "effects": {
+      "flags": [
+       "academy_fusions"
+      ]
+     }
+    },
+    {
+     "when": {
+      "needs": [
+       "academy_fusions"
+      ],
+      "lacks": [
+       "academy_graduate"
+      ]
+     },
+     "scene": "dk1_academy_exam",
+     "duel": true,
+     "win": {
+      "flags": [
+       "academy_graduate"
+      ],
+      "scene": "dk1_academy_win"
+     },
+     "lose": {
+      "scene": "dk1_academy_lose"
+     }
+    },
+    {
+     "when": {
+      "needs": [
+       "academy_graduate"
+      ]
+     },
+     "scene": "dk1_academy_review",
+     "duel": true,
+     "win": {
+      "flags": [
+       "academy_graduate"
+      ],
+      "scene": "dk1_academy_rematch_win"
+     },
+     "lose": {
+      "scene": "dk1_academy_lose"
+     }
+    }
+   ],
+   "duelist_id": 4,
+   "portrait_id": 4,
+   "tile": [
+    31.5,
+    27.5
+   ]
+  },
+  {
    "id": "hooded_man",
    "name": "Hooded Man",
    "mesh": "Wizard",
@@ -2345,6 +2498,9 @@
   },
   "farmer": {
    "portrait_id": 6
+  },
+  "academy_teacher": {
+   "portrait_id": 4
   },
   "hooded_man": {
    "portrait_id": 0

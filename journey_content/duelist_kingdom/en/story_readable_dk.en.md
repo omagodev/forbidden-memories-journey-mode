@@ -665,6 +665,101 @@ _Bakura mentions the green writing._
 - **Bakura**: The green writing on the wall? It was here before me.
 - **Bakura**: It never helps and never harms. It only watches. I like it. Good company.
 
+### dk1_academy_intro
+_Nabil opens his informal Duel Academy in the village plaza._
+
+- **Professor Nabil**: Hello! I am Nabil. No title, really. I just enjoy teaching new duelists.
+- **Professor Nabil**: This patch of sand is my Duel Academy. Tuition is free and shoes are optional.
+- **Professor Nabil**: Five short classes, then a practice duel. Come back for each new class.
+- **Duel Academy**: Class unlocked - turns, cards and battle.
+
+### dk1_academy_basics
+_Academy class 1: the Forbidden Memories turn._
+
+- **Professor Nabil**: Class one - the rhythm of a duel. Both duelists begin with 8000 Life Points.
+- **Professor Nabil**: Your hand refills to five each turn. You must play one card or one ordered combination.
+- **Professor Nabil**: There are no tributes here. A monster you just played can attack on that same turn.
+- **Professor Nabil**: Each upright monster may attack once per turn. You choose the order of those attacks.
+- **Professor Nabil**: Attack upright. Turn sideways to defend. Press Start to end your turn.
+- **Professor Nabil**: With no enemy monster, you attack Life Points directly. Empty them and you win.
+- **Class 1**: Complete. Next class - Guardian Stars.
+
+### dk1_academy_guardians
+_Academy class 2: Guardian Star cycles and their 500 point swing._
+
+- **Professor Nabil**: Each monster offers two Guardian Stars. Choose one when you summon it.
+- **Professor Nabil**: Mars beats Jupiter, then Saturn, Uranus, Pluto, Neptune, then Mars.
+- **Professor Nabil**: Second cycle - Mercury beats Sun, Sun beats Moon, Moon beats Venus, and Venus beats Mercury.
+- **Professor Nabil**: Only neighbors in the same cycle matter. Advantage swings the battle by 500 points.
+- **Professor Nabil**: Check the enemy star before attacking. A weaker monster can win with the right Guardian.
+- **Class 2**: Complete. Next class - fields and terrain.
+
+### dk1_academy_fields
+_Academy class 3: all six terrain cards and type bonuses._
+
+- **Professor Nabil**: A field card changes the terrain for both duelists until another field replaces it.
+- **Professor Nabil**: A favored type gains 500 ATK and DEF. A harmed type loses 500 ATK and DEF.
+- **Professor Nabil**: Forest helps Beasts, Beast-Warriors, Insects and Plants.
+- **Professor Nabil**: Mountain helps Dragons, Winged Beasts and Thunder monsters.
+- **Professor Nabil**: Wasteland helps Zombies, Dinosaurs and Rocks. Sogen helps Warriors and Beast-Warriors.
+- **Professor Nabil**: Umi helps sea types, Aqua and Thunder, but hurts Machines and Pyro monsters.
+- **Professor Nabil**: Yami helps Spellcasters and Fiends, but hurts Fairies. A field can help your rival too.
+- **Class 3**: Complete. Next class - raising ATK and DEF.
+
+### dk1_academy_power
+_Academy class 4: equips and stacking stat bonuses._
+
+- **Professor Nabil**: Equip cards fit only certain monsters. Combine a valid equip with its monster to use it.
+- **Professor Nabil**: Most equips add 500 ATK and DEF. Megamorph adds 1000. Several equips can stack.
+- **Professor Nabil**: You may combine them in your hand or play one onto your monster already on the field.
+- **Professor Nabil**: An invalid equip is discarded. Test safely, and remember which monsters accept each one.
+- **Professor Nabil**: Equip and terrain bonuses stack. Guardian advantage adds its own 500 during battle.
+- **Class 4**: Complete. Next class - wild fusions.
+
+### dk1_academy_fusions
+_Academy class 5: selecting and resolving ordered fusion chains._
+
+- **Professor Nabil**: Now the fun part. In your hand, press Up to number two or more cards in order.
+- **Professor Nabil**: Confirm. The first two combine. Their survivor meets the third, then the next.
+- **Professor Nabil**: Some recipes are exact. Many use types and strength. Dragon plus Thunder is a famous path.
+- **Professor Nabil**: If two monsters fail to fuse, the first is lost and the second stays. Order matters a lot.
+- **Professor Nabil**: You can also play a card onto your field monster to fuse or equip it in the same zone.
+- **Professor Nabil**: Experiment. The strangest chains often turn a weak hand into one enormous monster.
+- **Class 5**: Complete. Return for Nabil's practice duel.
+
+### dk1_academy_exam
+_Nabil offers the optional practice duel after every class._
+
+- **Professor Nabil**: You know turns, Guardians, fields, equips and fusion chains. Time for the sand exam.
+- **Professor Nabil**: My deck is simple. Try a fusion, watch the stars, and use the field if it favors you.
+- **Professor Nabil**: No entry fee and no shame in losing. Ready for your practice duel?  _[Duel? Yes/No]_
+
+### dk1_academy_win
+_The hero graduates from Nabil's optional Duel Academy._
+
+- **Professor Nabil**: Excellent! You read the board instead of staring only at the biggest ATK number.
+- **Professor Nabil**: Academy complete. I will stay here if you want a summary and another practice duel.
+- **Duel Academy**: Training complete. Professor Nabil remains available in the village.
+
+### dk1_academy_lose
+_Nabil wins a practice duel and encourages another attempt._
+
+- **Professor Nabil**: Good practice. A loss costs nothing here, and now you know where your plan broke.
+- **Professor Nabil**: Change one thing, not the whole deck. Then come back and try again.
+
+### dk1_academy_review
+_Post-graduation summary and repeatable practice duel._
+
+- **Professor Nabil**: Quick review - play one card or ordered chain, then battle and press Start to end.
+- **Professor Nabil**: Guardian advantage swings 500. Terrain changes ATK and DEF. Valid equips stack.
+- **Professor Nabil**: Fusion chains resolve in numbered order. A failed pair can discard the first card.
+- **Professor Nabil**: That is the whole academy. Want another practice duel?  _[Duel? Yes/No]_
+
+### dk1_academy_rematch_win
+_Nabil loses a post-graduation practice rematch._
+
+- **Professor Nabil**: Sharp play. Class dismissed until you feel like shuffling again.
+
 ### dk2_landing
 _Chapter 2 opens: the hero steps off the gangway onto the Shore of Illusions._
 

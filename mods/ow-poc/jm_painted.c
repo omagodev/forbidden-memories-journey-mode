@@ -337,6 +337,7 @@ static PNpc pnpc[] = {
     {"Ninja_Sand", SPR_FARMER, 700, 470, 1.5708f, 1, 40},       /* Kemet the farmer, a short stroll */
     {"Suit_Male", SPR_REX, 1215, 425, 4.7124f, 0, 0},            /* Rex Raptor on the east road (the story places him) */
     {"Wizard", SPR_BAKURA, 638, 365, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0, AREA_CISTERN, 1.2f},   /* the ghost Bakura on the dais of the cistern: he hovers */
+    {"Doctor_Male_Young", SPR_AI, 1000, 395, 0.0f, 1, 24},       /* Professor Nabil's informal outdoor Duel Academy */
     /* chapter 2: the harbor, the ship, the Shore of Illusions (the area follows the anchor journey.json gives them) */
     {"Knight_Male", SPR_SOLDIER, 420, 330, 4.7124f, 0, 0},       /* the harbor inspector */
     {"Wizard", SPR_SHADI, 860, 360, 4.7124f, 0, 0},              /* the Courier, Shadi */
@@ -361,7 +362,7 @@ static PNpc pnpc[] = {
 #define NPN ((int)(sizeof(pnpc) / sizeof(pnpc[0])))
 static int npc_init;
 /* Which journey.json person each villager is (the order of pnpc[]), and the talk state. */
-static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_man", "baker", "farmer", "rex", "bakura",
+static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_man", "baker", "farmer", "rex", "bakura", "academy_teacher",
                                      "soldier", "shadi", "mai", "inseto_kaiba", "weevil", "dock_dan", "purser", "shell_sue", "hooded_shore",
                                      "rex_forest", "forest_mage", "hermit_hob",
                                      "keith", "mai_mountain", "star_carver", "mountain_mage", "cliff_cass"};
@@ -373,7 +374,7 @@ static const short guard_aside[2] = {566, 176};   /* he steps aside once the bri
 static const struct { const char *name; short x, y; unsigned char area; } anchors[] = {
     {"hero_start", 184, 273, 0}, {"plaza_center", 600, 300, 0}, {"plaza_bench", 500, 292, 0}, {"house_ne_door", 1150, 262, 0},
     {"teana_stall", 252, 676, 0}, {"bakery_door", 950, 585, 0}, {"bridge_north", 652, 168, 0},
-    {"farmer_field", 700, 470, 0}, {"mago_roof", 1205, 128, 0}, {"notice_sign", 1094, 340, 0},
+    {"farmer_field", 700, 470, 0}, {"mago_roof", 1205, 128, 0}, {"notice_sign", 1094, 340, 0}, {"academy_corner", 1000, 395, 0},
     {"arena_door", 1012, 622, 0},   /* the flour cellar's hatch, behind the bakery */
     {"mini_pyramid_hatch", 182, 278, 0}, {"hatch_prop", 148, 262, 0}, {"date_palm", 840, 345, 0}, {"river_bank", 480, 114, 0}, {"east_road", 1215, 425, 0}, {"rex_approach", 1128, 432, 0},
     {"spawn_stairs", 638, 222, 1}, {"exit_stairs", 639, 50, 1}, {"bakura_spot", 638, 365, 1}, {"wall_glyph", 388, 200, 1},
@@ -632,7 +633,7 @@ static int ow_of(int i)
     return -1;
 }
 /* at night the villagers who live in the picture's houses are indoors (Teana, Jono, Hakim, Kemet): the plaza is empty for the hooded man */
-static int night_away(int i) { return night_t > 0.6f && (i == 1 || i == 3 || i == 5 || i == 6); }
+static int night_away(int i) { return night_t > 0.6f && (i == 1 || i == 3 || i == 5 || i == 6 || i == 9); }
 static int npc_here(int i) { int k = ow_of(i); return k >= 0 && pnpc[i].area == paint_area && !npcs[k].hidden && !night_away(i) && spr_zone_ok(pnpc[i].spr, paint_area); }
 /* the bridge is open: journey.json's "painted": {"bridge_open": cond} holds (without it: the Guard has been moved) */
 static int npc_moved(int i);

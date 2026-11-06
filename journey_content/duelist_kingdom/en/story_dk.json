@@ -60,6 +60,12 @@
    "portrait": 6,
    "note": "Villager 3 portrait: the date farmer."
   },
+  "academy_teacher": {
+   "name": "Professor Nabil",
+   "short": "Nabil",
+   "portrait": 4,
+   "note": "An ordinary villager who runs a free Duel Academy in the plaza."
+  },
   "hooded_man": {
    "name": "Hooded Man",
    "short": "Hooded",
@@ -487,6 +493,48 @@
    "bit": 46,
    "value": 70368744177664,
    "note": "Mountain Mage beaten: sixth star, end of chapter 4."
+  },
+  {
+   "name": "academy_started",
+   "bit": 47,
+   "value": 140737488355328,
+   "note": "Professor Nabil introduced the optional Duel Academy."
+  },
+  {
+   "name": "academy_basics",
+   "bit": 48,
+   "value": 281474976710656,
+   "note": "Academy class 1 complete: turns, hand and battle."
+  },
+  {
+   "name": "academy_guardians",
+   "bit": 49,
+   "value": 562949953421312,
+   "note": "Academy class 2 complete: Guardian Star cycles."
+  },
+  {
+   "name": "academy_fields",
+   "bit": 50,
+   "value": 1125899906842624,
+   "note": "Academy class 3 complete: terrain bonuses."
+  },
+  {
+   "name": "academy_power",
+   "bit": 51,
+   "value": 2251799813685248,
+   "note": "Academy class 4 complete: equips and stacked bonuses."
+  },
+  {
+   "name": "academy_fusions",
+   "bit": 52,
+   "value": 4503599627370496,
+   "note": "Academy class 5 complete: ordered fusion chains."
+  },
+  {
+   "name": "academy_graduate",
+   "bit": 53,
+   "value": 9007199254740992,
+   "note": "Won Professor Nabil's optional practice duel."
   }
  ],
  "stages": [
@@ -676,7 +724,8 @@
    "river_bank": "River edge at the top, left of the bridge.",
    "bridge_north": "The wooden bridge at the top center: guard post and exit to the harbor road.",
    "mago_roof": "OBSERVER: far rooftop edge of the NE house (top-right), seen from the plaza at night. Robe sprite + green aura overlay, never walkable.",
-   "east_road": "East end of the horizontal golden road (right edge)."
+   "east_road": "East end of the horizontal golden road (right edge).",
+   "academy_corner": "Open ground by the notice board: Nabil's informal outdoor Duel Academy."
   },
   "cistern": {
    "wall_glyph": "OBSERVER: carved wall panel where green characters flicker (green aura overlay).",
@@ -1397,6 +1446,168 @@
       ]
      },
      "script": "dk1_farmer_after"
+    }
+   ]
+  },
+  {
+   "id": "academy_teacher",
+   "name": "Professor Nabil",
+   "portrait_speaker": "academy_teacher",
+   "area": "village",
+   "anchor": "academy_corner",
+   "duelist_id": 4,
+   "stages": [
+    0,
+    99
+   ],
+   "visible": "always",
+   "note": "Optional, persistent rules tutorial. Each conversation advances one short class; the final class unlocks practice duels.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_none": [
+       "academy_started"
+      ]
+     },
+     "script": "dk1_academy_intro",
+     "effects": [
+      {
+       "set_flag": "academy_started"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_all": [
+       "academy_started"
+      ],
+      "flags_none": [
+       "academy_basics"
+      ]
+     },
+     "script": "dk1_academy_basics",
+     "effects": [
+      {
+       "set_flag": "academy_basics"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_all": [
+       "academy_basics"
+      ],
+      "flags_none": [
+       "academy_guardians"
+      ]
+     },
+     "script": "dk1_academy_guardians",
+     "effects": [
+      {
+       "set_flag": "academy_guardians"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_all": [
+       "academy_guardians"
+      ],
+      "flags_none": [
+       "academy_fields"
+      ]
+     },
+     "script": "dk1_academy_fields",
+     "effects": [
+      {
+       "set_flag": "academy_fields"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_all": [
+       "academy_fields"
+      ],
+      "flags_none": [
+       "academy_power"
+      ]
+     },
+     "script": "dk1_academy_power",
+     "effects": [
+      {
+       "set_flag": "academy_power"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_all": [
+       "academy_power"
+      ],
+      "flags_none": [
+       "academy_fusions"
+      ]
+     },
+     "script": "dk1_academy_fusions",
+     "effects": [
+      {
+       "set_flag": "academy_fusions"
+      }
+     ]
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_all": [
+       "academy_fusions"
+      ],
+      "flags_none": [
+       "academy_graduate"
+      ]
+     },
+     "script": "dk1_academy_exam",
+     "duel": "academy"
+    },
+    {
+     "when": {
+      "stage": [
+       0,
+       99
+      ],
+      "flags_all": [
+       "academy_graduate"
+      ]
+     },
+     "script": "dk1_academy_review",
+     "duel": "academy_rematch"
     }
    ]
   },
@@ -3603,6 +3814,38 @@
    "rewards_first_win_only": true,
    "stars_wager": false,
    "note": "Optional boss on the ship. No stars at risk (the Kingdom has not started). Rematch in Chapter 8."
+  },
+  {
+   "id": "academy",
+   "npc": "academy_teacher",
+   "duelist_id": 4,
+   "chapter": 1,
+   "deck": "Villager 1",
+   "difficulty_tier": 1,
+   "pre_script": "dk1_academy_exam",
+   "win_script": "dk1_academy_win",
+   "lose_script": "dk1_academy_lose",
+   "win_flag": "academy_graduate",
+   "on_win": [],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Optional final class. A harmless practice duel after all five rules lessons."
+  },
+  {
+   "id": "academy_rematch",
+   "npc": "academy_teacher",
+   "duelist_id": 4,
+   "chapter": 1,
+   "deck": "Villager 1",
+   "difficulty_tier": 1,
+   "pre_script": "dk1_academy_review",
+   "win_script": "dk1_academy_rematch_win",
+   "lose_script": "dk1_academy_lose",
+   "win_flag": "academy_graduate",
+   "on_win": [],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Repeatable practice duel after graduation; no additional reward."
   },
   {
    "id": "weevil",
@@ -6536,6 +6779,307 @@
     {
      "speaker": "bakura",
      "text": "It never helps and never harms. It only watches. I like it. Good company."
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_intro",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Nabil opens his informal Duel Academy in the village plaza.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Hello! I am Nabil. No title, really. I just enjoy teaching new duelists."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "This patch of sand is my Duel Academy. Tuition is free and shoes are optional."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Five short classes, then a practice duel. Come back for each new class."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Class unlocked - turns, cards and battle.",
+     "label": "Duel Academy"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_basics",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Academy class 1: the Forbidden Memories turn.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Class one - the rhythm of a duel. Both duelists begin with 8000 Life Points."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Your hand refills to five each turn. You must play one card or one ordered combination."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "There are no tributes here. A monster you just played can attack on that same turn."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Each upright monster may attack once per turn. You choose the order of those attacks."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Attack upright. Turn sideways to defend. Press Start to end your turn."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "With no enemy monster, you attack Life Points directly. Empty them and you win."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Next class - Guardian Stars.",
+     "label": "Class 1"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_guardians",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Academy class 2: Guardian Star cycles and their 500 point swing.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Each monster offers two Guardian Stars. Choose one when you summon it."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Mars beats Jupiter, then Saturn, Uranus, Pluto, Neptune, then Mars."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Second cycle - Mercury beats Sun, Sun beats Moon, Moon beats Venus, and Venus beats Mercury."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Only neighbors in the same cycle matter. Advantage swings the battle by 500 points."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Check the enemy star before attacking. A weaker monster can win with the right Guardian."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Next class - fields and terrain.",
+     "label": "Class 2"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_fields",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Academy class 3: all six terrain cards and type bonuses.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "A field card changes the terrain for both duelists until another field replaces it."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "A favored type gains 500 ATK and DEF. A harmed type loses 500 ATK and DEF."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Forest helps Beasts, Beast-Warriors, Insects and Plants."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Mountain helps Dragons, Winged Beasts and Thunder monsters."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Wasteland helps Zombies, Dinosaurs and Rocks. Sogen helps Warriors and Beast-Warriors."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Umi helps sea types, Aqua and Thunder, but hurts Machines and Pyro monsters."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Yami helps Spellcasters and Fiends, but hurts Fairies. A field can help your rival too."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Next class - raising ATK and DEF.",
+     "label": "Class 3"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_power",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Academy class 4: equips and stacking stat bonuses.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Equip cards fit only certain monsters. Combine a valid equip with its monster to use it."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Most equips add 500 ATK and DEF. Megamorph adds 1000. Several equips can stack."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "You may combine them in your hand or play one onto your monster already on the field."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "An invalid equip is discarded. Test safely, and remember which monsters accept each one."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Equip and terrain bonuses stack. Guardian advantage adds its own 500 during battle."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Next class - wild fusions.",
+     "label": "Class 4"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_fusions",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Academy class 5: selecting and resolving ordered fusion chains.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Now the fun part. In your hand, press Up to number two or more cards in order."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Confirm. The first two combine. Their survivor meets the third, then the next."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Some recipes are exact. Many use types and strength. Dragon plus Thunder is a famous path."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "If two monsters fail to fuse, the first is lost and the second stays. Order matters a lot."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "You can also play a card onto your field monster to fuse or equip it in the same zone."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Experiment. The strangest chains often turn a weak hand into one enormous monster."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Return for Nabil's practice duel.",
+     "label": "Class 5"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_exam",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Nabil offers the optional practice duel after every class.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "You know turns, Guardians, fields, equips and fusion chains. Time for the sand exam."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "My deck is simple. Try a fusion, watch the stars, and use the field if it favors you."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "No entry fee and no shame in losing. Ready for your practice duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "The hero graduates from Nabil's optional Duel Academy.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Excellent! You read the board instead of staring only at the biggest ATK number."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Academy complete. I will stay here if you want a summary and another practice duel."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Training complete. Professor Nabil remains available in the village.",
+     "label": "Duel Academy"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_lose",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Nabil wins a practice duel and encourages another attempt.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Good practice. A loss costs nothing here, and now you know where your plan broke."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Change one thing, not the whole deck. Then come back and try again."
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_review",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Post-graduation summary and repeatable practice duel.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Quick review - play one card or ordered chain, then battle and press Start to end."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Guardian advantage swings 500. Terrain changes ATK and DEF. Valid equips stack."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Fusion chains resolve in numbered order. A failed pair can discard the first card."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "That is the whole academy. Want another practice duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_rematch_win",
+   "legacy_id": null,
+   "chapter": 1,
+   "desc": "Nabil loses a post-graduation practice rematch.",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Sharp play. Class dismissed until you feel like shuffling again."
     }
    ]
   },

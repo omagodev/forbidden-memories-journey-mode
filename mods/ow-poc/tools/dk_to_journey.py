@@ -20,6 +20,7 @@ CATALOG = os.path.join(MOD, "tools", "card-catalog.csv")
 # the people of the painted village: (3D mesh for the old map view, tile).  hooded_man has no fixed tile: the story places him ("places").
 VILLAGE_NPCS = {"simon": ("Wizard", [14.5, 28.5]), "teana": ("Ninja_Sand_Female", [9.5, 32.5]), "jono": ("Ninja_Sand", [19.5, 32.5]), "guard": ("Knight_Male", [24.5, 23.5]),
                 "hooded_man": ("Wizard", None), "baker": ("Worker_Male", [30.5, 30.5]), "farmer": ("Ninja_Sand", [21.5, 34.5]),
+                "academy_teacher": ("Doctor_Male_Young", [31.5, 27.5]),
                 "rex": ("Suit_Male", None), "bakura": ("Wizard", [2.5, 2.5]),
                 # chapter 1 (harbor, ship) and chapter 2 (the Shore of Illusions): only in the painted places, so no tile; "places" show them by stage
                 "soldier": ("Knight_Male", None), "shadi": ("Wizard", None), "mai": ("Ninja_Sand_Female", None), "inseto_kaiba": ("Suit_Male", None),

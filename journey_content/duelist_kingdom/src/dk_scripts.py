@@ -294,6 +294,7 @@ sc("dk1_farmer_after", "Kemet, after the lantern.", [
  X("farmer", "Mind the ghost. If you hear music, run. I said that already? Run anyway.",
    "Cuidado com o fantasma. Se ouvir musica, corra. Ja falei? Corra mesmo assim."),
 ])
+
 sc("dk1_hatch_locked", "Pyramid hatch, no lantern.", [
  H("A little pyramid with a stone hatch. It is far too dark to go inside.",
    "Uma piramidezinha com uma escotilha de pedra. Escuro demais para entrar."),
@@ -723,6 +724,142 @@ sc("dk1_bakura_glyph", "Bakura mentions the green writing.", [
    "A escrita verde na parede? Ja estava aqui antes de mim."),
  X("bakura", "It never helps and never harms. It only watches. I like it. Good company.",
    "Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia."),
+])
+
+# ---------------------------------------------------------------- optional Duel Academy
+sc("dk1_academy_intro", "Nabil opens his informal Duel Academy in the village plaza.", [
+ X("academy_teacher", "Hello! I am Nabil. No title, really. I just enjoy teaching new duelists.",
+   "Ola! Sou Nabil. Sem titulo, na verdade. Eu so gosto de ensinar novos duelistas."),
+ X("academy_teacher", "This patch of sand is my Duel Academy. Tuition is free and shoes are optional.",
+   "Este pedaco de areia e minha Academia de Duelo. E gratis e sapatos sao opcionais."),
+ X("academy_teacher", "Five short classes, then a practice duel. Come back for each new class.",
+   "Cinco aulas curtas e um duelo pratico. Volte para cada nova aula."),
+ N("Duel Academy", "Academia de Duelo", "Class unlocked - turns, cards and battle.",
+   "Aula liberada - turnos, cartas e batalha."),
+])
+
+sc("dk1_academy_basics", "Academy class 1: the Forbidden Memories turn.", [
+ X("academy_teacher", "Class one - the rhythm of a duel. Both duelists begin with 8000 Life Points.",
+   "Aula um - o ritmo do duelo. Cada duelista comeca com 8000 Pontos de Vida."),
+ X("academy_teacher", "Your hand refills to five each turn. You must play one card or one ordered combination.",
+   "Sua mao volta a ter cinco cartas por turno. Jogue uma carta ou uma combinacao ordenada."),
+ X("academy_teacher", "There are no tributes here. A monster you just played can attack on that same turn.",
+   "Aqui nao ha tributos. Um monstro que acabou de baixar pode atacar no mesmo turno."),
+ X("academy_teacher", "Each upright monster may attack once per turn. You choose the order of those attacks.",
+   "Cada monstro de pe ataca uma vez por turno. Voce escolhe a ordem dos ataques."),
+ X("academy_teacher", "Attack upright. Turn sideways to defend. Press Start to end your turn.",
+   "Ataque de pe. Vire de lado para defender. Aperte Start para encerrar."),
+ X("academy_teacher", "With no enemy monster, you attack Life Points directly. Empty them and you win.",
+   "Sem monstro inimigo, o ataque acerta os Pontos de Vida. Zere todos para vencer."),
+ N("Class 1", "Aula 1", "Complete. Next class - Guardian Stars.",
+   "Concluida. Proxima aula - Guardioes."),
+])
+
+sc("dk1_academy_guardians", "Academy class 2: Guardian Star cycles and their 500 point swing.", [
+ X("academy_teacher", "Each monster offers two Guardian Stars. Choose one when you summon it.",
+   "Cada monstro tem dois Guardioes. Escolha um quando invocar."),
+ X("academy_teacher", "Mars beats Jupiter, then Saturn, Uranus, Pluto, Neptune, then Mars.",
+   "Marte vence Jupiter, depois Saturno, Urano, Plutao, Netuno e Marte."),
+ X("academy_teacher", "Second cycle - Mercury beats Sun, Sun beats Moon, Moon beats Venus, and Venus beats Mercury.",
+   "Segundo ciclo - Mercurio vence Sol, Sol vence Lua, Lua vence Venus, e Venus vence Mercurio."),
+ X("academy_teacher", "Only neighbors in the same cycle matter. Advantage swings the battle by 500 points.",
+   "So vizinhos do mesmo ciclo importam. A vantagem muda a batalha em 500 pontos."),
+ X("academy_teacher", "Check the enemy star before attacking. A weaker monster can win with the right Guardian.",
+   "Veja o Guardiao inimigo antes de atacar. Um monstro menor pode vencer com a escolha certa."),
+ N("Class 2", "Aula 2", "Complete. Next class - fields and terrain.",
+   "Concluida. Proxima aula - campos e terreno."),
+])
+
+sc("dk1_academy_fields", "Academy class 3: all six terrain cards and type bonuses.", [
+ X("academy_teacher", "A field card changes the terrain for both duelists until another field replaces it.",
+   "Uma carta de campo muda o terreno dos dois duelistas ate outro campo substituir."),
+ X("academy_teacher", "A favored type gains 500 ATK and DEF. A harmed type loses 500 ATK and DEF.",
+   "Um tipo favorecido ganha 500 ATK e DEF. Um tipo ferido perde 500 ATK e DEF."),
+ X("academy_teacher", "Forest helps Beasts, Beast-Warriors, Insects and Plants.",
+   "Forest ajuda Feras, Guerreiros-Fera, Insetos e Plantas."),
+ X("academy_teacher", "Mountain helps Dragons, Winged Beasts and Thunder monsters.",
+   "Mountain ajuda Dragoes, Feras Aladas e monstros Trovao."),
+ X("academy_teacher", "Wasteland helps Zombies, Dinosaurs and Rocks. Sogen helps Warriors and Beast-Warriors.",
+   "Ermos ajuda Zumbi, Dino e Rocha. Sogen ajuda Guerreiro e Guerreiro-Fera."),
+ X("academy_teacher", "Umi helps sea types, Aqua and Thunder, but hurts Machines and Pyro monsters.",
+   "Umi ajuda tipos marinhos, Aqua e Trovao, mas fere Maquinas e monstros Pyro."),
+ X("academy_teacher", "Yami helps Spellcasters and Fiends, but hurts Fairies. A field can help your rival too.",
+   "Yami ajuda Magos e Demonios, mas fere Fadas. Um campo tambem pode ajudar seu rival."),
+ N("Class 3", "Aula 3", "Complete. Next class - raising ATK and DEF.",
+   "Concluida. Proxima aula - aumentar ATK e DEF."),
+])
+
+sc("dk1_academy_power", "Academy class 4: equips and stacking stat bonuses.", [
+ X("academy_teacher", "Equip cards fit only certain monsters. Combine a valid equip with its monster to use it.",
+   "Equipamentos servem so em certos monstros. Combine um equipamento valido com o monstro."),
+ X("academy_teacher", "Most equips add 500 ATK and DEF. Megamorph adds 1000. Several equips can stack.",
+   "A maioria soma 500 ATK e DEF. Megamorph soma 1000. Varios equipamentos acumulam."),
+ X("academy_teacher", "You may combine them in your hand or play one onto your monster already on the field.",
+   "Combine na mao ou jogue o equipamento sobre seu monstro que ja esta no campo."),
+ X("academy_teacher", "An invalid equip is discarded. Test safely, and remember which monsters accept each one.",
+   "Um equipamento invalido e descartado. Teste com cuidado e lembre quem aceita cada um."),
+ X("academy_teacher", "Equip and terrain bonuses stack. Guardian advantage adds its own 500 during battle.",
+   "Equipamento e terreno acumulam. A vantagem de Guardiao soma seus 500 na batalha."),
+ N("Class 4", "Aula 4", "Complete. Next class - wild fusions.",
+   "Concluida. Proxima aula - fusoes malucas."),
+])
+
+sc("dk1_academy_fusions", "Academy class 5: selecting and resolving ordered fusion chains.", [
+ X("academy_teacher", "Now the fun part. In your hand, press Up to number two or more cards in order.",
+   "Agora a parte divertida. Na mao, aperte Cima para numerar duas ou mais cartas em ordem."),
+ X("academy_teacher", "Confirm. The first two combine. Their survivor meets the third, then the next.",
+   "Confirme. As duas primeiras combinam. O resultado encontra a terceira e segue."),
+ X("academy_teacher", "Some recipes are exact. Many use types and strength. Dragon plus Thunder is a famous path.",
+   "Ha receitas exatas e outras por tipo e forca. Dragao mais Trovao e famosa."),
+ X("academy_teacher", "If two monsters fail to fuse, the first is lost and the second stays. Order matters a lot.",
+   "Se dois monstros falham, o primeiro se perde e o segundo fica. A ordem importa muito."),
+ X("academy_teacher", "You can also play a card onto your field monster to fuse or equip it in the same zone.",
+   "Voce tambem pode jogar sobre seu monstro no campo para fundir ou equipar na mesma zona."),
+ X("academy_teacher", "Experiment. The strangest chains often turn a weak hand into one enormous monster.",
+   "Experimente. As cadeias mais estranhas podem transformar uma mao fraca num monstro enorme."),
+ N("Class 5", "Aula 5", "Complete. Return for Nabil's practice duel.",
+   "Concluida. Volte para o duelo pratico do Nabil."),
+])
+
+sc("dk1_academy_exam", "Nabil offers the optional practice duel after every class.", [
+ X("academy_teacher", "You know turns, Guardians, fields, equips and fusion chains. Time for the sand exam.",
+   "Voce conhece turnos, Guardioes, campos, equipamentos e fusoes. Hora da prova na areia."),
+ X("academy_teacher", "My deck is simple. Try a fusion, watch the stars, and use the field if it favors you.",
+   "Meu baralho e simples. Tente fundir, veja os Guardioes e use o campo se ele ajudar."),
+ X("academy_teacher", "No entry fee and no shame in losing. Ready for your practice duel?",
+   "Sem taxa e sem vergonha de perder. Pronto para o duelo pratico?", True),
+])
+
+sc("dk1_academy_win", "The hero graduates from Nabil's optional Duel Academy.", [
+ X("academy_teacher", "Excellent! You read the board instead of staring only at the biggest ATK number.",
+   "Excelente! Voce leu a mesa em vez de olhar so para o maior numero de ATK."),
+ X("academy_teacher", "Academy complete. I will stay here if you want a summary and another practice duel.",
+   "Academia concluida. Ficarei aqui se quiser um resumo e outro duelo pratico."),
+ N("Duel Academy", "Academia de Duelo", "Training complete. Professor Nabil remains available in the village.",
+   "Treino concluido. Professor Nabil continua disponivel na vila."),
+])
+
+sc("dk1_academy_lose", "Nabil wins a practice duel and encourages another attempt.", [
+ X("academy_teacher", "Good practice. A loss costs nothing here, and now you know where your plan broke.",
+   "Boa pratica. Perder nao custa nada aqui, e agora voce sabe onde seu plano quebrou."),
+ X("academy_teacher", "Change one thing, not the whole deck. Then come back and try again.",
+   "Mude uma coisa, nao o baralho inteiro. Depois volte e tente de novo."),
+])
+
+sc("dk1_academy_review", "Post-graduation summary and repeatable practice duel.", [
+ X("academy_teacher", "Quick review - play one card or ordered chain, then battle and press Start to end.",
+   "Resumo - jogue uma carta ou cadeia ordenada, batalhe e aperte Start para encerrar."),
+ X("academy_teacher", "Guardian advantage swings 500. Terrain changes ATK and DEF. Valid equips stack.",
+   "Guardiao muda 500. Terreno muda ATK e DEF. Equipamentos validos acumulam."),
+ X("academy_teacher", "Fusion chains resolve in numbered order. A failed pair can discard the first card.",
+   "Fusoes seguem a ordem numerada. Uma dupla que falha pode descartar a primeira carta."),
+ X("academy_teacher", "That is the whole academy. Want another practice duel?",
+   "Essa e toda a academia. Quer outro duelo pratico?", True),
+])
+
+sc("dk1_academy_rematch_win", "Nabil loses a post-graduation practice rematch.", [
+ X("academy_teacher", "Sharp play. Class dismissed until you feel like shuffling again.",
+   "Jogada afiada. Aula encerrada ate voce querer embaralhar de novo."),
 ])
 
 # ---------------------------------------------------------------- chapter 2 (the Shore of Illusions): dk_chapter2.py

@@ -1673,6 +1673,281 @@
    ]
   },
   {
+   "id": "dk1_academy_intro",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Ola! Sou Nabil. Sem titulo, na verdade. Eu so gosto de ensinar novos duelistas."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Este pedaco de areia e minha Academia de Duelo. E gratis e sapatos sao opcionais."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Cinco aulas curtas e um duelo pratico. Volte para cada nova aula."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Aula liberada - turnos, cartas e batalha.",
+     "label": "Academia de Duelo",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_basics",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Aula um - o ritmo do duelo. Cada duelista comeca com 8000 Pontos de Vida."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Sua mao volta a ter cinco cartas por turno. Jogue uma carta ou uma combinacao ordenada."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Aqui nao ha tributos. Um monstro que acabou de baixar pode atacar no mesmo turno."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Cada monstro de pe ataca uma vez por turno. Voce escolhe a ordem dos ataques."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Ataque de pe. Vire de lado para defender. Aperte Start para encerrar."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Sem monstro inimigo, o ataque acerta os Pontos de Vida. Zere todos para vencer."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Concluida. Proxima aula - Guardioes.",
+     "label": "Aula 1",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_guardians",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Cada monstro tem dois Guardioes. Escolha um quando invocar."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Marte vence Jupiter, depois Saturno, Urano, Plutao, Netuno e Marte."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Segundo ciclo - Mercurio vence Sol, Sol vence Lua, Lua vence Venus, e Venus vence Mercurio."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "So vizinhos do mesmo ciclo importam. A vantagem muda a batalha em 500 pontos."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Veja o Guardiao inimigo antes de atacar. Um monstro menor pode vencer com a escolha certa."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Concluida. Proxima aula - campos e terreno.",
+     "label": "Aula 2",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_fields",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Uma carta de campo muda o terreno dos dois duelistas ate outro campo substituir."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Um tipo favorecido ganha 500 ATK e DEF. Um tipo ferido perde 500 ATK e DEF."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Forest ajuda Feras, Guerreiros-Fera, Insetos e Plantas."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Mountain ajuda Dragoes, Feras Aladas e monstros Trovao."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Ermos ajuda Zumbi, Dino e Rocha. Sogen ajuda Guerreiro e Guerreiro-Fera."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Umi ajuda tipos marinhos, Aqua e Trovao, mas fere Maquinas e monstros Pyro."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Yami ajuda Magos e Demonios, mas fere Fadas. Um campo tambem pode ajudar seu rival."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Concluida. Proxima aula - aumentar ATK e DEF.",
+     "label": "Aula 3",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_power",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Equipamentos servem so em certos monstros. Combine um equipamento valido com o monstro."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "A maioria soma 500 ATK e DEF. Megamorph soma 1000. Varios equipamentos acumulam."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Combine na mao ou jogue o equipamento sobre seu monstro que ja esta no campo."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Um equipamento invalido e descartado. Teste com cuidado e lembre quem aceita cada um."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Equipamento e terreno acumulam. A vantagem de Guardiao soma seus 500 na batalha."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Concluida. Proxima aula - fusoes malucas.",
+     "label": "Aula 4",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_fusions",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Agora a parte divertida. Na mao, aperte Cima para numerar duas ou mais cartas em ordem."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Confirme. As duas primeiras combinam. O resultado encontra a terceira e segue."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Ha receitas exatas e outras por tipo e forca. Dragao mais Trovao e famosa."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Se dois monstros falham, o primeiro se perde e o segundo fica. A ordem importa muito."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Voce tambem pode jogar sobre seu monstro no campo para fundir ou equipar na mesma zona."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Experimente. As cadeias mais estranhas podem transformar uma mao fraca num monstro enorme."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Concluida. Volte para o duelo pratico do Nabil.",
+     "label": "Aula 5",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_exam",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Voce conhece turnos, Guardioes, campos, equipamentos e fusoes. Hora da prova na areia."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Meu baralho e simples. Tente fundir, veja os Guardioes e use o campo se ele ajudar."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Sem taxa e sem vergonha de perder. Pronto para o duelo pratico?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_win",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Excelente! Voce leu a mesa em vez de olhar so para o maior numero de ATK."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Academia concluida. Ficarei aqui se quiser um resumo e outro duelo pratico."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Treino concluido. Professor Nabil continua disponivel na vila.",
+     "label": "Academia de Duelo",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_lose",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Boa pratica. Perder nao custa nada aqui, e agora voce sabe onde seu plano quebrou."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Mude uma coisa, nao o baralho inteiro. Depois volte e tente de novo."
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_review",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Resumo - jogue uma carta ou cadeia ordenada, batalhe e aperte Start para encerrar."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Guardiao muda 500. Terreno muda ATK e DEF. Equipamentos validos acumulam."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Fusoes seguem a ordem numerada. Uma dupla que falha pode descartar a primeira carta."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Essa e toda a academia. Quer outro duelo pratico?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_rematch_win",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Jogada afiada. Aula encerrada ate voce querer embaralhar de novo."
+    }
+   ]
+  },
+  {
    "id": "dk2_landing",
    "pages": [
     {

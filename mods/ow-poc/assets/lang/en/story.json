@@ -1673,6 +1673,281 @@
    ]
   },
   {
+   "id": "dk1_academy_intro",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Hello! I am Nabil. No title, really. I just enjoy teaching new duelists."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "This patch of sand is my Duel Academy. Tuition is free and shoes are optional."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Five short classes, then a practice duel. Come back for each new class."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Class unlocked - turns, cards and battle.",
+     "label": "Duel Academy",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_basics",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Class one - the rhythm of a duel. Both duelists begin with 8000 Life Points."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Your hand refills to five each turn. You must play one card or one ordered combination."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "There are no tributes here. A monster you just played can attack on that same turn."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Each upright monster may attack once per turn. You choose the order of those attacks."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Attack upright. Turn sideways to defend. Press Start to end your turn."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "With no enemy monster, you attack Life Points directly. Empty them and you win."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Next class - Guardian Stars.",
+     "label": "Class 1",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_guardians",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Each monster offers two Guardian Stars. Choose one when you summon it."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Mars beats Jupiter, then Saturn, Uranus, Pluto, Neptune, then Mars."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Second cycle - Mercury beats Sun, Sun beats Moon, Moon beats Venus, and Venus beats Mercury."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Only neighbors in the same cycle matter. Advantage swings the battle by 500 points."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Check the enemy star before attacking. A weaker monster can win with the right Guardian."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Next class - fields and terrain.",
+     "label": "Class 2",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_fields",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "A field card changes the terrain for both duelists until another field replaces it."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "A favored type gains 500 ATK and DEF. A harmed type loses 500 ATK and DEF."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Forest helps Beasts, Beast-Warriors, Insects and Plants."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Mountain helps Dragons, Winged Beasts and Thunder monsters."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Wasteland helps Zombies, Dinosaurs and Rocks. Sogen helps Warriors and Beast-Warriors."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Umi helps sea types, Aqua and Thunder, but hurts Machines and Pyro monsters."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Yami helps Spellcasters and Fiends, but hurts Fairies. A field can help your rival too."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Next class - raising ATK and DEF.",
+     "label": "Class 3",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_power",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Equip cards fit only certain monsters. Combine a valid equip with its monster to use it."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Most equips add 500 ATK and DEF. Megamorph adds 1000. Several equips can stack."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "You may combine them in your hand or play one onto your monster already on the field."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "An invalid equip is discarded. Test safely, and remember which monsters accept each one."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Equip and terrain bonuses stack. Guardian advantage adds its own 500 during battle."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Next class - wild fusions.",
+     "label": "Class 4",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_fusions",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Now the fun part. In your hand, press Up to number two or more cards in order."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Confirm. The first two combine. Their survivor meets the third, then the next."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Some recipes are exact. Many use types and strength. Dragon plus Thunder is a famous path."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "If two monsters fail to fuse, the first is lost and the second stays. Order matters a lot."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "You can also play a card onto your field monster to fuse or equip it in the same zone."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Experiment. The strangest chains often turn a weak hand into one enormous monster."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Complete. Return for Nabil's practice duel.",
+     "label": "Class 5",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_exam",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "You know turns, Guardians, fields, equips and fusion chains. Time for the sand exam."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "My deck is simple. Try a fusion, watch the stars, and use the field if it favors you."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "No entry fee and no shame in losing. Ready for your practice duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_win",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Excellent! You read the board instead of staring only at the biggest ATK number."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Academy complete. I will stay here if you want a summary and another practice duel."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Training complete. Professor Nabil remains available in the village.",
+     "label": "Duel Academy",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_lose",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Good practice. A loss costs nothing here, and now you know where your plan broke."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Change one thing, not the whole deck. Then come back and try again."
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_review",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Quick review - play one card or ordered chain, then battle and press Start to end."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Guardian advantage swings 500. Terrain changes ATK and DEF. Valid equips stack."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "Fusion chains resolve in numbered order. A failed pair can discard the first card."
+    },
+    {
+     "speaker": "academy_teacher",
+     "text": "That is the whole academy. Want another practice duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk1_academy_rematch_win",
+   "pages": [
+    {
+     "speaker": "academy_teacher",
+     "text": "Sharp play. Class dismissed until you feel like shuffling again."
+    }
+   ]
+  },
+  {
    "id": "dk2_landing",
    "pages": [
     {

@@ -665,6 +665,101 @@ _Bakura mentions the green writing._
 - **Bakura**: A escrita verde na parede? Ja estava aqui antes de mim.
 - **Bakura**: Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia.
 
+### dk1_academy_intro
+_Nabil opens his informal Duel Academy in the village plaza._
+
+- **Professor Nabil**: Ola! Sou Nabil. Sem titulo, na verdade. Eu so gosto de ensinar novos duelistas.
+- **Professor Nabil**: Este pedaco de areia e minha Academia de Duelo. E gratis e sapatos sao opcionais.
+- **Professor Nabil**: Cinco aulas curtas e um duelo pratico. Volte para cada nova aula.
+- **Academia de Duelo**: Aula liberada - turnos, cartas e batalha.
+
+### dk1_academy_basics
+_Academy class 1: the Forbidden Memories turn._
+
+- **Professor Nabil**: Aula um - o ritmo do duelo. Cada duelista comeca com 8000 Pontos de Vida.
+- **Professor Nabil**: Sua mao volta a ter cinco cartas por turno. Jogue uma carta ou uma combinacao ordenada.
+- **Professor Nabil**: Aqui nao ha tributos. Um monstro que acabou de baixar pode atacar no mesmo turno.
+- **Professor Nabil**: Cada monstro de pe ataca uma vez por turno. Voce escolhe a ordem dos ataques.
+- **Professor Nabil**: Ataque de pe. Vire de lado para defender. Aperte Start para encerrar.
+- **Professor Nabil**: Sem monstro inimigo, o ataque acerta os Pontos de Vida. Zere todos para vencer.
+- **Aula 1**: Concluida. Proxima aula - Guardioes.
+
+### dk1_academy_guardians
+_Academy class 2: Guardian Star cycles and their 500 point swing._
+
+- **Professor Nabil**: Cada monstro tem dois Guardioes. Escolha um quando invocar.
+- **Professor Nabil**: Marte vence Jupiter, depois Saturno, Urano, Plutao, Netuno e Marte.
+- **Professor Nabil**: Segundo ciclo - Mercurio vence Sol, Sol vence Lua, Lua vence Venus, e Venus vence Mercurio.
+- **Professor Nabil**: So vizinhos do mesmo ciclo importam. A vantagem muda a batalha em 500 pontos.
+- **Professor Nabil**: Veja o Guardiao inimigo antes de atacar. Um monstro menor pode vencer com a escolha certa.
+- **Aula 2**: Concluida. Proxima aula - campos e terreno.
+
+### dk1_academy_fields
+_Academy class 3: all six terrain cards and type bonuses._
+
+- **Professor Nabil**: Uma carta de campo muda o terreno dos dois duelistas ate outro campo substituir.
+- **Professor Nabil**: Um tipo favorecido ganha 500 ATK e DEF. Um tipo ferido perde 500 ATK e DEF.
+- **Professor Nabil**: Forest ajuda Feras, Guerreiros-Fera, Insetos e Plantas.
+- **Professor Nabil**: Mountain ajuda Dragoes, Feras Aladas e monstros Trovao.
+- **Professor Nabil**: Ermos ajuda Zumbi, Dino e Rocha. Sogen ajuda Guerreiro e Guerreiro-Fera.
+- **Professor Nabil**: Umi ajuda tipos marinhos, Aqua e Trovao, mas fere Maquinas e monstros Pyro.
+- **Professor Nabil**: Yami ajuda Magos e Demonios, mas fere Fadas. Um campo tambem pode ajudar seu rival.
+- **Aula 3**: Concluida. Proxima aula - aumentar ATK e DEF.
+
+### dk1_academy_power
+_Academy class 4: equips and stacking stat bonuses._
+
+- **Professor Nabil**: Equipamentos servem so em certos monstros. Combine um equipamento valido com o monstro.
+- **Professor Nabil**: A maioria soma 500 ATK e DEF. Megamorph soma 1000. Varios equipamentos acumulam.
+- **Professor Nabil**: Combine na mao ou jogue o equipamento sobre seu monstro que ja esta no campo.
+- **Professor Nabil**: Um equipamento invalido e descartado. Teste com cuidado e lembre quem aceita cada um.
+- **Professor Nabil**: Equipamento e terreno acumulam. A vantagem de Guardiao soma seus 500 na batalha.
+- **Aula 4**: Concluida. Proxima aula - fusoes malucas.
+
+### dk1_academy_fusions
+_Academy class 5: selecting and resolving ordered fusion chains._
+
+- **Professor Nabil**: Agora a parte divertida. Na mao, aperte Cima para numerar duas ou mais cartas em ordem.
+- **Professor Nabil**: Confirme. As duas primeiras combinam. O resultado encontra a terceira e segue.
+- **Professor Nabil**: Ha receitas exatas e outras por tipo e forca. Dragao mais Trovao e famosa.
+- **Professor Nabil**: Se dois monstros falham, o primeiro se perde e o segundo fica. A ordem importa muito.
+- **Professor Nabil**: Voce tambem pode jogar sobre seu monstro no campo para fundir ou equipar na mesma zona.
+- **Professor Nabil**: Experimente. As cadeias mais estranhas podem transformar uma mao fraca num monstro enorme.
+- **Aula 5**: Concluida. Volte para o duelo pratico do Nabil.
+
+### dk1_academy_exam
+_Nabil offers the optional practice duel after every class._
+
+- **Professor Nabil**: Voce conhece turnos, Guardioes, campos, equipamentos e fusoes. Hora da prova na areia.
+- **Professor Nabil**: Meu baralho e simples. Tente fundir, veja os Guardioes e use o campo se ele ajudar.
+- **Professor Nabil**: Sem taxa e sem vergonha de perder. Pronto para o duelo pratico?  _[Duel? Yes/No]_
+
+### dk1_academy_win
+_The hero graduates from Nabil's optional Duel Academy._
+
+- **Professor Nabil**: Excelente! Voce leu a mesa em vez de olhar so para o maior numero de ATK.
+- **Professor Nabil**: Academia concluida. Ficarei aqui se quiser um resumo e outro duelo pratico.
+- **Academia de Duelo**: Treino concluido. Professor Nabil continua disponivel na vila.
+
+### dk1_academy_lose
+_Nabil wins a practice duel and encourages another attempt._
+
+- **Professor Nabil**: Boa pratica. Perder nao custa nada aqui, e agora voce sabe onde seu plano quebrou.
+- **Professor Nabil**: Mude uma coisa, nao o baralho inteiro. Depois volte e tente de novo.
+
+### dk1_academy_review
+_Post-graduation summary and repeatable practice duel._
+
+- **Professor Nabil**: Resumo - jogue uma carta ou cadeia ordenada, batalhe e aperte Start para encerrar.
+- **Professor Nabil**: Guardiao muda 500. Terreno muda ATK e DEF. Equipamentos validos acumulam.
+- **Professor Nabil**: Fusoes seguem a ordem numerada. Uma dupla que falha pode descartar a primeira carta.
+- **Professor Nabil**: Essa e toda a academia. Quer outro duelo pratico?  _[Duel? Yes/No]_
+
+### dk1_academy_rematch_win
+_Nabil loses a post-graduation practice rematch._
+
+- **Professor Nabil**: Jogada afiada. Aula encerrada ate voce querer embaralhar de novo.
+
 ### dk2_landing
 _Chapter 2 opens: the hero steps off the gangway onto the Shore of Illusions._
 
