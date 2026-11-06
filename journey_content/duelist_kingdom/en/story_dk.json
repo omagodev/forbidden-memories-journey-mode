@@ -34,7 +34,7 @@
    "name": "Teana",
    "short": "Teana",
    "portrait": 20,
-   "note": "Stowaway from the ship barrel; becomes a maze helper (chapter 5)."
+   "note": "Helper from the Meadow Maze; tips continue in the desert."
   },
   "jono": {
    "name": "Jono",
@@ -73,10 +73,10 @@
    "note": "Voice only (no portrait). It is Shadi in disguise; the portrait appears at the reveal."
   },
   "bakura": {
-   "name": "Bakura",
+   "name": "Yami Bakura",
    "short": "Bakura",
    "portrait": 14,
-   "note": "Lonely cistern ghost (Yami Bakura portrait)."
+   "note": "Comic desert cameo; cards only, no star (chapter 6)."
   },
   "rex": {
    "name": "Rex Raptor",
@@ -130,7 +130,7 @@
    "name": "Isis",
    "short": "Isis",
    "portrait": 16,
-   "note": "Fortune teller of the Desert (Kingdom outline)."
+   "note": "Fortune teller of the desert (chapter 6); senses the watcher."
   },
   "narrator": {
    "name": "(label)",
@@ -154,7 +154,7 @@
    "name": "Camp Staff",
    "short": "Staff",
    "portrait": 254,
-   "note": "Kingdom staff at the meadow camp."
+   "note": "Kingdom staff at the desert camp."
   },
   "dock_dan": {
    "name": "Dock Dan",
@@ -221,6 +221,18 @@
    "short": "Rue",
    "portrait": 254,
    "note": "Meadow flower-cart keeper (economy)."
+  },
+  "desert_mage": {
+   "name": "Desert Mage",
+   "short": "Desert Mage",
+   "portrait": 27,
+   "note": "Master of the Desert of Lost Stars (chapter 6 zone master)."
+  },
+  "nomad_nia": {
+   "name": "Nomad Nia",
+   "short": "Nia",
+   "portrait": 254,
+   "note": "Desert caravan-tent keeper (economy)."
   }
  },
  "flags": [
@@ -525,45 +537,69 @@
    "note": "Meadow Mage beaten: seventh star, end of chapter 5."
   },
   {
-   "name": "academy_started",
+   "name": "desert_arrived",
    "bit": 50,
    "value": 1125899906842624,
+   "note": "Chapter 6: entered the Desert of Lost Stars."
+  },
+  {
+   "name": "isis_desert_won",
+   "bit": 51,
+   "value": 2251799813685248,
+   "note": "Isis's reading duel won: dust charm and star-collector clue."
+  },
+  {
+   "name": "bakura_desert_won",
+   "bit": 52,
+   "value": 4503599627370496,
+   "note": "Bakura's comic desert duel won (cards only)."
+  },
+  {
+   "name": "desert_mage_won",
+   "bit": 53,
+   "value": 9007199254740992,
+   "note": "Desert Mage beaten: eighth star, end of chapter 6."
+  },
+  {
+   "name": "academy_started",
+   "bit": 54,
+   "value": 18014398509481984,
    "note": "Professor Nabil introduced the optional Duel Academy."
   },
   {
    "name": "academy_basics",
-   "bit": 51,
-   "value": 2251799813685248,
+   "bit": 55,
+   "value": 36028797018963968,
    "note": "Academy class 1 complete: turns, hand and battle."
   },
   {
    "name": "academy_guardians",
-   "bit": 52,
-   "value": 4503599627370496,
+   "bit": 56,
+   "value": 72057594037927936,
    "note": "Academy class 2 complete: Guardian Star cycles."
   },
   {
    "name": "academy_fields",
-   "bit": 53,
-   "value": 9007199254740992,
+   "bit": 57,
+   "value": 144115188075855872,
    "note": "Academy class 3 complete: terrain bonuses."
   },
   {
    "name": "academy_power",
-   "bit": 54,
-   "value": 18014398509481984,
+   "bit": 58,
+   "value": 288230376151711744,
    "note": "Academy class 4 complete: equips and stacked bonuses."
   },
   {
    "name": "academy_fusions",
-   "bit": 55,
-   "value": 36028797018963968,
+   "bit": 59,
+   "value": 576460752303423488,
    "note": "Academy class 5 complete: ordered fusion chains."
   },
   {
    "name": "academy_graduate",
-   "bit": 56,
-   "value": 72057594037927936,
+   "bit": 60,
+   "value": 1152921504606846976,
    "note": "Won Professor Nabil's optional practice duel."
   }
  ],
@@ -659,6 +695,18 @@
   {
    "stage": 24,
    "note": "Chapter 5 complete: the desert road is the next part"
+  },
+  {
+   "stage": 25,
+   "note": "Chapter 6: the dunes, Isis at the fortune tent"
+  },
+  {
+   "stage": 26,
+   "note": "Chapter 6: Isis's clue; the Desert Mage at the buried star"
+  },
+  {
+   "stage": 27,
+   "note": "Chapter 6 complete: the fair road is the next part"
   }
  ],
  "chapters": [
@@ -715,7 +763,18 @@
     24
    ],
    "reward": "seven stars, Hint Charm, card Queen of Autumn Leaves",
-   "unlock": "the desert road (chapter 6)"
+   "unlock": "the Desert of Lost Stars (chapter 6)"
+  },
+  {
+   "n": 6,
+   "title": "Desert of Lost Stars",
+   "region": "kingdom_desert",
+   "stage": [
+    25,
+    27
+   ],
+   "reward": "eight stars, Dust Charm, card Great Mammoth of Goldfine",
+   "unlock": "the fair road (chapter 7)"
   }
  ],
  "areas": [
@@ -766,6 +825,12 @@
    "name": "Meadow Maze",
    "setting": "Fourth Kingdom area: a hedge maze, a flower cart, a rabbit-hole arena, a star stone at the centre, the desert arch.",
    "art": "exists (illustrated, chapter 5)"
+  },
+  {
+   "id": "kingdom_desert",
+   "name": "Desert of Lost Stars",
+   "setting": "Fifth Kingdom area: dunes, a fortune tent, a caravan tent, a sunken tomb arena, a buried star, the fair arch.",
+   "art": "exists (illustrated, chapter 6)"
   }
  ],
  "anchors": {
@@ -864,6 +929,20 @@
    "maze_center": "Open grass near the star stone.",
    "hangout_a": "East hedge path.",
    "hangout_b": "West hedge path by the camp."
+  },
+  "kingdom_desert": {
+   "spawn": "Path in from the meadow (bottom left).",
+   "desert_camp": "A tarp among dunes (bottom left).",
+   "isis_spot": "The purple fortune tent.",
+   "shop_stall": "Nomad Nia's striped caravan tent.",
+   "arena_door": "The sunken tomb entrance (bottom right): the Sunken Tomb Pit.",
+   "gate_spot": "The half-buried stone star where the Desert Mage waits.",
+   "fair_gate": "The stone arch at the top: the fair road.",
+   "bakura_spot": "A shimmer of heat near the dunes' center.",
+   "teana_spot": "Shade near the desert camp where Teana waits.",
+   "desert_center": "Open sand near the buried star.",
+   "hangout_a": "East dune path.",
+   "hangout_b": "West dune path by the camp."
   }
  },
  "npcs": [
@@ -1788,7 +1867,7 @@
   },
   {
    "id": "bakura",
-   "name": "Bakura",
+   "name": "Yami Bakura",
    "portrait_speaker": "bakura",
    "area": "cistern",
    "anchor": "bakura_spot",
@@ -2547,6 +2626,184 @@
      "script": "dk5_rose_rue"
     }
    ]
+  },
+  {
+   "id": "isis_desert",
+   "name": "Isis",
+   "portrait_speaker": "isis",
+   "area": "kingdom_desert",
+   "anchor": "isis_spot",
+   "duelist_id": 16,
+   "stages": [
+    25,
+    99
+   ],
+   "visible": "placed",
+   "note": "Isis the fortune teller: reading duel, then the star-collector clue.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       25,
+       25
+      ],
+      "flags_none": [
+       "isis_desert_won"
+      ]
+     },
+     "script": "dk6_isis_pre",
+     "duel": "isis_desert"
+    },
+    {
+     "when": {
+      "stage": [
+       26,
+       99
+      ]
+     },
+     "script": "dk6_isis_after"
+    }
+   ]
+  },
+  {
+   "id": "teana_desert",
+   "name": "Teana",
+   "portrait_speaker": "teana",
+   "area": "kingdom_desert",
+   "anchor": "teana_spot",
+   "duelist_id": 20,
+   "stages": [
+    25,
+    99
+   ],
+   "visible": "placed",
+   "note": "Teana the helper: tips continue from the meadow.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       25,
+       99
+      ],
+      "needs": [
+       "teana_meadow_won"
+      ]
+     },
+     "script": "dk6_hint"
+    },
+    {
+     "when": {
+      "stage": [
+       25,
+       99
+      ]
+     },
+     "script": "dk6_teana_after"
+    }
+   ]
+  },
+  {
+   "id": "bakura_desert",
+   "name": "Yami Bakura",
+   "portrait_speaker": "bakura",
+   "area": "kingdom_desert",
+   "anchor": "bakura_spot",
+   "duelist_id": 14,
+   "stages": [
+    25,
+    99
+   ],
+   "visible": "placed",
+   "note": "Bakura comic cameo: cards only, no star.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       25,
+       99
+      ],
+      "flags_none": [
+       "bakura_desert_won"
+      ]
+     },
+     "script": "dk6_bakura_pre",
+     "duel": "bakura_desert"
+    },
+    {
+     "when": {
+      "stage": [
+       25,
+       99
+      ],
+      "needs": [
+       "bakura_desert_won"
+      ]
+     },
+     "script": "dk6_bakura_after"
+    }
+   ]
+  },
+  {
+   "id": "desert_mage",
+   "name": "Desert Mage",
+   "portrait_speaker": "desert_mage",
+   "area": "kingdom_desert",
+   "anchor": "gate_spot",
+   "duelist_id": 27,
+   "stages": [
+    26,
+    99
+   ],
+   "visible": "placed",
+   "note": "The zone master at the buried star once Isis has spoken.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       26,
+       26
+      ],
+      "flags_none": [
+       "desert_mage_won"
+      ]
+     },
+     "script": "dk6_mage_pre",
+     "duel": "desert_mage"
+    },
+    {
+     "when": {
+      "stage": [
+       26,
+       99
+      ]
+     },
+     "script": "dk6_mage_after"
+    }
+   ]
+  },
+  {
+   "id": "nomad_nia",
+   "name": "Nomad Nia",
+   "portrait_speaker": "nomad_nia",
+   "area": "kingdom_desert",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    25,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       25,
+       99
+      ]
+     },
+     "script": "dk6_nomad_nia"
+    }
+   ]
   }
  ],
  "objects": [
@@ -3286,6 +3543,74 @@
    "area": "kingdom_meadow",
    "anchor": "spawn",
    "dialogue_rules": []
+  },
+  {
+   "id": "buried_star",
+   "name": "Buried star",
+   "area": "kingdom_desert",
+   "anchor": "gate_spot",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       25,
+       25
+      ]
+     },
+     "script": "dk6_star_early"
+    }
+   ]
+  },
+  {
+   "id": "fair_gate",
+   "name": "Fair arch",
+   "area": "kingdom_desert",
+   "anchor": "fair_gate",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       27,
+       99
+      ],
+      "stars": 8
+     },
+     "script": "dk6_fair_road"
+    },
+    {
+     "when": {
+      "stage": [
+       25,
+       99
+      ]
+     },
+     "script": "dk6_gate_shut"
+    }
+   ]
+  },
+  {
+   "id": "desert_camp",
+   "name": "Desert camp",
+   "area": "kingdom_desert",
+   "anchor": "desert_camp",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       25,
+       99
+      ]
+     },
+     "script": "dk6_desert_camp"
+    }
+   ]
+  },
+  {
+   "id": "desert_exit",
+   "name": "Meadow trail",
+   "area": "kingdom_desert",
+   "anchor": "spawn",
+   "dialogue_rules": []
   }
  ],
  "items": [
@@ -3396,6 +3721,12 @@
    "name": "Hint Charm",
    "description": "Teana's charm. She tips you through the maze and beyond.",
    "source": "Teana, in the Meadow Maze"
+  },
+  {
+   "id": "dust_charm",
+   "name": "Dust Charm",
+   "description": "Isis's charm. A reminder: someone upstairs harvests lost stars.",
+   "source": "Isis, in the Desert of Lost Stars"
   }
  ],
  "new_duelists": [
@@ -3840,6 +4171,24 @@
     }
    ],
    "reward": "seven stars, Hint Charm, card Queen of Autumn Leaves"
+  },
+  {
+   "id": "q15_desert",
+   "kind": "talk+duel",
+   "optional": false,
+   "title": "Desert of Lost Stars",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Talk to Isis at the fortune tent",
+     "anchor": "kingdom_desert.isis_spot"
+    },
+    {
+     "objective": "Beat the Desert Mage for a star",
+     "anchor": "kingdom_desert.gate_spot"
+    }
+   ],
+   "reward": "eight stars, Dust Charm, card Great Mammoth of Goldfine"
   }
  ],
  "duels": [
@@ -4317,6 +4666,73 @@
    "stars_wager": true,
    "stars": 2,
    "note": "Zone master, holds 2 stars: bet 1 for the curve (6->7). Needs meadow cards or Rabbit Hole Ring wins."
+  },
+  {
+   "id": "isis_desert",
+   "npc": "isis_desert",
+   "duelist_id": 16,
+   "chapter": 1,
+   "deck": "Isis Reading",
+   "difficulty_tier": 5,
+   "pre_script": "dk6_isis_pre",
+   "win_script": "dk6_isis_win",
+   "lose_script": "dk6_isis_lose",
+   "win_flag": "isis_desert_won",
+   "on_win": [
+    {
+     "give_item": "dust_charm"
+    },
+    {
+     "set_stage": 26
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Friendly reading duel, no star: Isis's clue and dust charm."
+  },
+  {
+   "id": "bakura_desert",
+   "npc": "bakura_desert",
+   "duelist_id": 14,
+   "chapter": 1,
+   "deck": "Bakura Desert",
+   "difficulty_tier": 3,
+   "pre_script": "dk6_bakura_pre",
+   "win_script": "dk6_bakura_win",
+   "lose_script": "dk6_bakura_lose",
+   "win_flag": "bakura_desert_won",
+   "on_win": [
+    {
+     "give_card": "Armored Zombie"
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Comic cameo, cards only, no star."
+  },
+  {
+   "id": "desert_mage",
+   "npc": "desert_mage",
+   "duelist_id": 27,
+   "chapter": 1,
+   "deck": "Desert Mage Dunes",
+   "difficulty_tier": 6,
+   "pre_script": "dk6_mage_pre",
+   "win_script": "dk6_mage_win",
+   "lose_script": "dk6_mage_lose",
+   "win_flag": "desert_mage_won",
+   "on_win": [
+    {
+     "give_card": "Great Mammoth of Goldfine"
+    },
+    {
+     "set_stage": 27
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Zone master, holds 2 stars: bet 1 for the curve (7->8). Needs desert cards or Sunken Tomb Pit wins."
   }
  ],
  "transitions": [
@@ -4870,6 +5286,98 @@
     }
    ],
    "script": "dk5_arrival"
+  },
+  {
+   "id": "enter_desert",
+   "when": {
+    "stage": [
+     24,
+     24
+    ],
+    "stars": 7
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "desert_gate"
+   },
+   "effects": [
+    {
+     "set_stage": 25
+    },
+    {
+     "teleport": {
+      "area": "kingdom_desert",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk6_enter"
+  },
+  {
+   "id": "to_desert",
+   "when": {
+    "stage": [
+     25,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "desert_gate"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_desert",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk6_to_desert"
+  },
+  {
+   "id": "to_meadow_from_desert",
+   "when": {
+    "stage": [
+     25,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "desert_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_meadow",
+      "anchor": "desert_gate"
+     }
+    }
+   ],
+   "script": "dk6_to_meadow"
+  },
+  {
+   "id": "desert_arrival",
+   "when": {
+    "stage": [
+     25,
+     25
+    ],
+    "flags_none": [
+     "desert_arrived"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true",
+    "area": "kingdom_desert"
+   },
+   "effects": [
+    {
+     "set_flag": "desert_arrived"
+    }
+   ],
+   "script": "dk6_arrival"
   }
  ],
  "hud_objectives": [
@@ -5295,10 +5803,46 @@
    "when": {
     "stage": [
      24,
+     24
+    ]
+   },
+   "text": "Chapter 5 complete - take the desert arch"
+  },
+  {
+   "when": {
+    "stage": [
+     25,
      99
     ]
    },
-   "text": "Chapter 5 complete - the desert road waits"
+   "text": "Beyond the meadow - the Desert of Lost Stars"
+  },
+  {
+   "when": {
+    "stage": [
+     25,
+     25
+    ]
+   },
+   "text": "Talk to Isis at the fortune tent - a reading in the dunes"
+  },
+  {
+   "when": {
+    "stage": [
+     26,
+     26
+    ]
+   },
+   "text": "Beat the Desert Mage - a star on the line"
+  },
+  {
+   "when": {
+    "stage": [
+     27,
+     99
+    ]
+   },
+   "text": "Chapter 6 complete - the fair road waits"
   }
  ],
  "scripts": [
@@ -8913,7 +9457,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Gold grass. Hot wind. Chapter 6 arrives in the next part.",
+     "text": "Gold grass. Hot wind. The dunes of Lost Stars open ahead.",
      "label": "Desert Road"
     }
    ]
@@ -8957,6 +9501,399 @@
     {
      "speaker": "staff",
      "text": "Pretty place. Deadly rules. Lose your last star and your journey ends for good."
+    }
+   ]
+  },
+  {
+   "id": "dk6_enter",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Chapter 5 -> 6: the desert arch opens onto the dunes.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Seven stars. Hot wind. Sand underfoot.",
+     "label": "Desert of Lost Stars"
+    },
+    {
+     "speaker": "atos",
+     "text": "The grass turned gold. The Kingdom still watches."
+    }
+   ]
+  },
+  {
+   "id": "dk6_to_desert",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The desert road after the first visit.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Heat shimmer. Dunes ahead. The buried star waits.",
+     "label": "Desert Road"
+    }
+   ]
+  },
+  {
+   "id": "dk6_to_meadow",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The trail back to the Meadow Maze.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The wind turns soft. Hedges and flowers again.",
+     "label": "Meadow Trail"
+    }
+   ]
+  },
+  {
+   "id": "dk6_arrival",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Chapter 6 opens: dunes, a fortune tent, a giggle of sand.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Gold dunes. A striped tent. A purple tent. Someone hums nearby.",
+     "label": "Desert of Lost Stars"
+    },
+    {
+     "speaker": "atos",
+     "text": "Teana followed me. Of course she did."
+    },
+    {
+     "speaker": "teana",
+     "text": "Hot! Soft! Adventure! And my charm still works out here."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Talk to Isis at the purple fortune tent.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk6_isis_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Isis the fortune teller: a reading, then a tip about the star collector.",
+   "pages": [
+    {
+     "speaker": "isis",
+     "text": "Sand remembers every footstep. Sit. The cards already know your name."
+    },
+    {
+     "speaker": "atos",
+     "text": "Seven stars. Three more for the castle. What do the cards say?"
+    },
+    {
+     "speaker": "isis",
+     "text": "The cards show a watcher. Not from this island. Not from this world."
+    },
+    {
+     "speaker": "isis",
+     "text": "He writes reality, yet today he only reads. Do not seek him."
+    },
+    {
+     "speaker": "isis",
+     "text": "And this: someone upstairs collects stars of the eliminated. A harvest."
+    },
+    {
+     "speaker": "isis",
+     "text": "The Desert Mage keeps two at the buried star. Shall we read your courage too?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk6_isis_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Isis's friendly reading duel ends; the tip sticks.",
+   "pages": [
+    {
+     "speaker": "isis",
+     "text": "The cards smile. Take this dust-charm. The Mage waits at the buried star."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Isis's Dust Charm. Teana still tips; Isis's clue stays with you.",
+     "label": "You got"
+    },
+    {
+     "speaker": "isis",
+     "text": "Bet small for the curve. Bet big if the dunes call your name."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Find the Desert Mage at the buried star.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk6_isis_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Isis wins the reading duel (no star).",
+   "pages": [
+    {
+     "speaker": "isis",
+     "text": "The cards are kind. Try again when the sand feels lighter."
+    },
+    {
+     "speaker": "atos",
+     "text": "Nia's tent, or the Sunken Tomb Pit. Then back to Isis."
+    }
+   ]
+  },
+  {
+   "id": "dk6_isis_after",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Isis after the reading.",
+   "pages": [
+    {
+     "speaker": "isis",
+     "text": "The watcher still turns a page. You do not need him. Go."
+    }
+   ]
+  },
+  {
+   "id": "dk6_hint",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "A free tip from helper Teana in the desert.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Buried star, big mage, two chips. Min bet: eight. Fair gate after. Drink water!"
+    }
+   ]
+  },
+  {
+   "id": "dk6_teana_after",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Teana the helper hanging around the dunes.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "I packed cake crumbs. They melt. Sad. Still cute though!"
+    }
+   ]
+  },
+  {
+   "id": "dk6_bakura_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Bakura's comic desert cameo: cards only, no star.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "The cistern was damp. The desert is dry. I am bored either way."
+    },
+    {
+     "speaker": "atos",
+     "text": "Bakura? You floated all the way from home?"
+    },
+    {
+     "speaker": "bakura",
+     "text": "Ghosts travel light. Duel me for fun. No stars. Just cards.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk6_bakura_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Bakura loses the comic duel.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Heh. Take a bone from my pocket. I will haunt someone cooler."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The card Armored Zombie.",
+     "label": "You got"
+    }
+   ]
+  },
+  {
+   "id": "dk6_bakura_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Bakura wins the comic duel.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "See? Even sand ghosts can still shuffle. Rematch when you dare."
+    }
+   ]
+  },
+  {
+   "id": "dk6_bakura_after",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Bakura after the comic duel.",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "The Mage is less fun than me. Go bother him."
+    }
+   ]
+  },
+  {
+   "id": "dk6_star_early",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The buried star before Isis's tip lands.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A stone star half under the sand. The heat still feels heavy.",
+     "label": "Buried Star"
+    }
+   ]
+  },
+  {
+   "id": "dk6_mage_pre",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The Desert Mage, zone master: a one-star wager at the buried star.",
+   "pages": [
+    {
+     "speaker": "desert_mage",
+     "text": "Seven stars walk my dunes. Few leave with eight."
+    },
+    {
+     "speaker": "desert_mage",
+     "text": "Two stars rest under this stone. Wager what your nerve allows."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten open the castle. I am not turning back for sand."
+    },
+    {
+     "speaker": "desert_mage",
+     "text": "Then burn or bury, traveler. Shall the desert speak?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk6_mage_win",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The Desert Mage loses: eight stars, end of chapter 6.",
+   "pages": [
+    {
+     "speaker": "desert_mage",
+     "text": "The dunes part. My star, and dust from my sash."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star and the card Great Mammoth of Goldfine.",
+     "label": "You got"
+    },
+    {
+     "speaker": "desert_mage",
+     "text": "Beyond the arch the banners snap. The Star Fair waits. The Kingdom still watches."
+    },
+    {
+     "speaker": "atos",
+     "text": "Eight stars. Two to go. Teana is humming somewhere in the heat."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Desert of Lost Stars is behind you. The fair road opens.",
+     "label": "End of Chapter 6"
+    }
+   ]
+  },
+  {
+   "id": "dk6_mage_lose",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The Desert Mage keeps his stars.",
+   "pages": [
+    {
+     "speaker": "desert_mage",
+     "text": "Sand covers the weak. Return heavier, little spark."
+    },
+    {
+     "speaker": "atos",
+     "text": "He outplayed me. Nia's tent and the Sunken Tomb Pit, then."
+    }
+   ]
+  },
+  {
+   "id": "dk6_mage_after",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The Desert Mage after the duel.",
+   "pages": [
+    {
+     "speaker": "desert_mage",
+     "text": "The fair arch is yours. Mind the mirages on the way."
+    }
+   ]
+  },
+  {
+   "id": "dk6_fair_road",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The arch after chapter 6: the next part.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Banners on the wind. Music far off. Chapter 7 arrives in the next part.",
+     "label": "Fair Road"
+    }
+   ]
+  },
+  {
+   "id": "dk6_gate_shut",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The fair arch before eight stars.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A stone arch on the dune. Eight stars are carved on it. The sand pushes you back.",
+     "label": "Fair Arch"
+    }
+   ]
+  },
+  {
+   "id": "dk6_nomad_nia",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "Nomad Nia, the caravan tent.",
+   "pages": [
+    {
+     "speaker": "nomad_nia",
+     "text": "Water, shade and cards. Only the cards travel farther than camels."
+    }
+   ]
+  },
+  {
+   "id": "dk6_desert_camp",
+   "legacy_id": null,
+   "chapter": 6,
+   "desc": "The desert camp: a tarp, and the game-over warning.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A tarp among dunes. Kingdom staff keep a lantern lit even in daylight.",
+     "label": "Desert Camp"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pretty dunes. Deadly rules. Lose your last star and your journey ends for good."
     }
    ]
   }

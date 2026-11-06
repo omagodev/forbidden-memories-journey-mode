@@ -276,29 +276,29 @@ _Cistern stairs up._
 ### dk1_bakura_pre
 _Bakura the lonely ghost - duel for the Scarab._
 
-- **Bakura**: Um visitante! Um visitante de verdade, que respira! Que dia feliz!
+- **Yami Bakura**: Um visitante! Um visitante de verdade, que respira! Que dia feliz!
 - **{name}**: Hum... voce esta flutuando.
-- **Bakura**: Trezentos anos flutuando. Atravesso paredes, mas ninguem nunca aparece.
+- **Yami Bakura**: Trezentos anos flutuando. Atravesso paredes, mas ninguem nunca aparece.
 - **{name}**: Estou procurando o Escaravelho do Fundador.
-- **Bakura**: Aquela coisa brilhante? Eu uso de lampada! Ganhe de mim. Um duelo! Por favor! Duelar?  _[Duel? Yes/No]_
+- **Yami Bakura**: Aquela coisa brilhante? Eu uso de lampada! Ganhe de mim. Um duelo! Por favor! Duelar?  _[Duel? Yes/No]_
 
 ### dk1_bakura_win
 _Bakura beaten._
 
-- **Bakura**: Esplendido! O melhor duelo em tres seculos. Tambem o unico.
-- **Bakura**: Leve o Escaravelho. Acho outra lampada. Visite de novo, aqui fica quieto.
+- **Yami Bakura**: Esplendido! O melhor duelo em tres seculos. Tambem o unico.
+- **Yami Bakura**: Leve o Escaravelho. Acho outra lampada. Visite de novo, aqui fica quieto.
 - **Recompensa**: Voce ganhou o Escaravelho do Fundador e a carta The 13th Grave.
 - **Selo**: Um selo brilha no seu Cartao de Selos - Perdido.
 
 ### dk1_bakura_lose
 _Bakura wins._
 
-- **Bakura**: Ja vai embora? Fique! Mais um duelo? Por favorzinho?
+- **Yami Bakura**: Ja vai embora? Fique! Mais um duelo? Por favorzinho?
 
 ### dk1_bakura_after
 _Bakura, after._
 
-- **Bakura**: Ola, amigo! O degrau esta escorregadio. Ah, e obrigado pela visita.
+- **Yami Bakura**: Ola, amigo! O degrau esta escorregadio. Ah, e obrigado pela visita.
 
 ### dk1_rex_first
 _Rex Raptor, first talk (boast). Points to Jono._
@@ -662,8 +662,8 @@ _Cistern wall, glyph already seen._
 ### dk1_bakura_glyph
 _Bakura mentions the green writing._
 
-- **Bakura**: A escrita verde na parede? Ja estava aqui antes de mim.
-- **Bakura**: Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia.
+- **Yami Bakura**: A escrita verde na parede? Ja estava aqui antes de mim.
+- **Yami Bakura**: Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia.
 
 ### dk1_academy_intro
 _Nabil opens his informal Duel Academy in the village plaza._
@@ -1239,7 +1239,7 @@ _The Meadow Mage after the duel._
 ### dk5_desert_road
 _The arch after chapter 5: the next part._
 
-- **Estrada do Deserto**: Grama dourada. Vento quente. O capitulo 6 chega na proxima parte.
+- **Estrada do Deserto**: Grama dourada. Vento quente. As dunas das Estrelas Perdidas abrem a frente.
 
 ### dk5_gate_shut
 _The desert arch before seven stars._
@@ -1256,3 +1256,143 @@ _The meadow camp: a lantern, and the game-over warning._
 
 - **Acampamento**: Uma lona entre flores do campo. A equipe do Reino mantem um lampiao.
 - **Equipe do Acampamento**: Lugar bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.
+
+### dk6_enter
+_Chapter 5 -> 6: the desert arch opens onto the dunes._
+
+- **Deserto das Estrelas Perdidas**: Sete estrelas. Vento quente. Areia sob os pes.
+- **{name}**: A grama ficou dourada. O Reino ainda observa.
+
+### dk6_to_desert
+_The desert road after the first visit._
+
+- **Estrada do Deserto**: Calor no ar. Dunas a frente. A estrela enterrada espera.
+
+### dk6_to_meadow
+_The trail back to the Meadow Maze._
+
+- **Trilha da Campina**: O vento fica macio. Cercas e flores de novo.
+
+### dk6_arrival
+_Chapter 6 opens: dunes, a fortune tent, a giggle of sand._
+
+- **Deserto**: Dunas douradas. Uma tenda listrada. Uma tenda roxa. Alguem cantarola perto.
+- **{name}**: A Teana me seguiu. Claro que seguiu.
+- **Teana**: Quente! Macio! Aventura! E meu amuleto ainda funciona por aqui.
+- **Objetivo**: Fale com a Isis na tenda roxa da cartomante.
+
+### dk6_isis_pre
+_Isis the fortune teller: a reading, then a tip about the star collector._
+
+- **Isis**: A areia lembra cada passo. Sente. As cartas ja sabem seu nome.
+- **{name}**: Sete estrelas. Faltam tres pro castelo. O que as cartas dizem?
+- **Isis**: As cartas mostram um observador. Nao e desta ilha. Nao e deste mundo.
+- **Isis**: Ele escreve a realidade, mas hoje so le. Nao o procure.
+- **Isis**: E isto: alguem la em cima junta as estrelas dos eliminados. Uma colheita.
+- **Isis**: O Mago do Deserto guarda duas na estrela enterrada. Queremos ler sua coragem tambem?  _[Duel? Yes/No]_
+
+### dk6_isis_win
+_Isis's friendly reading duel ends; the tip sticks._
+
+- **Isis**: As cartas sorriem. Leve este amuleto de poeira. O Mago espera na estrela enterrada.
+- **Voce ganhou**: O Amuleto de Poeira da Isis. A Teana ainda da dicas; a pista da Isis fica com voce.
+- **Isis**: Aposte pouco pra curva. Aposte muito se as dunas chamarem seu nome.
+- **Objetivo**: Ache o Mago do Deserto na estrela enterrada.
+
+### dk6_isis_lose
+_Isis wins the reading duel (no star)._
+
+- **Isis**: As cartas sao gentis. Tente de novo quando a areia pesar menos.
+- **{name}**: A tenda da Nia, ou o Poco da Tumba Afundada. Depois volto pra Isis.
+
+### dk6_isis_after
+_Isis after the reading._
+
+- **Isis**: O observador ainda vira uma pagina. Voce nao precisa dele. Va.
+
+### dk6_hint
+_A free tip from helper Teana in the desert._
+
+- **Teana**: Estrela enterrada, mago grande, duas fichas. Aposta min: oito. Portao da feira depois. Beba agua!
+
+### dk6_teana_after
+_Teana the helper hanging around the dunes._
+
+- **Teana**: Trouxe migalhas de bolo. Derretem. Triste. Mas ainda fofo!
+
+### dk6_bakura_pre
+_Bakura's comic desert cameo: cards only, no star._
+
+- **Yami Bakura**: A cisterna era umida. O deserto e seco. Eu me entedio dos dois jeitos.
+- **{name}**: Bakura? Voce flutuou ate aqui desde casa?
+- **Yami Bakura**: Fantasmas viajam leves. Duelo por diversao. Sem estrelas. So cartas.  _[Duel? Yes/No]_
+
+### dk6_bakura_win
+_Bakura loses the comic duel._
+
+- **Yami Bakura**: Heh. Leve um osso do meu bolso. Vou assombrar alguem mais legal.
+- **Voce ganhou**: A carta Armored Zombie.
+
+### dk6_bakura_lose
+_Bakura wins the comic duel._
+
+- **Yami Bakura**: Viu? Ate fantasmas de areia ainda embaralham. Revanche quando ousar.
+
+### dk6_bakura_after
+_Bakura after the comic duel._
+
+- **Yami Bakura**: O Mago e menos divertido que eu. Vai incomodar ele.
+
+### dk6_star_early
+_The buried star before Isis's tip lands._
+
+- **Estrela Enterrada**: Uma estrela de pedra meio sob a areia. O calor ainda pesa.
+
+### dk6_mage_pre
+_The Desert Mage, zone master: a one-star wager at the buried star._
+
+- **Mago do Deserto**: Sete estrelas andam nas minhas dunas. Poucos saem com oito.
+- **Mago do Deserto**: Duas estrelas repousam sob esta pedra. Aposte o que sua coragem deixar.
+- **{name}**: Dez abrem o castelo. Nao volto por causa de areia.
+- **Mago do Deserto**: Entao queime ou enterre, viajante. O deserto pode falar?  _[Duel? Yes/No]_
+
+### dk6_mage_win
+_The Desert Mage loses: eight stars, end of chapter 6._
+
+- **Mago do Deserto**: As dunas se abrem. Minha estrela, e poeira da minha faixa.
+- **Voce ganhou**: Uma estrela e a carta Great Mammoth of Goldfine.
+- **Mago do Deserto**: Alem do arco as bandeiras estalam. A Feira das Estrelas espera. O Reino ainda observa.
+- **{name}**: Oito estrelas. Faltam duas. A Teana esta cantarolando em algum lugar no calor.
+- **Fim do Capitulo 6**: O Deserto das Estrelas Perdidas ficou para tras. A estrada da feira abre.
+
+### dk6_mage_lose
+_The Desert Mage keeps his stars._
+
+- **Mago do Deserto**: A areia cobre os fracos. Volte mais pesado, faiscazinha.
+- **{name}**: Ele me passou. A tenda da Nia e o Poco da Tumba Afundada, entao.
+
+### dk6_mage_after
+_The Desert Mage after the duel._
+
+- **Mago do Deserto**: O arco da feira e seu. Cuidado com as miragens no caminho.
+
+### dk6_fair_road
+_The arch after chapter 6: the next part._
+
+- **Estrada da Feira**: Bandeiras no vento. Musica ao longe. O capitulo 7 chega na proxima parte.
+
+### dk6_gate_shut
+_The fair arch before eight stars._
+
+- **Arco da Feira**: Um arco de pedra na duna. Oito estrelas gravadas. A areia empurra voce.
+
+### dk6_nomad_nia
+_Nomad Nia, the caravan tent._
+
+- **Nomade Nia**: Agua, sombra e cartas. So as cartas viajam mais longe que camelos.
+
+### dk6_desert_camp
+_The desert camp: a tarp, and the game-over warning._
+
+- **Acampamento**: Uma lona entre dunas. A equipe do Reino mantem um lampiao mesmo de dia.
+- **Equipe do Acampamento**: Dunas bonitas. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.

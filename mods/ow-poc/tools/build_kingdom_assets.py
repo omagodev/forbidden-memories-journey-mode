@@ -183,8 +183,31 @@ def meadow():
     occ.append((shape_mask([("r", 100, 620, 260, 700)]), 710))
     pack("meadow", src, walk, occ)
 
-harbor(); ship_deck(); beach(); forest(); mountain(); meadow()
-for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage"):
+
+def desert():
+    """The Desert of Lost Stars (chapter 6): sand paths are walkable; deep dune bowls and tent
+    footprints are not; tent roofs and the tomb mouth occlude the player."""
+    src = ART + "/raw/dk_desert_raw.jpg"
+    pic = Image.open(src).convert("RGB")
+    hsv = np.array(pic.filter(ImageFilter.GaussianBlur(4)).convert("HSV")).astype(np.float32)
+    h, sat, v = hsv[..., 0] * 360 / 255, hsv[..., 1] / 255, hsv[..., 2] / 255
+    # sand / path: yellow-orange hues, decent brightness
+    walk = (h > 15) & (h < 70) & (v > 0.35) & (sat > 0.15)
+    walk = np.array(Image.fromarray(walk.astype(np.uint8) * 255).filter(ImageFilter.MedianFilter(15))) > 127
+    walk |= shape_mask([("r", 120, 620, 320, 720), ("r", 380, 340, 560, 460), ("r", 560, 80, 720, 200),
+                        ("r", 880, 500, 1100, 660), ("r", 160, 460, 300, 560), ("r", 820, 300, 980, 420)])
+    walk &= ~shape_mask([("r", 0, 0, 1280, 50), ("r", 0, 690, 1280, 720),
+                         ("r", 150, 470, 320, 560),   # caravan tent footprint
+                         ("r", 820, 280, 1000, 380),  # fortune tent footprint
+                         ("r", 920, 520, 1120, 640)]) # tomb mouth
+    tents = [((150, 430, 320, 520), 540), ((820, 250, 1000, 340), 360), ((40, 100, 180, 200), 220)]
+    occ = [(shape_mask([("r",) + r]) & ~walk, base) for r, base in tents]
+    occ.append((shape_mask([("r", 940, 500, 1100, 580)]), 600))  # tomb pillars
+    pack("desert", src, walk, occ)
+
+
+harbor(); ship_deck(); beach(); forest(); mountain(); meadow(); desert()
+for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage", "desert_mage", "isis"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
 for n in ("mai", "weevil", "shadi", "soldier", "trader", "camp_merchant"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)

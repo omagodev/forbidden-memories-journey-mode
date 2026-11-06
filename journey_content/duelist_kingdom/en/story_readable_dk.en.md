@@ -276,29 +276,29 @@ _Cistern stairs up._
 ### dk1_bakura_pre
 _Bakura the lonely ghost - duel for the Scarab._
 
-- **Bakura**: A visitor! A real, breathing visitor! Oh, joyful day!
+- **Yami Bakura**: A visitor! A real, breathing visitor! Oh, joyful day!
 - **{name}**: Um... you are floating.
-- **Bakura**: Three hundred years of floating. I walk through walls, but nobody ever drops by.
+- **Yami Bakura**: Three hundred years of floating. I walk through walls, but nobody ever drops by.
 - **{name}**: I'm looking for the Founder's Scarab.
-- **Bakura**: That shiny thing? I use it as a lamp! Win it from me. A duel! Please! Duel?  _[Duel? Yes/No]_
+- **Yami Bakura**: That shiny thing? I use it as a lamp! Win it from me. A duel! Please! Duel?  _[Duel? Yes/No]_
 
 ### dk1_bakura_win
 _Bakura beaten._
 
-- **Bakura**: Splendid! The best duel in three centuries. Also the only one.
-- **Bakura**: Take the Scarab. I'll find another lamp. Please visit again, it gets quiet.
+- **Yami Bakura**: Splendid! The best duel in three centuries. Also the only one.
+- **Yami Bakura**: Take the Scarab. I'll find another lamp. Please visit again, it gets quiet.
 - **Reward**: You got the Founder's Scarab and the card The 13th Grave.
 - **Stamp**: A stamp glows on your Stamp Card - Lost.
 
 ### dk1_bakura_lose
 _Bakura wins._
 
-- **Bakura**: Leaving already? Stay! One more duel? Pretty please?
+- **Yami Bakura**: Leaving already? Stay! One more duel? Pretty please?
 
 ### dk1_bakura_after
 _Bakura, after._
 
-- **Bakura**: Hello, friend! The step is slippery. Oh, and thank you for the visit.
+- **Yami Bakura**: Hello, friend! The step is slippery. Oh, and thank you for the visit.
 
 ### dk1_rex_first
 _Rex Raptor, first talk (boast). Points to Jono._
@@ -662,8 +662,8 @@ _Cistern wall, glyph already seen._
 ### dk1_bakura_glyph
 _Bakura mentions the green writing._
 
-- **Bakura**: The green writing on the wall? It was here before me.
-- **Bakura**: It never helps and never harms. It only watches. I like it. Good company.
+- **Yami Bakura**: The green writing on the wall? It was here before me.
+- **Yami Bakura**: It never helps and never harms. It only watches. I like it. Good company.
 
 ### dk1_academy_intro
 _Nabil opens his informal Duel Academy in the village plaza._
@@ -1239,7 +1239,7 @@ _The Meadow Mage after the duel._
 ### dk5_desert_road
 _The arch after chapter 5: the next part._
 
-- **Desert Road**: Gold grass. Hot wind. Chapter 6 arrives in the next part.
+- **Desert Road**: Gold grass. Hot wind. The dunes of Lost Stars open ahead.
 
 ### dk5_gate_shut
 _The desert arch before seven stars._
@@ -1256,3 +1256,143 @@ _The meadow camp: a lantern, and the game-over warning._
 
 - **Meadow Camp**: A tarp among wildflowers. Kingdom staff keep a lantern lit.
 - **Camp Staff**: Pretty place. Deadly rules. Lose your last star and your journey ends for good.
+
+### dk6_enter
+_Chapter 5 -> 6: the desert arch opens onto the dunes._
+
+- **Desert of Lost Stars**: Seven stars. Hot wind. Sand underfoot.
+- **{name}**: The grass turned gold. The Kingdom still watches.
+
+### dk6_to_desert
+_The desert road after the first visit._
+
+- **Desert Road**: Heat shimmer. Dunes ahead. The buried star waits.
+
+### dk6_to_meadow
+_The trail back to the Meadow Maze._
+
+- **Meadow Trail**: The wind turns soft. Hedges and flowers again.
+
+### dk6_arrival
+_Chapter 6 opens: dunes, a fortune tent, a giggle of sand._
+
+- **Desert of Lost Stars**: Gold dunes. A striped tent. A purple tent. Someone hums nearby.
+- **{name}**: Teana followed me. Of course she did.
+- **Teana**: Hot! Soft! Adventure! And my charm still works out here.
+- **Objective**: Talk to Isis at the purple fortune tent.
+
+### dk6_isis_pre
+_Isis the fortune teller: a reading, then a tip about the star collector._
+
+- **Isis**: Sand remembers every footstep. Sit. The cards already know your name.
+- **{name}**: Seven stars. Three more for the castle. What do the cards say?
+- **Isis**: The cards show a watcher. Not from this island. Not from this world.
+- **Isis**: He writes reality, yet today he only reads. Do not seek him.
+- **Isis**: And this: someone upstairs collects stars of the eliminated. A harvest.
+- **Isis**: The Desert Mage keeps two at the buried star. Shall we read your courage too?  _[Duel? Yes/No]_
+
+### dk6_isis_win
+_Isis's friendly reading duel ends; the tip sticks._
+
+- **Isis**: The cards smile. Take this dust-charm. The Mage waits at the buried star.
+- **You got**: Isis's Dust Charm. Teana still tips; Isis's clue stays with you.
+- **Isis**: Bet small for the curve. Bet big if the dunes call your name.
+- **Objective**: Find the Desert Mage at the buried star.
+
+### dk6_isis_lose
+_Isis wins the reading duel (no star)._
+
+- **Isis**: The cards are kind. Try again when the sand feels lighter.
+- **{name}**: Nia's tent, or the Sunken Tomb Pit. Then back to Isis.
+
+### dk6_isis_after
+_Isis after the reading._
+
+- **Isis**: The watcher still turns a page. You do not need him. Go.
+
+### dk6_hint
+_A free tip from helper Teana in the desert._
+
+- **Teana**: Buried star, big mage, two chips. Min bet: eight. Fair gate after. Drink water!
+
+### dk6_teana_after
+_Teana the helper hanging around the dunes._
+
+- **Teana**: I packed cake crumbs. They melt. Sad. Still cute though!
+
+### dk6_bakura_pre
+_Bakura's comic desert cameo: cards only, no star._
+
+- **Yami Bakura**: The cistern was damp. The desert is dry. I am bored either way.
+- **{name}**: Bakura? You floated all the way from home?
+- **Yami Bakura**: Ghosts travel light. Duel me for fun. No stars. Just cards.  _[Duel? Yes/No]_
+
+### dk6_bakura_win
+_Bakura loses the comic duel._
+
+- **Yami Bakura**: Heh. Take a bone from my pocket. I will haunt someone cooler.
+- **You got**: The card Armored Zombie.
+
+### dk6_bakura_lose
+_Bakura wins the comic duel._
+
+- **Yami Bakura**: See? Even sand ghosts can still shuffle. Rematch when you dare.
+
+### dk6_bakura_after
+_Bakura after the comic duel._
+
+- **Yami Bakura**: The Mage is less fun than me. Go bother him.
+
+### dk6_star_early
+_The buried star before Isis's tip lands._
+
+- **Buried Star**: A stone star half under the sand. The heat still feels heavy.
+
+### dk6_mage_pre
+_The Desert Mage, zone master: a one-star wager at the buried star._
+
+- **Desert Mage**: Seven stars walk my dunes. Few leave with eight.
+- **Desert Mage**: Two stars rest under this stone. Wager what your nerve allows.
+- **{name}**: Ten open the castle. I am not turning back for sand.
+- **Desert Mage**: Then burn or bury, traveler. Shall the desert speak?  _[Duel? Yes/No]_
+
+### dk6_mage_win
+_The Desert Mage loses: eight stars, end of chapter 6._
+
+- **Desert Mage**: The dunes part. My star, and dust from my sash.
+- **You got**: A star and the card Great Mammoth of Goldfine.
+- **Desert Mage**: Beyond the arch the banners snap. The Star Fair waits. The Kingdom still watches.
+- **{name}**: Eight stars. Two to go. Teana is humming somewhere in the heat.
+- **End of Chapter 6**: The Desert of Lost Stars is behind you. The fair road opens.
+
+### dk6_mage_lose
+_The Desert Mage keeps his stars._
+
+- **Desert Mage**: Sand covers the weak. Return heavier, little spark.
+- **{name}**: He outplayed me. Nia's tent and the Sunken Tomb Pit, then.
+
+### dk6_mage_after
+_The Desert Mage after the duel._
+
+- **Desert Mage**: The fair arch is yours. Mind the mirages on the way.
+
+### dk6_fair_road
+_The arch after chapter 6: the next part._
+
+- **Fair Road**: Banners on the wind. Music far off. Chapter 7 arrives in the next part.
+
+### dk6_gate_shut
+_The fair arch before eight stars._
+
+- **Fair Arch**: A stone arch on the dune. Eight stars are carved on it. The sand pushes you back.
+
+### dk6_nomad_nia
+_Nomad Nia, the caravan tent._
+
+- **Nomad Nia**: Water, shade and cards. Only the cards travel farther than camels.
+
+### dk6_desert_camp
+_The desert camp: a tarp, and the game-over warning._
+
+- **Desert Camp**: A tarp among dunes. Kingdom staff keep a lantern lit even in daylight.
+- **Camp Staff**: Pretty dunes. Deadly rules. Lose your last star and your journey ends for good.

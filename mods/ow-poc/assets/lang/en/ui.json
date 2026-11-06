@@ -185,7 +185,8 @@
     "The Shore of Illusions",
     "The Forest of Whispers",
     "The Mountain Pass",
-    "The Meadow Maze"
+    "The Meadow Maze",
+    "Desert of Lost Stars"
   ],
   "objectives": [
     "Duel Bakura the lonely ghost",
@@ -226,7 +227,11 @@
     "Chapter 4 complete - the castle road waits",
     "Find Teana in the hedges - the giggle from the ship",
     "Beat the Meadow Mage - a star on the line",
-    "Chapter 5 complete - the desert road waits"
+    "Chapter 5 complete - take the desert arch",
+    "Beyond the meadow - the Desert of Lost Stars",
+    "Talk to Isis at the fortune tent - a reading in the dunes",
+    "Beat the Desert Mage - a star on the line",
+    "Chapter 6 complete - the fair road waits"
   ],
   "items": [
     "Stamp Card",
@@ -244,6 +249,7 @@
     "Whisper Leaf",
     "Star Chisel",
     "Hint Charm",
+    "Dust Charm",
     "Star Chips"
   ],
   "npc_names": {
@@ -256,7 +262,7 @@
     "academy_teacher": "Professor Nabil",
     "hooded_man": "Hooded Man",
     "rex": "Rex Raptor",
-    "bakura": "Bakura",
+    "bakura": "Yami Bakura",
     "soldier": "Mage Soldier",
     "shadi": "Shadi",
     "mai": "Mai",
@@ -276,7 +282,12 @@
     "cliff_cass": "Cliff Cass",
     "teana_meadow": "Teana",
     "meadow_mage": "Meadow Mage",
-    "rose_rue": "Rose Rue"
+    "rose_rue": "Rose Rue",
+    "isis_desert": "Isis",
+    "teana_desert": "Teana",
+    "bakura_desert": "Yami Bakura",
+    "desert_mage": "Desert Mage",
+    "nomad_nia": "Nomad Nia"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -287,7 +298,7 @@
     "farmer": "Kemet",
     "academy_teacher": "Professor Nabil",
     "hooded_man": "Hooded Man",
-    "bakura": "Bakura",
+    "bakura": "Yami Bakura",
     "rex": "Rex Raptor",
     "soldier": "Mage Soldier",
     "shadi": "Shadi",
@@ -310,7 +321,9 @@
     "croquet": "Croquet",
     "cliff_cass": "Cliff Cass",
     "meadow_mage": "Meadow Mage",
-    "rose_rue": "Rose Rue"
+    "rose_rue": "Rose Rue",
+    "desert_mage": "Desert Mage",
+    "nomad_nia": "Nomad Nia"
   },
   "map": {
     "title": "MAP",
@@ -455,7 +468,8 @@
     "The Shore of Illusions",
     "The Forest of Whispers",
     "The Mountain Pass",
-    "The Meadow Maze"
+    "The Meadow Maze",
+    "Desert of Lost Stars"
   ],
   "quest_objectives": [
     "Ask Teana, Jono and the Guard",
@@ -471,7 +485,8 @@
     "Look into the mirror on the beach",
     "Beat Rex Raptor for a star",
     "Beat Bandit Keith at the bridge",
-    "Find Teana in the hedges"
+    "Find Teana in the hedges",
+    "Talk to Isis at the fortune tent"
   ],
   "quest_steps": [
     "Sit on the plaza bench until night",
@@ -502,7 +517,8 @@
     "a second star, Loaded Dice, card Hercules Beetle",
     "the fourth star, Whisper Leaf, cards Megazowler and Mystic Horseman",
     "the sixth star, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone",
-    "the seventh star, Hint Charm, card Queen of Autumn Leaves"
+    "the seventh star, Hint Charm, card Queen of Autumn Leaves",
+    "the eighth star, Dust Charm, card Great Mammoth of Goldfine"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -532,7 +548,8 @@
     "kingdom_beach": "Shore of Illusions",
     "kingdom_forest": "Forest of Whispers",
     "kingdom_mountain": "Mountain Pass",
-    "kingdom_meadow": "Meadow Maze"
+    "kingdom_meadow": "Meadow Maze",
+    "kingdom_desert": "Desert of Lost Stars"
   },
   "shop": {
     "title": "Card Shop",
@@ -683,6 +700,10 @@
       "desc": "Teana's charm. She tips you through the maze and beyond.",
       "from": "Teana, in the Meadow Maze"
     },
+    "isis_desert_won": {
+      "desc": "Isis's charm. Someone upstairs harvests lost stars.",
+      "from": "Isis, in the Desert of Lost Stars."
+    },
     "star_chips": {
       "desc": "A lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.",
       "from": "Shadi's Star Passage, then the duelists who guard each zone."
@@ -714,7 +735,8 @@
       "forest_mage": "Forest Mage",
       "keith": "Bandit Keith",
       "mountain_mage": "Mountain Mage",
-      "meadow_mage": "Meadow Mage"
+      "meadow_mage": "Meadow Mage",
+      "desert_mage": "Desert Mage"
     }
   }
 }

@@ -877,3 +877,7 @@ _C4.scripts(sc, H, X, N)
 # ---------------------------------------------------------------- chapter 5 (the Meadow Maze): dk_chapter5.py
 import dk_chapter5 as _C5
 _C5.scripts(sc, H, X, N)
+
+# ---------------------------------------------------------------- chapter 6 (the Desert of Lost Stars): dk_chapter6.py
+import dk_chapter6 as _C6
+_C6.scripts(sc, H, X, N)

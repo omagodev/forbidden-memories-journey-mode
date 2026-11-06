@@ -101,8 +101,8 @@ def scripts(sc, H, X, N):
        "O arco e seu. Cuidado com os espinhos no caminho."),
     ], chapter=5)
     sc("dk5_desert_road", "The arch after chapter 5: the next part.", [
-     N("Desert Road", "Estrada do Deserto", "Gold grass. Hot wind. Chapter 6 arrives in the next part.",
-       "Grama dourada. Vento quente. O capitulo 6 chega na proxima parte."),
+     N("Desert Road", "Estrada do Deserto", "Gold grass. Hot wind. The dunes of Lost Stars open ahead.",
+       "Grama dourada. Vento quente. As dunas das Estrelas Perdidas abrem a frente."),
     ], chapter=5)
     sc("dk5_gate_shut", "The desert arch before seven stars.", [
      N("Desert Arch", "Arco do Deserto", "A vine-covered arch. Seven stars are carved on it. The hedges push you back.",
@@ -190,10 +190,11 @@ TRANSITIONS = [
 HUD = [
  (W(stage=[22,22]), "Find Teana in the hedges - the giggle from the ship", "Ache a Teana nas cercas - a risada do navio"),
  (W(stage=[23,23]), "Beat the Meadow Mage - a star on the line", "Venca a Maga da Campina - uma estrela em jogo"),
- (W(stage=[24,99]), "Chapter 5 complete - the desert road waits", "Capitulo 5 completo - a estrada do deserto espera"),
+ (W(stage=[24,24]), "Chapter 5 complete - take the desert arch", "Capitulo 5 completo - pegue o arco do deserto"),
+ (W(stage=[25,99]), "Beyond the meadow - the Desert of Lost Stars", "Alem da campina - o Deserto das Estrelas Perdidas"),
 ]
 CHAPTER = dict(n=5, title=B("The Meadow Maze", "O Labirinto da Campina"), region="kingdom_meadow", stage=[22,24],
-               reward="seven stars, Hint Charm, card Queen of Autumn Leaves", unlock="the desert road (chapter 6)")
+               reward="seven stars, Hint Charm, card Queen of Autumn Leaves", unlock="the Desert of Lost Stars (chapter 6)")
 QUESTS = [
  dict(id="q14_meadow", kind="talk+duel", opt=False, title=B("The Meadow Maze", "O Labirinto da Campina"), giver="(none)",
       steps=[("Find Teana in the hedges", "Ache a Teana nas cercas", "kingdom_meadow.teana_spot"),

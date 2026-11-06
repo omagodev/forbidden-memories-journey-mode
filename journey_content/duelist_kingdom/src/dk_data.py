@@ -472,6 +472,27 @@ CHAPTERS.append(_C5.CHAPTER)
 QUESTS += _C5.QUESTS
 DECKS.update(_C5.DECKS)
 
+
+# ---------------------------------------------------------------- chapter 6 (the Desert of Lost Stars): dk_chapter6.py
+import dk_chapter6 as _C6
+SPEAKERS.update(_C6.SPEAKERS)
+FLAGS += _C6.FLAGS
+STAGES = sorted(STAGES + _C6.STAGES)
+for _i, _a in enumerate(AREAS):
+    if _a[0] == "kingdom_desert": del AREAS[_i]; break
+AREAS.append(("kingdom_desert", "Desert of Lost Stars", "Deserto das Estrelas Perdidas", "Fifth Kingdom area: dunes, a fortune tent, a caravan tent, a sunken tomb arena, a buried star, the fair arch.", "exists (illustrated, chapter 6)"))
+ANCHORS["kingdom_desert"] = _C6.ANCHORS["kingdom_desert"]
+ITEMS += _C6.ITEMS
+NPCS += _C6.NPCS
+NPC_SPEAKER.update(_C6.NPC_SPEAKER)
+OBJECTS += _C6.OBJECTS
+DUELS += _C6.DUELS
+TRANSITIONS += _C6.TRANSITIONS
+HUD += _C6.HUD
+CHAPTERS.append(_C6.CHAPTER)
+QUESTS += _C6.QUESTS
+DECKS.update(_C6.DECKS)
+
 # Appended after every released chapter flag so existing save bits keep their
 # meaning.  These optional academy lessons use the previously unused tail.
 FLAGS += [

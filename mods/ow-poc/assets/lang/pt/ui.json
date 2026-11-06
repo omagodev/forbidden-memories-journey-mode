@@ -185,7 +185,8 @@
     "A Costa das Ilusoes",
     "A Floresta dos Sussurros",
     "A Passagem da Montanha",
-    "O Labirinto da Campina"
+    "O Labirinto da Campina",
+    "Deserto das Estrelas Perdidas"
   ],
   "objectives": [
     "Duele com Bakura, o fantasma solitario",
@@ -226,7 +227,11 @@
     "Capitulo 4 completo - a estrada do castelo espera",
     "Ache a Teana nas cercas - a risada do navio",
     "Venca a Maga da Campina - uma estrela em jogo",
-    "Capitulo 5 completo - a estrada do deserto espera"
+    "Capitulo 5 completo - pegue o arco do deserto",
+    "Alem da campina - o Deserto das Estrelas Perdidas",
+    "Fale com a Isis na tenda - uma leitura nas dunas",
+    "Venca o Mago do Deserto - uma estrela em jogo",
+    "Capitulo 6 completo - a estrada da feira espera"
   ],
   "items": [
     "Cartao de Selos",
@@ -244,6 +249,7 @@
     "Folha Sussurrante",
     "Cinzel Estelar",
     "Amuleto de Dica",
+    "Amuleto de Poeira",
     "Fichas de Estrela"
   ],
   "npc_names": {
@@ -256,7 +262,7 @@
     "academy_teacher": "Professor Nabil",
     "hooded_man": "Homem Encapuzado",
     "rex": "Rex Raptor",
-    "bakura": "Bakura",
+    "bakura": "Yami Bakura",
     "soldier": "Soldado Mago",
     "shadi": "Shadi",
     "mai": "Mai",
@@ -276,7 +282,12 @@
     "cliff_cass": "Cliff Cass",
     "teana_meadow": "Teana",
     "meadow_mage": "Maga da Campina",
-    "rose_rue": "Rose Rue"
+    "rose_rue": "Rose Rue",
+    "isis_desert": "Isis",
+    "teana_desert": "Teana",
+    "bakura_desert": "Yami Bakura",
+    "desert_mage": "Mago do Deserto",
+    "nomad_nia": "Nomade Nia"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -287,7 +298,7 @@
     "farmer": "Kemet",
     "academy_teacher": "Professor Nabil",
     "hooded_man": "Homem Encapuzado",
-    "bakura": "Bakura",
+    "bakura": "Yami Bakura",
     "rex": "Rex Raptor",
     "soldier": "Soldado Mago",
     "shadi": "Shadi",
@@ -310,7 +321,9 @@
     "croquet": "Croquet",
     "cliff_cass": "Cliff Cass",
     "meadow_mage": "Maga da Campina",
-    "rose_rue": "Rose Rue"
+    "rose_rue": "Rose Rue",
+    "desert_mage": "Mago do Deserto",
+    "nomad_nia": "Nomade Nia"
   },
   "map": {
     "title": "MAPA",
@@ -463,7 +476,8 @@
     "A Costa das Ilusoes",
     "A Floresta dos Sussurros",
     "A Passagem da Montanha",
-    "O Labirinto da Campina"
+    "O Labirinto da Campina",
+    "Deserto das Estrelas Perdidas"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
@@ -479,7 +493,8 @@
     "Olhe o espelho da praia",
     "Venca o Rex Raptor por uma estrela",
     "Venca o Bandit Keith na ponte",
-    "Ache a Teana nas cercas"
+    "Ache a Teana nas cercas",
+    "Fale com a Isis na tenda da cartomante"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
@@ -510,7 +525,8 @@
     "a segunda estrela, Dados Viciados, carta Hercules Beetle",
     "a quarta estrela, Folha Sussurrante, cartas Megazowler e Mystic Horseman",
     "a sexta estrela, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone",
-    "a setima estrela, Amuleto de Dica, carta Queen of Autumn Leaves"
+    "a setima estrela, Amuleto de Dica, carta Queen of Autumn Leaves",
+    "a oitava estrela, Amuleto de Poeira, carta Great Mammoth of Goldfine"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -540,7 +556,8 @@
     "kingdom_beach": "Costa das Ilusoes",
     "kingdom_forest": "Floresta dos Sussurros",
     "kingdom_mountain": "Passagem da Montanha",
-    "kingdom_meadow": "Labirinto da Campina"
+    "kingdom_meadow": "Labirinto da Campina",
+    "kingdom_desert": "Deserto das Estrelas Perdidas"
   },
   "shop": {
     "title": "Loja de Cartas",
@@ -691,6 +708,10 @@
       "desc": "O amuleto da Teana. Ela te da dicas no labirinto.",
       "from": "Teana, no Labirinto da Campina."
     },
+    "isis_desert_won": {
+      "desc": "O amuleto da Isis. Alguem la em cima colhe estrelas perdidas.",
+      "from": "Isis, no Deserto das Estrelas Perdidas."
+    },
     "star_chips": {
       "desc": "Aposta perdida fica com o rival. Dez abrem o castelo. ZERO = FIM DE JOGO.",
       "from": "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."
@@ -722,7 +743,8 @@
       "forest_mage": "Mago da Floresta",
       "keith": "Bandit Keith",
       "mountain_mage": "Mago da Montanha",
-      "meadow_mage": "Maga da Campina"
+      "meadow_mage": "Maga da Campina",
+      "desert_mage": "Mago do Deserto"
     }
   }
 }

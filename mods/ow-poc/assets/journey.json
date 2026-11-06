@@ -50,6 +50,10 @@
   "meadow_arrived",
   "teana_meadow_won",
   "meadow_mage_won",
+  "desert_arrived",
+  "isis_desert_won",
+  "bakura_desert_won",
+  "desert_mage_won",
   "academy_started",
   "academy_basics",
   "academy_guardians",
@@ -368,6 +372,10 @@
    "flag": "teana_meadow_won"
   },
   {
+   "name": "Dust Charm",
+   "flag": "isis_desert_won"
+  },
+  {
    "name": "Star Chips",
    "flag": "shadi_won",
    "icon": "assets/icon_star_chips.bin",
@@ -401,7 +409,13 @@
    "text": "The Mountain Pass"
   },
   {
+   "when": {
+    "stage_lt": 25
+   },
    "text": "The Meadow Maze"
+  },
+  {
+   "text": "Desert of Lost Stars"
   }
  ],
  "objectives": [
@@ -773,9 +787,36 @@
   },
   {
    "when": {
-    "stage_ge": 24
+    "stage_ge": 24,
+    "stage_lt": 25
    },
-   "text": "Chapter 5 complete - the desert road waits"
+   "text": "Chapter 5 complete - take the desert arch"
+  },
+  {
+   "when": {
+    "stage_ge": 25
+   },
+   "text": "Beyond the meadow - the Desert of Lost Stars"
+  },
+  {
+   "when": {
+    "stage_ge": 25,
+    "stage_lt": 26
+   },
+   "text": "Talk to Isis at the fortune tent - a reading in the dunes"
+  },
+  {
+   "when": {
+    "stage_ge": 26,
+    "stage_lt": 27
+   },
+   "text": "Beat the Desert Mage - a star on the line"
+  },
+  {
+   "when": {
+    "stage_ge": 27
+   },
+   "text": "Chapter 6 complete - the fair road waits"
   }
  ],
  "triggers": [],
@@ -985,10 +1026,7 @@
       "stage_ge": 3,
       "stage_lt": 6
      },
-     "scene": "dk1_teana_after",
-     "effects": {
-      "open_shop": "village"
-     }
+     "scene": "dk1_teana_after"
     },
     {
      "when": {
@@ -1009,10 +1047,7 @@
      "when": {
       "stage_ge": 6
      },
-     "scene": "dk1_teana_after_farewell",
-     "effects": {
-      "open_shop": "village"
-     }
+     "scene": "dk1_teana_after_farewell"
     }
    ],
    "duelist_id": 2,
@@ -1637,7 +1672,7 @@
   },
   {
    "id": "bakura",
-   "name": "Bakura",
+   "name": "Yami Bakura",
    "mesh": "Wizard",
    "anchor": "bakura_spot",
    "talk": [
@@ -2019,10 +2054,7 @@
      "when": {
       "stage_ge": 5
      },
-     "scene": "dk2_dock_dan",
-     "effects": {
-      "open_shop": "harbor"
-     }
+     "scene": "dk2_dock_dan"
     }
    ],
    "duelist_id": 0,
@@ -2047,10 +2079,7 @@
       "stage_ge": 7,
       "stage_lt": 8
      },
-     "scene": "dk2_purser",
-     "effects": {
-      "open_shop": "ship"
-     }
+     "scene": "dk2_purser"
     }
    ],
    "duelist_id": 0,
@@ -2075,10 +2104,7 @@
      "when": {
       "stage_ge": 10
      },
-     "scene": "dk2_shell_sue",
-     "effects": {
-      "open_shop": "beach"
-     }
+     "scene": "dk2_shell_sue"
     }
    ],
    "duelist_id": 0,
@@ -2252,10 +2278,7 @@
      "when": {
       "stage_ge": 13
      },
-     "scene": "dk3_hermit",
-     "effects": {
-      "open_shop": "forest"
-     }
+     "scene": "dk3_hermit"
     }
    ],
    "duelist_id": 0,
@@ -2513,10 +2536,7 @@
      "when": {
       "stage_ge": 17
      },
-     "scene": "dk4_cliff_cass",
-     "effects": {
-      "open_shop": "mountain"
-     }
+     "scene": "dk4_cliff_cass"
     }
    ],
    "duelist_id": 0,
@@ -2667,10 +2687,7 @@
      "when": {
       "stage_ge": 22
      },
-     "scene": "dk5_rose_rue",
-     "effects": {
-      "open_shop": "meadow"
-     }
+     "scene": "dk5_rose_rue"
     }
    ],
    "duelist_id": 0,
@@ -2681,6 +2698,228 @@
       "stage_ge": 22
      },
      "anchor": "kingdom_meadow.shop_stall"
+    }
+   ]
+  },
+  {
+   "id": "isis_desert",
+   "name": "Isis",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "kingdom_desert.isis_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 25,
+      "stage_lt": 26,
+      "lacks": [
+       "isis_desert_won"
+      ]
+     },
+     "scene": "dk6_isis_pre",
+     "duel": true,
+     "win": {
+      "stage": 26,
+      "flags": [
+       "isis_desert_won"
+      ],
+      "scene": "dk6_isis_win"
+     },
+     "lose": {
+      "scene": "dk6_isis_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 26
+     },
+     "scene": "dk6_isis_after"
+    }
+   ],
+   "duelist_id": 16,
+   "portrait_id": 16,
+   "duelist": "dk_isis_desert",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "anchor": "kingdom_desert.isis_spot"
+    }
+   ]
+  },
+  {
+   "id": "teana_desert",
+   "name": "Teana",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "kingdom_desert.teana_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "scene": "dk6_hint"
+    },
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "scene": "dk6_teana_after"
+    }
+   ],
+   "duelist_id": 20,
+   "portrait_id": 20,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "anchor": "kingdom_desert.teana_spot"
+    }
+   ]
+  },
+  {
+   "id": "bakura_desert",
+   "name": "Yami Bakura",
+   "mesh": "Wizard",
+   "anchor": "kingdom_desert.bakura_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 25,
+      "lacks": [
+       "bakura_desert_won"
+      ]
+     },
+     "scene": "dk6_bakura_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       96
+      ],
+      "flags": [
+       "bakura_desert_won"
+      ],
+      "scene": "dk6_bakura_win"
+     },
+     "lose": {
+      "scene": "dk6_bakura_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "scene": "dk6_bakura_after"
+    }
+   ],
+   "duelist_id": 14,
+   "portrait_id": 14,
+   "duelist": "dk_bakura_desert",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "anchor": "kingdom_desert.bakura_spot"
+    }
+   ]
+  },
+  {
+   "id": "desert_mage",
+   "name": "Desert Mage",
+   "mesh": "Wizard",
+   "anchor": "kingdom_desert.gate_spot",
+   "talk": [
+    {
+     "when": {
+      "needs": [
+       "desert_mage_won"
+      ],
+      "wager_extra": [
+       6,
+       2,
+       "desert_mage_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 2,
+      "slot": 6,
+      "wid": "desert_mage",
+      "beaten": "desert_mage_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
+      "stage_ge": 26,
+      "stage_lt": 27,
+      "lacks": [
+       "desert_mage_won"
+      ]
+     },
+     "scene": "dk6_mage_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       564
+      ],
+      "stage": 27,
+      "flags": [
+       "desert_mage_won"
+      ],
+      "scene": "dk6_mage_win",
+      "wager": 2,
+      "slot": 6,
+      "wid": "desert_mage",
+      "beaten": "desert_mage_won"
+     },
+     "lose": {
+      "scene": "dk6_mage_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 26
+     },
+     "scene": "dk6_mage_after"
+    }
+   ],
+   "duelist_id": 27,
+   "portrait_id": 27,
+   "duelist": "dk_desert_mage",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 26
+     },
+     "anchor": "kingdom_desert.gate_spot"
+    }
+   ]
+  },
+  {
+   "id": "nomad_nia",
+   "name": "Nomad Nia",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "kingdom_desert.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "scene": "dk6_nomad_nia"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "anchor": "kingdom_desert.shop_stall"
     }
    ]
   }
@@ -2789,6 +3028,12 @@
    "portrait_id": 29
   },
   "rose_rue": {
+   "portrait_id": 0
+  },
+  "desert_mage": {
+   "portrait_id": 27
+  },
+  "nomad_nia": {
    "portrait_id": 0
   }
  },
@@ -3224,9 +3469,30 @@
   },
   {
    "when": {
-    "stage_ge": 24
+    "stage_ge": 24,
+    "stage_lt": 25
    },
    "anchor": "desert_gate"
+  },
+  {
+   "when": {
+    "stage_ge": 25,
+    "stage_lt": 26
+   },
+   "npc": "isis_desert"
+  },
+  {
+   "when": {
+    "stage_ge": 26,
+    "stage_lt": 27
+   },
+   "npc": "desert_mage"
+  },
+  {
+   "when": {
+    "stage_ge": 27
+   },
+   "anchor": "fair_gate"
   }
  ],
  "journal": [
@@ -3618,6 +3884,18 @@
    "done": {
     "needs": [
      "meadow_mage_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q15_desert",
+   "active": {
+    "stage_ge": 25
+   },
+   "done": {
+    "needs": [
+     "desert_mage_won"
     ]
    },
    "lines": []
@@ -4368,6 +4646,33 @@
    "talk": [
     {
      "when": {
+      "stage_ge": 25
+     },
+     "scene": "dk6_to_desert",
+     "effects": {
+      "warp": [
+       "kingdom_desert",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 24,
+      "stage_lt": 25,
+      "stars_min": 7
+     },
+     "scene": "dk6_enter",
+     "effects": {
+      "stage": 25,
+      "warp": [
+       "kingdom_desert",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
       "stage_ge": 24,
       "stars_min": 7
      },
@@ -4415,46 +4720,70 @@
    "reach": 80
   },
   {
-   "id": "arena_door_village",
-   "anchor": "village.arena_door",
-   "prop": "hatch",
-   "reach": 0
+   "id": "buried_star",
+   "anchor": "gate_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 25,
+      "stage_lt": 26
+     },
+     "scene": "dk6_star_early"
+    }
+   ],
+   "reach": 80
   },
   {
-   "id": "arena_door_harbor",
-   "anchor": "harbor.arena_door",
-   "prop": "hatch",
-   "reach": 0
+   "id": "fair_gate",
+   "anchor": "fair_gate",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 27,
+      "stars_min": 8
+     },
+     "scene": "dk6_fair_road"
+    },
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "scene": "dk6_gate_shut"
+    }
+   ],
+   "reach": 80
   },
   {
-   "id": "arena_door_beach",
-   "anchor": "kingdom_beach.arena_door",
-   "prop": "hatch",
-   "reach": 0
+   "id": "desert_camp",
+   "anchor": "desert_camp",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "scene": "dk6_desert_camp"
+    }
+   ],
+   "reach": 80
   },
   {
-   "id": "arena_door_forest",
-   "anchor": "kingdom_forest.arena_door",
-   "prop": "hatch",
-   "reach": 0
-  },
-  {
-   "id": "arena_door_mountain",
-   "anchor": "kingdom_mountain.arena_door",
-   "prop": "hatch",
-   "reach": 0
-  },
-  {
-   "id": "arena_door_meadow",
-   "anchor": "kingdom_meadow.arena_door",
-   "prop": "hatch",
-   "reach": 0
-  },
-  {
-   "id": "arena_door_ship",
-   "anchor": "ship_deck.arena_door",
-   "prop": "hatch",
-   "reach": 0
+   "id": "desert_exit",
+   "anchor": "spawn",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 25
+     },
+     "scene": "dk6_to_meadow",
+     "effects": {
+      "warp": [
+       "kingdom_meadow",
+       "desert_gate"
+      ]
+     }
+    }
+   ],
+   "reach": 80
   }
  ],
  "intro": "dk1_intro",
@@ -4471,7 +4800,8 @@
    "kingdom_beach": 30,
    "kingdom_forest": 21,
    "kingdom_mountain": 22,
-   "kingdom_meadow": 19
+   "kingdom_meadow": 19,
+   "kingdom_desert": 23
   },
   "night": {
    "stage_ge": 2,
@@ -5791,6 +6121,228 @@
    "anchor": "kingdom_meadow.maze_center",
    "time": "auto",
    "stars": 7
+  },
+  {
+   "name": "38 desert arrival (chapter 6)",
+   "stage": 25,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won"
+   ],
+   "anchor": "kingdom_desert.spawn",
+   "time": "auto",
+   "stars": 7
+  },
+  {
+   "name": "39 Isis at the fortune tent",
+   "stage": 25,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived"
+   ],
+   "anchor": "kingdom_desert.isis_spot",
+   "time": "auto",
+   "stars": 7
+  },
+  {
+   "name": "40 Desert Mage (wager)",
+   "stage": 26,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won"
+   ],
+   "anchor": "kingdom_desert.desert_center",
+   "time": "auto",
+   "stars": 7
+  },
+  {
+   "name": "41 chapter 6 done",
+   "stage": 27,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won"
+   ],
+   "anchor": "kingdom_desert.desert_center",
+   "time": "auto",
+   "stars": 8
   }
  ],
  "auto": [
@@ -5904,7 +6456,23 @@
     ]
    },
    "scene": "dk5_arrival"
+  },
+  {
+   "when": {
+    "stage_ge": 25,
+    "stage_lt": 26,
+    "lacks": [
+     "desert_arrived"
+    ],
+    "area": 9
+   },
+   "result": {
+    "flags": [
+     "desert_arrived"
+    ]
+   },
+   "scene": "dk6_arrival"
   }
  ],
- "story": "duelist_kingdom chapters 1-5"
+ "story": "duelist_kingdom chapters 1-6"
 }

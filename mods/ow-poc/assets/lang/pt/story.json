@@ -3140,7 +3140,7 @@
      "speaker": "narrator",
      "text": "O Labirinto da Campina ficou para tras. A estrada do deserto abre.",
      "label": "Fim do Capitulo 5",
-     "kind": "caption"
+     "kind": "complete"
     }
    ]
   },
@@ -3171,7 +3171,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Grama dourada. Vento quente. O capitulo 6 chega na proxima parte.",
+     "text": "Grama dourada. Vento quente. As dunas das Estrelas Perdidas abrem a frente.",
      "label": "Estrada do Deserto",
      "kind": "caption"
     }
@@ -3209,6 +3209,344 @@
     {
      "speaker": "staff",
      "text": "Lugar bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
+    }
+   ]
+  },
+  {
+   "id": "dk6_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Sete estrelas. Vento quente. Areia sob os pes.",
+     "label": "Deserto das Estrelas Perdidas",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "A grama ficou dourada. O Reino ainda observa."
+    }
+   ]
+  },
+  {
+   "id": "dk6_to_desert",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Calor no ar. Dunas a frente. A estrela enterrada espera.",
+     "label": "Estrada do Deserto",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk6_to_meadow",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O vento fica macio. Cercas e flores de novo.",
+     "label": "Trilha da Campina",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk6_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Dunas douradas. Uma tenda listrada. Uma tenda roxa. Alguem cantarola perto.",
+     "label": "Deserto",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "A Teana me seguiu. Claro que seguiu."
+    },
+    {
+     "speaker": "teana",
+     "text": "Quente! Macio! Aventura! E meu amuleto ainda funciona por aqui."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Fale com a Isis na tenda roxa da cartomante.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk6_isis_pre",
+   "pages": [
+    {
+     "speaker": "isis",
+     "text": "A areia lembra cada passo. Sente. As cartas ja sabem seu nome."
+    },
+    {
+     "speaker": "atos",
+     "text": "Sete estrelas. Faltam tres pro castelo. O que as cartas dizem?"
+    },
+    {
+     "speaker": "isis",
+     "text": "As cartas mostram um observador. Nao e desta ilha. Nao e deste mundo."
+    },
+    {
+     "speaker": "isis",
+     "text": "Ele escreve a realidade, mas hoje so le. Nao o procure."
+    },
+    {
+     "speaker": "isis",
+     "text": "E isto: alguem la em cima junta as estrelas dos eliminados. Uma colheita."
+    },
+    {
+     "speaker": "isis",
+     "text": "O Mago do Deserto guarda duas na estrela enterrada. Queremos ler sua coragem tambem?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk6_isis_win",
+   "pages": [
+    {
+     "speaker": "isis",
+     "text": "As cartas sorriem. Leve este amuleto de poeira. O Mago espera na estrela enterrada."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Amuleto de Poeira da Isis. A Teana ainda da dicas; a pista da Isis fica com voce.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "isis",
+     "text": "Aposte pouco pra curva. Aposte muito se as dunas chamarem seu nome."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Ache o Mago do Deserto na estrela enterrada.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk6_isis_lose",
+   "pages": [
+    {
+     "speaker": "isis",
+     "text": "As cartas sao gentis. Tente de novo quando a areia pesar menos."
+    },
+    {
+     "speaker": "atos",
+     "text": "A tenda da Nia, ou o Poco da Tumba Afundada. Depois volto pra Isis."
+    }
+   ]
+  },
+  {
+   "id": "dk6_isis_after",
+   "pages": [
+    {
+     "speaker": "isis",
+     "text": "O observador ainda vira uma pagina. Voce nao precisa dele. Va."
+    }
+   ]
+  },
+  {
+   "id": "dk6_hint",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Estrela enterrada, mago grande, duas fichas. Aposta min: oito. Portao da feira depois. Beba agua!"
+    }
+   ]
+  },
+  {
+   "id": "dk6_teana_after",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Trouxe migalhas de bolo. Derretem. Triste. Mas ainda fofo!"
+    }
+   ]
+  },
+  {
+   "id": "dk6_bakura_pre",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "A cisterna era umida. O deserto e seco. Eu me entedio dos dois jeitos."
+    },
+    {
+     "speaker": "atos",
+     "text": "Bakura? Voce flutuou ate aqui desde casa?"
+    },
+    {
+     "speaker": "bakura",
+     "text": "Fantasmas viajam leves. Duelo por diversao. Sem estrelas. So cartas.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk6_bakura_win",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Heh. Leve um osso do meu bolso. Vou assombrar alguem mais legal."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A carta Armored Zombie.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    }
+   ]
+  },
+  {
+   "id": "dk6_bakura_lose",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "Viu? Ate fantasmas de areia ainda embaralham. Revanche quando ousar."
+    }
+   ]
+  },
+  {
+   "id": "dk6_bakura_after",
+   "pages": [
+    {
+     "speaker": "bakura",
+     "text": "O Mago e menos divertido que eu. Vai incomodar ele."
+    }
+   ]
+  },
+  {
+   "id": "dk6_star_early",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela de pedra meio sob a areia. O calor ainda pesa.",
+     "label": "Estrela Enterrada",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk6_mage_pre",
+   "pages": [
+    {
+     "speaker": "desert_mage",
+     "text": "Sete estrelas andam nas minhas dunas. Poucos saem com oito."
+    },
+    {
+     "speaker": "desert_mage",
+     "text": "Duas estrelas repousam sob esta pedra. Aposte o que sua coragem deixar."
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez abrem o castelo. Nao volto por causa de areia."
+    },
+    {
+     "speaker": "desert_mage",
+     "text": "Entao queime ou enterre, viajante. O deserto pode falar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk6_mage_win",
+   "pages": [
+    {
+     "speaker": "desert_mage",
+     "text": "As dunas se abrem. Minha estrela, e poeira da minha faixa."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela e a carta Great Mammoth of Goldfine.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "desert_mage",
+     "text": "Alem do arco as bandeiras estalam. A Feira das Estrelas espera. O Reino ainda observa."
+    },
+    {
+     "speaker": "atos",
+     "text": "Oito estrelas. Faltam duas. A Teana esta cantarolando em algum lugar no calor."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Deserto das Estrelas Perdidas ficou para tras. A estrada da feira abre.",
+     "label": "Fim do Capitulo 6",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk6_mage_lose",
+   "pages": [
+    {
+     "speaker": "desert_mage",
+     "text": "A areia cobre os fracos. Volte mais pesado, faiscazinha."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele me passou. A tenda da Nia e o Poco da Tumba Afundada, entao."
+    }
+   ]
+  },
+  {
+   "id": "dk6_mage_after",
+   "pages": [
+    {
+     "speaker": "desert_mage",
+     "text": "O arco da feira e seu. Cuidado com as miragens no caminho."
+    }
+   ]
+  },
+  {
+   "id": "dk6_fair_road",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Bandeiras no vento. Musica ao longe. O capitulo 7 chega na proxima parte.",
+     "label": "Estrada da Feira",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk6_gate_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Um arco de pedra na duna. Oito estrelas gravadas. A areia empurra voce.",
+     "label": "Arco da Feira",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk6_nomad_nia",
+   "pages": [
+    {
+     "speaker": "nomad_nia",
+     "text": "Agua, sombra e cartas. So as cartas viajam mais longe que camelos."
+    }
+   ]
+  },
+  {
+   "id": "dk6_desert_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona entre dunas. A equipe do Reino mantem um lampiao mesmo de dia.",
+     "label": "Acampamento",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Dunas bonitas. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
     }
    ]
   }
