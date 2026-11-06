@@ -21,8 +21,8 @@ RARITIES = ("C", "B", "A", "S")
 # Only the places the game can reach are copied: the runtime reader makes a node per JSON value, and
 # the whole catalogue (10 pools, 9 shops) is 136 KB of it for areas the story does not open yet.  Add
 # an id here when its part lands; "--all" writes everything (for a data check, not for the game).
-POOLS_NOW = ("village", "harbor", "ship", "beach", "forest", "mountain", "meadow", "desert", "fair", "gate")
-SHOPS_NOW = ("village", "harbor", "ship", "beach", "forest", "mountain", "meadow", "desert", "fair", "gate")
+POOLS_NOW = ("village", "harbor", "ship", "beach", "forest", "mountain", "meadow", "desert", "fair", "gate", "hall")
+SHOPS_NOW = ("village", "harbor", "ship", "beach", "forest", "mountain", "meadow", "desert", "fair", "gate", "hall")
 
 
 def load(name):
@@ -201,7 +201,7 @@ def write(path, data):
 # ---------------------------------------------------------------- the gang and the arenas
 # The gang roams every open-air area, so all seven of them come across; the arenas are tied to a
 # place, so only the ones whose place exists are written, as the pools and shops are.
-ARENAS_NOW = ("village", "harbor", "ship", "beach", "forest", "mountain", "meadow", "desert", "fair", "gate")
+ARENAS_NOW = ("village", "harbor", "ship", "beach", "forest", "mountain", "meadow", "desert", "fair", "gate", "hall")
 # No art for the gang yet, so each is drawn from a villager's sheet in a colour of his own.  Sand and
 # rag tones, in the order the design lists them: dusty pup, scrap junker, fang brute, viper, hex
 # lady, granite brute, old boss.  Replace this when the sprites exist.

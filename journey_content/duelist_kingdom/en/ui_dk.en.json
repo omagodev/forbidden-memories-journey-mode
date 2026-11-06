@@ -39,7 +39,9 @@
   "kingdom_meadow": "Meadow Maze",
   "kingdom_desert": "Desert of Lost Stars",
   "kingdom_fair": "Star Fair",
-  "castle_gate": "Castle Gate"
+  "castle_gate": "Castle Gate",
+  "castle_hall": "Castle Hall",
+  "castle_top": "Dream Room"
  },
  "notebook": [
   "Rumor 1: a hooded man pays with golden stars and talks about a Kingdom.",

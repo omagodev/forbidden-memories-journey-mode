@@ -1310,6 +1310,108 @@
     "Legendary Sword": 2,
     "Mountain": 2
    }
+  },
+  "Veil Vera": {
+   "duelist": "Veil Vera",
+   "chapter": 0,
+   "difficulty_tier": 8,
+   "theme": "Hall illusions",
+   "fixed": true,
+   "total": 31,
+   "cards": {
+    "Dark Magician": 1,
+    "Illusionist Faceless Mage": 2,
+    "Curtain of the Dark Ones": 2,
+    "Mystic Clown": 2,
+    "Akakieisu": 2,
+    "Saggi the Dark Clown": 2,
+    "Yami": 3,
+    "Dark Energy": 2,
+    "Sparks": 2,
+    "Hinotama": 2,
+    "Red Medicine": 2,
+    "Mooyan Curry": 2,
+    "Legendary Sword": 2,
+    "Ansatsu": 2,
+    "Axe Raider": 2,
+    "Swordstalker": 1
+   }
+  },
+  "Mask Milo": {
+   "duelist": "Mask Milo",
+   "chapter": 0,
+   "difficulty_tier": 8,
+   "theme": "Hall fiends",
+   "fixed": true,
+   "total": 29,
+   "cards": {
+    "Soul Hunter": 1,
+    "King of Yamimakai": 1,
+    "Dark Chimera": 2,
+    "Whiptail Crow": 2,
+    "Neck Hunter": 2,
+    "The Bistro Butcher": 1,
+    "Yami": 3,
+    "Dark Energy": 3,
+    "Sparks": 2,
+    "Hinotama": 2,
+    "Red Medicine": 2,
+    "Mooyan Curry": 2,
+    "Ansatsu": 2,
+    "Axe Raider": 2,
+    "Swordstalker": 2
+   }
+  },
+  "Echo Eva": {
+   "duelist": "Echo Eva",
+   "chapter": 0,
+   "difficulty_tier": 8,
+   "theme": "Hall echoes",
+   "fixed": true,
+   "total": 28,
+   "cards": {
+    "Dragon Seeker": 1,
+    "Air Eater": 1,
+    "La Jinn the Mystical Genie": 2,
+    "Orion the Battle King": 1,
+    "Gyakutenno Megami": 1,
+    "Illusionist Faceless Mage": 2,
+    "Yami": 2,
+    "Sogen": 2,
+    "Sparks": 2,
+    "Hinotama": 2,
+    "Red Medicine": 2,
+    "Mooyan Curry": 2,
+    "Legendary Sword": 2,
+    "Ansatsu": 2,
+    "Axe Raider": 2,
+    "Swordstalker": 2
+   }
+  },
+  "Crown Hex": {
+   "duelist": "Crown Hex",
+   "chapter": 0,
+   "difficulty_tier": 8,
+   "theme": "Hall champion",
+   "fixed": true,
+   "total": 27,
+   "cards": {
+    "Soul Hunter": 1,
+    "King of Yamimakai": 1,
+    "Dragon Seeker": 1,
+    "Dark Magician": 1,
+    "Swordstalker": 2,
+    "Flame Swordsman": 2,
+    "Yami": 3,
+    "Dark Energy": 2,
+    "Sparks": 2,
+    "Hinotama": 2,
+    "Red Medicine": 2,
+    "Mooyan Curry": 2,
+    "Legendary Sword": 2,
+    "Ansatsu": 2,
+    "Axe Raider": 2
+   }
   }
  }
 }

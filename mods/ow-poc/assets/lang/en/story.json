@@ -4043,19 +4043,423 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "The lock clicks to ten. Beyond: illusion halls, a chamberlain, and Pegasus's Dream Room.",
+     "text": "The lock clicks to ten. Beyond: illusion halls and Chamberlain Heishin.",
      "label": "Castle Door",
      "kind": "caption"
     },
     {
      "speaker": "atos",
-     "text": "Heishin. Pegasus. The wish. Not this chapter - the next part of the Kingdom."
+     "text": "Gate Key turns. The hall is next."
+    }
+   ]
+  },
+  {
+   "id": "dk9_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Ten stars. Illusion stairs. Portraits wink. A crown hums ahead.",
+     "label": "Castle Hall",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Heishin's harvest. The fair cellar makes sense now."
+    }
+   ]
+  },
+  {
+   "id": "dk9_to_hall",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Mirrors bend. The crown still waits, or the stairs up do.",
+     "label": "Castle Hall",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk9_to_gate",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Stone and beetle banners again. The plaza is behind.",
+     "label": "Gate Road",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk9_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Stairs that lead nowhere twice. A pedestal holds a crown of stolen stars.",
+     "label": "Illusion Hall",
+     "kind": "caption"
+    },
+    {
+     "speaker": "heishin",
+     "text": "Chamberlain Heishin. The eliminated left their light with me. I will rule the island with it."
+    },
+    {
+     "speaker": "atos",
+     "text": "You herded them. From the fair. From every road."
     },
     {
      "speaker": "narrator",
-     "text": "Chapter 9: Castle Hall. Chapter 10: Pegasus's Dream. Flag budget is tight.",
-     "label": "Coming next",
+     "text": "Challenge Heishin at the Star Crown.",
+     "label": "Objective",
      "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_pre",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "Two stars under this crown. Wager what you dare. The Dream Room is upstairs - if you live."
+    },
+    {
+     "speaker": "atos",
+     "text": "I did not collect ten to kneel to a thief."
+    },
+    {
+     "speaker": "heishin",
+     "text": "Then the hall speaks. Shall we?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_win",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "The crown cracks. The lights fly home. No... my island..."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Eliminated duelists flicker free and bow, then vanish toward the shore.",
+     "label": "Hall",
+     "kind": "caption"
+    },
+    {
+     "speaker": "narrator",
+     "text": "In a hall mirror, behind your reflection, a green shimmer watches and does not delete him.",
+     "label": "Mirror",
+     "kind": "caption"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "I could end this line. I will not. Play."
+    },
+    {
+     "speaker": "atos",
+     "text": "Who... was that? The stairs up are open. Pegasus waits."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Card Soul Hunter. The Dream Room stairs unlock.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Castle Hall yields. Pegasus's Dream is next.",
+     "label": "End of Chapter 9",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_lose",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "The crown drinks. Crawl to Relic Rhea or the Crown Cellar, then return."
+    },
+    {
+     "speaker": "atos",
+     "text": "He outplayed me. Cards, then rematch."
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_after",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "Pegasus knew. He always knew. Go upstairs and ask him why."
+    }
+   ]
+  },
+  {
+   "id": "dk9_relic_rhea",
+   "pages": [
+    {
+     "speaker": "relic_rhea",
+     "text": "Crowns crack. Cards last. Buy what the hall drops."
+    }
+   ]
+  },
+  {
+   "id": "dk9_hall_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A tarp by the entrance pillars. Staff keep one lantern for the starless.",
+     "label": "Hall Camp",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pretty hall. Deadly rules. Lose your last star and your journey ends for good."
+    }
+   ]
+  },
+  {
+   "id": "dk9_dream_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Stairs up to a bright door. The crown's hum still blocks the step.",
+     "label": "Dream Stairs",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk9_dream_road",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The crown is quiet. Upstairs: Pegasus, a wish, and the end of the show.",
+     "label": "Dream Stairs",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk10_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Cards pinned like butterflies. A window to the sea. Pegasus smiles.",
+     "label": "Dream Room",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten stars. One show left."
+    }
+   ]
+  },
+  {
+   "id": "dk10_to_dream",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The sea window still burns orange. The table waits.",
+     "label": "Dream Room",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk10_to_hall",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Illusion halls below. The crown pedestal is quiet.",
+     "label": "Hall Stairs",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk10_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A dueling table. Three wish orbs. Shadi stands by a pillar and nods once.",
+     "label": "Dream Room",
+     "kind": "caption"
+    },
+    {
+     "speaker": "shadi",
+     "text": "You kept your stars. He is waiting. I am only the messenger - still."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Darling! Ten stars, a cracked crown, and a rookie who ruins my chamberlain's hobby."
+    },
+    {
+     "speaker": "atos",
+     "text": "You knew about Heishin."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "I wanted to see if anyone would stop him. You did. Now - a real duel. A wish if you win."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duel Pegasus at the dream table.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk10_shadi",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "I deliver ends. Yours is a kind one, if you win."
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_pre",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "I play with a hidden hand, darling. Two stars on the table. Wager what your nerve allows."
+    },
+    {
+     "speaker": "atos",
+     "text": "For everyone he hurt. For the wish."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Then smile for the window. Shall the dream speak?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_win",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Marvelous! The eye saw it, and still lost. Choose, hero: a Dream Card, everyone's stars back, or a Festival for all."
+    },
+    {
+     "speaker": "atos",
+     "text": "A festival. Everyone goes home happy - and parties first."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Canon, darling. A Festival it is. Meet me in your little village."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Card Dark Magician. The Festival wish is set.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Pegasus's Dream yields. The Festival epilogue waits in the village.",
+     "label": "End of Chapter 10",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_lose",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Almost a finale. Relic Rhea downstairs, or try again when your deck smiles."
+    },
+    {
+     "speaker": "atos",
+     "text": "He read my hand. Rematch."
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_after",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Go home. I already sent the invitations. Fashionably late is still late."
+    }
+   ]
+  },
+  {
+   "id": "dk10_wish_orb",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Festival burns brightest. The village plaza is calling.",
+     "label": "Wish Orbs",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk10_epilogue",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Your home plaza is strung with star lanterns. Every rival you met waves from a stall.",
+     "label": "Festival",
+     "kind": "caption"
+    },
+    {
+     "speaker": "simon",
+     "text": "You still owe me a card. Do not think a festival clears the debt."
+    },
+    {
+     "speaker": "atos",
+     "text": "I will duel you for it. After cake."
+    },
+    {
+     "speaker": "narrator",
+     "text": "On the plaza bench, the green shimmer finally sits still. You notice him.",
+     "label": "Bench",
+     "kind": "caption"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "Took you long enough."
+    },
+    {
+     "speaker": "atos",
+     "text": "MAGO.DEV. You were in every chapter."
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "And now you see me. Good game."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Darlings! Drink, duel, dance! My Kingdom loved its rookies today."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duelist Kingdom complete. The festival lasts as long as you walk the plaza.",
+     "label": "The End",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk10_dream_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A small tarp by the wish orbs. Even finales have rules.",
+     "label": "Dream Camp",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pretty room. Deadly rules. Lose your last star and your journey ends for good."
     }
    ]
   }

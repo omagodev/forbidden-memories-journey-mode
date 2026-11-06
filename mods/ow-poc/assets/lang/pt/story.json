@@ -4043,19 +4043,423 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "A fechadura trava em dez. Alem: salas de ilusao, um camareiro e a Sala dos Sonhos de Pegasus.",
+     "text": "A fechadura trava em dez. Alem: salas de ilusao e o Camareiro Heishin.",
      "label": "Porta do Castelo",
      "kind": "caption"
     },
     {
      "speaker": "atos",
-     "text": "Heishin. Pegasus. O desejo. Nao neste capitulo - na proxima parte do Reino."
+     "text": "A Chave gira. O salao e o proximo."
+    }
+   ]
+  },
+  {
+   "id": "dk9_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Dez estrelas. Escadas de ilusao. Retratos piscando. Uma coroa zumbe a frente.",
+     "label": "Salao do Castelo",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "A colheita do Heishin. O porao da feira faz sentido agora."
+    }
+   ]
+  },
+  {
+   "id": "dk9_to_hall",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Espelhos curvam. A coroa ainda espera, ou as escadas pra cima.",
+     "label": "Salao",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk9_to_gate",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Pedra e bandeiras de besouro de novo. A praca fica atras.",
+     "label": "Estrada do Portao",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk9_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Escadas que nao levam a lugar nenhum duas vezes. Um pedestal segura uma coroa de estrelas roubadas.",
+     "label": "Salao",
+     "kind": "caption"
+    },
+    {
+     "speaker": "heishin",
+     "text": "Camareiro Heishin. Os eliminados deixaram a luz comigo. Vou governar a ilha com ela."
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce os enfiou. Da feira. De cada estrada."
     },
     {
      "speaker": "narrator",
-     "text": "Capitulo 9: Salao do Castelo. Capitulo 10: Sonho de Pegasus. O orcamento de flags esta apertado.",
-     "label": "A seguir",
+     "text": "Desafie Heishin na Coroa Estelar.",
+     "label": "Objetivo",
      "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_pre",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "Duas estrelas sob esta coroa. Aposte o que ousar. A Sala dos Sonhos e la em cima - se viver."
+    },
+    {
+     "speaker": "atos",
+     "text": "Nao juntei dez pra ajoelhar pra um ladrao."
+    },
+    {
+     "speaker": "heishin",
+     "text": "Entao o salao fala. Vamos?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_win",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "A coroa racha. As luzes voam pra casa. Nao... minha ilha..."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duelistas eliminados piscam livres e se curvam, depois somem rumo a costa.",
+     "label": "Salao",
+     "kind": "caption"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Num espelho do salao, atras do seu reflexo, um brilho verde observa e nao o apaga.",
+     "label": "Espelho",
+     "kind": "caption"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "Eu poderia acabar com esta linha. Nao vou. Jogue."
+    },
+    {
+     "speaker": "atos",
+     "text": "Quem... foi aquilo? As escadas sobem. Pegasus espera."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A carta Soul Hunter. As escadas da Sala dos Sonhos abrem.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Salao do Castelo cede. O Sonho de Pegasus e o proximo.",
+     "label": "Fim do Capitulo 9",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_lose",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "A coroa bebe. Rasteje ate Rhea ou o Porao da Coroa, depois volte."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele me passou. Cartas, depois a revanche."
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_after",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "Pegasus sabia. Sempre soube. Suba e pergunte por que."
+    }
+   ]
+  },
+  {
+   "id": "dk9_relic_rhea",
+   "pages": [
+    {
+     "speaker": "relic_rhea",
+     "text": "Coroas racham. Cartas duram. Compre o que o salao deixa."
+    }
+   ]
+  },
+  {
+   "id": "dk9_hall_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona junto aos pilares. A equipe mantem um lampiao pros sem estrela.",
+     "label": "Acampamento",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Salao bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
+    }
+   ]
+  },
+  {
+   "id": "dk9_dream_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Escadas pra uma porta clara. O zumbido da coroa ainda bloqueia o degrau.",
+     "label": "Escadas do Sonho",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk9_dream_road",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A coroa esta quieta. La em cima: Pegasus, um desejo e o fim do show.",
+     "label": "Escadas do Sonho",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk10_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Cartas pregadas como borboletas. Uma janela pro mar. Pegasus sorri.",
+     "label": "Sala dos Sonhos",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez estrelas. Um show sobrando."
+    }
+   ]
+  },
+  {
+   "id": "dk10_to_dream",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A janela do mar ainda queima laranja. A mesa espera.",
+     "label": "Sala dos Sonhos",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk10_to_hall",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Salas de ilusao abaixo. O pedestal da coroa esta quieto.",
+     "label": "Escadas do Salao",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk10_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma mesa de duelo. Tres orbes de desejo. Shadi fica junto a um pilar e acena uma vez.",
+     "label": "Sala",
+     "kind": "caption"
+    },
+    {
+     "speaker": "shadi",
+     "text": "Voce guardou suas estrelas. Ele espera. Eu ainda sou so o mensageiro."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Querido! Dez estrelas, uma coroa rachada e um novato que estraga o hobby do meu camareiro."
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce sabia do Heishin."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Eu queria ver se alguem o parava. Voce parou. Agora - um duelo de verdade. Um desejo se vencer."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duele com Pegasus na mesa dos sonhos.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk10_shadi",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Eu entrego finais. O seu e gentil, se voce vencer."
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_pre",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Eu jogo com a mao escondida, querido. Duas estrelas na mesa. Aposte o que sua coragem deixar."
+    },
+    {
+     "speaker": "atos",
+     "text": "Por todos que ele machucou. Pelo desejo."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Entao sorria pra janela. O sonho pode falar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_win",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Maravilhoso! O olho viu e mesmo assim perdeu. Escolha, heroi: uma Carta dos Sonhos, as estrelas de todos de volta, ou um Festival pra todos."
+    },
+    {
+     "speaker": "atos",
+     "text": "Um festival. Todo mundo volta feliz - e festeja antes."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Canonico, querido. Festival sera. Me encontre na sua vilazinha."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A carta Dark Magician. O desejo do Festival esta feito.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Sonho de Pegasus cede. O epilogo do Festival espera na vila.",
+     "label": "Fim do Capitulo 10",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_lose",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Quase um finale. Rhea la embaixo, ou tente de novo quando seu baralho sorrir."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele leu minha mao. Revanche."
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_after",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Va pra casa. Ja mandei os convites. Atrasado com estilo ainda e atrasado."
+    }
+   ]
+  },
+  {
+   "id": "dk10_wish_orb",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O Festival queima mais forte. A praca da vila chama.",
+     "label": "Orbes",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk10_epilogue",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Sua praca esta cheia de lampioes de estrela. Cada rival que voce encontrou acena de uma barraca.",
+     "label": "Festival",
+     "kind": "caption"
+    },
+    {
+     "speaker": "simon",
+     "text": "Voce ainda me deve uma carta. Nao ache que um festival limpa a divida."
+    },
+    {
+     "speaker": "atos",
+     "text": "Vou duelar com voce por ela. Depois do bolo."
+    },
+    {
+     "speaker": "narrator",
+     "text": "No banco da praca, o brilho verde finalmente fica quieto. Voce o nota.",
+     "label": "Banco",
+     "kind": "caption"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "Demorou, hein."
+    },
+    {
+     "speaker": "atos",
+     "text": "MAGO.DEV. Voce estava em cada capitulo."
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "E agora voce me ve. Bom jogo."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Queridos! Bebam, duelam, dancem! Meu Reino amou seus novatos hoje."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Reino dos Duelistas completo. O festival dura enquanto voce andar pela praca.",
+     "label": "Fim",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk10_dream_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona pequena junto aos orbes. Ate finais tem regras.",
+     "label": "Acampamento",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Sala bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
     }
    ]
   }

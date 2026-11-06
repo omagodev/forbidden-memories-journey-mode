@@ -63,7 +63,10 @@
   "academy_power",
   "academy_fusions",
   "academy_graduate",
-  "inseto_gate_won"
+  "inseto_gate_won",
+  "heishin_won",
+  "pegasus_won",
+  "wish_festival"
  ],
  "areas": [
   {
@@ -438,7 +441,19 @@
    "text": "The Star Fair"
   },
   {
+   "when": {
+    "stage_lt": 33
+   },
    "text": "The Castle Gate"
+  },
+  {
+   "when": {
+    "stage_lt": 35
+   },
+   "text": "The Castle Hall"
+  },
+  {
+   "text": "Pegasus's Dream"
   }
  ],
  "objectives": [
@@ -878,9 +893,44 @@
   },
   {
    "when": {
-    "stage_ge": 32
+    "stage_ge": 32,
+    "stage_lt": 33
    },
-   "text": "Chapter 8 complete - the castle / Dream Room waits"
+   "text": "Chapter 8 complete - open the castle door"
+  },
+  {
+   "when": {
+    "stage_ge": 33,
+    "stage_lt": 34
+   },
+   "text": "Beat Heishin at the Star Crown - a star on the line"
+  },
+  {
+   "when": {
+    "stage_ge": 34,
+    "stage_lt": 35
+   },
+   "text": "Chapter 9 complete - the Dream Room waits upstairs"
+  },
+  {
+   "when": {
+    "stage_ge": 35,
+    "stage_lt": 36
+   },
+   "text": "Duel Pegasus at the dream table - a star on the line"
+  },
+  {
+   "when": {
+    "stage_ge": 36,
+    "stage_lt": 37
+   },
+   "text": "Touch the wish orbs - Festival epilogue"
+  },
+  {
+   "when": {
+    "stage_ge": 37
+   },
+   "text": "Kingdom complete - walk the festival plaza"
   }
  ],
  "triggers": [],
@@ -3287,6 +3337,214 @@
      "anchor": "castle_gate.shop_stall"
     }
    ]
+  },
+  {
+   "id": "heishin_hall",
+   "name": "Heishin",
+   "mesh": "Wizard",
+   "anchor": "castle_hall.heishin_spot",
+   "talk": [
+    {
+     "when": {
+      "needs": [
+       "heishin_won"
+      ],
+      "wager_extra": [
+       9,
+       2,
+       "heishin_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 2,
+      "slot": 9,
+      "wid": "heishin_hall",
+      "beaten": "heishin_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
+      "stage_ge": 33,
+      "stage_lt": 34,
+      "lacks": [
+       "heishin_won"
+      ]
+     },
+     "scene": "dk9_heishin_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       471
+      ],
+      "stage": 34,
+      "flags": [
+       "heishin_won"
+      ],
+      "scene": "dk9_heishin_win",
+      "wager": 2,
+      "slot": 9,
+      "wid": "heishin_hall",
+      "beaten": "heishin_won"
+     },
+     "lose": {
+      "scene": "dk9_heishin_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 34,
+      "needs": [
+       "heishin_won"
+      ]
+     },
+     "scene": "dk9_heishin_after"
+    }
+   ],
+   "duelist_id": 35,
+   "portrait_id": 0,
+   "duelist": "dk_heishin_hall",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 33
+     },
+     "anchor": "castle_hall.heishin_spot"
+    }
+   ]
+  },
+  {
+   "id": "relic_rhea",
+   "name": "Relic Rhea",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "castle_hall.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 33
+     },
+     "scene": "dk9_relic_rhea",
+     "effects": {
+      "open_shop": "hall"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 33
+     },
+     "anchor": "castle_hall.shop_stall"
+    }
+   ]
+  },
+  {
+   "id": "pegasus_dream",
+   "name": "Pegasus",
+   "mesh": "Suit_Male",
+   "anchor": "castle_top.pegasus_spot",
+   "talk": [
+    {
+     "when": {
+      "needs": [
+       "pegasus_won"
+      ],
+      "wager_extra": [
+       10,
+       2,
+       "pegasus_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 2,
+      "slot": 10,
+      "wid": "pegasus_dream",
+      "beaten": "pegasus_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
+      "stage_ge": 35,
+      "stage_lt": 36,
+      "lacks": [
+       "pegasus_won"
+      ]
+     },
+     "scene": "dk10_pegasus_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       35
+      ],
+      "flags": [
+       "pegasus_won",
+       "wish_festival"
+      ],
+      "stage": 36,
+      "scene": "dk10_pegasus_win",
+      "wager": 2,
+      "slot": 10,
+      "wid": "pegasus_dream",
+      "beaten": "pegasus_won"
+     },
+     "lose": {
+      "scene": "dk10_pegasus_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 36,
+      "needs": [
+       "pegasus_won"
+      ]
+     },
+     "scene": "dk10_pegasus_after"
+    }
+   ],
+   "duelist_id": 15,
+   "portrait_id": 15,
+   "duelist": "dk_pegasus_dream",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 35
+     },
+     "anchor": "castle_top.pegasus_spot"
+    }
+   ]
+  },
+  {
+   "id": "shadi_dream",
+   "name": "Shadi",
+   "mesh": "Wizard",
+   "anchor": "castle_top.shadi_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 35
+     },
+     "scene": "dk10_shadi"
+    }
+   ],
+   "duelist_id": 13,
+   "portrait_id": 13,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 35
+     },
+     "anchor": "castle_top.shadi_spot"
+    }
+   ]
   }
  ],
  "speakers": {
@@ -3411,6 +3669,12 @@
    "portrait_id": 0
   },
   "pawn_paul": {
+   "portrait_id": 0
+  },
+  "heishin": {
+   "portrait_id": 0
+  },
+  "relic_rhea": {
    "portrait_id": 0
   }
  },
@@ -3902,9 +4166,44 @@
   },
   {
    "when": {
-    "stage_ge": 32
+    "stage_ge": 32,
+    "stage_lt": 33
    },
    "anchor": "castle_door"
+  },
+  {
+   "when": {
+    "stage_ge": 33,
+    "stage_lt": 34
+   },
+   "npc": "heishin_hall"
+  },
+  {
+   "when": {
+    "stage_ge": 34,
+    "stage_lt": 35
+   },
+   "anchor": "dream_stairs"
+  },
+  {
+   "when": {
+    "stage_ge": 35,
+    "stage_lt": 36
+   },
+   "npc": "pegasus_dream"
+  },
+  {
+   "when": {
+    "stage_ge": 36,
+    "stage_lt": 37
+   },
+   "anchor": "wish_orbs"
+  },
+  {
+   "when": {
+    "stage_ge": 37
+   },
+   "anchor": "plaza_center"
   }
  ],
  "journal": [
@@ -4332,6 +4631,30 @@
    "done": {
     "needs": [
      "inseto_gate_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q18_hall",
+   "active": {
+    "stage_ge": 33
+   },
+   "done": {
+    "needs": [
+     "heishin_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q19_dream",
+   "active": {
+    "stage_ge": 35
+   },
+   "done": {
+    "needs": [
+     "wish_festival"
     ]
    },
    "lines": []
@@ -5360,7 +5683,35 @@
    "talk": [
     {
      "when": {
+      "stage_ge": 33
+     },
+     "scene": "dk9_to_hall",
+     "effects": {
+      "warp": [
+       "castle_hall",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
       "stage_ge": 32,
+      "stage_lt": 33,
+      "stars_min": 10
+     },
+     "scene": "dk9_arrival",
+     "effects": {
+      "stage": 33,
+      "warp": [
+       "castle_hall",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 32,
+      "stage_lt": 33,
       "stars_min": 10
      },
      "scene": "dk8_castle_announce"
@@ -5400,6 +5751,145 @@
       "warp": [
        "kingdom_fair",
        "castle_gate"
+      ]
+     }
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "dream_stairs",
+   "anchor": "dream_stairs",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 35
+     },
+     "scene": "dk10_to_dream",
+     "effects": {
+      "warp": [
+       "castle_top",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 34,
+      "stage_lt": 35
+     },
+     "scene": "dk10_arrival",
+     "effects": {
+      "stage": 35,
+      "warp": [
+       "castle_top",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 34
+     },
+     "scene": "dk9_dream_road"
+    },
+    {
+     "when": {
+      "stage_ge": 33
+     },
+     "scene": "dk9_dream_shut"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "hall_camp",
+   "anchor": "hall_camp",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 33
+     },
+     "scene": "dk9_hall_camp"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "hall_exit",
+   "anchor": "spawn",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 33
+     },
+     "scene": "dk9_to_gate",
+     "effects": {
+      "warp": [
+       "castle_gate",
+       "castle_door"
+      ]
+     }
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "wish_orbs",
+   "anchor": "wish_orbs",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 36,
+      "stage_lt": 37,
+      "needs": [
+       "wish_festival"
+      ]
+     },
+     "scene": "dk10_epilogue",
+     "effects": {
+      "stage": 37,
+      "warp": [
+       "village",
+       "plaza_center"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 36
+     },
+     "scene": "dk10_wish_orb"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "dream_camp",
+   "anchor": "dream_camp",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 35
+     },
+     "scene": "dk10_dream_camp"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "dream_exit",
+   "anchor": "spawn",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 35
+     },
+     "scene": "dk10_to_hall",
+     "effects": {
+      "warp": [
+       "castle_hall",
+       "dream_stairs"
       ]
      }
     }
@@ -5465,6 +5955,12 @@
    "anchor": "castle_gate.arena_door",
    "prop": "hatch",
    "reach": 0
+  },
+  {
+   "id": "arena_door_hall",
+   "anchor": "castle_hall.arena_door",
+   "prop": "hatch",
+   "reach": 0
   }
  ],
  "intro": "dk1_intro",
@@ -5484,7 +5980,9 @@
    "kingdom_meadow": 19,
    "kingdom_desert": 23,
    "kingdom_fair": 24,
-   "castle_gate": 25
+   "castle_gate": 25,
+   "castle_hall": 26,
+   "castle_top": 27
   },
   "night": {
    "stage_ge": 2,
@@ -7441,6 +7939,442 @@
    "anchor": "castle_gate.gate_center",
    "time": "auto",
    "stars": 10
+  },
+  {
+   "name": "49 hall arrival (chapter 9)",
+   "stage": 33,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won",
+    "inseto_gate_won"
+   ],
+   "anchor": "castle_hall.spawn",
+   "time": "auto",
+   "stars": 10
+  },
+  {
+   "name": "50 Heishin at the crown (wager)",
+   "stage": 33,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won",
+    "inseto_gate_won"
+   ],
+   "anchor": "castle_hall.hall_center",
+   "time": "auto",
+   "stars": 10
+  },
+  {
+   "name": "51 chapter 9 done",
+   "stage": 34,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won",
+    "inseto_gate_won",
+    "heishin_won"
+   ],
+   "anchor": "castle_hall.hall_center",
+   "time": "auto",
+   "stars": 10
+  },
+  {
+   "name": "52 dream arrival (chapter 10)",
+   "stage": 35,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won",
+    "inseto_gate_won",
+    "heishin_won"
+   ],
+   "anchor": "castle_top.spawn",
+   "time": "auto",
+   "stars": 10
+  },
+  {
+   "name": "53 Pegasus at the table (wager)",
+   "stage": 35,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won",
+    "inseto_gate_won",
+    "heishin_won"
+   ],
+   "anchor": "castle_top.dream_center",
+   "time": "auto",
+   "stars": 10
+  },
+  {
+   "name": "54 chapter 10 wish",
+   "stage": 36,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won",
+    "inseto_gate_won",
+    "heishin_won",
+    "pegasus_won",
+    "wish_festival"
+   ],
+   "anchor": "castle_top.wish_orbs",
+   "time": "auto",
+   "stars": 10
+  },
+  {
+   "name": "55 festival epilogue",
+   "stage": 37,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won",
+    "inseto_gate_won",
+    "heishin_won",
+    "pegasus_won",
+    "wish_festival"
+   ],
+   "anchor": "plaza_center",
+   "time": "auto",
+   "stars": 10
   }
  ],
  "auto": [
@@ -7588,5 +8522,5 @@
    "scene": "dk7_arrival"
   }
  ],
- "story": "duelist_kingdom chapters 1-8"
+ "story": "duelist_kingdom chapters 1-10"
 }

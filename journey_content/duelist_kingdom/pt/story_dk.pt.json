@@ -28,7 +28,7 @@
    "name": "Simon Muran",
    "short": "Simon",
    "portrait": 1,
-   "note": "Village sage."
+   "note": "Festival epilogue: you still owe him a card."
   },
   "teana": {
    "name": "Teana",
@@ -94,7 +94,7 @@
    "name": "Shadi",
    "short": "Shadi",
    "portrait": 13,
-   "note": "Pegasus's messenger."
+   "note": "Last cameo in the Dream Room."
   },
   "mai": {
    "name": "Mai",
@@ -121,10 +121,10 @@
    "note": "Same character in the plain tee (art_dk/portraits/mago_tee): the epilogue payoff on the festival bench."
   },
   "mago_hidden": {
-   "name": "???",
-   "short": "???",
+   "name": "MAGO.DEV",
+   "short": "MAGO",
    "portrait": 254,
-   "note": "Hidden watcher in the fair crowd (MAGO.DEV glimpse 6)."
+   "note": "Finally noticed on the plaza bench."
   },
   "isis": {
    "name": "Isis",
@@ -142,7 +142,7 @@
    "name": "Pegasus",
    "short": "Pegasus",
    "portrait": 15,
-   "note": "A recording in the beach mirror (chapter 2)."
+   "note": "Final boss of the Dream Room (chapter 10)."
   },
   "weevil": {
    "name": "Weevil",
@@ -154,7 +154,7 @@
    "name": "Equipe do Acampamento",
    "short": "Staff",
    "portrait": 254,
-   "note": "Kingdom staff at the gate camp."
+   "note": "Dream Room camp."
   },
   "dock_dan": {
    "name": "Dan do Cais",
@@ -257,6 +257,18 @@
    "short": "Paul",
    "portrait": 254,
    "note": "Gate Pawn Stall keeper (economy)."
+  },
+  "heishin": {
+   "name": "Heishin",
+   "short": "Heishin",
+   "portrait": 254,
+   "note": "Chamberlain; twist villain of the Castle Hall (chapter 9)."
+  },
+  "relic_rhea": {
+   "name": "Rhea das Reliquias",
+   "short": "Rhea",
+   "portrait": 254,
+   "note": "Relic Alcove keeper (economy)."
   }
  },
  "flags": [
@@ -643,6 +655,24 @@
    "bit": 63,
    "value": 9223372036854775808,
    "note": "InsetoKaiba beaten at the castle gate: tenth star, Gate Key, end of chapter 8."
+  },
+  {
+   "name": "heishin_won",
+   "bit": 64,
+   "value": 18446744073709551616,
+   "note": "Heishin beaten in the Castle Hall: Star Crown breaks, Dream Room opens."
+  },
+  {
+   "name": "pegasus_won",
+   "bit": 65,
+   "value": 36893488147419103232,
+   "note": "Pegasus beaten in the Dream Room: wish unlocked."
+  },
+  {
+   "name": "wish_festival",
+   "bit": 66,
+   "value": 73786976294838206464,
+   "note": "Canon wish: Festival for everyone; epilogue on the village plaza."
   }
  ],
  "stages": [
@@ -769,6 +799,26 @@
   {
    "stage": 32,
    "note": "Chapter 8 complete: ten stars; the castle / Dream Room is next"
+  },
+  {
+   "stage": 33,
+   "note": "Chapter 9: Castle Hall, Heishin at the Star Crown"
+  },
+  {
+   "stage": 34,
+   "note": "Chapter 9 complete: Dream Room stairs open"
+  },
+  {
+   "stage": 35,
+   "note": "Chapter 10: Dream Room, Pegasus at the table"
+  },
+  {
+   "stage": 36,
+   "note": "Chapter 10: Pegasus beaten; Festival wish set"
+  },
+  {
+   "stage": 37,
+   "note": "Epilogue: village festival; Kingdom complete"
   }
  ],
  "chapters": [
@@ -859,6 +909,28 @@
    ],
    "reward": "ten stars, Gate Key, card Hercules Beetle (Crown Beetle)",
    "unlock": "the castle hall / Dream Room (chapter 9+)"
+  },
+  {
+   "n": 9,
+   "title": "O Salao do Castelo",
+   "region": "castle_hall",
+   "stage": [
+    33,
+    34
+   ],
+   "reward": "card Soul Hunter; Dream Room stairs",
+   "unlock": "Pegasus's Dream (chapter 10)"
+  },
+  {
+   "n": 10,
+   "title": "O Sonho de Pegasus",
+   "region": "castle_top",
+   "stage": [
+    35,
+    37
+   ],
+   "reward": "card Dark Magician; Festival ending",
+   "unlock": "epilogue festival in the village"
   }
  ],
  "areas": [
@@ -927,6 +999,18 @@
    "name": "Portao do Castelo",
    "setting": "Seventh Kingdom area: plaza, pawn stall, Moat Pit, star-lock, castle door.",
    "art": "exists (illustrated, chapter 8)"
+  },
+  {
+   "id": "castle_hall",
+   "name": "Salao do Castelo",
+   "setting": "Illusion halls, Star Crown, Relic Alcove, Crown Cellar.",
+   "art": "exists (illustrated, chapter 9)"
+  },
+  {
+   "id": "castle_top",
+   "name": "Sala dos Sonhos",
+   "setting": "Pegasus's top room: wish orbs, sea window, festival end.",
+   "art": "exists (illustrated, chapter 10)"
   }
  ],
  "anchors": {
@@ -1064,6 +1148,29 @@
    "gate_center": "Open plaza stones.",
    "hangout_a": "East path by the pit.",
    "hangout_b": "West path by the pawn stall."
+  },
+  "castle_hall": {
+   "spawn": "Entrance from the gate (bottom).",
+   "hall_camp": "Tarp by the entrance pillars.",
+   "shop_stall": "Relic Rhea's Relic Alcove (west).",
+   "arena_door": "Crown Cellar hatch (east).",
+   "heishin_spot": "Star Crown pedestal (top center).",
+   "dream_stairs": "Stairs up to the Dream Room.",
+   "hall_center": "Open floor by the star mosaic.",
+   "mirror_spot": "A tall hall mirror (MAGO glimpse).",
+   "hangout_a": "East colonnade.",
+   "hangout_b": "West colonnade."
+  },
+  "castle_top": {
+   "spawn": "Stairs in from the hall (bottom).",
+   "dream_camp": "Tarp by the wish orbs.",
+   "pegasus_spot": "Dueling table center.",
+   "wish_orbs": "Three wish orbs on a pedestal.",
+   "shadi_spot": "Pillar where Shadi waits.",
+   "sea_window": "Great window to the sea.",
+   "dream_center": "Open marble by the seal.",
+   "hangout_a": "East colonnade.",
+   "hangout_b": "West colonnade."
   }
  },
  "npcs": [
@@ -3112,6 +3219,136 @@
      "script": "dk8_pawn_paul"
     }
    ]
+  },
+  {
+   "id": "heishin_hall",
+   "name": "Heishin",
+   "portrait_speaker": "heishin",
+   "area": "castle_hall",
+   "anchor": "heishin_spot",
+   "duelist_id": 35,
+   "stages": [
+    33,
+    99
+   ],
+   "visible": "placed",
+   "note": "Chamberlain Heishin: holds 2, Star Crown twist.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       33,
+       33
+      ],
+      "flags_none": [
+       "heishin_won"
+      ]
+     },
+     "script": "dk9_heishin_pre",
+     "duel": "heishin_hall"
+    },
+    {
+     "when": {
+      "stage": [
+       34,
+       99
+      ],
+      "flags_all": [
+       "heishin_won"
+      ]
+     },
+     "script": "dk9_heishin_after"
+    }
+   ]
+  },
+  {
+   "id": "relic_rhea",
+   "name": "Rhea das Reliquias",
+   "portrait_speaker": "relic_rhea",
+   "area": "castle_hall",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    33,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       33,
+       99
+      ]
+     },
+     "script": "dk9_relic_rhea"
+    }
+   ]
+  },
+  {
+   "id": "pegasus_dream",
+   "name": "Pegasus",
+   "portrait_speaker": "pegasus",
+   "area": "castle_top",
+   "anchor": "pegasus_spot",
+   "duelist_id": 15,
+   "stages": [
+    35,
+    99
+   ],
+   "visible": "placed",
+   "note": "Pegasus final boss: holds 2.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       35,
+       35
+      ],
+      "flags_none": [
+       "pegasus_won"
+      ]
+     },
+     "script": "dk10_pegasus_pre",
+     "duel": "pegasus_dream"
+    },
+    {
+     "when": {
+      "stage": [
+       36,
+       99
+      ],
+      "flags_all": [
+       "pegasus_won"
+      ]
+     },
+     "script": "dk10_pegasus_after"
+    }
+   ]
+  },
+  {
+   "id": "shadi_dream",
+   "name": "Shadi",
+   "portrait_speaker": "shadi",
+   "area": "castle_top",
+   "anchor": "shadi_spot",
+   "duelist_id": 13,
+   "stages": [
+    35,
+    99
+   ],
+   "visible": "placed",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       35,
+       99
+      ]
+     },
+     "script": "dk10_shadi"
+    }
+   ]
   }
  ],
  "objects": [
@@ -4015,7 +4252,7 @@
      "when": {
       "stage": [
        32,
-       99
+       32
       ],
       "stars": 10
      },
@@ -4053,6 +4290,97 @@
    "id": "gate_exit",
    "name": "Trilha da feira",
    "area": "castle_gate",
+   "anchor": "spawn",
+   "dialogue_rules": []
+  },
+  {
+   "id": "dream_stairs",
+   "name": "Escadas do sonho",
+   "area": "castle_hall",
+   "anchor": "dream_stairs",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       34,
+       99
+      ]
+     },
+     "script": "dk9_dream_road"
+    },
+    {
+     "when": {
+      "stage": [
+       33,
+       99
+      ]
+     },
+     "script": "dk9_dream_shut"
+    }
+   ]
+  },
+  {
+   "id": "hall_camp",
+   "name": "Acampamento do salao",
+   "area": "castle_hall",
+   "anchor": "hall_camp",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       33,
+       99
+      ]
+     },
+     "script": "dk9_hall_camp"
+    }
+   ]
+  },
+  {
+   "id": "hall_exit",
+   "name": "Estrada do portao",
+   "area": "castle_hall",
+   "anchor": "spawn",
+   "dialogue_rules": []
+  },
+  {
+   "id": "wish_orbs",
+   "name": "Orbes do desejo",
+   "area": "castle_top",
+   "anchor": "wish_orbs",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       36,
+       99
+      ]
+     },
+     "script": "dk10_wish_orb"
+    }
+   ]
+  },
+  {
+   "id": "dream_camp",
+   "name": "Acampamento do sonho",
+   "area": "castle_top",
+   "anchor": "dream_camp",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       35,
+       99
+      ]
+     },
+     "script": "dk10_dream_camp"
+    }
+   ]
+  },
+  {
+   "id": "dream_exit",
+   "name": "Escadas do salao",
+   "area": "castle_top",
    "anchor": "spawn",
    "dialogue_rules": []
   }
@@ -4677,6 +5005,38 @@
     }
    ],
    "reward": "ten stars, Gate Key, card Hercules Beetle"
+  },
+  {
+   "id": "q18_hall",
+   "kind": "duel",
+   "optional": false,
+   "title": "O Salao do Castelo",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Venca Heishin na Coroa Estelar",
+     "anchor": "castle_hall.heishin_spot"
+    }
+   ],
+   "reward": "card Soul Hunter; Dream Room open"
+  },
+  {
+   "id": "q19_dream",
+   "kind": "duel",
+   "optional": false,
+   "title": "O Sonho de Pegasus",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Duele com Pegasus na Sala dos Sonhos",
+     "anchor": "castle_top.pegasus_spot"
+    },
+    {
+     "objective": "Escolha o desejo do Festival",
+     "anchor": "castle_top.wish_orbs"
+    }
+   ],
+   "reward": "card Dark Magician; Festival epilogue"
   }
  ],
  "duels": [
@@ -5295,6 +5655,57 @@
    "stars_wager": true,
    "stars": 2,
    "note": "Gate guardian rematch, holds 2 stars: bet 1 for the curve (9->10). Payoff of the ship rivalry."
+  },
+  {
+   "id": "heishin_hall",
+   "npc": "heishin_hall",
+   "duelist_id": 35,
+   "chapter": 1,
+   "deck": "Heishin Crown",
+   "difficulty_tier": 8,
+   "pre_script": "dk9_heishin_pre",
+   "win_script": "dk9_heishin_win",
+   "lose_script": "dk9_heishin_lose",
+   "win_flag": "heishin_won",
+   "on_win": [
+    {
+     "give_card": "Soul Hunter"
+    },
+    {
+     "set_stage": 34
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Chamberlain holds 2; narrative frees stolen stars. Player stays at 10 on min win."
+  },
+  {
+   "id": "pegasus_dream",
+   "npc": "pegasus_dream",
+   "duelist_id": 15,
+   "chapter": 1,
+   "deck": "Pegasus Dream",
+   "difficulty_tier": 9,
+   "pre_script": "dk10_pegasus_pre",
+   "win_script": "dk10_pegasus_win",
+   "lose_script": "dk10_pegasus_lose",
+   "win_flag": "pegasus_won",
+   "on_win": [
+    {
+     "give_card": "Dark Magician"
+    },
+    {
+     "set_flag": "wish_festival"
+    },
+    {
+     "set_stage": 36
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Final boss holds 2; canon Festival wish set on win."
   }
  ],
  "transitions": [
@@ -6102,6 +6513,173 @@
     }
    ],
    "script": "dk8_to_fair"
+  },
+  {
+   "id": "enter_hall",
+   "when": {
+    "stage": [
+     32,
+     32
+    ],
+    "stars": 10
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "castle_door"
+   },
+   "effects": [
+    {
+     "set_stage": 33
+    },
+    {
+     "teleport": {
+      "area": "castle_hall",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk9_arrival"
+  },
+  {
+   "id": "to_hall",
+   "when": {
+    "stage": [
+     33,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "castle_door"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "castle_hall",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk9_to_hall"
+  },
+  {
+   "id": "to_gate_from_hall",
+   "when": {
+    "stage": [
+     33,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "hall_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "castle_gate",
+      "anchor": "castle_door"
+     }
+    }
+   ],
+   "script": "dk9_to_gate"
+  },
+  {
+   "id": "enter_dream",
+   "when": {
+    "stage": [
+     34,
+     34
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "dream_stairs"
+   },
+   "effects": [
+    {
+     "set_stage": 35
+    },
+    {
+     "teleport": {
+      "area": "castle_top",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk10_arrival"
+  },
+  {
+   "id": "to_dream",
+   "when": {
+    "stage": [
+     35,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "dream_stairs"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "castle_top",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk10_to_dream"
+  },
+  {
+   "id": "to_hall_from_dream",
+   "when": {
+    "stage": [
+     35,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "dream_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "castle_hall",
+      "anchor": "dream_stairs"
+     }
+    }
+   ],
+   "script": "dk10_to_hall"
+  },
+  {
+   "id": "festival_epilogue",
+   "when": {
+    "stage": [
+     36,
+     36
+    ],
+    "flags_all": [
+     "wish_festival"
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "wish_orbs"
+   },
+   "effects": [
+    {
+     "set_stage": 37
+    },
+    {
+     "teleport": {
+      "area": "village",
+      "anchor": "plaza_center"
+     }
+    }
+   ],
+   "script": "dk10_epilogue"
   }
  ],
  "hud_objectives": [
@@ -6617,10 +7195,55 @@
    "when": {
     "stage": [
      32,
+     32
+    ]
+   },
+   "text": "Capitulo 8 completo - abra a porta do castelo"
+  },
+  {
+   "when": {
+    "stage": [
+     33,
+     33
+    ]
+   },
+   "text": "Venca Heishin na Coroa Estelar - uma estrela em jogo"
+  },
+  {
+   "when": {
+    "stage": [
+     34,
+     34
+    ]
+   },
+   "text": "Capitulo 9 completo - a Sala dos Sonhos espera la em cima"
+  },
+  {
+   "when": {
+    "stage": [
+     35,
+     35
+    ]
+   },
+   "text": "Duele com Pegasus na mesa - uma estrela em jogo"
+  },
+  {
+   "when": {
+    "stage": [
+     36,
+     36
+    ]
+   },
+   "text": "Toque nos orbes - epilogo do Festival"
+  },
+  {
+   "when": {
+    "stage": [
+     37,
      99
     ]
    },
-   "text": "Capitulo 8 completo - o castelo / Sala dos Sonhos espera"
+   "text": "Reino completo - ande na praca do festival"
   }
  ],
  "scripts": [
@@ -11235,21 +11858,474 @@
    "id": "dk8_castle_announce",
    "legacy_id": null,
    "chapter": 8,
-   "desc": "After chapter 8: the hall / Dream Room is announced, not entered.",
+   "desc": "After chapter 8: the lock opens into the Castle Hall.",
    "pages": [
     {
      "speaker": "narrator",
-     "text": "A fechadura trava em dez. Alem: salas de ilusao, um camareiro e a Sala dos Sonhos de Pegasus.",
+     "text": "A fechadura trava em dez. Alem: salas de ilusao e o Camareiro Heishin.",
      "label": "Porta do Castelo"
     },
     {
      "speaker": "atos",
-     "text": "Heishin. Pegasus. O desejo. Nao neste capitulo - na proxima parte do Reino."
+     "text": "A Chave gira. O salao e o proximo."
+    }
+   ]
+  },
+  {
+   "id": "dk9_enter",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Chapter 8 -> 9: the Gate Key opens the castle hall.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Dez estrelas. Escadas de ilusao. Retratos piscando. Uma coroa zumbe a frente.",
+     "label": "Salao do Castelo"
+    },
+    {
+     "speaker": "atos",
+     "text": "A colheita do Heishin. O porao da feira faz sentido agora."
+    }
+   ]
+  },
+  {
+   "id": "dk9_to_hall",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Return to the hall.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Espelhos curvam. A coroa ainda espera, ou as escadas pra cima.",
+     "label": "Salao"
+    }
+   ]
+  },
+  {
+   "id": "dk9_to_gate",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Back to the Castle Gate plaza.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Pedra e bandeiras de besouro de novo. A praca fica atras.",
+     "label": "Estrada do Portao"
+    }
+   ]
+  },
+  {
+   "id": "dk9_arrival",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Chapter 9 opens: Heishin at the Star Crown.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Escadas que nao levam a lugar nenhum duas vezes. Um pedestal segura uma coroa de estrelas roubadas.",
+     "label": "Salao"
+    },
+    {
+     "speaker": "heishin",
+     "text": "Camareiro Heishin. Os eliminados deixaram a luz comigo. Vou governar a ilha com ela."
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce os enfiou. Da feira. De cada estrada."
     },
     {
      "speaker": "narrator",
-     "text": "Capitulo 9: Salao do Castelo. Capitulo 10: Sonho de Pegasus. O orcamento de flags esta apertado.",
-     "label": "A seguir"
+     "text": "Desafie Heishin na Coroa Estelar.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_pre",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Heishin the chamberlain: star wager, twist villain.",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "Duas estrelas sob esta coroa. Aposte o que ousar. A Sala dos Sonhos e la em cima - se viver."
+    },
+    {
+     "speaker": "atos",
+     "text": "Nao juntei dez pra ajoelhar pra um ladrao."
+    },
+    {
+     "speaker": "heishin",
+     "text": "Entao o salao fala. Vamos?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_win",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Heishin loses: stars freed, MAGO glimpse 7, end of chapter 9.",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "A coroa racha. As luzes voam pra casa. Nao... minha ilha..."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duelistas eliminados piscam livres e se curvam, depois somem rumo a costa.",
+     "label": "Salao"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Num espelho do salao, atras do seu reflexo, um brilho verde observa e nao o apaga.",
+     "label": "Espelho"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "Eu poderia acabar com esta linha. Nao vou. Jogue."
+    },
+    {
+     "speaker": "atos",
+     "text": "Quem... foi aquilo? As escadas sobem. Pegasus espera."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A carta Soul Hunter. As escadas da Sala dos Sonhos abrem.",
+     "label": "Voce ganhou"
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Salao do Castelo cede. O Sonho de Pegasus e o proximo.",
+     "label": "Fim do Capitulo 9"
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_lose",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Heishin keeps the crown.",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "A coroa bebe. Rasteje ate Rhea ou o Porao da Coroa, depois volte."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele me passou. Cartas, depois a revanche."
+    }
+   ]
+  },
+  {
+   "id": "dk9_heishin_after",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Heishin after defeat.",
+   "pages": [
+    {
+     "speaker": "heishin",
+     "text": "Pegasus sabia. Sempre soube. Suba e pergunte por que."
+    }
+   ]
+  },
+  {
+   "id": "dk9_relic_rhea",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Relic Rhea, Relic Alcove.",
+   "pages": [
+    {
+     "speaker": "relic_rhea",
+     "text": "Coroas racham. Cartas duram. Compre o que o salao deixa."
+    }
+   ]
+  },
+  {
+   "id": "dk9_hall_camp",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Hall camp game-over warning.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona junto aos pilares. A equipe mantem um lampiao pros sem estrela.",
+     "label": "Acampamento"
+    },
+    {
+     "speaker": "staff",
+     "text": "Salao bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
+    }
+   ]
+  },
+  {
+   "id": "dk9_dream_shut",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Dream stairs before Heishin falls.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Escadas pra uma porta clara. O zumbido da coroa ainda bloqueia o degrau.",
+     "label": "Escadas do Sonho"
+    }
+   ]
+  },
+  {
+   "id": "dk9_dream_road",
+   "legacy_id": null,
+   "chapter": 9,
+   "desc": "Dream stairs after Heishin: chapter 10 next.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A coroa esta quieta. La em cima: Pegasus, um desejo e o fim do show.",
+     "label": "Escadas do Sonho"
+    }
+   ]
+  },
+  {
+   "id": "dk10_enter",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Chapter 9 -> 10: stairs into the Dream Room.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Cartas pregadas como borboletas. Uma janela pro mar. Pegasus sorri.",
+     "label": "Sala dos Sonhos"
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez estrelas. Um show sobrando."
+    }
+   ]
+  },
+  {
+   "id": "dk10_to_dream",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Return to the Dream Room.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A janela do mar ainda queima laranja. A mesa espera.",
+     "label": "Sala dos Sonhos"
+    }
+   ]
+  },
+  {
+   "id": "dk10_to_hall",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Back down to the Castle Hall.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Salas de ilusao abaixo. O pedestal da coroa esta quieto.",
+     "label": "Escadas do Salao"
+    }
+   ]
+  },
+  {
+   "id": "dk10_arrival",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Chapter 10 opens: Pegasus, Shadi cameo, the wish table.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma mesa de duelo. Tres orbes de desejo. Shadi fica junto a um pilar e acena uma vez.",
+     "label": "Sala"
+    },
+    {
+     "speaker": "shadi",
+     "text": "Voce guardou suas estrelas. Ele espera. Eu ainda sou so o mensageiro."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Querido! Dez estrelas, uma coroa rachada e um novato que estraga o hobby do meu camareiro."
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce sabia do Heishin."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Eu queria ver se alguem o parava. Voce parou. Agora - um duelo de verdade. Um desejo se vencer."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Duele com Pegasus na mesa dos sonhos.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk10_shadi",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Shadi's last cameo line in the Dream Room.",
+   "pages": [
+    {
+     "speaker": "shadi",
+     "text": "Eu entrego finais. O seu e gentil, se voce vencer."
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_pre",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Pegasus final duel: hidden-hand flavor, holds 2.",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Eu jogo com a mao escondida, querido. Duas estrelas na mesa. Aposte o que sua coragem deixar."
+    },
+    {
+     "speaker": "atos",
+     "text": "Por todos que ele machucou. Pelo desejo."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Entao sorria pra janela. O sonho pode falar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_win",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Pegasus loses: wish choice opens.",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Maravilhoso! O olho viu e mesmo assim perdeu. Escolha, heroi: uma Carta dos Sonhos, as estrelas de todos de volta, ou um Festival pra todos."
+    },
+    {
+     "speaker": "atos",
+     "text": "Um festival. Todo mundo volta feliz - e festeja antes."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Canonico, querido. Festival sera. Me encontre na sua vilazinha."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A carta Dark Magician. O desejo do Festival esta feito.",
+     "label": "Voce ganhou"
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Sonho de Pegasus cede. O epilogo do Festival espera na vila.",
+     "label": "Fim do Capitulo 10"
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_lose",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Pegasus keeps the table.",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Quase um finale. Rhea la embaixo, ou tente de novo quando seu baralho sorrir."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele leu minha mao. Revanche."
+    }
+   ]
+  },
+  {
+   "id": "dk10_pegasus_after",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Pegasus after the win, before epilogue warp.",
+   "pages": [
+    {
+     "speaker": "pegasus",
+     "text": "Va pra casa. Ja mandei os convites. Atrasado com estilo ainda e atrasado."
+    }
+   ]
+  },
+  {
+   "id": "dk10_wish_orb",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Wish pedestal reminder after Pegasus.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O Festival queima mais forte. A praca da vila chama.",
+     "label": "Orbes"
+    }
+   ]
+  },
+  {
+   "id": "dk10_epilogue",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Festival epilogue on the village plaza.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Sua praca esta cheia de lampioes de estrela. Cada rival que voce encontrou acena de uma barraca.",
+     "label": "Festival"
+    },
+    {
+     "speaker": "simon",
+     "text": "Voce ainda me deve uma carta. Nao ache que um festival limpa a divida."
+    },
+    {
+     "speaker": "atos",
+     "text": "Vou duelar com voce por ela. Depois do bolo."
+    },
+    {
+     "speaker": "narrator",
+     "text": "No banco da praca, o brilho verde finalmente fica quieto. Voce o nota.",
+     "label": "Banco"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "Demorou, hein."
+    },
+    {
+     "speaker": "atos",
+     "text": "MAGO.DEV. Voce estava em cada capitulo."
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "E agora voce me ve. Bom jogo."
+    },
+    {
+     "speaker": "pegasus",
+     "text": "Queridos! Bebam, duelam, dancem! Meu Reino amou seus novatos hoje."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Reino dos Duelistas completo. O festival dura enquanto voce andar pela praca.",
+     "label": "Fim"
+    }
+   ]
+  },
+  {
+   "id": "dk10_dream_camp",
+   "legacy_id": null,
+   "chapter": 10,
+   "desc": "Dream Room camp warning.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona pequena junto aos orbes. Ate finais tem regras.",
+     "label": "Acampamento"
+    },
+    {
+     "speaker": "staff",
+     "text": "Sala bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
     }
    ]
   }

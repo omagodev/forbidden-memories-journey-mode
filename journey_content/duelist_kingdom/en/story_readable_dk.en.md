@@ -1433,7 +1433,7 @@ _Jono loses; MAGO.DEV glimpse 6 flashes in the crowd._
 
 - **Jono**: Ow. Fine. You are still the better one. Take a dry towel. Metaphorically.
 - **Crowd**: In the crowd, one figure stands perfectly still in a green shimmer.
-- **???**: Take your time. I have all of it.
+- **MAGO.DEV**: Take your time. I have all of it.
 - **Crowd**: A glitch, and the spot is empty.
 - **{name}**: Did someone just... talk? The ring is louder than my thoughts.
 - **Jono**: The Ring Champion takes bets at the ropes. One star can become nine. Or zero. Careful.
@@ -1592,8 +1592,163 @@ _The castle door before ten stars / before Inseto falls._
 - **Castle Door**: The lock shows empty notches. Ten stars open it. InsetoKaiba blocks the step.
 
 ### dk8_castle_announce
-_After chapter 8: the hall / Dream Room is announced, not entered._
+_After chapter 8: the lock opens into the Castle Hall._
 
-- **Castle Door**: The lock clicks to ten. Beyond: illusion halls, a chamberlain, and Pegasus's Dream Room.
-- **{name}**: Heishin. Pegasus. The wish. Not this chapter - the next part of the Kingdom.
-- **Coming next**: Chapter 9: Castle Hall. Chapter 10: Pegasus's Dream. Flag budget is tight.
+- **Castle Door**: The lock clicks to ten. Beyond: illusion halls and Chamberlain Heishin.
+- **{name}**: Gate Key turns. The hall is next.
+
+### dk9_enter
+_Chapter 8 -> 9: the Gate Key opens the castle hall._
+
+- **Castle Hall**: Ten stars. Illusion stairs. Portraits wink. A crown hums ahead.
+- **{name}**: Heishin's harvest. The fair cellar makes sense now.
+
+### dk9_to_hall
+_Return to the hall._
+
+- **Castle Hall**: Mirrors bend. The crown still waits, or the stairs up do.
+
+### dk9_to_gate
+_Back to the Castle Gate plaza._
+
+- **Gate Road**: Stone and beetle banners again. The plaza is behind.
+
+### dk9_arrival
+_Chapter 9 opens: Heishin at the Star Crown._
+
+- **Illusion Hall**: Stairs that lead nowhere twice. A pedestal holds a crown of stolen stars.
+- **Heishin**: Chamberlain Heishin. The eliminated left their light with me. I will rule the island with it.
+- **{name}**: You herded them. From the fair. From every road.
+- **Objective**: Challenge Heishin at the Star Crown.
+
+### dk9_heishin_pre
+_Heishin the chamberlain: star wager, twist villain._
+
+- **Heishin**: Two stars under this crown. Wager what you dare. The Dream Room is upstairs - if you live.
+- **{name}**: I did not collect ten to kneel to a thief.
+- **Heishin**: Then the hall speaks. Shall we?  _[Duel? Yes/No]_
+
+### dk9_heishin_win
+_Heishin loses: stars freed, MAGO glimpse 7, end of chapter 9._
+
+- **Heishin**: The crown cracks. The lights fly home. No... my island...
+- **Hall**: Eliminated duelists flicker free and bow, then vanish toward the shore.
+- **Mirror**: In a hall mirror, behind your reflection, a green shimmer watches and does not delete him.
+- **MAGO.DEV**: I could end this line. I will not. Play.
+- **{name}**: Who... was that? The stairs up are open. Pegasus waits.
+- **You got**: Card Soul Hunter. The Dream Room stairs unlock.
+- **End of Chapter 9**: The Castle Hall yields. Pegasus's Dream is next.
+
+### dk9_heishin_lose
+_Heishin keeps the crown._
+
+- **Heishin**: The crown drinks. Crawl to Relic Rhea or the Crown Cellar, then return.
+- **{name}**: He outplayed me. Cards, then rematch.
+
+### dk9_heishin_after
+_Heishin after defeat._
+
+- **Heishin**: Pegasus knew. He always knew. Go upstairs and ask him why.
+
+### dk9_relic_rhea
+_Relic Rhea, Relic Alcove._
+
+- **Relic Rhea**: Crowns crack. Cards last. Buy what the hall drops.
+
+### dk9_hall_camp
+_Hall camp game-over warning._
+
+- **Hall Camp**: A tarp by the entrance pillars. Staff keep one lantern for the starless.
+- **Camp Staff**: Pretty hall. Deadly rules. Lose your last star and your journey ends for good.
+
+### dk9_dream_shut
+_Dream stairs before Heishin falls._
+
+- **Dream Stairs**: Stairs up to a bright door. The crown's hum still blocks the step.
+
+### dk9_dream_road
+_Dream stairs after Heishin: chapter 10 next._
+
+- **Dream Stairs**: The crown is quiet. Upstairs: Pegasus, a wish, and the end of the show.
+
+### dk10_enter
+_Chapter 9 -> 10: stairs into the Dream Room._
+
+- **Dream Room**: Cards pinned like butterflies. A window to the sea. Pegasus smiles.
+- **{name}**: Ten stars. One show left.
+
+### dk10_to_dream
+_Return to the Dream Room._
+
+- **Dream Room**: The sea window still burns orange. The table waits.
+
+### dk10_to_hall
+_Back down to the Castle Hall._
+
+- **Hall Stairs**: Illusion halls below. The crown pedestal is quiet.
+
+### dk10_arrival
+_Chapter 10 opens: Pegasus, Shadi cameo, the wish table._
+
+- **Dream Room**: A dueling table. Three wish orbs. Shadi stands by a pillar and nods once.
+- **Shadi**: You kept your stars. He is waiting. I am only the messenger - still.
+- **Pegasus**: Darling! Ten stars, a cracked crown, and a rookie who ruins my chamberlain's hobby.
+- **{name}**: You knew about Heishin.
+- **Pegasus**: I wanted to see if anyone would stop him. You did. Now - a real duel. A wish if you win.
+- **Objective**: Duel Pegasus at the dream table.
+
+### dk10_shadi
+_Shadi's last cameo line in the Dream Room._
+
+- **Shadi**: I deliver ends. Yours is a kind one, if you win.
+
+### dk10_pegasus_pre
+_Pegasus final duel: hidden-hand flavor, holds 2._
+
+- **Pegasus**: I play with a hidden hand, darling. Two stars on the table. Wager what your nerve allows.
+- **{name}**: For everyone he hurt. For the wish.
+- **Pegasus**: Then smile for the window. Shall the dream speak?  _[Duel? Yes/No]_
+
+### dk10_pegasus_win
+_Pegasus loses: wish choice opens._
+
+- **Pegasus**: Marvelous! The eye saw it, and still lost. Choose, hero: a Dream Card, everyone's stars back, or a Festival for all.
+- **{name}**: A festival. Everyone goes home happy - and parties first.
+- **Pegasus**: Canon, darling. A Festival it is. Meet me in your little village.
+- **You got**: Card Dark Magician. The Festival wish is set.
+- **End of Chapter 10**: Pegasus's Dream yields. The Festival epilogue waits in the village.
+
+### dk10_pegasus_lose
+_Pegasus keeps the table._
+
+- **Pegasus**: Almost a finale. Relic Rhea downstairs, or try again when your deck smiles.
+- **{name}**: He read my hand. Rematch.
+
+### dk10_pegasus_after
+_Pegasus after the win, before epilogue warp._
+
+- **Pegasus**: Go home. I already sent the invitations. Fashionably late is still late.
+
+### dk10_wish_orb
+_Wish pedestal reminder after Pegasus._
+
+- **Wish Orbs**: Festival burns brightest. The village plaza is calling.
+
+### dk10_epilogue
+_Festival epilogue on the village plaza._
+
+- **Festival**: Your home plaza is strung with star lanterns. Every rival you met waves from a stall.
+- **Simon Muran**: You still owe me a card. Do not think a festival clears the debt.
+- **{name}**: I will duel you for it. After cake.
+- **Bench**: On the plaza bench, the green shimmer finally sits still. You notice him.
+- **MAGO.DEV**: Took you long enough.
+- **{name}**: MAGO.DEV. You were in every chapter.
+- **MAGO.DEV**: And now you see me. Good game.
+- **Pegasus**: Darlings! Drink, duel, dance! My Kingdom loved its rookies today.
+- **The End**: Duelist Kingdom complete. The festival lasts as long as you walk the plaza.
+
+### dk10_dream_camp
+_Dream Room camp warning._
+
+- **Dream Camp**: A small tarp by the wish orbs. Even finales have rules.
+- **Camp Staff**: Pretty room. Deadly rules. Lose your last star and your journey ends for good.

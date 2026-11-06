@@ -1433,7 +1433,7 @@ _Jono loses; MAGO.DEV glimpse 6 flashes in the crowd._
 
 - **Jono**: Ai. Tudo bem. Voce ainda e o melhor. Leve uma toalha seca. Metaforicamente.
 - **Multidao**: Na multidao, uma figura fica perfeitamente parada num brilho verde.
-- **???**: Leve o tempo que precisar. Eu tenho todo ele.
+- **MAGO.DEV**: Leve o tempo que precisar. Eu tenho todo ele.
 - **Multidao**: Um glitch, e o lugar esta vazio.
 - **{name}**: Alguem acabou de... falar? O ringue esta mais alto que meus pensamentos.
 - **Jono**: O Campeao do Ringue aceita apostas nas cordas. Uma estrela vira nove. Ou zero. Cuidado.
@@ -1592,8 +1592,163 @@ _The castle door before ten stars / before Inseto falls._
 - **Porta do Castelo**: A fechadura mostra entalhes vazios. Dez estrelas abrem. InsetoKaiba bloqueia o degrau.
 
 ### dk8_castle_announce
-_After chapter 8: the hall / Dream Room is announced, not entered._
+_After chapter 8: the lock opens into the Castle Hall._
 
-- **Porta do Castelo**: A fechadura trava em dez. Alem: salas de ilusao, um camareiro e a Sala dos Sonhos de Pegasus.
-- **{name}**: Heishin. Pegasus. O desejo. Nao neste capitulo - na proxima parte do Reino.
-- **A seguir**: Capitulo 9: Salao do Castelo. Capitulo 10: Sonho de Pegasus. O orcamento de flags esta apertado.
+- **Porta do Castelo**: A fechadura trava em dez. Alem: salas de ilusao e o Camareiro Heishin.
+- **{name}**: A Chave gira. O salao e o proximo.
+
+### dk9_enter
+_Chapter 8 -> 9: the Gate Key opens the castle hall._
+
+- **Salao do Castelo**: Dez estrelas. Escadas de ilusao. Retratos piscando. Uma coroa zumbe a frente.
+- **{name}**: A colheita do Heishin. O porao da feira faz sentido agora.
+
+### dk9_to_hall
+_Return to the hall._
+
+- **Salao**: Espelhos curvam. A coroa ainda espera, ou as escadas pra cima.
+
+### dk9_to_gate
+_Back to the Castle Gate plaza._
+
+- **Estrada do Portao**: Pedra e bandeiras de besouro de novo. A praca fica atras.
+
+### dk9_arrival
+_Chapter 9 opens: Heishin at the Star Crown._
+
+- **Salao**: Escadas que nao levam a lugar nenhum duas vezes. Um pedestal segura uma coroa de estrelas roubadas.
+- **Heishin**: Camareiro Heishin. Os eliminados deixaram a luz comigo. Vou governar a ilha com ela.
+- **{name}**: Voce os enfiou. Da feira. De cada estrada.
+- **Objetivo**: Desafie Heishin na Coroa Estelar.
+
+### dk9_heishin_pre
+_Heishin the chamberlain: star wager, twist villain._
+
+- **Heishin**: Duas estrelas sob esta coroa. Aposte o que ousar. A Sala dos Sonhos e la em cima - se viver.
+- **{name}**: Nao juntei dez pra ajoelhar pra um ladrao.
+- **Heishin**: Entao o salao fala. Vamos?  _[Duel? Yes/No]_
+
+### dk9_heishin_win
+_Heishin loses: stars freed, MAGO glimpse 7, end of chapter 9._
+
+- **Heishin**: A coroa racha. As luzes voam pra casa. Nao... minha ilha...
+- **Salao**: Duelistas eliminados piscam livres e se curvam, depois somem rumo a costa.
+- **Espelho**: Num espelho do salao, atras do seu reflexo, um brilho verde observa e nao o apaga.
+- **MAGO.DEV**: Eu poderia acabar com esta linha. Nao vou. Jogue.
+- **{name}**: Quem... foi aquilo? As escadas sobem. Pegasus espera.
+- **Voce ganhou**: A carta Soul Hunter. As escadas da Sala dos Sonhos abrem.
+- **Fim do Capitulo 9**: O Salao do Castelo cede. O Sonho de Pegasus e o proximo.
+
+### dk9_heishin_lose
+_Heishin keeps the crown._
+
+- **Heishin**: A coroa bebe. Rasteje ate Rhea ou o Porao da Coroa, depois volte.
+- **{name}**: Ele me passou. Cartas, depois a revanche.
+
+### dk9_heishin_after
+_Heishin after defeat._
+
+- **Heishin**: Pegasus sabia. Sempre soube. Suba e pergunte por que.
+
+### dk9_relic_rhea
+_Relic Rhea, Relic Alcove._
+
+- **Rhea das Reliquias**: Coroas racham. Cartas duram. Compre o que o salao deixa.
+
+### dk9_hall_camp
+_Hall camp game-over warning._
+
+- **Acampamento**: Uma lona junto aos pilares. A equipe mantem um lampiao pros sem estrela.
+- **Equipe do Acampamento**: Salao bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.
+
+### dk9_dream_shut
+_Dream stairs before Heishin falls._
+
+- **Escadas do Sonho**: Escadas pra uma porta clara. O zumbido da coroa ainda bloqueia o degrau.
+
+### dk9_dream_road
+_Dream stairs after Heishin: chapter 10 next._
+
+- **Escadas do Sonho**: A coroa esta quieta. La em cima: Pegasus, um desejo e o fim do show.
+
+### dk10_enter
+_Chapter 9 -> 10: stairs into the Dream Room._
+
+- **Sala dos Sonhos**: Cartas pregadas como borboletas. Uma janela pro mar. Pegasus sorri.
+- **{name}**: Dez estrelas. Um show sobrando.
+
+### dk10_to_dream
+_Return to the Dream Room._
+
+- **Sala dos Sonhos**: A janela do mar ainda queima laranja. A mesa espera.
+
+### dk10_to_hall
+_Back down to the Castle Hall._
+
+- **Escadas do Salao**: Salas de ilusao abaixo. O pedestal da coroa esta quieto.
+
+### dk10_arrival
+_Chapter 10 opens: Pegasus, Shadi cameo, the wish table._
+
+- **Sala**: Uma mesa de duelo. Tres orbes de desejo. Shadi fica junto a um pilar e acena uma vez.
+- **Shadi**: Voce guardou suas estrelas. Ele espera. Eu ainda sou so o mensageiro.
+- **Pegasus**: Querido! Dez estrelas, uma coroa rachada e um novato que estraga o hobby do meu camareiro.
+- **{name}**: Voce sabia do Heishin.
+- **Pegasus**: Eu queria ver se alguem o parava. Voce parou. Agora - um duelo de verdade. Um desejo se vencer.
+- **Objetivo**: Duele com Pegasus na mesa dos sonhos.
+
+### dk10_shadi
+_Shadi's last cameo line in the Dream Room._
+
+- **Shadi**: Eu entrego finais. O seu e gentil, se voce vencer.
+
+### dk10_pegasus_pre
+_Pegasus final duel: hidden-hand flavor, holds 2._
+
+- **Pegasus**: Eu jogo com a mao escondida, querido. Duas estrelas na mesa. Aposte o que sua coragem deixar.
+- **{name}**: Por todos que ele machucou. Pelo desejo.
+- **Pegasus**: Entao sorria pra janela. O sonho pode falar?  _[Duel? Yes/No]_
+
+### dk10_pegasus_win
+_Pegasus loses: wish choice opens._
+
+- **Pegasus**: Maravilhoso! O olho viu e mesmo assim perdeu. Escolha, heroi: uma Carta dos Sonhos, as estrelas de todos de volta, ou um Festival pra todos.
+- **{name}**: Um festival. Todo mundo volta feliz - e festeja antes.
+- **Pegasus**: Canonico, querido. Festival sera. Me encontre na sua vilazinha.
+- **Voce ganhou**: A carta Dark Magician. O desejo do Festival esta feito.
+- **Fim do Capitulo 10**: O Sonho de Pegasus cede. O epilogo do Festival espera na vila.
+
+### dk10_pegasus_lose
+_Pegasus keeps the table._
+
+- **Pegasus**: Quase um finale. Rhea la embaixo, ou tente de novo quando seu baralho sorrir.
+- **{name}**: Ele leu minha mao. Revanche.
+
+### dk10_pegasus_after
+_Pegasus after the win, before epilogue warp._
+
+- **Pegasus**: Va pra casa. Ja mandei os convites. Atrasado com estilo ainda e atrasado.
+
+### dk10_wish_orb
+_Wish pedestal reminder after Pegasus._
+
+- **Orbes**: O Festival queima mais forte. A praca da vila chama.
+
+### dk10_epilogue
+_Festival epilogue on the village plaza._
+
+- **Festival**: Sua praca esta cheia de lampioes de estrela. Cada rival que voce encontrou acena de uma barraca.
+- **Simon Muran**: Voce ainda me deve uma carta. Nao ache que um festival limpa a divida.
+- **{name}**: Vou duelar com voce por ela. Depois do bolo.
+- **Banco**: No banco da praca, o brilho verde finalmente fica quieto. Voce o nota.
+- **MAGO.DEV**: Demorou, hein.
+- **{name}**: MAGO.DEV. Voce estava em cada capitulo.
+- **MAGO.DEV**: E agora voce me ve. Bom jogo.
+- **Pegasus**: Queridos! Bebam, duelam, dancem! Meu Reino amou seus novatos hoje.
+- **Fim**: Reino dos Duelistas completo. O festival dura enquanto voce andar pela praca.
+
+### dk10_dream_camp
+_Dream Room camp warning._
+
+- **Acampamento**: Uma lona pequena junto aos orbes. Ate finais tem regras.
+- **Equipe do Acampamento**: Sala bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.

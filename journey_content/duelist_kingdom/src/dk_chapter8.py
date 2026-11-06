@@ -78,13 +78,11 @@ def scripts(sc, H, X, N):
      N("Castle Door", "Porta do Castelo", "The lock shows empty notches. Ten stars open it. InsetoKaiba blocks the step.",
        "A fechadura mostra entalhes vazios. Dez estrelas abrem. InsetoKaiba bloqueia o degrau."),
     ], chapter=8)
-    sc("dk8_castle_announce", "After chapter 8: the hall / Dream Room is announced, not entered.", [
-     N("Castle Door", "Porta do Castelo", "The lock clicks to ten. Beyond: illusion halls, a chamberlain, and Pegasus's Dream Room.",
-       "A fechadura trava em dez. Alem: salas de ilusao, um camareiro e a Sala dos Sonhos de Pegasus."),
-     H("Heishin. Pegasus. The wish. Not this chapter - the next part of the Kingdom.",
-       "Heishin. Pegasus. O desejo. Nao neste capitulo - na proxima parte do Reino."),
-     N("Coming next", "A seguir", "Chapter 9: Castle Hall. Chapter 10: Pegasus's Dream. Flag budget is tight.",
-       "Capitulo 9: Salao do Castelo. Capitulo 10: Sonho de Pegasus. O orcamento de flags esta apertado."),
+    sc("dk8_castle_announce", "After chapter 8: the lock opens into the Castle Hall.", [
+     N("Castle Door", "Porta do Castelo", "The lock clicks to ten. Beyond: illusion halls and Chamberlain Heishin.",
+       "A fechadura trava em dez. Alem: salas de ilusao e o Camareiro Heishin."),
+     H("Gate Key turns. The hall is next.",
+       "A Chave gira. O salao e o proximo."),
     ], chapter=8)
 
 SPEAKERS = {
@@ -125,7 +123,7 @@ NPC_SPEAKER = {"inseto_gate": "inseto_kaiba"}
 def B(en, pt): return {"en": en, "pt": pt}
 OBJECTS = [
  dict(id="castle_door", name=B("Castle door", "Porta do castelo"), area="castle_gate", anchor="castle_door", rules=[
-  W(when=W(stage=[32,99], stars=10), script="dk8_castle_announce"), W(when=W(stage=[31,99]), script="dk8_castle_shut")]),
+  W(when=W(stage=[32,32], stars=10), script="dk8_castle_announce"), W(when=W(stage=[31,99]), script="dk8_castle_shut")]),
  dict(id="gate_camp", name=B("Gate camp", "Acampamento do portao"), area="castle_gate", anchor="gate_camp", rules=[
   W(when=W(stage=[31,99]), script="dk8_gate_camp")]),
  dict(id="gate_exit", name=B("Fair trail", "Trilha da feira"), area="castle_gate", anchor="spawn", rules=[]),
@@ -143,7 +141,7 @@ TRANSITIONS = [
 # Arrival text is on enter (dk8_enter + dk8_arrival content folded into enter for first visit).
 HUD = [
  (W(stage=[31,31]), "Beat InsetoKaiba at the star-lock - a star on the line", "Venca InsetoKaiba na fechadura - uma estrela em jogo"),
- (W(stage=[32,99]), "Chapter 8 complete - the castle / Dream Room waits", "Capitulo 8 completo - o castelo / Sala dos Sonhos espera"),
+ (W(stage=[32,32]), "Chapter 8 complete - open the castle door", "Capitulo 8 completo - abra a porta do castelo"),
 ]
 CHAPTER = dict(n=8, title=B("The Castle Gate", "O Portao do Castelo"), region="castle_gate", stage=[31,32],
                reward="ten stars, Gate Key, card Hercules Beetle (Crown Beetle)", unlock="the castle hall / Dream Room (chapter 9+)")

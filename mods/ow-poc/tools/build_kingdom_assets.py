@@ -208,6 +208,42 @@ def desert():
 
 
 
+
+def hall():
+    """Castle Hall (chapter 9): stone floor walkable; stall/pit/pedestal blocked."""
+    src = ART + "/raw/dk_hall_raw.jpg"
+    pic = Image.open(src).convert("RGB")
+    hsv = np.array(pic.filter(ImageFilter.GaussianBlur(4)).convert("HSV")).astype(np.float32)
+    h, sat, v = hsv[..., 0] * 360 / 255, hsv[..., 1] / 255, hsv[..., 2] / 255
+    walk = ((sat < 0.35) & (v > 0.30) & (v < 0.90)) | ((h > 20) & (h < 60) & (v > 0.35))
+    walk = np.array(Image.fromarray(walk.astype(np.uint8) * 255).filter(ImageFilter.MedianFilter(15))) > 127
+    walk |= shape_mask([("r", 560, 160, 720, 700), ("r", 160, 360, 360, 560), ("r", 880, 400, 1100, 600),
+                        ("r", 200, 560, 340, 680), ("r", 200, 400, 300, 460), ("r", 960, 460, 1060, 520)])
+    walk &= ~shape_mask([("r", 0, 0, 1280, 40), ("r", 0, 690, 1280, 720),
+                         ("r", 500, 80, 780, 180), ("r", 120, 300, 300, 400), ("r", 940, 400, 1140, 500)])
+    tents = [((120, 300, 300, 400), 420), ((40, 100, 180, 200), 220)]
+    occ = [(shape_mask([("r",) + r]) & ~walk, base) for r, base in tents]
+    occ.append((shape_mask([("r", 520, 80, 760, 160)]), 180))
+    pack("hall", src, walk, occ)
+
+
+def dream():
+    """Dream Room (chapter 10): marble floor walkable; tents/table rim soft-blocked."""
+    src = ART + "/raw/dk_dream_raw.jpg"
+    pic = Image.open(src).convert("RGB")
+    hsv = np.array(pic.filter(ImageFilter.GaussianBlur(4)).convert("HSV")).astype(np.float32)
+    h, sat, v = hsv[..., 0] * 360 / 255, hsv[..., 1] / 255, hsv[..., 2] / 255
+    walk = ((sat < 0.30) & (v > 0.35)) | ((h > 15) & (h < 55) & (v > 0.40))
+    walk = np.array(Image.fromarray(walk.astype(np.uint8) * 255).filter(ImageFilter.MedianFilter(15))) > 127
+    walk |= shape_mask([("r", 520, 200, 760, 700), ("r", 160, 520, 360, 680), ("r", 780, 360, 1000, 520),
+                        ("r", 600, 320, 700, 420)])
+    walk &= ~shape_mask([("r", 0, 0, 1280, 40), ("r", 0, 690, 1280, 720),
+                         ("r", 140, 540, 280, 660), ("r", 320, 560, 420, 660)])
+    tents = [((140, 540, 280, 640), 660), ((320, 560, 420, 640), 660)]
+    occ = [(shape_mask([("r",) + r]) & ~walk, base) for r, base in tents]
+    pack("dream", src, walk, occ)
+
+
 def gate():
     """The Castle Gate (chapter 8): stone plaza walkable; stall, pit rim, and gate wall are not;
     stall awning and tower bases occlude."""
@@ -251,8 +287,8 @@ def fair():
     pack("fair", src, walk, occ)
 
 
-harbor(); ship_deck(); beach(); forest(); mountain(); meadow(); desert(); fair(); gate()
-for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage", "desert_mage", "isis", "ring_champ", "pawn_paul"):
+harbor(); ship_deck(); beach(); forest(); mountain(); meadow(); desert(); fair(); gate(); hall(); dream()
+for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage", "desert_mage", "isis", "ring_champ", "pawn_paul", "heishin", "pegasus"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
 for n in ("mai", "weevil", "shadi", "soldier", "trader", "camp_merchant"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)

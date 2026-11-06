@@ -238,7 +238,12 @@
     "Venca o Campeao do Ringue - uma estrela em jogo",
     "Capitulo 7 completo - a estrada do castelo espera",
     "Venca InsetoKaiba na fechadura - uma estrela em jogo",
-    "Capitulo 8 completo - o castelo / Sala dos Sonhos espera"
+    "Capitulo 8 completo - abra a porta do castelo",
+    "Venca Heishin na Coroa Estelar - uma estrela em jogo",
+    "Capitulo 9 completo - a Sala dos Sonhos espera la em cima",
+    "Duele com Pegasus na mesa - uma estrela em jogo",
+    "Toque nos orbes - epilogo do Festival",
+    "Reino completo - ande na praca do festival"
   ],
   "items": [
     "Cartao de Selos",
@@ -302,7 +307,11 @@
     "inseto_fair": "InsetoKaiba",
     "bazaar_bea": "Bea do Bazar",
     "inseto_gate": "InsetoKaiba",
-    "pawn_paul": "Paul do Cambista"
+    "pawn_paul": "Paul do Cambista",
+    "heishin_hall": "Heishin",
+    "relic_rhea": "Rhea das Reliquias",
+    "pegasus_dream": "Pegasus",
+    "shadi_dream": "Shadi"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -321,7 +330,7 @@
     "inseto": "InsetoKaiba",
     "mago_dev": "Mago.dev",
     "mago_dev_tee": "Mago.dev",
-    "mago_hidden": "???",
+    "mago_hidden": "MAGO.DEV",
     "isis": "Isis",
     "pegasus": "Pegasus",
     "weevil": "Weevil",
@@ -342,7 +351,9 @@
     "ring_champ": "Campeao do Ringue",
     "inseto_kaiba": "InsetoKaiba",
     "bazaar_bea": "Bea do Bazar",
-    "pawn_paul": "Paul do Cambista"
+    "pawn_paul": "Paul do Cambista",
+    "heishin": "Heishin",
+    "relic_rhea": "Rhea das Reliquias"
   },
   "map": {
     "title": "MAPA",
@@ -498,7 +509,9 @@
     "O Labirinto da Campina",
     "Deserto das Estrelas Perdidas",
     "A Feira das Estrelas",
-    "O Portao do Castelo"
+    "O Portao do Castelo",
+    "O Salao do Castelo",
+    "O Sonho de Pegasus"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
@@ -517,7 +530,9 @@
     "Ache a Teana nas cercas",
     "Fale com a Isis na tenda da cartomante",
     "Fale com o Jono na jangada",
-    "Venca InsetoKaiba na fechadura por uma estrela"
+    "Venca InsetoKaiba na fechadura por uma estrela",
+    "Venca Heishin na Coroa Estelar",
+    "Duele com Pegasus na Sala dos Sonhos"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
@@ -551,7 +566,9 @@
     "a setima estrela, Amuleto de Dica, carta Queen of Autumn Leaves",
     "a oitava estrela, Amuleto de Poeira, carta Great Mammoth of Goldfine",
     "a nona estrela, Amuleto da Jangada, carta Twin-headed Thunder Dragon",
-    "a decima estrela, Chave do Portao, carta Hercules Beetle (Crown Beetle)"
+    "a decima estrela, Chave do Portao, carta Hercules Beetle (Crown Beetle)",
+    "carta Soul Hunter; a Sala dos Sonhos abre",
+    "carta Dark Magician; final Festival"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -584,7 +601,9 @@
     "kingdom_meadow": "Labirinto da Campina",
     "kingdom_desert": "Deserto das Estrelas Perdidas",
     "kingdom_fair": "Feira das Estrelas",
-    "castle_gate": "Portao do Castelo"
+    "castle_gate": "Portao do Castelo",
+    "castle_hall": "Salao do Castelo",
+    "castle_top": "Sala dos Sonhos"
   },
   "shop": {
     "title": "Loja de Cartas",
@@ -781,7 +800,9 @@
       "meadow_mage": "Maga da Campina",
       "desert_mage": "Mago do Deserto",
       "ring_champ": "Campeao do Ringue",
-      "inseto_gate": "InsetoKaiba"
+      "inseto_gate": "InsetoKaiba",
+      "heishin_hall": "Heishin",
+      "pegasus_dream": "Pegasus"
     }
   }
 }

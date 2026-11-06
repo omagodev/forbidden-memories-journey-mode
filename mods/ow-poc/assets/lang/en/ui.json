@@ -238,7 +238,12 @@
     "Beat the Ring Champion - a star on the line",
     "Chapter 7 complete - the castle road waits",
     "Beat InsetoKaiba at the star-lock - a star on the line",
-    "Chapter 8 complete - the castle / Dream Room waits"
+    "Chapter 8 complete - open the castle door",
+    "Beat Heishin at the Star Crown - a star on the line",
+    "Chapter 9 complete - the Dream Room waits upstairs",
+    "Duel Pegasus at the dream table - a star on the line",
+    "Touch the wish orbs - Festival epilogue",
+    "Kingdom complete - walk the festival plaza"
   ],
   "items": [
     "Stamp Card",
@@ -302,7 +307,11 @@
     "inseto_fair": "InsetoKaiba",
     "bazaar_bea": "Bazaar Bea",
     "inseto_gate": "InsetoKaiba",
-    "pawn_paul": "Pawn Paul"
+    "pawn_paul": "Pawn Paul",
+    "heishin_hall": "Heishin",
+    "relic_rhea": "Relic Rhea",
+    "pegasus_dream": "Pegasus",
+    "shadi_dream": "Shadi"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -321,7 +330,7 @@
     "inseto": "InsetoKaiba",
     "mago_dev": "Mago.dev",
     "mago_dev_tee": "Mago.dev",
-    "mago_hidden": "???",
+    "mago_hidden": "MAGO.DEV",
     "isis": "Isis",
     "pegasus": "Pegasus",
     "weevil": "Weevil",
@@ -342,7 +351,9 @@
     "ring_champ": "Ring Champion",
     "inseto_kaiba": "InsetoKaiba",
     "bazaar_bea": "Bazaar Bea",
-    "pawn_paul": "Pawn Paul"
+    "pawn_paul": "Pawn Paul",
+    "heishin": "Heishin",
+    "relic_rhea": "Relic Rhea"
   },
   "map": {
     "title": "MAP",
@@ -490,7 +501,9 @@
     "The Meadow Maze",
     "Desert of Lost Stars",
     "The Star Fair",
-    "The Castle Gate"
+    "The Castle Gate",
+    "The Castle Hall",
+    "Pegasus's Dream"
   ],
   "quest_objectives": [
     "Ask Teana, Jono and the Guard",
@@ -509,7 +522,9 @@
     "Find Teana in the hedges",
     "Talk to Isis at the fortune tent",
     "Talk to Jono at the raft",
-    "Beat InsetoKaiba at the star-lock for a star"
+    "Beat InsetoKaiba at the star-lock for a star",
+    "Beat Heishin at the Star Crown",
+    "Duel Pegasus in the Dream Room"
   ],
   "quest_steps": [
     "Sit on the plaza bench until night",
@@ -543,7 +558,9 @@
     "the seventh star, Hint Charm, card Queen of Autumn Leaves",
     "the eighth star, Dust Charm, card Great Mammoth of Goldfine",
     "the ninth star, Raft Charm, card Twin-headed Thunder Dragon",
-    "the tenth star, Gate Key, card Hercules Beetle (Crown Beetle)"
+    "the tenth star, Gate Key, card Hercules Beetle (Crown Beetle)",
+    "card Soul Hunter; the Dream Room opens",
+    "card Dark Magician; Festival ending"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -576,7 +593,9 @@
     "kingdom_meadow": "Meadow Maze",
     "kingdom_desert": "Desert of Lost Stars",
     "kingdom_fair": "Star Fair",
-    "castle_gate": "Castle Gate"
+    "castle_gate": "Castle Gate",
+    "castle_hall": "Castle Hall",
+    "castle_top": "Dream Room"
   },
   "shop": {
     "title": "Card Shop",
@@ -773,7 +792,9 @@
       "meadow_mage": "Meadow Mage",
       "desert_mage": "Desert Mage",
       "ring_champ": "Ring Champion",
-      "inseto_gate": "InsetoKaiba"
+      "inseto_gate": "InsetoKaiba",
+      "heishin_hall": "Heishin",
+      "pegasus_dream": "Pegasus"
     }
   }
 }

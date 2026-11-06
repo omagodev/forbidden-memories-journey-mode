@@ -39,7 +39,9 @@
   "kingdom_meadow": "Labirinto da Campina",
   "kingdom_desert": "Deserto das Estrelas Perdidas",
   "kingdom_fair": "Feira das Estrelas",
-  "castle_gate": "Portao do Castelo"
+  "castle_gate": "Portao do Castelo",
+  "castle_hall": "Salao do Castelo",
+  "castle_top": "Sala dos Sonhos"
  },
  "notebook": [
   "Boato 1: um homem de capuz paga com estrelas douradas e fala de um Reino.",

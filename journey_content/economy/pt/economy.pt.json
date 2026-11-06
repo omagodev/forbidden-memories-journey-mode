@@ -275,5 +275,14 @@
  "fighter_pre.bolt_bee": "Zune embora, ou zune pra dentro.",
  "fighter_pre.ward_wyn": "A guarda segura. Prove que pertence.",
  "fighter_pre.crown_carl": "Coroa do poco. Dez estrelas esperam acima.",
- "keeper_greet.pawn_paul": "Estrelas, cicatrizes e cartas. Do que precisa?"
+ "keeper_greet.pawn_paul": "Estrelas, cicatrizes e cartas. Do que precisa?",
+ "arena_tip.hall": "Abaixo dos retratos. Tres exclusivas esperam.",
+ "names.arenas.hall": "Porao da Coroa",
+ "arena_title.hall": "Porao da Coroa Limpo",
+ "shop.hall": "Alcove de Reliquias",
+ "keeper_greet.relic_rhea": "Reliquias da coroa. Cartas do salao.",
+ "fighter_pre.veil_vera": "O veu mente. Eu tambem.",
+ "fighter_pre.mask_milo": "Escolha uma mascara. Qualquer uma perde.",
+ "fighter_pre.echo_eva": "Sua voz volta errada.",
+ "fighter_pre.crown_hex": "As estrelas roubadas zumbem sob meus pes."
 }

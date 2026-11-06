@@ -32,6 +32,7 @@ KEEPERS = {   # id: (EN name, PT name, greeting EN, greeting PT)
     "nomad_nia":  ("Nomad Nia", "Nia Nomade", "Sand and cards. Both are for sale.", "Areia e cartas. Ambas estao a venda."),
     "bazaar_bea": ("Bazaar Bea", "Bea do Bazar", "Step right up! Cards from everywhere!", "Chegue! Cartas de todo lugar!"),
     "pawn_paul":  ("Pawn Paul", "Paulo Penhor", "The gate wants stars. I want coins.", "O portao quer estrelas. Eu quero moedas."),
+    "relic_rhea": ("Relic Rhea", "Rhea das Reliquias", "Relics of the crown. Cards of the hall.", "Reliquias da coroa. Cartas do salao."),
 }
 GENERIC = {
     "keeper_bye": ("Come back soon!", "Volte logo!"),
@@ -69,6 +70,9 @@ ARENA_NAMES = {   # id: (EN, PT, setting EN, setting PT, tip EN, tip PT, keeper 
     "gate":     ("Moat Pit", "Poco do Fosso",
                  "A torch-lit pit under the castle approach, beetle banners on the pillars.", "Um poco com tochas sob a aproximacao do castelo, bandeiras de besouro.",
                  "A torch-lit pit. Three exclusives wait below.", "Um poco com tochas. Tres exclusivas esperam abaixo.", "pawn_paul"),
+    "hall":     ("Crown Cellar", "Porao da Coroa",
+                 "A mirrored cellar under the illusion halls.", "Um porao espelhado sob as salas de ilusao.",
+                 "Below the portraits. Three exclusives wait.", "Abaixo dos retratos. Tres exclusivas esperam.", "relic_rhea"),
 }
 ARENA_GENERIC = {
     "arena_clear": ("Ladder cleared! The crowd roars.", "Escada vencida! A plateia vibra."),
@@ -138,6 +142,10 @@ FIGHTERS = [
     ("bolt_bee",   "gate", "Bolt Bee", "Bee Raio", "Buzz off, or buzz in.", "Zune embora, ou zune pra dentro."),
     ("ward_wyn",   "gate", "Ward Wyn", "Wyn Guarda", "The ward holds. Prove you belong.", "A guarda segura. Prove que pertence."),
     ("crown_carl", "gate", "Crown Carl", "Carl Coroa", "Crown of the pit. Ten stars wait above.", "Coroa do poco. Dez estrelas esperam acima."),
+    ("veil_vera",  "hall", "Veil Vera", "Vera Veu", "The veil lies. So do I.", "O veu mente. Eu tambem."),
+    ("mask_milo",  "hall", "Mask Milo", "Milo Mascara", "Pick a mask. Any mask loses.", "Escolha uma mascara. Qualquer uma perde."),
+    ("echo_eva",   "hall", "Echo Eva", "Eva Eco", "Your voice comes back wrong.", "Sua voz volta errada."),
+    ("crown_hex",  "hall", "Crown Hex", "Hex da Coroa", "The stolen stars hum under my feet.", "As estrelas roubadas zumbem sob meus pes."),
 ]
 
 # ---- UI strings (id: (EN, PT)) -------------------------------------------------------------------------

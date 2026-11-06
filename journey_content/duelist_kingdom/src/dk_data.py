@@ -545,3 +545,43 @@ HUD += _C8.HUD
 CHAPTERS.append(_C8.CHAPTER)
 QUESTS += _C8.QUESTS
 DECKS.update(_C8.DECKS)
+
+# ---------------------------------------------------------------- chapter 9 (Castle Hall): dk_chapter9.py
+import dk_chapter9 as _C9
+SPEAKERS.update(_C9.SPEAKERS)
+FLAGS += _C9.FLAGS
+STAGES = sorted(STAGES + _C9.STAGES)
+for _i, _a in enumerate(AREAS):
+    if _a[0] == "castle_hall": del AREAS[_i]; break
+AREAS.append(("castle_hall", "Castle Hall", "Salao do Castelo", "Illusion halls, Star Crown, Relic Alcove, Crown Cellar.", "exists (illustrated, chapter 9)"))
+ANCHORS["castle_hall"] = _C9.ANCHORS["castle_hall"]
+ITEMS += _C9.ITEMS
+NPCS += _C9.NPCS
+NPC_SPEAKER.update(_C9.NPC_SPEAKER)
+OBJECTS += _C9.OBJECTS
+DUELS += _C9.DUELS
+TRANSITIONS += _C9.TRANSITIONS
+HUD += _C9.HUD
+CHAPTERS.append(_C9.CHAPTER)
+QUESTS += _C9.QUESTS
+DECKS.update(_C9.DECKS)
+
+# ---------------------------------------------------------------- chapter 10 (Dream Room): dk_chapter10.py
+import dk_chapter10 as _C10
+SPEAKERS.update(_C10.SPEAKERS)
+FLAGS += _C10.FLAGS
+STAGES = sorted(STAGES + _C10.STAGES)
+for _i, _a in enumerate(AREAS):
+    if _a[0] == "castle_top": del AREAS[_i]; break
+AREAS.append(("castle_top", "Dream Room", "Sala dos Sonhos", "Pegasus's top room: wish orbs, sea window, festival end.", "exists (illustrated, chapter 10)"))
+ANCHORS["castle_top"] = _C10.ANCHORS["castle_top"]
+ITEMS += _C10.ITEMS
+NPCS += _C10.NPCS
+NPC_SPEAKER.update(_C10.NPC_SPEAKER)
+OBJECTS += _C10.OBJECTS
+DUELS += _C10.DUELS
+TRANSITIONS += _C10.TRANSITIONS
+HUD += _C10.HUD
+CHAPTERS.append(_C10.CHAPTER)
+QUESTS += _C10.QUESTS
+DECKS.update(_C10.DECKS)

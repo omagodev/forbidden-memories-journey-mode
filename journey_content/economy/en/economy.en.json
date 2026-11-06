@@ -275,5 +275,14 @@
  "fighter_pre.bolt_bee": "Buzz off, or buzz in.",
  "fighter_pre.ward_wyn": "The ward holds. Prove you belong.",
  "fighter_pre.crown_carl": "Crown of the pit. Ten stars wait above.",
- "keeper_greet.pawn_paul": "Stars, scars and cards. What do you need?"
+ "keeper_greet.pawn_paul": "Stars, scars and cards. What do you need?",
+ "arena_tip.hall": "Below the portraits. Three exclusives wait.",
+ "names.arenas.hall": "Crown Cellar",
+ "arena_title.hall": "Crown Cellar Clear",
+ "shop.hall": "Relic Alcove",
+ "keeper_greet.relic_rhea": "Relics of the crown. Cards of the hall.",
+ "fighter_pre.veil_vera": "The veil lies. So do I.",
+ "fighter_pre.mask_milo": "Pick a mask. Any mask loses.",
+ "fighter_pre.echo_eva": "Your voice comes back wrong.",
+ "fighter_pre.crown_hex": "The stolen stars hum under my feet."
 }

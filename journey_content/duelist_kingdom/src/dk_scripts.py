@@ -889,3 +889,11 @@ _C7.scripts(sc, H, X, N)
 # ---------------------------------------------------------------- chapter 8 (Castle Gate): dk_chapter8.py
 import dk_chapter8 as _C8
 _C8.scripts(sc, H, X, N)
+
+# ---------------------------------------------------------------- chapter 9 (Castle Hall): dk_chapter9.py
+import dk_chapter9 as _C9
+_C9.scripts(sc, H, X, N)
+
+# ---------------------------------------------------------------- chapter 10 (Dream Room): dk_chapter10.py
+import dk_chapter10 as _C10
+_C10.scripts(sc, H, X, N)

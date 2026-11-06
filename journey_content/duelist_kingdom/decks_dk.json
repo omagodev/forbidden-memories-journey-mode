@@ -551,6 +551,62 @@
     "Mooyan Curry": 2
    },
    "notes": "Chapter 8 gate rematch (holds 2)."
+  },
+  "Heishin Crown": {
+   "duelist": "Heishin",
+   "chapter": 1,
+   "difficulty_tier": 8,
+   "theme": "Dark ritual crown: stolen light and illusion beaters",
+   "fixed": true,
+   "total": 32,
+   "cards": {
+    "Soul Hunter": 1,
+    "King of Yamimakai": 1,
+    "Dragon Seeker": 1,
+    "Dark Magician": 1,
+    "Illusionist Faceless Mage": 2,
+    "Curtain of the Dark Ones": 2,
+    "Saggi the Dark Clown": 2,
+    "Mystic Clown": 2,
+    "Dark Chimera": 2,
+    "Yami": 3,
+    "Dark Energy": 3,
+    "Sparks": 2,
+    "Hinotama": 2,
+    "Red Medicine": 2,
+    "Mooyan Curry": 2,
+    "Swordstalker": 2,
+    "Ansatsu": 2
+   },
+   "notes": "Chapter 9 chamberlain (holds 2)."
+  },
+  "Pegasus Dream": {
+   "duelist": "Pegasus",
+   "chapter": 1,
+   "difficulty_tier": 9,
+   "theme": "Toon-tinged control with hidden-hand flavor and Dark Magician",
+   "fixed": true,
+   "total": 35,
+   "cards": {
+    "Dark Magician": 1,
+    "Illusionist Faceless Mage": 2,
+    "Mystic Clown": 2,
+    "Saggi the Dark Clown": 2,
+    "Curtain of the Dark Ones": 2,
+    "Dragon Piper": 2,
+    "Ryu-Kishin Powered": 2,
+    "Dark Energy": 3,
+    "Yami": 3,
+    "Sparks": 2,
+    "Hinotama": 2,
+    "Red Medicine": 2,
+    "Mooyan Curry": 2,
+    "Stop Defense": 2,
+    "Swordstalker": 2,
+    "Ansatsu": 2,
+    "Legendary Sword": 2
+   },
+   "notes": "Chapter 10 final boss (holds 2)."
   }
  },
  "starter": {

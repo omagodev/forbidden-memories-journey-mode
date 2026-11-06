@@ -1981,6 +1981,206 @@
     "unsellable": "cards the story gave, and copies the deck uses"
    },
    "stage_note": null
+  },
+  {
+   "id": "hall",
+   "area": "castle_hall",
+   "name": "Relic Alcove",
+   "name_id": "shop.hall",
+   "pool": "hall",
+   "keeper": {
+    "id": "relic_rhea",
+    "name": "Relic Rhea",
+    "existing_npc": false,
+    "greet_id": "keeper_greet.relic_rhea"
+   },
+   "anchor": "castle_hall.shop_stall",
+   "price_win": 420,
+   "tier": 8,
+   "open": {},
+   "stock": {
+    "always": [
+     {
+      "card": "Mountain",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Red Medicine",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Baby Dragon",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Basic Insect",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Killer Needle",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Larvae Moth",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     },
+     {
+      "card": "Battle Warrior",
+      "rarity": "C",
+      "price": 305,
+      "min_level": 1
+     }
+    ],
+    "rotating": [
+     {
+      "slot": "b",
+      "rarity": "B",
+      "count": 3,
+      "min_level": 15,
+      "price": 950,
+      "from": "pool"
+     },
+     {
+      "slot": "a",
+      "rarity": "A",
+      "count": 2,
+      "min_level": 18,
+      "price": 3040,
+      "from": "pool"
+     }
+    ],
+    "limited": [
+     {
+      "card": "Royal Guard",
+      "rarity": "A",
+      "price": 6080,
+      "max_buy": 1,
+      "bit": 21,
+      "min_level": 18
+     },
+     {
+      "card": "Seiyaryu",
+      "rarity": "S",
+      "price": 11400,
+      "max_buy": 1,
+      "bit": 22,
+      "min_level": 21
+     },
+     {
+      "card": "Kaiser Dragon",
+      "rarity": "S",
+      "price": 11400,
+      "max_buy": 1,
+      "bit": 23,
+      "min_level": 21
+     }
+    ],
+    "packs": [
+     {
+      "id": "common",
+      "kind": "common",
+      "price": 1520,
+      "min_level": 1,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "odds": {
+         "B": 75,
+         "A": 25
+        }
+       }
+      ]
+     },
+     {
+      "id": "rare",
+      "kind": "rare",
+      "price": 4560,
+      "min_level": 18,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "C"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "B": 40,
+         "A": 60
+        }
+       }
+      ]
+     },
+     {
+      "id": "grand",
+      "kind": "grand",
+      "price": 11400,
+      "min_level": 23,
+      "count": 5,
+      "slots": [
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "B"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "rarity": "A"
+       },
+       {
+        "odds": {
+         "A": 100
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "rotation": {
+    "every_duels": 6,
+    "algorithm": "epoch = jm.duels / every_duels; for each slot, candidates = pool entries of the rarity with min_level <= level, not 'always'/'limited'; sort by fnv1a32(shop_id + ':' + slot + ':' + epoch + ':' + card_id); take the first count"
+   },
+   "imported": null,
+   "sell": {
+    "enabled": true,
+    "rate": 0.25,
+    "unsellable": "cards the story gave, and copies the deck uses"
+   },
+   "stage_note": null
   }
  ]
 }

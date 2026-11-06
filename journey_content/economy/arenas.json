@@ -741,6 +741,79 @@
     "Machine"
    ],
    "text_id": "fighter_pre.crown_carl"
+  },
+  {
+   "id": "veil_vera",
+   "arena": "hall",
+   "rung": 1,
+   "name": "Veil Vera",
+   "tier": 8,
+   "duelist": {
+    "id": "eco_veil_vera",
+    "copy": "High Mage Secmeton",
+    "name": "Veil Vera",
+    "slot": 89
+   },
+   "deck": "Veil Vera",
+   "types": [
+    "Spellcaster"
+   ],
+   "text_id": "fighter_pre.veil_vera"
+  },
+  {
+   "id": "mask_milo",
+   "arena": "hall",
+   "rung": 2,
+   "name": "Mask Milo",
+   "tier": 8,
+   "duelist": {
+    "id": "eco_mask_milo",
+    "copy": "High Mage Secmeton",
+    "name": "Mask Milo",
+    "slot": 90
+   },
+   "deck": "Mask Milo",
+   "types": [
+    "Fiend"
+   ],
+   "text_id": "fighter_pre.mask_milo"
+  },
+  {
+   "id": "echo_eva",
+   "arena": "hall",
+   "rung": 3,
+   "name": "Echo Eva",
+   "tier": 8,
+   "duelist": {
+    "id": "eco_echo_eva",
+    "copy": "High Mage Secmeton",
+    "name": "Echo Eva",
+    "slot": 91
+   },
+   "deck": "Echo Eva",
+   "types": [
+    "Spellcaster"
+   ],
+   "text_id": "fighter_pre.echo_eva"
+  },
+  {
+   "id": "crown_hex",
+   "arena": "hall",
+   "rung": 4,
+   "name": "Crown Hex",
+   "tier": 8,
+   "duelist": {
+    "id": "eco_crown_hex",
+    "copy": "Seto",
+    "name": "Crown Hex",
+    "slot": 92
+   },
+   "deck": "Crown Hex",
+   "types": [
+    "Fiend",
+    "Spellcaster"
+   ],
+   "text_id": "fighter_pre.crown_hex"
   }
  ],
  "arenas": [
@@ -1698,6 +1771,101 @@
     }
    },
    "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "hall",
+   "location": "hall",
+   "area": "castle_hall",
+   "interior_area": "arena_hall",
+   "name": "Crown Cellar",
+   "setting": "A mirrored cellar under the illusion halls.",
+   "keeper": "relic_rhea",
+   "tip_id": "arena_tip.hall",
+   "name_id": "arena.hall",
+   "entry_anchor": "castle_hall.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 12
+   },
+   "fee": 280,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "veil_vera",
+     "tier": 8,
+     "deck": "Veil Vera",
+     "champion": false,
+     "coins": 230,
+     "xp_base": 72,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "mask_milo",
+     "tier": 8,
+     "deck": "Mask Milo",
+     "champion": false,
+     "coins": 280,
+     "xp_base": 88,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "echo_eva",
+     "tier": 8,
+     "deck": "Echo Eva",
+     "champion": false,
+     "coins": 280,
+     "xp_base": 88,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "crown_hex",
+     "tier": 8,
+     "deck": "Crown Hex",
+     "champion": true,
+     "coins": 280,
+     "xp_base": 88,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "hall",
+   "first_clear": {
+    "coins": 1100,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.hall"
+   },
+   "repeat_clear": {
+    "coins": 360,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept)."
   }
  ]
 }
