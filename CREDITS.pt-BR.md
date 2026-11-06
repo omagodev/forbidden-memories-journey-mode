@@ -29,6 +29,7 @@ O JOURNEY MODE é um mod de fã, não oficial e sem fins comerciais, para Yu-Gi-
 * O capítulo 6 traz o mapa do Deserto das Estrelas Perdidas e os sprites do Mago do Deserto / Isis: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
 * O capítulo 7 traz o mapa da Feira das Estrelas e o sprite do Campeão do Ringue: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
 * O capítulo 8 traz o mapa do Portão do Castelo e o sprite do Paul do Cambista: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
+* Os capítulos 9-10 trazem os mapas do Salão do Castelo e da Sala dos Sonhos, e os sprites de Heishin e Pegasus: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
 * O rival "InsetoKaiba" é um personagem de paródia estilizado; não usa o nome nem a imagem de nenhuma pessoa real.
 
 ## Conteúdo

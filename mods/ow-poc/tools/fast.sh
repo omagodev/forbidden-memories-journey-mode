@@ -18,6 +18,7 @@ D="$GAME/mods/ow-poc"; mkdir -p "$D"
 cp "$MOD/ow-poc.o" "$MOD/mod.json" "$D/"
 # only what changed (-u): the assets are big, a deploy of a script change takes a moment
 cp -ru "$MOD/assets/." "$D/assets/" 2>/dev/null || { mkdir -p "$D/assets"; cp -ru "$MOD/assets/." "$D/assets/"; }
+mkdir -p "$D/duelists"; cp -u "$MOD"/duelists/*.json "$D/duelists/" 2>/dev/null || true
 lap deploy
 if [ $# -gt 0 ]; then
   if [ "$1" = "all" ]; then python3 "$HERE/smoke/jm_smoke.py" all

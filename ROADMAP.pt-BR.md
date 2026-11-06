@@ -20,7 +20,8 @@ O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direç�
 - Capítulo 4 do Reino dos Duelistas (a Passagem da Montanha): o pedágio do Bandit Keith na ponte de corda (tem três estrelas), o duelo de orgulho com a Mai (sem estrela), o entalhador flagrado na caverna, o Mago da Montanha (tem quatro; seis estrelas na aposta mínima); tenda da Cliff Cass, conjunto de cartas da montanha, emboscadas da gangue e o Fosso da Mina com três cartas exclusivas; acampamento da trilha na floresta e na passagem
 - Capítulo 5 do Reino dos Duelistas (o Labirinto da Campina): Teana clandestina (duelo amistoso, depois ajudante), a Maga da Campina (guarda duas; sete estrelas na aposta mínima); o carrinho da Rose Rue, conjunto de cartas da campina, emboscadas da gangue e o Anel da Toca do Coelho com três cartas exclusivas (Flower Wolf, Dark Witch, Queen of Autumn Leaves); acampamento da campina
 - Capítulo 7 do Reino dos Duelistas (a Feira das Estrelas): Jono encharcado (duelo amistoso, depois ajudante), o Campeão do Ringue (guarda duas; nove estrelas na aposta mínima); InsetoKaiba só provoca; o Grande Bazar da Bea, conjunto de cartas da feira, emboscadas da gangue e o Circo do Subsolo com três cartas exclusivas (Twin-headed Thunder Dragon, Bickuribox, Ushi Oni); acampamento da feira
-- Capítulo 8 do Reino dos Duelistas (o Portão do Castelo): revanche do InsetoKaiba na fechadura (guarda duas; dez estrelas na aposta mínima); cambista do Paul, conjunto de cartas do portão, hub sem gangue de propósito, Poco do Fosso com três exclusivas (Judge Man, Machine King, Kaiser Dragon); Chave do Portão; castelo / Sala dos Sonhos anunciados (não implementados — teto de 64 flags)
+- Capítulo 8 do Reino dos Duelistas (o Portão do Castelo): revanche do InsetoKaiba na fechadura (guarda duas; dez estrelas na aposta mínima); cambista do Paul, conjunto de cartas do portão, hub sem gangue, Poco do Fosso com três exclusivas (Judge Man, Machine King, Kaiser Dragon); Chave do Portão
+- Capítulos 9-10 (Salão do Castelo + Sonho de Pegasus): twist da Coroa Estelar do Heishin; Rhea e Porao da Coroa com exclusivas (Soul Hunter, King of Yamimakai, Dragon Seeker); duelo final com Pegasus; epílogo Festival. Teto de flags elevado a 96 (save v7 kflags2).
 - Capítulo 6 do Reino dos Duelistas (o Deserto das Estrelas Perdidas): Isis a cartomante (duelo de leitura + pista do coletor de estrelas), dicas da Teana, cameo cômico do Bakura (só cartas), o Mago do Deserto (guarda duas; oito estrelas na aposta mínima); a Tenda da Caravana da Nômade Nia, conjunto de cartas do deserto, emboscadas da gangue e o Poço da Tumba Afundada com três cartas exclusivas (Great Mammoth of Goldfine, Skelgon, Shadow Ghoul); acampamento do deserto
 - Apostas de estrelas: tela de aposta antes de cada duelo de estrelas (de 1 até o mínimo entre as suas e as dele), cada guardião tem suas próprias estrelas (salvas), a aposta perdida fica com ele e uma revanche recupera; zero estrelas = FIM DE JOGO, com aviso do Shadi, do Pegasus, dos acampamentos, da tela de aposta e da Mochila
 
@@ -38,6 +39,8 @@ As estrelas são itens da história, guardadas na Mochila como *Fichas de Estrel
 | 6 Deserto das Estrelas Perdidas | Mago do Deserto | 8 | estrela enterrada: 7 |
 | 7 Feira das Estrelas | Campeão do Ringue | 9 | ringue: 8 |
 | 8 Portão do Castelo | InsetoKaiba | 10 | fechadura: 9 |
+| 9 Salão do Castelo | Heishin | 10 | (estrelas já no máximo) |
+| 10 Sala dos Sonhos | Pegasus | 10 | final |
 | 6 Deserto das Estrelas Perdidas | Mago do Deserto | 8 | (planejado) |
 | 7 Feira das Estrelas | campeão do ringue | 9 | (planejado) |
 | 8 Portão do Castelo | InsetoKaiba, guardião | 10 | a fechadura do castelo: pelo menos 10 |

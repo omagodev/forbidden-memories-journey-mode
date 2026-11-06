@@ -29,6 +29,7 @@ JOURNEY MODE is an unofficial, non-commercial fan mod for Yu-Gi-Oh! Forbidden Me
 * Chapter 6 brings the Desert of Lost Stars map and the Desert Mage / Isis sprites: AI-generated, baked the same way. Not official art.
 * Chapter 7 brings the Star Fair map and the Ring Champion sprite: AI-generated, baked the same way.
 * Chapter 8 brings the Castle Gate map and the Pawn Paul sprite: AI-generated, baked the same way. Not official art.
+* Chapters 9-10 bring the Castle Hall and Dream Room maps, plus Heishin and Pegasus sprites: AI-generated, baked the same way. Not official art.
 * The "InsetoKaiba" rival is a stylized parody character; it uses no real person's name or likeness.
 
 ## Content

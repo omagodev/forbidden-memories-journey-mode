@@ -800,3 +800,56 @@ SCENARIOS.update({
         steps=[("wait", 40), ("press", "cross"), ("until", "scene dk8_castle_announce", 300), ("wait", 40), ("snap", "announce")],
         expect=["scene dk8_castle_announce"]),
 })
+
+HALL_E2E = (beat("dk9_heishin_pre", "heishin_pre") + [("until", "star duel won", 1200), ("wait", 600), ("snap", "heishin_won")])
+# dream_stairs at stage 34 enters the Dream Room (dk10_arrival) before dk9_dream_road; ch10 e2e covers that
+DREAM_E2E = (beat("dk10_pegasus_pre", "pegasus_pre") + [("until", "star duel won", 1200), ("wait", 600), ("snap", "pegasus_won")]
+    # epilogue is on wish_orbs (cap10_epilogue); e2e stops at the Pegasus win / stage 36
+    )
+SCENARIOS.update({
+    "e2e_ch8_to_ch9": dict(desc="chapter 8 -> 9: castle door into the hall, Heishin, chapter 9 end",
+        preset="48 chapter 8 done", lang=1, debug=dict(E2E, coins=300, teleport="castle_gate.castle_door"),
+        steps=beat("dk9_arrival", "arch", after=100) + [("until", "journey: music 26", 900), ("wait", 400), ("snap", "hall")]
+            + HALL_E2E,
+        expect=["scene dk9_arrival", "journey: music 26", "star duel won, bet 1, stars 10", "saved (stage 34"]),
+    "e2e_ch9_to_ch10": dict(desc="chapter 9 -> 10: dream stairs, Pegasus, Festival epilogue",
+        preset="51 chapter 9 done", lang=1, debug=dict(E2E, coins=300, teleport="castle_hall.dream_stairs"),
+        steps=beat("dk10_arrival", "stairs", after=100) + [("until", "journey: music 27", 900), ("wait", 400), ("snap", "dream")]
+            + DREAM_E2E,
+        expect=["scene dk10_arrival", "journey: music 27", "star duel won, bet 1, stars 10", "saved (stage 36"],),
+    "cap9_arrival": dict(quick=True, desc="chapter 9 opens: Castle Hall", preset="49 hall arrival (chapter 9)", lang=0, debug={"skip_dialogue": True},
+        steps=[("until", "journey: music 26", 600), ("wait", 200), ("snap", "hall")], expect=["journey: music 26"]),
+    "cap9_heishin": dict(quick=True, desc="Heishin crown wager (win), chapter 9 end", preset="50 Heishin at the crown (wager)", lang=0,
+        debug=dict(E2E, teleport="castle_hall.heishin_spot"),
+        steps=[("wait", 60), ("press", "cross"), ("until", "scene dk9_heishin_pre", 600), ("wait", 100), ("snap", "pre"),
+               ("until", "star duel won", 1200), ("wait", 600), ("snap", "won")], expect=["scene dk9_heishin_pre", "star duel won, bet 1, stars 10", "saved (stage 34"]),
+    "cap9_shop": dict(desc="Relic Rhea's Relic Alcove", preset="50 Heishin at the crown (wager)", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "castle_hall.shop_stall"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 200), ("press", "cross"), ("wait", 120), ("snap", "shop")], expect=[]),
+    "cap9_arena": dict(desc="Crown Cellar arena exclusives", preset="50 Heishin at the crown (wager)", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "castle_hall.arena_door"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 120), ("press", "cross"), ("wait", 40), ("snap", "arena")], expect=[]),
+    "cap9_camp": dict(quick=True, desc="hall camp zero-star warning", preset="50 Heishin at the crown (wager)", lang=1,
+        debug={"skip_dialogue": True, "teleport": "castle_hall.hall_camp"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk9_hall_camp", 300), ("wait", 60), ("snap", "camp")], expect=["scene dk9_hall_camp"]),
+    "cap10_arrival": dict(quick=True, desc="chapter 10 opens: Dream Room", preset="52 dream arrival (chapter 10)", lang=0, debug={"skip_dialogue": True},
+        steps=[("until", "journey: music 27", 600), ("wait", 200), ("snap", "dream")], expect=["journey: music 27"]),
+    "cap10_pegasus": dict(quick=True, desc="Pegasus final wager (win)", preset="53 Pegasus at the table (wager)", lang=0,
+        debug=dict(E2E, teleport="castle_top.pegasus_spot"),
+        steps=[("wait", 60), ("press", "cross"), ("until", "scene dk10_pegasus_pre", 600), ("wait", 100), ("snap", "pre"),
+               ("until", "star duel won", 1200), ("wait", 600), ("snap", "won")], expect=["scene dk10_pegasus_pre", "star duel won, bet 1, stars 10", "saved (stage 36"]),
+    "cap10_epilogue": dict(quick=True, desc="Festival wish epilogue on the plaza", preset="54 chapter 10 wish", lang=1,
+        debug={"skip_dialogue": True, "teleport": "castle_top.wish_orbs"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk10_epilogue", 600), ("wait", 200), ("snap", "epi")], expect=["scene dk10_epilogue", "saved (stage 37"]),
+    "final9_hall": dict(desc="player view: Castle Hall", preset="50 Heishin at the crown (wager)", lang=1, debug={"teleport": "castle_hall.hall_center"},
+        steps=REL + [("snap", "hall")], expect=["dev mode 0"]),
+    "final9_heishin": dict(desc="player view: Heishin at the crown", preset="50 Heishin at the crown (wager)", lang=1, debug={"teleport": "castle_hall.heishin_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk9_heishin_pre", 300), ("wait", 90), ("snap", "heishin")], expect=["scene dk9_heishin_pre"]),
+    "final10_dream": dict(desc="player view: Dream Room", preset="53 Pegasus at the table (wager)", lang=1, debug={"teleport": "castle_top.dream_center"},
+        steps=REL + [("snap", "dream")], expect=["dev mode 0"]),
+    "final10_pegasus": dict(desc="player view: Pegasus at the table", preset="53 Pegasus at the table (wager)", lang=1, debug={"teleport": "castle_top.pegasus_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk10_pegasus_pre", 300), ("wait", 90), ("snap", "pegasus")], expect=["scene dk10_pegasus_pre"]),
+    "final10_end": dict(desc="player view: festival epilogue", preset="55 festival epilogue", lang=1, debug={"teleport": "plaza_center"},
+        steps=REL + [("snap", "festival")], expect=["dev mode 0"]),
+})
+

@@ -76,7 +76,21 @@ class Run:
 
     def snap(self, label):
         p = self.dir / "shots" / ("%02d_%s.png" % (len(self.shots), label))
-        subprocess.run(["import", "-display", DISPLAY, "-window", "root", str(p)], check=False)
+        # ImageMagick `import` when present; else ffmpeg x11grab (same root window).
+        try:
+            r = subprocess.run(["import", "-display", DISPLAY, "-window", "root", str(p)], check=False)
+            ok = r.returncode == 0 and p.is_file() and p.stat().st_size >= 100
+        except FileNotFoundError:
+            ok = False
+        if not ok:
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "x11grab",
+                            "-video_size", "1920x1200", "-i", "%s.0" % DISPLAY,
+                            "-frames:v", "1", "-update", "1", str(p)], check=False)
+        if (not p.is_file() or p.stat().st_size < 100) and self.g is not None:
+            try:
+                self.g.shot(p)  # VRAM fallback
+            except Exception:
+                pass
         self.shots.append(str(p))
 
     def start(self):

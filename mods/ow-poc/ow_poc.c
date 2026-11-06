@@ -297,7 +297,10 @@ static void apply_pwarp(void)
 
 static void end_scene(void)
 {
-    int had_effects = scene_effects != NULL && !Json_Get(scene_effects, "warp");      /* a walk through the hatch alone is not progress to save */
+    /* a bare warp (hatch / door) is not progress; stage/flags/cards with a warp (Festival epilogue) still save */
+    int had_effects = scene_effects != NULL && (!Json_Get(scene_effects, "warp")
+        || Json_Get(scene_effects, "stage") || Json_Get(scene_effects, "flags")
+        || Json_Get(scene_effects, "cards") || Json_Get(scene_effects, "items"));
     Say_Close();
     portrait_x = -1;
     cooldown = 20;

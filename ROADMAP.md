@@ -20,7 +20,8 @@ Journey Mode is a hobby project, so there are no dates here, just the direction.
 - Duelist Kingdom chapter 4 (the Mountain Pass): Bandit Keith's toll at the rope bridge (holds three stars), Mai's pride duel (no star), the star-carver caught in the cave, the Mountain Mage (holds four; six stars at the minimum bet); Cliff Cass's tent, mountain card pool, gang ambushes and the Mine Shaft Pit with three arena-exclusive cards; trail camps in the forest and the pass
 - Duelist Kingdom chapter 5 (the Meadow Maze): Teana the stowaway (friendly duel, then helper), the Meadow Mage (holds two; seven stars at the minimum bet); Rose Rue's cart, meadow card pool, gang ambushes and the Rabbit Hole Ring with three arena-exclusive cards (Flower Wolf, Dark Witch, Queen of Autumn Leaves); meadow camp
 - Duelist Kingdom chapter 7 (the Star Fair): Jono the soaked rival (friendly duel, then helper), the Ring Champion (holds two; nine stars at the minimum bet); InsetoKaiba taunts; Bazaar Bea's Grand Bazaar, fair card pool, gang ambushes and the Underfair Big Top with three arena-exclusive cards (Twin-headed Thunder Dragon, Bickuribox, Ushi Oni); fair camp
-- Duelist Kingdom chapter 8 (the Castle Gate): InsetoKaiba rematch at the star-lock (holds two; ten stars at the minimum bet); Pawn Paul's Gate Pawn Stall, gate card pool, intentional no-gang hub, Moat Pit with three arena-exclusive cards (Judge Man, Machine King, Kaiser Dragon); Gate Key; castle / Dream Room announced (not implemented — 64-flag ceiling)
+- Duelist Kingdom chapter 8 (the Castle Gate): InsetoKaiba rematch at the star-lock (holds two; ten stars at the minimum bet); Pawn Paul's Gate Pawn Stall, gate card pool, intentional no-gang hub, Moat Pit with three arena-exclusive cards (Judge Man, Machine King, Kaiser Dragon); Gate Key
+- Duelist Kingdom chapters 9-10 (Castle Hall + Pegasus's Dream): Heishin's Star Crown twist; Relic Rhea and Crown Cellar exclusives (Soul Hunter, King of Yamimakai, Dragon Seeker); Pegasus final duel; Festival wish epilogue. Flag ceiling raised to 96 (save v7 kflags2) so the finale fits.
 - Duelist Kingdom chapter 6 (the Desert of Lost Stars): Isis the fortune teller (reading duel + star-collector clue), Teana helper tips, Bakura comic cameo (cards only), the Desert Mage (holds two; eight stars at the minimum bet); Nomad Nia's Caravan Tent, desert card pool, gang ambushes and the Sunken Tomb Pit with three arena-exclusive cards (Great Mammoth of Goldfine, Skelgon, Shadow Ghoul); desert camp
 - Star wagers: a picker before every star duel (1 up to min(yours, his)), each gatekeeper holds his own stars (saved), lost bets stay with him and a rematch wins them back; zero stars = GAME OVER, warned by Shadi, Pegasus, the camps, the picker and the Mochila
 
@@ -38,6 +39,8 @@ Stars are story items, kept in the Mochila as *Star Chips xN*. Only the gatekeep
 | 6 Desert of Lost Stars | Desert Mage | 8 | buried star: 7 |
 | 7 Star Fair | Ring Champion | 9 | fair ring: 8 |
 | 8 Castle Gate | InsetoKaiba | 10 | gate lock: 9 |
+| 9 Castle Hall | Heishin | 10 | (stars already max) |
+| 10 Dream Room | Pegasus | 10 | finale |
 | 6 Desert of Lost Stars | Desert Mage | 8 | (planned) |
 | 7 Star Fair | ring champion | 9 | (planned) |
 | 8 Castle Gate | InsetoKaiba, gate guardian | 10 | the castle lock: at least 10 |

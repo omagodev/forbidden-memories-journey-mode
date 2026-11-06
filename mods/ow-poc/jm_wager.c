@@ -45,7 +45,8 @@ int Wager_Max(const JsonNode *win)
     cap = Json_Num(win, "rematch", 0) != 0 ? held - ((int)Json_Num(win, "wager", 1) - 1) : held;
     if (!Json_Num(win, "rematch", 0) && Json_Get(win, "beaten") && Story_Has(Json_Str(win, "beaten", ""))) return 0;  /* a beaten rival's story rule: no stars */
     m = jm.stars < cap ? jm.stars : cap;
-    if (jm.stars + m > 10) m = 10 - jm.stars;
+    /* Wins clamp to 10 in Wager_Settle; keep the picker at the star cap so
+     * late chapters (Heishin / Pegasus at 10) can still risk stars. */
     return m > 0 ? m : 0;
 }
 
