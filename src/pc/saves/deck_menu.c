@@ -4,6 +4,7 @@
 #include "flow_text.h"
 #include "pc/platform/button_layout.h"
 #include "pc/platform/menu.h"
+#include "pc/platform/mod_mode.h"
 #include "deck_slots.h"
 #include "save_menu.h"
 #include "save_slots.h"
@@ -308,6 +309,7 @@ static int store(void)
 static void follow_saves(void)
 {
     unsigned saves = SaveMenu_SaveCount(), loads = SaveMenu_LoadCount();
+    if (ModMode_Session()) { seen_saves = saves; seen_loads = loads; return; }
     if (loads != seen_loads) {
         seen_loads = loads;
         draft.code = 0; /* read again for the save loaded */
@@ -343,6 +345,14 @@ void DeckMenu_State(MemoriesState *state)
 
 static int chest_entry(void)
 {
+    /* A mod session owns its deck/inventory. Never offer classic saved slots,
+     * including the pre-duel chest or F6 from Build Deck. */
+    if (ModMode_Session()) {
+        picking = PICK_NONE;
+        requested = list_after_build_deck = duel_list = 0;
+        DeckMenu_Close();
+        return 0;
+    }
     /* A short deck cannot be put in a slot. Let the player repair it in
      * Build Deck directly instead of trapping them in the slot picker. */
     if (!Settings_Get(SET_DECK_SLOTS) || !game_loaded() || !deck_complete()) {
@@ -370,7 +380,7 @@ static int chest_left(void)
     const unsigned short *deck = workspace()->state.player_deck;
     int to_list = list_after_build_deck;
     list_after_build_deck = 0;
-    if (!Settings_Get(SET_DECK_SLOTS) || !game_loaded()) return 0;
+    if (ModMode_Session() || !Settings_Get(SET_DECK_SLOTS) || !game_loaded()) return 0;
     if (draft.code == (uint32_t)workspace()->state.duelist_code && draft.active >= 0 && draft.active < DECK_SLOT_COUNT && deck_complete()) {
         DeckSlot *slot = &draft.slots[draft.active];
         if (memcmp(slot->cards, deck, sizeof(slot->cards))) {
@@ -486,7 +496,7 @@ int DeckMenu_HoldsPads(void) { return menu.view != VIEW_CLOSED || holding; }
 
 void DeckMenu_Request(void)
 {
-    if (Settings_Get(SET_DECK_SLOTS)) requested = 1;
+    if (!ModMode_Session() && Settings_Get(SET_DECK_SLOTS)) requested = 1;
 }
 
 /* Cross on a slot: the active one; an empty one becomes a copy of the deck;
@@ -624,7 +634,7 @@ void DeckMenu_Poll(int where)
 {
     unsigned bits, pressed;
     last_poll = Memories_PresentedFrames();
-    allowed = Settings_Get(SET_DECK_SLOTS) && game_loaded() && !SaveMenu_Active() && screen_allowed(where);
+    allowed = !ModMode_Session() && Settings_Get(SET_DECK_SLOTS) && game_loaded() && !SaveMenu_Active() && screen_allowed(where);
     bits = pad_bits();
     pressed = bits & ~previous_bits;
     previous_bits = bits;

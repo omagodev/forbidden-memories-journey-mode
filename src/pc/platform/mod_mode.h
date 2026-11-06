@@ -10,6 +10,8 @@
 
 void ModMode_Register(void (*run)(int first_frame));
 int ModMode_Active(void);
+/* Includes guest screens/duels entered by the mod, until ModMode_Leave. */
+int ModMode_Session(void);
 /* Take the screen: the next frame the game runs the mod's runner (first_frame = 1). */
 void ModMode_Enter(void);
 /* Back to the title (menu byte D_8009B26D = menu), through a fade that the mod has done. */

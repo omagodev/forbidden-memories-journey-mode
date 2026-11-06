@@ -10,6 +10,7 @@ static int on;
 static unsigned char text[MOD_MODE_TEXT_SIZE];
 
 void ModMode_Register(void (*run)(int first)) { runner = run; }
+int ModMode_Session(void) { return on && runner; }
 int ModMode_Active(void) { return on && runner && (D_8009B26C & 0x1F) == 13; }
 
 void ModMode_Enter(void)

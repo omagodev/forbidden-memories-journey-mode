@@ -248,6 +248,11 @@ typedef struct {
     unsigned char duel_held[16]; /* the stars each star duelist holds now, plus 1 (0: his content count; slot = journey.json win "slot") */
     int wager_seen;              /* the picker's game-over warning has been shown once */
     unsigned kflags2;            /* story flags 64..95, save version 7; 0 on an older save */
+    /* Version 8: private run inventory, never imported from the classic save. */
+    unsigned short deck[40];
+    unsigned char chest[722];
+    unsigned duel_stars;
+    int cards_set;
 } Journey;
 extern Journey jm;
 
@@ -327,6 +332,8 @@ void Say_Tick(void);
 
 /* ------------------------------------------------------------------ save */
 int Save_Exists(void);
+void Journey_CardsCapture(void);
+void Journey_CardsRestore(void);
 int Save_Write(void);
 int Save_Read(void);
 void Save_Init(void);

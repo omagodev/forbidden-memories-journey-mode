@@ -287,13 +287,17 @@ int Story_Cards(int id)
     return 1;
 }
 
-/* After a load: a card the save says a reward gave, that this game's chest lacks, is given again. */
+/* Mark recorded rewards seen; only legacy migration reconstructs missing copies. */
 void Story_Regrant(void)
 {
-    int i;
-    for (i = 0; i < jm.got_count; i++) {
-        int id = jm.got_cards[i];
-        if (id >= 1 && id <= 722 && !gLibrary_abCardChest[id - 1]) gLibrary_abCardChest[id - 1] = 1;
+    int i, k;
+    extern unsigned short gDuel_awPlayerDeck[40];
+    for (i = 0; i < jm.got_count && i < 48; i++) {
+        int id = jm.got_cards[i], in_deck = 0;
+        for (k = 0; k < 40; k++) if (gDuel_awPlayerDeck[k] == id) in_deck = 1;
+        /* Only legacy migration reconstructs rewards. A modern inventory may
+         * legitimately have sold one; loading must not mint another copy. */
+        if (!jm.cards_set && id >= 1 && id <= 722 && !in_deck && !gLibrary_abCardChest[id - 1]) gLibrary_abCardChest[id - 1] = 1;
         if (id >= 1 && id <= 722) Cards_MarkSeen(id);    /* older saves gave it without marking it seen */
     }
 }

@@ -1,13 +1,11 @@
 /* Journey Mode's save: one file in the player's data directory ("journey.sav", through
  * host->open_data), written by START > Save and read when Journey Mode is continued.  Save states
- * carry the same struct (host->register_state).  Cards a reward gave are in the game's own card
- * chest, which the game saves with its own save; the file lists them too, so a loaded Journey can
- * give any back that a different save lacks. */
+ * carry the same struct (host->register_state), including this run's deck and chest. */
 #include "jm.h"
 #include <string.h>
 
 #define MAGIC 0x31534A4Du      /* "MJS1" */
-#define VERSION 7          /* 2 language, 3 painted position, 4 layered hero, 5 economy, 6 Kingdom (flags 32-63, stars, area), 7 flags 64-95 in kflags2; older files still load (remainder zero-filled) */
+#define VERSION 8          /* 2 language, 3 painted position, 4 layered hero, 5 economy, 6 Kingdom (flags 32-63, stars, area), 7 flags 64-95 in kflags2, 8 private cards; older files still load (remainder zero-filled) */
 
 typedef struct { unsigned magic, version, size; Journey data; } File;
 
@@ -35,6 +33,7 @@ int Save_Write(void)
     if (Paint_Loaded()) { float a, b, c, d; Paint_Info(&a, &b, &c, &d); jm.pt_x = a; jm.pt_y = b; jm.pt_set = 1; jm.pt_area = Paint_SaveArea(); }
     Lang_PrefWrite(jm.lang);
     if (jm.stage >= 10 && jm.stars <= 0) { LOG("journey: no save at zero stars (game over)"); return 0; }
+    Journey_CardsCapture();
     file.magic = MAGIC;
     file.version = VERSION;
     file.size = sizeof(Journey);
@@ -74,4 +73,34 @@ void Save_Delete(void)
 {
     FILE *f = jm_host->open_data(jm_host, "journey.sav", "wb");
     if (f) fclose(f);
+}
+
+/* Live guest RAM is only the working copy used by duels and Build Deck. */
+extern unsigned short gDuel_awPlayerDeck[40];
+extern unsigned char gLibrary_abCardChest[];
+extern unsigned gLibrary_dwStarchips;
+
+void Journey_CardsCapture(void)
+{
+    memcpy(jm.deck, gDuel_awPlayerDeck, sizeof(jm.deck));
+    memcpy(jm.chest, gLibrary_abCardChest, sizeof(jm.chest));
+    jm.duel_stars = gLibrary_dwStarchips;
+    jm.cards_set = 1;
+}
+
+void Journey_CardsRestore(void)
+{
+    if (!jm.cards_set) {
+        /* v1-v7 never saved deck/chest. Shared RAM may be a classic/Free Duel
+         * deck: rebuild only the starter and explicitly recorded story rewards.
+         * Unknown old drops/purchases cannot safely be inferred from that RAM. */
+        Journey_GiveStarter();
+        jm.cards_set = 0;
+        Story_Regrant();
+        Journey_CardsCapture();
+        LOG("journey: migrated legacy inventory (starter + recorded rewards)");
+    }
+    memcpy(gDuel_awPlayerDeck, jm.deck, sizeof(jm.deck));
+    memcpy(gLibrary_abCardChest, jm.chest, sizeof(jm.chest));
+    gLibrary_dwStarchips = jm.duel_stars;
 }

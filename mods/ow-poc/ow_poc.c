@@ -34,6 +34,7 @@ extern u8 D_8009B26C, D_8009B26D, D_8009B26E, D_8009B268, D_8009B269, D_8009B368
 extern void Tower_Background(s32 on);
 extern u16 gDuel_awPlayerDeck[40];
 extern u8 gLibrary_abCardChest[];
+extern u32 gLibrary_dwStarchips;
 
 const MemoriesModHost *jm_host;
 int jm_save_requested, jm_save_ok, jm_name_entry_requested;
@@ -353,30 +354,40 @@ static void ensure_deck(void)
     int i, empty = 1;
     for (i = 0; i < 40; i++) if (gDuel_awPlayerDeck[i] >= 1 && gDuel_awPlayerDeck[i] <= 722) empty = 0;
     if (!empty) return;
-    for (i = 0; i < 40; i++) {
-        gDuel_awPlayerDeck[i] = (u16)(1 + i);
-        if (gLibrary_abCardChest[i] < 3) gLibrary_abCardChest[i] = 3;   /* card 1 + i: the chest's byte for card n is n - 1 */
+    /* An empty edited deck is not permission to grant the classic 1..40.
+     * Refill from this run's trunk only (moving, not duplicating copies). */
+    memset(gDuel_awPlayerDeck, 0, 40 * sizeof(u16));
+    for (i = 1; i <= 722; i++) {
+        int copies = 0, slot;
+        while (gLibrary_abCardChest[i - 1] && copies < 3) {
+            for (slot = 0; slot < 40 && gDuel_awPlayerDeck[slot]; slot++);
+            if (slot == 40) return;
+            gDuel_awPlayerDeck[slot] = (u16)i;
+            gLibrary_abCardChest[i - 1]--;
+            copies++;
+        }
     }
-    LOG("journey: starter deck given (the save had none)");
+    LOG("journey: empty deck refilled from owned cards only");
 }
 
 /* A new journey starts with the story's weak forty (journey.json "starter_deck"): the player has to
- * win, drop or buy better cards on the way.  The deck is replaced; the chest only ever gains copies. */
+ * win, drop or buy better cards on the way. Never inherit the classic chest. */
 void Journey_GiveStarter(void)
 {
     const JsonNode *list = Json_Get(jm_rules, "starter_deck"), *n;
-    int i = 0, need[723] = {0};
+    int i = 0;
     if (!list || Json_Count(list) != 40) return;
     for (n = list->child; n && i < 40; n = n->next) {
         int id = (int)n->num;
         if (id < 1 || id > 722) return;
-        need[id]++;
     }
+    memset(gLibrary_abCardChest, 0, 722);
+    gLibrary_dwStarchips = 0;
     for (n = list->child; n && i < 40; n = n->next, i++) {
         int id = (int)n->num;
         gDuel_awPlayerDeck[i] = (u16)id;
-        if (gLibrary_abCardChest[id - 1] < need[id]) gLibrary_abCardChest[id - 1] = (u8)need[id];
     }
+    Journey_CardsCapture();
     LOG("journey: starter deck given (40 weak cards)");
 }
 
@@ -410,7 +421,7 @@ static void arm_duel(int npc)
     func_80024DC8(-1, npcs[npc].duelist_id, 0x6000, 0x6000);
 }
 
-extern u32 gLibrary_dwStarchips;   /* the game's own duel-performance star chips (not the Kingdom's Fichas Estrela, jm.stars) */
+/* gLibrary_dwStarchips is the game's duel-performance currency, not jm.stars. */
 static void duel_returned(void)
 {
     int won = (D_8009B362 == 0);
@@ -679,6 +690,7 @@ static void continue_journey(void)
     if (!Save_Read()) { new_journey(); return; }
     Lang_Set(jm.lang);
     Paint_SetArea(jm.pt_area);             /* a save keeps the hatch (the village) even if it was made in the cistern; the chapter 2 pictures are kept */
+    Journey_CardsRestore();
     Dbg_Apply();
     Story_Regrant();
     ensure_deck();
@@ -717,7 +729,7 @@ static void run(int first)
         switch (after_return) {
         case RET_DUEL: duel_returned(); break;
         case RET_NAME: after_return = RET_NONE; Ui_RefreshName(); state = ST_CREATE; break;
-        case RET_DECK: after_return = RET_NONE; enter_world(); cooldown = 10; break;
+        case RET_DECK: after_return = RET_NONE; jm_save_ok = Save_Write(); enter_world(); cooldown = 10; break;
         default: {
             int req = menu_request;
             menu_request = REQ_NONE;

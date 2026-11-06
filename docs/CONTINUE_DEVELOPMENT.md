@@ -111,3 +111,26 @@ A package is a folder with: `memories-pc.exe` + `SDL3.dll` (from `tmp/pc/win32/`
 ### Fast tests
 
 Use `python3 mods/ow-poc/tools/smoke/fast.py` for the preset table and `mods/ow-poc/tools/fast.sh --quick` for the critical-path smoke (gates, star wager, chapter jumps). Full `fast.sh all` stays for release. Details: [`mods/ow-poc/tools/TESTING.md`](../mods/ow-poc/tools/TESTING.md).
+
+
+### v0.6.11: Journey deck/inventory isolation
+
+`journey.sav` version 8 now stores the run's 40-card deck, 722 trunk counts and
+performance starchips. New journeys clear the classic trunk; editor return saves
+these fields with the story. Classic deck slots (including F6 and the pre-duel
+picker) are disabled for the entire mod session, not just while walking.
+This change needs the rebuilt game executable as well as the rebuilt mod.
+
+Versions 1–7 never stored deck/trunk/starchips in `journey.sav`. Migration keeps
+story/economy progress but reconstructs cards from the weak starter and recorded
+story rewards only; old unrecorded drops, purchases and deck arrangements cannot
+be reliably recovered from a shared classic save. Do not import the current
+classic deck as a migration shortcut. Modern loads preserve exact quantities
+and do not re-grant sold story rewards.
+
+Regression (isolated user directory; classic slots enabled and seeded):
+
+```sh
+python3 mods/ow-poc/tools/smoke/deck_inventory.py
+python3 mods/ow-poc/tools/smoke/jm_smoke.py run painted_menu_deck cap2_starter_deck
+```
