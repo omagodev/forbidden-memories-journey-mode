@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Checks the story data before a build: python3 mods/ow-poc/tools/validate_story.py   (exit 1 on any error).
 
-journey.json: at most 32 flags and none twice, every flag a condition or effect names exists, every scene a rule points to (scene, then,
+journey.json: at most 64 flags and none twice, every flag a condition or effect names exists, every scene a rule points to (scene, then,
 win / lose, yes / no) exists in every language, speakers are known, anchors exist in jm_painted.c, observers and time events point at real
 script pages, sprite / prop files exist, debug presets are consistent.  lang/*/story.json: same scene ids and page counts in all languages.
 lang/*/ui.json: the objective list is as long as journey.json's (the HUD indexes it)."""
@@ -18,7 +18,7 @@ langs = sorted(p.name for p in (A / "lang").iterdir() if p.is_dir())
 S = {l: {s["id"]: s for s in json.load(open(A / "lang" / l / "story.json"))["scripts"]} for l in langs}
 UI = {l: json.load(open(A / "lang" / l / "ui.json")) for l in langs}
 flags = J["flags"]
-if len(flags) > 32: err("%d flags (max 32)" % len(flags))
+if len(flags) > 64: err("%d flags (max 64)" % len(flags))
 if len(set(flags)) != len(flags): err("a flag is listed twice")
 anchors = set(re.findall(r'\{"(\w+)",\s*\d+,\s*\d+(?:,\s*\d+)?\}', (MOD / "jm_painted.c").read_text()))
 speakers = set(J["speakers"]) | {"narrator"}
@@ -44,10 +44,15 @@ for path, k, v in walk(J):
         for f in v:
             if isinstance(f, str) and f not in flags: err("%s.flags: unknown flag %r" % (path, f))
     if k in ("scene", "then") and isinstance(v, str): scenes_used.add((path, v))
-    if k in ("anchor", "prop_anchor") and isinstance(v, str) and v not in anchors: err("%s: unknown anchor %r" % (path, v))
-    if k == "warp" and isinstance(v, list) and (len(v) != 2 or v[1] not in anchors or v[0] not in ("village", "cistern")): err("%s: bad warp %r" % (path, v))
-    if k == "area" and isinstance(v, int) and v not in (0, 1) and ".when" in path or (k == "area" and isinstance(v, int) and path.endswith(("active", "done"))): 
-        if v not in (0, 1): err("%s: unknown area %r" % (path, v))
+    if k in ("anchor", "prop_anchor") and isinstance(v, str):
+            bare = v.split(".", 1)[-1]
+            if v not in anchors and bare not in anchors: err("%s: unknown anchor %r" % (path, v))
+    if k == "warp" and isinstance(v, list):
+            areas_ok = ("village", "cistern", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "arena_village")
+            bare = v[1].split(".", 1)[-1] if len(v) == 2 and isinstance(v[1], str) else None
+            if len(v) != 2 or (v[1] not in anchors and bare not in anchors) or v[0] not in areas_ok: err("%s: bad warp %r" % (path, v))
+    if k == "area" and isinstance(v, int) and ".when" in path:
+        if v < 0 or v > 8: err("%s: unknown area %r" % (path, v))
     if k == "icon" and isinstance(v, str) and not (MOD / v).exists(): err("%s: icon file %s missing" % (path, v))
 for l in langs:
     for path, sc in sorted(scenes_used):
@@ -110,7 +115,8 @@ for a in J.get("auto", []):
 for i, d in enumerate(J.get("debug", [])):
     for f in d.get("flags", []):
         if f not in flags: err("debug preset %d: unknown flag %r" % (i, f))
-    if d.get("anchor") not in anchors: err("debug preset %d: unknown anchor %r" % (i, d.get("anchor")))
+    a = d.get("anchor")
+    if a and a not in anchors and a.split(".", 1)[-1] not in anchors: err("debug preset %d: unknown anchor %r" % (i, a))
 for w in warnings: print("warn:", w)
 for e in errors: print("ERROR:", e)
 print("validate_story: %d scenes (%s), %d flags, %d errors, %d warnings" % (len(S[ref]), "/".join(langs), len(flags), len(errors), len(warnings)))

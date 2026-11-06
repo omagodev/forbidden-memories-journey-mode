@@ -395,7 +395,7 @@
      "kind": "monster"
     },
     {
-     "card": "Kuwagata \u03b1",
+     "card": "Kuwagata α",
      "id": 480,
      "rarity": "C",
      "weight": 1,
@@ -1037,14 +1037,6 @@
      "kind": "monster"
     },
     {
-     "card": "Flower Wolf",
-     "id": 487,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 4,
-     "kind": "monster"
-    },
-    {
      "card": "Ancient One of the Deep Forest",
      "id": 575,
      "rarity": "A",
@@ -1052,14 +1044,6 @@
      "min_level": 4,
      "arena_only": true,
      "exclusive": true,
-     "kind": "monster"
-    },
-    {
-     "card": "Queen of Autumn Leaves",
-     "id": 638,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 4,
      "kind": "monster"
     },
     {
@@ -2452,7 +2436,7 @@
      "kind": "monster"
     },
     {
-     "card": "Kuwagata \u03b1",
+     "card": "Kuwagata α",
      "id": 480,
      "rarity": "C",
      "weight": 1,
@@ -3436,7 +3420,7 @@
      "kind": "monster"
     },
     {
-     "card": "Kuwagata \u03b1",
+     "card": "Kuwagata α",
      "id": 480,
      "rarity": "C",
      "weight": 1,
@@ -4072,14 +4056,6 @@
      "kind": "monster"
     },
     {
-     "card": "Flower Wolf",
-     "id": 487,
-     "rarity": "A",
-     "weight": 3,
-     "min_level": 9,
-     "kind": "monster"
-    },
-    {
      "card": "Rose Spectre of Dunn",
      "id": 594,
      "rarity": "A",
@@ -4092,14 +4068,6 @@
     {
      "card": "Nekogal #2",
      "id": 627,
-     "rarity": "A",
-     "weight": 1,
-     "min_level": 9,
-     "kind": "monster"
-    },
-    {
-     "card": "Queen of Autumn Leaves",
-     "id": 638,
      "rarity": "A",
      "weight": 1,
      "min_level": 9,
@@ -6524,7 +6492,9 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 12,
-     "kind": "monster"
+     "kind": "monster",
+     "arena_only": true,
+     "exclusive": true
     },
     {
      "card": "Musician King",
@@ -6556,7 +6526,9 @@
      "rarity": "A",
      "weight": 1,
      "min_level": 12,
-     "kind": "monster"
+     "kind": "monster",
+     "arena_only": true,
+     "exclusive": true
     },
     {
      "card": "Rock Spirit",
@@ -6570,9 +6542,11 @@
      "card": "Queen of Autumn Leaves",
      "id": 638,
      "rarity": "A",
-     "weight": 3,
+     "weight": 1,
      "min_level": 12,
-     "kind": "monster"
+     "kind": "monster",
+     "arena_only": true,
+     "exclusive": true
     }
    ]
   },
@@ -9864,7 +9838,7 @@
      "kind": "monster"
     },
     {
-     "card": "Kuwagata \u03b1",
+     "card": "Kuwagata α",
      "id": 480,
      "rarity": "C",
      "weight": 1,
@@ -11998,14 +11972,6 @@
      "id": 555,
      "rarity": "A",
      "weight": 1,
-     "min_level": 20,
-     "kind": "monster"
-    },
-    {
-     "card": "Dark Witch",
-     "id": 582,
-     "rarity": "A",
-     "weight": 3,
      "min_level": 20,
      "kind": "monster"
     },

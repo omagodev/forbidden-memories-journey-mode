@@ -873,3 +873,7 @@ _C3.scripts(sc, H, X, N)
 # ---------------------------------------------------------------- chapter 4 (the Mountain Pass): dk_chapter4.py
 import dk_chapter4 as _C4
 _C4.scripts(sc, H, X, N)
+
+# ---------------------------------------------------------------- chapter 5 (the Meadow Maze): dk_chapter5.py
+import dk_chapter5 as _C5
+_C5.scripts(sc, H, X, N)

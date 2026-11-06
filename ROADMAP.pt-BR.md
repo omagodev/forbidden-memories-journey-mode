@@ -18,6 +18,7 @@ O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direç�
 - Capítulo 2 do Reino dos Duelistas (a Costa das Ilusões): o espelho do Pegasus, a emboscada do Weevil, apostas de estrelas, o Acampamento da Costa
 - Capítulo 3 do Reino dos Duelistas (a Floresta dos Sussurros): a aposta de estrela do Rex Raptor, três Marcas de Estrela, a clareira escondida, o Mago da Floresta (tem três estrelas); loja do Eremita Hob, conjunto de cartas da floresta, emboscadas da gangue e o Ringue do Tronco Oco com três cartas exclusivas
 - Capítulo 4 do Reino dos Duelistas (a Passagem da Montanha): o pedágio do Bandit Keith na ponte de corda (tem três estrelas), o duelo de orgulho com a Mai (sem estrela), o entalhador flagrado na caverna, o Mago da Montanha (tem quatro; seis estrelas na aposta mínima); tenda da Cliff Cass, conjunto de cartas da montanha, emboscadas da gangue e o Fosso da Mina com três cartas exclusivas; acampamento da trilha na floresta e na passagem
+- Capítulo 5 do Reino dos Duelistas (o Labirinto da Campina): Teana clandestina (duelo amistoso, depois ajudante), a Maga da Campina (guarda duas; sete estrelas na aposta mínima); o carrinho da Rose Rue, conjunto de cartas da campina, emboscadas da gangue e o Anel da Toca do Coelho com três cartas exclusivas (Flower Wolf, Dark Witch, Queen of Autumn Leaves); acampamento da campina
 - Apostas de estrelas: tela de aposta antes de cada duelo de estrelas (de 1 até o mínimo entre as suas e as dele), cada guardião tem suas próprias estrelas (salvas), a aposta perdida fica com ele e uma revanche recupera; zero estrelas = FIM DE JOGO, com aviso do Shadi, do Pegasus, dos acampamentos, da tela de aposta e da Mochila
 
 ### Fichas de Estrela: a curva (fixa para todos os próximos capítulos)
@@ -30,7 +31,7 @@ As estrelas são itens da história, guardadas na Mochila como *Fichas de Estrel
 | 2 Costa das Ilusões | Weevil | 2 | trilha da selva: 2 |
 | 3 Floresta dos Sussurros | Rex Raptor, Mago da Floresta | 3, 4 | passagem da montanha: 4 |
 | 4 Passagem da Montanha | Bandit Keith, Mago da Montanha | 5, 6 | arco do cume: 6 |
-| 5 Labirinto da Campina | Maga da Campina | 7 | (planejado) centro do labirinto: 6 |
+| 5 Labirinto da Campina | Maga da Campina | 7 | centro do labirinto: 6 |
 | 6 Deserto das Estrelas Perdidas | Mago do Deserto | 8 | (planejado) |
 | 7 Feira das Estrelas | campeão do ringue | 9 | (planejado) |
 | 8 Portão do Castelo | InsetoKaiba, guardião | 10 | a fechadura do castelo: pelo menos 10 |

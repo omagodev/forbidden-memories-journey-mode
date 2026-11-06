@@ -452,6 +452,26 @@ CHAPTERS.append(_C4.CHAPTER)
 QUESTS += _C4.QUESTS
 DECKS.update(_C4.DECKS)
 
+# ---------------------------------------------------------------- chapter 5 (the Meadow Maze): dk_chapter5.py
+import dk_chapter5 as _C5
+SPEAKERS.update(_C5.SPEAKERS)
+FLAGS += _C5.FLAGS
+STAGES = sorted(STAGES + _C5.STAGES)
+for _i, _a in enumerate(AREAS):
+    if _a[0] == "kingdom_meadow": del AREAS[_i]; break
+AREAS.append(("kingdom_meadow", "Meadow Maze", "Labirinto da Campina", "Fourth Kingdom area: a hedge maze, a flower cart, a rabbit-hole arena, a star stone at the centre, the desert arch.", "exists (illustrated, chapter 5)"))
+ANCHORS["kingdom_meadow"] = _C5.ANCHORS["kingdom_meadow"]
+ITEMS += _C5.ITEMS
+NPCS += _C5.NPCS
+NPC_SPEAKER.update(_C5.NPC_SPEAKER)
+OBJECTS += _C5.OBJECTS
+DUELS += _C5.DUELS
+TRANSITIONS += _C5.TRANSITIONS
+HUD += _C5.HUD
+CHAPTERS.append(_C5.CHAPTER)
+QUESTS += _C5.QUESTS
+DECKS.update(_C5.DECKS)
+
 # Appended after every released chapter flag so existing save bits keep their
 # meaning.  These optional academy lessons use the previously unused tail.
 FLAGS += [

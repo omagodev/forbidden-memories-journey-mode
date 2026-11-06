@@ -1134,7 +1134,7 @@ _The Mountain Mage after the duel._
 ### dk4_castle_road
 _The summit gate after chapter 4: the next part._
 
-- **Estrada do Castelo**: O castelo brilha acima das nuvens. O capitulo 5 chega na proxima parte.
+- **Estrada do Castelo**: Cercas e flores abrem alem do arco. O Labirinto da Campina espera.
 
 ### dk4_cliff_cass
 _Cliff Cass, the mountain tent._
@@ -1145,4 +1145,114 @@ _Cliff Cass, the mountain tent._
 _The trail camp: a lantern, and the game-over warning._
 
 - **Acampamento**: Uma lona, um catre e um lampiao. A equipe do Reino o mantem.
-- **Staff do Reino**: Cuidado la em cima. Aqui ninguem devolve estrela. Perdeu a ultima, a jornada acabou.
+- **Equipe do Acampamento**: Cuidado la em cima. Aqui ninguem devolve estrela. Perdeu a ultima, a jornada acabou.
+
+### dk5_enter
+_Chapter 4 -> 5: the summit road opens onto the Meadow Maze._
+
+- **Labirinto da Campina**: Seis estrelas. O vento fica macio. Cercas e flores.
+- **{name}**: Um labirinto. Depois da passagem, quase parece descanso.
+
+### dk5_to_meadow
+_The castle road after the first visit._
+
+- **Estrada da Campina**: As cercas fecham de novo. Cheiro de flor. Chao macio.
+
+### dk5_to_mountain
+_The trail back up to the Mountain Pass._
+
+- **Trilha do Cume**: O vento endurece. Pedra sob os pes. A passagem fica acima.
+
+### dk5_arrival
+_Chapter 5 opens: the hedge maze, a giggle in the leaves._
+
+- **Labirinto**: Paredes verdes altas. Caminhos tortos. Alguem ri nas folhas.
+- **{name}**: Essa risada. Eu ouvi dentro de um barril no navio.
+- **Teana**: Xiu! Voce me achou. Surpresa!
+- **Objetivo**: Fale com a Teana nas cercas.
+
+### dk5_teana_pre
+_Teana the stowaway: a friendly duel, then she helps._
+
+- **Teana**: Eu me escondi naquele barril. O navio cheirava a peixe e aventura!
+- **{name}**: Teana! A vila vai sentir sua falta. E os bolos.
+- **Teana**: Trouxe uma estrela dourada. O homem de capuz me deu. Olha - o mesmo formato da sua!
+- **Teana**: Me desafie primeiro. Amistoso. Se ganhar, eu te guio no labirinto. Combinado?  _[Duel? Yes/No]_
+
+### dk5_teana_win
+_Teana loses the friendly duel and becomes a helper._
+
+- **Teana**: Ai, meu orgulho! Tudo bem. Voce ganhou. Sou sua guia do labirinto.
+- **Voce ganhou**: O Amuleto de Dica da Teana. Ela te da dicas daqui pra frente.
+- **Teana**: Centro do labirinto: uma maga com estrelas. Ela nao ri. Vai com cuidado.
+- **Objetivo**: Ache a Maga da Campina no centro do labirinto.
+
+### dk5_teana_lose
+_Teana wins the friendly duel (no star)._
+
+- **Teana**: Hihi! Ainda tenho jogo. Tente de novo quando quiser. Eu espero.
+- **{name}**: Ela faz gracinha e bate forte. O carrinho da Rose Rue, ou a toca do coelho.
+
+### dk5_teana_after
+_Teana the helper after the friendly duel._
+
+- **Teana**: Esquerda, esquerda, direita, depois a pedra da estrela. Ou me pergunta de novo.
+
+### dk5_hint
+_A free tip from helper Teana._
+
+- **Teana**: A Maga guarda estrelas. Aposte pouco pra curva. Aposte muito se for corajoso. Ou estiver duro.
+
+### dk5_centre_early
+_The star stone before Teana's tip._
+
+- **Pedra da Estrela**: Uma estrela entalhada na pedra. As cercas ainda parecem fechadas.
+
+### dk5_mage_pre
+_The Meadow Mage, zone master: a one-star wager at the maze centre._
+
+- **Maga da Campina**: Seis estrelas andam no meu labirinto. Poucos saem com sete.
+- **Maga da Campina**: Duas estrelas repousam nestas cercas. Aposte o que sua coragem deixar.
+- **{name}**: Dez abrem o castelo. Nao volto por causa de flores.
+- **Maga da Campina**: Entao floresca ou murche, viajante. A campina pode falar?  _[Duel? Yes/No]_
+
+### dk5_mage_win
+_The Meadow Mage loses: seven stars, end of chapter 5._
+
+- **Maga da Campina**: As cercas se abrem. Minha estrela, e uma folha da minha coroa.
+- **Voce ganhou**: Uma estrela e a carta Queen of Autumn Leaves.
+- **Maga da Campina**: Alem do arco a grama fica dourada. Vento do deserto. O Reino ainda observa.
+- **{name}**: Sete estrelas. Faltam tres. A Teana esta cantarolando em algum lugar nas folhas.
+- **Fim do Capitulo 5**: O Labirinto da Campina ficou para tras. A estrada do deserto abre.
+
+### dk5_mage_lose
+_The Meadow Mage keeps her stars._
+
+- **Maga da Campina**: Petalas caem. Volte mais pesado, florzinha.
+- **{name}**: Ela me passou. Rose Rue e o Anel da Toca do Coelho, entao.
+
+### dk5_mage_after
+_The Meadow Mage after the duel._
+
+- **Maga da Campina**: O arco e seu. Cuidado com os espinhos no caminho.
+
+### dk5_desert_road
+_The arch after chapter 5: the next part._
+
+- **Estrada do Deserto**: Grama dourada. Vento quente. O capitulo 6 chega na proxima parte.
+
+### dk5_gate_shut
+_The desert arch before seven stars._
+
+- **Arco do Deserto**: Um arco coberto de vinhas. Sete estrelas gravadas. As cercas empurram voce.
+
+### dk5_rose_rue
+_Rose Rue, the meadow flower cart._
+
+- **Rose Rue**: Rosas, espinhos e cartas. So as cartas florescem duas vezes.
+
+### dk5_meadow_camp
+_The meadow camp: a lantern, and the game-over warning._
+
+- **Acampamento**: Uma lona entre flores do campo. A equipe do Reino mantem um lampiao.
+- **Equipe do Acampamento**: Lugar bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.

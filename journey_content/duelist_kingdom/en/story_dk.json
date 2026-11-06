@@ -33,8 +33,8 @@
   "teana": {
    "name": "Teana",
    "short": "Teana",
-   "portrait": 2,
-   "note": "Date-cake stall girl."
+   "portrait": 20,
+   "note": "Stowaway from the ship barrel; becomes a maze helper (chapter 5)."
   },
   "jono": {
    "name": "Jono",
@@ -151,10 +151,10 @@
    "note": "Weevil Underwood, the bug champion with loaded dice."
   },
   "staff": {
-   "name": "Kingdom Staff",
+   "name": "Camp Staff",
    "short": "Staff",
    "portrait": 254,
-   "note": "Pegasus's camp staff (voice only)."
+   "note": "Kingdom staff at the meadow camp."
   },
   "dock_dan": {
    "name": "Dock Dan",
@@ -209,6 +209,18 @@
    "short": "Cass",
    "portrait": 254,
    "note": "Mountain tent keeper (economy)."
+  },
+  "meadow_mage": {
+   "name": "Meadow Mage",
+   "short": "Meadow Mage",
+   "portrait": 29,
+   "note": "Master of the Meadow Maze (chapter 5 zone master)."
+  },
+  "rose_rue": {
+   "name": "Rose Rue",
+   "short": "Rue",
+   "portrait": 254,
+   "note": "Meadow flower-cart keeper (economy)."
   }
  },
  "flags": [
@@ -495,45 +507,63 @@
    "note": "Mountain Mage beaten: sixth star, end of chapter 4."
   },
   {
-   "name": "academy_started",
+   "name": "meadow_arrived",
    "bit": 47,
    "value": 140737488355328,
+   "note": "Chapter 5: entered the Meadow Maze."
+  },
+  {
+   "name": "teana_meadow_won",
+   "bit": 48,
+   "value": 281474976710656,
+   "note": "Teana beaten in the friendly duel: helper unlocked."
+  },
+  {
+   "name": "meadow_mage_won",
+   "bit": 49,
+   "value": 562949953421312,
+   "note": "Meadow Mage beaten: seventh star, end of chapter 5."
+  },
+  {
+   "name": "academy_started",
+   "bit": 50,
+   "value": 1125899906842624,
    "note": "Professor Nabil introduced the optional Duel Academy."
   },
   {
    "name": "academy_basics",
-   "bit": 48,
-   "value": 281474976710656,
+   "bit": 51,
+   "value": 2251799813685248,
    "note": "Academy class 1 complete: turns, hand and battle."
   },
   {
    "name": "academy_guardians",
-   "bit": 49,
-   "value": 562949953421312,
+   "bit": 52,
+   "value": 4503599627370496,
    "note": "Academy class 2 complete: Guardian Star cycles."
   },
   {
    "name": "academy_fields",
-   "bit": 50,
-   "value": 1125899906842624,
+   "bit": 53,
+   "value": 9007199254740992,
    "note": "Academy class 3 complete: terrain bonuses."
   },
   {
    "name": "academy_power",
-   "bit": 51,
-   "value": 2251799813685248,
+   "bit": 54,
+   "value": 18014398509481984,
    "note": "Academy class 4 complete: equips and stacked bonuses."
   },
   {
    "name": "academy_fusions",
-   "bit": 52,
-   "value": 4503599627370496,
+   "bit": 55,
+   "value": 36028797018963968,
    "note": "Academy class 5 complete: ordered fusion chains."
   },
   {
    "name": "academy_graduate",
-   "bit": 53,
-   "value": 9007199254740992,
+   "bit": 56,
+   "value": 72057594037927936,
    "note": "Won Professor Nabil's optional practice duel."
   }
  ],
@@ -617,6 +647,18 @@
   {
    "stage": 21,
    "note": "Chapter 4 complete: the castle road is the next part"
+  },
+  {
+   "stage": 22,
+   "note": "Chapter 5: the maze, Teana in the hedges"
+  },
+  {
+   "stage": 23,
+   "note": "Chapter 5: Teana helps; the Meadow Mage at the centre"
+  },
+  {
+   "stage": 24,
+   "note": "Chapter 5 complete: the desert road is the next part"
   }
  ],
  "chapters": [
@@ -662,7 +704,18 @@
     21
    ],
    "reward": "six stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone",
-   "unlock": "the castle road (chapter 5)"
+   "unlock": "the Meadow Maze (chapter 5)"
+  },
+  {
+   "n": 5,
+   "title": "The Meadow Maze",
+   "region": "kingdom_meadow",
+   "stage": [
+    22,
+    24
+   ],
+   "reward": "seven stars, Hint Charm, card Queen of Autumn Leaves",
+   "unlock": "the desert road (chapter 6)"
   }
  ],
  "areas": [
@@ -707,6 +760,12 @@
    "name": "Mountain Pass",
    "setting": "Third Kingdom area: a chasm and a rope bridge, an old mine shaft, a cliff tent, a cave under a carved star, the summit gate.",
    "art": "exists (illustrated, chapter 4)"
+  },
+  {
+   "id": "kingdom_meadow",
+   "name": "Meadow Maze",
+   "setting": "Fourth Kingdom area: a hedge maze, a flower cart, a rabbit-hole arena, a star stone at the centre, the desert arch.",
+   "art": "exists (illustrated, chapter 5)"
   }
  ],
  "anchors": {
@@ -793,6 +852,18 @@
    "pass_center": "The open trail west of the chasm.",
    "hangout_a": "East trail.",
    "hangout_b": "West trail by the pines."
+  },
+  "kingdom_meadow": {
+   "spawn": "Path in from the mountain (bottom left).",
+   "meadow_camp": "A tarp among flowers (bottom left).",
+   "teana_spot": "A clearing in the hedges where Teana waits.",
+   "shop_stall": "Rose Rue's flower cart (top left).",
+   "arena_door": "The rabbit-hole burrow (bottom right): the Rabbit Hole Ring.",
+   "gate_spot": "The star stone at the maze centre.",
+   "desert_gate": "The vine arch at the top: the desert road.",
+   "maze_center": "Open grass near the star stone.",
+   "hangout_a": "East hedge path.",
+   "hangout_b": "West hedge path by the camp."
   }
  },
  "npcs": [
@@ -2364,6 +2435,118 @@
      "script": "dk4_cliff_cass"
     }
    ]
+  },
+  {
+   "id": "teana_meadow",
+   "name": "Teana",
+   "portrait_speaker": "teana",
+   "area": "kingdom_meadow",
+   "anchor": "teana_spot",
+   "duelist_id": 20,
+   "stages": [
+    22,
+    99
+   ],
+   "visible": "placed",
+   "note": "Teana the stowaway: friendly duel, then helper tips.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       22,
+       22
+      ],
+      "flags_none": [
+       "teana_meadow_won"
+      ]
+     },
+     "script": "dk5_teana_pre",
+     "duel": "teana_meadow"
+    },
+    {
+     "when": {
+      "stage": [
+       23,
+       99
+      ],
+      "needs": [
+       "teana_meadow_won"
+      ]
+     },
+     "script": "dk5_hint"
+    },
+    {
+     "when": {
+      "stage": [
+       23,
+       99
+      ]
+     },
+     "script": "dk5_teana_after"
+    }
+   ]
+  },
+  {
+   "id": "meadow_mage",
+   "name": "Meadow Mage",
+   "portrait_speaker": "meadow_mage",
+   "area": "kingdom_meadow",
+   "anchor": "gate_spot",
+   "duelist_id": 29,
+   "stages": [
+    23,
+    99
+   ],
+   "visible": "placed",
+   "note": "The zone master at the maze centre once Teana is helping.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       23,
+       23
+      ],
+      "flags_none": [
+       "meadow_mage_won"
+      ]
+     },
+     "script": "dk5_mage_pre",
+     "duel": "meadow_mage"
+    },
+    {
+     "when": {
+      "stage": [
+       23,
+       99
+      ]
+     },
+     "script": "dk5_mage_after"
+    }
+   ]
+  },
+  {
+   "id": "rose_rue",
+   "name": "Rose Rue",
+   "portrait_speaker": "rose_rue",
+   "area": "kingdom_meadow",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    22,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       22,
+       99
+      ]
+     },
+     "script": "dk5_rose_rue"
+    }
+   ]
   }
  ],
  "objects": [
@@ -3035,6 +3218,74 @@
    "area": "kingdom_mountain",
    "anchor": "spawn",
    "dialogue_rules": []
+  },
+  {
+   "id": "star_stone",
+   "name": "Star stone",
+   "area": "kingdom_meadow",
+   "anchor": "gate_spot",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       22,
+       22
+      ]
+     },
+     "script": "dk5_centre_early"
+    }
+   ]
+  },
+  {
+   "id": "desert_gate",
+   "name": "Desert arch",
+   "area": "kingdom_meadow",
+   "anchor": "desert_gate",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       24,
+       99
+      ],
+      "stars": 7
+     },
+     "script": "dk5_desert_road"
+    },
+    {
+     "when": {
+      "stage": [
+       22,
+       99
+      ]
+     },
+     "script": "dk5_gate_shut"
+    }
+   ]
+  },
+  {
+   "id": "meadow_camp",
+   "name": "Meadow camp",
+   "area": "kingdom_meadow",
+   "anchor": "meadow_camp",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       22,
+       99
+      ]
+     },
+     "script": "dk5_meadow_camp"
+    }
+   ]
+  },
+  {
+   "id": "meadow_exit",
+   "name": "Summit trail",
+   "area": "kingdom_meadow",
+   "anchor": "spawn",
+   "dialogue_rules": []
   }
  ],
  "items": [
@@ -3139,6 +3390,12 @@
    "name": "Star Chisel",
    "description": "Croquet's chisel. The tip still glows like a star.",
    "source": "Croquet, in the Star Cave"
+  },
+  {
+   "id": "hint_charm",
+   "name": "Hint Charm",
+   "description": "Teana's charm. She tips you through the maze and beyond.",
+   "source": "Teana, in the Meadow Maze"
   }
  ],
  "new_duelists": [
@@ -3565,6 +3822,24 @@
     }
    ],
    "reward": "six stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone"
+  },
+  {
+   "id": "q14_meadow",
+   "kind": "talk+duel",
+   "optional": false,
+   "title": "The Meadow Maze",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Find Teana in the hedges",
+     "anchor": "kingdom_meadow.teana_spot"
+    },
+    {
+     "objective": "Beat the Meadow Mage for a star",
+     "anchor": "kingdom_meadow.gate_spot"
+    }
+   ],
+   "reward": "seven stars, Hint Charm, card Queen of Autumn Leaves"
   }
  ],
  "duels": [
@@ -3995,6 +4270,53 @@
    "stars_wager": true,
    "stars": 4,
    "note": "Zone master, holds 4 stars: bet 1 for the curve, more for a risky jump. Needs mountain cards or Mine Shaft Pit wins."
+  },
+  {
+   "id": "teana_meadow",
+   "npc": "teana_meadow",
+   "duelist_id": 20,
+   "chapter": 1,
+   "deck": "Teana Maze",
+   "difficulty_tier": 4,
+   "pre_script": "dk5_teana_pre",
+   "win_script": "dk5_teana_win",
+   "lose_script": "dk5_teana_lose",
+   "win_flag": "teana_meadow_won",
+   "on_win": [
+    {
+     "give_item": "hint_charm"
+    },
+    {
+     "set_stage": 23
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Friendly duel, no star: Teana becomes a helper with maze tips."
+  },
+  {
+   "id": "meadow_mage",
+   "npc": "meadow_mage",
+   "duelist_id": 29,
+   "chapter": 1,
+   "deck": "Meadow Mage Grove",
+   "difficulty_tier": 5,
+   "pre_script": "dk5_mage_pre",
+   "win_script": "dk5_mage_win",
+   "lose_script": "dk5_mage_lose",
+   "win_flag": "meadow_mage_won",
+   "on_win": [
+    {
+     "give_card": "Queen of Autumn Leaves"
+    },
+    {
+     "set_stage": 24
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Zone master, holds 2 stars: bet 1 for the curve (6->7). Needs meadow cards or Rabbit Hole Ring wins."
   }
  ],
  "transitions": [
@@ -4456,6 +4778,98 @@
     }
    ],
    "script": "dk4_arrival"
+  },
+  {
+   "id": "enter_meadow",
+   "when": {
+    "stage": [
+     21,
+     21
+    ],
+    "stars": 6
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "summit_gate"
+   },
+   "effects": [
+    {
+     "set_stage": 22
+    },
+    {
+     "teleport": {
+      "area": "kingdom_meadow",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk5_enter"
+  },
+  {
+   "id": "to_meadow",
+   "when": {
+    "stage": [
+     22,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "summit_gate"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_meadow",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk5_to_meadow"
+  },
+  {
+   "id": "to_mountain_from_meadow",
+   "when": {
+    "stage": [
+     22,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "meadow_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_mountain",
+      "anchor": "summit_gate"
+     }
+    }
+   ],
+   "script": "dk5_to_mountain"
+  },
+  {
+   "id": "meadow_arrival",
+   "when": {
+    "stage": [
+     22,
+     22
+    ],
+    "flags_none": [
+     "meadow_arrived"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true",
+    "area": "kingdom_meadow"
+   },
+   "effects": [
+    {
+     "set_flag": "meadow_arrived"
+    }
+   ],
+   "script": "dk5_arrival"
   }
  ],
  "hud_objectives": [
@@ -4858,6 +5272,33 @@
     ]
    },
    "text": "Chapter 4 complete - the castle road waits"
+  },
+  {
+   "when": {
+    "stage": [
+     22,
+     22
+    ]
+   },
+   "text": "Find Teana in the hedges - the giggle from the ship"
+  },
+  {
+   "when": {
+    "stage": [
+     23,
+     23
+    ]
+   },
+   "text": "Beat the Meadow Mage - a star on the line"
+  },
+  {
+   "when": {
+    "stage": [
+     24,
+     99
+    ]
+   },
+   "text": "Chapter 5 complete - the desert road waits"
   }
  ],
  "scripts": [
@@ -8174,7 +8615,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "The castle shines above the clouds. Chapter 5 arrives in the next part.",
+     "text": "Hedges and flowers open beyond the arch. The Meadow Maze waits.",
      "label": "Castle Road"
     }
    ]
@@ -8205,6 +8646,317 @@
     {
      "speaker": "staff",
      "text": "Careful up there. Nobody here gives stars back. Lose your last and your journey is over."
+    }
+   ]
+  },
+  {
+   "id": "dk5_enter",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "Chapter 4 -> 5: the summit road opens onto the Meadow Maze.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Six stars. The wind turns soft. Hedges and flowers.",
+     "label": "Meadow Maze"
+    },
+    {
+     "speaker": "atos",
+     "text": "A maze. After the pass, this almost feels like a break."
+    }
+   ]
+  },
+  {
+   "id": "dk5_to_meadow",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The castle road after the first visit.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The hedges close in again. Flower smell. Soft ground.",
+     "label": "Meadow Road"
+    }
+   ]
+  },
+  {
+   "id": "dk5_to_mountain",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The trail back up to the Mountain Pass.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The wind turns hard. Stone underfoot. The pass is above.",
+     "label": "Summit Trail"
+    }
+   ]
+  },
+  {
+   "id": "dk5_arrival",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "Chapter 5 opens: the hedge maze, a giggle in the leaves.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Tall green walls. Paths that twist. Someone giggles in the leaves.",
+     "label": "Meadow Maze"
+    },
+    {
+     "speaker": "atos",
+     "text": "That laugh. I heard it inside a barrel on the ship."
+    },
+    {
+     "speaker": "teana",
+     "text": "Shh! You found me. Surprise!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Talk to Teana in the hedges.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk5_teana_pre",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "Teana the stowaway: a friendly duel, then she helps.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "I hid in that barrel. The ship smelled like fish and adventure!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Teana! The village is going to miss you. And the cakes."
+    },
+    {
+     "speaker": "teana",
+     "text": "I brought a golden star. The hooded man gave it to me. Look - same shape as yours!"
+    },
+    {
+     "speaker": "teana",
+     "text": "Duel me first. Friendly. If you win, I guide you through the maze. Deal?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk5_teana_win",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "Teana loses the friendly duel and becomes a helper.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Ow, my pride! Fine. You win. I am your maze guide now."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Teana's Hint Charm. She will tip you from here on.",
+     "label": "You got"
+    },
+    {
+     "speaker": "teana",
+     "text": "Centre of the maze: a mage with stars. She does not giggle. Go careful."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Find the Meadow Mage at the maze centre.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk5_teana_lose",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "Teana wins the friendly duel (no star).",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Hee! Still got it. Try again when you are ready. I will wait."
+    },
+    {
+     "speaker": "atos",
+     "text": "She plays cute and hits hard. Rose Rue's cart, or the rabbit hole."
+    }
+   ]
+  },
+  {
+   "id": "dk5_teana_after",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "Teana the helper after the friendly duel.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Left, left, right, then the star stone. Or ask me again. I like talking."
+    }
+   ]
+  },
+  {
+   "id": "dk5_hint",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "A free tip from helper Teana.",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "The Mage holds stars. Bet small if you want the curve. Bet big if you are brave. Or broke."
+    }
+   ]
+  },
+  {
+   "id": "dk5_centre_early",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The star stone before Teana's tip.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A carved star in the stone. The hedges still feel closed.",
+     "label": "Star Stone"
+    }
+   ]
+  },
+  {
+   "id": "dk5_mage_pre",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The Meadow Mage, zone master: a one-star wager at the maze centre.",
+   "pages": [
+    {
+     "speaker": "meadow_mage",
+     "text": "Six stars walk my maze. Few leave with seven."
+    },
+    {
+     "speaker": "meadow_mage",
+     "text": "Two stars rest in these hedges. Wager what your nerve allows."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten open the castle. I am not turning back for flowers."
+    },
+    {
+     "speaker": "meadow_mage",
+     "text": "Then bloom or wilt, traveler. Shall the meadow speak?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk5_mage_win",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The Meadow Mage loses: seven stars, end of chapter 5.",
+   "pages": [
+    {
+     "speaker": "meadow_mage",
+     "text": "The hedges part. My star, and a leaf from my crown."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star and the card Queen of Autumn Leaves.",
+     "label": "You got"
+    },
+    {
+     "speaker": "meadow_mage",
+     "text": "Beyond the arch the grass turns gold. Desert wind. The Kingdom still watches."
+    },
+    {
+     "speaker": "atos",
+     "text": "Seven stars. Three to go. Teana is humming somewhere in the leaves."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Meadow Maze is behind you. The desert road opens.",
+     "label": "End of Chapter 5"
+    }
+   ]
+  },
+  {
+   "id": "dk5_mage_lose",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The Meadow Mage keeps her stars.",
+   "pages": [
+    {
+     "speaker": "meadow_mage",
+     "text": "Petals fall. Return heavier, little bloom."
+    },
+    {
+     "speaker": "atos",
+     "text": "She outplayed me. Rose Rue and the Rabbit Hole Ring, then."
+    }
+   ]
+  },
+  {
+   "id": "dk5_mage_after",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The Meadow Mage after the duel.",
+   "pages": [
+    {
+     "speaker": "meadow_mage",
+     "text": "The arch is yours. Mind the thorns on the way."
+    }
+   ]
+  },
+  {
+   "id": "dk5_desert_road",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The arch after chapter 5: the next part.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Gold grass. Hot wind. Chapter 6 arrives in the next part.",
+     "label": "Desert Road"
+    }
+   ]
+  },
+  {
+   "id": "dk5_gate_shut",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The desert arch before seven stars.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A vine-covered arch. Seven stars are carved on it. The hedges push you back.",
+     "label": "Desert Arch"
+    }
+   ]
+  },
+  {
+   "id": "dk5_rose_rue",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "Rose Rue, the meadow flower cart.",
+   "pages": [
+    {
+     "speaker": "rose_rue",
+     "text": "Roses, thorns and cards. Only the cards ever bloom twice."
+    }
+   ]
+  },
+  {
+   "id": "dk5_meadow_camp",
+   "legacy_id": null,
+   "chapter": 5,
+   "desc": "The meadow camp: a lantern, and the game-over warning.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A tarp among wildflowers. Kingdom staff keep a lantern lit.",
+     "label": "Meadow Camp"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pretty place. Deadly rules. Lose your last star and your journey ends for good."
     }
    ]
   }

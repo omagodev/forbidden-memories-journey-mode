@@ -25,6 +25,7 @@ JOURNEY MODE is an unofficial, non-commercial fan mod for Yu-Gi-Oh! Forbidden Me
 * Chapter 2 brings the harbor, ship deck and Shore of Illusions maps and the sprites of the harbor soldier, Shadi's courier, Mai, Weevil, InsetoKaiba, the purser and the camp merchant: AI-generated, baked into `mods/ow-poc/assets/` by `mods/ow-poc/tools/build_kingdom_assets.py`. Inspired by Forbidden Memories characters; not official art.
 * Chapter 3 brings the Forest of Whispers map and the Forest Mage sprite: AI-generated, baked the same way. Not official art.
 * Chapter 4 brings the Mountain Pass map and the Bandit Keith and Mountain Mage sprites: AI-generated, baked the same way. Not official art.
+* Chapter 5 brings the Meadow Maze map and the Meadow Mage sprite: AI-generated, baked the same way. Not official art.
 * The "InsetoKaiba" rival is a stylized parody character; it uses no real person's name or likeness.
 
 ## Content

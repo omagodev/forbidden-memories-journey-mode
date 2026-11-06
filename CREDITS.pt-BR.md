@@ -25,6 +25,7 @@ O JOURNEY MODE é um mod de fã, não oficial e sem fins comerciais, para Yu-Gi-
 * O capítulo 2 traz os mapas do porto, do convés do navio e da Costa das Ilusões e os sprites do soldado do porto, do mensageiro do Shadi, da Mai, do Weevil, do InsetoKaiba, do comissário e do mercador do acampamento: gerados por IA, convertidos para `mods/ow-poc/assets/` por `mods/ow-poc/tools/build_kingdom_assets.py`. Inspirados nos personagens do Forbidden Memories; não são arte oficial.
 * O capítulo 3 traz o mapa da Floresta dos Sussurros e o sprite do Mago da Floresta: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
 * O capítulo 4 traz o mapa da Passagem da Montanha e os sprites do Bandit Keith e do Mago da Montanha: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
+* O capítulo 5 traz o mapa do Labirinto da Campina e o sprite da Maga da Campina: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
 * O rival "InsetoKaiba" é um personagem de paródia estilizado; não usa o nome nem a imagem de nenhuma pessoa real.
 
 ## Conteúdo

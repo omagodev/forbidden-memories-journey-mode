@@ -683,14 +683,6 @@
     ],
     "limited": [
      {
-      "card": "Flower Wolf",
-      "rarity": "A",
-      "price": 1280,
-      "max_buy": 1,
-      "bit": 7,
-      "min_level": 9
-     },
-     {
       "card": "Garvas",
       "rarity": "A",
       "price": 1280,
@@ -1080,14 +1072,6 @@
      }
     ],
     "limited": [
-     {
-      "card": "Queen of Autumn Leaves",
-      "rarity": "A",
-      "price": 1920,
-      "max_buy": 1,
-      "bit": 11,
-      "min_level": 12
-     },
      {
       "card": "Garvas",
       "rarity": "A",

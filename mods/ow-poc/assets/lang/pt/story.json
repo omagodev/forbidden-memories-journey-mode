@@ -2912,7 +2912,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "O castelo brilha acima das nuvens. O capitulo 5 chega na proxima parte.",
+     "text": "Cercas e flores abrem alem do arco. O Labirinto da Campina espera.",
      "label": "Estrada do Castelo",
      "kind": "caption"
     }
@@ -2939,6 +2939,276 @@
     {
      "speaker": "staff",
      "text": "Cuidado la em cima. Aqui ninguem devolve estrela. Perdeu a ultima, a jornada acabou."
+    }
+   ]
+  },
+  {
+   "id": "dk5_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Seis estrelas. O vento fica macio. Cercas e flores.",
+     "label": "Labirinto da Campina",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Um labirinto. Depois da passagem, quase parece descanso."
+    }
+   ]
+  },
+  {
+   "id": "dk5_to_meadow",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "As cercas fecham de novo. Cheiro de flor. Chao macio.",
+     "label": "Estrada da Campina",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk5_to_mountain",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O vento endurece. Pedra sob os pes. A passagem fica acima.",
+     "label": "Trilha do Cume",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk5_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Paredes verdes altas. Caminhos tortos. Alguem ri nas folhas.",
+     "label": "Labirinto",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Essa risada. Eu ouvi dentro de um barril no navio."
+    },
+    {
+     "speaker": "teana",
+     "text": "Xiu! Voce me achou. Surpresa!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Fale com a Teana nas cercas.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk5_teana_pre",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Eu me escondi naquele barril. O navio cheirava a peixe e aventura!"
+    },
+    {
+     "speaker": "atos",
+     "text": "Teana! A vila vai sentir sua falta. E os bolos."
+    },
+    {
+     "speaker": "teana",
+     "text": "Trouxe uma estrela dourada. O homem de capuz me deu. Olha - o mesmo formato da sua!"
+    },
+    {
+     "speaker": "teana",
+     "text": "Me desafie primeiro. Amistoso. Se ganhar, eu te guio no labirinto. Combinado?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk5_teana_win",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Ai, meu orgulho! Tudo bem. Voce ganhou. Sou sua guia do labirinto."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Amuleto de Dica da Teana. Ela te da dicas daqui pra frente.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "teana",
+     "text": "Centro do labirinto: uma maga com estrelas. Ela nao ri. Vai com cuidado."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Ache a Maga da Campina no centro do labirinto.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk5_teana_lose",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Hihi! Ainda tenho jogo. Tente de novo quando quiser. Eu espero."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ela faz gracinha e bate forte. O carrinho da Rose Rue, ou a toca do coelho."
+    }
+   ]
+  },
+  {
+   "id": "dk5_teana_after",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "Esquerda, esquerda, direita, depois a pedra da estrela. Ou me pergunta de novo."
+    }
+   ]
+  },
+  {
+   "id": "dk5_hint",
+   "pages": [
+    {
+     "speaker": "teana",
+     "text": "A Maga guarda estrelas. Aposte pouco pra curva. Aposte muito se for corajoso. Ou estiver duro."
+    }
+   ]
+  },
+  {
+   "id": "dk5_centre_early",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela entalhada na pedra. As cercas ainda parecem fechadas.",
+     "label": "Pedra da Estrela",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk5_mage_pre",
+   "pages": [
+    {
+     "speaker": "meadow_mage",
+     "text": "Seis estrelas andam no meu labirinto. Poucos saem com sete."
+    },
+    {
+     "speaker": "meadow_mage",
+     "text": "Duas estrelas repousam nestas cercas. Aposte o que sua coragem deixar."
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez abrem o castelo. Nao volto por causa de flores."
+    },
+    {
+     "speaker": "meadow_mage",
+     "text": "Entao floresca ou murche, viajante. A campina pode falar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk5_mage_win",
+   "pages": [
+    {
+     "speaker": "meadow_mage",
+     "text": "As cercas se abrem. Minha estrela, e uma folha da minha coroa."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela e a carta Queen of Autumn Leaves.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "meadow_mage",
+     "text": "Alem do arco a grama fica dourada. Vento do deserto. O Reino ainda observa."
+    },
+    {
+     "speaker": "atos",
+     "text": "Sete estrelas. Faltam tres. A Teana esta cantarolando em algum lugar nas folhas."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Labirinto da Campina ficou para tras. A estrada do deserto abre.",
+     "label": "Fim do Capitulo 5",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk5_mage_lose",
+   "pages": [
+    {
+     "speaker": "meadow_mage",
+     "text": "Petalas caem. Volte mais pesado, florzinha."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ela me passou. Rose Rue e o Anel da Toca do Coelho, entao."
+    }
+   ]
+  },
+  {
+   "id": "dk5_mage_after",
+   "pages": [
+    {
+     "speaker": "meadow_mage",
+     "text": "O arco e seu. Cuidado com os espinhos no caminho."
+    }
+   ]
+  },
+  {
+   "id": "dk5_desert_road",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Grama dourada. Vento quente. O capitulo 6 chega na proxima parte.",
+     "label": "Estrada do Deserto",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk5_gate_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Um arco coberto de vinhas. Sete estrelas gravadas. As cercas empurram voce.",
+     "label": "Arco do Deserto",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk5_rose_rue",
+   "pages": [
+    {
+     "speaker": "rose_rue",
+     "text": "Rosas, espinhos e cartas. So as cartas florescem duas vezes."
+    }
+   ]
+  },
+  {
+   "id": "dk5_meadow_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona entre flores do campo. A equipe do Reino mantem um lampiao.",
+     "label": "Acampamento",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Lugar bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
     }
    ]
   }

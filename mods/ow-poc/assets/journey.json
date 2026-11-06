@@ -47,6 +47,9 @@
   "mai_mountain_won",
   "carver_found",
   "mountain_mage_won",
+  "meadow_arrived",
+  "teana_meadow_won",
+  "meadow_mage_won",
   "academy_started",
   "academy_basics",
   "academy_guardians",
@@ -361,6 +364,10 @@
    "flag": "carver_found"
   },
   {
+   "name": "Hint Charm",
+   "flag": "teana_meadow_won"
+  },
+  {
    "name": "Star Chips",
    "flag": "shadi_won",
    "icon": "assets/icon_star_chips.bin",
@@ -388,7 +395,13 @@
    "text": "The Forest of Whispers"
   },
   {
+   "when": {
+    "stage_lt": 22
+   },
    "text": "The Mountain Pass"
+  },
+  {
+   "text": "The Meadow Maze"
   }
  ],
  "objectives": [
@@ -743,6 +756,26 @@
     "stage_ge": 21
    },
    "text": "Chapter 4 complete - the castle road waits"
+  },
+  {
+   "when": {
+    "stage_ge": 22,
+    "stage_lt": 23
+   },
+   "text": "Find Teana in the hedges - the giggle from the ship"
+  },
+  {
+   "when": {
+    "stage_ge": 23,
+    "stage_lt": 24
+   },
+   "text": "Beat the Meadow Mage - a star on the line"
+  },
+  {
+   "when": {
+    "stage_ge": 24
+   },
+   "text": "Chapter 5 complete - the desert road waits"
   }
  ],
  "triggers": [],
@@ -952,7 +985,10 @@
       "stage_ge": 3,
       "stage_lt": 6
      },
-     "scene": "dk1_teana_after"
+     "scene": "dk1_teana_after",
+     "effects": {
+      "open_shop": "village"
+     }
     },
     {
      "when": {
@@ -973,11 +1009,14 @@
      "when": {
       "stage_ge": 6
      },
-     "scene": "dk1_teana_after_farewell"
+     "scene": "dk1_teana_after_farewell",
+     "effects": {
+      "open_shop": "village"
+     }
     }
    ],
    "duelist_id": 2,
-   "portrait_id": 2,
+   "portrait_id": 20,
    "tile": [
     9.5,
     32.5
@@ -1980,7 +2019,10 @@
      "when": {
       "stage_ge": 5
      },
-     "scene": "dk2_dock_dan"
+     "scene": "dk2_dock_dan",
+     "effects": {
+      "open_shop": "harbor"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2005,7 +2047,10 @@
       "stage_ge": 7,
       "stage_lt": 8
      },
-     "scene": "dk2_purser"
+     "scene": "dk2_purser",
+     "effects": {
+      "open_shop": "ship"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2030,7 +2075,10 @@
      "when": {
       "stage_ge": 10
      },
-     "scene": "dk2_shell_sue"
+     "scene": "dk2_shell_sue",
+     "effects": {
+      "open_shop": "beach"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2204,7 +2252,10 @@
      "when": {
       "stage_ge": 13
      },
-     "scene": "dk3_hermit"
+     "scene": "dk3_hermit",
+     "effects": {
+      "open_shop": "forest"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2462,7 +2513,10 @@
      "when": {
       "stage_ge": 17
      },
-     "scene": "dk4_cliff_cass"
+     "scene": "dk4_cliff_cass",
+     "effects": {
+      "open_shop": "mountain"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2475,6 +2529,160 @@
      "anchor": "kingdom_mountain.shop_stall"
     }
    ]
+  },
+  {
+   "id": "teana_meadow",
+   "name": "Teana",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "kingdom_meadow.teana_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 22,
+      "stage_lt": 23,
+      "lacks": [
+       "teana_meadow_won"
+      ]
+     },
+     "scene": "dk5_teana_pre",
+     "duel": true,
+     "win": {
+      "stage": 23,
+      "flags": [
+       "teana_meadow_won"
+      ],
+      "scene": "dk5_teana_win"
+     },
+     "lose": {
+      "scene": "dk5_teana_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 23
+     },
+     "scene": "dk5_hint"
+    },
+    {
+     "when": {
+      "stage_ge": 23
+     },
+     "scene": "dk5_teana_after"
+    }
+   ],
+   "duelist_id": 20,
+   "portrait_id": 20,
+   "duelist": "dk_teana_meadow",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 22
+     },
+     "anchor": "kingdom_meadow.teana_spot"
+    }
+   ]
+  },
+  {
+   "id": "meadow_mage",
+   "name": "Meadow Mage",
+   "mesh": "Wizard",
+   "anchor": "kingdom_meadow.gate_spot",
+   "talk": [
+    {
+     "when": {
+      "needs": [
+       "meadow_mage_won"
+      ],
+      "wager_extra": [
+       5,
+       2,
+       "meadow_mage_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 2,
+      "slot": 5,
+      "wid": "meadow_mage",
+      "beaten": "meadow_mage_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
+      "stage_ge": 23,
+      "stage_lt": 24,
+      "lacks": [
+       "meadow_mage_won"
+      ]
+     },
+     "scene": "dk5_mage_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       638
+      ],
+      "stage": 24,
+      "flags": [
+       "meadow_mage_won"
+      ],
+      "scene": "dk5_mage_win",
+      "wager": 2,
+      "slot": 5,
+      "wid": "meadow_mage",
+      "beaten": "meadow_mage_won"
+     },
+     "lose": {
+      "scene": "dk5_mage_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 23
+     },
+     "scene": "dk5_mage_after"
+    }
+   ],
+   "duelist_id": 29,
+   "portrait_id": 29,
+   "duelist": "dk_meadow_mage",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 23
+     },
+     "anchor": "kingdom_meadow.gate_spot"
+    }
+   ]
+  },
+  {
+   "id": "rose_rue",
+   "name": "Rose Rue",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "kingdom_meadow.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 22
+     },
+     "scene": "dk5_rose_rue",
+     "effects": {
+      "open_shop": "meadow"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 22
+     },
+     "anchor": "kingdom_meadow.shop_stall"
+    }
+   ]
   }
  ],
  "speakers": {
@@ -2485,7 +2693,7 @@
    "portrait_id": 1
   },
   "teana": {
-   "portrait_id": 2
+   "portrait_id": 20
   },
   "jono": {
    "portrait_id": 3
@@ -2575,6 +2783,12 @@
    "portrait_id": 0
   },
   "cliff_cass": {
+   "portrait_id": 0
+  },
+  "meadow_mage": {
+   "portrait_id": 29
+  },
+  "rose_rue": {
    "portrait_id": 0
   }
  },
@@ -3374,6 +3588,18 @@
     ]
    },
    "lines": []
+  },
+  {
+   "id": "q14_meadow",
+   "active": {
+    "stage_ge": 22
+   },
+   "done": {
+    "needs": [
+     "meadow_mage_won"
+    ]
+   },
+   "lines": []
   }
  ],
  "starter_deck": [
@@ -4028,6 +4254,33 @@
    "talk": [
     {
      "when": {
+      "stage_ge": 22
+     },
+     "scene": "dk5_to_meadow",
+     "effects": {
+      "warp": [
+       "kingdom_meadow",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 21,
+      "stage_lt": 22,
+      "stars_min": 6
+     },
+     "scene": "dk5_enter",
+     "effects": {
+      "stage": 22,
+      "warp": [
+       "kingdom_meadow",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
       "stage_ge": 21,
       "stars_min": 6
      },
@@ -4073,6 +4326,114 @@
     }
    ],
    "reach": 80
+  },
+  {
+   "id": "star_stone",
+   "anchor": "gate_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 22,
+      "stage_lt": 23
+     },
+     "scene": "dk5_centre_early"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "desert_gate",
+   "anchor": "desert_gate",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 24,
+      "stars_min": 7
+     },
+     "scene": "dk5_desert_road"
+    },
+    {
+     "when": {
+      "stage_ge": 22
+     },
+     "scene": "dk5_gate_shut"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "meadow_camp",
+   "anchor": "meadow_camp",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 22
+     },
+     "scene": "dk5_meadow_camp"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "meadow_exit",
+   "anchor": "spawn",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 22
+     },
+     "scene": "dk5_to_mountain",
+     "effects": {
+      "warp": [
+       "kingdom_mountain",
+       "summit_gate"
+      ]
+     }
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "arena_door_village",
+   "anchor": "village.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_harbor",
+   "anchor": "harbor.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_beach",
+   "anchor": "kingdom_beach.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_forest",
+   "anchor": "kingdom_forest.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_mountain",
+   "anchor": "kingdom_mountain.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_meadow",
+   "anchor": "kingdom_meadow.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_ship",
+   "anchor": "ship_deck.arena_door",
+   "prop": "hatch",
+   "reach": 0
   }
  ],
  "intro": "dk1_intro",
@@ -4088,7 +4449,8 @@
    "ship_deck": 20,
    "kingdom_beach": 30,
    "kingdom_forest": 21,
-   "kingdom_mountain": 22
+   "kingdom_mountain": 22,
+   "kingdom_meadow": 19
   },
   "night": {
    "stage_ge": 2,
@@ -5198,6 +5560,216 @@
    "anchor": "kingdom_mountain.hangout_a",
    "time": "auto",
    "stars": 6
+  },
+  {
+   "name": "34 meadow arrival (chapter 5)",
+   "stage": 22,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won"
+   ],
+   "anchor": "kingdom_meadow.spawn",
+   "time": "auto",
+   "stars": 6
+  },
+  {
+   "name": "35 Teana in the hedges (friendly)",
+   "stage": 22,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived"
+   ],
+   "anchor": "kingdom_meadow.teana_spot",
+   "time": "auto",
+   "stars": 6
+  },
+  {
+   "name": "36 Meadow Mage (wager)",
+   "stage": 23,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won"
+   ],
+   "anchor": "kingdom_meadow.maze_center",
+   "time": "auto",
+   "stars": 6
+  },
+  {
+   "name": "37 chapter 5 done",
+   "stage": 24,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won"
+   ],
+   "anchor": "kingdom_meadow.maze_center",
+   "time": "auto",
+   "stars": 7
   }
  ],
  "auto": [
@@ -5295,7 +5867,23 @@
     ]
    },
    "scene": "dk4_arrival"
+  },
+  {
+   "when": {
+    "stage_ge": 22,
+    "stage_lt": 23,
+    "lacks": [
+     "meadow_arrived"
+    ],
+    "area": 8
+   },
+   "result": {
+    "flags": [
+     "meadow_arrived"
+    ]
+   },
+   "scene": "dk5_arrival"
   }
  ],
- "story": "duelist_kingdom chapters 1-4"
+ "story": "duelist_kingdom chapters 1-5"
 }

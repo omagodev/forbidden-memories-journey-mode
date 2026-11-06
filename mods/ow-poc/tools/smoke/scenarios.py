@@ -614,3 +614,51 @@ SCENARIOS.update({
         steps=[("wait", 60), ("snap", "pass"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")],
         expect=["journey: mode on"]),
 })
+
+
+# ---------------------------------------------------------------- chapter 5: the Meadow Maze
+MEADOW_E2E = (beat("dk5_teana_pre", "teana_pre") + [("until", "scene dk5_teana_win", 900), ("wait", 400), ("snap", "teana_won")]
+    + beat("dk5_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "mage_won")]
+    + beat("dk5_desert_road", "desert_road", after=200) + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")])
+SCENARIOS.update({
+    "e2e_ch4_to_ch5": dict(desc="chapter 4 -> 5: summit into the Meadow Maze, Teana, the Meadow Mage, chapter 5 end",
+        preset="33 chapter 4 done", lang=1, debug=dict(E2E, coins=300),
+        steps=beat("dk5_enter", "summit", after=100) + [("until", "journey: music 19", 900), ("until", "scene dk5_arrival", 900), ("wait", 400), ("snap", "meadow")]
+            + MEADOW_E2E,
+        expect=["scene dk5_enter", "journey: music 19", "scene dk5_arrival", "scene dk5_teana_win", "saved (stage 23",
+                "star duel won, bet 1, stars 7", "saved (stage 24", "scene dk5_desert_road"]),
+    "cap5_arrival": dict(quick=True, desc="chapter 5 opens: the maze, the arrival scene", preset="34 meadow arrival (chapter 5)", lang=0, debug={"skip_dialogue": True},
+        steps=[("until", "scene dk5_arrival", 600), ("wait", 200), ("snap", "meadow")], expect=["scene dk5_arrival", "journey: music 19"]),
+    "cap5_teana": dict(desc="Teana's friendly duel (win)", preset="35 Teana in the hedges (friendly)", lang=0, debug=E2E,
+        steps=beat("dk5_teana_pre", "teana_pre") + [("until", "scene dk5_teana_win", 900), ("wait", 400), ("snap", "won")], expect=["scene dk5_teana_win", "saved (stage 23"]),
+    "cap5_mage": dict(quick=True, desc="the Meadow Mage's one-star wager (win), chapter 5 end", preset="36 Meadow Mage (wager)", lang=0, debug=E2E,
+        steps=beat("dk5_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "won")], expect=["star duel won, bet 1, stars 7", "saved (stage 24"]),
+    "cap5_mage_lose": dict(desc="Meadow Mage wager lost: one star less, stays in the meadow", preset="36 Meadow Mage (wager)", lang=1,
+        debug=dict(skip_dialogue=True, lose_duels=True, wager=1),
+        steps=beat("dk5_mage_pre", "mage_pre") + [("until", "star duel lost", 900), ("wait", 400), ("snap", "lost")],
+        expect=["star duel lost, bet 1, stars 5 (meadow_mage holds 3)"], forbid=["GAME OVER", "kingdom_beach"]),
+    "cap5_shop": dict(desc="Rose Rue's flower cart (meadow shop)", preset="35 Teana in the hedges (friendly)", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "kingdom_meadow.shop_stall"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 200), ("press", "cross"), ("wait", 120), ("snap", "shop")], expect=[]),
+    "cap5_arena": dict(desc="the Rabbit Hole Ring (meadow arena) with its exclusives", preset="35 Teana in the hedges (friendly)", lang=1,
+        debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "kingdom_meadow.arena_door"},
+        steps=[("wait", 60), ("press", "cross"), ("wait", 120), ("press", "cross"), ("wait", 40), ("snap", "arena")], expect=[]),
+    "cap5_camp": dict(quick=True, desc="meadow camp warns that zero stars ends the journey", preset="35 Teana in the hedges (friendly)", lang=1,
+        debug={"skip_dialogue": True, "teleport": "kingdom_meadow.meadow_camp"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk5_meadow_camp", 300), ("wait", 60), ("snap", "camp")], expect=["scene dk5_meadow_camp"]),
+    "cap5_gang": dict(desc="a Jackal ambush in the meadow", preset="35 Teana in the hedges (friendly)", lang=1,
+        debug={"skip_dialogue": True, "win_duels": True, "coins": 300, "gang_ready": True, "teleport": "kingdom_meadow.hangout_b"},
+        steps=[("wait", 60), ("press", ["r1", "l1", "circle"], 4, 30)] + WALK[:12] + [("snap", "ambush"), ("press", "cross", 5, 30), ("press", "cross", 5, 30), ("until", "duel over", 900), ("wait", 200), ("snap", "after")], expect=["ambush won"]),
+    "final5_meadow": dict(desc="player view: the Meadow Maze", preset="35 Teana in the hedges (friendly)", lang=1, debug={"teleport": "kingdom_meadow.maze_center"},
+        steps=REL + [("snap", "meadow")], expect=["dev mode 0"]),
+    "final5_teana": dict(desc="player view: Teana in the hedges", preset="35 Teana in the hedges (friendly)", lang=1, debug={"teleport": "kingdom_meadow.teana_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk5_teana_pre", 300), ("wait", 90), ("snap", "teana")], expect=["scene dk5_teana_pre"]),
+    "final5_mage": dict(desc="player view: the Meadow Mage at the star stone", preset="36 Meadow Mage (wager)", lang=1, debug={"teleport": "kingdom_meadow.gate_spot"},
+        steps=REL + [("press", "cross"), ("until", "scene dk5_mage_pre", 300), ("wait", 90), ("snap", "mage")], expect=["scene dk5_mage_pre"]),
+    "final5_end": dict(desc="player view: chapter 5 complete, seven stars", preset="37 chapter 5 done", lang=1, debug={"teleport": "kingdom_meadow.maze_center"},
+        steps=REL + [("snap", "end"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")], expect=["dev mode 0"]),
+    "quick_gate_desert": dict(quick=True, desc="QUICK: desert arch refuses under 7 stars", preset="36 Meadow Mage (wager)", lang=1,
+        debug={"skip_dialogue": True, "stars": 6, "teleport": "kingdom_meadow.desert_gate"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk5_gate_shut", 300), ("wait", 40), ("snap", "shut")],
+        expect=["scene dk5_gate_shut"]),
+})

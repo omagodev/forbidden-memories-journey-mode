@@ -146,8 +146,8 @@ def scripts(sc, H, X, N):
        "A estrada alem do arco e sua. Cuidado com os olhos nela."),
     ], chapter=4)
     sc("dk4_castle_road", "The summit gate after chapter 4: the next part.", [
-     N("Castle Road", "Estrada do Castelo", "The castle shines above the clouds. Chapter 5 arrives in the next part.",
-       "O castelo brilha acima das nuvens. O capitulo 5 chega na proxima parte."),
+     N("Castle Road", "Estrada do Castelo", "Hedges and flowers open beyond the arch. The Meadow Maze waits.",
+       "Cercas e flores abrem alem do arco. O Labirinto da Campina espera."),
     ], chapter=4)
     sc("dk4_cliff_cass", "Cliff Cass, the mountain tent.", [
      X("cliff_cass", "Rope, pitons, cards. Only the cards ever save anyone.",
@@ -238,7 +238,7 @@ HUD = [
  (W(stage=[21,99]), "Chapter 4 complete - the castle road waits", "Capitulo 4 completo - a estrada do castelo espera"),
 ]
 CHAPTER = dict(n=4, title=B("The Mountain Pass", "A Passagem da Montanha"), region="kingdom_mountain", stage=[17,21],
-               reward="six stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone", unlock="the castle road (chapter 5)")
+               reward="six stars, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone", unlock="the Meadow Maze (chapter 5)")
 QUESTS = [
  dict(id="q13_mountain", kind="talk+duel+investigate", opt=False, title=B("The Mountain Pass", "A Passagem da Montanha"), giver="(none)",
       steps=[("Beat Bandit Keith at the bridge", "Venca o Bandit Keith na ponte", "kingdom_mountain.keith_spot"),

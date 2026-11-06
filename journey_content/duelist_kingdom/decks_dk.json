@@ -325,6 +325,64 @@
     "Invigoration": 2
    },
    "notes": "Chapter 4 zone master (2 stars): beatable with mountain cards and arena wins."
+  },
+  "Teana Maze": {
+   "duelist": "Teana",
+   "chapter": 1,
+   "difficulty_tier": 4,
+   "theme": "Teana's cakes, plants and light fairies",
+   "fixed": true,
+   "total": 40,
+   "cards": {
+    "Mystical Elf": 2,
+    "Happy Lover": 2,
+    "Rainbow Flower": 3,
+    "Firegrass": 3,
+    "Arlownay": 2,
+    "Abyss Flower": 2,
+    "Dark Plant": 3,
+    "Man Eater": 2,
+    "Yashinoki": 2,
+    "Pot the Trick": 2,
+    "Curtain of the Dark Ones": 2,
+    "Haniwa": 2,
+    "Key Mace": 2,
+    "Laughing Flower": 3,
+    "Forest": 3,
+    "Sparks": 2,
+    "Red Medicine": 3
+   },
+   "notes": "Chapter 5 friendly duel (no star)."
+  },
+  "Meadow Mage Grove": {
+   "duelist": "Meadow Mage",
+   "chapter": 1,
+   "difficulty_tier": 5,
+   "theme": "Plants, beasts and the Forest field",
+   "fixed": true,
+   "total": 40,
+   "cards": {
+    "Queen of Autumn Leaves": 2,
+    "Flower Wolf": 2,
+    "Dark Witch": 1,
+    "Garvas": 2,
+    "Gemini Elf": 2,
+    "Orion the Battle King": 1,
+    "Spirit of the Harp": 2,
+    "Prevent Rat": 2,
+    "Bean Soldier": 2,
+    "Tentacle Plant": 3,
+    "Man-eating Plant": 2,
+    "Firegrass": 3,
+    "Yashinoki": 3,
+    "Forest": 3,
+    "Sparks": 2,
+    "Red Medicine": 2,
+    "Invigoration": 2,
+    "Haniwa": 2,
+    "Happy Lover": 2
+   },
+   "notes": "Chapter 5 zone master (holds 2)."
   }
  },
  "starter": {

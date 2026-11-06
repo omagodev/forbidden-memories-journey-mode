@@ -1134,7 +1134,7 @@ _The Mountain Mage after the duel._
 ### dk4_castle_road
 _The summit gate after chapter 4: the next part._
 
-- **Castle Road**: The castle shines above the clouds. Chapter 5 arrives in the next part.
+- **Castle Road**: Hedges and flowers open beyond the arch. The Meadow Maze waits.
 
 ### dk4_cliff_cass
 _Cliff Cass, the mountain tent._
@@ -1145,4 +1145,114 @@ _Cliff Cass, the mountain tent._
 _The trail camp: a lantern, and the game-over warning._
 
 - **Trail Camp**: A tarp, a cot and a lantern. Kingdom staff keep it lit.
-- **Kingdom Staff**: Careful up there. Nobody here gives stars back. Lose your last and your journey is over.
+- **Camp Staff**: Careful up there. Nobody here gives stars back. Lose your last and your journey is over.
+
+### dk5_enter
+_Chapter 4 -> 5: the summit road opens onto the Meadow Maze._
+
+- **Meadow Maze**: Six stars. The wind turns soft. Hedges and flowers.
+- **{name}**: A maze. After the pass, this almost feels like a break.
+
+### dk5_to_meadow
+_The castle road after the first visit._
+
+- **Meadow Road**: The hedges close in again. Flower smell. Soft ground.
+
+### dk5_to_mountain
+_The trail back up to the Mountain Pass._
+
+- **Summit Trail**: The wind turns hard. Stone underfoot. The pass is above.
+
+### dk5_arrival
+_Chapter 5 opens: the hedge maze, a giggle in the leaves._
+
+- **Meadow Maze**: Tall green walls. Paths that twist. Someone giggles in the leaves.
+- **{name}**: That laugh. I heard it inside a barrel on the ship.
+- **Teana**: Shh! You found me. Surprise!
+- **Objective**: Talk to Teana in the hedges.
+
+### dk5_teana_pre
+_Teana the stowaway: a friendly duel, then she helps._
+
+- **Teana**: I hid in that barrel. The ship smelled like fish and adventure!
+- **{name}**: Teana! The village is going to miss you. And the cakes.
+- **Teana**: I brought a golden star. The hooded man gave it to me. Look - same shape as yours!
+- **Teana**: Duel me first. Friendly. If you win, I guide you through the maze. Deal?  _[Duel? Yes/No]_
+
+### dk5_teana_win
+_Teana loses the friendly duel and becomes a helper._
+
+- **Teana**: Ow, my pride! Fine. You win. I am your maze guide now.
+- **You got**: Teana's Hint Charm. She will tip you from here on.
+- **Teana**: Centre of the maze: a mage with stars. She does not giggle. Go careful.
+- **Objective**: Find the Meadow Mage at the maze centre.
+
+### dk5_teana_lose
+_Teana wins the friendly duel (no star)._
+
+- **Teana**: Hee! Still got it. Try again when you are ready. I will wait.
+- **{name}**: She plays cute and hits hard. Rose Rue's cart, or the rabbit hole.
+
+### dk5_teana_after
+_Teana the helper after the friendly duel._
+
+- **Teana**: Left, left, right, then the star stone. Or ask me again. I like talking.
+
+### dk5_hint
+_A free tip from helper Teana._
+
+- **Teana**: The Mage holds stars. Bet small if you want the curve. Bet big if you are brave. Or broke.
+
+### dk5_centre_early
+_The star stone before Teana's tip._
+
+- **Star Stone**: A carved star in the stone. The hedges still feel closed.
+
+### dk5_mage_pre
+_The Meadow Mage, zone master: a one-star wager at the maze centre._
+
+- **Meadow Mage**: Six stars walk my maze. Few leave with seven.
+- **Meadow Mage**: Two stars rest in these hedges. Wager what your nerve allows.
+- **{name}**: Ten open the castle. I am not turning back for flowers.
+- **Meadow Mage**: Then bloom or wilt, traveler. Shall the meadow speak?  _[Duel? Yes/No]_
+
+### dk5_mage_win
+_The Meadow Mage loses: seven stars, end of chapter 5._
+
+- **Meadow Mage**: The hedges part. My star, and a leaf from my crown.
+- **You got**: A star and the card Queen of Autumn Leaves.
+- **Meadow Mage**: Beyond the arch the grass turns gold. Desert wind. The Kingdom still watches.
+- **{name}**: Seven stars. Three to go. Teana is humming somewhere in the leaves.
+- **End of Chapter 5**: The Meadow Maze is behind you. The desert road opens.
+
+### dk5_mage_lose
+_The Meadow Mage keeps her stars._
+
+- **Meadow Mage**: Petals fall. Return heavier, little bloom.
+- **{name}**: She outplayed me. Rose Rue and the Rabbit Hole Ring, then.
+
+### dk5_mage_after
+_The Meadow Mage after the duel._
+
+- **Meadow Mage**: The arch is yours. Mind the thorns on the way.
+
+### dk5_desert_road
+_The arch after chapter 5: the next part._
+
+- **Desert Road**: Gold grass. Hot wind. Chapter 6 arrives in the next part.
+
+### dk5_gate_shut
+_The desert arch before seven stars._
+
+- **Desert Arch**: A vine-covered arch. Seven stars are carved on it. The hedges push you back.
+
+### dk5_rose_rue
+_Rose Rue, the meadow flower cart._
+
+- **Rose Rue**: Roses, thorns and cards. Only the cards ever bloom twice.
+
+### dk5_meadow_camp
+_The meadow camp: a lantern, and the game-over warning._
+
+- **Meadow Camp**: A tarp among wildflowers. Kingdom staff keep a lantern lit.
+- **Camp Staff**: Pretty place. Deadly rules. Lose your last star and your journey ends for good.

@@ -184,7 +184,8 @@
     "A Vila dos Cochichos",
     "A Costa das Ilusoes",
     "A Floresta dos Sussurros",
-    "A Passagem da Montanha"
+    "A Passagem da Montanha",
+    "O Labirinto da Campina"
   ],
   "objectives": [
     "Duele com Bakura, o fantasma solitario",
@@ -222,7 +223,10 @@
     "Atravesse a ponte - Mai espera do outro lado",
     "Descubra quem entalha as estrelas na caverna",
     "Venca o Mago da Montanha - uma estrela em jogo",
-    "Capitulo 4 completo - a estrada do castelo espera"
+    "Capitulo 4 completo - a estrada do castelo espera",
+    "Ache a Teana nas cercas - a risada do navio",
+    "Venca a Maga da Campina - uma estrela em jogo",
+    "Capitulo 5 completo - a estrada do deserto espera"
   ],
   "items": [
     "Cartao de Selos",
@@ -239,6 +243,7 @@
     "Dados Viciados",
     "Folha Sussurrante",
     "Cinzel Estelar",
+    "Amuleto de Dica",
     "Fichas de Estrela"
   ],
   "npc_names": {
@@ -268,7 +273,10 @@
     "mai_mountain": "Mai",
     "star_carver": "Croquet",
     "mountain_mage": "Mago da Montanha",
-    "cliff_cass": "Cliff Cass"
+    "cliff_cass": "Cliff Cass",
+    "teana_meadow": "Teana",
+    "meadow_mage": "Maga da Campina",
+    "rose_rue": "Rose Rue"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -291,7 +299,7 @@
     "isis": "Isis",
     "pegasus": "Pegasus",
     "weevil": "Weevil",
-    "staff": "Staff do Reino",
+    "staff": "Equipe do Acampamento",
     "dock_dan": "Dan do Cais",
     "purser": "Comissario Pim",
     "shell_sue": "Sue Concha",
@@ -300,7 +308,9 @@
     "keith": "Bandit Keith",
     "mountain_mage": "Mago da Montanha",
     "croquet": "Croquet",
-    "cliff_cass": "Cliff Cass"
+    "cliff_cass": "Cliff Cass",
+    "meadow_mage": "Maga da Campina",
+    "rose_rue": "Rose Rue"
   },
   "map": {
     "title": "MAPA",
@@ -452,7 +462,8 @@
     "Regras do Mar",
     "A Costa das Ilusoes",
     "A Floresta dos Sussurros",
-    "A Passagem da Montanha"
+    "A Passagem da Montanha",
+    "O Labirinto da Campina"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
@@ -467,7 +478,8 @@
     "Fale com Mai no convez",
     "Olhe o espelho da praia",
     "Venca o Rex Raptor por uma estrela",
-    "Venca o Bandit Keith na ponte"
+    "Venca o Bandit Keith na ponte",
+    "Ache a Teana nas cercas"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
@@ -497,7 +509,8 @@
     "as regras das estrelas; chegar a ilha",
     "a segunda estrela, Dados Viciados, carta Hercules Beetle",
     "a quarta estrela, Folha Sussurrante, cartas Megazowler e Mystic Horseman",
-    "a sexta estrela, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone"
+    "a sexta estrela, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone",
+    "a setima estrela, Amuleto de Dica, carta Queen of Autumn Leaves"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -526,7 +539,8 @@
     "ship_deck": "O Olho Dourado (convez)",
     "kingdom_beach": "Costa das Ilusoes",
     "kingdom_forest": "Floresta dos Sussurros",
-    "kingdom_mountain": "Passagem da Montanha"
+    "kingdom_mountain": "Passagem da Montanha",
+    "kingdom_meadow": "Labirinto da Campina"
   },
   "shop": {
     "title": "Loja de Cartas",
@@ -673,6 +687,10 @@
       "desc": "O cinzel do Croquet. A ponta ainda brilha como estrela.",
       "from": "Croquet, na Caverna da Estrela."
     },
+    "teana_meadow_won": {
+      "desc": "O amuleto da Teana. Ela te da dicas no labirinto.",
+      "from": "Teana, no Labirinto da Campina."
+    },
     "star_chips": {
       "desc": "Aposta perdida fica com o rival. Dez abrem o castelo. ZERO = FIM DE JOGO.",
       "from": "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."
@@ -703,7 +721,8 @@
       "rex_forest": "Rex Raptor",
       "forest_mage": "Mago da Floresta",
       "keith": "Bandit Keith",
-      "mountain_mage": "Mago da Montanha"
+      "mountain_mage": "Mago da Montanha",
+      "meadow_mage": "Maga da Campina"
     }
   }
 }

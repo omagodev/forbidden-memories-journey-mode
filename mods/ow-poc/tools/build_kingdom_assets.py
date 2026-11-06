@@ -162,8 +162,29 @@ def mountain():
     pack("mountain", src, walk, occ)
 
 
-harbor(); ship_deck(); beach(); forest(); mountain()
-for n in ("forest_mage", "keith", "mountain_mage"):
+
+
+def meadow():
+    """The Meadow Maze (chapter 5): grass and maze paths are walkable; dense hedges are not; carts and
+    hedge tops occlude the player."""
+    src = ART + "/raw/dk_meadow_raw.jpg"
+    pic = Image.open(src).convert("RGB")
+    hsv = np.array(pic.filter(ImageFilter.GaussianBlur(4)).convert("HSV")).astype(np.float32)
+    h, sat, v = hsv[..., 0] * 360 / 255, hsv[..., 1] / 255, hsv[..., 2] / 255
+    walk = (h > 35) & (h < 160) & (v > 0.35)
+    walk = np.array(Image.fromarray(walk.astype(np.uint8) * 255).filter(ImageFilter.MedianFilter(15))) > 127
+    walk |= shape_mask([("r", 80, 620, 280, 720), ("r", 560, 300, 720, 420), ("r", 580, 80, 700, 180),
+                        ("r", 980, 520, 1180, 680), ("r", 60, 120, 260, 280)])
+    walk &= ~shape_mask([("r", 0, 0, 1280, 40), ("r", 0, 680, 1280, 720),
+                         ("r", 300, 200, 420, 520), ("r", 860, 200, 980, 500)])
+    hedges = [((320, 180, 500, 260), 280), ((740, 180, 920, 260), 280),
+              ((320, 420, 500, 520), 540), ((740, 420, 920, 520), 540), ((40, 100, 220, 200), 220)]
+    occ = [(shape_mask([("r",) + r]) & ~walk, base) for r, base in hedges]
+    occ.append((shape_mask([("r", 100, 620, 260, 700)]), 710))
+    pack("meadow", src, walk, occ)
+
+harbor(); ship_deck(); beach(); forest(); mountain(); meadow()
+for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
 for n in ("mai", "weevil", "shadi", "soldier", "trader", "camp_merchant"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
