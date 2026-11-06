@@ -25,7 +25,7 @@ static JsonNode *story;               /* assets/story.json */
 static JsonNode *scenes;              /* its "scenes" array */
 extern u8 gLibrary_abCardChest[];
 
-#define MAX_FLAGS 64
+#define MAX_FLAGS 96
 static char flag_names[MAX_FLAGS][24];
 static int flag_count;
 
@@ -75,6 +75,7 @@ int Story_FlagBit(const char *name)
 int Story_Has(const char *flag)
 {
     int b = Story_FlagBit(flag);
+    if (b >= 64) return jm.kflags2 >> (b - 64) & 1;
     if (b >= 32) return jm.kflags >> (b - 32) & 1;
     return b >= 0 && (jm.flags >> b & 1);
 }
@@ -82,7 +83,8 @@ int Story_Has(const char *flag)
 void Story_Set(const char *flag)
 {
     int b = Story_FlagBit(flag);
-    if (b >= 32) jm.kflags |= 1u << (b - 32);
+    if (b >= 64) jm.kflags2 |= 1u << (b - 64);
+    else if (b >= 32) jm.kflags |= 1u << (b - 32);
     else if (b >= 0) jm.flags |= 1u << b;
 }
 

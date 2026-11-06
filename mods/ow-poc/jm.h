@@ -238,6 +238,7 @@ typedef struct {
     int cg_set;                  /* 1 when the creator made the hero; 0 on an older save, which keeps the painted hero */
     Economy eco;                 /* coins, xp and the rest of the economy (save version 5) */
     unsigned kflags;             /* story flags 32..63 (the Kingdom's), save version 6; 0 on an older save */
+                                 /* flags 64..95 live in kflags2 (save version 7) */
     int stars;                   /* Duelist Kingdom star chips (0 on an older save: the Shore Camp gives one back) */
     int eliminations;            /* times the hero lost his last star and woke at the Shore Camp */
     int pt_area;                 /* the painted area the save was made in (0 village; 3.. the harbor, ship, beach) */
@@ -246,6 +247,7 @@ typedef struct {
     int stars_owed;              /* legacy (0.5.3): stars lost and owed back; a loaded save hands them back to the hero (jm_save.c) */
     unsigned char duel_held[16]; /* the stars each star duelist holds now, plus 1 (0: his content count; slot = journey.json win "slot") */
     int wager_seen;              /* the picker's game-over warning has been shown once */
+    unsigned kflags2;            /* story flags 64..95, save version 7; 0 on an older save */
 } Journey;
 extern Journey jm;
 

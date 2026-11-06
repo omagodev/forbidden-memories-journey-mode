@@ -82,7 +82,10 @@ static void set_flags(const JsonNode *list, int on_)
     for (n = list ? list->child : NULL; n; n = n->next) {
         int b = n->str ? Story_FlagBit(n->str) : -1;
         if (b < 0) { LOG("debug: unknown flag %s", n->str ? n->str : "?"); continue; }
-        if (on_) Story_Set(n->str); else if (b >= 32) jm.kflags &= ~(1u << (b - 32)); else jm.flags &= ~(1u << b);
+        if (on_) Story_Set(n->str);
+        else if (b >= 64) jm.kflags2 &= ~(1u << (b - 64));
+        else if (b >= 32) jm.kflags &= ~(1u << (b - 32));
+        else jm.flags &= ~(1u << b);
     }
 }
 
@@ -93,7 +96,7 @@ static int apply_preset(int i)
     const JsonNode *l = presets(), *p = Json_At(l, i);
     float x, y;
     if (!p) return 0;
-    jm.flags = 0; jm.kflags = 0;
+    jm.flags = 0; jm.kflags = 0; jm.kflags2 = 0;
     jm.stars = (int)Json_Num(p, "stars", jm.stage >= 10 ? 1 : 0);
     jm.stars_owed = 0;
     memset(jm.duel_held, 0, sizeof(jm.duel_held));

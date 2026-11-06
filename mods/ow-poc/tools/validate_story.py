@@ -18,7 +18,7 @@ langs = sorted(p.name for p in (A / "lang").iterdir() if p.is_dir())
 S = {l: {s["id"]: s for s in json.load(open(A / "lang" / l / "story.json"))["scripts"]} for l in langs}
 UI = {l: json.load(open(A / "lang" / l / "ui.json")) for l in langs}
 flags = J["flags"]
-if len(flags) > 64: err("%d flags (max 64)" % len(flags))
+if len(flags) > 96: err("%d flags (max 96)" % len(flags))
 if len(set(flags)) != len(flags): err("a flag is listed twice")
 anchors = set(re.findall(r'\{"(\w+)",\s*\d+,\s*\d+(?:,\s*\d+)?\}', (MOD / "jm_painted.c").read_text()))
 speakers = set(J["speakers"]) | {"narrator"}
@@ -48,11 +48,11 @@ for path, k, v in walk(J):
             bare = v.split(".", 1)[-1]
             if v not in anchors and bare not in anchors: err("%s: unknown anchor %r" % (path, v))
     if k == "warp" and isinstance(v, list):
-            areas_ok = ("village", "cistern", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "kingdom_desert", "kingdom_fair", "castle_gate", "arena_village")
+            areas_ok = ("village", "cistern", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "kingdom_desert", "kingdom_fair", "castle_gate", "castle_hall", "castle_top", "arena_village")
             bare = v[1].split(".", 1)[-1] if len(v) == 2 and isinstance(v[1], str) else None
             if len(v) != 2 or (v[1] not in anchors and bare not in anchors) or v[0] not in areas_ok: err("%s: bad warp %r" % (path, v))
     if k == "area" and isinstance(v, int) and ".when" in path:
-        if v < 0 or v > 11: err("%s: unknown area %r" % (path, v))
+        if v < 0 or v > 13: err("%s: unknown area %r" % (path, v))
     if k == "icon" and isinstance(v, str) and not (MOD / v).exists(): err("%s: icon file %s missing" % (path, v))
 for l in langs:
     for path, sc in sorted(scenes_used):
