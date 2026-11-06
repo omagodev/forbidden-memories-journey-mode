@@ -3203,9 +3203,30 @@
   },
   {
    "when": {
-    "stage_ge": 21
+    "stage_ge": 21,
+    "stage_lt": 22
    },
    "anchor": "summit_gate"
+  },
+  {
+   "when": {
+    "stage_ge": 22,
+    "stage_lt": 23
+   },
+   "npc": "teana_meadow"
+  },
+  {
+   "when": {
+    "stage_ge": 23,
+    "stage_lt": 24
+   },
+   "npc": "meadow_mage"
+  },
+  {
+   "when": {
+    "stage_ge": 24
+   },
+   "anchor": "desert_gate"
   }
  ],
  "journal": [

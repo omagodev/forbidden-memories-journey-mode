@@ -617,8 +617,8 @@ SCENARIOS.update({
 
 
 # ---------------------------------------------------------------- chapter 5: the Meadow Maze
-MEADOW_E2E = (beat("dk5_teana_pre", "teana_pre") + [("until", "scene dk5_teana_win", 900), ("wait", 400), ("snap", "teana_won")]
-    + beat("dk5_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "mage_won")]
+MEADOW_E2E = (beat("dk5_teana_pre", "teana_pre") + [("until", "scene dk5_teana_win", 1200), ("wait", 400), ("snap", "teana_won")]
+    + beat("dk5_mage_pre", "mage_pre") + [("until", "star duel won", 1200), ("wait", 600), ("snap", "mage_won")]
     + beat("dk5_desert_road", "desert_road", after=200) + [("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")])
 SCENARIOS.update({
     "e2e_ch4_to_ch5": dict(desc="chapter 4 -> 5: summit into the Meadow Maze, Teana, the Meadow Mage, chapter 5 end",
@@ -631,12 +631,15 @@ SCENARIOS.update({
         steps=[("until", "scene dk5_arrival", 600), ("wait", 200), ("snap", "meadow")], expect=["scene dk5_arrival", "journey: music 19"]),
     "cap5_teana": dict(desc="Teana's friendly duel (win)", preset="35 Teana in the hedges (friendly)", lang=0, debug=E2E,
         steps=beat("dk5_teana_pre", "teana_pre") + [("until", "scene dk5_teana_win", 900), ("wait", 400), ("snap", "won")], expect=["scene dk5_teana_win", "saved (stage 23"]),
-    "cap5_mage": dict(quick=True, desc="the Meadow Mage's one-star wager (win), chapter 5 end", preset="36 Meadow Mage (wager)", lang=0, debug=E2E,
-        steps=beat("dk5_mage_pre", "mage_pre") + [("until", "star duel won", 900), ("wait", 600), ("snap", "won")], expect=["star duel won, bet 1, stars 7", "saved (stage 24"]),
+    "cap5_mage": dict(quick=True, desc="the Meadow Mage's one-star wager (win), chapter 5 end", preset="36 Meadow Mage (wager)", lang=0,
+        debug=dict(E2E, teleport="kingdom_meadow.gate_spot"),
+        steps=[("wait", 60), ("press", "cross"), ("until", "scene dk5_mage_pre", 600), ("wait", 100), ("snap", "mage_pre"),
+               ("until", "star duel won", 1200), ("wait", 600), ("snap", "won")], expect=["scene dk5_mage_pre", "star duel won, bet 1, stars 7", "saved (stage 24"]),
     "cap5_mage_lose": dict(desc="Meadow Mage wager lost: one star less, stays in the meadow", preset="36 Meadow Mage (wager)", lang=1,
-        debug=dict(skip_dialogue=True, lose_duels=True, wager=1),
-        steps=beat("dk5_mage_pre", "mage_pre") + [("until", "star duel lost", 900), ("wait", 400), ("snap", "lost")],
-        expect=["star duel lost, bet 1, stars 5 (meadow_mage holds 3)"], forbid=["GAME OVER", "kingdom_beach"]),
+        debug=dict(skip_dialogue=True, lose_duels=True, wager=1, teleport="kingdom_meadow.gate_spot"),
+        steps=[("wait", 60), ("press", "cross"), ("until", "scene dk5_mage_pre", 600), ("wait", 100), ("snap", "mage_pre"),
+               ("until", "star duel lost", 1200), ("wait", 400), ("snap", "lost")],
+        expect=["scene dk5_mage_pre", "star duel lost, bet 1, stars 5 (meadow_mage holds 3)"], forbid=["GAME OVER", "kingdom_beach"]),
     "cap5_shop": dict(desc="Rose Rue's flower cart (meadow shop)", preset="35 Teana in the hedges (friendly)", lang=1,
         debug={"skip_dialogue": True, "coins": 900, "xp": 900, "teleport": "kingdom_meadow.shop_stall"},
         steps=[("wait", 60), ("press", "cross"), ("wait", 200), ("press", "cross"), ("wait", 120), ("snap", "shop")], expect=[]),

@@ -384,7 +384,11 @@ def build():
         {"when": {"stage_ge": 18, "stage_lt": 19}, "npc": "mai_mountain"},
         {"when": {"stage_ge": 19, "stage_lt": 20}, "npc": "star_carver"},
         {"when": {"stage_ge": 20, "stage_lt": 21}, "npc": "mountain_mage"},
-        {"when": {"stage_ge": 21}, "anchor": "summit_gate"},
+        {"when": {"stage_ge": 21, "stage_lt": 22}, "anchor": "summit_gate"},
+        # chapter 5: Teana in the hedges, the Meadow Mage at the star stone, then the desert arch
+        {"when": {"stage_ge": 22, "stage_lt": 23}, "npc": "teana_meadow"},
+        {"when": {"stage_ge": 23, "stage_lt": 24}, "npc": "meadow_mage"},
+        {"when": {"stage_ge": 24}, "anchor": "desert_gate"},
     ]
     steps = {q["id"]: [s["objective"] for s in q["steps"]] for q in en["quests"]}
     flat_ids = ["q03_stakeout", "q04_lost", "q05_won", "q06_given"]
