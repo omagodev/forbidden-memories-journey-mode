@@ -120,6 +120,7 @@ static void eco_opponent(const char *id, const char *name, int duelist)
 #define FACE_EDGE 2                /* the frame around it */
 static void (*panel_original)(DisplayObject *);
 static int face_duelist = -1;      /* whose face is in the page */
+static int loaded_face = -1;       /* which face the speaker slot holds (the duel panel shares it) */
 static short opponent_face_x, opponent_face_y;
 static short player_face_x, player_face_y;   /* where they went this frame, for names in the overlay */
 static int face_on;
@@ -147,6 +148,7 @@ static void panel_drawn(DisplayObject *widget)
     if (face_duelist != duelist) {         /* a disc read: once a duel, not once a frame */
         if (!Gfx_LoadFace(duelist)) return;
         face_duelist = duelist;
+        loaded_face = -1;
     }
     portrait = jm.portrait >= 0 && jm.portrait < 4 ? jm.portrait : 0;
     opponent_x = panel_x - OPP_FACE_LEFT;
@@ -171,7 +173,6 @@ static const JsonNode *scene_choice;       /* {yes, no} results of a Yes/No page
 static const JsonNode *scene_effects;      /* a talk rule's "effects": applied when its scene has been read (a rumor heard, a card given) */
 static int pend_duel = -1;                 /* a duel to start when the ask page is answered yes */
 static int portrait_x = -1, portrait_y;    /* atlas position of the speaker's face, -1 none */
-static int loaded_face = -1;
 
 /* area music and banner */
 static int area = -1, area_cand = -1, area_count, area_timer, area_banner;
@@ -184,6 +185,8 @@ extern void Paint_Info(float *x, float *y, float *sx, float *sy);
 extern int paint_view, paint_anim, paint_sway, paint_sprite;
 extern const char *Paint_ModeName(void);
 extern int Paint_NearNpc(void);
+extern int Paint_FaceSprite(const char *who);
+extern int Paint_LoadSpriteFace(int i);
 extern void Paint_TalkStart(int ow);
 extern void Paint_TalkEnd(void);
 extern int Paint_Target(float *tx, float *ty);
@@ -210,6 +213,22 @@ static void speaker(const Page *p, const char **name, int *ax, int *ay)
     *name = p->name;
     *ax = -1;
     *ay = 0;
+    {   /* Journey people speak with a face cut from their own map sprite (the classic disc portraits did not match them) */
+        int si = strcmp(p->who, "narrator") ? Paint_FaceSprite(p->who) : -1;
+        if (si >= 0) {
+            int key = -2000 - si;
+            if (key != loaded_face && Paint_LoadSpriteFace(si)) loaded_face = key;
+            if (key == loaded_face) {
+                if (!strcmp(p->who, "atos") || !strcmp(p->who, "player")) *name = jm.name;
+                else {
+                    if (sp) *name = TrKey("speaker_names", p->who, Json_Str(sp, "name", p->name));
+                    for (i = 0; i < npc_count; i++) if (!strcmp(npcs[i].id, p->who)) *name = npc_name(i);
+                }
+                *ax = DYN_PORT_X; *ay = DYN_PORT_Y;
+                return;
+            }
+        }
+    }
     if (!strcmp(p->who, "atos") || !strcmp(p->who, "player")) {
         *name = jm.name;
         *ax = PORT_X + (jm.portrait % 4) * 48;

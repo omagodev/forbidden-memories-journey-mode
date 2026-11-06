@@ -131,6 +131,7 @@ void Gfx_RectAt(int x, int y, int w, int h, int r, int g, int b, int ot_index, u
 void Gfx_Rect(int x, int y, int w, int h, int r, int g, int b);
 void Gfx_Backdrop(int top_rgb, int bottom_rgb);
 int Gfx_LoadFaceFile(const char *path);               /* a 48x48 record of our own (assets/portrait_*.bin) */
+int Gfx_LoadFaceRgb(const unsigned short *img);     /* a 48x48 face cut from a map sprite */
 int Gfx_LoadFace(int duelist);                       /* disc portrait into the speaker slot */
 extern unsigned gfx_frame;
 extern float gfx_sort_override;

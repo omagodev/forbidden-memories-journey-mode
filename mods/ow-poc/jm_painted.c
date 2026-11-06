@@ -1669,3 +1669,46 @@ void Paint_MiniMap(int x, int y, int c, int s)
         jm_host->fill(jm_host, x + mx - r, y + my - r, 2 * r, 2 * r, 0xFFFFFF, 255);
     }
 }
+
+/* ---------------------------------------------------------------- talk portraits from the map sprites
+ * The square face in the dialogue box is cut from the same sheet the person walks with on the map (facing down, standing frame): a
+ * 24x24 window over the head and shoulders, doubled to the 48x48 speaker slot, so the talk avatar always looks like the sprite. */
+static const struct { const char *who; int spr; } face_alias[] = {
+    {"inseto", SPR_INSETO}, {"isis", SPR_ISIS}, {"pegasus", SPR_PEGASUS}, {"heishin", SPR_HEISHIN}, {"croquet", SPR_RIVAL},
+    {"mago_dev", SPR_MAGO}, {"mago_dev_tee", SPR_MAGO}, {"mago_hidden", SPR_MAGO}, {"atos", SPR_LPC_TEST}, {"player", SPR_LPC_TEST},
+};
+int Paint_FaceSprite(const char *who)
+{
+    int i;
+    if (!who) return -1;
+    for (i = 0; i < (int)(sizeof(face_alias) / sizeof(face_alias[0])); i++) if (!strcmp(face_alias[i].who, who)) return face_alias[i].spr;
+    for (i = 0; i < NPN; i++) if (!strcmp(pid[i], who)) return pnpc[i].spr;
+    return -1;
+}
+int Paint_LoadSpriteFace(int i)
+{
+    static unsigned short img[48 * 48];
+    Spr *s;
+    int x, y, top = 999, x0 = 999, x1 = -1, side, sc, cx;
+    const unsigned char *k, *c;
+    if (i < 0 || i >= SPR_COUNT || !spr_load(i)) return 0;
+    s = &spr[i];
+    k = s->kind; c = s->rgb;                                  /* cell 0: facing down, standing */
+    for (y = 0; y < s->h && top == 999; y++) for (x = 0; x < s->w; x++) if (k[y * s->w + x] == 0) { top = y; break; }
+    if (top == 999) return 0;
+    for (y = top; y < top + 10 && y < s->h; y++)               /* the head's columns centre the window */
+        for (x = 0; x < s->w; x++) if (k[y * s->w + x] == 0) { if (x < x0) x0 = x; if (x > x1) x1 = x; }
+    side = s->w >= 40 ? 24 : 16; sc = 48 / side; cx = (x0 + x1 + 1) / 2;
+    for (y = 0; y < 48; y++)
+        for (x = 0; x < 48; x++) {
+            int sx = cx - side / 2 + x / sc, sy = top - (side == 24 ? 2 : 1) + y / sc;
+            unsigned short v = (unsigned short)(0x8000 | 7 | 7 << 5 | 11 << 10);      /* the frame's backdrop */
+            if (sx >= 0 && sx < s->w && sy >= 0 && sy < s->h) {
+                int n = sy * s->w + sx;
+                if (k[n] == 254) v = rgb555(34, 24, 30);
+                else if (k[n] == 0) v = rgb555(c[n * 3], c[n * 3 + 1], c[n * 3 + 2]);
+            }
+            img[y * 48 + x] = v;
+        }
+    return Gfx_LoadFaceRgb(img);
+}

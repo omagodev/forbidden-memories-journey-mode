@@ -181,6 +181,17 @@ int Gfx_LoadFaceFile(const char *path)
     return 1;
 }
 
+/* A 48x48 face already in 15-bit colour (cut from a map sprite, jm_painted.c) into the speaker slot. */
+int Gfx_LoadFaceRgb(const unsigned short *img)
+{
+    u16 *bank = SoftGpu_Bank(BANK);
+    int x, y;
+    if (!bank || !img) return 0;
+    for (y = 0; y < 48; y++)
+        for (x = 0; x < 48; x++) bank[(size_t)(DYN_PORT_Y + y) * SOFT_GPU_WIDTH + DYN_PORT_X + x] = img[y * 48 + x];
+    return 1;
+}
+
 /* ---------------------------------------------------------------- camera */
 static float PITCH_C = 0.7071f, PITCH_S = 0.7071f;
 #define FOCAL 380.0f
