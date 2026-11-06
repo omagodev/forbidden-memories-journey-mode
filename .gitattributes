@@ -5,3 +5,5 @@
 languages/*.txt text eol=lf
 # The packs dealer's golden deals, compared byte for byte (tests/pc/packs_test.c).
 tests/pc/packs_golden.txt text eol=lf
+# Talk-avatar presets: raw RGB555, never line-converted.
+*.face binary
