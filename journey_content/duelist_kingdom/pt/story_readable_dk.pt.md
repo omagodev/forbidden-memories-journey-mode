@@ -1379,7 +1379,7 @@ _The Desert Mage after the duel._
 ### dk6_fair_road
 _The arch after chapter 6: the next part._
 
-- **Estrada da Feira**: Bandeiras no vento. Musica ao longe. O capitulo 7 chega na proxima parte.
+- **Estrada da Feira**: Bandeiras no vento. Musica ao longe. A Feira das Estrelas abre a frente.
 
 ### dk6_gate_shut
 _The fair arch before eight stars._
@@ -1396,3 +1396,130 @@ _The desert camp: a tarp, and the game-over warning._
 
 - **Acampamento**: Uma lona entre dunas. A equipe do Reino mantem um lampiao mesmo de dia.
 - **Equipe do Acampamento**: Dunas bonitas. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.
+
+### dk7_enter
+_Chapter 6 -> 7: the fair arch opens onto the Star Fair._
+
+- **Feira das Estrelas**: Oito estrelas. Bandeiras estalam. Musica e oleo fritando.
+- **{name}**: Uma feira inteira. Depois das dunas, quase parece barulho de proposito.
+
+### dk7_to_fair
+_The fair road after the first visit._
+
+- **Estrada da Feira**: Bandeiras de estrela de novo. O ringue espera no meio.
+
+### dk7_to_desert
+_The trail back to the Desert of Lost Stars._
+
+- **Trilha do Deserto**: O vento esquenta. Areia sob os pes. As dunas ficam atras.
+
+### dk7_arrival
+_Chapter 7 opens: stalls, a ring, a soaked friend at the raft._
+
+- **Feira**: Barracas em circulo. Um ringue de corda. Uma jangada bate no lago. Alguem cospe agua.
+- **{name}**: Essa tosse. E o Jono. Claro que ele fez uma jangada.
+- **Jono**: Eu naveguei! Mais ou menos. Quase afundei e depois flutuei. Feira legal!
+- **Objetivo**: Fale com o Jono na jangada.
+
+### dk7_jono_pre
+_Jono the soaked rival: a friendly duel, then the ring opens in the story._
+
+- **Jono**: A vila disse que eu era pequeno demais pro Reino. A jangada discordou. Mais ou menos.
+- **{name}**: Voce chegou. Pingando, mas chegou.
+- **Jono**: Me desafie. Amistoso. Se eu ganhar eu me gabo pra sempre. Se voce ganhar eu me gabo um pouco.  _[Duel? Yes/No]_
+
+### dk7_jono_win
+_Jono loses; MAGO.DEV glimpse 6 flashes in the crowd._
+
+- **Jono**: Ai. Tudo bem. Voce ainda e o melhor. Leve uma toalha seca. Metaforicamente.
+- **Multidao**: Na multidao, uma figura fica perfeitamente parada num brilho verde.
+- **???**: Leve o tempo que precisar. Eu tenho todo ele.
+- **Multidao**: Um glitch, e o lugar esta vazio.
+- **{name}**: Alguem acabou de... falar? O ringue esta mais alto que meus pensamentos.
+- **Jono**: O Campeao do Ringue aceita apostas nas cordas. Uma estrela vira nove. Ou zero. Cuidado.
+- **Voce ganhou**: O Amuleto da Jangada do Jono. Ele te da dicas pela feira.
+- **Objetivo**: Desafie o Campeao do Ringue no ringue central.
+
+### dk7_jono_lose
+_Jono wins the friendly duel (no star)._
+
+- **Jono**: Ha! Poder da jangada! Tente de novo quando secar. Espera. Esse sou eu.
+- **{name}**: O bazar da Bea, ou o Circo do Subsolo, depois a revanche.
+
+### dk7_jono_after
+_Jono after the friendly duel._
+
+- **Jono**: Vou inventar um barco que nao afunda. Nome pendente.
+
+### dk7_hint
+_A free tip from helper Jono at the fair._
+
+- **Jono**: O campeao guarda duas. Aposta min: nove estrelas. Portao do castelo depois. E: massa frita. Prioridade.
+
+### dk7_ring_early
+_The rope ring before Jono's tip._
+
+- **Ringue**: Cordas e poeira. A multidao quer aposta de estrela. Ainda nao.
+
+### dk7_champ_pre
+_The Ring Champion, zone master: a one-star wager at the fair ring._
+
+- **Campeao do Ringue**: Oito estrelas andam na minha feira. Poucos saem com nove.
+- **Campeao do Ringue**: Duas estrelas repousam sob estas cordas. Aposte o que sua coragem deixar.
+- **{name}**: Dez abrem o castelo. Nao cruzei um deserto pra hesitar.
+- **Campeao do Ringue**: Entao aplauda ou engasgue, viajante. A feira pode falar?  _[Duel? Yes/No]_
+
+### dk7_champ_win
+_The Ring Champion loses: nine stars, end of chapter 7._
+
+- **Campeao do Ringue**: As cordas caem. Minha estrela, e uma medalha do meu peito.
+- **Voce ganhou**: Uma estrela e a carta Twin-headed Thunder Dragon.
+- **Campeao do Ringue**: Alem do arco as pedras do castelo sobem. Mais uma estrela. O Reino ainda observa.
+- **{name}**: Nove estrelas. Falta uma. Alguem num helicoptero esta gritando sobre insetos.
+- **Fim do Capitulo 7**: A Feira das Estrelas ficou para tras. A estrada do castelo abre.
+
+### dk7_champ_lose
+_The Ring Champion keeps his stars._
+
+- **Campeao do Ringue**: A multidao vaia baixinho. Volte mais pesado, faiscazinha.
+- **{name}**: Ele me passou. As barracas da Bea e o Circo do Subsolo, entao.
+
+### dk7_champ_after
+_The Ring Champion after the duel._
+
+- **Campeao do Ringue**: O arco do castelo e seu. Cuidado com os agentes nos becos.
+
+### dk7_inseto_taunt
+_InsetoKaiba's fair taunt: foreshadow only, no duel._
+
+- **InsetoKaiba**: Uma libelula pousa onde quer. Eu pouso nas suas estrelas depois.
+- **{name}**: InsetoKaiba. Ainda barulhento. Ainda inseto.
+- **InsetoKaiba**: O portao do castelo sera meu. Traga dez estrelas pra derrota doer mais.
+
+### dk7_agents
+_Heishin's agents herding eliminated duelists._
+
+- **Beco**: Equipe de capuz empurra uma fila de duelistas sem estrela pra um alcapao.
+- **{name}**: Eliminados... e ainda andando. Pra onde vao as estrelas deles?
+- **Equipe do Acampamento**: Siga em frente, convidado da feira. Assunto de porao nao e seu.
+
+### dk7_castle_road
+_The arch after chapter 7: the next part._
+
+- **Estrada do Castelo**: Muros de pedra sobem. Falta uma estrela. O capitulo 8 chega na proxima parte.
+
+### dk7_gate_shut
+_The castle arch before nine stars._
+
+- **Arco do Castelo**: Um arco de pedra alem da feira. Nove estrelas gravadas. A multidao empurra voce.
+
+### dk7_bazaar_bea
+_Bazaar Bea, the Grand Bazaar._
+
+- **Bea do Bazar**: Estrelas, lanches e cartas. So as cartas duram mais que os fogos.
+
+### dk7_fair_camp
+_The fair camp: a tarp behind the stalls, and the game-over warning._
+
+- **Acampamento**: Uma lona atras das barracas. A equipe do Reino mantem um lampiao entre bandeiras.
+- **Equipe do Acampamento**: Feira bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.

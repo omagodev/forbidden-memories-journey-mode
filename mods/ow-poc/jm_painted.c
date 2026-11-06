@@ -24,7 +24,7 @@
 
 static int loaded, load_failed;
 int paint_area;                    /* village, old cistern, or the secret flour-cellar arena */
-enum { AREA_VILLAGE, AREA_CISTERN, AREA_ARENA, AREA_HARBOR, AREA_SHIP, AREA_BEACH, AREA_FOREST, AREA_MOUNTAIN, AREA_MEADOW, AREA_DESERT, AREA_COUNT };
+enum { AREA_VILLAGE, AREA_CISTERN, AREA_ARENA, AREA_HARBOR, AREA_SHIP, AREA_BEACH, AREA_FOREST, AREA_MOUNTAIN, AREA_MEADOW, AREA_DESERT, AREA_FAIR, AREA_COUNT };
 #define KINGDOM_ZONE(a) ((a) >= AREA_HARBOR)   /* the chapter 2 pictures: their people share sprite pages with the villagers */
 static const struct { const char *name, *pic, *col, *occ; int cw, ch, cell; } parea[AREA_COUNT] = {
     {"village", "assets/painted.raw", "assets/painted_col.bin", NULL, 160, 90, 8},
@@ -37,6 +37,7 @@ static const struct { const char *name, *pic, *col, *occ; int cw, ch, cell; } pa
     {"kingdom_mountain", "assets/painted_mountain.raw", "assets/painted_mountain_col.bin", "assets/painted_mountain_occ.bin", 320, 180, 4},
     {"kingdom_meadow", "assets/painted_meadow.raw", "assets/painted_meadow_col.bin", "assets/painted_meadow_occ.bin", 320, 180, 4},
     {"kingdom_desert", "assets/painted_desert.raw", "assets/painted_desert_col.bin", "assets/painted_desert_occ.bin", 320, 180, 4},
+    {"kingdom_fair", "assets/painted_fair.raw", "assets/painted_fair_col.bin", "assets/painted_fair_occ.bin", 320, 180, 4},
 };
 static int arena_from = AREA_VILLAGE;   /* every clandestine ring is the same cellar picture: this is the place its door is in */
 static unsigned char *col;         /* the collision mask: col_w x col_h cells of col_cell texels (the village 160 x 90 of 8, the cistern 320 x 180 of 4) */
@@ -81,7 +82,7 @@ static int bench_at(float *x, float *y);
 #define SPR_FX 24
 #define SPR_FY 56
 enum { SPR_LPC_TEST, SPR_PLAYER_MESH, SPR_AI, SPR_SIMON, SPR_TEANA, SPR_JONO, SPR_GUARD, SPR_RIVAL, SPR_MAGO, SPR_BAKER, SPR_FARMER, SPR_REX, SPR_BAKURA, SPR_ARENA_CROWD, SPR_HERO,
-       SPR_SOLDIER, SPR_SHADI, SPR_MAI, SPR_WEEVIL, SPR_TRADER, SPR_CAMP, SPR_INSETO, SPR_FOREST_MAGE, SPR_KEITH, SPR_MOUNTAIN_MAGE, SPR_MEADOW_MAGE, SPR_DESERT_MAGE, SPR_ISIS, SPR_COUNT };
+       SPR_SOLDIER, SPR_SHADI, SPR_MAI, SPR_WEEVIL, SPR_TRADER, SPR_CAMP, SPR_INSETO, SPR_FOREST_MAGE, SPR_KEITH, SPR_MOUNTAIN_MAGE, SPR_MEADOW_MAGE, SPR_DESERT_MAGE, SPR_ISIS, SPR_RING_CHAMP, SPR_COUNT };
 typedef struct { const char *file; int recolour; int nf, w, h, fx, fy; unsigned char *kind, *wt, *rgb; int ok, bank, page; } Spr;
 static Spr spr[SPR_COUNT] = {
     {"assets/spr_lpc_test.bin", 0}, {"assets/spr_player.bin", 1}, {"assets/spr_ai.bin", 0},
@@ -93,13 +94,14 @@ static Spr spr[SPR_COUNT] = {
     {"assets/spr_trader.bin", 0}, {"assets/spr_camp_merchant.bin", 0}, {"assets/spr_inseto.bin", 0}, {"assets/spr_forest_mage.bin", 0},
     {"assets/spr_keith.bin", 0}, {"assets/spr_mountain_mage.bin", 0}, {"assets/spr_meadow_mage.bin", 0},
     {"assets/spr_desert_mage.bin", 0}, {"assets/spr_isis.bin", 0},
+    {"assets/spr_ring_champ.bin", 0},
 };
 /* Where each sheet lives: bank 13 has eight 256x256 pages. Frames are packed into as many columns as their recorded width permits. */
-static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 15, 13,   13, 15, 15, 15, 15, 13, 13, 15, 15, 15, 15, 15, 15};
-static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 4, 2,   7, 2, 3, 6, 7, 3, 5, 2, 6, 2, 2, 2, 3};
+static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 15, 13,   13, 15, 15, 15, 15, 13, 13, 15, 15, 15, 15, 15, 15, 15};
+static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 4, 2,   7, 2, 3, 6, 7, 3, 5, 2, 6, 2, 2, 2, 3, 2};
 /* who may own a page where: 0 everywhere, 1 only in the home town (village, cistern, cellar), 2 only in the chapter 2 pictures.
  * The harbor, ship and beach people take the pages of the villagers who never leave home (and of the bench and hatches). */
-static const unsigned char spr_zone[SPR_COUNT] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0,   2, 2, 2, 2, 2, 2, 3, 4, 5, 5, 6, 7, 7};
+static const unsigned char spr_zone[SPR_COUNT] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0,   2, 2, 2, 2, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8};
 /* 3: only on the ship, where InsetoKaiba borrows Teana's page (she says goodbye on the pier and stays home); bank 15 page 4 is the props' */
 static int spr_zone_ok(int i, int area)
 {
@@ -108,13 +110,16 @@ static int spr_zone_ok(int i, int area)
     if (spr_zone[i] == 5) return area == AREA_MOUNTAIN;    /* Keith takes Weevil's page and the Mountain Mage Shadi's on the pass */
     if (spr_zone[i] == 6) return area == AREA_MEADOW;      /* the Meadow Mage takes Shadi's page in the maze */
     if (spr_zone[i] == 7) return area == AREA_DESERT;      /* the Desert Mage / Isis take Shadi's and Mai's pages in the dunes */
-    if ((area == AREA_FOREST || area == AREA_MOUNTAIN || area == AREA_MEADOW || area == AREA_DESERT) && (i == SPR_SHADI || i == SPR_WEEVIL)) return 0;
+    if (spr_zone[i] == 8) return area == AREA_FAIR;        /* the Ring Champion takes Shadi's page at the fair */
+    if ((area == AREA_FOREST || area == AREA_MOUNTAIN || area == AREA_MEADOW || area == AREA_DESERT || area == AREA_FAIR) && (i == SPR_SHADI || i == SPR_WEEVIL)) return 0;
     if (area == AREA_DESERT && i == SPR_MAI) return 0;   /* Isis borrows Mai's page in the dunes */
     if (i == SPR_REX && area == AREA_FOREST) return 1;     /* Rex shares Weevil's page: in the forest it is his */
     if (i == SPR_TEANA && area == AREA_SHIP) return 0;
     if (i == SPR_TEANA && (area == AREA_MEADOW || area == AREA_DESERT)) return 1;   /* Teana helper: maze, then desert */
     if (i == SPR_BAKURA && area == AREA_DESERT) return 1;  /* Bakura's comic desert cameo */
-    if (i == SPR_CAMP && area == AREA_DESERT) return 1;    /* Nomad Nia reuses the camp merchant sheet */
+    if (i == SPR_CAMP && (area == AREA_DESERT || area == AREA_FAIR)) return 1;    /* Nomad Nia / Bazaar Bea reuse camp sheet */
+    if (i == SPR_INSETO && area == AREA_FAIR) return 1;    /* InsetoKaiba's fair taunt */
+    if (i == SPR_JONO && area == AREA_FAIR) return 1;      /* Jono soaked at the raft */
     return !spr_zone[i] || spr_zone[i] == (KINGDOM_ZONE(area) ? 2 : 1);
 }   /* the arena's anonymous crowd temporarily owns bank 15 page 4; leaving reloads the village props there */
 int paint_sprite = 1;               /* LPC proof of concept by default; debug Square still compares every renderer */
@@ -377,6 +382,11 @@ static PNpc pnpc[] = {
     {"Wizard", SPR_BAKURA, 640, 480, 0.0f, 1, 24, 0, 0, 0, 0, 0, 0, AREA_DESERT, 1.15f}, /* Bakura floats in the heat */
     {"Ninja_Sand_Female", SPR_TEANA, 420, 580, 0.0f, 1, 28},   /* Teana helper near the desert camp */
     {"Ninja_Sand_Female", SPR_CAMP, 220, 520, 0.0f, 0, 0},     /* Nomad Nia, the caravan tent */
+    /* chapter 7: the Star Fair */
+    {"Ninja_Sand", SPR_JONO, 220, 580, 0.0f, 1, 24},           /* Jono at the raft */
+    {"Suit_Male", SPR_RING_CHAMP, 640, 380, 0.0f, 0, 0},       /* Ring Champion at the ropes */
+    {"Suit_Male", SPR_INSETO, 820, 500, 0.0f, 0, 0},           /* InsetoKaiba taunting */
+    {"Ninja_Sand_Female", SPR_CAMP, 200, 340, 0.0f, 0, 0},     /* Bazaar Bea, Grand Bazaar */
 };
 #define NPN ((int)(sizeof(pnpc) / sizeof(pnpc[0])))
 static int npc_init;
@@ -386,7 +396,8 @@ static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_
                                      "rex_forest", "forest_mage", "hermit_hob",
                                      "keith", "mai_mountain", "star_carver", "mountain_mage", "cliff_cass",
                                      "teana_meadow", "meadow_mage", "rose_rue",
-                                     "isis_desert", "desert_mage", "bakura_desert", "teana_desert", "nomad_nia"};
+                                     "isis_desert", "desert_mage", "bakura_desert", "teana_desert", "nomad_nia",
+                                     "jono_fair", "ring_champ", "inseto_fair", "bazaar_bea"};
 static char pnpc_anchor[NPN][40];      /* the anchor each one was last placed at: the story moves people (the farewells) */
 #define GUARD 2
 static short guard_home[2] = {652, 168};   /* the bridge_north anchor (set from the table below) */
@@ -428,6 +439,10 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     {"spawn", 200, 680, 9}, {"desert_camp", 260, 620, 9}, {"teana_spot", 420, 580, 9}, {"shop_stall", 220, 520, 9},
     {"arena_door", 1000, 580, 9}, {"gate_spot", 450, 400, 9}, {"isis_spot", 900, 350, 9}, {"fair_gate", 640, 110, 9},
     {"bakura_spot", 640, 480, 9}, {"desert_center", 520, 420, 9}, {"hangout_a", 780, 500, 9}, {"hangout_b", 340, 540, 9},
+    /* the Star Fair: in from the desert at the bottom, the castle arch at the top */
+    {"spawn", 640, 680, 10}, {"fair_camp", 180, 640, 10}, {"jono_spot", 220, 580, 10}, {"shop_stall", 200, 340, 10},
+    {"arena_door", 1040, 560, 10}, {"gate_spot", 640, 380, 10}, {"castle_gate", 640, 110, 10}, {"inseto_spot", 820, 500, 10},
+    {"agents_alley", 1000, 300, 10}, {"fair_center", 640, 420, 10}, {"hangout_a", 880, 450, 10}, {"hangout_b", 360, 500, 10},
 };
 #define NANCHOR ((int)(sizeof(anchors) / sizeof(anchors[0])))
 /* "area.name" picks the anchor of that area; a bare name the one in the area the player is in, else the first of that name */

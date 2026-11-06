@@ -465,6 +465,63 @@
     "Mooyan Curry": 2
    },
    "notes": "Chapter 6 zone master (holds 2)."
+  },
+  "Jono Fair": {
+   "duelist": "Jono",
+   "chapter": 1,
+   "difficulty_tier": 6,
+   "theme": "Beast warriors and stubborn grit",
+   "fixed": true,
+   "total": 35,
+   "cards": {
+    "Wolf": 3,
+    "Silver Fang": 3,
+    "Prevent Rat": 2,
+    "Mavelus": 2,
+    "Flame Cerebrus": 1,
+    "Garvas": 2,
+    "Flower Wolf": 1,
+    "Axe Raider": 2,
+    "Ansatsu": 2,
+    "Wasteland": 2,
+    "Forest": 2,
+    "Sparks": 2,
+    "Red Medicine": 3,
+    "Mooyan Curry": 2,
+    "Hinotama": 2,
+    "Haniwa": 2,
+    "Pot the Trick": 2
+   },
+   "notes": "Chapter 7 friendly rival (no star)."
+  },
+  "Ring Champion Circus": {
+   "duelist": "Ring Champion",
+   "chapter": 1,
+   "difficulty_tier": 7,
+   "theme": "Showy fusion beaters and the fair field",
+   "fixed": true,
+   "total": 32,
+   "cards": {
+    "Twin-headed Thunder Dragon": 1,
+    "Bickuribox": 1,
+    "Ushi Oni": 1,
+    "Kaiser Dragon": 1,
+    "Swordstalker": 2,
+    "Flame Swordsman": 2,
+    "Giltia the D. Knight": 1,
+    "Axe Raider": 2,
+    "Ansatsu": 2,
+    "Monster Tamer": 2,
+    "Beautiful Beast Trainer": 2,
+    "Sogen": 3,
+    "Sparks": 2,
+    "Hinotama": 2,
+    "Red Medicine": 2,
+    "Invigoration": 2,
+    "Mooyan Curry": 2,
+    "Legendary Sword": 2
+   },
+   "notes": "Chapter 7 zone master (holds 2)."
   }
  },
  "starter": {

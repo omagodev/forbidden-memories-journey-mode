@@ -54,6 +54,9 @@
   "isis_desert_won",
   "bakura_desert_won",
   "desert_mage_won",
+  "fair_arrived",
+  "jono_fair_won",
+  "ring_champ_won",
   "academy_started",
   "academy_basics",
   "academy_guardians",
@@ -376,6 +379,10 @@
    "flag": "isis_desert_won"
   },
   {
+   "name": "Raft Charm",
+   "flag": "jono_fair_won"
+  },
+  {
    "name": "Star Chips",
    "flag": "shadi_won",
    "icon": "assets/icon_star_chips.bin",
@@ -415,7 +422,13 @@
    "text": "The Meadow Maze"
   },
   {
+   "when": {
+    "stage_lt": 28
+   },
    "text": "Desert of Lost Stars"
+  },
+  {
+   "text": "The Star Fair"
   }
  ],
  "objectives": [
@@ -814,9 +827,36 @@
   },
   {
    "when": {
-    "stage_ge": 27
+    "stage_ge": 27,
+    "stage_lt": 28
    },
-   "text": "Chapter 6 complete - the fair road waits"
+   "text": "Chapter 6 complete - take the fair arch"
+  },
+  {
+   "when": {
+    "stage_ge": 28
+   },
+   "text": "Beyond the desert - the Star Fair"
+  },
+  {
+   "when": {
+    "stage_ge": 28,
+    "stage_lt": 29
+   },
+   "text": "Talk to Jono at the raft - soaked and ready"
+  },
+  {
+   "when": {
+    "stage_ge": 29,
+    "stage_lt": 30
+   },
+   "text": "Beat the Ring Champion - a star on the line"
+  },
+  {
+   "when": {
+    "stage_ge": 30
+   },
+   "text": "Chapter 7 complete - the castle road waits"
   }
  ],
  "triggers": [],
@@ -1190,7 +1230,7 @@
     }
    ],
    "duelist_id": 3,
-   "portrait_id": 3,
+   "portrait_id": 19,
    "tile": [
     19.5,
     32.5
@@ -2922,6 +2962,181 @@
      "anchor": "kingdom_desert.shop_stall"
     }
    ]
+  },
+  {
+   "id": "jono_fair",
+   "name": "Jono",
+   "mesh": "Ninja_Sand",
+   "anchor": "kingdom_fair.jono_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 28,
+      "stage_lt": 29,
+      "lacks": [
+       "jono_fair_won"
+      ]
+     },
+     "scene": "dk7_jono_pre",
+     "duel": true,
+     "win": {
+      "stage": 29,
+      "flags": [
+       "jono_fair_won"
+      ],
+      "scene": "dk7_jono_win"
+     },
+     "lose": {
+      "scene": "dk7_jono_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 29
+     },
+     "scene": "dk7_hint"
+    },
+    {
+     "when": {
+      "stage_ge": 29
+     },
+     "scene": "dk7_jono_after"
+    }
+   ],
+   "duelist_id": 19,
+   "portrait_id": 19,
+   "duelist": "dk_jono_fair",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "anchor": "kingdom_fair.jono_spot"
+    }
+   ]
+  },
+  {
+   "id": "ring_champ",
+   "name": "Ring Champion",
+   "mesh": "Suit_Male",
+   "anchor": "kingdom_fair.gate_spot",
+   "talk": [
+    {
+     "when": {
+      "needs": [
+       "ring_champ_won"
+      ],
+      "wager_extra": [
+       7,
+       2,
+       "ring_champ_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 2,
+      "slot": 7,
+      "wid": "ring_champ",
+      "beaten": "ring_champ_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
+      "stage_ge": 29,
+      "stage_lt": 30,
+      "lacks": [
+       "ring_champ_won"
+      ]
+     },
+     "scene": "dk7_champ_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       613
+      ],
+      "stage": 30,
+      "flags": [
+       "ring_champ_won"
+      ],
+      "scene": "dk7_champ_win",
+      "wager": 2,
+      "slot": 7,
+      "wid": "ring_champ",
+      "beaten": "ring_champ_won"
+     },
+     "lose": {
+      "scene": "dk7_champ_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 29
+     },
+     "scene": "dk7_champ_after"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "duelist": "dk_ring_champ",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 29
+     },
+     "anchor": "kingdom_fair.gate_spot"
+    }
+   ]
+  },
+  {
+   "id": "inseto_fair",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "kingdom_fair.inseto_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "scene": "dk7_inseto_taunt"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "anchor": "kingdom_fair.inseto_spot"
+    }
+   ]
+  },
+  {
+   "id": "bazaar_bea",
+   "name": "Bazaar Bea",
+   "mesh": "Ninja_Sand_Female",
+   "anchor": "kingdom_fair.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "scene": "dk7_bazaar_bea"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "anchor": "kingdom_fair.shop_stall"
+    }
+   ]
   }
  ],
  "speakers": {
@@ -2935,7 +3150,7 @@
    "portrait_id": 20
   },
   "jono": {
-   "portrait_id": 3
+   "portrait_id": 19
   },
   "guard": {
    "portrait_id": 5
@@ -3034,6 +3249,15 @@
    "portrait_id": 27
   },
   "nomad_nia": {
+   "portrait_id": 0
+  },
+  "ring_champ": {
+   "portrait_id": 0
+  },
+  "inseto_kaiba": {
+   "portrait_id": 0
+  },
+  "bazaar_bea": {
    "portrait_id": 0
   }
  },
@@ -3490,9 +3714,30 @@
   },
   {
    "when": {
-    "stage_ge": 27
+    "stage_ge": 27,
+    "stage_lt": 28
    },
    "anchor": "fair_gate"
+  },
+  {
+   "when": {
+    "stage_ge": 28,
+    "stage_lt": 29
+   },
+   "npc": "jono_fair"
+  },
+  {
+   "when": {
+    "stage_ge": 29,
+    "stage_lt": 30
+   },
+   "npc": "ring_champ"
+  },
+  {
+   "when": {
+    "stage_ge": 30
+   },
+   "anchor": "castle_gate"
   }
  ],
  "journal": [
@@ -3896,6 +4141,18 @@
    "done": {
     "needs": [
      "desert_mage_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q16_fair",
+   "active": {
+    "stage_ge": 28
+   },
+   "done": {
+    "needs": [
+     "ring_champ_won"
     ]
    },
    "lines": []
@@ -4739,6 +4996,33 @@
    "talk": [
     {
      "when": {
+      "stage_ge": 28
+     },
+     "scene": "dk7_to_fair",
+     "effects": {
+      "warp": [
+       "kingdom_fair",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 27,
+      "stage_lt": 28,
+      "stars_min": 8
+     },
+     "scene": "dk7_enter",
+     "effects": {
+      "stage": 28,
+      "warp": [
+       "kingdom_fair",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
       "stage_ge": 27,
       "stars_min": 8
      },
@@ -4784,6 +5068,85 @@
     }
    ],
    "reach": 80
+  },
+  {
+   "id": "duel_ring",
+   "anchor": "gate_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 28,
+      "stage_lt": 29
+     },
+     "scene": "dk7_ring_early"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "castle_gate",
+   "anchor": "castle_gate",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 30,
+      "stars_min": 9
+     },
+     "scene": "dk7_castle_road"
+    },
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "scene": "dk7_gate_shut"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "fair_camp",
+   "anchor": "fair_camp",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "scene": "dk7_fair_camp"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "agents_alley",
+   "anchor": "agents_alley",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "scene": "dk7_agents"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "fair_exit",
+   "anchor": "spawn",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 28
+     },
+     "scene": "dk7_to_desert",
+     "effects": {
+      "warp": [
+       "kingdom_desert",
+       "fair_gate"
+      ]
+     }
+    }
+   ],
+   "reach": 80
   }
  ],
  "intro": "dk1_intro",
@@ -4801,7 +5164,8 @@
    "kingdom_forest": 21,
    "kingdom_mountain": 22,
    "kingdom_meadow": 19,
-   "kingdom_desert": 23
+   "kingdom_desert": 23,
+   "kingdom_fair": 24
   },
   "night": {
    "stage_ge": 2,
@@ -6343,6 +6707,240 @@
    "anchor": "kingdom_desert.desert_center",
    "time": "auto",
    "stars": 8
+  },
+  {
+   "name": "42 fair arrival (chapter 7)",
+   "stage": 28,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won"
+   ],
+   "anchor": "kingdom_fair.spawn",
+   "time": "auto",
+   "stars": 8
+  },
+  {
+   "name": "43 Jono at the raft (friendly)",
+   "stage": 28,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived"
+   ],
+   "anchor": "kingdom_fair.jono_spot",
+   "time": "auto",
+   "stars": 8
+  },
+  {
+   "name": "44 Ring Champion (wager)",
+   "stage": 29,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won"
+   ],
+   "anchor": "kingdom_fair.fair_center",
+   "time": "auto",
+   "stars": 8
+  },
+  {
+   "name": "45 chapter 7 done",
+   "stage": 30,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won"
+   ],
+   "anchor": "kingdom_fair.fair_center",
+   "time": "auto",
+   "stars": 9
   }
  ],
  "auto": [
@@ -6472,7 +7070,23 @@
     ]
    },
    "scene": "dk6_arrival"
+  },
+  {
+   "when": {
+    "stage_ge": 28,
+    "stage_lt": 29,
+    "lacks": [
+     "fair_arrived"
+    ],
+    "area": 10
+   },
+   "result": {
+    "flags": [
+     "fair_arrived"
+    ]
+   },
+   "scene": "dk7_arrival"
   }
  ],
- "story": "duelist_kingdom chapters 1-6"
+ "story": "duelist_kingdom chapters 1-7"
 }

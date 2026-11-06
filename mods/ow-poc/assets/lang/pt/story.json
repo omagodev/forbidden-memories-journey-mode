@@ -3509,7 +3509,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Bandeiras no vento. Musica ao longe. O capitulo 7 chega na proxima parte.",
+     "text": "Bandeiras no vento. Musica ao longe. A Feira das Estrelas abre a frente.",
      "label": "Estrada da Feira",
      "kind": "caption"
     }
@@ -3547,6 +3547,328 @@
     {
      "speaker": "staff",
      "text": "Dunas bonitas. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
+    }
+   ]
+  },
+  {
+   "id": "dk7_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Oito estrelas. Bandeiras estalam. Musica e oleo fritando.",
+     "label": "Feira das Estrelas",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Uma feira inteira. Depois das dunas, quase parece barulho de proposito."
+    }
+   ]
+  },
+  {
+   "id": "dk7_to_fair",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Bandeiras de estrela de novo. O ringue espera no meio.",
+     "label": "Estrada da Feira",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_to_desert",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O vento esquenta. Areia sob os pes. As dunas ficam atras.",
+     "label": "Trilha do Deserto",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Barracas em circulo. Um ringue de corda. Uma jangada bate no lago. Alguem cospe agua.",
+     "label": "Feira",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Essa tosse. E o Jono. Claro que ele fez uma jangada."
+    },
+    {
+     "speaker": "jono",
+     "text": "Eu naveguei! Mais ou menos. Quase afundei e depois flutuei. Feira legal!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Fale com o Jono na jangada.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_pre",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "A vila disse que eu era pequeno demais pro Reino. A jangada discordou. Mais ou menos."
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce chegou. Pingando, mas chegou."
+    },
+    {
+     "speaker": "jono",
+     "text": "Me desafie. Amistoso. Se eu ganhar eu me gabo pra sempre. Se voce ganhar eu me gabo um pouco.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_win",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ai. Tudo bem. Voce ainda e o melhor. Leve uma toalha seca. Metaforicamente."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Na multidao, uma figura fica perfeitamente parada num brilho verde.",
+     "label": "Multidao",
+     "kind": "caption"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "Leve o tempo que precisar. Eu tenho todo ele."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um glitch, e o lugar esta vazio.",
+     "label": "Multidao",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Alguem acabou de... falar? O ringue esta mais alto que meus pensamentos."
+    },
+    {
+     "speaker": "jono",
+     "text": "O Campeao do Ringue aceita apostas nas cordas. Uma estrela vira nove. Ou zero. Cuidado."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Amuleto da Jangada do Jono. Ele te da dicas pela feira.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Desafie o Campeao do Ringue no ringue central.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_lose",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ha! Poder da jangada! Tente de novo quando secar. Espera. Esse sou eu."
+    },
+    {
+     "speaker": "atos",
+     "text": "O bazar da Bea, ou o Circo do Subsolo, depois a revanche."
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_after",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Vou inventar um barco que nao afunda. Nome pendente."
+    }
+   ]
+  },
+  {
+   "id": "dk7_hint",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "O campeao guarda duas. Aposta min: nove estrelas. Portao do castelo depois. E: massa frita. Prioridade."
+    }
+   ]
+  },
+  {
+   "id": "dk7_ring_early",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Cordas e poeira. A multidao quer aposta de estrela. Ainda nao.",
+     "label": "Ringue",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_pre",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "Oito estrelas andam na minha feira. Poucos saem com nove."
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Duas estrelas repousam sob estas cordas. Aposte o que sua coragem deixar."
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez abrem o castelo. Nao cruzei um deserto pra hesitar."
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Entao aplauda ou engasgue, viajante. A feira pode falar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_win",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "As cordas caem. Minha estrela, e uma medalha do meu peito."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela e a carta Twin-headed Thunder Dragon.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Alem do arco as pedras do castelo sobem. Mais uma estrela. O Reino ainda observa."
+    },
+    {
+     "speaker": "atos",
+     "text": "Nove estrelas. Falta uma. Alguem num helicoptero esta gritando sobre insetos."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A Feira das Estrelas ficou para tras. A estrada do castelo abre.",
+     "label": "Fim do Capitulo 7",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_lose",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "A multidao vaia baixinho. Volte mais pesado, faiscazinha."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele me passou. As barracas da Bea e o Circo do Subsolo, entao."
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_after",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "O arco do castelo e seu. Cuidado com os agentes nos becos."
+    }
+   ]
+  },
+  {
+   "id": "dk7_inseto_taunt",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Uma libelula pousa onde quer. Eu pouso nas suas estrelas depois."
+    },
+    {
+     "speaker": "atos",
+     "text": "InsetoKaiba. Ainda barulhento. Ainda inseto."
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "O portao do castelo sera meu. Traga dez estrelas pra derrota doer mais."
+    }
+   ]
+  },
+  {
+   "id": "dk7_agents",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Equipe de capuz empurra uma fila de duelistas sem estrela pra um alcapao.",
+     "label": "Beco",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Eliminados... e ainda andando. Pra onde vao as estrelas deles?"
+    },
+    {
+     "speaker": "staff",
+     "text": "Siga em frente, convidado da feira. Assunto de porao nao e seu."
+    }
+   ]
+  },
+  {
+   "id": "dk7_castle_road",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Muros de pedra sobem. Falta uma estrela. O capitulo 8 chega na proxima parte.",
+     "label": "Estrada do Castelo",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_gate_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Um arco de pedra alem da feira. Nove estrelas gravadas. A multidao empurra voce.",
+     "label": "Arco do Castelo",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_bazaar_bea",
+   "pages": [
+    {
+     "speaker": "bazaar_bea",
+     "text": "Estrelas, lanches e cartas. So as cartas duram mais que os fogos."
+    }
+   ]
+  },
+  {
+   "id": "dk7_fair_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona atras das barracas. A equipe do Reino mantem um lampiao entre bandeiras.",
+     "label": "Acampamento",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Feira bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
     }
    ]
   }

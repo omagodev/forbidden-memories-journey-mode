@@ -206,8 +206,30 @@ def desert():
     pack("desert", src, walk, occ)
 
 
-harbor(); ship_deck(); beach(); forest(); mountain(); meadow(); desert()
-for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage", "desert_mage", "isis"):
+
+def fair():
+    """The Star Fair (chapter 7): grass and dirt paths are walkable; stall footprints and the pond
+    are not; tent roofs and stall awnings occlude the player."""
+    src = ART + "/raw/dk_fair_raw.jpg"
+    pic = Image.open(src).convert("RGB")
+    hsv = np.array(pic.filter(ImageFilter.GaussianBlur(4)).convert("HSV")).astype(np.float32)
+    h, sat, v = hsv[..., 0] * 360 / 255, hsv[..., 1] / 255, hsv[..., 2] / 255
+    walk = ((h > 40) & (h < 160) & (v > 0.30)) | ((h > 15) & (h < 50) & (sat > 0.20) & (v > 0.35))
+    walk = np.array(Image.fromarray(walk.astype(np.uint8) * 255).filter(ImageFilter.MedianFilter(15))) > 127
+    walk |= shape_mask([("r", 560, 620, 720, 720), ("r", 560, 320, 720, 460), ("r", 560, 80, 720, 180),
+                        ("r", 140, 300, 280, 400), ("r", 960, 500, 1140, 640), ("r", 160, 540, 300, 640)])
+    walk &= ~shape_mask([("r", 0, 0, 1280, 50), ("r", 0, 690, 1280, 720),
+                         ("r", 120, 280, 300, 400),   # purple bazaar tent
+                         ("r", 980, 320, 1160, 460),  # red tent
+                         ("r", 80, 560, 200, 680)])   # pond
+    tents = [((120, 250, 300, 340), 360), ((980, 300, 1160, 400), 420), ((40, 100, 160, 200), 220)]
+    occ = [(shape_mask([("r",) + r]) & ~walk, base) for r, base in tents]
+    occ.append((shape_mask([("r", 1000, 500, 1140, 580)]), 600))
+    pack("fair", src, walk, occ)
+
+
+harbor(); ship_deck(); beach(); forest(); mountain(); meadow(); desert(); fair()
+for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage", "desert_mage", "isis", "ring_champ"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
 for n in ("mai", "weevil", "shadi", "soldier", "trader", "camp_merchant"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)

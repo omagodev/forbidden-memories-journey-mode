@@ -186,7 +186,8 @@
     "A Floresta dos Sussurros",
     "A Passagem da Montanha",
     "O Labirinto da Campina",
-    "Deserto das Estrelas Perdidas"
+    "Deserto das Estrelas Perdidas",
+    "A Feira das Estrelas"
   ],
   "objectives": [
     "Duele com Bakura, o fantasma solitario",
@@ -231,7 +232,11 @@
     "Alem da campina - o Deserto das Estrelas Perdidas",
     "Fale com a Isis na tenda - uma leitura nas dunas",
     "Venca o Mago do Deserto - uma estrela em jogo",
-    "Capitulo 6 completo - a estrada da feira espera"
+    "Capitulo 6 completo - pegue o arco da feira",
+    "Alem do deserto - a Feira das Estrelas",
+    "Fale com o Jono na jangada - encharcado e pronto",
+    "Venca o Campeao do Ringue - uma estrela em jogo",
+    "Capitulo 7 completo - a estrada do castelo espera"
   ],
   "items": [
     "Cartao de Selos",
@@ -250,6 +255,7 @@
     "Cinzel Estelar",
     "Amuleto de Dica",
     "Amuleto de Poeira",
+    "Amuleto da Jangada",
     "Fichas de Estrela"
   ],
   "npc_names": {
@@ -287,7 +293,11 @@
     "teana_desert": "Teana",
     "bakura_desert": "Yami Bakura",
     "desert_mage": "Mago do Deserto",
-    "nomad_nia": "Nomade Nia"
+    "nomad_nia": "Nomade Nia",
+    "jono_fair": "Jono",
+    "ring_champ": "Campeao do Ringue",
+    "inseto_fair": "InsetoKaiba",
+    "bazaar_bea": "Bea do Bazar"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -323,7 +333,10 @@
     "meadow_mage": "Maga da Campina",
     "rose_rue": "Rose Rue",
     "desert_mage": "Mago do Deserto",
-    "nomad_nia": "Nomade Nia"
+    "nomad_nia": "Nomade Nia",
+    "ring_champ": "Campeao do Ringue",
+    "inseto_kaiba": "InsetoKaiba",
+    "bazaar_bea": "Bea do Bazar"
   },
   "map": {
     "title": "MAPA",
@@ -477,7 +490,8 @@
     "A Floresta dos Sussurros",
     "A Passagem da Montanha",
     "O Labirinto da Campina",
-    "Deserto das Estrelas Perdidas"
+    "Deserto das Estrelas Perdidas",
+    "A Feira das Estrelas"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
@@ -494,7 +508,8 @@
     "Venca o Rex Raptor por uma estrela",
     "Venca o Bandit Keith na ponte",
     "Ache a Teana nas cercas",
-    "Fale com a Isis na tenda da cartomante"
+    "Fale com a Isis na tenda da cartomante",
+    "Fale com o Jono na jangada"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
@@ -526,7 +541,8 @@
     "a quarta estrela, Folha Sussurrante, cartas Megazowler e Mystic Horseman",
     "a sexta estrela, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone",
     "a setima estrela, Amuleto de Dica, carta Queen of Autumn Leaves",
-    "a oitava estrela, Amuleto de Poeira, carta Great Mammoth of Goldfine"
+    "a oitava estrela, Amuleto de Poeira, carta Great Mammoth of Goldfine",
+    "a nona estrela, Amuleto da Jangada, carta Twin-headed Thunder Dragon"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -557,7 +573,8 @@
     "kingdom_forest": "Floresta dos Sussurros",
     "kingdom_mountain": "Passagem da Montanha",
     "kingdom_meadow": "Labirinto da Campina",
-    "kingdom_desert": "Deserto das Estrelas Perdidas"
+    "kingdom_desert": "Deserto das Estrelas Perdidas",
+    "kingdom_fair": "Feira das Estrelas"
   },
   "shop": {
     "title": "Loja de Cartas",
@@ -712,6 +729,10 @@
       "desc": "O amuleto da Isis. Alguem la em cima colhe estrelas perdidas.",
       "from": "Isis, no Deserto das Estrelas Perdidas."
     },
+    "jono_fair_won": {
+      "desc": "O amuleto do Jono. Ele te da dicas na feira.",
+      "from": "Jono, na Feira das Estrelas."
+    },
     "star_chips": {
       "desc": "Aposta perdida fica com o rival. Dez abrem o castelo. ZERO = FIM DE JOGO.",
       "from": "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."
@@ -744,7 +765,8 @@
       "keith": "Bandit Keith",
       "mountain_mage": "Mago da Montanha",
       "meadow_mage": "Maga da Campina",
-      "desert_mage": "Mago do Deserto"
+      "desert_mage": "Mago do Deserto",
+      "ring_champ": "Campeao do Ringue"
     }
   }
 }

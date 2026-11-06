@@ -1379,7 +1379,7 @@ _The Desert Mage after the duel._
 ### dk6_fair_road
 _The arch after chapter 6: the next part._
 
-- **Fair Road**: Banners on the wind. Music far off. Chapter 7 arrives in the next part.
+- **Fair Road**: Banners on the wind. Music far off. The Star Fair opens ahead.
 
 ### dk6_gate_shut
 _The fair arch before eight stars._
@@ -1396,3 +1396,130 @@ _The desert camp: a tarp, and the game-over warning._
 
 - **Desert Camp**: A tarp among dunes. Kingdom staff keep a lantern lit even in daylight.
 - **Camp Staff**: Pretty dunes. Deadly rules. Lose your last star and your journey ends for good.
+
+### dk7_enter
+_Chapter 6 -> 7: the fair arch opens onto the Star Fair._
+
+- **Star Fair**: Eight stars. Banners snap. Music and frying oil.
+- **{name}**: A whole fair. After the dunes, this almost feels loud on purpose.
+
+### dk7_to_fair
+_The fair road after the first visit._
+
+- **Fair Road**: Star banners again. The ring waits in the middle.
+
+### dk7_to_desert
+_The trail back to the Desert of Lost Stars._
+
+- **Desert Trail**: The wind turns hot. Sand underfoot. The dunes are behind.
+
+### dk7_arrival
+_Chapter 7 opens: stalls, a ring, a soaked friend at the raft._
+
+- **Star Fair**: Stalls in a circle. A rope ring. A raft bumps the pond. Someone coughs water.
+- **{name}**: That cough. That is Jono. Of course he built a raft.
+- **Jono**: I sailed! Sort of. Mostly I sank and then floated. Cool fair though!
+- **Objective**: Talk to Jono at the raft.
+
+### dk7_jono_pre
+_Jono the soaked rival: a friendly duel, then the ring opens in the story._
+
+- **Jono**: The village said I was too small for the Kingdom. The raft disagreed. Kind of.
+- **{name}**: You made it. Dripping, but you made it.
+- **Jono**: Duel me. Friendly. If I win I brag forever. If you win I still brag a little.  _[Duel? Yes/No]_
+
+### dk7_jono_win
+_Jono loses; MAGO.DEV glimpse 6 flashes in the crowd._
+
+- **Jono**: Ow. Fine. You are still the better one. Take a dry towel. Metaphorically.
+- **Crowd**: In the crowd, one figure stands perfectly still in a green shimmer.
+- **???**: Take your time. I have all of it.
+- **Crowd**: A glitch, and the spot is empty.
+- **{name}**: Did someone just... talk? The ring is louder than my thoughts.
+- **Jono**: The Ring Champion takes bets at the ropes. One star can become nine. Or zero. Careful.
+- **You got**: Jono's Raft Charm. He tips you around the fair.
+- **Objective**: Challenge the Ring Champion at the central ring.
+
+### dk7_jono_lose
+_Jono wins the friendly duel (no star)._
+
+- **Jono**: Ha! Raft power! Try again when you dry off. Wait. That is me.
+- **{name}**: Bea's bazaar, or the Underfair Big Top, then rematch.
+
+### dk7_jono_after
+_Jono after the friendly duel._
+
+- **Jono**: I am going to invent a boat that does not sink. Name pending.
+
+### dk7_hint
+_A free tip from helper Jono at the fair._
+
+- **Jono**: Champion holds two. Min bet: nine stars. Castle gate after. Also: fried dough. Priority.
+
+### dk7_ring_early
+_The rope ring before Jono's tip._
+
+- **Duel Ring**: Ropes and dust. The crowd wants a star wager. Not yet.
+
+### dk7_champ_pre
+_The Ring Champion, zone master: a one-star wager at the fair ring._
+
+- **Ring Champion**: Eight stars walk my fair. Few leave with nine.
+- **Ring Champion**: Two stars rest under these ropes. Wager what your nerve allows.
+- **{name}**: Ten open the castle. I did not cross a desert to hesitate.
+- **Ring Champion**: Then cheer or choke, traveler. Shall the fair speak?  _[Duel? Yes/No]_
+
+### dk7_champ_win
+_The Ring Champion loses: nine stars, end of chapter 7._
+
+- **Ring Champion**: The ropes drop. My star, and a medal from my chest.
+- **You got**: A star and the card Twin-headed Thunder Dragon.
+- **Ring Champion**: Beyond the arch the castle stones rise. One more star. The Kingdom still watches.
+- **{name}**: Nine stars. One to go. Someone in a helicopter is yelling about bugs.
+- **End of Chapter 7**: The Star Fair is behind you. The castle road opens.
+
+### dk7_champ_lose
+_The Ring Champion keeps his stars._
+
+- **Ring Champion**: The crowd boos soft. Return heavier, little spark.
+- **{name}**: He outplayed me. Bea's stalls and the Underfair Big Top, then.
+
+### dk7_champ_after
+_The Ring Champion after the duel._
+
+- **Ring Champion**: The castle arch is yours. Mind the agents in the alleys.
+
+### dk7_inseto_taunt
+_InsetoKaiba's fair taunt: foreshadow only, no duel._
+
+- **InsetoKaiba**: A dragonfly lands where it wants. I land on your stars later.
+- **{name}**: InsetoKaiba. Still loud. Still buggy.
+- **InsetoKaiba**: The castle gate will be mine. Bring ten stars so the loss hurts more.
+
+### dk7_agents
+_Heishin's agents herding eliminated duelists._
+
+- **Side Alley**: Hooded staff push a line of starless duelists toward a cellar hatch.
+- **{name}**: Eliminated... and still walking. Where are their stars going?
+- **Camp Staff**: Move along, festival guest. Cellar business is not your business.
+
+### dk7_castle_road
+_The arch after chapter 7: the next part._
+
+- **Castle Road**: Stone walls rise. One star left. Chapter 8 arrives in the next part.
+
+### dk7_gate_shut
+_The castle arch before nine stars._
+
+- **Castle Arch**: A stone arch beyond the fair. Nine stars are carved on it. The crowd pushes you back.
+
+### dk7_bazaar_bea
+_Bazaar Bea, the Grand Bazaar._
+
+- **Bazaar Bea**: Stars, snacks and cards. Only the cards outlast the fireworks.
+
+### dk7_fair_camp
+_The fair camp: a tarp behind the stalls, and the game-over warning._
+
+- **Fair Camp**: A tarp behind the stalls. Kingdom staff keep a lantern lit between banners.
+- **Camp Staff**: Pretty fair. Deadly rules. Lose your last star and your journey ends for good.

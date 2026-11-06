@@ -9255,7 +9255,8 @@
      "weight": 1,
      "min_level": 18,
      "arena_only": true,
-     "kind": "monster"
+     "kind": "monster",
+     "exclusive": true
     },
     {
      "card": "Ushi Oni",
@@ -9264,7 +9265,8 @@
      "weight": 1,
      "min_level": 18,
      "arena_only": true,
-     "kind": "monster"
+     "kind": "monster",
+     "exclusive": true
     },
     {
      "card": "Kaiser Dragon",
@@ -9282,7 +9284,8 @@
      "weight": 1,
      "min_level": 18,
      "arena_only": true,
-     "kind": "monster"
+     "kind": "monster",
+     "exclusive": true
     }
    ]
   },

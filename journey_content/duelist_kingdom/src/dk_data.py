@@ -493,6 +493,27 @@ CHAPTERS.append(_C6.CHAPTER)
 QUESTS += _C6.QUESTS
 DECKS.update(_C6.DECKS)
 
+
+# ---------------------------------------------------------------- chapter 7 (the Star Fair): dk_chapter7.py
+import dk_chapter7 as _C7
+SPEAKERS.update(_C7.SPEAKERS)
+FLAGS += _C7.FLAGS
+STAGES = sorted(STAGES + _C7.STAGES)
+for _i, _a in enumerate(AREAS):
+    if _a[0] == "kingdom_fair": del AREAS[_i]; break
+AREAS.append(("kingdom_fair", "Star Fair", "Feira das Estrelas", "Sixth Kingdom area: festival plaza, a grand bazaar, an underfair arena, a rope ring, the castle arch.", "exists (illustrated, chapter 7)"))
+ANCHORS["kingdom_fair"] = _C7.ANCHORS["kingdom_fair"]
+ITEMS += _C7.ITEMS
+NPCS += _C7.NPCS
+NPC_SPEAKER.update(_C7.NPC_SPEAKER)
+OBJECTS += _C7.OBJECTS
+DUELS += _C7.DUELS
+TRANSITIONS += _C7.TRANSITIONS
+HUD += _C7.HUD
+CHAPTERS.append(_C7.CHAPTER)
+QUESTS += _C7.QUESTS
+DECKS.update(_C7.DECKS)
+
 # Appended after every released chapter flag so existing save bits keep their
 # meaning.  These optional academy lessons use the previously unused tail.
 FLAGS += [

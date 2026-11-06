@@ -132,8 +132,8 @@ def scripts(sc, H, X, N):
        "O arco da feira e seu. Cuidado com as miragens no caminho."),
     ], chapter=6)
     sc("dk6_fair_road", "The arch after chapter 6: the next part.", [
-     N("Fair Road", "Estrada da Feira", "Banners on the wind. Music far off. Chapter 7 arrives in the next part.",
-       "Bandeiras no vento. Musica ao longe. O capitulo 7 chega na proxima parte."),
+     N("Fair Road", "Estrada da Feira", "Banners on the wind. Music far off. The Star Fair opens ahead.",
+       "Bandeiras no vento. Musica ao longe. A Feira das Estrelas abre a frente."),
     ], chapter=6)
     sc("dk6_gate_shut", "The fair arch before eight stars.", [
      N("Fair Arch", "Arco da Feira", "A stone arch on the dune. Eight stars are carved on it. The sand pushes you back.",
@@ -236,7 +236,8 @@ TRANSITIONS = [
 HUD = [
  (W(stage=[25,25]), "Talk to Isis at the fortune tent - a reading in the dunes", "Fale com a Isis na tenda - uma leitura nas dunas"),
  (W(stage=[26,26]), "Beat the Desert Mage - a star on the line", "Venca o Mago do Deserto - uma estrela em jogo"),
- (W(stage=[27,99]), "Chapter 6 complete - the fair road waits", "Capitulo 6 completo - a estrada da feira espera"),
+ (W(stage=[27,27]), "Chapter 6 complete - take the fair arch", "Capitulo 6 completo - pegue o arco da feira"),
+ (W(stage=[28,99]), "Beyond the desert - the Star Fair", "Alem do deserto - a Feira das Estrelas"),
 ]
 CHAPTER = dict(n=6, title=B("Desert of Lost Stars", "Deserto das Estrelas Perdidas"), region="kingdom_desert", stage=[25,27],
                reward="eight stars, Dust Charm, card Great Mammoth of Goldfine", unlock="the fair road (chapter 7)")

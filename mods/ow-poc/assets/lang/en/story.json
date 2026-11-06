@@ -3509,7 +3509,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Banners on the wind. Music far off. Chapter 7 arrives in the next part.",
+     "text": "Banners on the wind. Music far off. The Star Fair opens ahead.",
      "label": "Fair Road",
      "kind": "caption"
     }
@@ -3547,6 +3547,328 @@
     {
      "speaker": "staff",
      "text": "Pretty dunes. Deadly rules. Lose your last star and your journey ends for good."
+    }
+   ]
+  },
+  {
+   "id": "dk7_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Eight stars. Banners snap. Music and frying oil.",
+     "label": "Star Fair",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "A whole fair. After the dunes, this almost feels loud on purpose."
+    }
+   ]
+  },
+  {
+   "id": "dk7_to_fair",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Star banners again. The ring waits in the middle.",
+     "label": "Fair Road",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_to_desert",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The wind turns hot. Sand underfoot. The dunes are behind.",
+     "label": "Desert Trail",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Stalls in a circle. A rope ring. A raft bumps the pond. Someone coughs water.",
+     "label": "Star Fair",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "That cough. That is Jono. Of course he built a raft."
+    },
+    {
+     "speaker": "jono",
+     "text": "I sailed! Sort of. Mostly I sank and then floated. Cool fair though!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Talk to Jono at the raft.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_pre",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "The village said I was too small for the Kingdom. The raft disagreed. Kind of."
+    },
+    {
+     "speaker": "atos",
+     "text": "You made it. Dripping, but you made it."
+    },
+    {
+     "speaker": "jono",
+     "text": "Duel me. Friendly. If I win I brag forever. If you win I still brag a little.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_win",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ow. Fine. You are still the better one. Take a dry towel. Metaphorically."
+    },
+    {
+     "speaker": "narrator",
+     "text": "In the crowd, one figure stands perfectly still in a green shimmer.",
+     "label": "Crowd",
+     "kind": "caption"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "Take your time. I have all of it."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A glitch, and the spot is empty.",
+     "label": "Crowd",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Did someone just... talk? The ring is louder than my thoughts."
+    },
+    {
+     "speaker": "jono",
+     "text": "The Ring Champion takes bets at the ropes. One star can become nine. Or zero. Careful."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Jono's Raft Charm. He tips you around the fair.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Challenge the Ring Champion at the central ring.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_lose",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ha! Raft power! Try again when you dry off. Wait. That is me."
+    },
+    {
+     "speaker": "atos",
+     "text": "Bea's bazaar, or the Underfair Big Top, then rematch."
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_after",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "I am going to invent a boat that does not sink. Name pending."
+    }
+   ]
+  },
+  {
+   "id": "dk7_hint",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Champion holds two. Min bet: nine stars. Castle gate after. Also: fried dough. Priority."
+    }
+   ]
+  },
+  {
+   "id": "dk7_ring_early",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Ropes and dust. The crowd wants a star wager. Not yet.",
+     "label": "Duel Ring",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_pre",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "Eight stars walk my fair. Few leave with nine."
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Two stars rest under these ropes. Wager what your nerve allows."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten open the castle. I did not cross a desert to hesitate."
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Then cheer or choke, traveler. Shall the fair speak?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_win",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "The ropes drop. My star, and a medal from my chest."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star and the card Twin-headed Thunder Dragon.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Beyond the arch the castle stones rise. One more star. The Kingdom still watches."
+    },
+    {
+     "speaker": "atos",
+     "text": "Nine stars. One to go. Someone in a helicopter is yelling about bugs."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Star Fair is behind you. The castle road opens.",
+     "label": "End of Chapter 7",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_lose",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "The crowd boos soft. Return heavier, little spark."
+    },
+    {
+     "speaker": "atos",
+     "text": "He outplayed me. Bea's stalls and the Underfair Big Top, then."
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_after",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "The castle arch is yours. Mind the agents in the alleys."
+    }
+   ]
+  },
+  {
+   "id": "dk7_inseto_taunt",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "A dragonfly lands where it wants. I land on your stars later."
+    },
+    {
+     "speaker": "atos",
+     "text": "InsetoKaiba. Still loud. Still buggy."
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "The castle gate will be mine. Bring ten stars so the loss hurts more."
+    }
+   ]
+  },
+  {
+   "id": "dk7_agents",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Hooded staff push a line of starless duelists toward a cellar hatch.",
+     "label": "Side Alley",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Eliminated... and still walking. Where are their stars going?"
+    },
+    {
+     "speaker": "staff",
+     "text": "Move along, festival guest. Cellar business is not your business."
+    }
+   ]
+  },
+  {
+   "id": "dk7_castle_road",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Stone walls rise. One star left. Chapter 8 arrives in the next part.",
+     "label": "Castle Road",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_gate_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A stone arch beyond the fair. Nine stars are carved on it. The crowd pushes you back.",
+     "label": "Castle Arch",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk7_bazaar_bea",
+   "pages": [
+    {
+     "speaker": "bazaar_bea",
+     "text": "Stars, snacks and cards. Only the cards outlast the fireworks."
+    }
+   ]
+  },
+  {
+   "id": "dk7_fair_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A tarp behind the stalls. Kingdom staff keep a lantern lit between banners.",
+     "label": "Fair Camp",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pretty fair. Deadly rules. Lose your last star and your journey ends for good."
     }
    ]
   }

@@ -186,7 +186,8 @@
     "The Forest of Whispers",
     "The Mountain Pass",
     "The Meadow Maze",
-    "Desert of Lost Stars"
+    "Desert of Lost Stars",
+    "The Star Fair"
   ],
   "objectives": [
     "Duel Bakura the lonely ghost",
@@ -231,7 +232,11 @@
     "Beyond the meadow - the Desert of Lost Stars",
     "Talk to Isis at the fortune tent - a reading in the dunes",
     "Beat the Desert Mage - a star on the line",
-    "Chapter 6 complete - the fair road waits"
+    "Chapter 6 complete - take the fair arch",
+    "Beyond the desert - the Star Fair",
+    "Talk to Jono at the raft - soaked and ready",
+    "Beat the Ring Champion - a star on the line",
+    "Chapter 7 complete - the castle road waits"
   ],
   "items": [
     "Stamp Card",
@@ -250,6 +255,7 @@
     "Star Chisel",
     "Hint Charm",
     "Dust Charm",
+    "Raft Charm",
     "Star Chips"
   ],
   "npc_names": {
@@ -287,7 +293,11 @@
     "teana_desert": "Teana",
     "bakura_desert": "Yami Bakura",
     "desert_mage": "Desert Mage",
-    "nomad_nia": "Nomad Nia"
+    "nomad_nia": "Nomad Nia",
+    "jono_fair": "Jono",
+    "ring_champ": "Ring Champion",
+    "inseto_fair": "InsetoKaiba",
+    "bazaar_bea": "Bazaar Bea"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -323,7 +333,10 @@
     "meadow_mage": "Meadow Mage",
     "rose_rue": "Rose Rue",
     "desert_mage": "Desert Mage",
-    "nomad_nia": "Nomad Nia"
+    "nomad_nia": "Nomad Nia",
+    "ring_champ": "Ring Champion",
+    "inseto_kaiba": "InsetoKaiba",
+    "bazaar_bea": "Bazaar Bea"
   },
   "map": {
     "title": "MAP",
@@ -469,7 +482,8 @@
     "The Forest of Whispers",
     "The Mountain Pass",
     "The Meadow Maze",
-    "Desert of Lost Stars"
+    "Desert of Lost Stars",
+    "The Star Fair"
   ],
   "quest_objectives": [
     "Ask Teana, Jono and the Guard",
@@ -486,7 +500,8 @@
     "Beat Rex Raptor for a star",
     "Beat Bandit Keith at the bridge",
     "Find Teana in the hedges",
-    "Talk to Isis at the fortune tent"
+    "Talk to Isis at the fortune tent",
+    "Talk to Jono at the raft"
   ],
   "quest_steps": [
     "Sit on the plaza bench until night",
@@ -518,7 +533,8 @@
     "the fourth star, Whisper Leaf, cards Megazowler and Mystic Horseman",
     "the sixth star, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone",
     "the seventh star, Hint Charm, card Queen of Autumn Leaves",
-    "the eighth star, Dust Charm, card Great Mammoth of Goldfine"
+    "the eighth star, Dust Charm, card Great Mammoth of Goldfine",
+    "the ninth star, Raft Charm, card Twin-headed Thunder Dragon"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -549,7 +565,8 @@
     "kingdom_forest": "Forest of Whispers",
     "kingdom_mountain": "Mountain Pass",
     "kingdom_meadow": "Meadow Maze",
-    "kingdom_desert": "Desert of Lost Stars"
+    "kingdom_desert": "Desert of Lost Stars",
+    "kingdom_fair": "Star Fair"
   },
   "shop": {
     "title": "Card Shop",
@@ -704,6 +721,10 @@
       "desc": "Isis's charm. Someone upstairs harvests lost stars.",
       "from": "Isis, in the Desert of Lost Stars."
     },
+    "jono_fair_won": {
+      "desc": "Jono's charm. He tips you around the fair.",
+      "from": "Jono, at the Star Fair."
+    },
     "star_chips": {
       "desc": "A lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.",
       "from": "Shadi's Star Passage, then the duelists who guard each zone."
@@ -736,7 +757,8 @@
       "keith": "Bandit Keith",
       "mountain_mage": "Mountain Mage",
       "meadow_mage": "Meadow Mage",
-      "desert_mage": "Desert Mage"
+      "desert_mage": "Desert Mage",
+      "ring_champ": "Ring Champion"
     }
   }
 }

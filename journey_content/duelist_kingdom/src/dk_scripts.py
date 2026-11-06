@@ -881,3 +881,7 @@ _C5.scripts(sc, H, X, N)
 # ---------------------------------------------------------------- chapter 6 (the Desert of Lost Stars): dk_chapter6.py
 import dk_chapter6 as _C6
 _C6.scripts(sc, H, X, N)
+
+# ---------------------------------------------------------------- chapter 7 (the Star Fair): dk_chapter7.py
+import dk_chapter7 as _C7
+_C7.scripts(sc, H, X, N)

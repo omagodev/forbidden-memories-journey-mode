@@ -39,8 +39,8 @@
   "jono": {
    "name": "Jono",
    "short": "Jono",
-   "portrait": 3,
-   "note": "Loud friend, the Joey of this story."
+   "portrait": 19,
+   "note": "Soaked rival from the raft; friendly duel at the Star Fair (chapter 7)."
   },
   "guard": {
    "name": "Guarda",
@@ -123,8 +123,8 @@
   "mago_hidden": {
    "name": "???",
    "short": "???",
-   "portrait": 244,
-   "note": "Mago.dev before the hero knows his name; same robe portrait."
+   "portrait": 254,
+   "note": "Hidden watcher in the fair crowd (MAGO.DEV glimpse 6)."
   },
   "isis": {
    "name": "Isis",
@@ -154,7 +154,7 @@
    "name": "Equipe do Acampamento",
    "short": "Staff",
    "portrait": 254,
-   "note": "Kingdom staff at the desert camp."
+   "note": "Kingdom staff at the fair camp / alley."
   },
   "dock_dan": {
    "name": "Dan do Cais",
@@ -233,6 +233,24 @@
    "short": "Nia",
    "portrait": 254,
    "note": "Desert caravan-tent keeper (economy)."
+  },
+  "ring_champ": {
+   "name": "Campeao do Ringue",
+   "short": "Champion",
+   "portrait": 254,
+   "note": "Master of the Star Fair ring (chapter 7 zone master)."
+  },
+  "inseto_kaiba": {
+   "name": "InsetoKaiba",
+   "short": "Inseto",
+   "portrait": 254,
+   "note": "Fair taunt only; foreshadows the castle gate (chapter 7)."
+  },
+  "bazaar_bea": {
+   "name": "Bea do Bazar",
+   "short": "Bea",
+   "portrait": 254,
+   "note": "Grand Bazaar keeper (economy)."
   }
  },
  "flags": [
@@ -561,45 +579,63 @@
    "note": "Desert Mage beaten: eighth star, end of chapter 6."
   },
   {
-   "name": "academy_started",
+   "name": "fair_arrived",
    "bit": 54,
    "value": 18014398509481984,
+   "note": "Chapter 7: entered the Star Fair."
+  },
+  {
+   "name": "jono_fair_won",
+   "bit": 55,
+   "value": 36028797018963968,
+   "note": "Jono beaten in the friendly fair duel: helper tips + MAGO glimpse."
+  },
+  {
+   "name": "ring_champ_won",
+   "bit": 56,
+   "value": 72057594037927936,
+   "note": "Ring Champion beaten: ninth star, end of chapter 7."
+  },
+  {
+   "name": "academy_started",
+   "bit": 57,
+   "value": 144115188075855872,
    "note": "Professor Nabil introduced the optional Duel Academy."
   },
   {
    "name": "academy_basics",
-   "bit": 55,
-   "value": 36028797018963968,
+   "bit": 58,
+   "value": 288230376151711744,
    "note": "Academy class 1 complete: turns, hand and battle."
   },
   {
    "name": "academy_guardians",
-   "bit": 56,
-   "value": 72057594037927936,
+   "bit": 59,
+   "value": 576460752303423488,
    "note": "Academy class 2 complete: Guardian Star cycles."
   },
   {
    "name": "academy_fields",
-   "bit": 57,
-   "value": 144115188075855872,
+   "bit": 60,
+   "value": 1152921504606846976,
    "note": "Academy class 3 complete: terrain bonuses."
   },
   {
    "name": "academy_power",
-   "bit": 58,
-   "value": 288230376151711744,
+   "bit": 61,
+   "value": 2305843009213693952,
    "note": "Academy class 4 complete: equips and stacked bonuses."
   },
   {
    "name": "academy_fusions",
-   "bit": 59,
-   "value": 576460752303423488,
+   "bit": 62,
+   "value": 4611686018427387904,
    "note": "Academy class 5 complete: ordered fusion chains."
   },
   {
    "name": "academy_graduate",
-   "bit": 60,
-   "value": 1152921504606846976,
+   "bit": 63,
+   "value": 9223372036854775808,
    "note": "Won Professor Nabil's optional practice duel."
   }
  ],
@@ -707,6 +743,18 @@
   {
    "stage": 27,
    "note": "Chapter 6 complete: the fair road is the next part"
+  },
+  {
+   "stage": 28,
+   "note": "Chapter 7: the fair, Jono at the raft"
+  },
+  {
+   "stage": 29,
+   "note": "Chapter 7: Jono helps; the Ring Champion at the ropes"
+  },
+  {
+   "stage": 30,
+   "note": "Chapter 7 complete: the castle road is the next part"
   }
  ],
  "chapters": [
@@ -775,6 +823,17 @@
    ],
    "reward": "eight stars, Dust Charm, card Great Mammoth of Goldfine",
    "unlock": "the fair road (chapter 7)"
+  },
+  {
+   "n": 7,
+   "title": "A Feira das Estrelas",
+   "region": "kingdom_fair",
+   "stage": [
+    28,
+    30
+   ],
+   "reward": "nine stars, Raft Charm, card Twin-headed Thunder Dragon",
+   "unlock": "the castle road (chapter 8)"
   }
  ],
  "areas": [
@@ -831,6 +890,12 @@
    "name": "Deserto das Estrelas Perdidas",
    "setting": "Fifth Kingdom area: dunes, a fortune tent, a caravan tent, a sunken tomb arena, a buried star, the fair arch.",
    "art": "exists (illustrated, chapter 6)"
+  },
+  {
+   "id": "kingdom_fair",
+   "name": "Feira das Estrelas",
+   "setting": "Sixth Kingdom area: festival plaza, a grand bazaar, an underfair arena, a rope ring, the castle arch.",
+   "art": "exists (illustrated, chapter 7)"
   }
  ],
  "anchors": {
@@ -943,6 +1008,20 @@
    "desert_center": "Open sand near the buried star.",
    "hangout_a": "East dune path.",
    "hangout_b": "West dune path by the camp."
+  },
+  "kingdom_fair": {
+   "spawn": "Path in from the desert (bottom).",
+   "fair_camp": "A tarp behind the stalls (bottom left).",
+   "jono_spot": "The raft at the pond where Jono waits.",
+   "shop_stall": "Bazaar Bea's Grand Bazaar (purple tent, west).",
+   "arena_door": "The Underfair Big Top hatch (southeast).",
+   "gate_spot": "The central rope ring where the Ring Champion waits.",
+   "castle_gate": "The stone arch at the top: the castle road.",
+   "inseto_spot": "Open ground where the dragonfly 'copter kicked dust.",
+   "agents_alley": "A side alley where staff herd the starless.",
+   "fair_center": "Open grass by the ring.",
+   "hangout_a": "East stall path.",
+   "hangout_b": "West stall path by the camp."
   }
  },
  "npcs": [
@@ -2804,6 +2883,143 @@
      "script": "dk6_nomad_nia"
     }
    ]
+  },
+  {
+   "id": "jono_fair",
+   "name": "Jono",
+   "portrait_speaker": "jono",
+   "area": "kingdom_fair",
+   "anchor": "jono_spot",
+   "duelist_id": 19,
+   "stages": [
+    28,
+    99
+   ],
+   "visible": "placed",
+   "note": "Jono the soaked rival: friendly duel, then helper tips.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       28,
+       28
+      ],
+      "flags_none": [
+       "jono_fair_won"
+      ]
+     },
+     "script": "dk7_jono_pre",
+     "duel": "jono_fair"
+    },
+    {
+     "when": {
+      "stage": [
+       29,
+       99
+      ],
+      "needs": [
+       "jono_fair_won"
+      ]
+     },
+     "script": "dk7_hint"
+    },
+    {
+     "when": {
+      "stage": [
+       29,
+       99
+      ]
+     },
+     "script": "dk7_jono_after"
+    }
+   ]
+  },
+  {
+   "id": "ring_champ",
+   "name": "Campeao do Ringue",
+   "portrait_speaker": "ring_champ",
+   "area": "kingdom_fair",
+   "anchor": "gate_spot",
+   "duelist_id": null,
+   "stages": [
+    29,
+    99
+   ],
+   "visible": "placed",
+   "note": "The zone master at the rope ring once Jono has dueled.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       29,
+       29
+      ],
+      "flags_none": [
+       "ring_champ_won"
+      ]
+     },
+     "script": "dk7_champ_pre",
+     "duel": "ring_champ"
+    },
+    {
+     "when": {
+      "stage": [
+       29,
+       99
+      ]
+     },
+     "script": "dk7_champ_after"
+    }
+   ]
+  },
+  {
+   "id": "inseto_fair",
+   "name": "InsetoKaiba",
+   "portrait_speaker": "inseto_kaiba",
+   "area": "kingdom_fair",
+   "anchor": "inseto_spot",
+   "duelist_id": null,
+   "stages": [
+    28,
+    99
+   ],
+   "visible": "placed",
+   "note": "InsetoKaiba taunts only; foreshadows chapter 8.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       28,
+       99
+      ]
+     },
+     "script": "dk7_inseto_taunt"
+    }
+   ]
+  },
+  {
+   "id": "bazaar_bea",
+   "name": "Bea do Bazar",
+   "portrait_speaker": "bazaar_bea",
+   "area": "kingdom_fair",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    28,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       28,
+       99
+      ]
+     },
+     "script": "dk7_bazaar_bea"
+    }
+   ]
   }
  ],
  "objects": [
@@ -3611,6 +3827,91 @@
    "area": "kingdom_desert",
    "anchor": "spawn",
    "dialogue_rules": []
+  },
+  {
+   "id": "duel_ring",
+   "name": "Ringue",
+   "area": "kingdom_fair",
+   "anchor": "gate_spot",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       28,
+       28
+      ]
+     },
+     "script": "dk7_ring_early"
+    }
+   ]
+  },
+  {
+   "id": "castle_gate",
+   "name": "Arco do castelo",
+   "area": "kingdom_fair",
+   "anchor": "castle_gate",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       30,
+       99
+      ],
+      "stars": 9
+     },
+     "script": "dk7_castle_road"
+    },
+    {
+     "when": {
+      "stage": [
+       28,
+       99
+      ]
+     },
+     "script": "dk7_gate_shut"
+    }
+   ]
+  },
+  {
+   "id": "fair_camp",
+   "name": "Acampamento da feira",
+   "area": "kingdom_fair",
+   "anchor": "fair_camp",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       28,
+       99
+      ]
+     },
+     "script": "dk7_fair_camp"
+    }
+   ]
+  },
+  {
+   "id": "agents_alley",
+   "name": "Beco",
+   "area": "kingdom_fair",
+   "anchor": "agents_alley",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       28,
+       99
+      ]
+     },
+     "script": "dk7_agents"
+    }
+   ]
+  },
+  {
+   "id": "fair_exit",
+   "name": "Trilha do deserto",
+   "area": "kingdom_fair",
+   "anchor": "spawn",
+   "dialogue_rules": []
   }
  ],
  "items": [
@@ -3727,6 +4028,12 @@
    "name": "Amuleto de Poeira",
    "description": "O amuleto da Isis. Lembrete: alguem la em cima colhe estrelas perdidas.",
    "source": "Isis, in the Desert of Lost Stars"
+  },
+  {
+   "id": "raft_charm",
+   "name": "Amuleto da Jangada",
+   "description": "O amuleto do Jono. Ele te da dicas na feira e alem.",
+   "source": "Jono, at the Star Fair"
   }
  ],
  "new_duelists": [
@@ -4189,6 +4496,24 @@
     }
    ],
    "reward": "eight stars, Dust Charm, card Great Mammoth of Goldfine"
+  },
+  {
+   "id": "q16_fair",
+   "kind": "talk+duel",
+   "optional": false,
+   "title": "A Feira das Estrelas",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Fale com o Jono na jangada",
+     "anchor": "kingdom_fair.jono_spot"
+    },
+    {
+     "objective": "Venca o Campeao do Ringue por uma estrela",
+     "anchor": "kingdom_fair.gate_spot"
+    }
+   ],
+   "reward": "nine stars, Raft Charm, card Twin-headed Thunder Dragon"
   }
  ],
  "duels": [
@@ -4733,6 +5058,53 @@
    "stars_wager": true,
    "stars": 2,
    "note": "Zone master, holds 2 stars: bet 1 for the curve (7->8). Needs desert cards or Sunken Tomb Pit wins."
+  },
+  {
+   "id": "jono_fair",
+   "npc": "jono_fair",
+   "duelist_id": 19,
+   "chapter": 1,
+   "deck": "Jono Fair",
+   "difficulty_tier": 6,
+   "pre_script": "dk7_jono_pre",
+   "win_script": "dk7_jono_win",
+   "lose_script": "dk7_jono_lose",
+   "win_flag": "jono_fair_won",
+   "on_win": [
+    {
+     "give_item": "raft_charm"
+    },
+    {
+     "set_stage": 29
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": false,
+   "note": "Friendly rival duel, no star: Jono becomes a fair helper; MAGO.DEV glimpse 6."
+  },
+  {
+   "id": "ring_champ",
+   "npc": "ring_champ",
+   "duelist_id": null,
+   "chapter": 1,
+   "deck": "Ring Champion Circus",
+   "difficulty_tier": 7,
+   "pre_script": "dk7_champ_pre",
+   "win_script": "dk7_champ_win",
+   "lose_script": "dk7_champ_lose",
+   "win_flag": "ring_champ_won",
+   "on_win": [
+    {
+     "give_card": "Twin-headed Thunder Dragon"
+    },
+    {
+     "set_stage": 30
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Zone master, holds 2 stars: bet 1 for the curve (8->9). Needs fair cards or Underfair Big Top wins."
   }
  ],
  "transitions": [
@@ -5378,6 +5750,98 @@
     }
    ],
    "script": "dk6_arrival"
+  },
+  {
+   "id": "enter_fair",
+   "when": {
+    "stage": [
+     27,
+     27
+    ],
+    "stars": 8
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "fair_gate"
+   },
+   "effects": [
+    {
+     "set_stage": 28
+    },
+    {
+     "teleport": {
+      "area": "kingdom_fair",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk7_enter"
+  },
+  {
+   "id": "to_fair",
+   "when": {
+    "stage": [
+     28,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "fair_gate"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_fair",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk7_to_fair"
+  },
+  {
+   "id": "to_desert_from_fair",
+   "when": {
+    "stage": [
+     28,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "fair_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_desert",
+      "anchor": "fair_gate"
+     }
+    }
+   ],
+   "script": "dk7_to_desert"
+  },
+  {
+   "id": "fair_arrival",
+   "when": {
+    "stage": [
+     28,
+     28
+    ],
+    "flags_none": [
+     "fair_arrived"
+    ]
+   },
+   "trigger": {
+    "kind": "when_true",
+    "area": "kingdom_fair"
+   },
+   "effects": [
+    {
+     "set_flag": "fair_arrived"
+    }
+   ],
+   "script": "dk7_arrival"
   }
  ],
  "hud_objectives": [
@@ -5839,10 +6303,46 @@
    "when": {
     "stage": [
      27,
+     27
+    ]
+   },
+   "text": "Capitulo 6 completo - pegue o arco da feira"
+  },
+  {
+   "when": {
+    "stage": [
+     28,
      99
     ]
    },
-   "text": "Capitulo 6 completo - a estrada da feira espera"
+   "text": "Alem do deserto - a Feira das Estrelas"
+  },
+  {
+   "when": {
+    "stage": [
+     28,
+     28
+    ]
+   },
+   "text": "Fale com o Jono na jangada - encharcado e pronto"
+  },
+  {
+   "when": {
+    "stage": [
+     29,
+     29
+    ]
+   },
+   "text": "Venca o Campeao do Ringue - uma estrela em jogo"
+  },
+  {
+   "when": {
+    "stage": [
+     30,
+     99
+    ]
+   },
+   "text": "Capitulo 7 completo - a estrada do castelo espera"
   }
  ],
  "scripts": [
@@ -9850,7 +10350,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Bandeiras no vento. Musica ao longe. O capitulo 7 chega na proxima parte.",
+     "text": "Bandeiras no vento. Musica ao longe. A Feira das Estrelas abre a frente.",
      "label": "Estrada da Feira"
     }
    ]
@@ -9894,6 +10394,372 @@
     {
      "speaker": "staff",
      "text": "Dunas bonitas. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
+    }
+   ]
+  },
+  {
+   "id": "dk7_enter",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Chapter 6 -> 7: the fair arch opens onto the Star Fair.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Oito estrelas. Bandeiras estalam. Musica e oleo fritando.",
+     "label": "Feira das Estrelas"
+    },
+    {
+     "speaker": "atos",
+     "text": "Uma feira inteira. Depois das dunas, quase parece barulho de proposito."
+    }
+   ]
+  },
+  {
+   "id": "dk7_to_fair",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The fair road after the first visit.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Bandeiras de estrela de novo. O ringue espera no meio.",
+     "label": "Estrada da Feira"
+    }
+   ]
+  },
+  {
+   "id": "dk7_to_desert",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The trail back to the Desert of Lost Stars.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "O vento esquenta. Areia sob os pes. As dunas ficam atras.",
+     "label": "Trilha do Deserto"
+    }
+   ]
+  },
+  {
+   "id": "dk7_arrival",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Chapter 7 opens: stalls, a ring, a soaked friend at the raft.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Barracas em circulo. Um ringue de corda. Uma jangada bate no lago. Alguem cospe agua.",
+     "label": "Feira"
+    },
+    {
+     "speaker": "atos",
+     "text": "Essa tosse. E o Jono. Claro que ele fez uma jangada."
+    },
+    {
+     "speaker": "jono",
+     "text": "Eu naveguei! Mais ou menos. Quase afundei e depois flutuei. Feira legal!"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Fale com o Jono na jangada.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_pre",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Jono the soaked rival: a friendly duel, then the ring opens in the story.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "A vila disse que eu era pequeno demais pro Reino. A jangada discordou. Mais ou menos."
+    },
+    {
+     "speaker": "atos",
+     "text": "Voce chegou. Pingando, mas chegou."
+    },
+    {
+     "speaker": "jono",
+     "text": "Me desafie. Amistoso. Se eu ganhar eu me gabo pra sempre. Se voce ganhar eu me gabo um pouco.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_win",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Jono loses; MAGO.DEV glimpse 6 flashes in the crowd.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ai. Tudo bem. Voce ainda e o melhor. Leve uma toalha seca. Metaforicamente."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Na multidao, uma figura fica perfeitamente parada num brilho verde.",
+     "label": "Multidao"
+    },
+    {
+     "speaker": "mago_hidden",
+     "text": "Leve o tempo que precisar. Eu tenho todo ele."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Um glitch, e o lugar esta vazio.",
+     "label": "Multidao"
+    },
+    {
+     "speaker": "atos",
+     "text": "Alguem acabou de... falar? O ringue esta mais alto que meus pensamentos."
+    },
+    {
+     "speaker": "jono",
+     "text": "O Campeao do Ringue aceita apostas nas cordas. Uma estrela vira nove. Ou zero. Cuidado."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Amuleto da Jangada do Jono. Ele te da dicas pela feira.",
+     "label": "Voce ganhou"
+    },
+    {
+     "speaker": "narrator",
+     "text": "Desafie o Campeao do Ringue no ringue central.",
+     "label": "Objetivo"
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_lose",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Jono wins the friendly duel (no star).",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Ha! Poder da jangada! Tente de novo quando secar. Espera. Esse sou eu."
+    },
+    {
+     "speaker": "atos",
+     "text": "O bazar da Bea, ou o Circo do Subsolo, depois a revanche."
+    }
+   ]
+  },
+  {
+   "id": "dk7_jono_after",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Jono after the friendly duel.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "Vou inventar um barco que nao afunda. Nome pendente."
+    }
+   ]
+  },
+  {
+   "id": "dk7_hint",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "A free tip from helper Jono at the fair.",
+   "pages": [
+    {
+     "speaker": "jono",
+     "text": "O campeao guarda duas. Aposta min: nove estrelas. Portao do castelo depois. E: massa frita. Prioridade."
+    }
+   ]
+  },
+  {
+   "id": "dk7_ring_early",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The rope ring before Jono's tip.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Cordas e poeira. A multidao quer aposta de estrela. Ainda nao.",
+     "label": "Ringue"
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_pre",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The Ring Champion, zone master: a one-star wager at the fair ring.",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "Oito estrelas andam na minha feira. Poucos saem com nove."
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Duas estrelas repousam sob estas cordas. Aposte o que sua coragem deixar."
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez abrem o castelo. Nao cruzei um deserto pra hesitar."
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Entao aplauda ou engasgue, viajante. A feira pode falar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_win",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The Ring Champion loses: nine stars, end of chapter 7.",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "As cordas caem. Minha estrela, e uma medalha do meu peito."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela e a carta Twin-headed Thunder Dragon.",
+     "label": "Voce ganhou"
+    },
+    {
+     "speaker": "ring_champ",
+     "text": "Alem do arco as pedras do castelo sobem. Mais uma estrela. O Reino ainda observa."
+    },
+    {
+     "speaker": "atos",
+     "text": "Nove estrelas. Falta uma. Alguem num helicoptero esta gritando sobre insetos."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A Feira das Estrelas ficou para tras. A estrada do castelo abre.",
+     "label": "Fim do Capitulo 7"
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_lose",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The Ring Champion keeps his stars.",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "A multidao vaia baixinho. Volte mais pesado, faiscazinha."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele me passou. As barracas da Bea e o Circo do Subsolo, entao."
+    }
+   ]
+  },
+  {
+   "id": "dk7_champ_after",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The Ring Champion after the duel.",
+   "pages": [
+    {
+     "speaker": "ring_champ",
+     "text": "O arco do castelo e seu. Cuidado com os agentes nos becos."
+    }
+   ]
+  },
+  {
+   "id": "dk7_inseto_taunt",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "InsetoKaiba's fair taunt: foreshadow only, no duel.",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Uma libelula pousa onde quer. Eu pouso nas suas estrelas depois."
+    },
+    {
+     "speaker": "atos",
+     "text": "InsetoKaiba. Ainda barulhento. Ainda inseto."
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "O portao do castelo sera meu. Traga dez estrelas pra derrota doer mais."
+    }
+   ]
+  },
+  {
+   "id": "dk7_agents",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Heishin's agents herding eliminated duelists.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Equipe de capuz empurra uma fila de duelistas sem estrela pra um alcapao.",
+     "label": "Beco"
+    },
+    {
+     "speaker": "atos",
+     "text": "Eliminados... e ainda andando. Pra onde vao as estrelas deles?"
+    },
+    {
+     "speaker": "staff",
+     "text": "Siga em frente, convidado da feira. Assunto de porao nao e seu."
+    }
+   ]
+  },
+  {
+   "id": "dk7_castle_road",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The arch after chapter 7: the next part.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Muros de pedra sobem. Falta uma estrela. O capitulo 8 chega na proxima parte.",
+     "label": "Estrada do Castelo"
+    }
+   ]
+  },
+  {
+   "id": "dk7_gate_shut",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The castle arch before nine stars.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Um arco de pedra alem da feira. Nove estrelas gravadas. A multidao empurra voce.",
+     "label": "Arco do Castelo"
+    }
+   ]
+  },
+  {
+   "id": "dk7_bazaar_bea",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "Bazaar Bea, the Grand Bazaar.",
+   "pages": [
+    {
+     "speaker": "bazaar_bea",
+     "text": "Estrelas, lanches e cartas. So as cartas duram mais que os fogos."
+    }
+   ]
+  },
+  {
+   "id": "dk7_fair_camp",
+   "legacy_id": null,
+   "chapter": 7,
+   "desc": "The fair camp: a tarp behind the stalls, and the game-over warning.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona atras das barracas. A equipe do Reino mantem um lampiao entre bandeiras.",
+     "label": "Acampamento"
+    },
+    {
+     "speaker": "staff",
+     "text": "Feira bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
     }
    ]
   }

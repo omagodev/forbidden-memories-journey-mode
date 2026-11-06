@@ -48,11 +48,11 @@ for path, k, v in walk(J):
             bare = v.split(".", 1)[-1]
             if v not in anchors and bare not in anchors: err("%s: unknown anchor %r" % (path, v))
     if k == "warp" and isinstance(v, list):
-            areas_ok = ("village", "cistern", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "kingdom_desert", "arena_village")
+            areas_ok = ("village", "cistern", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "kingdom_desert", "kingdom_fair", "arena_village")
             bare = v[1].split(".", 1)[-1] if len(v) == 2 and isinstance(v[1], str) else None
             if len(v) != 2 or (v[1] not in anchors and bare not in anchors) or v[0] not in areas_ok: err("%s: bad warp %r" % (path, v))
     if k == "area" and isinstance(v, int) and ".when" in path:
-        if v < 0 or v > 9: err("%s: unknown area %r" % (path, v))
+        if v < 0 or v > 10: err("%s: unknown area %r" % (path, v))
     if k == "icon" and isinstance(v, str) and not (MOD / v).exists(): err("%s: icon file %s missing" % (path, v))
 for l in langs:
     for path, sc in sorted(scenes_used):
