@@ -19,6 +19,7 @@ Journey Mode is a hobby project, so there are no dates here, just the direction.
 - Duelist Kingdom chapter 3 (the Forest of Whispers): Rex Raptor's star wager, three Star Marks, the hidden clearing, the Forest Mage (holds three stars); Hermit Hob's shop, forest card pool, gang ambushes and the Hollow Log Ring with three arena-exclusive cards
 - Duelist Kingdom chapter 4 (the Mountain Pass): Bandit Keith's toll at the rope bridge (holds three stars), Mai's pride duel (no star), the star-carver caught in the cave, the Mountain Mage (holds four; six stars at the minimum bet); Cliff Cass's tent, mountain card pool, gang ambushes and the Mine Shaft Pit with three arena-exclusive cards; trail camps in the forest and the pass
 - Duelist Kingdom chapter 5 (the Meadow Maze): Teana the stowaway (friendly duel, then helper), the Meadow Mage (holds two; seven stars at the minimum bet); Rose Rue's cart, meadow card pool, gang ambushes and the Rabbit Hole Ring with three arena-exclusive cards (Flower Wolf, Dark Witch, Queen of Autumn Leaves); meadow camp
+- Duelist Kingdom chapter 6 (the Desert of Lost Stars): Isis the fortune teller (reading duel + star-collector clue), Teana helper tips, Bakura comic cameo (cards only), the Desert Mage (holds two; eight stars at the minimum bet); Nomad Nia's Caravan Tent, desert card pool, gang ambushes and the Sunken Tomb Pit with three arena-exclusive cards (Great Mammoth of Goldfine, Skelgon, Shadow Ghoul); desert camp
 - Star wagers: a picker before every star duel (1 up to min(yours, his)), each gatekeeper holds his own stars (saved), lost bets stay with him and a rematch wins them back; zero stars = GAME OVER, warned by Shadi, Pegasus, the camps, the picker and the Mochila
 
 ### Star Chips: the curve (fixed for every future chapter)
@@ -32,6 +33,7 @@ Stars are story items, kept in the Mochila as *Star Chips xN*. Only the gatekeep
 | 3 Forest of Whispers | Rex Raptor, Forest Mage | 3, 4 | mountain pass: 4 |
 | 4 Mountain Pass | Bandit Keith, Mountain Mage | 5, 6 | summit arch: 6 |
 | 5 Meadow Maze | Meadow Mage | 7 | maze centre: 6 |
+| 6 Desert of Lost Stars | Desert Mage | 8 | buried star: 7 |
 | 6 Desert of Lost Stars | Desert Mage | 8 | (planned) |
 | 7 Star Fair | ring champion | 9 | (planned) |
 | 8 Castle Gate | InsetoKaiba, gate guardian | 10 | the castle lock: at least 10 |

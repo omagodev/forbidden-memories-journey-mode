@@ -26,6 +26,7 @@ JOURNEY MODE is an unofficial, non-commercial fan mod for Yu-Gi-Oh! Forbidden Me
 * Chapter 3 brings the Forest of Whispers map and the Forest Mage sprite: AI-generated, baked the same way. Not official art.
 * Chapter 4 brings the Mountain Pass map and the Bandit Keith and Mountain Mage sprites: AI-generated, baked the same way. Not official art.
 * Chapter 5 brings the Meadow Maze map and the Meadow Mage sprite: AI-generated, baked the same way. Not official art.
+* Chapter 6 brings the Desert of Lost Stars map and the Desert Mage / Isis sprites: AI-generated, baked the same way. Not official art.
 * The "InsetoKaiba" rival is a stylized parody character; it uses no real person's name or likeness.
 
 ## Content

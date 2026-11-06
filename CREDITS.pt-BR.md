@@ -26,6 +26,7 @@ O JOURNEY MODE é um mod de fã, não oficial e sem fins comerciais, para Yu-Gi-
 * O capítulo 3 traz o mapa da Floresta dos Sussurros e o sprite do Mago da Floresta: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
 * O capítulo 4 traz o mapa da Passagem da Montanha e os sprites do Bandit Keith e do Mago da Montanha: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
 * O capítulo 5 traz o mapa do Labirinto da Campina e o sprite da Maga da Campina: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
+* O capítulo 6 traz o mapa do Deserto das Estrelas Perdidas e os sprites do Mago do Deserto / Isis: gerados por IA, convertidos do mesmo jeito. Não são arte oficial.
 * O rival "InsetoKaiba" é um personagem de paródia estilizado; não usa o nome nem a imagem de nenhuma pessoa real.
 
 ## Conteúdo
