@@ -55,3 +55,21 @@ Cenários da parte 3: `dk_part3_hatch_locked`, `dk_part3_cistern`, `dk_part3_gly
 * O glifo do Mago.dev é desenhado por código, não por uma arte ilustrada.
 * A música da cisterna e os novos efeitos sonoros foram escolhidos por medição, não de ouvido (`journey.json` `"painted": {"music": ...}`).
 * O executável do Windows não foi rodado pelo autor com a parte 3; a lógica foi conferida no Linux (Xvfb) com o mesmo objeto do mod.
+
+
+## Caminho rapido (presets + suite quick)
+
+Checar a historia nao precisa mais de um play-through inteiro. Prefira os **presets de debug** e a **suite quick**:
+
+| O que | Comando |
+|---|---|
+| Listar todos os presets de debug (cap1…atual) | `python3 mods/ow-poc/tools/smoke/fast.py presets` |
+| Ajuda + tabela de presets + lista quick | `python3 mods/ow-poc/tools/smoke/fast.py` |
+| Smoke so do caminho critico (portoes, aposta, GAME OVER, saltos de capitulo) | `mods/ow-poc/tools/fast.sh --quick` ou `python3 mods/ow-poc/tools/smoke/jm_smoke.py quick` |
+| Um beat em ~15–40 s | `mods/ow-poc/tools/fast.sh quick_wager_bet1_win` (ou outro nome) |
+| Regressao completa | `mods/ow-poc/tools/fast.sh all` |
+
+Os presets ficam em `DEBUG_PRESETS` (`mods/ow-poc/tools/dk_to_journey.py`) e vao para `journey.json` `"debug"`. No jogo (com `debug.json`): segure R1 e depois L1, Up/Down troca o preset. Os smokes usam `"preset"` no `debug.json` para comecar naquele beat.
+
+Cobertura de apostas de estrelas na suite quick: `quick_wager_picker` (abre o seletor), `quick_wager_bet1_win` (aposta 1 e ganha), `quick_wager_gameover` (perder as estrelas restantes → GAME OVER). Rematches e apostas grandes ficam em `wager_*` / `final_wager_*` no `all`.
+

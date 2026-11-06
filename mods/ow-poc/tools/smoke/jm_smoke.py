@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Scripted smoke tests of Journey Mode: boot the game under Xvfb, set a story state, replay a few pad inputs, take screenshots, check the log.
 
-    python3 mods/ow-poc/tools/smoke/jm_jm_smoke.py list
-    python3 mods/ow-poc/tools/smoke/jm_jm_smoke.py run dk_part2_bench [more names]
-    python3 mods/ow-poc/tools/smoke/jm_jm_smoke.py all            # regression: every scenario, pass/fail table, results in tmp/smoke/
+    python3 mods/ow-poc/tools/smoke/jm_smoke.py list
+    python3 mods/ow-poc/tools/smoke/jm_smoke.py run dk_part2_bench [more names]
+    python3 mods/ow-poc/tools/smoke/jm_smoke.py quick          # critical path only (scenarios marked quick=True)
+    python3 mods/ow-poc/tools/smoke/jm_smoke.py all            # regression: every scenario, pass/fail table, results in tmp/smoke/
+    python3 mods/ow-poc/tools/smoke/fast.py                    # presets + quick list (see also mods/ow-poc/tools/TESTING.md)
 
 The story state comes from the mod's debug aid (jm_debug.c): the harness writes a debug.json into the run's mod-data folder (a preset of
 journey.json "debug", flags, a teleport, skip dialogue, win duels) and a minimal journey.sav, so a scenario starts where it needs to
@@ -164,10 +166,18 @@ def main(argv):
     S = scenarios.SCENARIOS
     cmd = argv[1] if len(argv) > 1 else "list"
     if cmd == "list":
-        for k, v in S.items(): print("%-28s %s" % (k, v["desc"]))
+        for k, v in S.items():
+            mark = "*" if v.get("quick") else ("!" if v.get("slow") else " ")
+            print("%s %-28s %s" % (mark, k, v["desc"]))
+        print("* = quick suite; ! = slow (skipped by all)")
         return 0
-    names = [k for k, v in S.items() if not v.get("slow")] if cmd == "all" else argv[2:]
-    if cmd not in ("run", "all") or not names or any(n not in S for n in names):
+    if cmd == "quick":
+        names = [k for k, v in S.items() if v.get("quick") and not v.get("slow")]
+    elif cmd == "all":
+        names = [k for k, v in S.items() if not v.get("slow")]
+    else:
+        names = argv[2:]
+    if cmd not in ("run", "all", "quick") or not names or any(n not in S for n in names):
         print(__doc__); return 2
     OUT.mkdir(parents=True, exist_ok=True)
     results = []

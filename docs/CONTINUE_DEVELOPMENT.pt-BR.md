@@ -107,3 +107,7 @@ Um pacote é uma pasta com: `memories-pc.exe` + `SDL3.dll` (de `tmp/pc/win32/` d
 2. `python3 mods/ow-poc/tools/validate_story.py`, depois `mods/ow-poc/tools/fast.sh` para confirmar que compilar + instalar funciona.
 3. Renomeie `mods/ow-poc/debug.json.OFF` para `debug.json`, abra o jogo, JOURNEY MODE > Continuar, segure R1+L1 e aperte Cima para pular entre os estágios da história.
 4. Leia `journey_content/economy/README.md` e comece a fase 1 em `jm_save.c` (bloco do save), `jm_ui.c` (banners/menu), `jm_painted.c` (NPC da loja, efeitos).
+
+### Testes rapidos
+
+Use `python3 mods/ow-poc/tools/smoke/fast.py` para a tabela de presets e `mods/ow-poc/tools/fast.sh --quick` para o smoke do caminho critico (portoes, aposta de estrelas, saltos de capitulo). O `fast.sh all` completo fica para a release. Detalhes: [`mods/ow-poc/tools/TESTING.md`](../mods/ow-poc/tools/TESTING.md).

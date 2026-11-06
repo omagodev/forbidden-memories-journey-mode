@@ -550,3 +550,67 @@ SCENARIOS.update({
     "final_wager_bag": dict(desc="player view: the Star Chips in the Mochila with the GAME OVER line", preset="33 chapter 4 done", lang=1, debug={"teleport": "kingdom_mountain.hangout_a"},
         steps=REL + [("press", "start", 5, 30), ("press", "down", 5, 14), ("press", "cross", 5, 30), ("wait", 20)] + [("press", "right", 5, 10)] * 20 + [("wait", 20), ("press", "cross", 5, 30), ("wait", 20), ("snap", "star_details")], expect=["dev mode 0"]),
 })
+
+
+# ---------------------------------------------------------------- quick suite (fast.py quick / jm_smoke.py quick / fast.sh --quick)
+# Critical path only: star gates, wager picker open, bet-1 win, last-star GAME OVER, chapter jumps.
+# Full e2e_* and final_* player-view runs stay available via `all` / named runs.
+_QUICK = (
+    "stars_pass_short",           # gate: pass shut under 4 stars
+    "cap4_keith",                 # star duel bet 1 win (mountain)
+    "wager_back_out",             # picker opens and can be cancelled
+    "wager_bet3_win",             # wager amount honored on a win
+    "e2e_weevil_lose",            # last star lost -> GAME OVER
+    "final_wager_picker",         # picker UI (player view)
+    "final_wager_gameover",       # GAME OVER player view
+    "cap3_arrival",               # chapter 3 jump
+    "cap4_arrival",               # chapter 4 jump
+)
+for _n in _QUICK:
+    if _n in SCENARIOS:
+        SCENARIOS[_n]["quick"] = True
+
+SCENARIOS.update({
+    "quick_wager_picker": dict(
+        quick=True,
+        desc="QUICK: wager picker opens before Weevil (bet left at default, back out with S)",
+        preset="20 Weevil waits (wager)", lang=1,
+        debug={"skip_dialogue": True, "wager": -1},
+        steps=beat("dk2_weevil_pre", "pre") + [("wait", 40), ("press", "triangle", 5, 20), ("wait", 40), ("snap", "backed")],
+        expect=["scene dk2_weevil_pre", "wager picker"], forbid=["star duel won", "star duel lost"]),
+    "quick_wager_bet1_win": dict(
+        quick=True,
+        desc="QUICK: bet 1 on Weevil and win (stars 1 -> 2)",
+        preset="20 Weevil waits (wager)", lang=1,
+        debug=dict(skip_dialogue=True, win_duels=True, wager=1),
+        steps=beat("dk2_weevil_pre", "pre") + [("until", "star duel won", 900), ("wait", 200), ("snap", "won")],
+        expect=["wager 1", "star duel won, bet 1, stars 2"]),
+    "quick_wager_gameover": dict(
+        quick=True,
+        desc="QUICK: lose the last star on Weevil -> GAME OVER (no save)",
+        preset="20 Weevil waits (wager)", lang=1,
+        debug=dict(skip_dialogue=True, lose_duels=True, wager=1, stars=1),
+        steps=beat("dk2_weevil_pre", "pre") + [("until", "GAME OVER", 900), ("wait", 80), ("snap", "go")],
+        expect=["star duel lost, bet 1, stars 0", "GAME OVER"], forbid=["saved (stage"]),
+    "quick_gate_pass": dict(
+        quick=True,
+        desc="QUICK: mountain pass gate refuses under 4 stars",
+        preset="27 chapter 3 done", lang=1,
+        debug={"skip_dialogue": True, "stars": 3, "teleport": "kingdom_forest.pass_road"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk3_pass_locked", 300), ("wait", 40), ("snap", "shut")],
+        expect=["scene dk3_pass_locked"], forbid=["scene dk4_enter"]),
+    "quick_gate_summit": dict(
+        quick=True,
+        desc="QUICK: summit gate refuses under 6 stars",
+        preset="32 Mountain Mage (wager)", lang=1,
+        debug={"skip_dialogue": True, "stars": 5, "teleport": "kingdom_mountain.summit_gate"},
+        steps=[("wait", 40), ("press", "cross"), ("until", "scene dk4_gate_shut", 300), ("wait", 40), ("snap", "shut")],
+        expect=["scene dk4_gate_shut"]),
+    "quick_ch4_done": dict(
+        quick=True,
+        desc="QUICK: jump to chapter 4 done (6 stars) and open the journal",
+        preset="33 chapter 4 done", lang=1,
+        debug={"skip_dialogue": True, "teleport": "kingdom_mountain.hangout_a"},
+        steps=[("wait", 60), ("snap", "pass"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "journal")],
+        expect=["journey: mode on"]),
+})

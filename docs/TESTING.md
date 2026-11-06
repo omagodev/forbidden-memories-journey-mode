@@ -55,3 +55,21 @@ Part 3 scenarios: `dk_part3_hatch_locked`, `dk_part3_cistern`, `dk_part3_glyph`,
 * The Mago.dev glyph is drawn by code, not by an illustrated asset.
 * The cistern song and the new sound effects were chosen by measurement, not by ear (`journey.json` `"painted": {"music": ...}`).
 * The Windows executable has not been run by the author with part 3; the logic was checked on Linux (Xvfb) with the same mod object.
+
+
+## Fast path (presets + quick suite)
+
+Story checks used to mean a full play-through. Prefer the **debug presets** and the **quick suite**:
+
+| What | Command |
+|---|---|
+| List every debug preset (ch1…current) | `python3 mods/ow-poc/tools/smoke/fast.py presets` |
+| Help + preset table + quick list | `python3 mods/ow-poc/tools/smoke/fast.py` |
+| Critical-path smoke only (gates, wager open/bet-1/GAME OVER, chapter jumps) | `mods/ow-poc/tools/fast.sh --quick` or `python3 mods/ow-poc/tools/smoke/jm_smoke.py quick` |
+| One beat in ~15–40 s | `mods/ow-poc/tools/fast.sh quick_wager_bet1_win` (or any scenario name) |
+| Full regression | `mods/ow-poc/tools/fast.sh all` |
+
+Presets live in `DEBUG_PRESETS` (`mods/ow-poc/tools/dk_to_journey.py`) and are written into `journey.json` `"debug"`. In-game (with `debug.json` present): hold R1 then L1, Up/Down cycles presets. Smoke scenarios set `"preset"` in their `debug.json` so a run starts on that beat without replaying the story.
+
+Star-wager coverage in the quick suite: `quick_wager_picker` (picker opens), `quick_wager_bet1_win` (bet 1 and win), `quick_wager_gameover` (lose remaining stars → GAME OVER). Full rematch / big-bet cases stay in `wager_*` and `final_wager_*` under `all`.
+

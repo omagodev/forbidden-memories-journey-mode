@@ -2,7 +2,9 @@
 # One command: regenerate the data (optional), validate it, build the mod object, deploy it into the game dir, and (optional) run scenarios.
 #   mods/ow-poc/tools/fast.sh                      validate + build + deploy
 #   mods/ow-poc/tools/fast.sh --convert            also re-run dk_to_journey.py first (the story JSON is generated from journey_content/)
-#   mods/ow-poc/tools/fast.sh dk_part2_bench ...   then run those smoke scenarios      (all = every scenario)
+#   mods/ow-poc/tools/fast.sh dk_part2_bench ...   then run those smoke scenarios
+#   mods/ow-poc/tools/fast.sh --quick             critical-path suite only (gates, wagers, chapter jumps)
+#   mods/ow-poc/tools/fast.sh all                 every scenario (slow)
 # Environment: JM_GAME (game dir, default tmp/pc/game32), JM_CONTENT is read by the converter.  Run it from anywhere.
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"; MOD="$(dirname "$HERE")"; REPO="$(cd "$MOD/../.." && pwd)"
@@ -18,6 +20,8 @@ cp "$MOD/ow-poc.o" "$MOD/mod.json" "$D/"
 cp -ru "$MOD/assets/." "$D/assets/" 2>/dev/null || { mkdir -p "$D/assets"; cp -ru "$MOD/assets/." "$D/assets/"; }
 lap deploy
 if [ $# -gt 0 ]; then
-  if [ "$1" = "all" ]; then python3 "$HERE/smoke/jm_smoke.py" all; else python3 "$HERE/smoke/jm_smoke.py" run "$@"; fi
+  if [ "$1" = "all" ]; then python3 "$HERE/smoke/jm_smoke.py" all
+  elif [ "$1" = "--quick" ] || [ "$1" = "quick" ]; then python3 "$HERE/smoke/jm_smoke.py" quick
+  else python3 "$HERE/smoke/jm_smoke.py" run "$@"; fi
   lap smoke
 fi

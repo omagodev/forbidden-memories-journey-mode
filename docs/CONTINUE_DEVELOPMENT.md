@@ -107,3 +107,7 @@ A package is a folder with: `memories-pc.exe` + `SDL3.dll` (from `tmp/pc/win32/`
 2. `python3 mods/ow-poc/tools/validate_story.py`, then `mods/ow-poc/tools/fast.sh` to confirm build + deploy work.
 3. Rename `mods/ow-poc/debug.json.OFF` to `debug.json`, start the game, JOURNEY MODE > Continue, hold R1+L1 and press Up to jump between story stages.
 4. Read `journey_content/economy/README.md` and start phase 1 in `jm_save.c` (save block), `jm_ui.c` (banners/menu), `jm_painted.c` (shop NPC, effects).
+
+### Fast tests
+
+Use `python3 mods/ow-poc/tools/smoke/fast.py` for the preset table and `mods/ow-poc/tools/fast.sh --quick` for the critical-path smoke (gates, star wager, chapter jumps). Full `fast.sh all` stays for release. Details: [`mods/ow-poc/tools/TESTING.md`](../mods/ow-poc/tools/TESTING.md).

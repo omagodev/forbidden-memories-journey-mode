@@ -19,6 +19,22 @@ Output: `tmp/smoke/<scenario>/shots/NN_label.png`, `game.log`, and `tmp/smoke/re
 `SMOKE_DISPLAY` (default `:92`), `JM_GAME` (game dir, default `tmp/pc/game32`), `MEMORIES_DISC` (the disc image; default `../game/YUGIOH.bin`),
 `SMOKE_SCALE` (internal_scale, default 1: about 170 fps, the shots are the same picture).
 
+## Fast path (presets + quick suite)
+
+Story checks used to mean a full play-through. Prefer the **debug presets** and the **quick suite**:
+
+| What | Command |
+|---|---|
+| List every debug preset (ch1…current) | `python3 mods/ow-poc/tools/smoke/fast.py presets` |
+| Help + preset table + quick list | `python3 mods/ow-poc/tools/smoke/fast.py` |
+| Critical-path smoke only (gates, wager open/bet-1/GAME OVER, chapter jumps) | `mods/ow-poc/tools/fast.sh --quick` or `python3 mods/ow-poc/tools/smoke/jm_smoke.py quick` |
+| One beat in ~15–40 s | `mods/ow-poc/tools/fast.sh quick_wager_bet1_win` (or any scenario name) |
+| Full regression | `mods/ow-poc/tools/fast.sh all` |
+
+Presets live in `DEBUG_PRESETS` (`mods/ow-poc/tools/dk_to_journey.py`) and are written into `journey.json` `"debug"`. In-game (with `debug.json` present): hold R1 then L1, Up/Down cycles presets. Smoke scenarios set `"preset"` in their `debug.json` so a run starts on that beat without replaying the story.
+
+Star-wager coverage in the quick suite: `quick_wager_picker` (picker opens), `quick_wager_bet1_win` (bet 1 and win), `quick_wager_gameover` (lose remaining stars → GAME OVER). Full rematch / big-bet cases stay in `wager_*` and `final_wager_*` under `all`.
+
 ## The debug aid in the mod (jm_debug.c)
 
 Off unless a file `debug.json` sits beside `mod.json` (`mods/ow-poc/debug.json`) or in the mod's data folder
