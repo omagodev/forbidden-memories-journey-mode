@@ -73,6 +73,13 @@ SCENARIOS = {
         steps=[("press", "cross"), ("until", "scene dk1_farmer_pre", 300), ("wait", 200), ("press", "cross", 5, 200), ("press", "cross", 5, 300), ("snap", "ask_page"), ("press", "down", 5, 30), ("snap", "ask_no"), ("press", "up", 5, 30),
                ("press", "cross", 5, 250), ("snap", "after_yes")],
         expect=["scene dk1_farmer_pre"]),
+    "objective_chip_hud": dict(
+        quick=True,
+        desc="painted HUD shows the current objective chip; Triangle opens the journal",
+        preset="3 Simon won (bench next)", lang=1,
+        steps=[("wait", 40), ("snap", "chip"), ("press", "triangle", 5, 30), ("until", "journey: journal open", 600),
+               ("snap", "journal"), ("press", "triangle", 5, 30), ("wait", 30), ("snap", "back")],
+        expect=["journey: journal open"]),
     "menu_controls_row": dict(
         quick=True,
         desc="START menu has Controls; confirm opens the PC remapper (or shows the in-menu hint)",

@@ -25,7 +25,8 @@
   "talk_short": "Falar",
   "examine_short": "Examinar",
   "controls": "Andar: setas ou stick   Correr: Circulo/B   Falar: Cross/A   Menu: Start",
-  "painted": "Setas: andar   Circulo: correr   X: falar   Triangulo: diario   Select: mapa liga/desliga   Start: menu"
+  "painted": "Setas: andar   Circulo: correr   X: falar   Triangulo: diario   Select: mapa liga/desliga   Start: menu",
+  "journal_short": "Missões"
  },
  "ask": {
   "yes": "Sim",

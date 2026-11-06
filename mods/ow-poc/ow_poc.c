@@ -827,7 +827,7 @@ static void run(int first)
         if (edge & PAD_START) { Ui_MenuOpen(); menu_from_paint = 1; state = ST_MENU; break; }   /* START: the menu (deck editor, items, status, save, title) */
         music_tick();
         if (edge & PAD_SELECT) minimap_on ^= 1;
-        if (edge & PAD_TRIANGLE) { state = ST_JOURNAL; break; }
+        if (edge & PAD_TRIANGLE) { LOG("journey: journal open"); state = ST_JOURNAL; break; }
         if (!cooldown && Paint_Area() != 2 && Gang_Pending()) {     /* the countdown ran out: one of them walks over */
             Ui_MessageTone(EcoTr("ui.ambush_banner"), 0xFF6060);
             Say_Text(Gang_Name(), Gang_Line("taunt"), 0);
@@ -1135,6 +1135,7 @@ static void hint_pill(int w, int s, int lh, int top, int vis, const char *word)
     jm_host->draw_text(jm_host, bx + (d - xw) / 2, by + d / 2, "X", 0xB8D0FF, s);
     jm_host->draw_text(jm_host, bx + d + 6 * s, y + ph / 2, word, 0xF4F4F4, s);
 }
+
 
 static void bar(int y, int h, const char *left, unsigned rgb)
 {
@@ -1466,6 +1467,57 @@ static void hud_panel(int w, int s, int top, int vis)
     jm_host->draw_text(jm_host, tx + barw / 2 + 15 * s, bary + 15 * s, buf, 0xFFE9A0, s);
 }
 
+/* Always-on mission shortcut: the current objective stays on screen; Triangle (keyboard A) opens the journal. */
+static void objective_chip(int w, int s, int lh, int top, int vis)
+{
+    const char *obj = Story_Objective();
+    const char *lab;
+    char shown[128];
+    int hx, hy, hbw, hbh, face, d, ph, pad, keyw, labw, gap, max_text, tw, px, py, bx, by, pw, n;
+    if (!obj || !obj[0]) return;
+    lab = Tr("hint.journal_short");
+    hud_box(w, s, top, vis, &hx, &hy, &hbw, &hbh, &face);
+    d = lh - 7 * s;
+    if (d < 10 * s) d = 10 * s;
+    ph = lh - 1 * s;
+    pad = 4 * s;
+    gap = 6 * s;
+    keyw = jm_host->text_width(jm_host, "A", s);
+    labw = jm_host->text_width(jm_host, lab, s);
+    /* Sit to the right of the status panel, clear of the minimap on the far right. */
+    max_text = w - (hx + hbw + 12 * s) - 52 * (2 * s) - 36 * s - (pad * 2 + d + gap * 2 + labw + 4 * s);
+    if (max_text < 48 * s) max_text = 48 * s;
+    snprintf(shown, sizeof(shown), "%s", obj);
+    n = (int)strlen(shown);
+    while (n > 4 && jm_host->text_width(jm_host, shown, s) > max_text) {
+        shown[n - 1] = 0;
+        n--;
+        if (n >= 3) { shown[n - 1] = '.'; shown[n - 2] = '.'; shown[n - 3] = '.'; }
+    }
+    tw = jm_host->text_width(jm_host, shown, s);
+    pw = pad + d + gap + tw + gap + labw + pad;
+    px = hx + hbw + 10 * s;
+    py = hy + (hbh - ph) / 2;
+    if (py < top + 4 * s) py = top + 4 * s;
+    if (Dev_BarOn()) {                   /* sit under the debug status lines */
+        int dy = top + 6 + (lh + 4) * 3;
+        if (py < dy) py = dy;
+    }
+    if (px + pw > w - 10 * s) {
+        px = w / 48;
+        py = hy + hbh + 6 * s;   /* wrap under the status panel on narrow windows */
+        if (Dev_BarOn() && py < top + 6 + (lh + 4) * 3) py = top + 6 + (lh + 4) * 3;
+    }
+    round_fill(px, py, pw, ph, 0x000000, 150);
+    bx = px + pad;
+    by = py + (ph - d) / 2;
+    round_fill(bx - s, by - s, d + 2 * s, d + 2 * s, 0xE8C050, 235);
+    round_fill(bx + s, by + s, d - 2 * s, d - 2 * s, 0x141C48, 255);
+    jm_host->draw_text(jm_host, bx + (d - keyw) / 2, by + d / 2, "A", 0xFFE9A0, s);
+    jm_host->draw_text(jm_host, bx + d + gap, py + ph / 2, shown, 0xF4F4F4, s);
+    jm_host->draw_text(jm_host, bx + d + gap + tw + gap, py + ph / 2, lab, 0xC8A03C, s);
+}
+
 /* greedy wrap of `text` into lines of at most `maxw` pixels */
 static int wrap_lines(const char *text, int maxw, int s, char lines[][100], int max)
 {
@@ -1658,6 +1710,7 @@ static void overlay(void)
             bar(top + 6 + (lh + 4) * 2, lh, dbg, 0xFFB060);
         }
         hud_panel(w, s, top, vis);         /* face, name, level, the bar, stars and the purse */
+        objective_chip(w, s, lh, top, vis); /* current mission + Triangle shortcut */
         if (area_banner > 0) {
             const char *nm = place_name();
             int tw = jm_host->text_width(jm_host, nm, s + 1);
@@ -1724,6 +1777,7 @@ static void overlay(void)
     }
     if (state == ST_WALK) {
         int n = near_npc();
+        objective_chip(w, s, lh, top, vis);
         if (n >= 0) hint_pill(w, s, lh, top, vis, Tr("hint.talk_short"));
         else if (has_poi()) hint_pill(w, s, lh, top, vis, Tr("hint.examine_short"));
     }
@@ -1758,12 +1812,15 @@ static unsigned overlay_sig(void)
     if (state == ST_ARENA) return 13u + Arena_Signature();
     if (state == ST_PAINT) {
         float a, b, c, d;
+        const char *obj = Story_Objective();
+        unsigned oh = 2166136261u;
         Paint_Info(&a, &b, &c, &d);
+        if (obj) while (*obj) oh = oh * 16777619u + (unsigned char)*obj++;
         return 7u + (unsigned)(Paint_NearNpc() + 2) * 131u + (near_object() ? 77u : 0u) + (unsigned)minimap_on * 17u + (unsigned)mini_big * 29u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
                (unsigned)(ui_message_timer > 0) * 1000003u + (unsigned)(jm.stage * 41 + (int)jm.flags * 7 + (int)jm.kflags * 13 + jm.stars * 977) + (unsigned)(Lang_Current() * 1237) + (unsigned)Dev_BarOn() * 3331u +
                (unsigned)(minimap_on ? (int)(frame_no / 10 & 1) * 100003 + (int)a / 12 * 4421 + (int)b / 12 * 977 : 0) +
                (unsigned)jm.eco.coins * 1009u + (unsigned)jm.eco.xp * 97u + (unsigned)gLibrary_dwStarchips * 131u +
-               (unsigned)near_arena_door() * 7u;        /* the pill comes and goes as he walks up to it */
+               (unsigned)near_arena_door() * 7u + oh;   /* objective chip text */
     }
     return (state == ST_SCENE || state == ST_ASK ? (unsigned)(scene_idx * 131 + cur_kind * 17 + (cur_kind ? notif_age : 0) * 3571 + (cur_name ? (unsigned char)cur_name[0] * 31 : 0)) : 0u) + 1u + (unsigned)state * 977u + (unsigned)(area + 2) * 31u + (unsigned)(area_banner > 0 ? area_banner : 0) * 7919u +
            (unsigned)(near_npc() + 2) * 131u + (unsigned)ask_sel * 17u + (unsigned)choose_sel * 3u + (unsigned)(state == ST_CONFIRM) * 7001u + Ui_Signature() * 13u +

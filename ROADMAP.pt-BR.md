@@ -5,7 +5,8 @@
 O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direção. Cada item vai virar uma issue no GitHub; fique à vontade para pegar uma.
 
 ## ✅ Feito
-- - Linha Controles no menu Start abre o remapeador do PC; HOW_TO_PLAY cobre o pad
+- - - Chip de missões na tela (objetivo atual + Triângulo abre o diário)
+Linha Controles no menu Start abre o remapeador do PC; HOW_TO_PLAY cobre o pad
 Trilha sonora original por área, tensão e épico (Ogg + cues de cena)
 - Vila natal ilustrada (Vila Oásis), cisterna e arena subterrânea, com água, fogo e palmeiras animados
 - NPCs no mapa ligados aos duelistas do Forbidden Memories; duelos de verdade com o motor original

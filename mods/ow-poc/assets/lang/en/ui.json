@@ -25,7 +25,8 @@
   "talk_short": "Talk",
   "examine_short": "Examine",
   "controls": "Move: arrows or stick   Run: Circle/B   Talk: Cross/A   Menu: Start",
-  "painted": "Arrows: walk   Circle: run   X: talk   Triangle: journal   Select: map on/off   Start: menu"
+  "painted": "Arrows: walk   Circle: run   X: talk   Triangle: journal   Select: map on/off   Start: menu",
+  "journal_short": "Missions"
  },
  "ask": {
   "yes": "Yes",
