@@ -1689,96 +1689,86 @@ int Paint_FaceSprite(const char *who)
     for (i = 0; i < NPN; i++) if (!strcmp(pid[i], who)) return pnpc[i].spr;
     return -1;
 }
-#define HF_SZ (48 * 48 * 2)
-static unsigned short hero_face[48 * 48];
+/* The hero's face is not cut from the 25x38 map cell: it is composed from the creator's own parts at their source resolution (the
+ * 64x64 idle pose every assets/lpc_parts layer ships, the same pre-drawn pieces the creator's big preview uses), with exactly the chosen
+ * body, skin, hair, colours, top and accessory.  A 42x42 head-and-shoulders window of that pose is outlined, doubled twice by Scale2x
+ * (pixel-art edges, no blur) to 168x168, laid on the slot's gradient and framed in gold: 3.5x the texels of the 48x48 NPC faces. */
+#define HF 168
+#define HF_SRC 42
+static unsigned short hero_face[HF * HF];
 static unsigned hero_face_sig;
 static int hero_face_ok;
-/* the make_talk_faces.py framing over the hero's standing, facing-down cell composed from the chosen layers */
+static void scale2x(const unsigned short *in, int n, unsigned short *out)
+{
+    int x, y;
+    for (y = 0; y < n; y++)
+        for (x = 0; x < n; x++) {
+            unsigned short P = in[y * n + x], A = y ? in[(y - 1) * n + x] : P, D = y < n - 1 ? in[(y + 1) * n + x] : P,
+                           C = x ? in[y * n + x - 1] : P, B = x < n - 1 ? in[y * n + x + 1] : P;
+            unsigned short e0 = P, e1 = P, e2 = P, e3 = P;
+            if (C == A && C != D && A != B) e0 = A;
+            if (A == B && A != C && B != D) e1 = B;
+            if (D == C && D != B && C != A) e2 = C;
+            if (B == D && B != A && D != C) e3 = D;
+            out[(2 * y) * 2 * n + 2 * x] = e0; out[(2 * y) * 2 * n + 2 * x + 1] = e1;
+            out[(2 * y + 1) * 2 * n + 2 * x] = e2; out[(2 * y + 1) * 2 * n + 2 * x + 1] = e3;
+        }
+}
 static int hero_face_build(unsigned short *img)
 {
-    enum { W = 25, H = 38 };
-    unsigned char kind[W * H], rgb[W * H * 3], op[W * H];
-    int x, y, x0 = W, y0 = H, x1 = -1, y1 = -1, fig_h, cs2[48], nc = 0, hw = 0, side, left, top;
-    float cx;
-    if (Cg_W() != W || Cg_H() != H || !Cg_ComposeCellRgb(0, kind, rgb)) return 0;
-    for (y = 0; y < H; y++)                                   /* the map sheets carry a dark 1px outline: give the hero the same */
-        for (x = 0; x < W; x++) {
-            int n = y * W + x;
-            op[n] = kind[n] == 0 ? 1 : 0;
-            if (!op[n] && ((x > 0 && kind[n - 1] == 0) || (x < W - 1 && kind[n + 1] == 0) || (y > 0 && kind[n - W] == 0) || (y < H - 1 && kind[n + W] == 0))) op[n] = 2;
+    static uint16_t hi[64 * 64];
+    static unsigned short a[HF_SRC * HF_SRC], b[HF_SRC * HF_SRC * 4], c[HF * HF];
+    int x, y, y0 = -1, left, top, sum = 0, cnt = 0;
+    if (!Cg_ComposeHi(jm.cg, jm.gender, 0, hi)) return 0;
+    for (y = 0; y < 64 && y0 < 0; y++) for (x = 0; x < 64; x++) if (hi[y * 64 + x]) { y0 = y; break; }
+    if (y0 < 0) return 0;
+    for (y = y0 + 4; y < y0 + 16 && y < 64; y++) for (x = 0; x < 64; x++) if (hi[y * 64 + x]) { sum += x; cnt++; }   /* the head's centre */
+    left = (cnt ? (sum + cnt / 2) / cnt : 32) - HF_SRC / 2;
+    top = y0 - 3;
+    for (y = 0; y < HF_SRC; y++)
+        for (x = 0; x < HF_SRC; x++) {
+            int sx = left + x, sy = top + y;
+            uint16_t v = (sx >= 0 && sx < 64 && sy >= 0 && sy < 64) ? hi[sy * 64 + sx] : 0;
+            a[y * HF_SRC + x] = v ? (unsigned short)(v | 0x8000) : 0;
         }
-    for (y = 0; y < H; y++) for (x = 0; x < W; x++) if (op[y * W + x]) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
-    if (x1 < 0) return 0;
-    fig_h = y1 + 1 - y0;
-    for (y = y0 + 2; y < y0 + (fig_h * 3 / 10 > 8 ? fig_h * 3 / 10 : 8) && y < H && nc < 48; y++) {   /* each row's longest run: the head */
-        int best = 0, bs = 0, run = 0, st = 0;
-        for (x = 0; x <= W; x++) {
-            if (x < W && op[y * W + x]) { if (!run) st = x; run++; }
-            else { if (run > best) { best = run; bs = st; } run = 0; }
+    for (y = 0; y < HF_SRC; y++)                          /* a dark 1px outline, as the map sheets have */
+        for (x = 0; x < HF_SRC; x++) {
+            int n = y * HF_SRC + x;
+            if (a[n]) continue;
+            if ((x > 0 && a[n - 1] & 0x7fff) || (x < HF_SRC - 1 && a[n + 1] & 0x7fff) || (y > 0 && a[n - HF_SRC] & 0x7fff) || (y < HF_SRC - 1 && a[n + HF_SRC] & 0x7fff))
+                a[n] = 1;                                 /* marker, coloured below */
         }
-        if (best) { cs2[nc++] = 2 * bs + best; if (best > hw) hw = best; }
-    }
-    if (!nc) return 0;
-    for (x = 1; x < nc; x++) for (y = x; y > 0 && cs2[y - 1] > cs2[y]; y--) { int t = cs2[y]; cs2[y] = cs2[y - 1]; cs2[y - 1] = t; }
-    cx = cs2[nc / 2] / 2.0f;
-    side = hw + 8 > (int)(fig_h * 0.46f) ? hw + 8 : (int)(fig_h * 0.46f);
-    if (side > W) side = W;
-    if (side > fig_h) side = fig_h;
-    left = (int)floorf(cx - side / 2.0f + 0.5f); top = y0 - (side / 10 > 1 ? side / 10 : 1);
-    {
-        unsigned char big[48 * 48];
-        int bc[48 * 48];
-        for (y = 0; y < 48; y++)
-            for (x = 0; x < 48; x++) {
-                int sx = left + (int)((x + 0.5f) * side / 48), sy = top + (int)((y + 0.5f) * side / 48), n;
-                float t = y / 47.0f;
-                img[y * 48 + x] = rgb555((int)(44 * (1 - t) + 14 * t), (int)(30 * (1 - t) + 10 * t), (int)(62 * (1 - t) + 26 * t));
-                big[y * 48 + x] = 0;
-                if (sx < 0 || sx >= W || sy < 0 || sy >= H || !op[n = sy * W + sx]) continue;
-                big[y * 48 + x] = 1;
-                bc[y * 48 + x] = op[n] == 2 ? rgb555(34, 24, 30) : rgb555(rgb[n * 3], rgb[n * 3 + 1], rgb[n * 3 + 2]);
-            }
-        for (y = 0; y < 48; y++)
-            for (x = 0; x < 48; x++) {
-                int n = y * 48 + x;
-                if (big[n]) img[n] = (unsigned short)bc[n];
-                else if ((x > 0 && big[n - 1]) || (x < 47 && big[n + 1]) || (y > 0 && big[n - 48]) || (y < 47 && big[n + 48])) img[n] = rgb555(120, 96, 150);
-            }
-        for (x = 0; x < 48; x++) img[x] = img[47 * 48 + x] = img[x * 48] = img[x * 48 + 47] = rgb555(200, 160, 60);
-    }
+    scale2x(a, HF_SRC, b);
+    scale2x(b, HF_SRC * 2, c);
+    for (y = 0; y < HF; y++)
+        for (x = 0; x < HF; x++) {
+            unsigned short v = c[y * HF + x];
+            float t = y / (float)(HF - 1);
+            if (v == 1) img[y * HF + x] = rgb555(34, 24, 30);
+            else if (v) img[y * HF + x] = (unsigned short)(v | 0x8000);
+            else img[y * HF + x] = rgb555((int)(44 * (1 - t) + 14 * t), (int)(30 * (1 - t) + 10 * t), (int)(62 * (1 - t) + 26 * t));
+        }
+    for (y = 0; y < HF; y++)                              /* the gold frame, 3 texels (1.5 screen pixels at the console's size) */
+        for (x = 0; x < HF; x++)
+            if (x < 3 || y < 3 || x >= HF - 3 || y >= HF - 3) img[y * HF + x] = (x == 1 || y == 1 || x == HF - 2 || y == HF - 2) ? rgb555(240, 200, 90) : rgb555(170, 128, 40);
     return 1;
 }
-/* the hero's preset: memory, else hero.face in the data directory if it is this look, else baked now and written */
+/* the chosen look's face, composed again only when the look changed */
 int Paint_BakeHeroFace(int force)
 {
     unsigned sig = Cg_Signature();
-    unsigned char hdr[8];
-    FILE *f;
     if (!Cg_Ready()) return 0;
     if (!force && hero_face_ok && hero_face_sig == sig) return 1;
-    if (!force && (f = jm_host->open_data(jm_host, "hero.face", "rb")) != NULL) {
-        int ok = fread(hdr, 1, 8, f) == 8 && !memcmp(hdr, "HFC1", 4) && (unsigned)(hdr[4] | hdr[5] << 8 | hdr[6] << 16 | (unsigned)hdr[7] << 24) == sig;
-        if (ok) {
-            unsigned char d[HF_SZ];
-            int n;
-            ok = fread(d, 1, HF_SZ, f) == HF_SZ;
-            for (n = 0; ok && n < 48 * 48; n++) hero_face[n] = (unsigned short)(d[n * 2] | d[n * 2 + 1] << 8);
-        }
-        fclose(f);
-        if (ok) { hero_face_sig = sig; hero_face_ok = 1; return 1; }
-    }
     hero_face_ok = 0;
     if (!hero_face_build(hero_face)) return 0;
     hero_face_sig = sig; hero_face_ok = 1;
-    if ((f = jm_host->open_data(jm_host, "hero.face", "wb")) != NULL) {
-        unsigned char d[HF_SZ];
-        int n;
-        memcpy(hdr, "HFC1", 4); hdr[4] = (unsigned char)sig; hdr[5] = (unsigned char)(sig >> 8); hdr[6] = (unsigned char)(sig >> 16); hdr[7] = (unsigned char)(sig >> 24);
-        for (n = 0; n < 48 * 48; n++) { d[n * 2] = (unsigned char)hero_face[n]; d[n * 2 + 1] = (unsigned char)(hero_face[n] >> 8); }
-        fwrite(hdr, 1, 8, f); fwrite(d, 1, HF_SZ, f); fclose(f);
-        LOG("talk face: hero preset baked for look %08x", sig);
-    }
+    LOG("talk face: hero preset %dx%d composed from the 64px parts for look %08x", HF, HF, sig);
     return 1;
+}
+int Paint_HeroFaceHi(void)
+{
+    if (!Paint_BakeHeroFace(0)) return 0;
+    return Gfx_LoadHeroFaceHi(hero_face);
 }
 int Paint_LoadSpriteFace(int i)
 {
@@ -1787,10 +1777,7 @@ int Paint_LoadSpriteFace(int i)
     int x, y, top = 999, x0 = 999, x1 = -1, side, sc, cx;
     const unsigned char *k, *c;
     if (i < 0 || i >= SPR_COUNT) return 0;
-    if (i == SPR_LPC_TEST && Cg_Ready()) {                  /* the hero: the preset of the chosen look, never a live cut */
-        if (Paint_BakeHeroFace(0)) return Gfx_LoadFaceRgb(hero_face);
-        return 0;
-    }
+    if (i == SPR_LPC_TEST && Cg_Ready()) return 0;          /* the hero: Paint_HeroFaceHi, never a cut */
     if (spr[i].file) {   /* preset framed offline (tools/make_talk_faces.py) */
         char path[96];
         const char *b = strrchr(spr[i].file, '/');

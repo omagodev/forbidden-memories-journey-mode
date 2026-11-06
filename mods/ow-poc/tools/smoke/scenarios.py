@@ -306,11 +306,11 @@ SCENARIOS.update({
         steps=[("wait", 60), ("snap", "hero_saved_look"), ("hold", "right", 20), ("snap", "hero_walks_right")],
         expect=["journey: mode on"]),
 
-    "hero_face_talk": dict(desc="the hero's talk avatar is the preset baked from the saved look (not a live cut, not a base): beach landing, Atos' line",
+    "hero_face_talk": dict(desc="the hero's talk avatar is a 168x168 face composed from the 64px parts of the saved look (not a cut of the map cell): beach landing, Atos' line",
         preset="18 beach landing (chapter 2)", lang=1, debug={"look": [3, 7, 5, 4, 3, 4, 2, 1]},
         steps=[("wait", 60), ("until", "scene dk2_landing", 600), ("wait", 80), ("snap", "p1_narrator"), ("press", "cross", 5, 40), ("wait", 30), ("snap", "p2_mai"),
                ("press", "cross", 5, 40), ("wait", 30), ("snap", "p3_atos_preset")],
-        expect=["scene dk2_landing", "talk face: hero preset baked"]),
+        expect=["scene dk2_landing", "talk face: hero preset 168x168"]),
     # ---- chapter 1 end and chapter 2 (the harbor, the ship, the Shore of Illusions)
     "cap2_harbor_pt": dict(desc="the harbor (PT): the Inspector at the gate, the blocked gate, music 18", preset="14 harbor gate (Inspector)", lang=1,
         debug={"teleport": "harbor.inspector_spot"}, steps=[("wait", 90), ("snap", "harbor_gate"), ("press", "cross"), ("wait", 120), ("snap", "inspector_talk")],

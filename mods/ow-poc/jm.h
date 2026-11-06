@@ -131,7 +131,11 @@ void Gfx_RectAt(int x, int y, int w, int h, int r, int g, int b, int ot_index, u
 void Gfx_Rect(int x, int y, int w, int h, int r, int g, int b);
 void Gfx_Backdrop(int top_rgb, int bottom_rgb);
 int Gfx_LoadFaceFile(const char *path);               /* a 48x48 record of our own (assets/portrait_*.bin) */
-int Gfx_LoadFaceRgb(const unsigned short *img);     /* a 48x48 face cut from a map sprite */
+int Gfx_LoadFaceRgb(const unsigned short *img);
+#define HERO_FACE_HI 168     /* the hero's talk face: 168 texels for the 84-pixel slot (2x at the console's resolution) */
+#define HERO_FACE_Y 256      /* ...in bank 14 below the atlas, x 0 */
+int Gfx_LoadHeroFaceHi(const unsigned short *img);
+int Paint_HeroFaceHi(void);                          /* the chosen look's 168x168 face into the bank, 0 without a look */     /* a 48x48 face cut from a map sprite */
 int Gfx_LoadFace(int duelist);                       /* disc portrait into the speaker slot */
 extern unsigned gfx_frame;
 extern float gfx_sort_override;

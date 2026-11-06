@@ -192,6 +192,16 @@ int Gfx_LoadFaceRgb(const unsigned short *img)
     return 1;
 }
 
+/* The hero's HERO_FACE_HI x HERO_FACE_HI talk face (jm_painted.c) into its own spot of the bank: draw it with ax 0, ay HERO_FACE_Y. */
+int Gfx_LoadHeroFaceHi(const unsigned short *img)
+{
+    u16 *bank = SoftGpu_Bank(BANK);
+    int y;
+    if (!bank || !img) return 0;
+    for (y = 0; y < HERO_FACE_HI; y++) memcpy(bank + (size_t)(HERO_FACE_Y + y) * SOFT_GPU_WIDTH, img + (size_t)y * HERO_FACE_HI, HERO_FACE_HI * 2);
+    return 1;
+}
+
 /* ---------------------------------------------------------------- camera */
 static float PITCH_C = 0.7071f, PITCH_S = 0.7071f;
 #define FOCAL 380.0f
@@ -291,6 +301,14 @@ static void gt4(POLY_GT4 *p, const float sx[4], const float sy[4], int ax, int a
     p->r2 = rgb[2][0]; p->g2 = rgb[2][1]; p->b2 = rgb[2][2];
     p->r3 = rgb[3][0]; p->g3 = rgb[3][1]; p->b3 = rgb[3][2];
     (void)k;
+}
+
+/* the hero's high-resolution talk face: bank 14 below the atlas (x 0, y 256), HERO_FACE_HI texels square */
+static void gt4_face(POLY_GT4 *p, const float sx[4], const float sy[4], int ax, int ay, const unsigned char rgb[4][3])
+{
+    int n = ay >= HERO_FACE_Y ? HERO_FACE_HI : 48;
+    gt4(p, sx, sy, ax, ay >= HERO_FACE_Y ? ay - HERO_FACE_Y : ay, n, n, rgb, 0);
+    if (ay >= HERO_FACE_Y) p->tpage = (u16)(GetTPage(2, 0, (ax >> 8) << 8, HERO_FACE_Y) | (u16)(BANK << 11));
 }
 
 static void ft4(POLY_FT4 *p, const float sx[4], const float sy[4], int ax, int ay, int w, int h, int shade, int flip)
@@ -602,7 +620,7 @@ void Gfx_PortraitAt(int x, int y, int size, int ax, int ay, int ot_index, unsign
     int k;
     for (k = 0; k < 4; k++) rgb[k][0] = rgb[k][1] = rgb[k][2] = 128;
     memset(&p, 0, sizeof(p));
-    gt4(&p, sx, sy, ax, ay, 48, 48, rgb, 0);
+    gt4_face(&p, sx, sy, ax, ay, rgb);
     sort_into(&p, ot_index, depth);
 }
 
@@ -626,7 +644,7 @@ void Gfx_Portrait(int x, int y, int size, int ax, int ay)
     int k;
     for (k = 0; k < 4; k++) rgb[k][0] = rgb[k][1] = rgb[k][2] = 128;
     memset(&p, 0, sizeof(p));
-    gt4(&p, sx, sy, ax, ay, 48, 48, rgb, 0);
+    gt4_face(&p, sx, sy, ax, ay, rgb);
     sort(&p, 1);
 }
 

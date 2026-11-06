@@ -215,6 +215,11 @@ static void speaker(const Page *p, const char **name, int *ax, int *ay)
     *ay = 0;
     {   /* Journey people speak with a face cut from their own map sprite (the classic disc portraits did not match them) */
         int si = strcmp(p->who, "narrator") ? Paint_FaceSprite(p->who) : -1;
+        if (si >= 0 && (!strcmp(p->who, "atos") || !strcmp(p->who, "player")) && Cg_Ready()) {               /* the hero: the high-resolution face of the chosen look */
+            int key = -3000 - (int)(Cg_Signature() & 0xffff);
+            if (key != loaded_face && Paint_HeroFaceHi()) loaded_face = key;
+            if (key == loaded_face) { *name = jm.name; *ax = 0; *ay = HERO_FACE_Y; return; }
+        }
         if (si >= 0) {
             int key = -2000 - si;
             if (key != loaded_face && Paint_LoadSpriteFace(si)) loaded_face = key;
