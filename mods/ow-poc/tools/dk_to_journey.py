@@ -38,7 +38,7 @@ VILLAGE_NPCS = {"simon": ("Wizard", [14.5, 28.5]), "teana": ("Ninja_Sand_Female"
                 "teana_desert": ("Ninja_Sand_Female", None), "nomad_nia": ("Ninja_Sand_Female", None),
                 # chapter 7 (the Star Fair)
                 "jono_fair": ("Ninja_Sand", None), "ring_champ": ("Suit_Male", None), "inseto_fair": ("Suit_Male", None),
-                "bazaar_bea": ("Ninja_Sand_Female", None)}
+                "bazaar_bea": ("Ninja_Sand_Female", None), "inseto_gate": ("Suit_Male", None), "pawn_paul": ("Suit_Male", None)}
 # the anchors several places share ("shop_stall", "arena_door") are written with their area
 QUALIFIED = {"dock_dan": "harbor.shop_stall", "purser": "ship_deck.shop_stall", "shell_sue": "kingdom_beach.shop_stall",
              "hermit_hob": "kingdom_forest.shop_stall", "rex_forest": "kingdom_forest.rex_spot", "forest_mage": "kingdom_forest.gate_spot",
@@ -48,7 +48,7 @@ QUALIFIED = {"dock_dan": "harbor.shop_stall", "purser": "ship_deck.shop_stall", 
              "isis_desert": "kingdom_desert.isis_spot", "desert_mage": "kingdom_desert.gate_spot", "bakura_desert": "kingdom_desert.bakura_spot",
              "teana_desert": "kingdom_desert.teana_spot", "nomad_nia": "kingdom_desert.shop_stall",
              "jono_fair": "kingdom_fair.jono_spot", "ring_champ": "kingdom_fair.gate_spot", "inseto_fair": "kingdom_fair.inseto_spot",
-             "bazaar_bea": "kingdom_fair.shop_stall"}
+             "bazaar_bea": "kingdom_fair.shop_stall", "inseto_gate": "castle_gate.gate_spot", "pawn_paul": "castle_gate.shop_stall"}
 # who stands where, and when (the painted places; no tile on the old map)
 PAINTED_PLACES = {
     "soldier": [{"when": {"stage_ge": 4}}],
@@ -80,6 +80,8 @@ PAINTED_PLACES = {
     "ring_champ": [{"when": {"stage_ge": 29}}],
     "inseto_fair": [{"when": {"stage_ge": 28}}],
     "bazaar_bea": [{"when": {"stage_ge": 28}}],
+    "inseto_gate": [{"when": {"stage_ge": 31}}],
+    "pawn_paul": [{"when": {"stage_ge": 31}}],
 }
 # the friends come to the pier to say goodbye (stage 6): they keep their village tile, the painted anchor moves
 FAREWELL = {"simon": "farewell_simon", "teana": "farewell_teana", "jono": "farewell_jono"}
@@ -95,14 +97,15 @@ DK_DUELISTS = {"shadi": ("dk_shadi", "Shadi", "Shadi Courier"), "inseto_kaiba": 
                "desert_mage": ("dk_desert_mage", "Desert Mage", "Desert Mage Dunes"),
                "bakura_desert": ("dk_bakura_desert", "Yami Bakura", "Bakura Desert"),
                "jono_fair": ("dk_jono_fair", "Jono", "Jono Fair"),
-               "ring_champ": ("dk_ring_champ", "Seto", "Ring Champion Circus")}
+               "ring_champ": ("dk_ring_champ", "Seto", "Ring Champion Circus"),
+               "inseto_gate": ("dk_inseto_gate", "Seto", "InsetoKaiba Gate")}
 STARTER_NOTE = "a new journey's deck: 40 weak commons (journey_content/duelist_kingdom/decks_dk.json starter)"
 # where the old 3D map would put people the painted picture shows elsewhere (Rex on the east road once placed, Bakura in the cistern: never really seen there)
 PLACES = {"rex": [{"when": {"stage_ge": 3}, "tile": [37.5, 29.5]}]}
 # the village's songs, sound-driver package numbers (song 0x7000 + 16 * n): 10 is the game's own campaign-map song (sustained, quiet),
 # 25 a slow pad that swells in; both measured steady and low in activity (see DK_PART2_README)
 VILLAGE_MUSIC = {"day": 10, "night": 25, "cistern": 26,
-                 "harbor": 18, "ship_deck": 20, "kingdom_beach": 30, "kingdom_forest": 21, "kingdom_mountain": 22, "kingdom_meadow": 19, "kingdom_desert": 23, "kingdom_fair": 24}   # the disc's Nile River, Desert Temple and Tournament Island songs      # 26: the Sand Ruins song, a low sustained pad: the cistern is dim and quiet
+                 "harbor": 18, "ship_deck": 20, "kingdom_beach": 30, "kingdom_forest": 21, "kingdom_mountain": 22, "kingdom_meadow": 19, "kingdom_desert": 23, "kingdom_fair": 24, "castle_gate": 25}   # the disc's Nile River, Desert Temple and Tournament Island songs      # 26: the Sand Ruins song, a low sustained pad: the cistern is dim and quiet
 # debug presets (jm_debug.c: L1+R1+Up/Down in the village, or "preset" in debug.json): a state of the story to jump to
 _H3 = ["heard_teana", "heard_jono", "heard_guard"]
 _B = _H3 + ["simon_won", "mago_roof", "courier_met", "baker_hint"]
@@ -114,6 +117,7 @@ _MOUNT = _FOREST + ["forest_mage_won"]
 _MEADOW = _MOUNT + ["mountain_arrived", "keith_won", "mai_mountain_won", "carver_found", "mountain_mage_won"]
 _DESERT = _MEADOW + ["meadow_arrived", "teana_meadow_won", "meadow_mage_won"]
 _FAIR = _DESERT + ["desert_arrived", "isis_desert_won", "desert_mage_won"]
+_GATE = _FAIR + ["fair_arrived", "jono_fair_won", "ring_champ_won"]
 DEBUG_PRESETS = [
     {"name": "1 home door", "stage": 1, "flags": [], "anchor": "hero_start", "time": "auto"},
     {"name": "2 rumors heard (Simon next)", "stage": 1, "flags": _H3, "anchor": "plaza_center", "time": "auto"},
@@ -162,9 +166,12 @@ DEBUG_PRESETS = [
     {"name": "43 Jono at the raft (friendly)", "stage": 28, "flags": _FAIR + ["fair_arrived"], "anchor": "kingdom_fair.jono_spot", "time": "auto", "stars": 8},
     {"name": "44 Ring Champion (wager)", "stage": 29, "flags": _FAIR + ["fair_arrived", "jono_fair_won"], "anchor": "kingdom_fair.fair_center", "time": "auto", "stars": 8},
     {"name": "45 chapter 7 done", "stage": 30, "flags": _FAIR + ["fair_arrived", "jono_fair_won", "ring_champ_won"], "anchor": "kingdom_fair.fair_center", "time": "auto", "stars": 9},
+    {"name": "46 gate arrival (chapter 8)", "stage": 31, "flags": _GATE, "anchor": "castle_gate.spawn", "time": "auto", "stars": 9},
+    {"name": "47 InsetoKaiba at the lock (wager)", "stage": 31, "flags": _GATE, "anchor": "castle_gate.gate_center", "time": "auto", "stars": 9},
+    {"name": "48 chapter 8 done", "stage": 32, "flags": _GATE + ["inseto_gate_won"], "anchor": "castle_gate.gate_center", "time": "auto", "stars": 10},
 ]
 # a narrator page with a label is not speech: its kind decides the banner (en labels; pt pages follow the same index)
-LABEL_KIND = {"Objective": "objective", "Reward": "item", "You got": "item", "Stamp": "item", "End of Chapter 1": "complete", "End of Chapter 2": "complete", "End of Chapter 3": "complete", "End of Chapter 4": "complete", "End of Chapter 5": "complete", "End of Chapter 6": "complete", "End of Chapter 7": "complete"}
+LABEL_KIND = {"Objective": "objective", "Reward": "item", "You got": "item", "Stamp": "item", "End of Chapter 1": "complete", "End of Chapter 2": "complete", "End of Chapter 3": "complete", "End of Chapter 4": "complete", "End of Chapter 5": "complete", "End of Chapter 6": "complete", "End of Chapter 7": "complete", "End of Chapter 8": "complete", "Coming next": "objective"}
 NOTIFY = {"en": {"objective": "NEW OBJECTIVE", "item": "ITEM OBTAINED", "complete": "QUEST COMPLETE", "caption": "", "press": "X: continue", "card": "CARD OBTAINED"},
           "pt": {"objective": "NOVO OBJETIVO", "item": "ITEM OBTIDO", "complete": "MISSAO CUMPRIDA", "caption": "", "press": "X: continuar", "card": "CARTA OBTIDA"}}
 PART_END = {}      # a duel win that ends the part (a "then" script after the win scene); part 3 ends by an "auto" rule instead
@@ -177,14 +184,14 @@ ITEM_FLAG = {"stamp_card": ("courier_met", None, "assets/icon_stamp_card.bin"), 
              "scarab": ("treasure_lost", None, "assets/icon_founders_scarab.bin"), "bandana": ("treasure_won", None, "assets/icon_jonos_bandana.bin"),
              "charm": ("treasure_given", None, "assets/icon_lucky_charm.bin"),
              "star_passage": ("shadi_won", None, "assets/icon_stamp_card.bin"), "bug_pin": ("inseto_won", None, "assets/icon_founders_scarab.bin"),
-             "loaded_dice": ("weevil_won", None, None), "whisper_leaf": ("forest_mage_won", None, None), "star_chisel": ("carver_found", None, None), "hint_charm": ("teana_meadow_won", None, None), "dust_charm": ("isis_desert_won", None, None), "raft_charm": ("jono_fair_won", None, None),
+             "loaded_dice": ("weevil_won", None, None), "whisper_leaf": ("forest_mage_won", None, None), "star_chisel": ("carver_found", None, None), "hint_charm": ("teana_meadow_won", None, None), "dust_charm": ("isis_desert_won", None, None), "raft_charm": ("jono_fair_won", None, None), "gate_key": ("inseto_gate_won", None, None),
              "star_chips": ("shadi_won", None, "assets/icon_star_chips.bin")}
-ITEM_ORDER = ["stamp_card", "lantern", "jug", "honey", "river_water", "dates", "scarab", "bandana", "charm", "star_passage", "bug_pin", "loaded_dice", "whisper_leaf", "star_chisel", "hint_charm", "dust_charm", "raft_charm", "star_chips"]
+ITEM_ORDER = ["stamp_card", "lantern", "jug", "honey", "river_water", "dates", "scarab", "bandana", "charm", "star_passage", "bug_pin", "loaded_dice", "whisper_leaf", "star_chisel", "hint_charm", "dust_charm", "raft_charm", "gate_key", "star_chips"]
 # Mochila texts for the Kingdom's items, accented (the UI font has them; the dialogue font is ASCII): (description, where from)
 BAG_TEXT = {
  "en": {"star_chips": ("A lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.", "Shadi's Star Passage, then the duelists who guard each zone."),
         "dust_charm": ("Isis's charm. Someone upstairs harvests lost stars.", "Isis, in the Desert of Lost Stars."),
-        "raft_charm": ("Jono's charm. He tips you around the fair.", "Jono, at the Star Fair.")},
+        "raft_charm": ("Jono's charm. He tips you around the fair.", "Jono, at the Star Fair."), "gate_key": ("InsetoKaiba's key. The star-lock counts ten.", "InsetoKaiba, at the Castle Gate.")},
  "pt": {"star_chips": ("Aposta perdida fica com o rival. Dez abrem o castelo. ZERO = FIM DE JOGO.", "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."),
         "star_passage": ("Seu bilhete para o Reino dos Duelistas.", "Shadi, no porto."),
         "bug_pin": ("O broche dourado do InsetoKaiba. Ele jura que vai pegar de volta.", "InsetoKaiba, no navio."),
@@ -193,10 +200,10 @@ BAG_TEXT = {
         "star_chisel": ("O cinzel do Croquet. A ponta ainda brilha como estrela.", "Croquet, na Caverna da Estrela."),
         "hint_charm": ("O amuleto da Teana. Ela te da dicas no labirinto.", "Teana, no Labirinto da Campina."),
         "dust_charm": ("O amuleto da Isis. Alguem la em cima colhe estrelas perdidas.", "Isis, no Deserto das Estrelas Perdidas."),
-        "raft_charm": ("O amuleto do Jono. Ele te da dicas na feira.", "Jono, na Feira das Estrelas.")},
+        "raft_charm": ("O amuleto do Jono. Ele te da dicas na feira.", "Jono, na Feira das Estrelas."), "gate_key": ("A chave do InsetoKaiba. A fechadura conta dez.", "InsetoKaiba, no Portao do Castelo.")},
 }
 WAGER_NAMES = {"weevil": ("Weevil", "Weevil"), "rex_forest": ("Rex Raptor", "Rex Raptor"), "forest_mage": ("Forest Mage", "Mago da Floresta"),
-               "keith": ("Bandit Keith", "Bandit Keith"), "mountain_mage": ("Mountain Mage", "Mago da Montanha"), "meadow_mage": ("Meadow Mage", "Maga da Campina"), "desert_mage": ("Desert Mage", "Mago do Deserto"), "ring_champ": ("Ring Champion", "Campeao do Ringue")}
+               "keith": ("Bandit Keith", "Bandit Keith"), "mountain_mage": ("Mountain Mage", "Mago da Montanha"), "meadow_mage": ("Meadow Mage", "Maga da Campina"), "desert_mage": ("Desert Mage", "Mago do Deserto"), "ring_champ": ("Ring Champion", "Campeao do Ringue"), "inseto_gate": ("InsetoKaiba", "InsetoKaiba")}
 # the wager picker and the game-over screen (jm_wager.c); the UI font has accents
 WAGER_UI = {
  "en": {"title": "Star Wager", "subtitle": "Choose how many stars to bet", "you": "You", "bet": "Bet", "stars": "stars", "star": "star",
@@ -335,7 +342,7 @@ def build():
         if o["id"] not in ("plaza_bench", "notice_sign", "date_palm", "river_bank", "pyramid_hatch", "cistern_glyph", "cistern_exit",
                            "bridge_north", "harbor_bridge_back", "ship_gangway", "barrel", "ship_bow", "pegasus_mirror", "shore_camp", "jungle_path",
                            "star_mark_1", "star_mark_2", "star_mark_3", "forest_gate", "pass_road", "forest_exit",
-                           "star_cave", "summit_gate", "trail_camp", "mountain_exit", "desert_gate", "meadow_camp", "meadow_exit", "star_stone", "fair_gate", "desert_camp", "desert_exit", "buried_star", "castle_gate", "fair_camp", "fair_exit", "duel_ring", "agents_alley"): continue
+                           "star_cave", "summit_gate", "trail_camp", "mountain_exit", "desert_gate", "meadow_camp", "meadow_exit", "star_stone", "fair_gate", "desert_camp", "desert_exit", "buried_star", "castle_gate", "fair_camp", "fair_exit", "duel_ring", "agents_alley", "castle_door", "gate_camp", "gate_exit"): continue
         talk = talk_rules(o["dialogue_rules"], scripts, duels)
         e = {"id": o["id"], "anchor": o["anchor"], "talk": talk}
         if o["id"] == "plaza_bench":
@@ -362,7 +369,7 @@ def build():
                 rule = {"when": when(tr["when"]), "scene": tr["script"], "effects": result(tr["effects"])}
                 if o["id"] == "harbor_bridge_back": rule["when"] = {"stage_ge": 5}
                 talk.insert(0, rule)
-        if o["id"] in ("bridge_north", "harbor_bridge_back", "ship_gangway", "ship_bow", "jungle_path", "pegasus_mirror", "star_mark_1", "star_mark_2", "star_mark_3", "forest_gate", "pass_road", "forest_exit", "star_cave", "summit_gate", "trail_camp", "mountain_exit", "desert_gate", "meadow_camp", "meadow_exit", "star_stone", "fair_gate", "desert_camp", "desert_exit", "buried_star", "castle_gate", "fair_camp", "fair_exit", "duel_ring", "agents_alley"): e["reach"] = 80
+        if o["id"] in ("bridge_north", "harbor_bridge_back", "ship_gangway", "ship_bow", "jungle_path", "pegasus_mirror", "star_mark_1", "star_mark_2", "star_mark_3", "forest_gate", "pass_road", "forest_exit", "star_cave", "summit_gate", "trail_camp", "mountain_exit", "desert_gate", "meadow_camp", "meadow_exit", "star_stone", "fair_gate", "desert_camp", "desert_exit", "buried_star", "castle_gate", "fair_camp", "fair_exit", "duel_ring", "agents_alley", "castle_door", "gate_camp", "gate_exit"): e["reach"] = 80
         if o["id"] == "shore_camp": e["reach"] = 90
         objects.append(e)
     ev = [e for e in en["observer_events"] if e["id"] == "roof_at_night"][0]
@@ -434,7 +441,10 @@ def build():
         # chapter 7: Jono at the raft, the Ring Champion at the ropes, then the castle arch
         {"when": {"stage_ge": 28, "stage_lt": 29}, "npc": "jono_fair"},
         {"when": {"stage_ge": 29, "stage_lt": 30}, "npc": "ring_champ"},
-        {"when": {"stage_ge": 30}, "anchor": "castle_gate"},
+        {"when": {"stage_ge": 30, "stage_lt": 31}, "anchor": "castle_gate"},
+        # chapter 8: InsetoKaiba at the lock, then the castle door
+        {"when": {"stage_ge": 31, "stage_lt": 32}, "npc": "inseto_gate"},
+        {"when": {"stage_ge": 32}, "anchor": "castle_door"},
     ]
     steps = {q["id"]: [s["objective"] for s in q["steps"]] for q in en["quests"]}
     flat_ids = ["q03_stakeout", "q04_lost", "q05_won", "q06_given"]
@@ -474,6 +484,7 @@ def build():
         {"id": "q14_meadow", "active": {"stage_ge": 22}, "done": {"needs": ["meadow_mage_won"]}, "lines": []},
         {"id": "q15_desert", "active": {"stage_ge": 25}, "done": {"needs": ["desert_mage_won"]}, "lines": []},
         {"id": "q16_fair", "active": {"stage_ge": 28}, "done": {"needs": ["ring_champ_won"]}, "lines": []},
+        {"id": "q17_gate", "active": {"stage_ge": 31}, "done": {"needs": ["inseto_gate_won"]}, "lines": []},
     ]
     # the HUD line: the story's list, plus "Talk to the hooded man" once the bench scene is over (its step is the second of quest 3) and
     # "Duel Bakura" while the player is in the cistern (the fourth step of quest 4); the language files get the same list in the same order
@@ -539,10 +550,10 @@ def build():
     j = dict(old)
     j.update({
         "flags": flags, "npcs": npcs, "speakers": speakers, "objectives": objectives, "guide": guide, "journal": journal,
-        "chapters": [{"when": {"stage_lt": 10}, "text": en["chapters"][0]["title"]}, {"when": {"stage_lt": 13}, "text": en["chapters"][1]["title"]}, {"when": {"stage_lt": 17}, "text": en["chapters"][2]["title"]}, {"when": {"stage_lt": 22}, "text": en["chapters"][3]["title"]}, {"when": {"stage_lt": 25}, "text": en["chapters"][4]["title"]}, {"when": {"stage_lt": 28}, "text": en["chapters"][5]["title"]}, {"text": en["chapters"][6]["title"]}],
+        "chapters": [{"when": {"stage_lt": 10}, "text": en["chapters"][0]["title"]}, {"when": {"stage_lt": 13}, "text": en["chapters"][1]["title"]}, {"when": {"stage_lt": 17}, "text": en["chapters"][2]["title"]}, {"when": {"stage_lt": 22}, "text": en["chapters"][3]["title"]}, {"when": {"stage_lt": 25}, "text": en["chapters"][4]["title"]}, {"when": {"stage_lt": 28}, "text": en["chapters"][5]["title"]}, {"when": {"stage_lt": 31}, "text": en["chapters"][6]["title"]}, {"text": en["chapters"][7]["title"]}],
         "starter_deck": starter, "starter_note": STARTER_NOTE, "items": items, "triggers": [], "spots": [],
         "objects": objects, "intro": "dk1_intro", "painted": painted, "debug": DEBUG_PRESETS, "auto": auto,
-        "story": "duelist_kingdom chapters 1-7",
+        "story": "duelist_kingdom chapters 1-8",
     })
     j["areas"] = [dict(a) for a in old["areas"]]
     j["areas"][0]["name"] = en["areas"][0]["name"]
@@ -561,7 +572,8 @@ def build():
                            "the sixth star, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone",
                            "the seventh star, Hint Charm, card Queen of Autumn Leaves",
                            "the eighth star, Dust Charm, card Great Mammoth of Goldfine",
-                           "the ninth star, Raft Charm, card Twin-headed Thunder Dragon"],
+                           "the ninth star, Raft Charm, card Twin-headed Thunder Dragon",
+                           "the tenth star, Gate Key, card Hercules Beetle (Crown Beetle)"],
                "jr_extra": {"items": "Items:", "stamp": "Stamp Card:"}, "stamps": ["Lost", "Won", "Given"]},
         "pt": {"jr": {"heading": "DIARIO", "reward": "Recompensa:", "empty": "Nenhuma missao ainda.", "more": "Mais missoes chegam nas proximas partes da historia.", "close": "Triangulo: fechar"},
                "hint_painted": "Setas: andar   Circulo: correr   X: falar   Triangulo: diario   Select: mapa liga/desliga   Start: menu",
@@ -574,7 +586,8 @@ def build():
                            "a sexta estrela, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone",
                            "a setima estrela, Amuleto de Dica, carta Queen of Autumn Leaves",
                            "a oitava estrela, Amuleto de Poeira, carta Great Mammoth of Goldfine",
-                           "a nona estrela, Amuleto da Jangada, carta Twin-headed Thunder Dragon"],
+                           "a nona estrela, Amuleto da Jangada, carta Twin-headed Thunder Dragon",
+                           "a decima estrela, Chave do Portao, carta Hercules Beetle (Crown Beetle)"],
                "jr_extra": {"items": "Itens:", "stamp": "Cartao de Selos:"}, "stamps": ["Perdido", "Ganho", "Dado"]},
     }
     en_kind = {s["id"]: [LABEL_KIND.get(p.get("label"), "caption" if p.get("label") else "") for p in s["pages"]] for s in en["scripts"]}
@@ -591,7 +604,7 @@ def build():
         ui["speaker_names"] = {k: v["name"] for k, v in src["speakers"].items() if k not in ("atos", "narrator")}
         ui["areas"][0] = src["areas"][0]["name"]
         qs = {q["id"]: q for q in src["quests"]}
-        qids = ["q01_whispers", "q02_sage", "q03_stakeout", "q04_lost", "q05_won", "q06_given", "q07_harbor", "q08_courier", "q09_farewell", "q10_ship", "q11_shore", "q12_forest", "q13_mountain", "q14_meadow", "q15_desert", "q16_fair"]
+        qids = ["q01_whispers", "q02_sage", "q03_stakeout", "q04_lost", "q05_won", "q06_given", "q07_harbor", "q08_courier", "q09_farewell", "q10_ship", "q11_shore", "q12_forest", "q13_mountain", "q14_meadow", "q15_desert", "q16_fair", "q17_gate"]
         ui["quest_titles"] = [qs[i]["title"] for i in qids]
         ui["quest_objectives"] = [qs[i]["steps"][0]["objective"] for i in qids]
         ui["quest_steps"] = [s["objective"] for i in flat_ids for s in qs[i]["steps"]]
@@ -611,7 +624,7 @@ def build():
             it = [x for x in src["items"] if x["id"] == iid][0]
             bag[key] = {"desc": BAG_TEXT.get(code, {}).get(iid, (it.get("description", ""), ""))[0] or it.get("description", ""),
                         "from": BAG_TEXT.get(code, {}).get(iid, ("", it.get("source", "")))[1] or it.get("source", "")}
-        for aid in ("cistern", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "kingdom_desert", "kingdom_fair"):
+        for aid in ("cistern", "harbor", "ship_deck", "kingdom_beach", "kingdom_forest", "kingdom_mountain", "kingdom_meadow", "kingdom_desert", "kingdom_fair", "castle_gate"):
             ui["painted"][aid] = [a for a in src["areas"] if a["id"] == aid][0]["name"]
         with open(os.path.join(MOD, "assets/lang/%s/ui.json" % code), "w", encoding="utf-8") as f:
             json.dump(ui, f, indent=2, ensure_ascii=False)

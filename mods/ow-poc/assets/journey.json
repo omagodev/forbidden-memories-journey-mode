@@ -52,7 +52,6 @@
   "meadow_mage_won",
   "desert_arrived",
   "isis_desert_won",
-  "bakura_desert_won",
   "desert_mage_won",
   "fair_arrived",
   "jono_fair_won",
@@ -63,7 +62,8 @@
   "academy_fields",
   "academy_power",
   "academy_fusions",
-  "academy_graduate"
+  "academy_graduate",
+  "inseto_gate_won"
  ],
  "areas": [
   {
@@ -383,6 +383,10 @@
    "flag": "jono_fair_won"
   },
   {
+   "name": "Gate Key",
+   "flag": "inseto_gate_won"
+  },
+  {
    "name": "Star Chips",
    "flag": "shadi_won",
    "icon": "assets/icon_star_chips.bin",
@@ -428,7 +432,13 @@
    "text": "Desert of Lost Stars"
   },
   {
+   "when": {
+    "stage_lt": 31
+   },
    "text": "The Star Fair"
+  },
+  {
+   "text": "The Castle Gate"
   }
  ],
  "objectives": [
@@ -854,9 +864,23 @@
   },
   {
    "when": {
-    "stage_ge": 30
+    "stage_ge": 30,
+    "stage_lt": 31
    },
    "text": "Chapter 7 complete - the castle road waits"
+  },
+  {
+   "when": {
+    "stage_ge": 31,
+    "stage_lt": 32
+   },
+   "text": "Beat InsetoKaiba at the star-lock - a star on the line"
+  },
+  {
+   "when": {
+    "stage_ge": 32
+   },
+   "text": "Chapter 8 complete - the castle / Dream Room waits"
   }
  ],
  "triggers": [],
@@ -1066,7 +1090,10 @@
       "stage_ge": 3,
       "stage_lt": 6
      },
-     "scene": "dk1_teana_after"
+     "scene": "dk1_teana_after",
+     "effects": {
+      "open_shop": "village"
+     }
     },
     {
      "when": {
@@ -1087,7 +1114,10 @@
      "when": {
       "stage_ge": 6
      },
-     "scene": "dk1_teana_after_farewell"
+     "scene": "dk1_teana_after_farewell",
+     "effects": {
+      "open_shop": "village"
+     }
     }
    ],
    "duelist_id": 2,
@@ -2094,7 +2124,10 @@
      "when": {
       "stage_ge": 5
      },
-     "scene": "dk2_dock_dan"
+     "scene": "dk2_dock_dan",
+     "effects": {
+      "open_shop": "harbor"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2119,7 +2152,10 @@
       "stage_ge": 7,
       "stage_lt": 8
      },
-     "scene": "dk2_purser"
+     "scene": "dk2_purser",
+     "effects": {
+      "open_shop": "ship"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2144,7 +2180,10 @@
      "when": {
       "stage_ge": 10
      },
-     "scene": "dk2_shell_sue"
+     "scene": "dk2_shell_sue",
+     "effects": {
+      "open_shop": "beach"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2318,7 +2357,10 @@
      "when": {
       "stage_ge": 13
      },
-     "scene": "dk3_hermit"
+     "scene": "dk3_hermit",
+     "effects": {
+      "open_shop": "forest"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2576,7 +2618,10 @@
      "when": {
       "stage_ge": 17
      },
-     "scene": "dk4_cliff_cass"
+     "scene": "dk4_cliff_cass",
+     "effects": {
+      "open_shop": "mountain"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2727,7 +2772,10 @@
      "when": {
       "stage_ge": 22
      },
-     "scene": "dk5_rose_rue"
+     "scene": "dk5_rose_rue",
+     "effects": {
+      "open_shop": "meadow"
+     }
     }
    ],
    "duelist_id": 0,
@@ -2825,10 +2873,7 @@
    "talk": [
     {
      "when": {
-      "stage_ge": 25,
-      "lacks": [
-       "bakura_desert_won"
-      ]
+      "stage_ge": 25
      },
      "scene": "dk6_bakura_pre",
      "duel": true,
@@ -2837,19 +2882,13 @@
        96
       ],
       "flags": [
-       "bakura_desert_won"
+       "desert_arrived"
       ],
       "scene": "dk6_bakura_win"
      },
      "lose": {
       "scene": "dk6_bakura_lose"
      }
-    },
-    {
-     "when": {
-      "stage_ge": 25
-     },
-     "scene": "dk6_bakura_after"
     }
    ],
    "duelist_id": 14,
@@ -2949,7 +2988,10 @@
      "when": {
       "stage_ge": 25
      },
-     "scene": "dk6_nomad_nia"
+     "scene": "dk6_nomad_nia",
+     "effects": {
+      "open_shop": "desert"
+     }
     }
    ],
    "duelist_id": 0,
@@ -3124,7 +3166,10 @@
      "when": {
       "stage_ge": 28
      },
-     "scene": "dk7_bazaar_bea"
+     "scene": "dk7_bazaar_bea",
+     "effects": {
+      "open_shop": "fair"
+     }
     }
    ],
    "duelist_id": 0,
@@ -3135,6 +3180,111 @@
       "stage_ge": 28
      },
      "anchor": "kingdom_fair.shop_stall"
+    }
+   ]
+  },
+  {
+   "id": "inseto_gate",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "castle_gate.gate_spot",
+   "talk": [
+    {
+     "when": {
+      "needs": [
+       "inseto_gate_won"
+      ],
+      "wager_extra": [
+       8,
+       2,
+       "inseto_gate_won"
+      ]
+     },
+     "scene": "dk_wager_rematch",
+     "duel": true,
+     "win": {
+      "wager": 2,
+      "slot": 8,
+      "wid": "inseto_gate",
+      "beaten": "inseto_gate_won",
+      "rematch": 1
+     },
+     "lose": {}
+    },
+    {
+     "when": {
+      "stage_ge": 31,
+      "stage_lt": 32,
+      "lacks": [
+       "inseto_gate_won"
+      ]
+     },
+     "scene": "dk8_inseto_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       52
+      ],
+      "stage": 32,
+      "flags": [
+       "inseto_gate_won"
+      ],
+      "scene": "dk8_inseto_win",
+      "wager": 2,
+      "slot": 8,
+      "wid": "inseto_gate",
+      "beaten": "inseto_gate_won"
+     },
+     "lose": {
+      "scene": "dk8_inseto_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 32,
+      "needs": [
+       "inseto_gate_won"
+      ]
+     },
+     "scene": "dk8_inseto_after"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "duelist": "dk_inseto_gate",
+   "places": [
+    {
+     "when": {
+      "stage_ge": 31
+     },
+     "anchor": "castle_gate.gate_spot"
+    }
+   ]
+  },
+  {
+   "id": "pawn_paul",
+   "name": "Pawn Paul",
+   "mesh": "Suit_Male",
+   "anchor": "castle_gate.shop_stall",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 31
+     },
+     "scene": "dk8_pawn_paul",
+     "effects": {
+      "open_shop": "gate"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 31
+     },
+     "anchor": "castle_gate.shop_stall"
     }
    ]
   }
@@ -3258,6 +3408,9 @@
    "portrait_id": 0
   },
   "bazaar_bea": {
+   "portrait_id": 0
+  },
+  "pawn_paul": {
    "portrait_id": 0
   }
  },
@@ -3735,9 +3888,23 @@
   },
   {
    "when": {
-    "stage_ge": 30
+    "stage_ge": 30,
+    "stage_lt": 31
    },
    "anchor": "castle_gate"
+  },
+  {
+   "when": {
+    "stage_ge": 31,
+    "stage_lt": 32
+   },
+   "npc": "inseto_gate"
+  },
+  {
+   "when": {
+    "stage_ge": 32
+   },
+   "anchor": "castle_door"
   }
  ],
  "journal": [
@@ -4153,6 +4320,18 @@
    "done": {
     "needs": [
      "ring_champ_won"
+    ]
+   },
+   "lines": []
+  },
+  {
+   "id": "q17_gate",
+   "active": {
+    "stage_ge": 31
+   },
+   "done": {
+    "needs": [
+     "inseto_gate_won"
     ]
    },
    "lines": []
@@ -5089,6 +5268,33 @@
    "talk": [
     {
      "when": {
+      "stage_ge": 31
+     },
+     "scene": "dk8_to_gate",
+     "effects": {
+      "warp": [
+       "castle_gate",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 30,
+      "stage_lt": 31,
+      "stars_min": 9
+     },
+     "scene": "dk8_arrival",
+     "effects": {
+      "stage": 31,
+      "warp": [
+       "castle_gate",
+       "spawn"
+      ]
+     }
+    },
+    {
+     "when": {
       "stage_ge": 30,
       "stars_min": 9
      },
@@ -5147,6 +5353,118 @@
     }
    ],
    "reach": 80
+  },
+  {
+   "id": "castle_door",
+   "anchor": "castle_door",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 32,
+      "stars_min": 10
+     },
+     "scene": "dk8_castle_announce"
+    },
+    {
+     "when": {
+      "stage_ge": 31
+     },
+     "scene": "dk8_castle_shut"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "gate_camp",
+   "anchor": "gate_camp",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 31
+     },
+     "scene": "dk8_gate_camp"
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "gate_exit",
+   "anchor": "spawn",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 31
+     },
+     "scene": "dk8_to_fair",
+     "effects": {
+      "warp": [
+       "kingdom_fair",
+       "castle_gate"
+      ]
+     }
+    }
+   ],
+   "reach": 80
+  },
+  {
+   "id": "arena_door_village",
+   "anchor": "village.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_harbor",
+   "anchor": "harbor.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_beach",
+   "anchor": "kingdom_beach.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_forest",
+   "anchor": "kingdom_forest.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_mountain",
+   "anchor": "kingdom_mountain.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_meadow",
+   "anchor": "kingdom_meadow.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_desert",
+   "anchor": "kingdom_desert.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_fair",
+   "anchor": "kingdom_fair.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_ship",
+   "anchor": "ship_deck.arena_door",
+   "prop": "hatch",
+   "reach": 0
+  },
+  {
+   "id": "arena_door_gate",
+   "anchor": "castle_gate.arena_door",
+   "prop": "hatch",
+   "reach": 0
   }
  ],
  "intro": "dk1_intro",
@@ -5165,7 +5483,8 @@
    "kingdom_mountain": 22,
    "kingdom_meadow": 19,
    "kingdom_desert": 23,
-   "kingdom_fair": 24
+   "kingdom_fair": 24,
+   "castle_gate": 25
   },
   "night": {
    "stage_ge": 2,
@@ -6941,6 +7260,187 @@
    "anchor": "kingdom_fair.fair_center",
    "time": "auto",
    "stars": 9
+  },
+  {
+   "name": "46 gate arrival (chapter 8)",
+   "stage": 31,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won"
+   ],
+   "anchor": "castle_gate.spawn",
+   "time": "auto",
+   "stars": 9
+  },
+  {
+   "name": "47 InsetoKaiba at the lock (wager)",
+   "stage": 31,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won"
+   ],
+   "anchor": "castle_gate.gate_center",
+   "time": "auto",
+   "stars": 9
+  },
+  {
+   "name": "48 chapter 8 done",
+   "stage": 32,
+   "flags": [
+    "heard_teana",
+    "heard_jono",
+    "heard_guard",
+    "simon_won",
+    "mago_roof",
+    "courier_met",
+    "baker_hint",
+    "farmer_won",
+    "jono_asked",
+    "treasure_lost",
+    "treasure_won",
+    "teana_asked",
+    "jug_taken",
+    "got_honey",
+    "got_water",
+    "got_dates",
+    "treasure_given",
+    "inspector_won",
+    "shadi_won",
+    "mago_passage",
+    "simon_farewell",
+    "teana_farewell",
+    "jono_farewell",
+    "mai_met",
+    "mago_mast",
+    "beach_arrived",
+    "pegasus_mirror",
+    "weevil_met",
+    "weevil_won",
+    "camp_met",
+    "hooded_shore",
+    "forest_arrived",
+    "rex_forest_won",
+    "star_mark_1",
+    "star_mark_2",
+    "star_mark_3",
+    "forest_mage_won",
+    "mountain_arrived",
+    "keith_won",
+    "mai_mountain_won",
+    "carver_found",
+    "mountain_mage_won",
+    "meadow_arrived",
+    "teana_meadow_won",
+    "meadow_mage_won",
+    "desert_arrived",
+    "isis_desert_won",
+    "desert_mage_won",
+    "fair_arrived",
+    "jono_fair_won",
+    "ring_champ_won",
+    "inseto_gate_won"
+   ],
+   "anchor": "castle_gate.gate_center",
+   "time": "auto",
+   "stars": 10
   }
  ],
  "auto": [
@@ -7088,5 +7588,5 @@
    "scene": "dk7_arrival"
   }
  ],
- "story": "duelist_kingdom chapters 1-7"
+ "story": "duelist_kingdom chapters 1-8"
 }

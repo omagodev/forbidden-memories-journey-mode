@@ -207,6 +207,29 @@ def desert():
 
 
 
+
+def gate():
+    """The Castle Gate (chapter 8): stone plaza walkable; stall, pit rim, and gate wall are not;
+    stall awning and tower bases occlude."""
+    src = ART + "/raw/dk_gate_raw.jpg"
+    pic = Image.open(src).convert("RGB")
+    hsv = np.array(pic.filter(ImageFilter.GaussianBlur(4)).convert("HSV")).astype(np.float32)
+    h, sat, v = hsv[..., 0] * 360 / 255, hsv[..., 1] / 255, hsv[..., 2] / 255
+    walk = ((h > 40) & (h < 160) & (v > 0.28)) | ((sat < 0.25) & (v > 0.35) & (v < 0.85))
+    walk = np.array(Image.fromarray(walk.astype(np.uint8) * 255).filter(ImageFilter.MedianFilter(15))) > 127
+    walk |= shape_mask([("r", 560, 160, 720, 700), ("r", 140, 360, 360, 560), ("r", 860, 400, 1120, 600),
+                        ("r", 160, 560, 320, 680), ("r", 180, 400, 280, 460),  # front of pawn stall
+                        ("r", 960, 460, 1080, 520)])  # front of moat pit hatch
+    walk &= ~shape_mask([("r", 0, 0, 1280, 50), ("r", 0, 690, 1280, 720),
+                         ("r", 400, 40, 880, 100),    # gate wall (leave doorstep walkable)
+                         ("r", 120, 300, 300, 400),   # pawn stall footprint
+                         ("r", 940, 400, 1140, 500)]) # moat pit bowl
+    tents = [((120, 330, 320, 420), 440), ((40, 100, 180, 200), 220)]
+    occ = [(shape_mask([("r",) + r]) & ~walk, base) for r, base in tents]
+    occ.append((shape_mask([("r", 500, 40, 780, 140)]), 160))
+    pack("gate", src, walk, occ)
+
+
 def fair():
     """The Star Fair (chapter 7): grass and dirt paths are walkable; stall footprints and the pond
     are not; tent roofs and stall awnings occlude the player."""
@@ -228,8 +251,8 @@ def fair():
     pack("fair", src, walk, occ)
 
 
-harbor(); ship_deck(); beach(); forest(); mountain(); meadow(); desert(); fair()
-for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage", "desert_mage", "isis", "ring_champ"):
+harbor(); ship_deck(); beach(); forest(); mountain(); meadow(); desert(); fair(); gate()
+for n in ("forest_mage", "keith", "mountain_mage", "meadow_mage", "desert_mage", "isis", "ring_champ", "pawn_paul"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)
 for n in ("mai", "weevil", "shadi", "soldier", "trader", "camp_merchant"):
     shutil.copy(ART + "/kingdom/baked/spr_%s.bin" % n, OUT + "/spr_%s.bin" % n)

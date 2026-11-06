@@ -3871,6 +3871,193 @@
      "text": "Pretty fair. Deadly rules. Lose your last star and your journey ends for good."
     }
    ]
+  },
+  {
+   "id": "dk8_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Nine stars. Stone walls. A glowing lock counts ten.",
+     "label": "Castle Gate",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "InsetoKaiba is already posing. Of course he is."
+    }
+   ]
+  },
+  {
+   "id": "dk8_to_gate",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The star-lock still waits. The plaza is quieter than the fair.",
+     "label": "Castle Road",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk8_to_fair",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Banners and frying oil again. The fair is behind you.",
+     "label": "Fair Trail",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk8_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A wide stone plaza. A pawn stall. A torch pit. The gate's lock glows ten empty stars.",
+     "label": "Castle Gate",
+     "kind": "caption"
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "You brought nine. Cute. I brought moths, beetles, and a better ego."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ship rematch. Bigger deck. Same bugs."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Challenge InsetoKaiba at the star-lock.",
+     "label": "Objective",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_pre",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Great Moth. Javelin Beetle. Crown jewels of the swarm. You are still a larva."
+    },
+    {
+     "speaker": "atos",
+     "text": "I beat you on the ship. I will beat you at the door."
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Two stars under my wing. Wager what your nerve allows. Shall the gate speak?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_win",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "...A worthy bug. Take the Crown Beetle. Take the key. I will grumble forever."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star, Hercules Beetle (his Crown Beetle), and the Gate Key.",
+     "label": "You got",
+     "kind": "item"
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "The lock counts ten. Go on. The hall and the Dream Room are not my problem."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten stars. The castle opens. Dream Room next - if the story can carry it."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Castle Gate yields. The castle hall / Dream Room is the next part.",
+     "label": "End of Chapter 8",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_lose",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Larva. Pawn Paul's stall and the Moat Pit, then crawl back."
+    },
+    {
+     "speaker": "atos",
+     "text": "He outplayed me. Cards, then rematch."
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_after",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "I am still the better bug. The door just disagrees today."
+    }
+   ]
+  },
+  {
+   "id": "dk8_pawn_paul",
+   "pages": [
+    {
+     "speaker": "pawn_paul",
+     "text": "Stars, scars and cards. I buy what the island drops and sell what the gate needs."
+    }
+   ]
+  },
+  {
+   "id": "dk8_gate_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A tarp by the plaza stones. Kingdom staff keep one lantern for the starless.",
+     "label": "Gate Camp",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pretty gate. Deadly rules. Lose your last star and your journey ends for good."
+    }
+   ]
+  },
+  {
+   "id": "dk8_castle_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The lock shows empty notches. Ten stars open it. InsetoKaiba blocks the step.",
+     "label": "Castle Door",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk8_castle_announce",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The lock clicks to ten. Beyond: illusion halls, a chamberlain, and Pegasus's Dream Room.",
+     "label": "Castle Door",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Heishin. Pegasus. The wish. Not this chapter - the next part of the Kingdom."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Chapter 9: Castle Hall. Chapter 10: Pegasus's Dream. Flag budget is tight.",
+     "label": "Coming next",
+     "kind": "objective"
+    }
+   ]
   }
  ]
 }

@@ -154,7 +154,7 @@
    "name": "Camp Staff",
    "short": "Staff",
    "portrait": 254,
-   "note": "Kingdom staff at the fair camp / alley."
+   "note": "Kingdom staff at the gate camp."
   },
   "dock_dan": {
    "name": "Dock Dan",
@@ -244,13 +244,19 @@
    "name": "InsetoKaiba",
    "short": "Inseto",
    "portrait": 254,
-   "note": "Fair taunt only; foreshadows the castle gate (chapter 7)."
+   "note": "Gate guardian rematch (chapter 8); ship rivalry payoff."
   },
   "bazaar_bea": {
    "name": "Bazaar Bea",
    "short": "Bea",
    "portrait": 254,
    "note": "Grand Bazaar keeper (economy)."
+  },
+  "pawn_paul": {
+   "name": "Pawn Paul",
+   "short": "Paul",
+   "portrait": 254,
+   "note": "Gate Pawn Stall keeper (economy)."
   }
  },
  "flags": [
@@ -567,76 +573,76 @@
    "note": "Isis's reading duel won: dust charm and star-collector clue."
   },
   {
-   "name": "bakura_desert_won",
+   "name": "desert_mage_won",
    "bit": 52,
    "value": 4503599627370496,
-   "note": "Bakura's comic desert duel won (cards only)."
-  },
-  {
-   "name": "desert_mage_won",
-   "bit": 53,
-   "value": 9007199254740992,
    "note": "Desert Mage beaten: eighth star, end of chapter 6."
   },
   {
    "name": "fair_arrived",
-   "bit": 54,
-   "value": 18014398509481984,
+   "bit": 53,
+   "value": 9007199254740992,
    "note": "Chapter 7: entered the Star Fair."
   },
   {
    "name": "jono_fair_won",
-   "bit": 55,
-   "value": 36028797018963968,
+   "bit": 54,
+   "value": 18014398509481984,
    "note": "Jono beaten in the friendly fair duel: helper tips + MAGO glimpse."
   },
   {
    "name": "ring_champ_won",
-   "bit": 56,
-   "value": 72057594037927936,
+   "bit": 55,
+   "value": 36028797018963968,
    "note": "Ring Champion beaten: ninth star, end of chapter 7."
   },
   {
    "name": "academy_started",
-   "bit": 57,
-   "value": 144115188075855872,
+   "bit": 56,
+   "value": 72057594037927936,
    "note": "Professor Nabil introduced the optional Duel Academy."
   },
   {
    "name": "academy_basics",
-   "bit": 58,
-   "value": 288230376151711744,
+   "bit": 57,
+   "value": 144115188075855872,
    "note": "Academy class 1 complete: turns, hand and battle."
   },
   {
    "name": "academy_guardians",
-   "bit": 59,
-   "value": 576460752303423488,
+   "bit": 58,
+   "value": 288230376151711744,
    "note": "Academy class 2 complete: Guardian Star cycles."
   },
   {
    "name": "academy_fields",
-   "bit": 60,
-   "value": 1152921504606846976,
+   "bit": 59,
+   "value": 576460752303423488,
    "note": "Academy class 3 complete: terrain bonuses."
   },
   {
    "name": "academy_power",
-   "bit": 61,
-   "value": 2305843009213693952,
+   "bit": 60,
+   "value": 1152921504606846976,
    "note": "Academy class 4 complete: equips and stacked bonuses."
   },
   {
    "name": "academy_fusions",
-   "bit": 62,
-   "value": 4611686018427387904,
+   "bit": 61,
+   "value": 2305843009213693952,
    "note": "Academy class 5 complete: ordered fusion chains."
   },
   {
    "name": "academy_graduate",
+   "bit": 62,
+   "value": 4611686018427387904,
+   "note": "Won Professor Nabil's optional practice duel."
+  },
+  {
+   "name": "inseto_gate_won",
    "bit": 63,
    "value": 9223372036854775808,
-   "note": "Won Professor Nabil's optional practice duel."
+   "note": "InsetoKaiba beaten at the castle gate: tenth star, Gate Key, end of chapter 8."
   }
  ],
  "stages": [
@@ -755,6 +761,14 @@
   {
    "stage": 30,
    "note": "Chapter 7 complete: the castle road is the next part"
+  },
+  {
+   "stage": 31,
+   "note": "Chapter 8: the castle gate, InsetoKaiba at the lock"
+  },
+  {
+   "stage": 32,
+   "note": "Chapter 8 complete: ten stars; the castle / Dream Room is next"
   }
  ],
  "chapters": [
@@ -834,6 +848,17 @@
    ],
    "reward": "nine stars, Raft Charm, card Twin-headed Thunder Dragon",
    "unlock": "the castle road (chapter 8)"
+  },
+  {
+   "n": 8,
+   "title": "The Castle Gate",
+   "region": "castle_gate",
+   "stage": [
+    31,
+    32
+   ],
+   "reward": "ten stars, Gate Key, card Hercules Beetle (Crown Beetle)",
+   "unlock": "the castle hall / Dream Room (chapter 9+)"
   }
  ],
  "areas": [
@@ -896,6 +921,12 @@
    "name": "Star Fair",
    "setting": "Sixth Kingdom area: festival plaza, a grand bazaar, an underfair arena, a rope ring, the castle arch.",
    "art": "exists (illustrated, chapter 7)"
+  },
+  {
+   "id": "castle_gate",
+   "name": "Castle Gate",
+   "setting": "Seventh Kingdom area: plaza, pawn stall, Moat Pit, star-lock, castle door.",
+   "art": "exists (illustrated, chapter 8)"
   }
  ],
  "anchors": {
@@ -1022,6 +1053,17 @@
    "fair_center": "Open grass by the ring.",
    "hangout_a": "East stall path.",
    "hangout_b": "West stall path by the camp."
+  },
+  "castle_gate": {
+   "spawn": "Path in from the fair (bottom).",
+   "gate_camp": "A tarp by the plaza (bottom left).",
+   "shop_stall": "Pawn Paul's Gate Pawn Stall (west).",
+   "arena_door": "The Moat Pit hatch (east).",
+   "gate_spot": "The star-lock where InsetoKaiba waits.",
+   "castle_door": "The castle door beyond the lock (top).",
+   "gate_center": "Open plaza stones.",
+   "hangout_a": "East path by the pit.",
+   "hangout_b": "West path by the pawn stall."
   }
  },
  "npcs": [
@@ -2800,25 +2842,10 @@
       "stage": [
        25,
        99
-      ],
-      "flags_none": [
-       "bakura_desert_won"
       ]
      },
      "script": "dk6_bakura_pre",
      "duel": "bakura_desert"
-    },
-    {
-     "when": {
-      "stage": [
-       25,
-       99
-      ],
-      "needs": [
-       "bakura_desert_won"
-      ]
-     },
-     "script": "dk6_bakura_after"
     }
    ]
   },
@@ -3018,6 +3045,71 @@
       ]
      },
      "script": "dk7_bazaar_bea"
+    }
+   ]
+  },
+  {
+   "id": "inseto_gate",
+   "name": "InsetoKaiba",
+   "portrait_speaker": "inseto_kaiba",
+   "area": "castle_gate",
+   "anchor": "gate_spot",
+   "duelist_id": null,
+   "stages": [
+    31,
+    99
+   ],
+   "visible": "placed",
+   "note": "InsetoKaiba rematch: gate guardian, holds 2, min bet for the 9->10 curve.",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       31,
+       31
+      ],
+      "flags_none": [
+       "inseto_gate_won"
+      ]
+     },
+     "script": "dk8_inseto_pre",
+     "duel": "inseto_gate"
+    },
+    {
+     "when": {
+      "stage": [
+       32,
+       99
+      ],
+      "flags_all": [
+       "inseto_gate_won"
+      ]
+     },
+     "script": "dk8_inseto_after"
+    }
+   ]
+  },
+  {
+   "id": "pawn_paul",
+   "name": "Pawn Paul",
+   "portrait_speaker": "pawn_paul",
+   "area": "castle_gate",
+   "anchor": "shop_stall",
+   "duelist_id": null,
+   "stages": [
+    31,
+    99
+   ],
+   "visible": "always",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       31,
+       99
+      ]
+     },
+     "script": "dk8_pawn_paul"
     }
    ]
   }
@@ -3912,6 +4004,57 @@
    "area": "kingdom_fair",
    "anchor": "spawn",
    "dialogue_rules": []
+  },
+  {
+   "id": "castle_door",
+   "name": "Castle door",
+   "area": "castle_gate",
+   "anchor": "castle_door",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       32,
+       99
+      ],
+      "stars": 10
+     },
+     "script": "dk8_castle_announce"
+    },
+    {
+     "when": {
+      "stage": [
+       31,
+       99
+      ]
+     },
+     "script": "dk8_castle_shut"
+    }
+   ]
+  },
+  {
+   "id": "gate_camp",
+   "name": "Gate camp",
+   "area": "castle_gate",
+   "anchor": "gate_camp",
+   "dialogue_rules": [
+    {
+     "when": {
+      "stage": [
+       31,
+       99
+      ]
+     },
+     "script": "dk8_gate_camp"
+    }
+   ]
+  },
+  {
+   "id": "gate_exit",
+   "name": "Fair trail",
+   "area": "castle_gate",
+   "anchor": "spawn",
+   "dialogue_rules": []
   }
  ],
  "items": [
@@ -4034,6 +4177,12 @@
    "name": "Raft Charm",
    "description": "Jono's charm. He tips you around the fair and beyond.",
    "source": "Jono, at the Star Fair"
+  },
+  {
+   "id": "gate_key",
+   "name": "Gate Key",
+   "description": "InsetoKaiba's key. The star-lock counts ten.",
+   "source": "InsetoKaiba, at the Castle Gate"
   }
  ],
  "new_duelists": [
@@ -4514,6 +4663,20 @@
     }
    ],
    "reward": "nine stars, Raft Charm, card Twin-headed Thunder Dragon"
+  },
+  {
+   "id": "q17_gate",
+   "kind": "duel",
+   "optional": false,
+   "title": "The Castle Gate",
+   "giver": "(none)",
+   "steps": [
+    {
+     "objective": "Beat InsetoKaiba at the star-lock for a star",
+     "anchor": "castle_gate.gate_spot"
+    }
+   ],
+   "reward": "ten stars, Gate Key, card Hercules Beetle"
   }
  ],
  "duels": [
@@ -5025,7 +5188,7 @@
    "pre_script": "dk6_bakura_pre",
    "win_script": "dk6_bakura_win",
    "lose_script": "dk6_bakura_lose",
-   "win_flag": "bakura_desert_won",
+   "win_flag": "desert_arrived",
    "on_win": [
     {
      "give_card": "Armored Zombie"
@@ -5105,6 +5268,33 @@
    "stars_wager": true,
    "stars": 2,
    "note": "Zone master, holds 2 stars: bet 1 for the curve (8->9). Needs fair cards or Underfair Big Top wins."
+  },
+  {
+   "id": "inseto_gate",
+   "npc": "inseto_gate",
+   "duelist_id": null,
+   "chapter": 1,
+   "deck": "InsetoKaiba Gate",
+   "difficulty_tier": 8,
+   "pre_script": "dk8_inseto_pre",
+   "win_script": "dk8_inseto_win",
+   "lose_script": "dk8_inseto_lose",
+   "win_flag": "inseto_gate_won",
+   "on_win": [
+    {
+     "give_card": "Hercules Beetle"
+    },
+    {
+     "give_item": "gate_key"
+    },
+    {
+     "set_stage": 32
+    }
+   ],
+   "rewards_first_win_only": true,
+   "stars_wager": true,
+   "stars": 2,
+   "note": "Gate guardian rematch, holds 2 stars: bet 1 for the curve (9->10). Payoff of the ship rivalry."
   }
  ],
  "transitions": [
@@ -5842,6 +6032,76 @@
     }
    ],
    "script": "dk7_arrival"
+  },
+  {
+   "id": "enter_gate",
+   "when": {
+    "stage": [
+     30,
+     30
+    ],
+    "stars": 9
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "castle_gate"
+   },
+   "effects": [
+    {
+     "set_stage": 31
+    },
+    {
+     "teleport": {
+      "area": "castle_gate",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk8_arrival"
+  },
+  {
+   "id": "to_gate",
+   "when": {
+    "stage": [
+     31,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "castle_gate"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "castle_gate",
+      "anchor": "spawn"
+     }
+    }
+   ],
+   "script": "dk8_to_gate"
+  },
+  {
+   "id": "to_fair_from_gate",
+   "when": {
+    "stage": [
+     31,
+     99
+    ]
+   },
+   "trigger": {
+    "kind": "interact",
+    "object": "gate_exit"
+   },
+   "effects": [
+    {
+     "teleport": {
+      "area": "kingdom_fair",
+      "anchor": "castle_gate"
+     }
+    }
+   ],
+   "script": "dk8_to_fair"
   }
  ],
  "hud_objectives": [
@@ -6339,10 +6599,28 @@
    "when": {
     "stage": [
      30,
-     99
+     30
     ]
    },
    "text": "Chapter 7 complete - the castle road waits"
+  },
+  {
+   "when": {
+    "stage": [
+     31,
+     31
+    ]
+   },
+   "text": "Beat InsetoKaiba at the star-lock - a star on the line"
+  },
+  {
+   "when": {
+    "stage": [
+     32,
+     99
+    ]
+   },
+   "text": "Chapter 8 complete - the castle / Dream Room waits"
   }
  ],
  "scripts": [
@@ -10760,6 +11038,218 @@
     {
      "speaker": "staff",
      "text": "Pretty fair. Deadly rules. Lose your last star and your journey ends for good."
+    }
+   ]
+  },
+  {
+   "id": "dk8_enter",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Chapter 7 -> 8: the castle road opens onto the gate plaza.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Nine stars. Stone walls. A glowing lock counts ten.",
+     "label": "Castle Gate"
+    },
+    {
+     "speaker": "atos",
+     "text": "InsetoKaiba is already posing. Of course he is."
+    }
+   ]
+  },
+  {
+   "id": "dk8_to_gate",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "The castle road after the first visit.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The star-lock still waits. The plaza is quieter than the fair.",
+     "label": "Castle Road"
+    }
+   ]
+  },
+  {
+   "id": "dk8_to_fair",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "The trail back to the Star Fair.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Banners and frying oil again. The fair is behind you.",
+     "label": "Fair Trail"
+    }
+   ]
+  },
+  {
+   "id": "dk8_arrival",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Chapter 8 opens: plaza, pawn stall, Moat Pit, Inseto at the lock.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A wide stone plaza. A pawn stall. A torch pit. The gate's lock glows ten empty stars.",
+     "label": "Castle Gate"
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "You brought nine. Cute. I brought moths, beetles, and a better ego."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ship rematch. Bigger deck. Same bugs."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Challenge InsetoKaiba at the star-lock.",
+     "label": "Objective"
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_pre",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "InsetoKaiba gate guardian: memorable rematch, one-star wager.",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Great Moth. Javelin Beetle. Crown jewels of the swarm. You are still a larva."
+    },
+    {
+     "speaker": "atos",
+     "text": "I beat you on the ship. I will beat you at the door."
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Two stars under my wing. Wager what your nerve allows. Shall the gate speak?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_win",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "InsetoKaiba loses: ten stars, gate key, end of chapter 8.",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "...A worthy bug. Take the Crown Beetle. Take the key. I will grumble forever."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A star, Hercules Beetle (his Crown Beetle), and the Gate Key.",
+     "label": "You got"
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "The lock counts ten. Go on. The hall and the Dream Room are not my problem."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ten stars. The castle opens. Dream Room next - if the story can carry it."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The Castle Gate yields. The castle hall / Dream Room is the next part.",
+     "label": "End of Chapter 8"
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_lose",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "InsetoKaiba keeps his stars.",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Larva. Pawn Paul's stall and the Moat Pit, then crawl back."
+    },
+    {
+     "speaker": "atos",
+     "text": "He outplayed me. Cards, then rematch."
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_after",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "InsetoKaiba after the rematch.",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "I am still the better bug. The door just disagrees today."
+    }
+   ]
+  },
+  {
+   "id": "dk8_pawn_paul",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "Pawn Paul, Gate Pawn Stall.",
+   "pages": [
+    {
+     "speaker": "pawn_paul",
+     "text": "Stars, scars and cards. I buy what the island drops and sell what the gate needs."
+    }
+   ]
+  },
+  {
+   "id": "dk8_gate_camp",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "The gate camp: tarp by the plaza, game-over warning.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A tarp by the plaza stones. Kingdom staff keep one lantern for the starless.",
+     "label": "Gate Camp"
+    },
+    {
+     "speaker": "staff",
+     "text": "Pretty gate. Deadly rules. Lose your last star and your journey ends for good."
+    }
+   ]
+  },
+  {
+   "id": "dk8_castle_shut",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "The castle door before ten stars / before Inseto falls.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The lock shows empty notches. Ten stars open it. InsetoKaiba blocks the step.",
+     "label": "Castle Door"
+    }
+   ]
+  },
+  {
+   "id": "dk8_castle_announce",
+   "legacy_id": null,
+   "chapter": 8,
+   "desc": "After chapter 8: the hall / Dream Room is announced, not entered.",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The lock clicks to ten. Beyond: illusion halls, a chamberlain, and Pegasus's Dream Room.",
+     "label": "Castle Door"
+    },
+    {
+     "speaker": "atos",
+     "text": "Heishin. Pegasus. The wish. Not this chapter - the next part of the Kingdom."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Chapter 9: Castle Hall. Chapter 10: Pegasus's Dream. Flag budget is tight.",
+     "label": "Coming next"
     }
    ]
   }

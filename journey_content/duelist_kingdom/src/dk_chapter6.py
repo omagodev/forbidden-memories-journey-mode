@@ -160,7 +160,6 @@ SPEAKERS = {
 }
 FLAGS = [("desert_arrived", "Chapter 6: entered the Desert of Lost Stars."),
          ("isis_desert_won", "Isis's reading duel won: dust charm and star-collector clue."),
-         ("bakura_desert_won", "Bakura's comic desert duel won (cards only)."),
          ("desert_mage_won", "Desert Mage beaten: eighth star, end of chapter 6.")]
 STAGES = [(25, "Chapter 6: the dunes, Isis at the fortune tent"),
           (26, "Chapter 6: Isis's clue; the Desert Mage at the buried star"),
@@ -196,8 +195,7 @@ NPCS = [
              W(when=W(stage=[25,99]), script="dk6_teana_after")]),
  dict(id="bakura_desert", area="kingdom_desert", anchor="bakura_spot", duelist_id=14, stages=[25, 99], visible="placed",
       note="Bakura comic cameo: cards only, no star.",
-      rules=[W(when=W(stage=[25,99], flags_none=["bakura_desert_won"]), script="dk6_bakura_pre", duel="bakura_desert"),
-             W(when=W(stage=[25,99], needs=["bakura_desert_won"]), script="dk6_bakura_after")]),
+      rules=[W(when=W(stage=[25,99]), script="dk6_bakura_pre", duel="bakura_desert")]),
  dict(id="desert_mage", area="kingdom_desert", anchor="gate_spot", duelist_id=27, stages=[26, 99], visible="placed",
       note="The zone master at the buried star once Isis has spoken.",
       rules=[W(when=W(stage=[26,26], flags_none=["desert_mage_won"]), script="dk6_mage_pre", duel="desert_mage"),
@@ -220,7 +218,7 @@ DUELS = [
  dict(id="isis_desert", npc="isis_desert", duelist_id=16, deck="Isis Reading", tier=5, pre="dk6_isis_pre", win="dk6_isis_win", lose="dk6_isis_lose", win_flag="isis_desert_won",
       on_win=[W(give_item="dust_charm"), W(set_stage=26)],
       note="Friendly reading duel, no star: Isis's clue and dust charm."),
- dict(id="bakura_desert", npc="bakura_desert", duelist_id=14, deck="Bakura Desert", tier=3, pre="dk6_bakura_pre", win="dk6_bakura_win", lose="dk6_bakura_lose", win_flag="bakura_desert_won",
+ dict(id="bakura_desert", npc="bakura_desert", duelist_id=14, deck="Bakura Desert", tier=3, pre="dk6_bakura_pre", win="dk6_bakura_win", lose="dk6_bakura_lose", win_flag="desert_arrived",
       on_win=[W(give_card="Armored Zombie")],
       note="Comic cameo, cards only, no star."),
  dict(id="desert_mage", npc="desert_mage", duelist_id=27, deck="Desert Mage Dunes", tier=6, pre="dk6_mage_pre", win="dk6_mage_win", lose="dk6_mage_lose", win_flag="desert_mage_won",

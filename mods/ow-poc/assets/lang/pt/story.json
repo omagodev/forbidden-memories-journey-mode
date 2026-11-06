@@ -3871,6 +3871,193 @@
      "text": "Feira bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
     }
    ]
+  },
+  {
+   "id": "dk8_enter",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Nove estrelas. Muros de pedra. Uma fechadura brilha contando dez.",
+     "label": "Portao do Castelo",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "InsetoKaiba ja esta posando. Claro que esta."
+    }
+   ]
+  },
+  {
+   "id": "dk8_to_gate",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A fechadura de estrela ainda espera. A praca e mais quieta que a feira.",
+     "label": "Estrada do Castelo",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk8_to_fair",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Bandeiras e oleo fritando de novo. A feira fica atras.",
+     "label": "Trilha da Feira",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk8_arrival",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma praca de pedra. Um cambista. Um poco de tochas. A fechadura do portao brilha com dez estrelas vazias.",
+     "label": "Portao",
+     "kind": "caption"
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Voce trouxe nove. Fofo. Eu trouxe mariposas, besouros e um ego melhor."
+    },
+    {
+     "speaker": "atos",
+     "text": "Revanche do navio. Baralho maior. Mesmos insetos."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Desafie InsetoKaiba na fechadura de estrela.",
+     "label": "Objetivo",
+     "kind": "objective"
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_pre",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Great Moth. Javelin Beetle. Joias da coroa do enxame. Voce ainda e uma larva."
+    },
+    {
+     "speaker": "atos",
+     "text": "Eu te venci no navio. Vou te vencer na porta."
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Duas estrelas sob minha asa. Aposte o que sua coragem deixar. O portao pode falar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_win",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "...Um inseto digno. Leve o Crown Beetle. Leve a chave. Vou resmungar pra sempre."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Uma estrela, Hercules Beetle (o Crown Beetle dele) e a Chave do Portao.",
+     "label": "Voce ganhou",
+     "kind": "item"
+    },
+    {
+     "speaker": "inseto_kaiba",
+     "text": "A fechadura conta dez. Vai. O salao e a Sala dos Sonhos nao sao problema meu."
+    },
+    {
+     "speaker": "atos",
+     "text": "Dez estrelas. O castelo abre. Sala dos Sonhos a seguir - se a historia aguentar."
+    },
+    {
+     "speaker": "narrator",
+     "text": "O Portao do Castelo cede. O salao / Sala dos Sonhos e a proxima parte.",
+     "label": "Fim do Capitulo 8",
+     "kind": "complete"
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_lose",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Larva. O cambista do Paul e o Poco do Fosso, depois rasteje de volta."
+    },
+    {
+     "speaker": "atos",
+     "text": "Ele me passou. Cartas, depois a revanche."
+    }
+   ]
+  },
+  {
+   "id": "dk8_inseto_after",
+   "pages": [
+    {
+     "speaker": "inseto_kaiba",
+     "text": "Ainda sou o inseto melhor. A porta so discorda hoje."
+    }
+   ]
+  },
+  {
+   "id": "dk8_pawn_paul",
+   "pages": [
+    {
+     "speaker": "pawn_paul",
+     "text": "Estrelas, cicatrizes e cartas. Compro o que a ilha deixa e vendo o que o portao precisa."
+    }
+   ]
+  },
+  {
+   "id": "dk8_gate_camp",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "Uma lona junto as pedras da praca. A equipe do Reino mantem um lampiao pros sem estrela.",
+     "label": "Acampamento",
+     "kind": "caption"
+    },
+    {
+     "speaker": "staff",
+     "text": "Portao bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
+    }
+   ]
+  },
+  {
+   "id": "dk8_castle_shut",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A fechadura mostra entalhes vazios. Dez estrelas abrem. InsetoKaiba bloqueia o degrau.",
+     "label": "Porta do Castelo",
+     "kind": "caption"
+    }
+   ]
+  },
+  {
+   "id": "dk8_castle_announce",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A fechadura trava em dez. Alem: salas de ilusao, um camareiro e a Sala dos Sonhos de Pegasus.",
+     "label": "Porta do Castelo",
+     "kind": "caption"
+    },
+    {
+     "speaker": "atos",
+     "text": "Heishin. Pegasus. O desejo. Nao neste capitulo - na proxima parte do Reino."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Capitulo 9: Salao do Castelo. Capitulo 10: Sonho de Pegasus. O orcamento de flags esta apertado.",
+     "label": "A seguir",
+     "kind": "objective"
+    }
+   ]
   }
  ]
 }

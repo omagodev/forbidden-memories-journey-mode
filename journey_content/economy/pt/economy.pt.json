@@ -267,5 +267,13 @@
    "ship": "Um ringue de corda no porao, uma lamparina balancando.",
    "fair": "Um segundo circo sob a feira, ringue de serragem."
   }
- }
+ },
+ "arena_tip.gate": "Um poco com tochas sob a aproximacao do castelo. Bandeiras de besouro. Tres exclusivas.",
+ "names.arenas.gate": "Poco do Fosso",
+ "arena_title.gate": "Poco do Fosso Limpo",
+ "fighter_pre.latch_lee": "A trava estala. Cartas ou o fosso.",
+ "fighter_pre.bolt_bee": "Zune embora, ou zune pra dentro.",
+ "fighter_pre.ward_wyn": "A guarda segura. Prove que pertence.",
+ "fighter_pre.crown_carl": "Coroa do poco. Dez estrelas esperam acima.",
+ "keeper_greet.pawn_paul": "Estrelas, cicatrizes e cartas. Do que precisa?"
 }

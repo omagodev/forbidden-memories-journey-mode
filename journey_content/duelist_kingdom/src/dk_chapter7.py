@@ -222,7 +222,7 @@ TRANSITIONS = [
 HUD = [
  (W(stage=[28,28]), "Talk to Jono at the raft - soaked and ready", "Fale com o Jono na jangada - encharcado e pronto"),
  (W(stage=[29,29]), "Beat the Ring Champion - a star on the line", "Venca o Campeao do Ringue - uma estrela em jogo"),
- (W(stage=[30,99]), "Chapter 7 complete - the castle road waits", "Capitulo 7 completo - a estrada do castelo espera"),
+ (W(stage=[30,30]), "Chapter 7 complete - the castle road waits", "Capitulo 7 completo - a estrada do castelo espera"),
 ]
 CHAPTER = dict(n=7, title=B("The Star Fair", "A Feira das Estrelas"), region="kingdom_fair", stage=[28,30],
                reward="nine stars, Raft Charm, card Twin-headed Thunder Dragon", unlock="the castle road (chapter 8)")

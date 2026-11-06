@@ -236,7 +236,9 @@
     "Alem do deserto - a Feira das Estrelas",
     "Fale com o Jono na jangada - encharcado e pronto",
     "Venca o Campeao do Ringue - uma estrela em jogo",
-    "Capitulo 7 completo - a estrada do castelo espera"
+    "Capitulo 7 completo - a estrada do castelo espera",
+    "Venca InsetoKaiba na fechadura - uma estrela em jogo",
+    "Capitulo 8 completo - o castelo / Sala dos Sonhos espera"
   ],
   "items": [
     "Cartao de Selos",
@@ -256,6 +258,7 @@
     "Amuleto de Dica",
     "Amuleto de Poeira",
     "Amuleto da Jangada",
+    "Chave do Portao",
     "Fichas de Estrela"
   ],
   "npc_names": {
@@ -297,7 +300,9 @@
     "jono_fair": "Jono",
     "ring_champ": "Campeao do Ringue",
     "inseto_fair": "InsetoKaiba",
-    "bazaar_bea": "Bea do Bazar"
+    "bazaar_bea": "Bea do Bazar",
+    "inseto_gate": "InsetoKaiba",
+    "pawn_paul": "Paul do Cambista"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -336,7 +341,8 @@
     "nomad_nia": "Nomade Nia",
     "ring_champ": "Campeao do Ringue",
     "inseto_kaiba": "InsetoKaiba",
-    "bazaar_bea": "Bea do Bazar"
+    "bazaar_bea": "Bea do Bazar",
+    "pawn_paul": "Paul do Cambista"
   },
   "map": {
     "title": "MAPA",
@@ -491,7 +497,8 @@
     "A Passagem da Montanha",
     "O Labirinto da Campina",
     "Deserto das Estrelas Perdidas",
-    "A Feira das Estrelas"
+    "A Feira das Estrelas",
+    "O Portao do Castelo"
   ],
   "quest_objectives": [
     "Pergunte a Teana, Jono e ao Guarda",
@@ -509,7 +516,8 @@
     "Venca o Bandit Keith na ponte",
     "Ache a Teana nas cercas",
     "Fale com a Isis na tenda da cartomante",
-    "Fale com o Jono na jangada"
+    "Fale com o Jono na jangada",
+    "Venca InsetoKaiba na fechadura por uma estrela"
   ],
   "quest_steps": [
     "Sente no banco da praca ate anoitecer",
@@ -542,7 +550,8 @@
     "a sexta estrela, Cinzel Estelar, cartas Pendulum Machine, Harpie Lady e Giant Soldier of Stone",
     "a setima estrela, Amuleto de Dica, carta Queen of Autumn Leaves",
     "a oitava estrela, Amuleto de Poeira, carta Great Mammoth of Goldfine",
-    "a nona estrela, Amuleto da Jangada, carta Twin-headed Thunder Dragon"
+    "a nona estrela, Amuleto da Jangada, carta Twin-headed Thunder Dragon",
+    "a decima estrela, Chave do Portao, carta Hercules Beetle (Crown Beetle)"
   ],
   "journal": {
     "heading": "DIARIO",
@@ -574,7 +583,8 @@
     "kingdom_mountain": "Passagem da Montanha",
     "kingdom_meadow": "Labirinto da Campina",
     "kingdom_desert": "Deserto das Estrelas Perdidas",
-    "kingdom_fair": "Feira das Estrelas"
+    "kingdom_fair": "Feira das Estrelas",
+    "castle_gate": "Portao do Castelo"
   },
   "shop": {
     "title": "Loja de Cartas",
@@ -733,6 +743,10 @@
       "desc": "O amuleto do Jono. Ele te da dicas na feira.",
       "from": "Jono, na Feira das Estrelas."
     },
+    "inseto_gate_won": {
+      "desc": "A chave do InsetoKaiba. A fechadura conta dez.",
+      "from": "InsetoKaiba, no Portao do Castelo."
+    },
     "star_chips": {
       "desc": "Aposta perdida fica com o rival. Dez abrem o castelo. ZERO = FIM DE JOGO.",
       "from": "A Passagem Estelar do Shadi, depois os duelistas que guardam cada zona."
@@ -766,7 +780,8 @@
       "mountain_mage": "Mago da Montanha",
       "meadow_mage": "Maga da Campina",
       "desert_mage": "Mago do Deserto",
-      "ring_champ": "Campeao do Ringue"
+      "ring_champ": "Campeao do Ringue",
+      "inseto_gate": "InsetoKaiba"
     }
   }
 }

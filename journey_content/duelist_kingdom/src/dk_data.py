@@ -525,3 +525,23 @@ FLAGS += [
  ("academy_fusions", "Academy class 5 complete: ordered fusion chains."),
  ("academy_graduate", "Won Professor Nabil's optional practice duel."),
 ]
+
+# ---------------------------------------------------------------- chapter 8 (Castle Gate): dk_chapter8.py
+import dk_chapter8 as _C8
+SPEAKERS.update(_C8.SPEAKERS)
+FLAGS += _C8.FLAGS
+STAGES = sorted(STAGES + _C8.STAGES)
+for _i, _a in enumerate(AREAS):
+    if _a[0] == "castle_gate": del AREAS[_i]; break
+AREAS.append(("castle_gate", "Castle Gate", "Portao do Castelo", "Seventh Kingdom area: plaza, pawn stall, Moat Pit, star-lock, castle door.", "exists (illustrated, chapter 8)"))
+ANCHORS["castle_gate"] = _C8.ANCHORS["castle_gate"]
+ITEMS += _C8.ITEMS
+NPCS += _C8.NPCS
+NPC_SPEAKER.update(_C8.NPC_SPEAKER)
+OBJECTS += _C8.OBJECTS
+DUELS += _C8.DUELS
+TRANSITIONS += _C8.TRANSITIONS
+HUD += _C8.HUD
+CHAPTERS.append(_C8.CHAPTER)
+QUESTS += _C8.QUESTS
+DECKS.update(_C8.DECKS)

@@ -522,6 +522,35 @@
     "Legendary Sword": 2
    },
    "notes": "Chapter 7 zone master (holds 2)."
+  },
+  "InsetoKaiba Gate": {
+   "duelist": "InsetoKaiba",
+   "chapter": 1,
+   "difficulty_tier": 8,
+   "theme": "Bigger insect swarm: Great Moth, Javelin Beetle, Crown Beetle payoff",
+   "fixed": true,
+   "total": 34,
+   "cards": {
+    "Great Moth": 1,
+    "Javelin Beetle": 1,
+    "Hercules Beetle": 1,
+    "Dungeon Worm": 1,
+    "Killer Needle": 2,
+    "Gokibore": 2,
+    "Kuwagata α": 2,
+    "Basic Insect": 2,
+    "Larvae Moth": 2,
+    "Cocoon of Evolution": 2,
+    "Petit Moth": 2,
+    "Insect Armor with Laser Cannon": 3,
+    "Vile Germs": 2,
+    "Forest": 3,
+    "Sparks": 2,
+    "Hinotama": 2,
+    "Red Medicine": 2,
+    "Mooyan Curry": 2
+   },
+   "notes": "Chapter 8 gate rematch (holds 2)."
   }
  },
  "starter": {

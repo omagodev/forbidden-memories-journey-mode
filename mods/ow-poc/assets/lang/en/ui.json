@@ -236,7 +236,9 @@
     "Beyond the desert - the Star Fair",
     "Talk to Jono at the raft - soaked and ready",
     "Beat the Ring Champion - a star on the line",
-    "Chapter 7 complete - the castle road waits"
+    "Chapter 7 complete - the castle road waits",
+    "Beat InsetoKaiba at the star-lock - a star on the line",
+    "Chapter 8 complete - the castle / Dream Room waits"
   ],
   "items": [
     "Stamp Card",
@@ -256,6 +258,7 @@
     "Hint Charm",
     "Dust Charm",
     "Raft Charm",
+    "Gate Key",
     "Star Chips"
   ],
   "npc_names": {
@@ -297,7 +300,9 @@
     "jono_fair": "Jono",
     "ring_champ": "Ring Champion",
     "inseto_fair": "InsetoKaiba",
-    "bazaar_bea": "Bazaar Bea"
+    "bazaar_bea": "Bazaar Bea",
+    "inseto_gate": "InsetoKaiba",
+    "pawn_paul": "Pawn Paul"
   },
   "speaker_names": {
     "simon": "Simon Muran",
@@ -336,7 +341,8 @@
     "nomad_nia": "Nomad Nia",
     "ring_champ": "Ring Champion",
     "inseto_kaiba": "InsetoKaiba",
-    "bazaar_bea": "Bazaar Bea"
+    "bazaar_bea": "Bazaar Bea",
+    "pawn_paul": "Pawn Paul"
   },
   "map": {
     "title": "MAP",
@@ -483,7 +489,8 @@
     "The Mountain Pass",
     "The Meadow Maze",
     "Desert of Lost Stars",
-    "The Star Fair"
+    "The Star Fair",
+    "The Castle Gate"
   ],
   "quest_objectives": [
     "Ask Teana, Jono and the Guard",
@@ -501,7 +508,8 @@
     "Beat Bandit Keith at the bridge",
     "Find Teana in the hedges",
     "Talk to Isis at the fortune tent",
-    "Talk to Jono at the raft"
+    "Talk to Jono at the raft",
+    "Beat InsetoKaiba at the star-lock for a star"
   ],
   "quest_steps": [
     "Sit on the plaza bench until night",
@@ -534,7 +542,8 @@
     "the sixth star, Star Chisel, cards Pendulum Machine, Harpie Lady and Giant Soldier of Stone",
     "the seventh star, Hint Charm, card Queen of Autumn Leaves",
     "the eighth star, Dust Charm, card Great Mammoth of Goldfine",
-    "the ninth star, Raft Charm, card Twin-headed Thunder Dragon"
+    "the ninth star, Raft Charm, card Twin-headed Thunder Dragon",
+    "the tenth star, Gate Key, card Hercules Beetle (Crown Beetle)"
   ],
   "journal": {
     "heading": "JOURNAL",
@@ -566,7 +575,8 @@
     "kingdom_mountain": "Mountain Pass",
     "kingdom_meadow": "Meadow Maze",
     "kingdom_desert": "Desert of Lost Stars",
-    "kingdom_fair": "Star Fair"
+    "kingdom_fair": "Star Fair",
+    "castle_gate": "Castle Gate"
   },
   "shop": {
     "title": "Card Shop",
@@ -725,6 +735,10 @@
       "desc": "Jono's charm. He tips you around the fair.",
       "from": "Jono, at the Star Fair."
     },
+    "inseto_gate_won": {
+      "desc": "InsetoKaiba's key. The star-lock counts ten.",
+      "from": "InsetoKaiba, at the Castle Gate."
+    },
     "star_chips": {
       "desc": "A lost bet stays with the rival. Ten open the castle. ZERO STARS = GAME OVER.",
       "from": "Shadi's Star Passage, then the duelists who guard each zone."
@@ -758,7 +772,8 @@
       "mountain_mage": "Mountain Mage",
       "meadow_mage": "Meadow Mage",
       "desert_mage": "Desert Mage",
-      "ring_champ": "Ring Champion"
+      "ring_champ": "Ring Champion",
+      "inseto_gate": "InsetoKaiba"
     }
   }
 }

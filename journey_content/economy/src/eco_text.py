@@ -66,6 +66,9 @@ ARENA_NAMES = {   # id: (EN, PT, setting EN, setting PT, tip EN, tip PT, keeper 
     "fair":     ("Underfair Big Top", "Circo Sob a Feira",
                  "A second circus under the fair, ring of sawdust.", "Um segundo circo sob a feira, ringue de serragem.",
                  "Under the big top there is a second show.", "Sob o circo ha um segundo show.", "bazaar_bea"),
+    "gate":     ("Moat Pit", "Poco do Fosso",
+                 "A torch-lit pit under the castle approach, beetle banners on the pillars.", "Um poco com tochas sob a aproximacao do castelo, bandeiras de besouro.",
+                 "A torch-lit pit. Three exclusives wait below.", "Um poco com tochas. Tres exclusivas esperam abaixo.", "pawn_paul"),
 }
 ARENA_GENERIC = {
     "arena_clear": ("Ladder cleared! The crowd roars.", "Escada vencida! A plateia vibra."),
@@ -131,6 +134,10 @@ FIGHTERS = [
     ("clown_cleo", "fair", "Clown Cleo", "Cleo Palhaca", "Ha ha! The show begins below the show.", "Ha ha! O show comeca abaixo do show."),
     ("juggle_jo",  "fair", "Juggle Jo", "Jo Malabarista", "Catch! Oops, wrong card.", "Pega! Ops, carta errada."),
     ("spark_sam",  "fair", "Spark Sam", "Sam Faisca", "Watch the sparks. They bite.", "Cuidado com as faiscas. Elas mordem."),
+    ("latch_lee",  "gate", "Latch Lee", "Lee Trava", "The latch clicks. Cards or the moat.", "A trava estala. Cartas ou o fosso."),
+    ("bolt_bee",   "gate", "Bolt Bee", "Bee Raio", "Buzz off, or buzz in.", "Zune embora, ou zune pra dentro."),
+    ("ward_wyn",   "gate", "Ward Wyn", "Wyn Guarda", "The ward holds. Prove you belong.", "A guarda segura. Prove que pertence."),
+    ("crown_carl", "gate", "Crown Carl", "Carl Coroa", "Crown of the pit. Ten stars wait above.", "Coroa do poco. Dez estrelas esperam acima."),
 ]
 
 # ---- UI strings (id: (EN, PT)) -------------------------------------------------------------------------

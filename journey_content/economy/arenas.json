@@ -667,6 +667,80 @@
     "Warrior"
    ],
    "text_id": "fighter_pre.captain_krill"
+  },
+  {
+   "id": "latch_lee",
+   "arena": "gate",
+   "rung": 1,
+   "name": "Latch Lee",
+   "tier": 7,
+   "duelist": {
+    "id": "eco_latch_lee",
+    "copy": "High Mage Secmeton",
+    "name": "Latch Lee",
+    "slot": 85
+   },
+   "deck": "Latch Lee",
+   "types": [
+    "Machine"
+   ],
+   "text_id": "fighter_pre.latch_lee"
+  },
+  {
+   "id": "bolt_bee",
+   "arena": "gate",
+   "rung": 2,
+   "name": "Bolt Bee",
+   "tier": 7,
+   "duelist": {
+    "id": "eco_bolt_bee",
+    "copy": "High Mage Secmeton",
+    "name": "Bolt Bee",
+    "slot": 86
+   },
+   "deck": "Bolt Bee",
+   "types": [
+    "Insect",
+    "Thunder"
+   ],
+   "text_id": "fighter_pre.bolt_bee"
+  },
+  {
+   "id": "ward_wyn",
+   "arena": "gate",
+   "rung": 3,
+   "name": "Ward Wyn",
+   "tier": 8,
+   "duelist": {
+    "id": "eco_ward_wyn",
+    "copy": "High Mage Secmeton",
+    "name": "Ward Wyn",
+    "slot": 87
+   },
+   "deck": "Ward Wyn",
+   "types": [
+    "Warrior"
+   ],
+   "text_id": "fighter_pre.ward_wyn"
+  },
+  {
+   "id": "crown_carl",
+   "arena": "gate",
+   "rung": 4,
+   "name": "Crown Carl",
+   "tier": 8,
+   "duelist": {
+    "id": "eco_crown_carl",
+    "copy": "Seto",
+    "name": "Crown Carl",
+    "slot": 88
+   },
+   "deck": "Crown Carl",
+   "types": [
+    "Insect",
+    "Machine"
+   ],
+   "text_id": "fighter_pre.crown_carl"
   }
  ],
  "arenas": [
@@ -1522,6 +1596,101 @@
    },
    "repeat_clear": {
     "coins": 120,
+    "xp_mult": 0.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    }
+   },
+   "run_rules": "A run is the whole ladder: pay the fee once, lose a bout and the run ends (earnings kept). Progress inside a run is saved in the arena byte (rung)."
+  },
+  {
+   "id": "gate",
+   "location": "gate",
+   "area": "castle_gate",
+   "interior_area": "arena_gate",
+   "name": "Moat Pit",
+   "setting": "A torch-lit pit under the castle approach, beetle banners on the pillars.",
+   "keeper": "pawn_paul",
+   "tip_id": "arena_tip.gate",
+   "name_id": "arena.gate",
+   "entry_anchor": "castle_gate.arena_door",
+   "interior_anchors": [
+    "entry",
+    "ring",
+    "bookie",
+    "crowd"
+   ],
+   "unlock": {
+    "level_min": 11
+   },
+   "fee": 260,
+   "ladder": [
+    {
+     "rung": 1,
+     "fighter": "latch_lee",
+     "tier": 7,
+     "deck": "Latch Lee",
+     "champion": false,
+     "coins": 210,
+     "xp_base": 68,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 2,
+     "fighter": "bolt_bee",
+     "tier": 7,
+     "deck": "Bolt Bee",
+     "champion": false,
+     "coins": 260,
+     "xp_base": 84,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 3,
+     "fighter": "ward_wyn",
+     "tier": 8,
+     "deck": "Ward Wyn",
+     "champion": false,
+     "coins": 260,
+     "xp_base": 84,
+     "drops": {
+      "context": "arena_bout",
+      "count": 1
+     }
+    },
+    {
+     "rung": 4,
+     "fighter": "crown_carl",
+     "tier": 8,
+     "deck": "Crown Carl",
+     "champion": true,
+     "coins": 260,
+     "xp_base": 84,
+     "drops": {
+      "context": "arena_champion",
+      "count": 2
+     }
+    }
+   ],
+   "pool": "gate",
+   "first_clear": {
+    "coins": 1000,
+    "xp_mult": 2.0,
+    "drops": {
+     "context": "arena_clear",
+     "count": 1
+    },
+    "title_id": "arena_title.gate"
+   },
+   "repeat_clear": {
+    "coins": 330,
     "xp_mult": 0.0,
     "drops": {
      "context": "arena_clear",

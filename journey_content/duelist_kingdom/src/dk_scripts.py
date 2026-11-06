@@ -885,3 +885,7 @@ _C6.scripts(sc, H, X, N)
 # ---------------------------------------------------------------- chapter 7 (the Star Fair): dk_chapter7.py
 import dk_chapter7 as _C7
 _C7.scripts(sc, H, X, N)
+
+# ---------------------------------------------------------------- chapter 8 (Castle Gate): dk_chapter8.py
+import dk_chapter8 as _C8
+_C8.scripts(sc, H, X, N)

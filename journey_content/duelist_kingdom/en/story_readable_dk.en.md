@@ -1523,3 +1523,77 @@ _The fair camp: a tarp behind the stalls, and the game-over warning._
 
 - **Fair Camp**: A tarp behind the stalls. Kingdom staff keep a lantern lit between banners.
 - **Camp Staff**: Pretty fair. Deadly rules. Lose your last star and your journey ends for good.
+
+### dk8_enter
+_Chapter 7 -> 8: the castle road opens onto the gate plaza._
+
+- **Castle Gate**: Nine stars. Stone walls. A glowing lock counts ten.
+- **{name}**: InsetoKaiba is already posing. Of course he is.
+
+### dk8_to_gate
+_The castle road after the first visit._
+
+- **Castle Road**: The star-lock still waits. The plaza is quieter than the fair.
+
+### dk8_to_fair
+_The trail back to the Star Fair._
+
+- **Fair Trail**: Banners and frying oil again. The fair is behind you.
+
+### dk8_arrival
+_Chapter 8 opens: plaza, pawn stall, Moat Pit, Inseto at the lock._
+
+- **Castle Gate**: A wide stone plaza. A pawn stall. A torch pit. The gate's lock glows ten empty stars.
+- **InsetoKaiba**: You brought nine. Cute. I brought moths, beetles, and a better ego.
+- **{name}**: Ship rematch. Bigger deck. Same bugs.
+- **Objective**: Challenge InsetoKaiba at the star-lock.
+
+### dk8_inseto_pre
+_InsetoKaiba gate guardian: memorable rematch, one-star wager._
+
+- **InsetoKaiba**: Great Moth. Javelin Beetle. Crown jewels of the swarm. You are still a larva.
+- **{name}**: I beat you on the ship. I will beat you at the door.
+- **InsetoKaiba**: Two stars under my wing. Wager what your nerve allows. Shall the gate speak?  _[Duel? Yes/No]_
+
+### dk8_inseto_win
+_InsetoKaiba loses: ten stars, gate key, end of chapter 8._
+
+- **InsetoKaiba**: ...A worthy bug. Take the Crown Beetle. Take the key. I will grumble forever.
+- **You got**: A star, Hercules Beetle (his Crown Beetle), and the Gate Key.
+- **InsetoKaiba**: The lock counts ten. Go on. The hall and the Dream Room are not my problem.
+- **{name}**: Ten stars. The castle opens. Dream Room next - if the story can carry it.
+- **End of Chapter 8**: The Castle Gate yields. The castle hall / Dream Room is the next part.
+
+### dk8_inseto_lose
+_InsetoKaiba keeps his stars._
+
+- **InsetoKaiba**: Larva. Pawn Paul's stall and the Moat Pit, then crawl back.
+- **{name}**: He outplayed me. Cards, then rematch.
+
+### dk8_inseto_after
+_InsetoKaiba after the rematch._
+
+- **InsetoKaiba**: I am still the better bug. The door just disagrees today.
+
+### dk8_pawn_paul
+_Pawn Paul, Gate Pawn Stall._
+
+- **Pawn Paul**: Stars, scars and cards. I buy what the island drops and sell what the gate needs.
+
+### dk8_gate_camp
+_The gate camp: tarp by the plaza, game-over warning._
+
+- **Gate Camp**: A tarp by the plaza stones. Kingdom staff keep one lantern for the starless.
+- **Camp Staff**: Pretty gate. Deadly rules. Lose your last star and your journey ends for good.
+
+### dk8_castle_shut
+_The castle door before ten stars / before Inseto falls._
+
+- **Castle Door**: The lock shows empty notches. Ten stars open it. InsetoKaiba blocks the step.
+
+### dk8_castle_announce
+_After chapter 8: the hall / Dream Room is announced, not entered._
+
+- **Castle Door**: The lock clicks to ten. Beyond: illusion halls, a chamberlain, and Pegasus's Dream Room.
+- **{name}**: Heishin. Pegasus. The wish. Not this chapter - the next part of the Kingdom.
+- **Coming next**: Chapter 9: Castle Hall. Chapter 10: Pegasus's Dream. Flag budget is tight.

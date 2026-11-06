@@ -395,7 +395,7 @@
      "kind": "monster"
     },
     {
-     "card": "Kuwagata α",
+     "card": "Kuwagata \u03b1",
      "id": 480,
      "rarity": "C",
      "weight": 1,
@@ -2436,7 +2436,7 @@
      "kind": "monster"
     },
     {
-     "card": "Kuwagata α",
+     "card": "Kuwagata \u03b1",
      "id": 480,
      "rarity": "C",
      "weight": 1,
@@ -3420,7 +3420,7 @@
      "kind": "monster"
     },
     {
-     "card": "Kuwagata α",
+     "card": "Kuwagata \u03b1",
      "id": 480,
      "rarity": "C",
      "weight": 1,
@@ -9846,7 +9846,7 @@
      "kind": "monster"
     },
     {
-     "card": "Kuwagata α",
+     "card": "Kuwagata \u03b1",
      "id": 480,
      "rarity": "C",
      "weight": 1,
@@ -10644,7 +10644,8 @@
      "weight": 1,
      "min_level": 21,
      "arena_only": true,
-     "kind": "monster"
+     "kind": "monster",
+     "exclusive": true
     },
     {
      "card": "Seiyaryu",
@@ -10662,7 +10663,8 @@
      "weight": 1,
      "min_level": 21,
      "arena_only": true,
-     "kind": "monster"
+     "kind": "monster",
+     "exclusive": true
     },
     {
      "card": "Kaiser Dragon",
@@ -10671,7 +10673,8 @@
      "weight": 1,
      "min_level": 21,
      "arena_only": true,
-     "kind": "monster"
+     "kind": "monster",
+     "exclusive": true
     }
    ]
   },

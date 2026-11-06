@@ -1523,3 +1523,77 @@ _The fair camp: a tarp behind the stalls, and the game-over warning._
 
 - **Acampamento**: Uma lona atras das barracas. A equipe do Reino mantem um lampiao entre bandeiras.
 - **Equipe do Acampamento**: Feira bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.
+
+### dk8_enter
+_Chapter 7 -> 8: the castle road opens onto the gate plaza._
+
+- **Portao do Castelo**: Nove estrelas. Muros de pedra. Uma fechadura brilha contando dez.
+- **{name}**: InsetoKaiba ja esta posando. Claro que esta.
+
+### dk8_to_gate
+_The castle road after the first visit._
+
+- **Estrada do Castelo**: A fechadura de estrela ainda espera. A praca e mais quieta que a feira.
+
+### dk8_to_fair
+_The trail back to the Star Fair._
+
+- **Trilha da Feira**: Bandeiras e oleo fritando de novo. A feira fica atras.
+
+### dk8_arrival
+_Chapter 8 opens: plaza, pawn stall, Moat Pit, Inseto at the lock._
+
+- **Portao**: Uma praca de pedra. Um cambista. Um poco de tochas. A fechadura do portao brilha com dez estrelas vazias.
+- **InsetoKaiba**: Voce trouxe nove. Fofo. Eu trouxe mariposas, besouros e um ego melhor.
+- **{name}**: Revanche do navio. Baralho maior. Mesmos insetos.
+- **Objetivo**: Desafie InsetoKaiba na fechadura de estrela.
+
+### dk8_inseto_pre
+_InsetoKaiba gate guardian: memorable rematch, one-star wager._
+
+- **InsetoKaiba**: Great Moth. Javelin Beetle. Joias da coroa do enxame. Voce ainda e uma larva.
+- **{name}**: Eu te venci no navio. Vou te vencer na porta.
+- **InsetoKaiba**: Duas estrelas sob minha asa. Aposte o que sua coragem deixar. O portao pode falar?  _[Duel? Yes/No]_
+
+### dk8_inseto_win
+_InsetoKaiba loses: ten stars, gate key, end of chapter 8._
+
+- **InsetoKaiba**: ...Um inseto digno. Leve o Crown Beetle. Leve a chave. Vou resmungar pra sempre.
+- **Voce ganhou**: Uma estrela, Hercules Beetle (o Crown Beetle dele) e a Chave do Portao.
+- **InsetoKaiba**: A fechadura conta dez. Vai. O salao e a Sala dos Sonhos nao sao problema meu.
+- **{name}**: Dez estrelas. O castelo abre. Sala dos Sonhos a seguir - se a historia aguentar.
+- **Fim do Capitulo 8**: O Portao do Castelo cede. O salao / Sala dos Sonhos e a proxima parte.
+
+### dk8_inseto_lose
+_InsetoKaiba keeps his stars._
+
+- **InsetoKaiba**: Larva. O cambista do Paul e o Poco do Fosso, depois rasteje de volta.
+- **{name}**: Ele me passou. Cartas, depois a revanche.
+
+### dk8_inseto_after
+_InsetoKaiba after the rematch._
+
+- **InsetoKaiba**: Ainda sou o inseto melhor. A porta so discorda hoje.
+
+### dk8_pawn_paul
+_Pawn Paul, Gate Pawn Stall._
+
+- **Paul do Cambista**: Estrelas, cicatrizes e cartas. Compro o que a ilha deixa e vendo o que o portao precisa.
+
+### dk8_gate_camp
+_The gate camp: tarp by the plaza, game-over warning._
+
+- **Acampamento**: Uma lona junto as pedras da praca. A equipe do Reino mantem um lampiao pros sem estrela.
+- **Equipe do Acampamento**: Portao bonito. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez.
+
+### dk8_castle_shut
+_The castle door before ten stars / before Inseto falls._
+
+- **Porta do Castelo**: A fechadura mostra entalhes vazios. Dez estrelas abrem. InsetoKaiba bloqueia o degrau.
+
+### dk8_castle_announce
+_After chapter 8: the hall / Dream Room is announced, not entered._
+
+- **Porta do Castelo**: A fechadura trava em dez. Alem: salas de ilusao, um camareiro e a Sala dos Sonhos de Pegasus.
+- **{name}**: Heishin. Pegasus. O desejo. Nao neste capitulo - na proxima parte do Reino.
+- **A seguir**: Capitulo 9: Salao do Castelo. Capitulo 10: Sonho de Pegasus. O orcamento de flags esta apertado.

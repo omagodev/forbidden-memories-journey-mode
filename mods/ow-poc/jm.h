@@ -164,7 +164,7 @@ typedef struct {
     char anchor[40];             /* "anchor": the named place in the painted village where he stands (see Paint_Anchor) */
     Mesh *mesh_ptr;
 } Npc;
-#define MAX_NPC 40
+#define MAX_NPC 48
 extern Npc npcs[MAX_NPC];
 extern int npc_count;
 

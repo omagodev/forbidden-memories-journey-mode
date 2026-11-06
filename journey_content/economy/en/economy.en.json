@@ -267,5 +267,13 @@
    "ship": "A ring of rope in the bilge, lit by one swinging lamp.",
    "fair": "A second circus under the fair, ring of sawdust."
   }
- }
+ },
+ "arena_tip.gate": "A torch-lit pit under the castle approach. Beetle banners. Three exclusives.",
+ "names.arenas.gate": "Moat Pit",
+ "arena_title.gate": "Moat Pit Clear",
+ "fighter_pre.latch_lee": "The latch clicks. Cards or the moat.",
+ "fighter_pre.bolt_bee": "Buzz off, or buzz in.",
+ "fighter_pre.ward_wyn": "The ward holds. Prove you belong.",
+ "fighter_pre.crown_carl": "Crown of the pit. Ten stars wait above.",
+ "keeper_greet.pawn_paul": "Stars, scars and cards. What do you need?"
 }
