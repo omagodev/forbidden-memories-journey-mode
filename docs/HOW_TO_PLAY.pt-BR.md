@@ -57,10 +57,11 @@ Teclado e controle compartilham as mesmas acoes: mapa, loja, apostas e duelos se
 
 O atalho **ver missoes** no canto (A / Triangulo / Y) abre o diario de missoes.
 ## Fichas de Estrela (Reino dos Duelistas)
-- Antes de cada duelo de estrelas você **escolhe a aposta**: esquerda/direita de 1 até o menor entre as suas estrelas e as do rival, X para duelar, S para desistir.
+- Dois tipos de estrela: as **Fichas Estrela** do Reino (ficha vermelho-dourada, `x/10` no HUD) são moeda da história, quase dinheiro: só vêm de recompensas da história e de apostas. A estrela clara no HUD são as **estrelas de duelo** do próprio jogo, ganhas por desempenho em qualquer duelo; elas nunca viram Fichas Estrela, nunca são apostadas e os portões não as contam.
+- Antes de cada duelo de fichas você **escolhe a aposta**: esquerda/direita de 1 até o menor entre as suas fichas e as do rival, X para duelar, S para desistir.
 - Vencendo, você toma a aposta dele. Perdendo, ele **fica** com ela; desafie de novo para recuperar.
-- **Se suas estrelas acabarem, é FIM DE JOGO**: você volta ao título e CONTINUAR carrega seu último save (o jogo nunca salva com zero estrelas). Nunca aposte a última à toa.
-- Os portões contam só as estrelas na sua mão; dez abrem o castelo.
+- **Se suas Fichas Estrela acabarem, é FIM DE JOGO**: você volta ao título e CONTINUAR carrega seu último save (o jogo nunca salva com zero fichas). Nunca aposte a última à toa.
+- Os portões contam só as Fichas Estrela na sua mão; dez abrem o castelo.
 
 Saves ficam em `Documentos\My Games\YFM Re-Decomp`. Achou um bug? [Abra uma issue](https://github.com/omagodev/forbidden-memories-journey-mode/issues) com o `game.log` da pasta do jogo.
 

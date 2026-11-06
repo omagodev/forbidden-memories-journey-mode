@@ -57,6 +57,7 @@ Keyboard and gamepad share the same actions, so Journey Mode, shops, wagers and 
 
 The top-right **view missions** pill (A / Triangle / Y) opens the missions diary.
 ## Star Chips (Duelist Kingdom)
+- Two different stars: the **Star Chips** of the Kingdom (red-gold token, `x/10` on the HUD) are story currency, almost money: you get them only from story rewards and star wagers. The pale star on the HUD is the game's own **duel stars**, earned by performance after any duel; they are never added to your Star Chips, never wagered and never counted by the gates.
 - Before every star duel you **choose your bet**: left/right from 1 up to the smaller of your stars and your rival's, X to duel, S to back out.
 - Win and you take the bet from him. Lose and he **keeps** it; challenge him again to win it back.
 - **If your stars run out, it is GAME OVER**: you go back to the title and CONTINUE loads your last save (the game never saves at zero stars). Never bet your last star lightly.

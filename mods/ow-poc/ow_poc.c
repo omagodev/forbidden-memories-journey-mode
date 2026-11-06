@@ -410,6 +410,7 @@ static void arm_duel(int npc)
     func_80024DC8(-1, npcs[npc].duelist_id, 0x6000, 0x6000);
 }
 
+extern u32 gLibrary_dwStarchips;   /* the game's own duel-performance star chips (not the Kingdom's Fichas Estrela, jm.stars) */
 static void duel_returned(void)
 {
     int won = (D_8009B362 == 0);
@@ -428,6 +429,7 @@ static void duel_returned(void)
         if (jm.stars <= 0) eliminated = 1;
     }
     wager_bet = 0;
+    LOG("journey: after duel, kingdom chips %d, duel stars %u", jm.stars, (unsigned)gLibrary_dwStarchips);   /* separate counters */
     duel_live = 0;
     if (duel_is_gang) { duel_is_gang = 0; Gang_Result(won); }
     else if (duel_is_arena) { duel_is_arena = 0; Arena_Result(won); }
@@ -1285,6 +1287,9 @@ static const char *const ICON_OBJECTIVE[12] = {   /* a scroll with an exclamatio
 static const char *const ICON_ITEM[12] = {        /* a star */
     ".....##.....", ".....##.....", "....####....", "....####....", "############", ".##########.",
     "..########..", "...######...", "..########..", "..###..###..", ".###....###.", ".##......##." };
+static const char *const ICON_CHIP[12] = {        /* a Kingdom Star Chip: a token with a star cut in it (currency, not the duel-performance star) */
+    "...######...", "..#++++++#..", ".#+++##+++#.", "#++++##++++#", "#+########+#", "#++######++#",
+    "#+++####+++#", "#++######++#", "#+##+++##+#.", ".#+++++++#..", "..#++++++#..", "...######..." };
 static const char *const ICON_COMPLETE[12] = {    /* a check mark in a ring */
     "...######...", "..##++++##..", ".#++++++++#.", "#++++++++#.#", "#+++++++#++#", "##++#+++#++#",
     "#+#+##+#+++#", "#++###++++.#", ".#++#+++++#.", "..##++++##..", "...######...", "............" };
@@ -1352,7 +1357,6 @@ static void draw_icon(int x, int y, int px, const char *const *rows, unsigned co
  * quad in the game's scene (Gfx_Portrait, 320x240 space) and everything else is overlay text and
  * rectangles in window pixels.  So the panel's place is worked out once, here, and the face's place
  * is derived from it - that way the two layers cannot drift apart. */
-extern u32 gLibrary_dwStarchips;
 #define FACE_TEX 48            /* the portrait in the atlas is 48 x 48 */
 
 static void hud_box(int w, int s, int top, int vis, int *x, int *y, int *bw, int *bh, int *face)
@@ -1457,14 +1461,23 @@ static void hud_panel(int w, int s, int top, int vis)
     else jm_host->fill(jm_host, tx, bary, barw, 5 * s, 0xFFE9A0, 255);   /* at the cap it is full */
     draw_icon(tx - 13 * s, bary - 3 * s, s, ICON_XP, 0x40E0E0, 0x90F0F0);
 
-    /* the star chips the game counts, and the purse */
-    draw_icon(tx, bary + 9 * s, s, ICON_ITEM, 0xE0C040, 0xFFF0A0);
-    if (jm.stage >= 6 && jm.stars > 0) snprintf(buf, sizeof(buf), "%d/10", jm.stars);   /* the Kingdom's star chips: ten open the castle */
-    else snprintf(buf, sizeof(buf), "%u", (unsigned)gLibrary_dwStarchips);
-    jm_host->draw_text(jm_host, tx + 15 * s, bary + 15 * s, buf, jm.stage >= 6 && jm.stars > 0 ? 0xFFD040 : 0xFFE9A0, s);
-    draw_icon(tx + barw / 2, bary + 9 * s, s, ICON_COIN, 0xD8A838, 0xFFE090);
-    snprintf(buf, sizeof(buf), "%d", jm.eco.coins);
-    jm_host->draw_text(jm_host, tx + barw / 2 + 15 * s, bary + 15 * s, buf, 0xFFE9A0, s);
+    /* Two different "stars": the duel-performance star chips the game itself awards after every duel
+     * (gLibrary_dwStarchips, pale star), and in the Kingdom the story's Fichas Estrela (jm.stars, a red-gold
+     * token, x/10): those are wagered, lost and counted by the gates, almost money.  They never mix. */
+    {
+        int kingdom = jm.stage >= 6, col = kingdom ? barw / 3 : barw / 2;
+        draw_icon(tx, bary + 9 * s, s, ICON_ITEM, 0xA0A8C0, 0xE8ECFF);
+        snprintf(buf, sizeof(buf), "%u", (unsigned)gLibrary_dwStarchips);
+        jm_host->draw_text(jm_host, tx + 15 * s, bary + 15 * s, buf, 0xD8DCF0, s);
+        if (kingdom) {
+            draw_icon(tx + col, bary + 9 * s, s, ICON_CHIP, 0xD04030, 0xFFD040);
+            snprintf(buf, sizeof(buf), "%d/10", jm.stars);
+            jm_host->draw_text(jm_host, tx + col + 15 * s, bary + 15 * s, buf, 0xFFD040, s);
+        }
+        draw_icon(tx + col * (kingdom ? 2 : 1), bary + 9 * s, s, ICON_COIN, 0xD8A838, 0xFFE090);
+        snprintf(buf, sizeof(buf), "%d", jm.eco.coins);
+        jm_host->draw_text(jm_host, tx + col * (kingdom ? 2 : 1) + 15 * s, bary + 15 * s, buf, 0xFFE9A0, s);
+    }
 }
 
 /* Always-on mission shortcut: corner pill; Triangle (keyboard A) opens the journal. */
