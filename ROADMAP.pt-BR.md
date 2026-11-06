@@ -19,6 +19,7 @@ O Journey Mode é um projeto de hobby, então aqui não tem datas, só a direç�
 - Capítulo 3 do Reino dos Duelistas (a Floresta dos Sussurros): a aposta de estrela do Rex Raptor, três Marcas de Estrela, a clareira escondida, o Mago da Floresta (tem três estrelas); loja do Eremita Hob, conjunto de cartas da floresta, emboscadas da gangue e o Ringue do Tronco Oco com três cartas exclusivas
 - Capítulo 4 do Reino dos Duelistas (a Passagem da Montanha): o pedágio do Bandit Keith na ponte de corda (tem três estrelas), o duelo de orgulho com a Mai (sem estrela), o entalhador flagrado na caverna, o Mago da Montanha (tem quatro; seis estrelas na aposta mínima); tenda da Cliff Cass, conjunto de cartas da montanha, emboscadas da gangue e o Fosso da Mina com três cartas exclusivas; acampamento da trilha na floresta e na passagem
 - Capítulo 5 do Reino dos Duelistas (o Labirinto da Campina): Teana clandestina (duelo amistoso, depois ajudante), a Maga da Campina (guarda duas; sete estrelas na aposta mínima); o carrinho da Rose Rue, conjunto de cartas da campina, emboscadas da gangue e o Anel da Toca do Coelho com três cartas exclusivas (Flower Wolf, Dark Witch, Queen of Autumn Leaves); acampamento da campina
+- Capítulo 7 do Reino dos Duelistas (a Feira das Estrelas): Jono encharcado (duelo amistoso, depois ajudante), o Campeão do Ringue (guarda duas; nove estrelas na aposta mínima); InsetoKaiba só provoca; o Grande Bazar da Bea, conjunto de cartas da feira, emboscadas da gangue e o Circo do Subsolo com três cartas exclusivas (Twin-headed Thunder Dragon, Bickuribox, Ushi Oni); acampamento da feira
 - Capítulo 6 do Reino dos Duelistas (o Deserto das Estrelas Perdidas): Isis a cartomante (duelo de leitura + pista do coletor de estrelas), dicas da Teana, cameo cômico do Bakura (só cartas), o Mago do Deserto (guarda duas; oito estrelas na aposta mínima); a Tenda da Caravana da Nômade Nia, conjunto de cartas do deserto, emboscadas da gangue e o Poço da Tumba Afundada com três cartas exclusivas (Great Mammoth of Goldfine, Skelgon, Shadow Ghoul); acampamento do deserto
 - Apostas de estrelas: tela de aposta antes de cada duelo de estrelas (de 1 até o mínimo entre as suas e as dele), cada guardião tem suas próprias estrelas (salvas), a aposta perdida fica com ele e uma revanche recupera; zero estrelas = FIM DE JOGO, com aviso do Shadi, do Pegasus, dos acampamentos, da tela de aposta e da Mochila
 
@@ -34,6 +35,7 @@ As estrelas são itens da história, guardadas na Mochila como *Fichas de Estrel
 | 4 Passagem da Montanha | Bandit Keith, Mago da Montanha | 5, 6 | arco do cume: 6 |
 | 5 Labirinto da Campina | Maga da Campina | 7 | centro do labirinto: 6 |
 | 6 Deserto das Estrelas Perdidas | Mago do Deserto | 8 | estrela enterrada: 7 |
+| 7 Feira das Estrelas | Campeão do Ringue | 9 | ringue: 8 |
 | 6 Deserto das Estrelas Perdidas | Mago do Deserto | 8 | (planejado) |
 | 7 Feira das Estrelas | campeão do ringue | 9 | (planejado) |
 | 8 Portão do Castelo | InsetoKaiba, guardião | 10 | a fechadura do castelo: pelo menos 10 |
