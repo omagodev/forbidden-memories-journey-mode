@@ -30,8 +30,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build_android_deps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PACKAGE = "org.yfmredecomp.game"
-LABEL = "YFM Re-Decomp"
+# Journey Mode installs beside the upstream app (its own application id; the Java classes keep the org.yfmredecomp.game names)
+PACKAGE = "org.yfmredecomp.journey"
+LABEL = "FM Journey Mode"
 KEYSTORE = os.path.join(ROOT, "tmp", "pc", "android-deps", "debug.keystore")
 # The port's own Java, beside SDL's, one class per file in this folder (all
 # in PACKAGE): Restart (Platform_RestartGame), HdDownload (the HD pack) and

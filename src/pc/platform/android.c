@@ -1876,6 +1876,10 @@ int Memories_AndroidMain(int argc, char **argv)
     setenv("MEMORIES_FULLSCREEN", "1", 0);
     setenv("MEMORIES_NO_MONITOR", "1", 0);
     setenv("MEMORIES_NO_UPDATE_CHECK", "1", 0);
+    /* Journey Mode, as JOGAR_JourneyMode.bat on Windows: the HD text (the JOURNEY MODE title button) and internal 2x once
+     * per settings file (settings.c, MEMORIES_DEFAULT_INTERNAL_SCALE), so the 64px map hero keeps its detail. */
+    setenv("MEMORIES_HD_TEXT", "1", 0);
+    setenv("MEMORIES_DEFAULT_INTERNAL_SCALE", "2", 0);
     {
         /* Where the game is: its link address when the loader's range held
          * (load bias 0), so crash addresses are the build's symbols' own. */

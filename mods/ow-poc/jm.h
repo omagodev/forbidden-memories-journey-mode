@@ -40,6 +40,15 @@ struct JsonNode {
     double num;           /* 'n', 'b' */
     JsonNode *child, *next;
 };
+/* The game has a JSON reader of its own with these names: the mod's are its own symbols (the Android translated
+ * build checks every name a mod defines against the game's signatures). */
+#define Json_Parse Jm_Json_Parse
+#define Json_Free Jm_Json_Free
+#define Json_Get Jm_Json_Get
+#define Json_Str Jm_Json_Str
+#define Json_Num Jm_Json_Num
+#define Json_Count Jm_Json_Count
+#define Json_At Jm_Json_At
 JsonNode *Json_Parse(const char *text);          /* NULL on a syntax error; free with Json_Free */
 void Json_Free(JsonNode *root);
 JsonNode *Json_Get(const JsonNode *object, const char *key);

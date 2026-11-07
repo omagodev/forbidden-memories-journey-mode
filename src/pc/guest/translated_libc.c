@@ -64,6 +64,52 @@ int GuestRuntime_fseek(FILE *file, long offset, int origin)
     return fseek(native_file(file), offset, origin);
 }
 int GuestRuntime_fclose(FILE *file) { return fclose(native_file(file)); }
+/* For code mods (Journey Mode reads its assets with fread): the same boundaries as fwrite's. */
+size_t GuestRuntime_fread(void *buffer, size_t size, size_t count, FILE *file)
+{
+    if (size && count > SIZE_MAX / size) abort();
+    size_t bytes = size * count;
+    void *native = bytes ? GuestRuntime_ResolveData(buffer, bytes) : buffer;
+    return fread(native, size, count, native_file(file));
+}
+long GuestRuntime_ftell(FILE *file) { return ftell(native_file(file)); }
+int GuestRuntime_atoi(const char *string) { return (int)GuestRuntime_strtol(string, NULL, 10); }
+unsigned long GuestRuntime_strtoul(const char *string, char **end, int base)
+{
+    size_t length = GuestRuntime_strlen(string);
+    if (length == SIZE_MAX) abort();
+    const char *native = GuestRuntime_ResolveData((void *)string, length + 1);
+    char *parsed_end;
+    unsigned long value = strtoul(native, &parsed_end, base);
+    if (end) {
+        char *guest_end = at(string, (size_t)(parsed_end - native));
+        memcpy(GuestRuntime_ResolveData(end, sizeof(guest_end)), &guest_end, sizeof(guest_end));
+    }
+    return value;
+}
+double GuestRuntime_strtod(const char *string, char **end)
+{
+    size_t length = GuestRuntime_strlen(string);
+    if (length == SIZE_MAX) abort();
+    const char *native = GuestRuntime_ResolveData((void *)string, length + 1);
+    char *parsed_end;
+    double value = strtod(native, &parsed_end);
+    if (end) {
+        char *guest_end = at(string, (size_t)(parsed_end - native));
+        memcpy(GuestRuntime_ResolveData(end, sizeof(guest_end)), &guest_end, sizeof(guest_end));
+    }
+    return value;
+}
+char *GuestRuntime_strncat(char *destination, const char *source, size_t limit)
+{
+    size_t prefix = GuestRuntime_strlen(destination), suffix = 0;
+    while (suffix < limit && byte(source, suffix)) suffix++;
+    if (prefix > SIZE_MAX - suffix - 1) abort();
+    unsigned char *out = GuestRuntime_ResolveData(destination, prefix + suffix + 1);
+    for (size_t i = 0; i < suffix; i++) out[prefix + i] = byte(source, i);
+    out[prefix + suffix] = 0;
+    return destination;
+}
 int GuestRuntime_isalnum(int value) { return isalnum(value); }
 int GuestRuntime_isdigit(int value) { return isdigit(value); }
 int GuestRuntime_isspace(int value) { return isspace(value); }
