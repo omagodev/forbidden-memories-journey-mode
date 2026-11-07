@@ -908,4 +908,11 @@ SCENARIOS.update({
     "final10_end": dict(desc="player view: festival epilogue", preset="55 festival epilogue", lang=1, debug={"teleport": "plaza_center"},
         steps=REL + [("snap", "festival")], expect=["dev mode 0"]),
 })
+SCENARIOS.update({
+    "feupys_drop": dict(slow=True, desc="InsetoKaiba's real ship duel won by an attack: the Feupys drop roll (force it with MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000)",
+        preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.inseto_spot", "skip_dialogue": True, "flags": ["mai_met"]},
+        steps=REL + [("press", "cross"), ("mash", "duel against", 3000), ("wait", 300), ("snap", "duel"), ("duel_kill",), ("wait", 300), ("snap", "after"),
+               ("mash", "scene dk1_inseto_win", 1500), ("wait", 900)] + [("press", "cross", 5, 60)] * 8 + [("wait", 300), ("snap", "won")] + REL + [("until", "feupys: restored", 1500), ("wait", 120), ("snap", "reloaded")],
+        expect=["duel over, won", "feupys: InsetoKaiba", "feupys: restored 1 owned"]),
+})
 

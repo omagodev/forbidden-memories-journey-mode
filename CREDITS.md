@@ -33,7 +33,8 @@ JOURNEY MODE is an unofficial, non-commercial fan mod for Yu-Gi-Oh! Forbidden Me
 * Chapter 7 brings the Star Fair map and the Ring Champion sprite: AI-generated, baked the same way.
 * Chapter 8 brings the Castle Gate map and the Pawn Paul sprite: AI-generated, baked the same way. Not official art.
 * Chapters 9-10 bring the Castle Hall and Dream Room maps, plus Heishin and Pegasus sprites: AI-generated, baked the same way. Not official art.
-* The "InsetoKaiba" rival is a stylized parody character; it uses no real person's name or likeness.
+* The "InsetoKaiba" rival is a stylized parody character; it uses no real person's name or likeness. (His Feupys card "R10 o Bruxo" reproduces the source card's footballer photo.)
 
 ## Content
 Written with help from Grok Bot (English translation, chapters 6-8, deck lists, the Cockatiel character). Yu-Gi-Oh! and all related characters and cards belong to Kazuki Takahashi / Konami.
+* InsetoKaiba's 12 parody cards (0.6.18): names and card art from cards shown by the creator Feupys, cropped from the source frames; stats and effects adapted to FM by this project. A fan tribute, not official, not endorsed by Feupys; no permission is claimed. See `docs/FEUPYS_CARDS.md`.

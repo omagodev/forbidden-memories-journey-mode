@@ -48,8 +48,13 @@ static int card_show, card_age, card_back;
 #define CARD_FRAMES 170
 static s32 (*drop_original)(s32);
 static int duel_live;                      /* a Journey duel is in flight */
+static int duel_npc, duel_is_gang, duel_is_arena;   /* (defined below) */
 static s32 drop_pick(s32 pool_index)
 {
+    if (duel_live && duel_npc >= 0 && !duel_is_gang && !duel_is_arena) {   /* InsetoKaiba's own cards: only from him, rarely */
+        int id = Feupys_RollDrop(npcs[duel_npc].id);
+        if (id > 0) { card_show = id; return id; }
+    }
     if (duel_live && Eco_Ready()) {
         int id = Eco_RollDrop(Eco_DropContext());
         if (id > 0) { card_show = id; return id; }
@@ -406,6 +411,7 @@ void Journey_GiveStarter(void)
         if (id < 1 || id > 722) return;
     }
     memset(gLibrary_abCardChest, 0, 722);
+    Feupys_ClearChest();   /* InsetoKaiba's Feupys cards are won again in each new journey */
     gLibrary_dwStarchips = 0;
     for (n = list->child; n && i < 40; n = n->next, i++) {
         int id = (int)n->num;

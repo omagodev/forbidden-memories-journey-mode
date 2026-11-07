@@ -258,6 +258,9 @@ typedef struct {
     unsigned char chest[722];
     unsigned duel_stars;
     int cards_set;
+    /* Version 9: the InsetoKaiba (Feupys parody) cards owned, by their order in jm_feupys.c; their deck slots are saved as
+     * 0xF000 + that index, so a change in the mods' load order (runtime card ids) never turns them into other cards. */
+    unsigned char feupys[16];
 } Journey;
 extern Journey jm;
 
@@ -339,6 +342,13 @@ void Say_Tick(void);
 int Save_Exists(void);
 void Journey_CardsCapture(void);
 void Journey_CardsRestore(void);
+#define FEUPYS_N 12
+int Feupys_Id(int i);                    /* this run's card id of the i-th InsetoKaiba card, 0 if the mod's cards did not load */
+int Feupys_Index(int id);                /* -1 for any other card */
+void Feupys_Capture(void);               /* live chest/deck -> jm (encoded) */
+void Feupys_Restore(void);
+void Feupys_ClearChest(void);               /* jm -> live chest/deck */
+int Feupys_RollDrop(const char *npc_id); /* a won duel: one InsetoKaiba card at FEUPYS_DROP_BP / 10000, else 0 */
 int Save_Write(void);
 int Save_Read(void);
 void Save_Init(void);
