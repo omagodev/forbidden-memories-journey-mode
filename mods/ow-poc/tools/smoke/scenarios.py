@@ -915,4 +915,10 @@ SCENARIOS.update({
                ("mash", "scene dk1_inseto_win", 1500), ("wait", 900)] + [("press", "cross", 5, 60)] * 8 + [("wait", 300), ("snap", "won")] + REL + [("until", "feupys: restored", 1500), ("wait", 120), ("snap", "reloaded")],
         expect=["duel over, won", "feupys: InsetoKaiba", "feupys: restored 1 owned"]),
 })
+SCENARIOS.update({
+    "feupys_deck_save": dict(desc="a Feupys card in the Journey deck survives a save and a cold restart", preset="17 on the ship (Mai, InsetoKaiba)", lang=1,
+        debug={"skip_dialogue": True},
+        steps=[("wait", 300), ("poke_deck", 0, 734)] + REL + [("until", "feupys: restored", 1500), ("wait", 120), ("check_deck", 0, 734), ("snap", "reloaded")],
+        expect=["feupys: restored 0 owned, 1 in the deck"]),
+})
 

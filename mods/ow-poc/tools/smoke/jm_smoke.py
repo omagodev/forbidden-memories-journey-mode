@@ -168,6 +168,12 @@ class Run:
                 if g.mode() != Y.MODE["duel"]: break
                 g.press("cross", hold=4, after=40)
             self.until("duel over", s[1] if len(s) > 1 else 1800)
+        elif op == "poke_deck":               # a test: deck slot s[1] holds card s[2] (what the deck editor writes)
+            g.poke("gDuel_awPlayerDeck", struct.pack("<H", s[2]), offset=2 * s[1])
+        elif op == "check_deck":              # deck slot s[1] must hold card s[2]
+            got = struct.unpack("<H", g.peek("gDuel_awPlayerDeck", 80)[2 * s[1]:2 * s[1] + 2])[0]
+            if got != s[2]: self.problems.append("deck slot %d holds %d, not %d" % (s[1], got, s[2]))
+            else: print("deck slot %d holds %d" % (s[1], got))
         elif op == "mash":                    # press X every 40 frames until a log line shows (dialogue that is not skipped)
             t = 0
             while self.count(s[1]) < 1 and t < (s[2] if len(s) > 2 else 3000):
