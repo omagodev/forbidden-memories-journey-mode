@@ -2302,11 +2302,11 @@
       "level": 8,
       "attack": 2800,
       "defense": 2600,
-      "description": "Trabalhador incansável, forjado na luta e nas filas da CLT. Paródia de Feupys.",
+      "description": "Trabalhador incansável, forjado na luta e nas filas da CLT.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_amante",
@@ -2318,33 +2318,33 @@
       "level": 7,
       "attack": 2500,
       "defense": 2100,
-      "description": "Feiticeira de olhos vermelhos. Paródia de Feupys.",
+      "description": "Feiticeira de olhos vermelhos.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_cigarro",
       "copy": "Fake Trap",
       "name": "Fui Comprar Cigarro",
       "art": "assets/cards/feupys/cigarro.png",
-      "description": "Armadilha. Saiu para comprar cigarro e não voltou. Paródia de Feupys.",
+      "description": "Armadilha. Saiu para comprar cigarro e não voltou.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_roberto",
       "copy": "Megamorph",
       "name": "Força do Roberto",
       "art": "assets/cards/feupys/roberto.png",
-      "description": "Magia. Equipa um monstro com a força do Roberto. Paródia de Feupys.",
+      "description": "Equipamento. Aumenta o ataque de um monstro com a força do Roberto.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_obelisco",
@@ -2356,22 +2356,22 @@
       "level": 8,
       "attack": 2700,
       "defense": 2500,
-      "description": "Besta divina de olhos azuis. Paródia de Feupys.",
+      "description": "Besta divina de olhos azuis.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_r10",
       "copy": "Widespread Ruin",
       "name": "R10 o Bruxo",
       "art": "assets/cards/feupys/r10.png",
-      "description": "Armadilha. O bruxo destrói o atacante. Paródia de Feupys.",
+      "description": "Armadilha. O bruxo destrói o monstro atacante.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_dragao_ra",
@@ -2383,55 +2383,55 @@
       "level": 8,
       "attack": 3000,
       "defense": 2500,
-      "description": "Besta divina de fusão ao lado de Ra. Paródia de Feupys.",
+      "description": "Dragão lendário de olhos azuis, ao lado de Ra.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_agiota",
       "copy": "Dian Keto the Cure Master",
       "name": "Agiota Evangélico",
       "art": "assets/cards/feupys/agiota.png",
-      "description": "Magia. Empresta pontos de vida a juros. Paródia de Feupys.",
+      "description": "Magia. Recupera pontos de vida.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_conselho",
       "copy": "Swords of Revealing Light",
       "name": "Conselho de Mãe",
       "art": "assets/cards/feupys/conselho.png",
-      "description": "Magia. Um conselho de mãe segura o oponente. Paródia de Feupys.",
+      "description": "Magia. Um conselho de mãe impede o oponente de atacar por alguns turnos.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_volta",
       "copy": "Acid Trap Hole",
       "name": "A Volta dos que Não Foram",
       "art": "assets/cards/feupys/volta.png",
-      "description": "Armadilha. Paródia de Feupys.",
+      "description": "Armadilha. Destrói o monstro atacante.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_forca_espelho",
       "copy": "Bear Trap",
       "name": "Força Espelho de Olhos Azuis",
       "art": "assets/cards/feupys/forca_espelho.png",
-      "description": "Armadilha contínua de olhos azuis. Paródia de Feupys.",
+      "description": "Armadilha. Destrói o monstro atacante.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     },
     {
       "id": "feupys_kuriboh_branco",
@@ -2443,11 +2443,11 @@
       "level": 1,
       "attack": 300,
       "defense": 200,
-      "description": "Fada de olhos azuis. Paródia de Feupys.",
+      "description": "Fada de olhos azuis.",
       "drops": false,
       "opponents": false,
       "password": null,
-      "notes": "Journey Mode: InsetoKaiba only (Feupys parody, adapted stats/effects)."
+      "notes": "Journey Mode: InsetoKaiba only (adapted stats/effects)."
     }
   ]
 }
