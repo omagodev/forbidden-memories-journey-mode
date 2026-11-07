@@ -83,8 +83,8 @@ int Feupys_RollDrop(const char *npc_id)
     int r;
     if (!npc_id || (strcmp(npc_id, "inseto_kaiba") && strcmp(npc_id, "inseto_gate"))) return 0;
     r = rand() % 10000;
-    /* tests only: MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP (or mod.ow-poc.feupys_drop_bp) overrides the 4% */
-    if (r >= (jm_host->setting ? jm_host->setting(jm_host, "feupys_drop_bp", FEUPYS_DROP_BP) : FEUPYS_DROP_BP)) { LOG("feupys: InsetoKaiba won, no special card (roll %d)", r); return 0; }
+    /* tests only: with debug.json present, MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP (or mod.ow-poc.feupys_drop_bp) overrides the 4%; a player build always rolls 4% */
+    if (r >= (Dbg_On() && jm_host->setting ? jm_host->setting(jm_host, "feupys_drop_bp", FEUPYS_DROP_BP) : FEUPYS_DROP_BP)) { LOG("feupys: InsetoKaiba won, no special card (roll %d)", r); return 0; }
     {
         int k = rand() % FEUPYS_N, id = Feupys_Id(k);
         LOG("feupys: InsetoKaiba drops %s (id %d, roll %d)", keys[k], id, r);

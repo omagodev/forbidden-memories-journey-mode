@@ -45,4 +45,4 @@ dá para vencer.
   InsetoKaiba do Portão oferece revanche com aposta. A chance nunca se perde.
 * As cópias e os slots do deck ficam no save do Journey (versão 9). Uma nova
   jornada começa sem elas.
-* Só para testes: `MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000` força o drop.
+* Só para testes (exige o `debug.json` de desenvolvedor; ignorado no jogo normal): `MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000` força o drop.

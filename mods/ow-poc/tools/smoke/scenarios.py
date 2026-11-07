@@ -911,7 +911,7 @@ SCENARIOS.update({
 SCENARIOS.update({
     "feupys_drop": dict(slow=True, desc="InsetoKaiba's real ship duel won by an attack: the Feupys drop roll (force it with MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000)",
         preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.inseto_spot", "skip_dialogue": True, "flags": ["mai_met"]},
-        steps=REL + [("press", "cross"), ("mash", "duel against", 3000), ("wait", 300), ("snap", "duel"), ("duel_kill",), ("wait", 300), ("snap", "after"),
+        steps=[("wait", 300), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300), ("snap", "duel"), ("duel_kill",), ("wait", 300), ("snap", "after"),
                ("mash", "scene dk1_inseto_win", 1500), ("wait", 900)] + [("press", "cross", 5, 60)] * 8 + [("wait", 300), ("snap", "won")] + REL + [("until", "feupys: restored", 1500), ("wait", 120), ("snap", "reloaded")],
         expect=["duel over, won", "feupys: InsetoKaiba", "feupys: restored 1 owned"]),
 })
@@ -920,5 +920,13 @@ SCENARIOS.update({
         debug={"skip_dialogue": True},
         steps=[("wait", 300), ("poke_deck", 0, 734)] + REL + [("until", "feupys: restored", 1500), ("wait", 120), ("check_deck", 0, 734), ("snap", "reloaded")],
         expect=["feupys: restored 0 owned, 1 in the deck"]),
+})
+SCENARIOS.update({
+    "feupys_editor": dict(desc="the deck editor puts an owned Feupys card in the deck; it survives a save and a cold restart", preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"skip_dialogue": True},
+        steps=[("wait", 300), ("poke_extra", 734, 2), ("press", "start", 5, 30), ("press", "cross", 5, 30), ("wait", 400), ("press", "right", 5, 60),
+               ("press", "cross", 5, 60), ("snap", "removed"), ("press", "left", 5, 60), ] + [("press", "r2", 3, 3)] * 120 + [("wait", 60), ("snap", "chest_end"), ("press", "up", 5, 40), ("press", "cross", 5, 60), ("snap", "added"),
+               ("press", "right", 5, 60), ("snap", "deck_after"), ("press", "circle", 5, 120), ("snap", "x_circle"), ("press", "select", 5, 120), ("snap", "x_select"), ("press", "cross", 5, 200), ("snap", "x_cross"), ("wait", 400), ("snap", "left_editor"), ("deck_has", 734)] + REL + [
+               ("until", "feupys: restored", 1500), ("wait", 120), ("deck_has", 734), ("snap", "reloaded")],
+        expect=["feupys: restored 1 owned, 1 in the deck"]),
 })
 

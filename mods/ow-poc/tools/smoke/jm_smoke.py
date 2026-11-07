@@ -174,6 +174,12 @@ class Run:
             got = struct.unpack("<H", g.peek("gDuel_awPlayerDeck", 80)[2 * s[1]:2 * s[1] + 2])[0]
             if got != s[2]: self.problems.append("deck slot %d holds %d, not %d" % (s[1], got, s[2]))
             else: print("deck slot %d holds %d" % (s[1], got))
+        elif op == "poke_extra":              # a test: own s[2] copies of mod card s[1] (the extra chest)
+            g.poke("gCard_abExtraChest", bytes([s[2]]), offset=s[1])
+        elif op == "deck_has":                # the deck must hold card s[1] (any slot)
+            deck = struct.unpack("<40H", g.peek("gDuel_awPlayerDeck", 80))
+            if s[1] in deck: print("deck holds %d at slot %d" % (s[1], deck.index(s[1])))
+            else: self.problems.append("deck lacks %d: %s" % (s[1], deck))
         elif op == "mash":                    # press X every 40 frames until a log line shows (dialogue that is not skipped)
             t = 0
             while self.count(s[1]) < 1 and t < (s[2] if len(s) > 2 else 3000):

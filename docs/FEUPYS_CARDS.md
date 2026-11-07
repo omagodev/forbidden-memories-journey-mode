@@ -46,4 +46,4 @@ equips) but has no fusions or heavy removal, so it can be beaten.
   Gate InsetoKaiba offers a wager rematch, so the chance is never locked out.
 * Owned copies and deck slots are saved in the Journey save (save version 9)
   and restored on load. A new journey starts without them.
-* Testing only: `MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000` forces the drop.
+* Testing only (needs the developer `debug.json`; ignored in normal play): `MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000` forces the drop.
