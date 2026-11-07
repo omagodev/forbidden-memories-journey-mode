@@ -14,6 +14,10 @@
 #define LW 25
 #define LH 38
 #define LF 10
+#define HI_SZ 64
+#define MW 50          /* the map cells at the source resolution (manifest "map_hi"): the 64x64 LPC cell's columns 8..57 */
+#define MH 64
+static int map_hi;     /* 1: every layer carries them; the map draws them at half size, the 25x38 cell's footprint, twice the detail */
 #define MAXL 128
 enum { CG_SKIN, CG_HAIR, CG_HAIR_COL, CG_TOP, CG_TOP_COL, CG_LEGS, CG_SHOES, CG_ACC, CG_N };
 static const char *const cat_id[CG_N] = {"skin", "hair", "hair_colour", "top", "top_colour", "legs", "shoes", "accessory"};
@@ -34,6 +38,10 @@ int Cg_Ready(void)
             free(t);
             ready = man && Json_Get(man, "body") && Json_Get(man, "hair") && Json_Get(man, "skin") && (int)Json_Num(man, "w", 0) == LW &&
                     (int)Json_Num(man, "h", 0) == LH && (int)Json_Num(man, "frames", 0) == LF;
+            {
+                const JsonNode *mh = Json_Get(man, "map_hi");
+                map_hi = ready && mh && mh->child && mh->child->next && (int)mh->child->num == MW && (int)mh->child->next->num == MH;
+            }
         }
         if (!ready) LOG("chargen: assets/lpc_parts/manifest.json is not usable");
         else LOG("chargen: LPC parts ready, hair %d tops %d legs %d shoes %d accessories %d bases %d", Cg_OptCount(CG_HAIR), Cg_OptCount(CG_TOP),
@@ -42,8 +50,9 @@ int Cg_Ready(void)
     return ready == 1;
 }
 int Cg_Frames(void) { return LF; }
-int Cg_W(void) { return LW; }
-int Cg_H(void) { return LH; }
+int Cg_W(void) { return Cg_Ready() && map_hi ? MW : LW; }
+int Cg_H(void) { return Cg_Ready() && map_hi ? MH : LH; }
+int Cg_MapHi(void) { return Cg_Ready() && map_hi; }
 
 static const JsonNode *list_of(int c) { return c >= 0 && c < CG_N ? Json_Get(man, cat_id[c]) : NULL; }
 int Cg_CatCount(void) { return Cg_Ready() ? CG_N : 0; }
@@ -150,6 +159,10 @@ static Layer *layer(const char *file)
     snprintf(path, sizeof(path), "assets/lpc_parts/%s", file);
     l->d = Jm_Slurp(path, &l->size);
     l->ok = l->d && l->size >= 8 + 4L * LF * LW * LH * 4 && !memcmp(l->d, "LPL1", 4) && l->d[4] == LW && l->d[5] == LH && l->d[6] == LF;
+    if (l->ok && map_hi && l->size < 8 + 4L * LF * LW * LH * 4 + 4L * HI_SZ * HI_SZ * 4 + 4L * LF * MW * MH * 4) {
+        LOG("chargen: %s has no 64px map cells, the map hero falls back to 25x38", path);
+        map_hi = 0;
+    }
     if (!l->ok) LOG("chargen: cannot use %s", path);
     return l->ok ? l : NULL;
 }
@@ -159,18 +172,20 @@ typedef struct { const JsonNode *n; int kind; } Part;     /* kind: 0 fixed / own
 #define HI 64
 static float A[HI * HI], C[HI * HI][3];
 static int compose(const unsigned char cg[8], int gender, int cell, int hi, uint16_t *out);
+/* hi 2: a map cell (direction * 10 + frame) at 50x64 */
+int Cg_ComposeMapCell(const unsigned char cg[8], int gender, int cell, uint16_t *out) { return compose(cg, gender, cell, 2, out); }
 int Cg_ComposeCell(const unsigned char cg[8], int gender, int cell, uint16_t *out) { return compose(cg, gender, cell, 0, out); }
 /* the idle pose of a direction at the source resolution, 64x64 (the creator's big preview and busts) */
 int Cg_ComposeHi(const unsigned char cg[8], int gender, int dir, uint16_t *out) { return compose(cg, gender, dir & 3, 1, out); }
 static int compose(const unsigned char cg[8], int gender, int cell, int hi, uint16_t *out)
 {
     Part parts[24];
-    int np = 0, i, j, k, x, W = hi ? HI : LW, H = hi ? HI : LH;
+    int np = 0, i, j, k, x, W = hi == 2 ? MW : hi ? HI : LW, H = hi == 2 ? MH : hi ? HI : LH;
     float mul[3] = {1, 1, 1};
     int hair_rgb[3] = {0, 0, 0}, top_rgb[3] = {0, 0, 0}, have_hair = 0, have_top = 0;
     const char *body = gender ? "female" : "male";
     const JsonNode *n, *e;
-    if (!Cg_Ready() || cell < 0 || cell >= (hi ? 4 : 4 * LF)) return 0;
+    if (!Cg_Ready() || cell < 0 || cell >= (hi == 1 ? 4 : 4 * LF) || (hi == 2 && !map_hi)) return 0;
     {
         const JsonNode *m = Json_Get(Json_At(Json_Get(man, "skin"), cg[CG_SKIN] % (unsigned)(Json_Count(Json_Get(man, "skin")) ? Json_Count(Json_Get(man, "skin")) : 1)), "mul");
         if (m && m->child && m->child->next && m->child->next->next) { mul[0] = (float)m->child->num; mul[1] = (float)m->child->next->num; mul[2] = (float)m->child->next->next->num; }
@@ -198,7 +213,9 @@ static int compose(const unsigned char cg[8], int gender, int cell, int hi, uint
         float lo[3], hv[3];
         if (!l) continue;
         if (hi && l->size < 8 + 4L * LF * LW * LH * 4 + 4L * HI * HI * 4) continue;
-        pa = hi ? l->d + 8 + 4L * LF * LW * LH * 4 + (size_t)cell * HI * HI * 4 : l->d + 8 + (size_t)cell * LW * LH * 4;
+        if (hi == 2 && l->size < 8 + 4L * LF * LW * LH * 4 + 4L * HI * HI * 4 + 4L * LF * MW * MH * 4) continue;
+        pa = hi == 2 ? l->d + 8 + 4L * LF * LW * LH * 4 + 4L * HI * HI * 4 + (size_t)cell * MW * MH * 4 :
+             hi ? l->d + 8 + 4L * LF * LW * LH * 4 + (size_t)cell * HI * HI * 4 : l->d + 8 + (size_t)cell * LW * LH * 4;
         pc = pa + W * H;
         if (parts[i].kind == 2 && have_hair) { tint = 1; tr = hair_rgb[0]; tg = hair_rgb[1]; tb = hair_rgb[2]; }
         else if (parts[i].kind == 3 && have_top) { tint = 1; tr = top_rgb[0]; tg = top_rgb[1]; tb = top_rgb[2]; }
@@ -231,10 +248,10 @@ static int compose(const unsigned char cg[8], int gender, int cell, int hi, uint
 /* The same cell as SPR1-style kind (0 solid, 255 clear) and RGB888, for jm_painted.c's sprite table. */
 int Cg_ComposeCellRgb(int cell, unsigned char *kind, unsigned char *rgb)
 {
-    uint16_t px[LW * LH];
-    int x;
-    if (!Cg_ComposeCell(jm.cg, jm.gender, cell, px)) return 0;
-    for (x = 0; x < LW * LH; x++) {
+    static uint16_t px[MW * MH];
+    int x, n = Cg_MapHi() ? MW * MH : LW * LH;
+    if (!(Cg_MapHi() ? Cg_ComposeMapCell(jm.cg, jm.gender, cell, px) : Cg_ComposeCell(jm.cg, jm.gender, cell, px))) return 0;
+    for (x = 0; x < n; x++) {
         kind[x] = px[x] ? 0 : 255;
         rgb[x * 3] = (unsigned char)((px[x] & 31) * 255 / 31); rgb[x * 3 + 1] = (unsigned char)((px[x] >> 5 & 31) * 255 / 31); rgb[x * 3 + 2] = (unsigned char)((px[x] >> 10 & 31) * 255 / 31);
     }

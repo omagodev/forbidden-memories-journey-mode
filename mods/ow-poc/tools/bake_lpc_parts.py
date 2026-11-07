@@ -21,6 +21,7 @@ import import_lpc_test as L                      # noqa: E402  (shared downsizin
 
 MOD = HERE.parent
 OUT = MOD / "assets" / "lpc_parts"
+MX, MW, MH = 8, 50, 64                      # the map cells at 64px: columns 8..57 of the source cell
 ALLOWED = ("OGA-BY", "CC-BY-SA", "CC0", "GPL")
 
 # A layer path may hold "{b}" (male / female), "{l}" (male / thin: legs and feet) for the body type.
@@ -104,6 +105,19 @@ def bake(rel, body):
             f.write(a[..., 3].tobytes())
             rgb = a[..., :3].copy(); rgb[a[..., 3] == 0] = 0
             f.write(rgb.tobytes())
+        # the map cells at the source resolution: 4 directions x (idle + 9 walk) of 50x64, the 64x64 cell's columns 8..57 (exactly twice
+        # the 25x38 cell's area: the game draws them at half size, the same footprint, twice the detail)
+        walk = L.load_layers(ROOT, "walk", ((path, None),))
+        for d in range(4):
+            r = L.LPC_ROWS[d]
+            for fr in [([idle], 0)] + [(walk, k) for k in L.WALK_FRAMES]:
+                cell = Image.new("RGBA", (L.CELL, L.CELL))
+                for sh in fr[0]:
+                    cell.alpha_composite(sh.crop((fr[1] * L.CELL, r * L.CELL, (fr[1] + 1) * L.CELL, (r + 1) * L.CELL)))
+                a = np.asarray(cell.crop((MX, 0, MX + MW, MH)), dtype=np.uint8)
+                f.write(a[..., 3].tobytes())
+                rgb = a[..., :3].copy(); rgb[a[..., 3] == 0] = 0
+                f.write(rgb.tobytes())
     baked.add(name)
     return name
 
@@ -119,7 +133,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for old in OUT.glob("*.lpl"):
         old.unlink()
-    man = {"format": "journey-lpc-parts-1", "hi": 64, "w": L.OUT_W, "h": L.OUT_H, "frames": 10, "anchor": list(L.DRAW_ANCHOR),
+    man = {"format": "journey-lpc-parts-1", "hi": 64, "w": L.OUT_W, "h": L.OUT_H, "frames": 10, "map_hi": [MW, MH], "anchor": list(L.DRAW_ANCHOR),
            "slots": ["skin", "hair", "hair_colour", "top", "top_colour", "legs", "shoes", "accessory"],
            "skin": [{"name": n, "mul": c} for n, c in SKIN], "hair_colour": [{"name": n, "rgb": c} for n, c in HAIR_COL],
            "top_colour": [{"name": n, "rgb": c} for n, c in TOP_COL], "body": {}, "hair": [], "top": [], "legs": [], "shoes": [], "accessory": [],

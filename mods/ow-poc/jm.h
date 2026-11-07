@@ -513,6 +513,7 @@ int Cg_OptRgb2(int c, int o);
 int Cg_Frames(void);
 int Cg_W(void);
 int Cg_H(void);
+int Cg_MapHi(void);   /* the map hero comes from the 50x64 source cells (drawn at half size) */
 int Cg_Avoided(void);
 int Cg_BaseCount(void);
 const char *Cg_BaseName(int b);

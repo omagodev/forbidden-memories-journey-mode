@@ -164,7 +164,9 @@ static int spr_load(int i)
     if (i == SPR_HERO) { s->nf = -1; return 0; }     /* the old layered hero is gone: the player is the LPC hero (SPR_LPC_TEST) */
     if (i == SPR_LPC_TEST && Cg_Ready()) {             /* composed from the creator's LPC parts (jm_chargen.c) */
         int c, tex;
-        s->nf = Cg_Frames(); s->w = Cg_W(); s->h = Cg_H(); s->fx = 12; s->fy = 32;
+        s->nf = Cg_Frames(); s->w = Cg_W(); s->h = Cg_H();
+        if (Cg_MapHi()) { s->fx = 24; s->fy = 60; }   /* 50x64 drawn at half: the feet land exactly where the 25x38 cell put them */
+        else { s->fx = 12; s->fy = 32; }
         tex = s->w * s->h; cells = s->nf * 4;
         s->kind = malloc((size_t)cells * tex); s->wt = calloc((size_t)cells * tex * 4, 1); s->rgb = malloc((size_t)cells * tex * 3);
         for (c = 0; c < cells; c++) Cg_ComposeCellRgb(c, s->kind + (size_t)c * tex, s->rgb + (size_t)c * tex * 3);
@@ -308,6 +310,12 @@ int Paint_LpcPreview(int x, int y, int scale, int dir, int frame, float depth)
     if (!spr_baked[SPR_LPC_TEST]) { spr_bake(SPR_LPC_TEST, NULL); spr_baked[SPR_LPC_TEST] = 1; }
     f = frame >= 0 && frame < s->nf ? frame : 0;
     cols = 256 / s->w; page = s->page + f / cols; col = f % cols;
+    {
+        int div = s->w <= 32 ? 1 : 2;          /* the 64px cells keep the creator preview at its old size, with the source detail */
+        Gfx_SpriteQuad(x - s->fx * scale / div, y - s->fy * scale / div, s->w * scale / div, s->h * scale / div, s->bank, page,
+                       col * s->w, dir * 64, s->w, s->h, depth);
+        return 1;
+    }
     Gfx_SpriteQuad(x - s->fx * scale, y - s->fy * scale, s->w * scale, s->h * scale, s->bank, page,
                    col * s->w, dir * 64, s->w, s->h, depth);
     return 1;
