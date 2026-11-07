@@ -139,6 +139,7 @@ static char unknown[MAX_UNKNOWN][MAX_LINE];
 static int unknown_count;
 static Named *named;
 static int named_count, named_capacity, named_error;
+static int default_scale_applied;   /* Settings_Load raised the scale: saved at the end of the load */
 static void (*observers[MAX_OBSERVERS])(SettingId, int);
 static int observer_count;
 /* Why the last save failed ("" after one succeeded), and whether that is
@@ -259,12 +260,28 @@ void Settings_Load(void)
         }
         fclose(file);
     }
+    {
+        /* A launcher's default internal scale (Journey Mode's JOGAR_JourneyMode.bat sets 2): applied once per settings file.
+         * A lower stored scale is raised to it and the marker "default_internal_scale" is kept, so a later choice in
+         * Video > Resolution (even Console resolution) is respected; a higher stored scale is never lowered. */
+        const char *text = getenv("MEMORIES_DEFAULT_INTERNAL_SCALE");
+        int wanted;
+        if (text && *text && parse_value(text, &wanted)) {
+            wanted = clamp(SET_INTERNAL_SCALE, wanted);
+            if (Settings_GetNamed("default_internal_scale", 0) < wanted) {
+                if (values[SET_INTERNAL_SCALE] < wanted) values[SET_INTERNAL_SCALE] = stored[SET_INTERNAL_SCALE] = wanted;
+                set_named("default_internal_scale", wanted);
+                default_scale_applied = 1;
+            }
+        }
+    }
     for (id = 0; id < SET_COUNT; id++) {
         const char *text = info[id].env ? getenv(info[id].env) : NULL;
         int value;
         if ((!text || !*text) && info[id].legacy_env) text = getenv(info[id].legacy_env);
         if (text && *text && parse_value(text, &value)) values[id] = clamp((SettingId)id, value);
     }
+    if (default_scale_applied) { default_scale_applied = 0; Settings_Save(); }
 }
 
 /* Keeps why a save failed, and says it on stderr (the crash reports' console
