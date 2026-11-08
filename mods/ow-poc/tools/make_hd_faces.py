@@ -15,6 +15,11 @@ SRC = {'simon': 'mods/ow-poc/tools/sprite_sheets/simon.jpg', 'teana': 'mods/ow-p
        'jono': 'mods/ow-poc/tools/sprite_sheets/jono.jpg', 'guard': 'mods/ow-poc/tools/sprite_sheets/guard.jpg',
        'inseto': 'art_dk/sheets/inseto.jpg', 'mago_robe': 'art_dk/sheets/mago_robe.jpg', 'rival': 'art_dk/sheets/rival.jpg',
        'rex': 'art_dk/part3/sheets/rex_raptor.jpg', 'bakura': 'art_dk/part3/sheets/bakura_ghost.jpg'}
+# the other source sheets of the project (village: art_work2/sheets, Nabil: sprite_work/ai_sheet.jpg, the kingdom: art_dk/kingdom/sheets),
+# kept beside the first four so the faces can be made again
+for _n in ('baker farmer ai soldier trader shadi mai weevil camp_merchant bazaar_bea nomad_nia keith ring_champ isis heishin pawn_paul pegasus '
+           'forest_mage mountain_mage meadow_mage desert_mage').split():
+    SRC[_n] = 'mods/ow-poc/tools/sprite_sheets/%s.jpg' % _n
 HF, FR = 168, 3
 
 def window(img, name):

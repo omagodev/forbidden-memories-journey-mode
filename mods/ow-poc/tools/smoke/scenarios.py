@@ -4,6 +4,24 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "talk_face_baker": dict(
+        clean_hud=True,
+        desc="the dialogue portrait of baker (source-sheet 168px face)",
+        preset="5 Stamp Card (Hakim next)", debug={},
+        steps=[("wait", 60), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 60), ("mash", "baker.hface", 900), ("wait", 40), ("snap", "talk")],
+        expect=["baker.hface"]),
+    "talk_face_soldier": dict(
+        clean_hud=True,
+        desc="the dialogue portrait of soldier (source-sheet 168px face)",
+        preset="14 harbor gate (Inspector)", debug={"teleport": "inspector_spot"},
+        steps=[("wait", 60), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 60), ("mash", "soldier.hface", 900), ("wait", 40), ("snap", "talk")],
+        expect=["soldier.hface"]),
+    "talk_face_dock_dan": dict(
+        clean_hud=True,
+        desc="the dialogue portrait of dock_dan (source-sheet 168px face)",
+        preset="15 Courier at the pier end", debug={"teleport": "harbor.shop_stall"},
+        steps=[("wait", 60), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 60), ("mash", "trader.hface", 900), ("wait", 40), ("snap", "talk")],
+        expect=["trader.hface"]),
     "readme_map_hero": dict(
         clean_hud=True,
         desc="a clean village shot with the 64px hero (README picture)",
