@@ -111,3 +111,26 @@ Um pacote é uma pasta com: `memories-pc.exe` + `SDL3.dll` (de `tmp/pc/win32/` d
 ### Testes rapidos
 
 Use `python3 mods/ow-poc/tools/smoke/fast.py` para a tabela de presets e `mods/ow-poc/tools/fast.sh --quick` para o smoke do caminho critico (portoes, aposta de estrelas, saltos de capitulo). O `fast.sh all` completo fica para a release. Detalhes: [`mods/ow-poc/tools/TESTING.md`](../mods/ow-poc/tools/TESTING.md).
+
+## Notas da v0.6.19-alpha
+
+- Os quads de sprite param no texel 255 da página: a linha "para cima" do herói de 64px (v 192 + 64) voltava para 0 e aparecia em faixas. Smoke: `walk_sprites`.
+- Rostos de diálogo dos NPCs: `mods/ow-poc/tools/make_hd_faces.py` gera `assets/faces/<folha>.hface` 168x168 a partir das folhas-fonte grandes (Simon, Teana, Jono, Guarda, InsetoKaiba, Mago, rival, Rex, Bakura), com a mesma janela do preset 48x48; os demais continuam com o `.face` 48x48. Smokes: `talk_face_<nome>`.
+- Problema conhecido em aberto: o ciclo de caminhada dos NPCs usa folhas cujos quadros de passo quase não diferem do parado, então eles parecem deslizar.
+
+## Notas da v0.6.20-alpha
+
+- Rostos do painel de vida no duelo: o do adversário vem da folha dele no mapa (`.hface` 168x168 quando existe, senão o recorte 48x48; o retrato do disco só para quem não tem folha), e o do jogador é o rosto do herói criado. Um segundo espaço 168x168 fica no banco 14, x 256, y 256 (`NPC_FACE_X`), ao lado do herói em x 0, para os dois aparecerem juntos. Smokes: `duel_face_<nome>`.
+
+## Notas da v0.6.21-alpha
+
+- Rostos 168x168 de diálogo e duelo para mais 21 personagens (30 `.hface` no total), a partir das folhas-fonte do próprio projeto, agora em `mods/ow-poc/tools/sprite_sheets/` (vila: padeiro, fazendeiro, ai; porto e reino: `art_dk/kingdom/sheets`). Para refazer: `tools/make_hd_faces.py`.
+- Palmeiras do porto: `build_kingdom_assets.py` mantém só as folhas e o tronco dentro do polígono de oclusão de cada palmeira (`palm_only`), então o deque não cobre mais o herói atrás da árvore. Smoke: `harbor_palm`.
+
+## Notas da v0.6.22-alpha
+
+- Deck Feupys do InsetoKaiba (12 cartas, vindo de `feat/inseto-feupys-deck`): drop raro (4%) só nos duelos dele no navio e no portão, fora das lojas. Smokes: `feupys_drop` (forçado pela configuração `mod.ow-poc.feupys_drop_bp`, só com depuração), `feupys_deck_save`, `feupys_editor`.
+- InsetoKaiba como rival recorrente: pessoas `inseto_village` (estágios 1-5, "eu vim ver o macaco", flag `inseto_macaco`), `inseto_beach`, `inseto_forest`, `inseto_mountain`, `inseto_meadow`, `inseto_desert`, `inseto_hall` (cenas `rv_*`, EN/PT), além de navio, feira e portão. As estrelas e o convite dele são texto da história, não a moeda do jogador. A folha dele tem página própria (banco 13 página 1). `MAX_NPC` 64. Smokes: `rival_<ato>`.
+- Caminhada dos NPCs: `tools/walk_strides.py` gera um passo de 4 quadros a partir de parado/passo A/passo B de cada folha 48x62 (frente/costas: perna erguida 2 texels + corpo sobre a perna de apoio; lados: os passos da folha + pose de passagem); a pose parada não muda. `tools/check_walk_frames.py` confere. Smoke: `npc_walk_cycle`.
+- Retrato do HUD do mapa: o rosto 168px do herói criado.
+- Rostos antes/depois do duelo: no Journey o duelo vai conversa -> baú do deck -> campo -> conversa de resultado; não há tela de retrato do jogo original. Smokes `duel_return_faces`, `duel_two_opponents`, `duel_loss_return`.

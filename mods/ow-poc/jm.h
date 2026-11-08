@@ -143,7 +143,10 @@ int Gfx_LoadFaceFile(const char *path);               /* a 48x48 record of our o
 int Gfx_LoadFaceRgb(const unsigned short *img);
 #define HERO_FACE_HI 168     /* the hero's talk face: 168 texels for the 84-pixel slot (2x at the console's resolution) */
 #define HERO_FACE_Y 256      /* ...in bank 14 below the atlas, x 0 */
+#define NPC_FACE_X 256       /* a second 168x168 slot beside it (x 256..423, y 256..423: its own texture page, nothing else there) for the person
+                              * the hero talks or duels with, so both high-resolution faces can be up at once */
 int Gfx_LoadHeroFaceHi(const unsigned short *img);
+int Gfx_LoadFaceHiAt(int x, const unsigned short *img);   /* a 168x168 face at (x, HERO_FACE_Y): 0 the hero, NPC_FACE_X the other person */
 int Paint_HeroFaceHi(void);                          /* the chosen look's 168x168 face into the bank, 0 without a look */     /* a 48x48 face cut from a map sprite */
 int Gfx_LoadFace(int duelist);                       /* disc portrait into the speaker slot */
 extern unsigned gfx_frame;
@@ -178,7 +181,7 @@ typedef struct {
     char anchor[40];             /* "anchor": the named place in the painted village where he stands (see Paint_Anchor) */
     Mesh *mesh_ptr;
 } Npc;
-#define MAX_NPC 48
+#define MAX_NPC 64           /* the last slot is ECO_NPC (ow_poc.c), never a journey.json person */
 extern Npc npcs[MAX_NPC];
 extern int npc_count;
 
@@ -267,6 +270,9 @@ typedef struct {
     unsigned char chest[722];
     unsigned duel_stars;
     int cards_set;
+    /* Version 9: the InsetoKaiba (Feupys parody) cards owned, by their order in jm_feupys.c; their deck slots are saved as
+     * 0xF000 + that index, so a change in the mods' load order (runtime card ids) never turns them into other cards. */
+    unsigned char feupys[16];
 } Journey;
 extern Journey jm;
 
@@ -348,6 +354,13 @@ void Say_Tick(void);
 int Save_Exists(void);
 void Journey_CardsCapture(void);
 void Journey_CardsRestore(void);
+#define FEUPYS_N 12
+int Feupys_Id(int i);                    /* this run's card id of the i-th InsetoKaiba card, 0 if the mod's cards did not load */
+int Feupys_Index(int id);                /* -1 for any other card */
+void Feupys_Capture(void);               /* live chest/deck -> jm (encoded) */
+void Feupys_Restore(void);
+void Feupys_ClearChest(void);               /* jm -> live chest/deck */
+int Feupys_RollDrop(const char *npc_id); /* a won duel: one InsetoKaiba card at FEUPYS_DROP_BP / 10000, else 0 */
 int Save_Write(void);
 int Save_Read(void);
 void Save_Init(void);

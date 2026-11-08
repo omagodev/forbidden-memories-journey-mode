@@ -48,8 +48,13 @@ static int card_show, card_age, card_back;
 #define CARD_FRAMES 170
 static s32 (*drop_original)(s32);
 static int duel_live;                      /* a Journey duel is in flight */
+static int duel_npc, duel_is_gang, duel_is_arena;   /* (defined below) */
 static s32 drop_pick(s32 pool_index)
 {
+    if (duel_live && duel_npc >= 0 && !duel_is_gang && !duel_is_arena) {   /* InsetoKaiba's own cards: only from him, rarely */
+        int id = Feupys_RollDrop(npcs[duel_npc].id);
+        if (id > 0) { card_show = id; return id; }
+    }
     if (duel_live && Eco_Ready()) {
         int id = Eco_RollDrop(Eco_DropContext());
         if (id > 0) { card_show = id; return id; }
@@ -124,7 +129,12 @@ static int loaded_face = -1;       /* which face the speaker slot holds (the due
 static short opponent_face_x, opponent_face_y;
 static short player_face_x, player_face_y;   /* where they went this frame, for names in the overlay */
 static int face_on;
+static int face_hero_hi;            /* the player's duel face is the creator's high-resolution one */
 
+extern int Paint_FaceSprite(const char *who);
+extern int Paint_LoadSpriteFace(int i);
+extern int Paint_LoadSpriteFaceHi(int i);
+static int face_opp_hi;             /* the opponent's duel face is his 168x168 source-sheet one (NPC_FACE_X) */
 static void duel_face(int x, int y, int ax, int ay, DisplayObject *pos)
 {
     Gfx_RectAt(x - FACE_EDGE, y - FACE_EDGE, FACE_SIZE + 2 * FACE_EDGE, FACE_SIZE + 2 * FACE_EDGE,
@@ -145,17 +155,28 @@ static void panel_drawn(DisplayObject *widget)
     if (!pos || duelist <= 0) return;
     panel_x = (int)pos->field_30.h.field_30;
     if (panel_x - 32 >= 320 || panel_x + 32 <= 0) return;   /* the game's panel completed its slide away */
-    if (face_duelist != duelist) {         /* a disc read: once a duel, not once a frame */
-        if (!Gfx_LoadFace(duelist)) return;
+    if (face_duelist != duelist) {         /* once a duel, not once a frame */
+        /* the opponent: the face cut from the sheet he walks with on the map (the same one his talks show), so a villager who
+         * borrows a disc duelist's deck does not show that duelist's disc portrait; the disc face only for people with no sheet */
+        int si = Paint_FaceSprite(npcs[duel_npc].id), from_map;
+        face_opp_hi = si >= 0 && Paint_LoadSpriteFaceHi(si);
+        from_map = face_opp_hi || (si >= 0 && Paint_LoadSpriteFace(si));
+        if (!from_map && !Gfx_LoadFace(duelist)) return;
+        face_hero_hi = Cg_Ready() && Paint_HeroFaceHi();   /* the player: the created hero's own face */
         face_duelist = duelist;
-        loaded_face = -1;
+        loaded_face = -1;                  /* both slots were rewritten: the next talk reloads its face */
+        LOG("journey: duel faces: %s %s (duelist %d), hero %s", npcs[duel_npc].id,
+            face_opp_hi ? "map sheet 168x168" : from_map ? "map sheet 48x48" : "disc portrait", duelist,
+            face_hero_hi ? "creator face" : "preset portrait");
     }
     portrait = jm.portrait >= 0 && jm.portrait < 4 ? jm.portrait : 0;
     opponent_x = panel_x - OPP_FACE_LEFT;
     player_x = panel_x - PLAYER_FACE_LEFT;
     y = (int)pos->field_30.h.field_32 - FACE_TOP;
-    duel_face(player_x, y, PORT_X + portrait * 48, PORT_Y, pos);
-    duel_face(opponent_x, y, DYN_PORT_X, DYN_PORT_Y, pos);
+    if (face_hero_hi) duel_face(player_x, y, 0, HERO_FACE_Y, pos);
+    else duel_face(player_x, y, PORT_X + portrait * 48, PORT_Y, pos);
+    if (face_opp_hi) duel_face(opponent_x, y, NPC_FACE_X, HERO_FACE_Y, pos);
+    else duel_face(opponent_x, y, DYN_PORT_X, DYN_PORT_Y, pos);
     player_face_x = (short)player_x;
     player_face_y = (short)y;
     opponent_face_x = (short)opponent_x;
@@ -187,6 +208,7 @@ extern const char *Paint_ModeName(void);
 extern int Paint_NearNpc(void);
 extern int Paint_FaceSprite(const char *who);
 extern int Paint_LoadSpriteFace(int i);
+extern int Paint_LoadSpriteFaceHi(int i);
 extern void Paint_TalkStart(int ow);
 extern void Paint_TalkEnd(void);
 extern int Paint_Target(float *tx, float *ty);
@@ -219,6 +241,16 @@ static void speaker(const Page *p, const char **name, int *ax, int *ay)
             int key = -3000 - (int)(Cg_Signature() & 0xffff);
             if (key != loaded_face && Paint_HeroFaceHi()) loaded_face = key;
             if (key == loaded_face) { *name = jm.name; *ax = 0; *ay = HERO_FACE_Y; return; }
+        }
+        if (si >= 0 && strcmp(p->who, "atos") && strcmp(p->who, "player")) {   /* a source-sheet face when the sheet has one */
+            int key = -4000 - si;
+            if (key != loaded_face && Paint_LoadSpriteFaceHi(si)) loaded_face = key;
+            if (key == loaded_face) {
+                if (sp) *name = TrKey("speaker_names", p->who, Json_Str(sp, "name", p->name));
+                for (i = 0; i < npc_count; i++) if (!strcmp(npcs[i].id, p->who)) *name = npc_name(i);
+                *ax = NPC_FACE_X; *ay = HERO_FACE_Y;
+                return;
+            }
         }
         if (si >= 0) {
             int key = -2000 - si;
@@ -406,6 +438,7 @@ void Journey_GiveStarter(void)
         if (id < 1 || id > 722) return;
     }
     memset(gLibrary_abCardChest, 0, 722);
+    Feupys_ClearChest();   /* InsetoKaiba's Feupys cards are won again in each new journey */
     gLibrary_dwStarchips = 0;
     for (n = list->child; n && i < 40; n = n->next, i++) {
         int id = (int)n->num;
@@ -1415,6 +1448,26 @@ static void hud_box(int w, int s, int top, int vis, int *x, int *y, int *bw, int
  * There is no sound way to line the two up, so the face is read out of the texture atlas once and
  * drawn in the overlay with the rest of the HUD, in the same units, where it cannot drift.
  * The item banners already draw their pictures this way (draw_item_icon). */
+extern const unsigned short *Paint_HeroFacePixels(void);
+/* the created hero's own 168x168 face (the one his talks and duels show), drawn at the HUD slot's size */
+static int hud_hero_face(int x, int y, int size)
+{
+    const unsigned short *f = Cg_Ready() ? Paint_HeroFacePixels() : NULL;
+    int r, c;
+    if (!f || size < 8) return 0;
+    for (r = 0; r < size; r++) {
+        const unsigned short *row = f + (size_t)(r * HERO_FACE_HI / size) * HERO_FACE_HI;
+        for (c = 0; c < size;) {
+            unsigned short v = row[c * HERO_FACE_HI / size];
+            int end = c + 1;
+            while (end < size && row[end * HERO_FACE_HI / size] == v) end++;
+            jm_host->fill(jm_host, x + c, y + r, end - c, 1,
+                          ((unsigned)(v & 31) * 255 / 31) << 16 | ((unsigned)((v >> 5) & 31) * 255 / 31) << 8 | (unsigned)((v >> 10) & 31) * 255 / 31, 255);
+            c = end;
+        }
+    }
+    return size;
+}
 static int hud_portrait(int x, int y, int px, int which)
 {
     static unsigned char faces[4][FACE_TEX * FACE_TEX * 3];
@@ -1480,7 +1533,7 @@ static void hud_panel(int w, int s, int top, int vis)
     jm_host->fill(jm_host, x + 5 * s, y + 5 * s, 2 * s, face + 4 * s, 0xC8A03C, 255);
     jm_host->fill(jm_host, x + 7 * s + face, y + 5 * s, 2 * s, face + 4 * s, 0xC8A03C, 255);
 
-    hud_portrait(x + 7 * s, y + 7 * s, face / FACE_TEX, jm.portrait);
+    if (!hud_hero_face(x + 7 * s, y + 7 * s, face)) hud_portrait(x + 7 * s, y + 7 * s, face / FACE_TEX, jm.portrait);
 
     tx = x + face + 16 * s;
     jm_host->draw_text(jm_host, tx, y + 7 * s + lh / 2, jm.name, 0xFFE9A0, s);

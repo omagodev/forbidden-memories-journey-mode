@@ -86,7 +86,7 @@ int World_Load(void)
         areas[area_count].track = (int)Json_Num(n, "track", 0);
     }
     list = Json_Get(jm_rules, "npcs");
-    for (n = list ? list->child : NULL; n && npc_count < MAX_NPC; n = n->next) {
+    for (n = list ? list->child : NULL; n && npc_count < MAX_NPC - 1; n = n->next) {
         Npc *p = &npcs[npc_count++];
         memset(p, 0, sizeof(*p));
         strncpy(p->id, Json_Str(n, "id", ""), sizeof(p->id) - 1);

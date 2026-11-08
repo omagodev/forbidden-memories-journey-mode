@@ -4,6 +4,170 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "duel_loss_return": dict(
+        clean_hud=True,
+        desc="a lost duel returns to the opponent's lose scene with her own 168px face (Teana)",
+        preset="13 two stamps (Teana last)", debug={"teleport": "teana_stall", "lose_duels": True},
+        steps=[("wait", 200), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 120), ("snap", "pre"), ("mash", "duel against", 3000),
+               ("until", "_lose", 1500), ("wait", 150), ("snap", "lose_talk")],
+        expect=["talk face: assets/faces/teana.hface", "_lose"]),
+    "duel_two_opponents": dict(
+        clean_hud=True,
+        desc="two real duels in one session with every page shown: the Inspector, then Shadi; each pre/field/result shows its own 168px face, never the last opponent's",
+        preset="14 harbor gate (Inspector)", debug={"teleport": [420, 356]},
+        steps=[("wait", 200), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 120), ("snap", "a_pre"), ("mash", "duel against", 3000),
+               ("duel_kill",), ("until", "scene dk1_inspector_win", 1500), ("wait", 150), ("snap", "a_win"), ("mash", "saved", 2500), ("wait", 120),
+               ("hold", "right", 200), ("wait", 20), ("snap", "walked"), ("press", "cross"), ("wait", 120), ("snap", "b_pre"), ("mash", "duel against Shadi", 3000),
+               ("duel_kill",), ("until", "scene dk1_shadi_win", 1500), ("wait", 150), ("snap", "b_win")],
+        expect=["duel faces: soldier map sheet 168x168", "scene dk1_inspector_win", "duel faces: shadi map sheet 168x168", "scene dk1_shadi_win"]),
+    "duel_return_faces": dict(
+        clean_hud=True,
+        desc="a real duel with every page shown: Simon's 168px face before, on the field and in his win scene; then a different person (InsetoKaiba) talks with his own face, never Simon's stale one",
+        preset="2 rumors heard (Simon next)", debug={"teleport": "house_ne_door"},
+        steps=[("wait", 200), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 120), ("snap", "pre_talk"), ("mash", "duel against", 3000),
+               ("duel_kill",), ("until", "scene dk1_simon_win", 1500), ("wait", 150), ("snap", "win_talk"), ("mash", "saved", 2500), ("wait", 120),
+               ("hold", "down", 12), ("hold", "left", 150), ("hold", "up", 6), ("wait", 30), ("snap", "walked")] + [("press", "cross", 5, 60)] + [("wait", 120), ("snap", "next_talk")],
+        expect=["duel faces: simon map sheet 168x168", "scene dk1_simon_win"]),
+    "duel_flow_screens": dict(
+        clean_hud=True,
+        desc="every screen between the talk and the field and from the last hit back to the map (pre/post-duel portraits)",
+        preset="2 rumors heard (Simon next)", debug={"skip_dialogue": True, "teleport": "house_ne_door"},
+        steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000)] + [st for i in range(6) for st in (("wait", 70), ("snap", "pre%d" % i))]
+              + [("duel_kill",)] + [st for i in range(8) for st in (("wait", 90), ("snap", "post%d" % i))],
+        expect=["duel over, won"]),
+    "npc_walk_cycle": dict(
+        clean_hud=True,
+        desc="villagers walking (Jono, Kemet the farmer, Nabil): eight snaps 5 VBlanks apart must show the stride cycle",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": [700, 530]},
+        steps=[("wait", 120)] + [st for i in range(8) for st in (("snap", "walk%d" % i), ("wait", 5))],
+        expect=["npc anim: 3 frame 1", "npc anim: 3 frame 3", "npc anim: 6 frame 2", "npc anim: 9 frame 4"]),
+    "rival_village": dict(
+        clean_hud=True, lang=1,
+        desc="InsetoKaiba the recurring rival in the village act: on the map, and his taunt",
+        preset="2 rumors heard (Simon next)", debug={"teleport": [720, 356]},
+        steps=[("wait", 90),  ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1"), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 240), ("snap", "talk3_macaco")],
+        expect=["talk face"]),
+    "rival_beach": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the beach act: on the map, and his taunt",
+        preset="18 beach landing (chapter 2)", debug={"teleport": [640, 496]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_forest": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the forest act: on the map, and his taunt",
+        preset="22 forest arrival (chapter 3)", debug={"teleport": [800, 526]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_mountain": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the mountain act: on the map, and his taunt",
+        preset="28 mountain arrival (chapter 4)", debug={"teleport": [420, 586]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_meadow": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the meadow act: on the map, and his taunt",
+        preset="34 meadow arrival (chapter 5)", debug={"teleport": [960, 506]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_desert": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the desert act: on the map, and his taunt",
+        preset="38 desert arrival (chapter 6)", debug={"teleport": [700, 586]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_hall": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the hall act: on the map, and his taunt",
+        preset="49 hall arrival (chapter 9)", debug={"teleport": [780, 476]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "harbor_palm": dict(
+        clean_hud=True,
+        desc="the harbor's west palm over the boardwalk: behind it only the leaves and the trunk cover the hero, never the planks",
+        preset="15 Courier at the pier end", debug={"teleport": [150, 372]},
+        steps=[("wait", 90), ("snap", "east_of_palm"), ("hold", "left", 18), ("wait", 20), ("snap", "behind_crown"), ("hold", "left", 14), ("wait", 20),
+               ("snap", "behind_crown_west"), ("hold", "up", 16), ("wait", 20), ("snap", "north"), ("hold", "down", 40), ("wait", 20), ("snap", "south")],
+        expect=["dev mode 0"]),
+    "talk_face_baker": dict(
+        clean_hud=True,
+        desc="the dialogue portrait of baker (source-sheet 168px face)",
+        preset="5 Stamp Card (Hakim next)", debug={},
+        steps=[("wait", 60), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 60), ("mash", "baker.hface", 900), ("wait", 40), ("snap", "talk")],
+        expect=["baker.hface"]),
+    "talk_face_soldier": dict(
+        clean_hud=True,
+        desc="the dialogue portrait of soldier (source-sheet 168px face)",
+        preset="14 harbor gate (Inspector)", debug={"teleport": "inspector_spot"},
+        steps=[("wait", 60), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 60), ("mash", "soldier.hface", 900), ("wait", 40), ("snap", "talk")],
+        expect=["soldier.hface"]),
+    "talk_face_dock_dan": dict(
+        clean_hud=True,
+        desc="the dialogue portrait of dock_dan (source-sheet 168px face)",
+        preset="15 Courier at the pier end", debug={"teleport": "harbor.shop_stall"},
+        steps=[("wait", 60), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 60), ("mash", "trader.hface", 900), ("wait", 40), ("snap", "talk")],
+        expect=["trader.hface"]),
+    "readme_map_hero": dict(
+        clean_hud=True,
+        desc="a clean village shot with the 64px hero (README picture)",
+        preset="2 rumors heard (Simon next)", debug={"teleport": "plaza_center"},
+        steps=[("wait", 120), ("hold", "down", 20), ("wait", 60), ("snap", "map")],
+        expect=["dev mode 0"]),
+    "duel_face_simon": dict(
+        clean_hud=True,
+        desc="the duel's life-point faces: simon's own map face, the created hero's face (not the disc portraits)",
+        preset="2 rumors heard (Simon next)", debug={"skip_dialogue": True, "teleport": "house_ne_door"},
+        steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
+        expect=["journey: duel faces: simon map sheet 168x168", "hero creator face"]),
+    "duel_face_teana": dict(
+        clean_hud=True,
+        desc="the duel's life-point faces: teana's own map face, the created hero's face (not the disc portraits)",
+        preset="13 two stamps (Teana last)", debug={"skip_dialogue": True, "teleport": "teana_stall"},
+        steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
+        expect=["journey: duel faces: teana map sheet 168x168", "hero creator face"]),
+    "duel_face_hakim": dict(
+        desc="the duel's life-point faces: hakim's own map face, the created hero's face (not the disc portraits)",
+        preset="5 Stamp Card (Hakim next)", debug={"skip_dialogue": True},
+        steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
+        expect=["journey: duel faces: baker map sheet 48x48", "hero creator face"]),
+    "duel_face_kemet": dict(
+        desc="the duel's life-point faces: kemet's own map face, the created hero's face (not the disc portraits)",
+        preset="6 Hakim's hint (Kemet next)", debug={"skip_dialogue": True},
+        steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
+        expect=["journey: duel faces: farmer map sheet 48x48", "hero creator face"]),
+    "talk_face_simon": dict(
+        clean_hud=True,
+        desc="the dialogue portrait of simon (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": "house_ne_door"},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "talk_face_guard": dict(
+        desc="the dialogue portrait of guard (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": [652, 190]},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "talk_face_jono": dict(
+        desc="the dialogue portrait of jono (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": "plaza_center"},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "talk_face_teana": dict(
+        desc="the dialogue portrait of teana (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": "teana_stall"},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "talk_face_farmer": dict(
+        desc="the dialogue portrait of farmer (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": [700, 492]},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "walk_sprites": dict(
+        desc="the hero walking in all four directions (snaps mid-stride) and the villagers walking: UP must not tear, NPCs must step",
+        preset="6 Hakim's hint (Kemet next)",
+        steps=[("wait", 30), ("hold", "left", 50), ("hold", "down", 30), ("wait", 20), ("snap", "idle")] + [st for d in ("up", "left", "down", "right") for st in (("walk", d, 3, 7, "hero"), ("wait", 20), ("snap", "idle_" + d))]
+              + [st for i in range(4) for st in (("wait", 9), ("snap", "npcs%d" % i))],
+        expect=["debug: preset 5", "npc anim: 3 frame 1 dir 1 moving 1", "npc anim: 3 frame 3 dir 2 moving 1", "npc anim: 6 frame 3 dir 1 moving 1"]),
     "village_roads": dict(
         desc="the village with the new roads: plaza, west road, bakery, bridge (chord R1+L1+Right cycles the anchors)",
         preset="6 Hakim's hint (Kemet next)",
@@ -907,5 +1071,26 @@ SCENARIOS.update({
         steps=REL + [("press", "cross"), ("until", "scene dk10_pegasus_pre", 300), ("wait", 90), ("snap", "pegasus")], expect=["scene dk10_pegasus_pre"]),
     "final10_end": dict(desc="player view: festival epilogue", preset="55 festival epilogue", lang=1, debug={"teleport": "plaza_center"},
         steps=REL + [("snap", "festival")], expect=["dev mode 0"]),
+})
+SCENARIOS.update({
+    "feupys_drop": dict(slow=True, settings={"mod.ow-poc.feupys_drop_bp": "10000"}, desc="InsetoKaiba's real ship duel won by an attack: the Feupys drop roll (force it with MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000)",
+        preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.inseto_spot", "skip_dialogue": True, "flags": ["mai_met"]},
+        steps=[("wait", 300), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300), ("snap", "duel"), ("duel_kill",), ("wait", 300), ("snap", "after"),
+               ("mash", "scene dk1_inseto_win", 1500), ("wait", 900)] + [("press", "cross", 5, 60)] * 8 + [("wait", 300), ("snap", "won")] + REL + [("until", "feupys: restored", 1500), ("wait", 120), ("snap", "reloaded")],
+        expect=["duel over, won", "feupys: InsetoKaiba", "feupys: restored 1 owned"]),
+})
+SCENARIOS.update({
+    "feupys_deck_save": dict(desc="a Feupys card in the Journey deck survives a save and a cold restart", preset="17 on the ship (Mai, InsetoKaiba)", lang=1,
+        debug={"skip_dialogue": True},
+        steps=[("wait", 300), ("poke_deck", 0, 734)] + REL + [("until", "feupys: restored", 1500), ("wait", 120), ("check_deck", 0, 734), ("snap", "reloaded")],
+        expect=["feupys: restored 0 owned, 1 in the deck"]),
+})
+SCENARIOS.update({
+    "feupys_editor": dict(desc="the deck editor puts an owned Feupys card in the deck; it survives a save and a cold restart", preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"skip_dialogue": True},
+        steps=[("wait", 300), ("poke_extra", 734, 2), ("press", "start", 5, 30), ("press", "cross", 5, 30), ("wait", 400), ("press", "right", 5, 60),
+               ("press", "cross", 5, 60), ("snap", "removed"), ("press", "left", 5, 60), ] + [("press", "r2", 3, 3)] * 120 + [("wait", 60), ("snap", "chest_end"), ("press", "up", 5, 40), ("press", "cross", 5, 60), ("snap", "added"),
+               ("press", "right", 5, 60), ("snap", "deck_after"), ("press", "circle", 5, 120), ("snap", "x_circle"), ("press", "select", 5, 120), ("snap", "x_select"), ("press", "cross", 5, 200), ("snap", "x_cross"), ("wait", 400), ("snap", "left_editor"), ("deck_has", 734)] + REL + [
+               ("until", "feupys: restored", 1500), ("wait", 120), ("deck_has", 734), ("snap", "reloaded")],
+        expect=["feupys: restored 1 owned, 1 in the deck"]),
 })
 

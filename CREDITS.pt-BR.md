@@ -37,3 +37,4 @@ O JOURNEY MODE é um mod de fã, não oficial e sem fins comerciais, para Yu-Gi-
 
 ## Conteúdo
 Escrito com a ajuda do Grok Bot (tradução para o inglês, capítulos 6 a 8, listas de decks, a personagem Calopsita). Yu-Gi-Oh! e todos os personagens e cartas relacionados pertencem a Kazuki Takahashi / Konami.
+* As 12 cartas de paródia do InsetoKaiba (0.6.18): nomes e artes de cartas mostradas pelo criador Feupys, recortadas dos quadros originais; status e efeitos adaptados ao FM por este projeto. Homenagem de fã, não oficial, sem endosso do Feupys; não alegamos permissão. Veja `docs/FEUPYS_CARDS.pt-BR.md`.

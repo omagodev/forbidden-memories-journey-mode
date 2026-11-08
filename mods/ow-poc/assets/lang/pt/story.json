@@ -4462,6 +4462,154 @@
      "text": "Sala bonita. Regras duras. Perdeu a ultima estrela e a jornada acaba de vez."
     }
    ]
+  },
+  {
+   "id": "rv_inseto_macaco",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "FUHAHAHAHAHAHA! HAHAHAHA! HAAAHAHAHA!"
+    },
+    {
+     "speaker": "atos",
+     "text": "...Quem e voce?"
+    },
+    {
+     "speaker": "inseto",
+     "text": "InsetoKaiba! Futuro campeao do Reino! Eu vim ver o macaco."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Disseram que um moleque da vila acha que e duelista. Entao eu voei ate aqui so pra rir pessoalmente. FUHAHAHA!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Ta vendo? Duas estrelas do Reino e um convite dourado com o MEU nome. O Pegasus mandou pessoalmente. Obvio."
+    },
+    {
+     "speaker": "atos",
+     "text": "Eu ainda nao tenho convite."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Claro que nao! Macaco nao recebe carta! HAHAHAHAHA! Te vejo na ilha, se deixarem bicho entrar no navio."
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_village",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Ainda aqui, macaco? To polindo minhas estrelas. As duas. FUHAHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_beach",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHAHA! O macaco chegou na praia! Veio nadando? Chorou?"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Eu ja ganhei estrelas no navio. Meu convite ta emoldurado. O seu deve estar molhado."
+    },
+    {
+     "speaker": "atos",
+     "text": "Pode rir. Eu vou te alcancar."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Me alcancar?! FUHAHAHAHAHA! Eu sou uma libelula, voce e uma lesma!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_forest",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Shh! To cacando insetos raros pro meu baralho imbativel... ah. E VOCE. HAHAHAHA!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Todo inseto dessa floresta se curva pra mim. Voce devia treinar tambem. Economiza tempo depois."
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_mountain",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "FUHAHAHA! Aqui em cima o ar e fraco, macaco. Igual seu baralho!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Eu subi de helicoptero. Dez minutos. Depois tirei um cochilo numa pilha de estrelas."
+    },
+    {
+     "speaker": "atos",
+     "text": "Estrelas suas, ou de outra pessoa?"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Toda estrela vira MINHA no fim! HAHAHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_meadow",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Perdido no labirinto, macaco? Eu sai faz horas. Tenho mapa. E talento. Mais talento."
+    },
+    {
+     "speaker": "inseto",
+     "text": "HAHAHAHAHA! Segue o som da minha risada, quem sabe voce acha a saida!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_desert",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Areia pra todo lado e AINDA voce rasteja atras de mim. Respeito. Um pouquinho. FUHAHAHA!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Meu convite me deixa entrar no castelo, macaco. O seu deixa voce assistir da cerca."
+    },
+    {
+     "speaker": "atos",
+     "text": "A gente se ve no portao."
+    },
+    {
+     "speaker": "inseto",
+     "text": "No portao eu pego suas estrelas e emolduro do lado do meu convite! HAHAHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_hall",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Ta. TA BOM. Voce me venceu no portao. Sorte! Falha! Um bug no sistema!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "So to aqui pra rir quando o Pegasus te derrotar. FU... FUHAHA... ha."
+    },
+    {
+     "speaker": "inseto",
+     "text": "...Nao perde, macaco. So eu posso te derrotar."
+    }
+   ]
   }
  ]
 }
