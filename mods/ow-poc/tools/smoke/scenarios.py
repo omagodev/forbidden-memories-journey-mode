@@ -8,7 +8,7 @@ SCENARIOS = {
         clean_hud=True, lang=1,
         desc="InsetoKaiba the recurring rival in the village act: on the map, and his taunt",
         preset="2 rumors heard (Simon next)", debug={"teleport": [720, 356]},
-        steps=[("wait", 90),  ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1"), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 60), ("snap", "talk3_macaco")],
+        steps=[("wait", 90),  ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1"), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 240), ("snap", "talk3_macaco")],
         expect=["talk face"]),
     "rival_beach": dict(
         clean_hud=True, lang=0,
