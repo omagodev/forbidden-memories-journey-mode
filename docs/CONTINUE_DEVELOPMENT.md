@@ -162,3 +162,8 @@ python3 mods/ow-poc/tools/smoke/jm_smoke.py run painted_menu_deck cap2_starter_d
 
 - The creator hero's 50x64 sheet (10 frames, 5 to a 256-texel page) covers bank 13 pages 0-1; v0.6.22 put InsetoKaiba on page 1, so the walking hero drew his sheet. InsetoKaiba now takes page 2 with the creator hero (page 1 with the old 25x38 hero), chosen at each bake (`inseto_page`). Every bake claims its real page span (`pages_claim`) and logs `sprite page collision` on overlap; the smokes forbid it. The same check found the trader sheet over Bakura's desert page (fixed). Smoke: `hero_walk_with_inseto`.
 - InsetoKaiba's lines: "Eu vim ver o macaco." / "I came to see the monkey." only opens the first talk after arriving in a place (flag `inseto_here`, cleared on every area change and on load: `Story_Unset`); no other name-calling; his village lines no longer mention the Kingdom, stars or invitation before Simon explains them. `tools/check_rival_text.py`; smokes `rival_village` (first, repeat, reload), `rival_fair`.
+
+## v0.6.24-alpha notes
+
+- MAGO.DEV: plain PT/EN dialogue in every scene that mentions him; three optional test duels (shore stage 10+, meadow 22+, castle hall 33+), NPCs `mago_shore`/`mago_meadow`/`mago_hall`, duelists `dk_mago_dev_1..3`, fixed 40-card Spellcaster/Fiend decks "Mago.dev", "Mago.dev II", "Mago.dev III". No stars at stake; flags `mago_testN_won`, one card per first win; prize-less rematch.
+- A journey.json NPC `"terrain"` (1-6) sets `gDuel_bTerrain` right after `func_80024DC8` (which resets it for every duel); MAGO.DEV uses 6 (Yami). His pre-duel scenes cue the `tension_wager` song. Smokes `mago_shore`, `mago_shore_lose`, `mago_meadow`, `mago_hall`, `terrain_reset_kemet` (harness step `duel_probe`).
