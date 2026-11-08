@@ -134,3 +134,8 @@ Use `python3 mods/ow-poc/tools/smoke/fast.py` para a tabela de presets e `mods/o
 - Caminhada dos NPCs: `tools/walk_strides.py` gera um passo de 4 quadros a partir de parado/passo A/passo B de cada folha 48x62 (frente/costas: perna erguida 2 texels + corpo sobre a perna de apoio; lados: os passos da folha + pose de passagem); a pose parada não muda. `tools/check_walk_frames.py` confere. Smoke: `npc_walk_cycle`.
 - Retrato do HUD do mapa: o rosto 168px do herói criado.
 - Rostos antes/depois do duelo: no Journey o duelo vai conversa -> baú do deck -> campo -> conversa de resultado; não há tela de retrato do jogo original. Smokes `duel_return_faces`, `duel_two_opponents`, `duel_loss_return`.
+
+## Notas da v0.6.23-alpha (correção)
+
+- A folha 50x64 do herói criado (10 quadros, 5 por página de 256 texels) ocupa as páginas 0-1 do banco 13; a v0.6.22 pôs o InsetoKaiba na página 1 e o herói andando mostrava a folha dele. Agora o InsetoKaiba usa a página 2 com o herói criado (página 1 com o herói antigo 25x38), escolhida a cada carga (`inseto_page`). Cada carga registra as páginas que ocupa de verdade (`pages_claim`) e registra `sprite page collision` se houver sobreposição; os smokes falham nisso. A mesma checagem achou a folha do mercador sobre a página do Bakura no deserto (corrigido). Smoke: `hero_walk_with_inseto`.
+- Falas do InsetoKaiba: "Eu vim ver o macaco." só abre a primeira conversa depois de chegar num lugar (flag `inseto_here`, limpa a cada troca de área e ao carregar); nenhum outro xingamento; na vila ele não fala mais de Reino, estrelas ou convite antes do Simon explicar. `tools/check_rival_text.py`; smokes `rival_village`, `rival_fair`.
