@@ -187,6 +187,7 @@ extern const char *Paint_ModeName(void);
 extern int Paint_NearNpc(void);
 extern int Paint_FaceSprite(const char *who);
 extern int Paint_LoadSpriteFace(int i);
+extern int Paint_LoadSpriteFaceHi(int i);
 extern void Paint_TalkStart(int ow);
 extern void Paint_TalkEnd(void);
 extern int Paint_Target(float *tx, float *ty);
@@ -219,6 +220,16 @@ static void speaker(const Page *p, const char **name, int *ax, int *ay)
             int key = -3000 - (int)(Cg_Signature() & 0xffff);
             if (key != loaded_face && Paint_HeroFaceHi()) loaded_face = key;
             if (key == loaded_face) { *name = jm.name; *ax = 0; *ay = HERO_FACE_Y; return; }
+        }
+        if (si >= 0 && strcmp(p->who, "atos") && strcmp(p->who, "player")) {   /* a source-sheet face when the sheet has one */
+            int key = -4000 - si;
+            if (key != loaded_face && Paint_LoadSpriteFaceHi(si)) loaded_face = key;
+            if (key == loaded_face) {
+                if (sp) *name = TrKey("speaker_names", p->who, Json_Str(sp, "name", p->name));
+                for (i = 0; i < npc_count; i++) if (!strcmp(npcs[i].id, p->who)) *name = npc_name(i);
+                *ax = 0; *ay = HERO_FACE_Y;
+                return;
+            }
         }
         if (si >= 0) {
             int key = -2000 - si;

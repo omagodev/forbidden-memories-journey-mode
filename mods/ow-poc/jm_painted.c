@@ -1787,6 +1787,26 @@ int Paint_HeroFaceHi(void)
     if (!Paint_BakeHeroFace(0)) return 0;
     return Gfx_LoadHeroFaceHi(hero_face);
 }
+/* A 168x168 face framed like the 48x48 preset but taken from the large source sheet the map sprite was baked from
+ * (tools/make_hd_faces.py, assets/faces/<sheet>.hface), into the hero's high-resolution spot.  0 when the sheet has none. */
+int Paint_LoadSpriteFaceHi(int i)
+{
+    static unsigned short img[HF * HF];
+    char path[96];
+    const char *b;
+    long size = 0, n;
+    unsigned char *d;
+    if (i < 0 || i >= SPR_COUNT || !spr[i].file || (i == SPR_LPC_TEST && Cg_Ready())) return 0;
+    b = strrchr(spr[i].file, '/');
+    b = b ? b + 5 : spr[i].file + 4;
+    snprintf(path, sizeof path, "assets/faces/%.*s.hface", (int)(strlen(b) - 4), b);
+    d = Jm_Slurp(path, &size);
+    if (!d || size != HF * HF * 2) { free(d); return 0; }
+    for (n = 0; n < HF * HF; n++) img[n] = (unsigned short)(d[n * 2] | d[n * 2 + 1] << 8);
+    free(d);
+    LOG("talk face: %s %dx%d from the source sheet", path, HF, HF);
+    return Gfx_LoadHeroFaceHi(img);
+}
 int Paint_LoadSpriteFace(int i)
 {
     static unsigned short img[48 * 48];

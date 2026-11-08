@@ -4,6 +4,31 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "talk_face_simon": dict(
+        desc="the dialogue portrait of simon (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": "house_ne_door"},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "talk_face_guard": dict(
+        desc="the dialogue portrait of guard (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": [652, 190]},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "talk_face_jono": dict(
+        desc="the dialogue portrait of jono (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": "plaza_center"},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "talk_face_teana": dict(
+        desc="the dialogue portrait of teana (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": "teana_stall"},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
+    "talk_face_farmer": dict(
+        desc="the dialogue portrait of farmer (source-sheet 168px face where the sheet has one)",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": [700, 492]},
+        steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],
+        expect=["talk face"]),
     "walk_sprites": dict(
         desc="the hero walking in all four directions (snaps mid-stride) and the villagers walking: UP must not tear, NPCs must step",
         preset="6 Hakim's hint (Kemet next)",
