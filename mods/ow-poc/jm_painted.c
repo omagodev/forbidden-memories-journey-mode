@@ -456,6 +456,10 @@ static PNpc pnpc[] = {
     {"Suit_Male", SPR_INSETO, 960, 480, 0.0f, 0, 0},           /* the Meadow Maze */
     {"Suit_Male", SPR_INSETO, 700, 560, 0.0f, 0, 0},           /* the Desert of Lost Stars */
     {"Suit_Male", SPR_INSETO, 780, 450, 0.0f, 0, 0},           /* the Castle Hall */
+    /* MAGO.DEV's three optional test duels (his own sheet, bank 15 page 1, shared with his cameos) */
+    {"Wizard", SPR_MAGO, 760, 330, 0.0f, 0, 0},                /* the Shore of Illusions */
+    {"Wizard", SPR_MAGO, 420, 470, 0.0f, 0, 0},                /* the Meadow Maze */
+    {"Wizard", SPR_MAGO, 470, 470, 0.0f, 0, 0},                /* the Castle Hall */
 };
 #define NPN ((int)(sizeof(pnpc) / sizeof(pnpc[0])))
 static int npc_init;
@@ -468,7 +472,8 @@ static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_
                                      "isis_desert", "desert_mage", "bakura_desert", "teana_desert", "nomad_nia",
                                      "jono_fair", "ring_champ", "inseto_fair", "bazaar_bea", "inseto_gate", "pawn_paul",
                                      "heishin_hall", "relic_rhea", "pegasus_dream", "shadi_dream",
-                                     "inseto_village", "inseto_beach", "inseto_forest", "inseto_mountain", "inseto_meadow", "inseto_desert", "inseto_hall"};
+                                     "inseto_village", "inseto_beach", "inseto_forest", "inseto_mountain", "inseto_meadow", "inseto_desert", "inseto_hall",
+                                     "mago_shore", "mago_meadow", "mago_hall"};
 static char pnpc_anchor[NPN][40];      /* the anchor each one was last placed at: the story moves people (the farewells) */
 #define GUARD 2
 static short guard_home[2] = {652, 168};   /* the bridge_north anchor (set from the table below) */
@@ -492,7 +497,7 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     /* the Shore of Illusions */
     {"spawn", 290, 540, 5}, {"mirror_spot", 660, 200, 5}, {"weevil_spot", 470, 330, 5}, {"shore_camp", 890, 445, 5},
     {"shop_stall", 840, 300, 5}, {"arena_door", 180, 150, 5}, {"pier_far", 290, 640, 5}, {"jungle_path", 975, 80, 5},
-    {"beach_center", 560, 420, 5}, {"inseto_spot", 640, 470, 5}, {"hangout_a", 400, 500, 5}, {"hangout_b", 660, 260, 5},
+    {"beach_center", 560, 420, 5}, {"inseto_spot", 640, 470, 5}, {"mago_test", 760, 330, 5}, {"hangout_a", 400, 500, 5}, {"hangout_b", 660, 260, 5},
     /* the Forest of Whispers: in from the beach at the bottom left, the stone gate (the hidden clearing) at the top */
     {"spawn", 205, 680, 6}, {"rex_spot", 620, 410, 6}, {"shop_stall", 440, 330, 6}, {"star_mark_1", 260, 330, 6},
     {"star_mark_2", 950, 260, 6}, {"star_mark_3", 1080, 420, 6}, {"gate_spot", 553, 262, 6}, {"arena_door", 240, 500, 6},
@@ -504,7 +509,7 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     {"summit_gate", 845, 162, 7}, {"pass_center", 330, 520, 7}, {"inseto_spot", 420, 560, 7}, {"hangout_a", 880, 560, 7}, {"hangout_b", 200, 450, 7},
     /* the Meadow Maze: in from the pass at the bottom left, the desert arch at the top */
     {"spawn", 180, 680, 8}, {"meadow_camp", 200, 640, 8}, {"teana_spot", 640, 380, 8}, {"shop_stall", 160, 200, 8},
-    {"arena_door", 1080, 600, 8}, {"gate_spot", 640, 340, 8}, {"desert_gate", 640, 120, 8}, {"maze_center", 640, 400, 8}, {"inseto_spot", 960, 480, 8},
+    {"arena_door", 1080, 600, 8}, {"gate_spot", 640, 340, 8}, {"desert_gate", 640, 120, 8}, {"maze_center", 640, 400, 8}, {"inseto_spot", 960, 480, 8}, {"mago_test", 420, 470, 8},
     {"hangout_a", 900, 450, 8}, {"hangout_b", 320, 500, 8},
     /* the Desert of Lost Stars: in from the meadow at the bottom left, the fair arch at the top */
     {"spawn", 200, 680, 9}, {"desert_camp", 260, 620, 9}, {"teana_spot", 420, 580, 9}, {"shop_stall", 220, 520, 9},
@@ -520,7 +525,7 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     {"hangout_a", 900, 450, 11}, {"hangout_b", 300, 500, 11},
     /* chapter 9: Castle Hall (AREA_HALL = 12) */
     {"spawn", 640, 680, 12}, {"hall_camp", 180, 640, 12}, {"shop_stall", 220, 420, 12}, {"arena_door", 1000, 480, 12},
-    {"heishin_spot", 640, 220, 12}, {"dream_stairs", 640, 100, 12}, {"hall_center", 640, 420, 12}, {"inseto_spot", 780, 450, 12},
+    {"heishin_spot", 640, 220, 12}, {"dream_stairs", 640, 100, 12}, {"hall_center", 640, 420, 12}, {"inseto_spot", 780, 450, 12}, {"mago_test", 470, 470, 12},
     {"mirror_spot", 400, 300, 12}, {"hangout_a", 900, 450, 12}, {"hangout_b", 300, 500, 12},
     /* chapter 10: Dream Room (AREA_TOP = 13) */
     {"spawn", 640, 680, 13}, {"dream_camp", 200, 600, 13}, {"pegasus_spot", 640, 360, 13}, {"wish_orbs", 820, 400, 13},

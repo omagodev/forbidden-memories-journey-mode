@@ -100,6 +100,8 @@ int World_Load(void)
             if (p->duelist_id <= 0) p->duelist_id = (int)Json_Num(n, "duelist_id", 0);
         }
         p->portrait_id = (int)Json_Num(n, "portrait_id", 0);
+        p->terrain = (int)Json_Num(n, "terrain", 0);
+        if (p->terrain < 0 || p->terrain > 6) p->terrain = 0;
         p->rules = Json_Get(n, "talk");
         p->moves = Json_Get(n, "places");
         p->base = Json_Get(n, "tile");

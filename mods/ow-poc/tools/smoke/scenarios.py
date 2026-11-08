@@ -1112,3 +1112,41 @@ SCENARIOS.update({
               + [("press", "cross", 3, 70)] * 10 + [("wait", 60), ("press", "cross"), ("wait", 200), ("snap", "talk2")],
         expect=["scene rv_inseto_fair_first", "scene dk7_inseto_taunt"], forbid=["sprite page collision"]),
 })
+def _mago(k, area_preset, xy, extra_debug=None):
+    d = {"teleport": list(xy)}
+    d.update(extra_debug or {})
+    talk = [("press", "up", 3), ("wait", 10), ("press", "cross"), ("until", "scene mago_test%d_pre" % k, 400), ("wait", 200), ("snap", "pre_p0")]
+    pages = [("press", "cross", 3, 70), ("wait", 150)]
+    return dict(clean_hud=True, lang=1, preset=area_preset, debug=d,
+                steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 90), ("snap", "map")] + talk
+                      + pages + [("snap", "pre_p1")] + pages + pages + [("snap", "pre_dark")] + pages + [("snap", "pre_ask"), ("press", "cross")])
+def _mago_win(k, area_preset, xy):
+    sc = _mago(k, area_preset, xy)
+    sc["desc"] = "MAGO.DEV test %d: plain dialogue, tension song, the duel starts on Yami (checked in memory and on the FIELD box), a win saves the flag and the card once, a reload offers a prize-less rematch" % k
+    sc["steps"] += [("mash", "duel field: Mago.dev", 3000), ("duel_probe", 6, 1), ("duel_kill",), ("until", "scene mago_test%d_win" % k, 1500), ("wait", 150), ("snap", "win")] \
+        + [("press", "cross", 3, 70)] * 5 + [("wait", 300)] + REL + [("wait", 90)] + [("press", "cross", 3, 45)] * 4 + [("wait", 90), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("until", "scene mago_test%d_again" % k, 400), ("wait", 200), ("snap", "again_ask")]
+    sc["expect"] = ["scene mago_test%d_pre" % k, "duel field: Mago.dev", "starts on terrain 6", "music cue mago_test", "scene mago_test%d_win" % k, "scene mago_test%d_again" % k, "deck fixed by ow-poc"]
+    sc["forbid"] = ["sprite page collision"]
+    return sc
+def _mago_lose(k, area_preset, xy):
+    sc = _mago(k, area_preset, xy, {"lose_duels": True})
+    sc["desc"] = "MAGO.DEV test %d lost: no star taken, the lose talk says so, no flag, the next talk is the same challenge again" % k
+    sc["steps"] += [("until", "scene mago_test%d_lose" % k, 1500), ("wait", 150), ("snap", "lose")] + [("press", "cross", 3, 70)] * 4 + [("wait", 200), ("snap", "after_lose"),
+                    ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 200), ("snap", "rematch")]
+    sc["expect"] = [("scene mago_test%d_pre" % k, 2), "scene mago_test%d_lose" % k]
+    sc["forbid"] = ["sprite page collision", "scene mago_test%d_win" % k, "wager"]
+    return sc
+SCENARIOS.update({
+    "mago_shore": _mago_win(1, "18 beach landing (chapter 2)", (760, 372)),
+    "mago_shore_lose": _mago_lose(1, "18 beach landing (chapter 2)", (760, 372)),
+    "mago_meadow": _mago_win(2, "34 meadow arrival (chapter 5)", (420, 512)),
+    "mago_hall": _mago_win(3, "49 hall arrival (chapter 9)", (470, 512)),
+})
+SCENARIOS.update({
+    "terrain_reset_kemet": dict(
+        slow=True,
+        desc="another opponent after the MAGO.DEV change: Kemet's real duel starts on the game's own field (terrain 0), no MAGO.DEV field line",
+        preset="6 Hakim's hint (Kemet next)", debug={"skip_dialogue": True},
+        steps=[("press", "cross"), ("until", "duel against Kemet", 1500), ("duel_probe", 0, 1), ("duel_kill",), ("wait", 250), ("snap", "back")],
+        expect=["duel against Kemet", "duel over, won"], forbid=["duel field:", "sprite page collision"]),
+})

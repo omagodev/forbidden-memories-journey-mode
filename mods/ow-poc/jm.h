@@ -169,6 +169,7 @@ typedef struct {
     JsonNode *rules;             /* "talk" */
     JsonNode *moves;             /* "places" */
     JsonNode *base;              /* "tile" */
+    int terrain;                 /* "terrain": the field the duel starts on (1-6, Forest ... Yami), 0 the game's own */
     char anchor[40];             /* "anchor": the named place in the painted village where he stands (see Paint_Anchor) */
     Mesh *mesh_ptr;
 } Npc;
