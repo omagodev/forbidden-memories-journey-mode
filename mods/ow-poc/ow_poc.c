@@ -1448,6 +1448,26 @@ static void hud_box(int w, int s, int top, int vis, int *x, int *y, int *bw, int
  * There is no sound way to line the two up, so the face is read out of the texture atlas once and
  * drawn in the overlay with the rest of the HUD, in the same units, where it cannot drift.
  * The item banners already draw their pictures this way (draw_item_icon). */
+extern const unsigned short *Paint_HeroFacePixels(void);
+/* the created hero's own 168x168 face (the one his talks and duels show), drawn at the HUD slot's size */
+static int hud_hero_face(int x, int y, int size)
+{
+    const unsigned short *f = Cg_Ready() ? Paint_HeroFacePixels() : NULL;
+    int r, c;
+    if (!f || size < 8) return 0;
+    for (r = 0; r < size; r++) {
+        const unsigned short *row = f + (size_t)(r * HERO_FACE_HI / size) * HERO_FACE_HI;
+        for (c = 0; c < size;) {
+            unsigned short v = row[c * HERO_FACE_HI / size];
+            int end = c + 1;
+            while (end < size && row[end * HERO_FACE_HI / size] == v) end++;
+            jm_host->fill(jm_host, x + c, y + r, end - c, 1,
+                          ((unsigned)(v & 31) * 255 / 31) << 16 | ((unsigned)((v >> 5) & 31) * 255 / 31) << 8 | (unsigned)((v >> 10) & 31) * 255 / 31, 255);
+            c = end;
+        }
+    }
+    return size;
+}
 static int hud_portrait(int x, int y, int px, int which)
 {
     static unsigned char faces[4][FACE_TEX * FACE_TEX * 3];
@@ -1513,7 +1533,7 @@ static void hud_panel(int w, int s, int top, int vis)
     jm_host->fill(jm_host, x + 5 * s, y + 5 * s, 2 * s, face + 4 * s, 0xC8A03C, 255);
     jm_host->fill(jm_host, x + 7 * s + face, y + 5 * s, 2 * s, face + 4 * s, 0xC8A03C, 255);
 
-    hud_portrait(x + 7 * s, y + 7 * s, face / FACE_TEX, jm.portrait);
+    if (!hud_hero_face(x + 7 * s, y + 7 * s, face)) hud_portrait(x + 7 * s, y + 7 * s, face / FACE_TEX, jm.portrait);
 
     tx = x + face + 16 * s;
     jm_host->draw_text(jm_host, tx, y + 7 * s + lh / 2, jm.name, 0xFFE9A0, s);

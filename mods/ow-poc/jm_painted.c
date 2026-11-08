@@ -1782,6 +1782,7 @@ int Paint_BakeHeroFace(int force)
     LOG("talk face: hero preset %dx%d composed from the 64px parts for look %08x", HF, HF, sig);
     return 1;
 }
+const unsigned short *Paint_HeroFacePixels(void) { return Paint_BakeHeroFace(0) ? hero_face : NULL; }   /* the HUD's face, HF x HF */
 int Paint_HeroFaceHi(void)
 {
     if (!Paint_BakeHeroFace(0)) return 0;
