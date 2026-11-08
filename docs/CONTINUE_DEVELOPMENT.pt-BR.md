@@ -111,3 +111,9 @@ Um pacote é uma pasta com: `memories-pc.exe` + `SDL3.dll` (de `tmp/pc/win32/` d
 ### Testes rapidos
 
 Use `python3 mods/ow-poc/tools/smoke/fast.py` para a tabela de presets e `mods/ow-poc/tools/fast.sh --quick` para o smoke do caminho critico (portoes, aposta de estrelas, saltos de capitulo). O `fast.sh all` completo fica para a release. Detalhes: [`mods/ow-poc/tools/TESTING.md`](../mods/ow-poc/tools/TESTING.md).
+
+## Notas da v0.6.19-alpha
+
+- Os quads de sprite param no texel 255 da página: a linha "para cima" do herói de 64px (v 192 + 64) voltava para 0 e aparecia em faixas. Smoke: `walk_sprites`.
+- Rostos de diálogo dos NPCs: `mods/ow-poc/tools/make_hd_faces.py` gera `assets/faces/<folha>.hface` 168x168 a partir das folhas-fonte grandes (Simon, Teana, Jono, Guarda, InsetoKaiba, Mago, rival, Rex, Bakura), com a mesma janela do preset 48x48; os demais continuam com o `.face` 48x48. Smokes: `talk_face_<nome>`.
+- Problema conhecido em aberto: o ciclo de caminhada dos NPCs usa folhas cujos quadros de passo quase não diferem do parado, então eles parecem deslizar.

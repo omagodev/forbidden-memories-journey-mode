@@ -134,3 +134,9 @@ Regression (isolated user directory; classic slots enabled and seeded):
 python3 mods/ow-poc/tools/smoke/deck_inventory.py
 python3 mods/ow-poc/tools/smoke/jm_smoke.py run painted_menu_deck cap2_starter_deck
 ```
+
+## v0.6.19-alpha notes
+
+- Sprite quads stop at page texel 255: the 64px hero's UP row (v 192 + 64) used to wrap to 0 and draw as strips. Smoke: `walk_sprites`.
+- NPC talk faces: `mods/ow-poc/tools/make_hd_faces.py` writes 168x168 `assets/faces/<sheet>.hface` from the large source sheets (Simon, Teana, Jono, Guard, InsetoKaiba, Mago, rival, Rex, Bakura), using the 48x48 preset's own window; the others keep their 48x48 `.face`. Smokes: `talk_face_<name>`.
+- Known open issue: NPC walk cycles use sheets whose walk cells barely differ from idle, so walking NPCs look like they slide.
