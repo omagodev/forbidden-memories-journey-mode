@@ -4,6 +4,37 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "duel_loss_return": dict(
+        clean_hud=True,
+        desc="a lost duel returns to the opponent's lose scene with her own 168px face (Teana)",
+        preset="13 two stamps (Teana last)", debug={"teleport": "teana_stall", "lose_duels": True},
+        steps=[("wait", 200), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 120), ("snap", "pre"), ("mash", "duel against", 3000),
+               ("until", "_lose", 1500), ("wait", 150), ("snap", "lose_talk")],
+        expect=["talk face: assets/faces/teana.hface", "_lose"]),
+    "duel_two_opponents": dict(
+        clean_hud=True,
+        desc="two real duels in one session with every page shown: the Inspector, then Shadi; each pre/field/result shows its own 168px face, never the last opponent's",
+        preset="14 harbor gate (Inspector)", debug={"teleport": [420, 356]},
+        steps=[("wait", 200), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 120), ("snap", "a_pre"), ("mash", "duel against", 3000),
+               ("duel_kill",), ("until", "scene dk1_inspector_win", 1500), ("wait", 150), ("snap", "a_win"), ("mash", "saved", 2500), ("wait", 120),
+               ("hold", "right", 200), ("wait", 20), ("snap", "walked"), ("press", "cross"), ("wait", 120), ("snap", "b_pre"), ("mash", "duel against Shadi", 3000),
+               ("duel_kill",), ("until", "scene dk1_shadi_win", 1500), ("wait", 150), ("snap", "b_win")],
+        expect=["duel faces: soldier map sheet 168x168", "scene dk1_inspector_win", "duel faces: shadi map sheet 168x168", "scene dk1_shadi_win"]),
+    "duel_return_faces": dict(
+        clean_hud=True,
+        desc="a real duel with every page shown: Simon's 168px face before, on the field and in his win scene; then a different person (InsetoKaiba) talks with his own face, never Simon's stale one",
+        preset="2 rumors heard (Simon next)", debug={"teleport": "house_ne_door"},
+        steps=[("wait", 200), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 120), ("snap", "pre_talk"), ("mash", "duel against", 3000),
+               ("duel_kill",), ("until", "scene dk1_simon_win", 1500), ("wait", 150), ("snap", "win_talk"), ("mash", "saved", 2500), ("wait", 120),
+               ("hold", "down", 12), ("hold", "left", 150), ("hold", "up", 6), ("wait", 30), ("snap", "walked")] + [("press", "cross", 5, 60)] + [("wait", 120), ("snap", "next_talk")],
+        expect=["duel faces: simon map sheet 168x168", "scene dk1_simon_win"]),
+    "duel_flow_screens": dict(
+        clean_hud=True,
+        desc="every screen between the talk and the field and from the last hit back to the map (pre/post-duel portraits)",
+        preset="2 rumors heard (Simon next)", debug={"skip_dialogue": True, "teleport": "house_ne_door"},
+        steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000)] + [st for i in range(6) for st in (("wait", 70), ("snap", "pre%d" % i))]
+              + [("duel_kill",)] + [st for i in range(8) for st in (("wait", 90), ("snap", "post%d" % i))],
+        expect=["duel over, won"]),
     "npc_walk_cycle": dict(
         clean_hud=True,
         desc="villagers walking (Jono, Kemet the farmer, Nabil): eight snaps 5 VBlanks apart must show the stride cycle",
