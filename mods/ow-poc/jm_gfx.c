@@ -193,14 +193,15 @@ int Gfx_LoadFaceRgb(const unsigned short *img)
 }
 
 /* The hero's HERO_FACE_HI x HERO_FACE_HI talk face (jm_painted.c) into its own spot of the bank: draw it with ax 0, ay HERO_FACE_Y. */
-int Gfx_LoadHeroFaceHi(const unsigned short *img)
+int Gfx_LoadFaceHiAt(int x, const unsigned short *img)
 {
     u16 *bank = SoftGpu_Bank(BANK);
     int y;
-    if (!bank || !img) return 0;
-    for (y = 0; y < HERO_FACE_HI; y++) memcpy(bank + (size_t)(HERO_FACE_Y + y) * SOFT_GPU_WIDTH, img + (size_t)y * HERO_FACE_HI, HERO_FACE_HI * 2);
+    if (!bank || !img || (x != 0 && x != NPC_FACE_X)) return 0;   /* a slot never crosses its 256-texel page */
+    for (y = 0; y < HERO_FACE_HI; y++) memcpy(bank + (size_t)(HERO_FACE_Y + y) * SOFT_GPU_WIDTH + x, img + (size_t)y * HERO_FACE_HI, HERO_FACE_HI * 2);
     return 1;
 }
+int Gfx_LoadHeroFaceHi(const unsigned short *img) { return Gfx_LoadFaceHiAt(0, img); }
 
 /* ---------------------------------------------------------------- camera */
 static float PITCH_C = 0.7071f, PITCH_S = 0.7071f;

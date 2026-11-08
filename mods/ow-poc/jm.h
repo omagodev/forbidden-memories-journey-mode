@@ -134,7 +134,10 @@ int Gfx_LoadFaceFile(const char *path);               /* a 48x48 record of our o
 int Gfx_LoadFaceRgb(const unsigned short *img);
 #define HERO_FACE_HI 168     /* the hero's talk face: 168 texels for the 84-pixel slot (2x at the console's resolution) */
 #define HERO_FACE_Y 256      /* ...in bank 14 below the atlas, x 0 */
+#define NPC_FACE_X 256       /* a second 168x168 slot beside it (x 256..423, y 256..423: its own texture page, nothing else there) for the person
+                              * the hero talks or duels with, so both high-resolution faces can be up at once */
 int Gfx_LoadHeroFaceHi(const unsigned short *img);
+int Gfx_LoadFaceHiAt(int x, const unsigned short *img);   /* a 168x168 face at (x, HERO_FACE_Y): 0 the hero, NPC_FACE_X the other person */
 int Paint_HeroFaceHi(void);                          /* the chosen look's 168x168 face into the bank, 0 without a look */     /* a 48x48 face cut from a map sprite */
 int Gfx_LoadFace(int duelist);                       /* disc portrait into the speaker slot */
 extern unsigned gfx_frame;

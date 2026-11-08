@@ -8,17 +8,22 @@ SCENARIOS = {
         desc="the duel's life-point faces: simon's own map face, the created hero's face (not the disc portraits)",
         preset="2 rumors heard (Simon next)", debug={"skip_dialogue": True, "teleport": "house_ne_door"},
         steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
-        expect=["journey: duel faces: simon map sheet", "hero creator face"]),
+        expect=["journey: duel faces: simon map sheet 168x168", "hero creator face"]),
+    "duel_face_teana": dict(
+        desc="the duel's life-point faces: teana's own map face, the created hero's face (not the disc portraits)",
+        preset="13 two stamps (Teana last)", debug={"skip_dialogue": True, "teleport": "teana_stall"},
+        steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
+        expect=["journey: duel faces: teana map sheet 168x168", "hero creator face"]),
     "duel_face_hakim": dict(
         desc="the duel's life-point faces: hakim's own map face, the created hero's face (not the disc portraits)",
         preset="5 Stamp Card (Hakim next)", debug={"skip_dialogue": True},
         steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
-        expect=["journey: duel faces: baker map sheet", "hero creator face"]),
+        expect=["journey: duel faces: baker map sheet 48x48", "hero creator face"]),
     "duel_face_kemet": dict(
         desc="the duel's life-point faces: kemet's own map face, the created hero's face (not the disc portraits)",
         preset="6 Hakim's hint (Kemet next)", debug={"skip_dialogue": True},
         steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
-        expect=["journey: duel faces: farmer map sheet", "hero creator face"]),
+        expect=["journey: duel faces: farmer map sheet 48x48", "hero creator face"]),
     "talk_face_simon": dict(
         desc="the dialogue portrait of simon (source-sheet 168px face where the sheet has one)",
         preset="6 Hakim's hint (Kemet next)", debug={"teleport": "house_ne_door"},

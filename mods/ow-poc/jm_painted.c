@@ -1788,7 +1788,7 @@ int Paint_HeroFaceHi(void)
     return Gfx_LoadHeroFaceHi(hero_face);
 }
 /* A 168x168 face framed like the 48x48 preset but taken from the large source sheet the map sprite was baked from
- * (tools/make_hd_faces.py, assets/faces/<sheet>.hface), into the hero's high-resolution spot.  0 when the sheet has none. */
+ * (tools/make_hd_faces.py, assets/faces/<sheet>.hface), into the second high-resolution slot (NPC_FACE_X), beside the hero's.  0 when the sheet has none. */
 int Paint_LoadSpriteFaceHi(int i)
 {
     static unsigned short img[HF * HF];
@@ -1804,8 +1804,8 @@ int Paint_LoadSpriteFaceHi(int i)
     if (!d || size != HF * HF * 2) { free(d); return 0; }
     for (n = 0; n < HF * HF; n++) img[n] = (unsigned short)(d[n * 2] | d[n * 2 + 1] << 8);
     free(d);
-    LOG("talk face: %s %dx%d from the source sheet", path, HF, HF);
-    return Gfx_LoadHeroFaceHi(img);
+    LOG("talk face: %s %dx%d from the source sheet (slot x %d)", path, HF, HF, NPC_FACE_X);
+    return Gfx_LoadFaceHiAt(NPC_FACE_X, img);
 }
 int Paint_LoadSpriteFace(int i)
 {
