@@ -4,6 +4,12 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "walk_sprites": dict(
+        desc="the hero walking in all four directions (snaps mid-stride) and the villagers walking: UP must not tear, NPCs must step",
+        preset="6 Hakim's hint (Kemet next)",
+        steps=[("wait", 30), ("hold", "left", 50), ("hold", "down", 30), ("wait", 20), ("snap", "idle")] + [st for d in ("up", "left", "down", "right") for st in (("walk", d, 3, 7, "hero"), ("wait", 20), ("snap", "idle_" + d))]
+              + [st for i in range(4) for st in (("wait", 9), ("snap", "npcs%d" % i))],
+        expect=["debug: preset 5", "npc anim: 3 frame 1 dir 1 moving 1", "npc anim: 3 frame 3 dir 2 moving 1", "npc anim: 6 frame 3 dir 1 moving 1"]),
     "village_roads": dict(
         desc="the village with the new roads: plaza, west road, bakery, bridge (chord R1+L1+Right cycles the anchors)",
         preset="6 Hakim's hint (Kemet next)",

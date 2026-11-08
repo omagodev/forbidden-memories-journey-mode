@@ -1527,7 +1527,16 @@ void Paint_Draw(const Mesh *body, const int body_rgb[5])
         int sp;
         if (!npc_here(i)) continue;
         sp = paint_sprite ? pnpc[i].spr : -1;   /* every look but "3D mesh" shows the people as sprites */
-        if (sp >= 0 && spr[sp].ok) draw_spr_lift(sp, pnpc[i].x, pnpc[i].y, spr_dir_from_yaw(pnpc[i].yaw), spr_frame_of(sp, pnpc[i].moving), 20, pnpc[i].hover * sinf((float)gfx_frame * 0.07f));
+        if (sp >= 0 && spr[sp].ok) {
+            int fr = spr_frame_of(sp, pnpc[i].moving), dr = spr_dir_from_yaw(pnpc[i].yaw);
+            if (Dbg_On()) {   /* the smoke's walk check: each change of a villager's drawn cell */
+                static signed char last[64];
+                static int logged;
+                int key = fr * 4 + dr + 1;
+                if (i < 64 && last[i] != key && logged < 400) { last[i] = (signed char)key; logged++; LOG("npc anim: %d frame %d dir %d moving %d", i, fr, dr, pnpc[i].moving); }
+            }
+            draw_spr_lift(sp, pnpc[i].x, pnpc[i].y, dr, fr, 20, pnpc[i].hover * sinf((float)gfx_frame * 0.07f));
+        }
         else draw_char(Gfx_Mesh(pnpc[i].mesh), pnpc[i].x, pnpc[i].y, pnpc[i].yaw, 0, NULL, 20);
     }
     {

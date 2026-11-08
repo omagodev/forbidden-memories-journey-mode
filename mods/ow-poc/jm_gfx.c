@@ -587,6 +587,10 @@ void Gfx_SpriteQuadEx(int x0, int y0, int w, int h, int bank, int page, int u0, 
     Item *it = push(depth, 2);
     POLY_FT4 *p;
     if (!it) return;
+    /* u/v are 8-bit page coordinates: a cell that ends on the page edge (the 64px hero's UP row, v 192 + 64 = 256) would wrap
+     * to 0 and draw the whole page squeezed into strips, so stop at texel 255 and shrink the quad by the same fraction */
+    if (v0 + vh > 255 && vh > 0) { int nv = 255 - v0; h = (h * nv + vh / 2) / vh; vh = nv; }
+    if (u0 + uw > 255 && uw > 0) { int nu = 255 - u0; w = (w * nu + uw / 2) / uw; uw = nu; }
     p = &it->p.ft4;
     setPolyFT4(p);
     p->tpage = (u16)(GetTPage(2, abr < 0 ? 0 : abr, (page & 3) * 256, (page >> 2) * 256) | (u16)(bank << 11));

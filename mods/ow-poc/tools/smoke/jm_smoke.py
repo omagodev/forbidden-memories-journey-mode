@@ -119,6 +119,11 @@ class Run:
         if op == "wait": g.step(s[1])
         elif op == "press": g.press(s[1], hold=s[2] if len(s) > 2 else 5, after=s[3] if len(s) > 3 else 12)
         elif op == "hold": g.press(s[1], hold=s[2], after=4)
+        elif op == "walk":                    # hold a direction and snap every s[3] frames while it is held: (walk, dir, n_snaps, every, label)
+            g.pad(s[1])
+            for k in range(s[2]):
+                g.step(s[3]); self.snap("%s_%s%d" % (s[4], s[1], k))
+            g.pad(0); g.step(4)
         elif op == "until":
             if not self.until(s[1], s[2] if len(s) > 2 else 900): self.problems.append("timeout waiting for log %r" % s[1])
         elif op == "snap": self.snap(s[1])
