@@ -366,13 +366,13 @@
     },
     {
      "speaker": "narrator",
-     "text": "On a far rooftop, a robed figure stands in a faint green shimmer.",
+     "text": "On a far rooftop, a robed figure is watching you. A green glow surrounds him.",
      "label": "Far Away",
      "kind": "caption"
     },
     {
      "speaker": "atos",
-     "text": "Somebody is watching me from up there... Gone. Only a flicker of green."
+     "text": "Someone is watching me from up there... Gone. Only a green glow is left."
     },
     {
      "speaker": "atos",
@@ -404,7 +404,7 @@
     },
     {
      "speaker": "hooded_man",
-     "text": "And ignore the one on the roof. He only watches. He never touches."
+     "text": "And don't worry about the man on the roof. He only watches."
     },
     {
      "speaker": "atos",
@@ -412,7 +412,7 @@
     },
     {
      "speaker": "hooded_man",
-     "text": "A reader, not a writer. Not tonight. Now, to business."
+     "text": "They call him Mago.dev. He sees everything and almost never steps in. Now, to business."
     },
     {
      "speaker": "atos",
@@ -1239,21 +1239,21 @@
     },
     {
      "speaker": "narrator",
-     "text": "On the far breakwater, a robed figure glows green and looks at your Star Passage.",
+     "text": "On the breakwater, the robed figure in green watches you receive the Passage.",
      "label": "Far Away",
      "kind": "caption"
     },
     {
      "speaker": "shadi",
-     "text": "Hm. Someone has read your Passage. Ignore him. He only reads."
+     "text": "That is Mago.dev. He watches duelists. Don't get distracted."
     },
     {
      "speaker": "atos",
-     "text": "Who is 'he'?"
+     "text": "Is he going to get in my way?"
     },
     {
      "speaker": "shadi",
-     "text": "A reader. He never turns a page for you. Back to your Passage."
+     "text": "Only if he has to. Now, about your Passage."
     },
     {
      "speaker": "shadi",
@@ -1593,7 +1593,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "At the top of the mast, a robed figure sits in a green shimmer, watching the island.",
+     "text": "At the top of the mast, the robed figure watches the island, wrapped in a green glow.",
      "label": "Up High",
      "kind": "caption"
     },
@@ -1634,17 +1634,17 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Green characters flicker on the wall, like a window into something else.",
+     "text": "Green letters glow on the wall. Someone just wrote this.",
      "label": "Wall",
      "kind": "caption"
     },
     {
      "speaker": "atos",
-     "text": "I can't read it. Something like 'observe... do not edit'."
+     "text": "I can read it: 'I am keeping an eye on you. Mago.dev.'"
     },
     {
      "speaker": "narrator",
-     "text": "The glyphs fade. Nothing in the room has changed.",
+     "text": "The letters fade. The wall is back to normal.",
      "label": "Wall",
      "kind": "caption"
     }
@@ -1664,11 +1664,11 @@
    "pages": [
     {
      "speaker": "bakura",
-     "text": "The green writing on the wall? It was here before me."
+     "text": "The green letters on the wall? They show up by themselves now and then."
     },
     {
      "speaker": "bakura",
-     "text": "It never helps and never harms. It only watches. I like it. Good company."
+     "text": "They say it's a wizard who watches everyone. He has never hurt me."
     }
    ]
   },
@@ -2167,7 +2167,7 @@
    "pages": [
     {
      "speaker": "hooded_man",
-     "text": "The Kingdom tests more than decks. Watch who collects the stars."
+     "text": "Mago.dev is on this beach. If he calls you to a duel, go prepared."
     },
     {
      "speaker": "narrator",
@@ -3287,11 +3287,11 @@
     },
     {
      "speaker": "isis",
-     "text": "The cards show a watcher. Not from this island. Not from this world."
+     "text": "The cards show Mago.dev. He has watched you since your village."
     },
     {
      "speaker": "isis",
-     "text": "He writes reality, yet today he only reads. Do not seek him."
+     "text": "He can change the world when he wants, but he only does it when he must."
     },
     {
      "speaker": "isis",
@@ -3347,7 +3347,7 @@
    "pages": [
     {
      "speaker": "isis",
-     "text": "The watcher still turns a page. You do not need him. Go."
+     "text": "Mago.dev is still watching. Go your own way."
     }
    ]
   },
@@ -3639,13 +3639,13 @@
     },
     {
      "speaker": "narrator",
-     "text": "In the crowd, one figure stands perfectly still in a green shimmer.",
+     "text": "In the crowd, a robed figure stands still, wrapped in a green glow.",
      "label": "Crowd",
      "kind": "caption"
     },
     {
      "speaker": "mago_hidden",
-     "text": "Take your time. I have all of it."
+     "text": "Well done. Keep it up."
     },
     {
      "speaker": "narrator",
@@ -3655,7 +3655,7 @@
     },
     {
      "speaker": "atos",
-     "text": "Did someone just... talk? The ring is louder than my thoughts."
+     "text": "Was that Mago.dev? He always shows up after my duels."
     },
     {
      "speaker": "jono",
@@ -4148,17 +4148,17 @@
     },
     {
      "speaker": "narrator",
-     "text": "In a hall mirror, behind your reflection, a green shimmer watches and does not delete him.",
+     "text": "In the hall mirror, behind your reflection, Mago.dev watches in silence.",
      "label": "Mirror",
      "kind": "caption"
     },
     {
      "speaker": "mago_hidden",
-     "text": "I could end this line. I will not. Play."
+     "text": "I could have stopped this duel. I didn't need to. You won on your own."
     },
     {
      "speaker": "atos",
-     "text": "Who... was that? The stairs up are open. Pegasus waits."
+     "text": "Mago.dev... The stairs are open. Pegasus is waiting."
     },
     {
      "speaker": "narrator",
@@ -4420,21 +4420,21 @@
     },
     {
      "speaker": "narrator",
-     "text": "On the plaza bench, the green shimmer finally sits still. You notice him.",
+     "text": "On the plaza bench, Mago.dev sits, no glow and no hurry.",
      "label": "Bench",
      "kind": "caption"
     },
     {
      "speaker": "mago_hidden",
-     "text": "Took you long enough."
+     "text": "You reached the end. I watched every step."
     },
     {
      "speaker": "atos",
-     "text": "MAGO.DEV. You were in every chapter."
+     "text": "You were in every chapter, Mago.dev."
     },
     {
      "speaker": "mago_hidden",
-     "text": "And now you see me. Good game."
+     "text": "I was. Today I just came to enjoy the party. Good game."
     },
     {
      "speaker": "pegasus",
@@ -4699,6 +4699,231 @@
     {
      "speaker": "inseto",
      "text": "Go on. And don't lose. Only I get to beat you. HAHA... ha."
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_pre",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The wave stops in midair. The beach goes silent. A robed figure stands in front of you."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "I am Mago.dev. I have watched you since the village."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Today I will test you. No stars at stake. If you lose, you can try again."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "I darken the field before we start. In the Dark Domain, Spellcasters and Fiends gain 500 ATK and DEF. Fairies lose 500."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "My deck is very strong. Do you want to duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_win",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "You passed the first test. Keep this card."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The wave falls back into the sea. The field returns to normal."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Test 1 of 3 passed. You got the card Dark Elf."
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_lose",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Not yet. Train your deck and come back whenever you like."
+    },
+    {
+     "speaker": "narrator",
+     "text": "You lost no stars. Talk to Mago.dev to try again."
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_again",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "You already passed this test. Duel again in the Dark Domain? No prize this time.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_rewin",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "You won again. Keep it up."
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_pre",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The maze flowers turn gray. The paths close around you."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "That was me. I closed the maze so no one interrupts. It opens after the duel."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Second test. No stars at stake. My deck is stronger now."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "I darken the field before we start. In the Dark Domain, Spellcasters and Fiends gain 500 ATK and DEF. Fairies lose 500."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Ready to duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_win",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Good. You learn fast. This card is yours."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The flowers get their color back. The paths open."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Test 2 of 3 passed. You got the card Dark Magician."
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_lose",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Close. Adjust your deck and come back."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The flowers get their color back. You lost no stars. You can challenge Mago.dev again."
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_again",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Want another duel in the Dark Domain? No prize this time.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_rewin",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "You won again. Well done."
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_pre",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "The hall torches go out. Only Mago.dev's green glow lights the floor."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Last test. This is my full deck."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "No stars at stake. If you lose, try again whenever you want."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "I darken the field before we start. In the Dark Domain, Spellcasters and Fiends gain 500 ATK and DEF. Fairies lose 500."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Show me what you learned. Duel?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_win",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "You passed every test. I don't need to test you anymore."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The torches light up again."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Test 3 of 3 passed. You got the card Skull Knight."
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_lose",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Not yet. Come back when you are ready."
+    },
+    {
+     "speaker": "narrator",
+     "text": "The torches light up again. You lost no stars. You can challenge Mago.dev again."
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_again",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Want to duel me again in the Dark Domain? No prize this time.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_rewin",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Again. You really are good at this."
     }
    ]
   }

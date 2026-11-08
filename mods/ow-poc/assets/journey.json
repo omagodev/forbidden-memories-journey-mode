@@ -68,7 +68,10 @@
   "pegasus_won",
   "wish_festival",
   "inseto_macaco",
-  "inseto_here"
+  "inseto_here",
+  "mago_test1_won",
+  "mago_test2_won",
+  "mago_test3_won"
  ],
  "areas": [
   {
@@ -3846,6 +3849,180 @@
       "stage_lt": 35
      },
      "anchor": "castle_hall.inseto_spot"
+    }
+   ]
+  },
+  {
+   "id": "mago_shore",
+   "name": "Mago.dev",
+   "mesh": "Wizard",
+   "anchor": "kingdom_beach.mago_test",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 10,
+      "lacks": [
+       "mago_test1_won"
+      ]
+     },
+     "scene": "mago_test1_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       551
+      ],
+      "flags": [
+       "mago_test1_won"
+      ],
+      "scene": "mago_test1_win"
+     },
+     "lose": {
+      "scene": "mago_test1_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 10,
+      "needs": [
+       "mago_test1_won"
+      ]
+     },
+     "scene": "mago_test1_again",
+     "duel": true,
+     "win": {
+      "scene": "mago_test1_rewin"
+     },
+     "lose": {
+      "scene": "mago_test1_lose"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "duelist": "dk_mago_dev_1",
+   "terrain": 6,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 10
+     },
+     "anchor": "kingdom_beach.mago_test"
+    }
+   ]
+  },
+  {
+   "id": "mago_meadow",
+   "name": "Mago.dev",
+   "mesh": "Wizard",
+   "anchor": "kingdom_meadow.mago_test",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 22,
+      "lacks": [
+       "mago_test2_won"
+      ]
+     },
+     "scene": "mago_test2_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       35
+      ],
+      "flags": [
+       "mago_test2_won"
+      ],
+      "scene": "mago_test2_win"
+     },
+     "lose": {
+      "scene": "mago_test2_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 22,
+      "needs": [
+       "mago_test2_won"
+      ]
+     },
+     "scene": "mago_test2_again",
+     "duel": true,
+     "win": {
+      "scene": "mago_test2_rewin"
+     },
+     "lose": {
+      "scene": "mago_test2_lose"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "duelist": "dk_mago_dev_2",
+   "terrain": 6,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 22
+     },
+     "anchor": "kingdom_meadow.mago_test"
+    }
+   ]
+  },
+  {
+   "id": "mago_hall",
+   "name": "Mago.dev",
+   "mesh": "Wizard",
+   "anchor": "castle_hall.mago_test",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 33,
+      "lacks": [
+       "mago_test3_won"
+      ]
+     },
+     "scene": "mago_test3_pre",
+     "duel": true,
+     "win": {
+      "cards": [
+       707
+      ],
+      "flags": [
+       "mago_test3_won"
+      ],
+      "scene": "mago_test3_win"
+     },
+     "lose": {
+      "scene": "mago_test3_lose"
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 33,
+      "needs": [
+       "mago_test3_won"
+      ]
+     },
+     "scene": "mago_test3_again",
+     "duel": true,
+     "win": {
+      "scene": "mago_test3_rewin"
+     },
+     "lose": {
+      "scene": "mago_test3_lose"
+     }
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "duelist": "dk_mago_dev_3",
+   "terrain": 6,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 33
+     },
+     "anchor": "castle_hall.mago_test"
     }
    ]
   }

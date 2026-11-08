@@ -366,13 +366,13 @@
     },
     {
      "speaker": "narrator",
-     "text": "Num telhado distante, uma figura de manto fica num leve brilho verde.",
+     "text": "Num telhado distante, uma figura de manto observa voce. Um brilho verde o envolve.",
      "label": "Ao Longe",
      "kind": "caption"
     },
     {
      "speaker": "atos",
-     "text": "Alguem me observa la de cima... Sumiu. So um piscar de verde."
+     "text": "Tem alguem me olhando la de cima... Sumiu. So ficou um brilho verde."
     },
     {
      "speaker": "atos",
@@ -404,7 +404,7 @@
     },
     {
      "speaker": "hooded_man",
-     "text": "E ignore aquele no telhado. Ele so observa. Nunca toca em nada."
+     "text": "E nao se preocupe com o homem do telhado. Ele so observa."
     },
     {
      "speaker": "atos",
@@ -412,7 +412,7 @@
     },
     {
      "speaker": "hooded_man",
-     "text": "Um leitor, nao um escritor. Nao hoje a noite. Agora, aos negocios."
+     "text": "Chamam ele de Mago.dev. Ele ve tudo e quase nunca interfere. Agora, ao que importa."
     },
     {
      "speaker": "atos",
@@ -1239,21 +1239,21 @@
     },
     {
      "speaker": "narrator",
-     "text": "No quebra-mar distante, uma figura de manto brilha em verde e olha a sua Passagem Estelar.",
+     "text": "No quebra-mar, a figura de manto verde observa voce receber a Passagem.",
      "label": "Ao Longe",
      "kind": "caption"
     },
     {
      "speaker": "shadi",
-     "text": "Hum. Alguem leu a sua Passagem. Ignore. Ele so le."
+     "text": "Aquele ali e o Mago.dev. Ele observa os duelistas. Nao se distraia."
     },
     {
      "speaker": "atos",
-     "text": "Quem e 'ele'?"
+     "text": "Ele vai me atrapalhar?"
     },
     {
      "speaker": "shadi",
-     "text": "Um leitor. Ele nunca vira a pagina por voce. Volte a sua Passagem."
+     "text": "So se for preciso. Agora, sobre a sua Passagem."
     },
     {
      "speaker": "shadi",
@@ -1593,7 +1593,7 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "No topo do mastro, uma figura de manto senta num brilho verde, olhando a ilha.",
+     "text": "No alto do mastro, a figura de manto observa a ilha, envolta em brilho verde.",
      "label": "La no Alto",
      "kind": "caption"
     },
@@ -1634,17 +1634,17 @@
    "pages": [
     {
      "speaker": "narrator",
-     "text": "Letras verdes piscam na parede, como uma janela para outra coisa.",
+     "text": "Letras verdes brilham na parede. Alguem escreveu isso agora mesmo.",
      "label": "Parede",
      "kind": "caption"
     },
     {
      "speaker": "atos",
-     "text": "Nao consigo ler. Algo como 'observar... nao editar'."
+     "text": "Da pra ler: 'Estou de olho em voce. Mago.dev.'"
     },
     {
      "speaker": "narrator",
-     "text": "As letras somem. Nada na sala mudou.",
+     "text": "As letras somem. A parede volta ao normal.",
      "label": "Parede",
      "kind": "caption"
     }
@@ -1664,11 +1664,11 @@
    "pages": [
     {
      "speaker": "bakura",
-     "text": "A escrita verde na parede? Ja estava aqui antes de mim."
+     "text": "As letras verdes na parede? Aparecem sozinhas de vez em quando."
     },
     {
      "speaker": "bakura",
-     "text": "Nunca ajuda e nunca atrapalha. So observa. Eu gosto. Boa companhia."
+     "text": "Dizem que e um mago que observa todo mundo. Ele nunca me fez mal."
     }
    ]
   },
@@ -2167,7 +2167,7 @@
    "pages": [
     {
      "speaker": "hooded_man",
-     "text": "O Reino testa mais que baralhos. Observe quem junta as estrelas."
+     "text": "O Mago.dev esta nesta praia. Se ele te chamar para um duelo, va preparado."
     },
     {
      "speaker": "narrator",
@@ -3287,11 +3287,11 @@
     },
     {
      "speaker": "isis",
-     "text": "As cartas mostram um observador. Nao e desta ilha. Nao e deste mundo."
+     "text": "As cartas mostram o Mago.dev. Ele observa voce desde a sua vila."
     },
     {
      "speaker": "isis",
-     "text": "Ele escreve a realidade, mas hoje so le. Nao o procure."
+     "text": "Ele pode mudar o mundo quando quer, mas so faz isso quando precisa."
     },
     {
      "speaker": "isis",
@@ -3347,7 +3347,7 @@
    "pages": [
     {
      "speaker": "isis",
-     "text": "O observador ainda vira uma pagina. Voce nao precisa dele. Va."
+     "text": "O Mago.dev continua observando. Siga o seu caminho."
     }
    ]
   },
@@ -3639,13 +3639,13 @@
     },
     {
      "speaker": "narrator",
-     "text": "Na multidao, uma figura fica perfeitamente parada num brilho verde.",
+     "text": "Na multidao, uma figura de manto fica parada, envolta em brilho verde.",
      "label": "Multidao",
      "kind": "caption"
     },
     {
      "speaker": "mago_hidden",
-     "text": "Leve o tempo que precisar. Eu tenho todo ele."
+     "text": "Muito bem. Continue assim."
     },
     {
      "speaker": "narrator",
@@ -3655,7 +3655,7 @@
     },
     {
      "speaker": "atos",
-     "text": "Alguem acabou de... falar? O ringue esta mais alto que meus pensamentos."
+     "text": "Era o Mago.dev? Ele sempre aparece depois dos meus duelos."
     },
     {
      "speaker": "jono",
@@ -4148,17 +4148,17 @@
     },
     {
      "speaker": "narrator",
-     "text": "Num espelho do salao, atras do seu reflexo, um brilho verde observa e nao o apaga.",
+     "text": "No espelho do salao, atras do seu reflexo, o Mago.dev observa em silencio.",
      "label": "Espelho",
      "kind": "caption"
     },
     {
      "speaker": "mago_hidden",
-     "text": "Eu poderia acabar com esta linha. Nao vou. Jogue."
+     "text": "Eu podia ter parado este duelo. Nao precisei. Voce venceu sozinho."
     },
     {
      "speaker": "atos",
-     "text": "Quem... foi aquilo? As escadas sobem. Pegasus espera."
+     "text": "Mago.dev... A escada esta aberta. Pegasus espera."
     },
     {
      "speaker": "narrator",
@@ -4420,21 +4420,21 @@
     },
     {
      "speaker": "narrator",
-     "text": "No banco da praca, o brilho verde finalmente fica quieto. Voce o nota.",
+     "text": "No banco da praca, o Mago.dev esta sentado, sem brilho e sem pressa.",
      "label": "Banco",
      "kind": "caption"
     },
     {
      "speaker": "mago_hidden",
-     "text": "Demorou, hein."
+     "text": "Voce chegou ao fim. Eu observei cada passo."
     },
     {
      "speaker": "atos",
-     "text": "MAGO.DEV. Voce estava em cada capitulo."
+     "text": "Voce estava em todos os capitulos, Mago.dev."
     },
     {
      "speaker": "mago_hidden",
-     "text": "E agora voce me ve. Bom jogo."
+     "text": "Estava. Hoje eu so vim aproveitar a festa. Bom jogo."
     },
     {
      "speaker": "pegasus",
@@ -4699,6 +4699,231 @@
     {
      "speaker": "inseto",
      "text": "Vai logo. E nao perde. So eu posso te derrotar. HAHA... ha."
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_pre",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "A onda para no ar. O som da praia some. Uma figura de manto esta na sua frente."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Eu sou o Mago.dev. Eu observo voce desde a vila."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Hoje eu vou te testar. Sem estrelas em jogo. Se perder, pode tentar de novo."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Eu escureco o campo antes de comecar. No Dominio das Trevas, Magos e Demonios ganham 500 de ATK e DEF. Fadas perdem 500."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Meu baralho e muito forte. Quer duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_win",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Voce passou no primeiro teste. Fique com esta carta."
+    },
+    {
+     "speaker": "narrator",
+     "text": "A onda cai de volta no mar. O campo volta ao normal."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Teste 1 de 3 vencido. Voce ganhou a carta Dark Elf."
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_lose",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Ainda nao. Treine o seu baralho e volte quando quiser."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Voce nao perdeu estrelas. Fale com o Mago.dev para tentar de novo."
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_again",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Voce ja passou neste teste. Quer duelar de novo no Dominio das Trevas? Sem premio desta vez.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test1_rewin",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Venceu de novo. Continue assim."
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_pre",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "As flores do labirinto ficam cinzas. Os caminhos se fecham ao seu redor."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Fui eu. Fechei o labirinto para ninguem atrapalhar. Ele abre depois do duelo."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Segundo teste. Sem estrelas em jogo. Meu baralho esta mais forte."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Eu escureco o campo antes de comecar. No Dominio das Trevas, Magos e Demonios ganham 500 de ATK e DEF. Fadas perdem 500."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Pronto para duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_win",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Bom. Voce aprende rapido. Esta carta e sua."
+    },
+    {
+     "speaker": "narrator",
+     "text": "As flores voltam a ter cor. Os caminhos se abrem."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Teste 2 de 3 vencido. Voce ganhou a carta Dark Magician."
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_lose",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Faltou pouco. Ajuste o baralho e volte."
+    },
+    {
+     "speaker": "narrator",
+     "text": "As flores voltam a ter cor. Voce nao perdeu estrelas. Pode desafiar o Mago.dev de novo."
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_again",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Quer outro duelo no Dominio das Trevas? Sem premio desta vez.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test2_rewin",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Venceu de novo. Muito bem."
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_pre",
+   "pages": [
+    {
+     "speaker": "narrator",
+     "text": "As tochas do salao se apagam. So o brilho verde do Mago.dev ilumina o chao."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Ultimo teste. Este e o meu baralho completo."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Sem estrelas em jogo. Se perder, tente de novo quando quiser."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Eu escureco o campo antes de comecar. No Dominio das Trevas, Magos e Demonios ganham 500 de ATK e DEF. Fadas perdem 500."
+    },
+    {
+     "speaker": "mago_dev",
+     "text": "Mostre o que aprendeu. Duelar?",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_win",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Voce passou em todos os testes. Nao preciso mais te testar."
+    },
+    {
+     "speaker": "narrator",
+     "text": "As tochas acendem de novo."
+    },
+    {
+     "speaker": "narrator",
+     "text": "Teste 3 de 3 vencido. Voce ganhou a carta Skull Knight."
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_lose",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Ainda nao. Volte quando estiver pronto."
+    },
+    {
+     "speaker": "narrator",
+     "text": "As tochas acendem de novo. Voce nao perdeu estrelas. Pode desafiar o Mago.dev de novo."
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_again",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "Quer duelar comigo de novo no Dominio das Trevas? Sem premio desta vez.",
+     "ask": true
+    }
+   ]
+  },
+  {
+   "id": "mago_test3_rewin",
+   "pages": [
+    {
+     "speaker": "mago_dev",
+     "text": "De novo. Voce e mesmo bom nisso."
     }
    ]
   }

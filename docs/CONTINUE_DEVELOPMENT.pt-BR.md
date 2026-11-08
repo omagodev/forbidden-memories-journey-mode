@@ -139,3 +139,8 @@ Use `python3 mods/ow-poc/tools/smoke/fast.py` para a tabela de presets e `mods/o
 
 - A folha 50x64 do herói criado (10 quadros, 5 por página de 256 texels) ocupa as páginas 0-1 do banco 13; a v0.6.22 pôs o InsetoKaiba na página 1 e o herói andando mostrava a folha dele. Agora o InsetoKaiba usa a página 2 com o herói criado (página 1 com o herói antigo 25x38), escolhida a cada carga (`inseto_page`). Cada carga registra as páginas que ocupa de verdade (`pages_claim`) e registra `sprite page collision` se houver sobreposição; os smokes falham nisso. A mesma checagem achou a folha do mercador sobre a página do Bakura no deserto (corrigido). Smoke: `hero_walk_with_inseto`.
 - Falas do InsetoKaiba: "Eu vim ver o macaco." só abre a primeira conversa depois de chegar num lugar (flag `inseto_here`, limpa a cada troca de área e ao carregar); nenhum outro xingamento; na vila ele não fala mais de Reino, estrelas ou convite antes do Simon explicar. `tools/check_rival_text.py`; smokes `rival_village`, `rival_fair`.
+
+## Notas da v0.6.24-alpha
+
+- MAGO.DEV: dialogos simples em PT/EN em todas as cenas que falam dele; tres duelos-teste opcionais (praia estagio 10+, campina 22+, salao do castelo 33+), decks fixos de 40 cartas Mago/Demonio. Sem estrelas em jogo; flags `mago_testN_won`, uma carta na primeira vitoria; revanche sem premio.
+- Um NPC do journey.json com `"terrain"` (1-6) define `gDuel_bTerrain` logo apos `func_80024DC8`; o MAGO.DEV usa 6 (Trevas/Yami). As cenas antes do duelo tocam a musica `tension_wager`. Smokes `mago_shore`, `mago_shore_lose`, `mago_meadow`, `mago_hall`, `terrain_reset_kemet`.

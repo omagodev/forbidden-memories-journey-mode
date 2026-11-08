@@ -25,6 +25,7 @@
 #include "pc/mods/modapi.h"
 #include "pc/platform/mod_mode.h"
 #include "jm.h"
+extern u8 gDuel_bTerrain;
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -340,6 +341,8 @@ static void begin_scene(const char *id, int intro, int result)
     /* epic / festival cues for the Kingdom finale */
     if (id && !strcmp(id, "dk9_heishin_pre") && track_cfg("epic_heishin") >= 0)
         Jm_MusicCue(track_cfg("epic_heishin"), "epic_heishin");
+    else if (id && !strncmp(id, "mago_test", 9) && strstr(id, "_pre") && track_cfg("tension_wager") >= 0)
+        Jm_MusicCue(track_cfg("tension_wager"), "mago_test");   /* MAGO.DEV darkens the field: the tension song */
     else if (id && !strcmp(id, "dk10_pegasus_pre") && track_cfg("epic_pegasus") >= 0)
         Jm_MusicCue(track_cfg("epic_pegasus"), "epic_pegasus");
     else if (id && (!strcmp(id, "dk10_epilogue") || !strcmp(id, "dk10_wish_orb") || !strcmp(id, "dk10_pegasus_win"))
@@ -476,6 +479,12 @@ static void arm_duel(int npc)
     state = ST_TO_DUEL;
     LOG("journey: duel against %s (duelist %d)", npcs[npc].name, npcs[npc].duelist_id);
     func_80024DC8(-1, npcs[npc].duelist_id, 0x6000, 0x6000);
+    /* func_80024DC8 has just reset the field, so every other duel keeps the game's own;
+       a person with a "terrain" (MAGO.DEV: 6, Yami) starts his duel on it, as the Tower's floors do. */
+    if (npcs[npc].terrain > 0) {
+        gDuel_bTerrain = (u8)npcs[npc].terrain;
+        LOG("duel field: %s starts on terrain %d", npcs[npc].name, npcs[npc].terrain);
+    }
 }
 
 /* gLibrary_dwStarchips is the game's duel-performance currency, not jm.stars. */
@@ -1042,7 +1051,7 @@ static void run(int first)
                 break;
             }
             if (ask_sel == 0) { scene_idx++; if (scene_idx >= scene_n) end_scene(); else open_page(); }
-            else { duel_win = duel_lose = NULL; end_scene(); }
+            else { if (music_cue_tag && !strcmp(music_cue_tag, "mago_test")) Jm_MusicClear(); duel_win = duel_lose = NULL; end_scene(); }
         }
         break;
     case ST_MENU: {

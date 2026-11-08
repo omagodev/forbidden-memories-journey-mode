@@ -151,8 +151,27 @@ class Run:
                 if g.mode() != Y.MODE["duel"]: break
                 g.press("circle", hold=4, after=40)
             self.until("duel over", s[1] if len(s) > 1 else 1800)
-        elif op == "duel_kill":               # a real duel won by a real attack: the opponent's LP set low, a monster played face up, a direct attack
+        elif op == "duel_probe":              # the duel's field must be terrain s[1] from the start; play s[2] turns and list the opponent's monsters (id, ATK/DEF on the field)
             g.duel_ready(); g.step(60)
+            got = g.u8("gDuel_bTerrain")
+            print("duel terrain %d" % got)
+            if got != s[1]: self.problems.append("duel terrain %d, not %d" % (got, s[1]))
+            self.snap("probe_start")
+            for turn in range(s[2] if len(s) > 2 else 3):
+                if g.duel_over(): break
+                hand = g.duel()[0]["hand"]
+                slot = next((i for i, c in enumerate(hand) if c and c["attack"] > 0), 0)
+                g.play_card(slot, face_up=False)
+                if g.duel_over(): break
+                g.end_turn(); g.step(240)
+                theirs = [c for c in g.duel()[1]["monsters"] if c]
+                print("probe turn %d: opponent monsters %s" % (turn, [(c["id"], c["attack"], c["defense"], c["face_down"]) for c in theirs]))
+                self.snap("probe_turn%d" % turn)
+            self.probed = True
+        elif op == "duel_kill":               # a real duel won by a real attack: the opponent's LP set low, a monster played face up, a direct attack
+            if not getattr(self, "probed", False): g.duel_ready()
+            self.probed = False
+            g.step(60)
             g.poke("D_800E9FF0", struct.pack("<hHh", 100, 100, 8000), offset=Y.SIDE_SIZE + 0x12)
             for _turn in range(14):
                 if g.duel_over(): break
