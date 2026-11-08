@@ -29,6 +29,8 @@ The core idea: the duelists from the game's memory are **linked directly to NPCs
 |---|---|
 | ![Duel against Simon Muran](docs/media/v0620_duel_simon.png) | ![Duel against Teana](docs/media/v0620_duel_teana.png) |
 | *In the duel, Simon has the same face as on the map and in his dialogue* | *Teana, with her own face from her map art* |
+| ![InsetoKaiba in the home town](docs/media/v0622_inseto_macaco.png) | ![InsetoKaiba on the Mountain Pass](docs/media/v0622_inseto_mountain.png) |
+| *Your rival InsetoKaiba shows up from the very first act, already with his own Kingdom stars and invitation* | *...and keeps turning up, laughing, in almost every act* |
 
 ## Why sprites and not 3D?
 
@@ -92,7 +94,7 @@ That is more than **250 million** possible combinations (6 × 2 × 21 × 10 × 1
 
 **Your hero walking in game**
 
-![Your hero walking in game](docs/media/v0620_map_hero.png)
+![Your hero walking in game](docs/media/v0622_map_hero.png)
 
 </div>
 
@@ -129,7 +131,7 @@ Every town has a shop run by Teana: buy single cards with the real game art, ope
 
 ## Play
 
-> 📥 **No compiling needed.** Grab the Windows build [**JourneyMode_v0.6.21-alpha_Windows.zip**](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.21-alpha/JourneyMode_v0.6.21-alpha_Windows.zip) from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/tag/v0.6.21-alpha). Full guide: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
+> 📥 **No compiling needed.** Grab the Windows build [**JourneyMode_v0.6.22-alpha_Windows.zip**](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.22-alpha/JourneyMode_v0.6.22-alpha_Windows.zip) from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/tag/v0.6.22-alpha). Full guide: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
 
 1. Download the latest build from [**Releases**](https://github.com/omagodev/forbidden-memories-journey-mode/releases) and extract it.
 2. Copy your `.bin` into the `game` folder, then run `JOGAR_JourneyMode.bat` (or `memories-pc.exe`).

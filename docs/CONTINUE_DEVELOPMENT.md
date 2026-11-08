@@ -149,3 +149,11 @@ python3 mods/ow-poc/tools/smoke/jm_smoke.py run painted_menu_deck cap2_starter_d
 
 - 168x168 talk/duel faces for 21 more people (30 `.hface` in all), from the project's own source sheets now kept in `mods/ow-poc/tools/sprite_sheets/` (village: baker, farmer, ai; harbor and kingdom: `art_dk/kingdom/sheets`). Run `tools/make_hd_faces.py` to rebuild.
 - Harbor palms: `build_kingdom_assets.py` keeps only the leaves and trunk inside each palm's occluder polygon (`palm_only`), so the boardwalk no longer covers the hero behind the tree. Smoke: `harbor_palm`.
+
+## v0.6.22-alpha notes
+
+- InsetoKaiba's 12-card Feupys deck (merged from `feat/inseto-feupys-deck`): rare drop (4%) only from his ship and gate duels, not sold. Smokes: `feupys_drop` (forced with the `mod.ow-poc.feupys_drop_bp` setting, debug builds only), `feupys_deck_save`, `feupys_editor`.
+- InsetoKaiba as the recurring rival: journey.json people `inseto_village` (stages 1-5, "eu vim ver o macaco", flag `inseto_macaco`), `inseto_beach`, `inseto_forest`, `inseto_mountain`, `inseto_meadow`, `inseto_desert`, `inseto_hall` (scenes `rv_*`, EN/PT), plus the existing ship, fair and gate. His stars and invitation are story text, not the player's currency. His sheet now has its own page (bank 13 page 1) so he can stand in any area. `MAX_NPC` 64 (the last slot stays `ECO_NPC`). Smokes: `rival_<act>`.
+- NPC walk cycles: `tools/walk_strides.py` turns each 48x62 sheet's idle/step A/step B into a 4-frame stride (front/back: leg lifted 2 texels + body over the planted leg; sides: the sheet's strides + a passing pose); idle untouched, idempotent. `tools/check_walk_frames.py --base <rev>` checks the step changes, ground line and idle. Smoke: `npc_walk_cycle`.
+- Map HUD portrait: the created hero's 168px face scaled into the frame (preset 48px only if the creator face is missing).
+- Pre/post-duel faces: a Journey duel goes talk -> deck chest -> field -> result talk; there is no stock portrait screen. Smokes `duel_return_faces`, `duel_two_opponents`, `duel_loss_return` prove each talk and field face is the current opponent's.
