@@ -4,6 +4,12 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "hero_walk_with_inseto": dict(
+        clean_hud=True,
+        desc="the creator hero walking in all four directions next to InsetoKaiba in the village (v0.6.22 drew InsetoKaiba's sheet as the hero's walk frames): every page owned once",
+        preset="2 rumors heard (Simon next)", debug={"teleport": [640, 380]},
+        steps=[("wait", 60), ("snap", "idle")] + [st for d in ("up", "left", "down", "right") for st in (("walk", d, 3, 7, "hero"), ("wait", 20), ("snap", "idle_" + d))],
+        expect=["sprite pages: sprite 0 bank 13 pages 0..1", "sprite pages: sprite 21 bank 13 pages 2..2"], forbid=["sprite page collision"]),
     "duel_loss_return": dict(
         clean_hud=True,
         desc="a lost duel returns to the opponent's lose scene with her own 168px face (Teana)",

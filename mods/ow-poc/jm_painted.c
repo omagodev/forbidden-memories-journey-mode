@@ -124,6 +124,7 @@ static int spr_zone_ok(int i, int area)
     if ((area == AREA_FOREST || area == AREA_MOUNTAIN || area == AREA_MEADOW || area == AREA_DESERT || area == AREA_FAIR || area == AREA_GATE || area == AREA_HALL || area == AREA_TOP) && (i == SPR_WEEVIL)) return 0;
     if ((area == AREA_FOREST || area == AREA_MOUNTAIN || area == AREA_MEADOW || area == AREA_DESERT || area == AREA_FAIR || area == AREA_GATE || area == AREA_HALL) && (i == SPR_SHADI)) return 0;
     if (area == AREA_DESERT && i == SPR_MAI) return 0;   /* Isis borrows Mai's page in the dunes */
+    if (area == AREA_DESERT && i == SPR_TRADER) return 0;   /* Bakura's desert cameo owns bank 15 page 7 there (no trader-sheet person in the dunes) */
     if (i == SPR_REX && area == AREA_FOREST) return 1;     /* Rex shares Weevil's page: in the forest it is his */
     if (i == SPR_TEANA && area == AREA_SHIP) return 0;
     if (i == SPR_TEANA && (area == AREA_MEADOW || area == AREA_DESERT)) return 1;   /* Teana helper: maze, then desert */
@@ -142,6 +143,7 @@ static int spr_colours[5] = {-2, 0, 0, 0, 0};
 
 static unsigned lpc_sig;
 static int spr_load(int i);
+static void pages_reset(void);
 /* the creator (or a debug look) changed the hero: compose its cells again and bake them on the next draw */
 static void lpc_refresh(void)
 {
@@ -152,6 +154,8 @@ static void lpc_refresh(void)
     for (c = 0; c < s->nf * 4; c++) Cg_ComposeCellRgb(c, s->kind + (size_t)c * tex, s->rgb + (size_t)c * tex * 3);
     lpc_sig = Cg_Signature();
     spr_baked[SPR_LPC_TEST] = 0;
+    spr_baked[SPR_INSETO] = 0;     /* the hero's page count may have changed: InsetoKaiba's page follows it (inseto_page) */
+    pages_reset();
 }
 static int spr_load(int i)
 {
@@ -226,10 +230,37 @@ static void ghost_blocks(uint16_t *bank, int ox, int oy)
         }
 }
 
+/* The pages a sheet really covers: its frames are packed 256 / w to a page, so the 50x64 creator hero (10 frames, 5 a page)
+ * fills TWO pages (13/0 and 13/1).  Every bake claims its pages for the current picture; a second sheet on a claimed page is a
+ * collision (logged, and the smoke fails on it), so a page move can never silently paint one character over another again. */
+static signed char page_owner[16][8];
+static int pages_ok;
+static void pages_reset(void) { memset(page_owner, -1, sizeof(page_owner)); pages_ok = 1; }
+static int spr_span(const Spr *s) { int cols = s->w > 0 ? 256 / s->w : 1; return cols > 0 ? (s->nf + cols - 1) / cols : 8; }
+/* InsetoKaiba, who now stands in almost every act, needs a page nobody else bakes there.  With the creator's hero (Cg_Ready) the
+ * old layered hero and the mesh-baked player are off, so bank 13 page 2 is free; without it the 25x38 LPC hero fills page 0 only
+ * and the mesh-baked player owns 2-3, so page 1 is free.  Chosen at each bake: the hero can change during a session. */
+static int inseto_page(void) { return spr_span(&spr[SPR_LPC_TEST]) >= 2 || Cg_Ready() ? 2 : 1; }
+static void pages_claim(int i, const Spr *s)
+{
+    int p, span = spr_span(s);
+    if (!pages_ok) pages_reset();
+    if (s->bank < 0 || s->bank > 15) return;
+    for (p = s->page; p < s->page + span; p++) {
+        if (p > 7) { LOG("sprite page collision: sprite %d runs off bank %d (pages %d+%d)", i, s->bank, s->page, span); break; }
+        if (page_owner[s->bank][p] >= 0 && page_owner[s->bank][p] != i)
+            LOG("sprite page collision: bank %d page %d sprite %d over sprite %d (area %d)", s->bank, p, i, page_owner[s->bank][p], paint_area);
+        page_owner[s->bank][p] = (signed char)i;
+    }
+    if (Dbg_On()) LOG("sprite pages: sprite %d bank %d pages %d..%d (%dx%d, %d frames)", i, s->bank, s->page, s->page + span - 1, s->w, s->h, s->nf);
+}
+
 /* write the colours of one character into its bank pages (outline colour 34,24,30) */
 static void spr_bake(int i, const int pal[5])
 {
     Spr *s = &spr[i];
+    if (i == SPR_INSETO) s->page = inseto_page();
+    pages_claim(i, s);
     uint16_t *bank = SoftGpu_Bank(s->bank);
     int dir, f, x, y, tex = s->w * s->h, cols = 256 / s->w;
     if (!bank || !s->ok) return;
@@ -1274,7 +1305,7 @@ static void Paint_Enter_Scroll(void)
     scr_x = pt_x / TPU - VIEW_W / 2.0f; scr_y = pt_y / TPU - VIEW_H * 0.58f;
     scr_x = scr_x < 0 ? 0 : scr_x > mx ? mx : scr_x; scr_y = scr_y < 0 ? 0 : scr_y > my ? my : scr_y;
 }
-void Paint_Enter(void) { loaded = 0; sitting = 0; obs_on = obs_glitch = 0; memset(spr_baked, 0, sizeof(spr_baked)); shop_art_of[0] = 0; shop_art_w = 0; card_art_id = 0; hero_sig = ~0u; load();   /* banks 1-12 are also the 3D Monsters' (duels), so load again each time */
+void Paint_Enter(void) { loaded = 0; sitting = 0; obs_on = obs_glitch = 0; memset(spr_baked, 0, sizeof(spr_baked)); pages_reset(); shop_art_of[0] = 0; shop_art_w = 0; card_art_id = 0; hero_sig = ~0u; load();   /* banks 1-12 are also the 3D Monsters' (duels), so load again each time */
     night_target = night_t = night_cond() ? 1.0f : 0.0f; night_step();
     scr_x = pt_x / TPU - VIEW_W / 2.0f; scr_y = pt_y / TPU - VIEW_H * 0.58f;
     { float mx = PB_W / TPU - VIEW_W, my = PB_H / TPU - VIEW_H;   /* inside the picture from the first frame */
