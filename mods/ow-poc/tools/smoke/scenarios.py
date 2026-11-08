@@ -4,6 +4,48 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "rival_village": dict(
+        clean_hud=True, lang=1,
+        desc="InsetoKaiba the recurring rival in the village act: on the map, and his taunt",
+        preset="2 rumors heard (Simon next)", debug={"teleport": [720, 356]},
+        steps=[("wait", 90),  ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1"), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 60), ("snap", "talk3_macaco")],
+        expect=["talk face"]),
+    "rival_beach": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the beach act: on the map, and his taunt",
+        preset="18 beach landing (chapter 2)", debug={"teleport": [640, 496]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_forest": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the forest act: on the map, and his taunt",
+        preset="22 forest arrival (chapter 3)", debug={"teleport": [800, 526]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_mountain": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the mountain act: on the map, and his taunt",
+        preset="28 mountain arrival (chapter 4)", debug={"teleport": [420, 586]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_meadow": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the meadow act: on the map, and his taunt",
+        preset="34 meadow arrival (chapter 5)", debug={"teleport": [960, 506]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_desert": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the desert act: on the map, and his taunt",
+        preset="38 desert arrival (chapter 6)", debug={"teleport": [700, 586]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
+    "rival_hall": dict(
+        clean_hud=True, lang=0,
+        desc="InsetoKaiba the recurring rival in the hall act: on the map, and his taunt",
+        preset="49 hall arrival (chapter 9)", debug={"teleport": [780, 476]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1")],
+        expect=["talk face"]),
     "harbor_palm": dict(
         clean_hud=True,
         desc="the harbor's west palm over the boardwalk: behind it only the leaves and the trunk cover the hero, never the planks",
@@ -994,7 +1036,7 @@ SCENARIOS.update({
         steps=REL + [("snap", "festival")], expect=["dev mode 0"]),
 })
 SCENARIOS.update({
-    "feupys_drop": dict(slow=True, desc="InsetoKaiba's real ship duel won by an attack: the Feupys drop roll (force it with MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000)",
+    "feupys_drop": dict(slow=True, settings={"mod.ow-poc.feupys_drop_bp": "10000"}, desc="InsetoKaiba's real ship duel won by an attack: the Feupys drop roll (force it with MEMORIES_MOD_OW_POC_FEUPYS_DROP_BP=10000)",
         preset="17 on the ship (Mai, InsetoKaiba)", lang=1, debug={"teleport": "ship_deck.inseto_spot", "skip_dialogue": True, "flags": ["mai_met"]},
         steps=[("wait", 300), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300), ("snap", "duel"), ("duel_kill",), ("wait", 300), ("snap", "after"),
                ("mash", "scene dk1_inseto_win", 1500), ("wait", 900)] + [("press", "cross", 5, 60)] * 8 + [("wait", 300), ("snap", "won")] + REL + [("until", "feupys: restored", 1500), ("wait", 120), ("snap", "reloaded")],

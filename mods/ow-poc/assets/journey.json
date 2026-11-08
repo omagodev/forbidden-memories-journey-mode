@@ -66,7 +66,8 @@
   "inseto_gate_won",
   "heishin_won",
   "pegasus_won",
-  "wish_festival"
+  "wish_festival",
+  "inseto_macaco"
  ],
  "areas": [
   {
@@ -3543,6 +3544,203 @@
       "stage_ge": 35
      },
      "anchor": "castle_top.shadi_spot"
+    }
+   ]
+  },
+  {
+   "id": "inseto_village",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "inseto_plaza",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 6,
+      "lacks": [
+       "inseto_macaco"
+      ]
+     },
+     "scene": "rv_inseto_macaco",
+     "effects": {
+      "flags": [
+       "inseto_macaco"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 6
+     },
+     "scene": "rv_inseto_village"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 1,
+      "stage_lt": 6
+     },
+     "anchor": "inseto_plaza"
+    }
+   ]
+  },
+  {
+   "id": "inseto_beach",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "kingdom_beach.inseto_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 10,
+      "stage_lt": 13
+     },
+     "scene": "rv_inseto_beach"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 10,
+      "stage_lt": 13
+     },
+     "anchor": "kingdom_beach.inseto_spot"
+    }
+   ]
+  },
+  {
+   "id": "inseto_forest",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "kingdom_forest.inseto_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 13,
+      "stage_lt": 17
+     },
+     "scene": "rv_inseto_forest"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 13,
+      "stage_lt": 17
+     },
+     "anchor": "kingdom_forest.inseto_spot"
+    }
+   ]
+  },
+  {
+   "id": "inseto_mountain",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "kingdom_mountain.inseto_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 17,
+      "stage_lt": 22
+     },
+     "scene": "rv_inseto_mountain"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 17,
+      "stage_lt": 22
+     },
+     "anchor": "kingdom_mountain.inseto_spot"
+    }
+   ]
+  },
+  {
+   "id": "inseto_meadow",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "kingdom_meadow.inseto_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 22,
+      "stage_lt": 25
+     },
+     "scene": "rv_inseto_meadow"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 22,
+      "stage_lt": 25
+     },
+     "anchor": "kingdom_meadow.inseto_spot"
+    }
+   ]
+  },
+  {
+   "id": "inseto_desert",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "kingdom_desert.inseto_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 25,
+      "stage_lt": 28
+     },
+     "scene": "rv_inseto_desert"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 25,
+      "stage_lt": 28
+     },
+     "anchor": "kingdom_desert.inseto_spot"
+    }
+   ]
+  },
+  {
+   "id": "inseto_hall",
+   "name": "InsetoKaiba",
+   "mesh": "Suit_Male",
+   "anchor": "castle_hall.inseto_spot",
+   "talk": [
+    {
+     "when": {
+      "stage_ge": 33,
+      "stage_lt": 35
+     },
+     "scene": "rv_inseto_hall"
+    }
+   ],
+   "duelist_id": 0,
+   "portrait_id": 0,
+   "places": [
+    {
+     "when": {
+      "stage_ge": 33,
+      "stage_lt": 35
+     },
+     "anchor": "castle_hall.inseto_spot"
     }
    ]
   }

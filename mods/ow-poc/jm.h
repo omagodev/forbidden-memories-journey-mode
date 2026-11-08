@@ -172,7 +172,7 @@ typedef struct {
     char anchor[40];             /* "anchor": the named place in the painted village where he stands (see Paint_Anchor) */
     Mesh *mesh_ptr;
 } Npc;
-#define MAX_NPC 48
+#define MAX_NPC 64           /* the last slot is ECO_NPC (ow_poc.c), never a journey.json person */
 extern Npc npcs[MAX_NPC];
 extern int npc_count;
 

@@ -105,10 +105,10 @@ static Spr spr[SPR_COUNT] = {
 };
 /* Where each sheet lives: bank 13 has eight 256x256 pages. Frames are packed into as many columns as their recorded width permits. */
 static const unsigned char spr_bank[SPR_COUNT] = {13, 13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 15, 13,   13, 15, 15, 15, 15, 13, 13, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15};
-static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 4, 2,   7, 2, 3, 6, 7, 3, 5, 2, 6, 2, 2, 2, 3, 2, 4, 5, 6};
+static const unsigned char spr_page[SPR_COUNT] = {0, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 6, 7, 4, 2,   7, 2, 3, 6, 7, 3, 1, 2, 6, 2, 2, 2, 3, 2, 4, 5, 6};
 /* who may own a page where: 0 everywhere, 1 only in the home town (village, cistern, cellar), 2 only in the chapter 2 pictures.
  * The harbor, ship and beach people take the pages of the villagers who never leave home (and of the bench and hatches). */
-static const unsigned char spr_zone[SPR_COUNT] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0,   2, 2, 2, 2, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 11};
+static const unsigned char spr_zone[SPR_COUNT] = {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0,   2, 2, 2, 2, 2, 2, 0, 4, 5, 5, 6, 7, 7, 8, 9, 10, 11};
 /* 3: only on the ship, where InsetoKaiba borrows Teana's page (she says goodbye on the pier and stays home); bank 15 page 4 is the props' */
 static int spr_zone_ok(int i, int area)
 {
@@ -417,6 +417,14 @@ static PNpc pnpc[] = {
     /* chapter 10: Dream Room */
     {"Suit_Male", SPR_PEGASUS, 640, 360, 0.0f, 0, 0},          /* Pegasus at the table */
     {"Wizard", SPR_SHADI, 900, 400, 0.0f, 0, 0},               /* Shadi cameo */
+    /* InsetoKaiba, the hero's rival, turns up in almost every act (his own page, bank 13 page 1, so he never evicts anyone) */
+    {"Suit_Male", SPR_INSETO, 720, 330, 0.0f, 0, 0},           /* the village plaza: "eu vim ver o macaco" */
+    {"Suit_Male", SPR_INSETO, 640, 470, 0.0f, 0, 0},           /* the Shore of Illusions */
+    {"Suit_Male", SPR_INSETO, 800, 500, 0.0f, 0, 0},           /* the Forest of Whispers */
+    {"Suit_Male", SPR_INSETO, 420, 560, 0.0f, 0, 0},           /* the Mountain Pass */
+    {"Suit_Male", SPR_INSETO, 960, 480, 0.0f, 0, 0},           /* the Meadow Maze */
+    {"Suit_Male", SPR_INSETO, 700, 560, 0.0f, 0, 0},           /* the Desert of Lost Stars */
+    {"Suit_Male", SPR_INSETO, 780, 450, 0.0f, 0, 0},           /* the Castle Hall */
 };
 #define NPN ((int)(sizeof(pnpc) / sizeof(pnpc[0])))
 static int npc_init;
@@ -428,7 +436,8 @@ static const char *const pid[NPN] = {"simon", "teana", "guard", "jono", "hooded_
                                      "teana_meadow", "meadow_mage", "rose_rue",
                                      "isis_desert", "desert_mage", "bakura_desert", "teana_desert", "nomad_nia",
                                      "jono_fair", "ring_champ", "inseto_fair", "bazaar_bea", "inseto_gate", "pawn_paul",
-                                     "heishin_hall", "relic_rhea", "pegasus_dream", "shadi_dream"};
+                                     "heishin_hall", "relic_rhea", "pegasus_dream", "shadi_dream",
+                                     "inseto_village", "inseto_beach", "inseto_forest", "inseto_mountain", "inseto_meadow", "inseto_desert", "inseto_hall"};
 static char pnpc_anchor[NPN][40];      /* the anchor each one was last placed at: the story moves people (the farewells) */
 #define GUARD 2
 static short guard_home[2] = {652, 168};   /* the bridge_north anchor (set from the table below) */
@@ -439,7 +448,7 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     {"teana_stall", 252, 676, 0}, {"bakery_door", 950, 585, 0}, {"bridge_north", 652, 168, 0},
     {"farmer_field", 700, 470, 0}, {"mago_roof", 1205, 128, 0}, {"notice_sign", 1094, 340, 0}, {"academy_corner", 1000, 395, 0},
     {"arena_door", 1012, 622, 0},   /* the flour cellar's hatch, behind the bakery */
-    {"mini_pyramid_hatch", 182, 278, 0}, {"hatch_prop", 148, 262, 0}, {"date_palm", 840, 345, 0}, {"river_bank", 480, 114, 0}, {"east_road", 1215, 425, 0}, {"rex_approach", 1128, 432, 0},
+    {"mini_pyramid_hatch", 182, 278, 0}, {"hatch_prop", 148, 262, 0}, {"date_palm", 840, 345, 0}, {"river_bank", 480, 114, 0}, {"east_road", 1215, 425, 0}, {"rex_approach", 1128, 432, 0}, {"inseto_plaza", 720, 330, 0},
     {"spawn_stairs", 638, 222, 1}, {"exit_stairs", 639, 50, 1}, {"bakura_spot", 638, 365, 1}, {"wall_glyph", 388, 200, 1},
     {"arena_player", 640, 493, 2}, {"arena_opponent", 640, 184, 2}, {"arena_exit", 640, 574, 2},
     /* the harbor: the boardwalk runs west-east from the village road to the gangplank */
@@ -452,24 +461,24 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     /* the Shore of Illusions */
     {"spawn", 290, 540, 5}, {"mirror_spot", 660, 200, 5}, {"weevil_spot", 470, 330, 5}, {"shore_camp", 890, 445, 5},
     {"shop_stall", 840, 300, 5}, {"arena_door", 180, 150, 5}, {"pier_far", 290, 640, 5}, {"jungle_path", 975, 80, 5},
-    {"beach_center", 560, 420, 5}, {"hangout_a", 400, 500, 5}, {"hangout_b", 660, 260, 5},
+    {"beach_center", 560, 420, 5}, {"inseto_spot", 640, 470, 5}, {"hangout_a", 400, 500, 5}, {"hangout_b", 660, 260, 5},
     /* the Forest of Whispers: in from the beach at the bottom left, the stone gate (the hidden clearing) at the top */
     {"spawn", 205, 680, 6}, {"rex_spot", 620, 410, 6}, {"shop_stall", 440, 330, 6}, {"star_mark_1", 260, 330, 6},
     {"star_mark_2", 950, 260, 6}, {"star_mark_3", 1080, 420, 6}, {"gate_spot", 553, 262, 6}, {"arena_door", 240, 500, 6},
-    {"pass_road", 990, 150, 6}, {"forest_center", 600, 450, 6}, {"hangout_a", 747, 440, 6}, {"hangout_b", 610, 560, 6},
+    {"pass_road", 990, 150, 6}, {"forest_center", 600, 450, 6}, {"inseto_spot", 800, 500, 6}, {"hangout_a", 747, 440, 6}, {"hangout_b", 610, 560, 6},
     {"trail_camp", 230, 640, 6},   /* where the last star lost in the forest wakes you */
     /* the Mountain Pass: up from the forest at the bottom left, the rope bridge over the chasm, the summit gate at the top */
     {"spawn", 225, 690, 7}, {"trail_camp", 288, 650, 7}, {"keith_spot", 540, 478, 7}, {"shop_stall", 430, 427, 7},
     {"arena_door", 260, 300, 7}, {"mai_spot", 850, 470, 7}, {"cave_spot", 1030, 395, 7}, {"gate_spot", 740, 235, 7},
-    {"summit_gate", 845, 162, 7}, {"pass_center", 330, 520, 7}, {"hangout_a", 880, 560, 7}, {"hangout_b", 200, 450, 7},
+    {"summit_gate", 845, 162, 7}, {"pass_center", 330, 520, 7}, {"inseto_spot", 420, 560, 7}, {"hangout_a", 880, 560, 7}, {"hangout_b", 200, 450, 7},
     /* the Meadow Maze: in from the pass at the bottom left, the desert arch at the top */
     {"spawn", 180, 680, 8}, {"meadow_camp", 200, 640, 8}, {"teana_spot", 640, 380, 8}, {"shop_stall", 160, 200, 8},
-    {"arena_door", 1080, 600, 8}, {"gate_spot", 640, 340, 8}, {"desert_gate", 640, 120, 8}, {"maze_center", 640, 400, 8},
+    {"arena_door", 1080, 600, 8}, {"gate_spot", 640, 340, 8}, {"desert_gate", 640, 120, 8}, {"maze_center", 640, 400, 8}, {"inseto_spot", 960, 480, 8},
     {"hangout_a", 900, 450, 8}, {"hangout_b", 320, 500, 8},
     /* the Desert of Lost Stars: in from the meadow at the bottom left, the fair arch at the top */
     {"spawn", 200, 680, 9}, {"desert_camp", 260, 620, 9}, {"teana_spot", 420, 580, 9}, {"shop_stall", 220, 520, 9},
     {"arena_door", 1000, 580, 9}, {"gate_spot", 450, 400, 9}, {"isis_spot", 900, 350, 9}, {"fair_gate", 640, 110, 9},
-    {"bakura_spot", 640, 480, 9}, {"desert_center", 520, 420, 9}, {"hangout_a", 780, 500, 9}, {"hangout_b", 340, 540, 9},
+    {"bakura_spot", 640, 480, 9}, {"desert_center", 520, 420, 9}, {"inseto_spot", 700, 560, 9}, {"hangout_a", 780, 500, 9}, {"hangout_b", 340, 540, 9},
     /* the Star Fair: in from the desert at the bottom, the castle arch at the top */
     {"spawn", 640, 680, 10}, {"fair_camp", 180, 640, 10}, {"jono_spot", 220, 580, 10}, {"shop_stall", 200, 340, 10},
     {"arena_door", 1040, 560, 10}, {"gate_spot", 640, 380, 10}, {"castle_gate", 640, 110, 10}, {"inseto_spot", 820, 500, 10},
@@ -480,7 +489,7 @@ static const struct { const char *name; short x, y; unsigned char area; } anchor
     {"hangout_a", 900, 450, 11}, {"hangout_b", 300, 500, 11},
     /* chapter 9: Castle Hall (AREA_HALL = 12) */
     {"spawn", 640, 680, 12}, {"hall_camp", 180, 640, 12}, {"shop_stall", 220, 420, 12}, {"arena_door", 1000, 480, 12},
-    {"heishin_spot", 640, 220, 12}, {"dream_stairs", 640, 100, 12}, {"hall_center", 640, 420, 12},
+    {"heishin_spot", 640, 220, 12}, {"dream_stairs", 640, 100, 12}, {"hall_center", 640, 420, 12}, {"inseto_spot", 780, 450, 12},
     {"mirror_spot", 400, 300, 12}, {"hangout_a", 900, 450, 12}, {"hangout_b", 300, 500, 12},
     /* chapter 10: Dream Room (AREA_TOP = 13) */
     {"spawn", 640, 680, 13}, {"dream_camp", 200, 600, 13}, {"pegasus_spot", 640, 360, 13}, {"wish_orbs", 820, 400, 13},

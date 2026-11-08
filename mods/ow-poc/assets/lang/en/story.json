@@ -4462,6 +4462,154 @@
      "text": "Pretty room. Deadly rules. Lose your last star and your journey ends for good."
     }
    ]
+  },
+  {
+   "id": "rv_inseto_macaco",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "FUHAHAHAHAHAHA! HAHAHAHA! HAAAHAHAHA!"
+    },
+    {
+     "speaker": "atos",
+     "text": "...Who are you?"
+    },
+    {
+     "speaker": "inseto",
+     "text": "InsetoKaiba! Future champion of the Kingdom! I came to see the monkey."
+    },
+    {
+     "speaker": "inseto",
+     "text": "They said some village kid thinks he's a duelist. So I flew all the way here to laugh in person. FUHAHAHA!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "See this? Two Kingdom star chips and a golden invitation with MY name on it. Pegasus sent it himself. Obviously."
+    },
+    {
+     "speaker": "atos",
+     "text": "I don't have an invitation yet."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Of course you don't! Monkeys don't get mail! HAHAHAHAHA! See you on the island, if they let pets on the ship."
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_village",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Still here, monkey? I'm polishing my stars. Both of them. FUHAHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_beach",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHAHA! The monkey made it to the beach! Did you swim? Did you cry?"
+    },
+    {
+     "speaker": "inseto",
+     "text": "I already won stars on the boat. My invitation is framed. Yours is probably wet."
+    },
+    {
+     "speaker": "atos",
+     "text": "Keep laughing. I'll catch up."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Catch up?! FUHAHAHAHAHA! I'm a dragonfly, you're a snail!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_forest",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Shh! I'm hunting rare bugs for my unbeatable deck... oh. It's YOU. HAHAHAHA!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Every bug in this forest bows to me. You should too. Practice now, it'll save time later."
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_mountain",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "FUHAHAHA! Up here the air is thin, monkey. Like your deck!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "I climbed in my helicopter. Ten minutes. Then I took a nap on a pile of stars."
+    },
+    {
+     "speaker": "atos",
+     "text": "Your stars, or somebody else's?"
+    },
+    {
+     "speaker": "inseto",
+     "text": "All stars are MY stars eventually! HAHAHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_meadow",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Lost in the maze, monkey? I left it hours ago. I have a map. And talent. Mostly talent."
+    },
+    {
+     "speaker": "inseto",
+     "text": "HAHAHAHAHA! Follow the sound of my laughter, maybe you'll find the exit!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_desert",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Sand everywhere and STILL you crawl after me. Respect. A little. FUHAHAHA!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "My invitation lets me into the castle, monkey. Yours lets you watch from the fence."
+    },
+    {
+     "speaker": "atos",
+     "text": "We'll see at the gate."
+    },
+    {
+     "speaker": "inseto",
+     "text": "At the gate, I take your stars and frame them next to my invitation! HAHAHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_hall",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "Fine. FINE. You beat me at the gate. A fluke! A glitch! A bug in the system!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "I'm only standing here so I can laugh when Pegasus beats you. FU... FUHAHA... ha."
+    },
+    {
+     "speaker": "inseto",
+     "text": "...Don't lose, monkey. Only I get to beat you."
+    }
+   ]
   }
  ]
 }
