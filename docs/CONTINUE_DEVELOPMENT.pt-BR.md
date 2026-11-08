@@ -121,3 +121,8 @@ Use `python3 mods/ow-poc/tools/smoke/fast.py` para a tabela de presets e `mods/o
 ## Notas da v0.6.20-alpha
 
 - Rostos do painel de vida no duelo: o do adversário vem da folha dele no mapa (`.hface` 168x168 quando existe, senão o recorte 48x48; o retrato do disco só para quem não tem folha), e o do jogador é o rosto do herói criado. Um segundo espaço 168x168 fica no banco 14, x 256, y 256 (`NPC_FACE_X`), ao lado do herói em x 0, para os dois aparecerem juntos. Smokes: `duel_face_<nome>`.
+
+## Notas da v0.6.21-alpha
+
+- Rostos 168x168 de diálogo e duelo para mais 21 personagens (30 `.hface` no total), a partir das folhas-fonte do próprio projeto, agora em `mods/ow-poc/tools/sprite_sheets/` (vila: padeiro, fazendeiro, ai; porto e reino: `art_dk/kingdom/sheets`). Para refazer: `tools/make_hd_faces.py`.
+- Palmeiras do porto: `build_kingdom_assets.py` mantém só as folhas e o tronco dentro do polígono de oclusão de cada palmeira (`palm_only`), então o deque não cobre mais o herói atrás da árvore. Smoke: `harbor_palm`.

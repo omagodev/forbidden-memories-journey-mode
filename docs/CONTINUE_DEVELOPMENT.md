@@ -144,3 +144,8 @@ python3 mods/ow-poc/tools/smoke/jm_smoke.py run painted_menu_deck cap2_starter_d
 ## v0.6.20-alpha notes
 
 - Duel life-point faces: the opponent's own map-sheet face (168x168 `.hface` where one exists, else the 48x48 cut; the disc portrait only for people with no sheet) and the created hero's face. A second 168x168 slot sits at bank 14 x 256, y 256 (`NPC_FACE_X`), beside the hero's at x 0, so both are up at once. Smokes: `duel_face_<name>`.
+
+## v0.6.21-alpha notes
+
+- 168x168 talk/duel faces for 21 more people (30 `.hface` in all), from the project's own source sheets now kept in `mods/ow-poc/tools/sprite_sheets/` (village: baker, farmer, ai; harbor and kingdom: `art_dk/kingdom/sheets`). Run `tools/make_hd_faces.py` to rebuild.
+- Harbor palms: `build_kingdom_assets.py` keeps only the leaves and trunk inside each palm's occluder polygon (`palm_only`), so the boardwalk no longer covers the hero behind the tree. Smoke: `harbor_palm`.
