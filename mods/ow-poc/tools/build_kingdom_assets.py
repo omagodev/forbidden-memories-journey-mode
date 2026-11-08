@@ -90,11 +90,33 @@ def pack(name, pic_path, walk_px, occluders):
     print("%s: %d cells (%d occluder), %d of %d collision cells walkable" % (name, len(cells), len(table), int(walk.sum()), walk.size))
 
 
+def _grow(m, n):
+    for _ in range(n):
+        g = m.copy(); g[1:] |= m[:-1]; g[:-1] |= m[1:]; g[:, 1:] |= m[:, :-1]; g[:, :-1] |= m[:, 1:]; m = g
+    return m
+
+
+def palm_only(m, pic_path):
+    """A palm's occluder polygon is drawn loosely around it, so it takes boardwalk and sand with it and that ground then covers a
+    person walking behind the tree.  Keep only the tree: the green crown and the dark brown trunk (and their outline), closed over
+    the 2-3 px gaps between leaves."""
+    a = np.array(Image.open(pic_path).convert("RGB")).astype(np.int32)
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    leaf = (g > r + 6) & (g > b + 12)
+    trunk = (r + g + b < 330) & (r >= g) & (g >= b)          # bark and the dark outline; the planks and the sand are lighter
+    keep = m & (leaf | trunk)
+    keep = _grow(keep, 2)
+    keep = ~_grow(~keep, 2) & m                               # closing: fill the specks, never past the polygon
+    return keep
+
+
 def harbor():
     j = json.load(open(ART + "/masks/harbor_occluders.json"))
     walk = np.array(Image.open(ART + "/masks/harbor_walkable_160x90.png").convert("L").resize((BW, BH), Image.NEAREST)) > 127
     walk |= shape_mask([("r", 0, 300, 60, 430)])           # the road in from the village bridge, west end of the boardwalk
     occ = [(shape_mask([("p", o["polygon"])]), o["base_y"]) for o in j["occluders"]]
+    occ = [(palm_only(m, ART + "/backgrounds/dk_harbor_1280x720.jpg") if o["name"].startswith("palm") else m, base)
+           for (m, base), o in zip(occ, j["occluders"])]
     pack("harbor", ART + "/backgrounds/dk_harbor_1280x720.jpg", walk, occ)
 
 

@@ -4,6 +4,13 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "harbor_palm": dict(
+        clean_hud=True,
+        desc="the harbor's west palm over the boardwalk: behind it only the leaves and the trunk cover the hero, never the planks",
+        preset="15 Courier at the pier end", debug={"teleport": [150, 372]},
+        steps=[("wait", 90), ("snap", "east_of_palm"), ("hold", "left", 18), ("wait", 20), ("snap", "behind_crown"), ("hold", "left", 14), ("wait", 20),
+               ("snap", "behind_crown_west"), ("hold", "up", 16), ("wait", 20), ("snap", "north"), ("hold", "down", 40), ("wait", 20), ("snap", "south")],
+        expect=["dev mode 0"]),
     "talk_face_baker": dict(
         clean_hud=True,
         desc="the dialogue portrait of baker (source-sheet 168px face)",
