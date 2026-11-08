@@ -1696,7 +1696,7 @@ void Paint_MiniMap(int x, int y, int c, int s)
  * 48x48 RGB555): baked when the creator is confirmed and whenever the saved look no longer matches it (Continue, a debug look). */
 static const struct { const char *who; int spr; } face_alias[] = {
     {"inseto", SPR_INSETO}, {"isis", SPR_ISIS}, {"pegasus", SPR_PEGASUS}, {"heishin", SPR_HEISHIN}, {"croquet", SPR_RIVAL},
-    {"mago_dev", SPR_MAGO}, {"mago_dev_tee", SPR_MAGO}, {"mago_hidden", SPR_MAGO}, {"atos", SPR_LPC_TEST}, {"player", SPR_LPC_TEST},
+    {"mago_dev", SPR_MAGO}, {"mago_dev_tee", SPR_MAGO}, {"mago_hidden", SPR_MAGO}, {"atos", SPR_LPC_TEST}, {"player", SPR_LPC_TEST}, {"eco_gang", SPR_RIVAL},   /* the Jackals walk with the rival's sheet */
 };
 int Paint_FaceSprite(const char *who)
 {

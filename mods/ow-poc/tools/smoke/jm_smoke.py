@@ -139,6 +139,8 @@ class Run:
             except Exception: pass            # noqa: BLE001
             time.sleep(1)
             self.start()
+        elif op == "duel_ready":              # wait for the duel field (yfm_control), then a little more for the panel to slide in
+            g.duel_ready(); g.step(s[1] if len(s) > 1 else 90)
         elif op == "duel_win":                # a real duel: wait for the field, set the opponent's life points to 0, press through the result screens
             g.duel_ready(); g.step(60)
             g.poke("D_800E9FF0", struct.pack("<hHh", 0, 0, 8000), offset=Y.SIDE_SIZE + 0x12)

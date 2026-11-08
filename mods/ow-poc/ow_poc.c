@@ -124,7 +124,10 @@ static int loaded_face = -1;       /* which face the speaker slot holds (the due
 static short opponent_face_x, opponent_face_y;
 static short player_face_x, player_face_y;   /* where they went this frame, for names in the overlay */
 static int face_on;
+static int face_hero_hi;            /* the player's duel face is the creator's high-resolution one */
 
+extern int Paint_FaceSprite(const char *who);
+extern int Paint_LoadSpriteFace(int i);
 static void duel_face(int x, int y, int ax, int ay, DisplayObject *pos)
 {
     Gfx_RectAt(x - FACE_EDGE, y - FACE_EDGE, FACE_SIZE + 2 * FACE_EDGE, FACE_SIZE + 2 * FACE_EDGE,
@@ -145,16 +148,23 @@ static void panel_drawn(DisplayObject *widget)
     if (!pos || duelist <= 0) return;
     panel_x = (int)pos->field_30.h.field_30;
     if (panel_x - 32 >= 320 || panel_x + 32 <= 0) return;   /* the game's panel completed its slide away */
-    if (face_duelist != duelist) {         /* a disc read: once a duel, not once a frame */
-        if (!Gfx_LoadFace(duelist)) return;
+    if (face_duelist != duelist) {         /* once a duel, not once a frame */
+        /* the opponent: the face cut from the sheet he walks with on the map (the same one his talks show), so a villager who
+         * borrows a disc duelist's deck does not show that duelist's disc portrait; the disc face only for people with no sheet */
+        int si = Paint_FaceSprite(npcs[duel_npc].id), from_map = si >= 0 && Paint_LoadSpriteFace(si);
+        if (!from_map && !Gfx_LoadFace(duelist)) return;
+        face_hero_hi = Cg_Ready() && Paint_HeroFaceHi();   /* the player: the created hero's own face */
         face_duelist = duelist;
-        loaded_face = -1;
+        loaded_face = -1;                  /* both slots were rewritten: the next talk reloads its face */
+        LOG("journey: duel faces: %s %s (duelist %d), hero %s", npcs[duel_npc].id, from_map ? "map sheet" : "disc portrait", duelist,
+            face_hero_hi ? "creator face" : "preset portrait");
     }
     portrait = jm.portrait >= 0 && jm.portrait < 4 ? jm.portrait : 0;
     opponent_x = panel_x - OPP_FACE_LEFT;
     player_x = panel_x - PLAYER_FACE_LEFT;
     y = (int)pos->field_30.h.field_32 - FACE_TOP;
-    duel_face(player_x, y, PORT_X + portrait * 48, PORT_Y, pos);
+    if (face_hero_hi) duel_face(player_x, y, 0, HERO_FACE_Y, pos);
+    else duel_face(player_x, y, PORT_X + portrait * 48, PORT_Y, pos);
     duel_face(opponent_x, y, DYN_PORT_X, DYN_PORT_Y, pos);
     player_face_x = (short)player_x;
     player_face_y = (short)y;
