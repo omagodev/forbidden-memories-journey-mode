@@ -4,6 +4,12 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "npc_walk_cycle": dict(
+        clean_hud=True,
+        desc="villagers walking (Jono, Kemet the farmer, Nabil): eight snaps 5 VBlanks apart must show the stride cycle",
+        preset="6 Hakim's hint (Kemet next)", debug={"teleport": [700, 530]},
+        steps=[("wait", 120)] + [st for i in range(8) for st in (("snap", "walk%d" % i), ("wait", 5))],
+        expect=["npc anim: 3 frame 1", "npc anim: 3 frame 3", "npc anim: 6 frame 2", "npc anim: 9 frame 4"]),
     "rival_village": dict(
         clean_hud=True, lang=1,
         desc="InsetoKaiba the recurring rival in the village act: on the map, and his taunt",
