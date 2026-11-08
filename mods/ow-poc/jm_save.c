@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define MAGIC 0x31534A4Du      /* "MJS1" */
-#define VERSION 8          /* 2 language, 3 painted position, 4 layered hero, 5 economy, 6 Kingdom (flags 32-63, stars, area), 7 flags 64-95 in kflags2, 8 private cards; older files still load (remainder zero-filled) */
+#define VERSION 9          /* 2 language, 3 painted position, 4 layered hero, 5 economy, 6 Kingdom (flags 32-63, stars, area), 7 flags 64-95 in kflags2, 8 private cards; older files still load (remainder zero-filled) */
 
 typedef struct { unsigned magic, version, size; Journey data; } File;
 
@@ -85,6 +85,7 @@ void Journey_CardsCapture(void)
 {
     memcpy(jm.deck, gDuel_awPlayerDeck, sizeof(jm.deck));
     memcpy(jm.chest, gLibrary_abCardChest, sizeof(jm.chest));
+    Feupys_Capture();
     jm.duel_stars = gLibrary_dwStarchips;
     jm.cards_set = 1;
 }
@@ -103,5 +104,6 @@ void Journey_CardsRestore(void)
     }
     memcpy(gDuel_awPlayerDeck, jm.deck, sizeof(jm.deck));
     memcpy(gLibrary_abCardChest, jm.chest, sizeof(jm.chest));
+    Feupys_Restore();
     gLibrary_dwStarchips = jm.duel_stars;
 }

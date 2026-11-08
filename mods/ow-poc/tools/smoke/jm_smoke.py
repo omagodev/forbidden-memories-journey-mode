@@ -151,6 +151,44 @@ class Run:
                 if g.mode() != Y.MODE["duel"]: break
                 g.press("circle", hold=4, after=40)
             self.until("duel over", s[1] if len(s) > 1 else 1800)
+        elif op == "duel_kill":               # a real duel won by a real attack: the opponent's LP set low, a monster played face up, a direct attack
+            g.duel_ready(); g.step(60)
+            g.poke("D_800E9FF0", struct.pack("<hHh", 100, 100, 8000), offset=Y.SIDE_SIZE + 0x12)
+            for _turn in range(14):
+                if g.duel_over(): break
+                hand = g.duel()[0]["hand"]
+                slot = next((i for i, c in enumerate(hand) if c and c["attack"] > 0), 0)
+                g.play_card(slot, face_up=True)
+                if g.duel_over(): break
+                g.poke("D_800E9FF0", struct.pack("<hHh", 100, 100, 8000), offset=Y.SIDE_SIZE + 0x12)
+                g.poke("D_800E9FF0", struct.pack("<hHh", 8000, 8000, 8000), offset=0x12)   # a test: the player outlasts the deck
+                mine = [c for c, m in enumerate(g.field()[2]) if m]
+                theirs = [c for c, m in enumerate(g.field()[1]) if m]
+                if mine:
+                    # a test: the attacker made strong enough that any hit ends the duel (the opponent at 100 LP)
+                    grid, recs = g.peek("D_800907D8", 20), g.peek("D_801A7AD8", 30 * Y.RECORD_SIZE)
+                    g.poke("D_801A7AD8", struct.pack("<h", 9000), offset=grid[10 + mine[0]] * Y.RECORD_SIZE + 0x0E)
+                    atk = [c for c in theirs if not struct.unpack_from("<H", recs, grid[5 + c] * Y.RECORD_SIZE + 0x16)[0] & 0x0800]
+                    try: g.attack(mine[0], atk[0] if atk else (theirs[0] if theirs else None))
+                    except Exception as e: print("attack:", e)
+                if g.duel_over(): break
+                g.end_turn()
+            for _ in range(80):
+                if g.mode() != Y.MODE["duel"]: break
+                g.press("cross", hold=4, after=40)
+            self.until("duel over", s[1] if len(s) > 1 else 1800)
+        elif op == "poke_deck":               # a test: deck slot s[1] holds card s[2] (what the deck editor writes)
+            g.poke("gDuel_awPlayerDeck", struct.pack("<H", s[2]), offset=2 * s[1])
+        elif op == "check_deck":              # deck slot s[1] must hold card s[2]
+            got = struct.unpack("<H", g.peek("gDuel_awPlayerDeck", 80)[2 * s[1]:2 * s[1] + 2])[0]
+            if got != s[2]: self.problems.append("deck slot %d holds %d, not %d" % (s[1], got, s[2]))
+            else: print("deck slot %d holds %d" % (s[1], got))
+        elif op == "poke_extra":              # a test: own s[2] copies of mod card s[1] (the extra chest)
+            g.poke("gCard_abExtraChest", bytes([s[2]]), offset=s[1])
+        elif op == "deck_has":                # the deck must hold card s[1] (any slot)
+            deck = struct.unpack("<40H", g.peek("gDuel_awPlayerDeck", 80))
+            if s[1] in deck: print("deck holds %d at slot %d" % (s[1], deck.index(s[1])))
+            else: self.problems.append("deck lacks %d: %s" % (s[1], deck))
         elif op == "mash":                    # press X every 40 frames until a log line shows (dialogue that is not skipped)
             t = 0
             while self.count(s[1]) < 1 and t < (s[2] if len(s) > 2 else 3000):
