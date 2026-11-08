@@ -4,12 +4,20 @@ MUSIC_DAY = "journey: music 10 (day)"
 MUSIC_NIGHT = "journey: music 25 (night)"
 
 SCENARIOS = {
+    "readme_map_hero": dict(
+        clean_hud=True,
+        desc="a clean village shot with the 64px hero (README picture)",
+        preset="2 rumors heard (Simon next)", debug={"teleport": "plaza_center"},
+        steps=[("wait", 120), ("hold", "down", 20), ("wait", 60), ("snap", "map")],
+        expect=["dev mode 0"]),
     "duel_face_simon": dict(
+        clean_hud=True,
         desc="the duel's life-point faces: simon's own map face, the created hero's face (not the disc portraits)",
         preset="2 rumors heard (Simon next)", debug={"skip_dialogue": True, "teleport": "house_ne_door"},
         steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
         expect=["journey: duel faces: simon map sheet 168x168", "hero creator face"]),
     "duel_face_teana": dict(
+        clean_hud=True,
         desc="the duel's life-point faces: teana's own map face, the created hero's face (not the disc portraits)",
         preset="13 two stamps (Teana last)", debug={"skip_dialogue": True, "teleport": "teana_stall"},
         steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
@@ -25,6 +33,7 @@ SCENARIOS = {
         steps=[("wait", 300), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("mash", "duel against", 3000), ("wait", 300)] + [("press", "circle", 5, 60)] * 3 + [("until", "duel faces", 3000), ("wait", 400), ("snap", "duel")],
         expect=["journey: duel faces: farmer map sheet 48x48", "hero creator face"]),
     "talk_face_simon": dict(
+        clean_hud=True,
         desc="the dialogue portrait of simon (source-sheet 168px face where the sheet has one)",
         preset="6 Hakim's hint (Kemet next)", debug={"teleport": "house_ne_door"},
         steps=[("wait", 30), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk")],

@@ -65,6 +65,8 @@ class Run:
             dbg["preset"] = self.sc["preset"]
         if not self.sc.get("no_debug_json"):          # without it the mod runs as a release build (no debug aid, Dev mode off by default)
             (self.data / "debug.json").write_text(json.dumps(dbg))
+        if self.sc.get("clean_hud"):                 # Dev mode off (no status/debug bars) for pictures: the player's HUD
+            (self.data / "devmode.cfg").write_text("0\n")
         if "devcfg" in self.sc:                        # devmode.cfg: the saved Dev mode choice ("0" / "1")
             (self.data / "devmode.cfg").write_text(self.sc["devcfg"] + "\n")
 

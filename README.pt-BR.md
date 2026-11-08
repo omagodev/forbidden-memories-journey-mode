@@ -13,7 +13,7 @@ Explore mapas ilustrados, converse com os duelistas do Forbidden Memories, faça
 
 <a href="README.md"><img src="https://img.shields.io/badge/Read_in_English-0a3d91?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM%2FrhtAAABfklEQVR42u2WMUsCYRzGfxeSplgQGAQJIlFD2GJQRDRItUY4tdTgN7DP0QcImhxqS6KpkKbQApeShiJISIIyhdS7zpZriDsyThHktSPe3%2FTnfeDu4f%2FwPncgkUgkEkej%2BKMJw%2Bd1o2pNAMy527OD50eB7hRcAGuLEc6yBcLBMeqqDtSsMzu9XP3W05k8Uzvb4jcIsLEyRzqT5%2BccmQ5SV3WKpbKtDlDL74s3uLW%2BROr4osWQeQbQST8NjfztBgEKd09tN9gXg%2BYLQxMB%2FD5PW0N2kfclYp%2FXzfzsJFc3DwDWHBgdBqBcrdnqqtYkv7ks3mBsYaYrQ7%2F188tb4TWj%2BKMJw4z2tVKjoelWnXzonwAMeQZt9WKpLDxil7kRgJe3d3xet9V1gFXQAA1NR9WaLXoldy3eoFm67Xqvk56LJ8VGfLh3ZPTyjNVIWOwlMQzDwMEoJ%2BMx5xpUFFyiP%2Fb%2FP%2BJsPOlogwOO%2F6N2esSu%2B92Uszfo9JqRSCQSiaQ3vgD3Gx4lB45C0AAAAABJRU5ErkJggg%3D%3D" alt="🇺🇸 Read in English"></a>
 
-![A vila natal ilustrada, com diálogo](docs/media/village_dialogue.png)
+![A vila natal ilustrada, com diálogo](docs/media/v0620_simon_dialogue.png)
 
 </div>
 
@@ -24,6 +24,11 @@ Explore mapas ilustrados, converse com os duelistas do Forbidden Memories, faça
 O Journey Mode é um projeto de fã, feito por diversão. Peguei o trabalho incrível da comunidade do Forbidden Memories, adaptei e quis criar uma **história de RPG** em cima do jogo com que cresci.
 
 A ideia central: os duelistas da memória do jogo estão **ligados diretamente aos NPCs do mapa**. Você chega no Simon, na Teana, no Jono ou no Rex Raptor numa vila ilustrada, conversa com eles, e quando o duelo começa é o duelo de verdade do Forbidden Memories, com os decks, a IA e as fusões originais.
+
+| | |
+|---|---|
+| ![Duelo contra Simon Muran](docs/media/v0620_duel_simon.png) | ![Duelo contra Teana](docs/media/v0620_duel_teana.png) |
+| *No duelo, o Simon tem o mesmo rosto do mapa e do diálogo* | *A Teana, com o rosto da própria arte do mapa* |
 
 ## Por que sprites e não 3D?
 
@@ -87,7 +92,7 @@ São mais de **250 milhões** de combinações possíveis (6 × 2 × 21 × 10 ×
 
 **Seu herói andando no jogo**
 
-![Seu herói andando no jogo](docs/media/chargen_pt_14_in_game_walking.png)
+![Seu herói andando no jogo](docs/media/v0620_map_hero.png)
 
 </div>
 
@@ -132,7 +137,7 @@ Toda cidade tem uma loja da Teana: compre cartas avulsas com a arte real do jogo
 
 ## Como jogar
 
-> 📥 **Não precisa compilar.** Baixe a versão para Windows [**JourneyMode_v0.6.6-alpha_Windows.zip**](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.6-alpha/JourneyMode_v0.6.6-alpha_Windows.zip) em [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Guia completo: [docs/HOW_TO_PLAY.pt-BR.md](docs/HOW_TO_PLAY.pt-BR.md).
+> 📥 **Não precisa compilar.** Baixe a versão para Windows [**JourneyMode_v0.6.20-alpha_Windows.zip**](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.20-alpha/JourneyMode_v0.6.20-alpha_Windows.zip) em [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/tag/v0.6.20-alpha). Guia completo: [docs/HOW_TO_PLAY.pt-BR.md](docs/HOW_TO_PLAY.pt-BR.md).
 
 1. Baixe a versão mais recente em [**Releases**](https://github.com/omagodev/forbidden-memories-journey-mode/releases) e extraia.
 2. Copie seu `.bin` para a pasta `game` e rode `JOGAR_JourneyMode.bat` (ou `memories-pc.exe`).

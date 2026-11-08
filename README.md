@@ -13,7 +13,7 @@ Explore illustrated maps, talk to the duelists of Forbidden Memories, take quest
 
 <a href="README.pt-BR.md"><img src="https://img.shields.io/badge/Ler_em_Portugu%C3%AAs-009c3b?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM%2FrhtAAADvklEQVR42u2XXUybZRiGr1L8aC20YAt2UEopLHR2n4oHQDJnPDAx2zTMEzMzMCNqPHDJDvyJB4uZzMREs83FJYsJCyQzUZPFv2Qsi1M3DQaDBG0lQlbKaKE0%2FJT%2BUGg%2FWuYBaZNKyzoGAbX32fe97%2Fvkzv28z%2F08L%2BSQQw7%2Fbsg49%2BTt7Uwwb7sr%2BP8i2FgYoLEwsP0IquUxThsd9FoH6LUOcNroQC2PbY8i2V88yyfVwxgEKeX%2FuCTw6mgd3X7t1ihoFBbpNA9xuc6%2BihyAQZC4XGen0zx0T2quS8GXyiY5ZRxBI48RCiu4eGUPdkc5Q7f0AFhMXsRaD637eihSRZiJ3cfbbjMXpnZsLkGjsMinNUPsVa8UQs%2FvtbR3NDM1p067v6wkyDsvf8OeRx0A%2FBzU0DJiwSUpsyYoZ7%2FpRDYbj1eMcWnnIGZFJEnu6IethCMFGc%2BEIwV0%2F%2FIIYs04Rr2PqoIorz3oAZmMn0LFG3MHGwsD2MQ%2BThpGEfJWxA6FFbR3NGetQntHM6GwAgAh7zYnDaPYxL6sLCljitXyGGerHBwp9a5auzT6JlpLK7pSFTtUWn5w%2FkFpXgkLnjg%2FXhvktxtuyo3F%2FGWfSp55o%2BUKh%2Ff1rorVNa3n2FgtwXh%2BWoL5d2MdCTj7Inz5RQ%2BOoRkASnRKtDoV5dVF1DbpaGipRBtScuGj%2FiRJm6OSw6wmeKTUy1MaX0ZLSlHQKCxytmqEgw%2FMrCn700dfz1gYACazmprdpTS0VOJzLPLVx39CZJKr506tGfdrn45jYzUpRbQuH5Riqcc0GiHl%2B5YzyPffjvD%2B89cJumO8d%2FFZxL316%2FLBlBS7JCXP3dx9xxRbTF684ceYcM%2BztLRMICAllUsQTOCz8%2F3cHJjm0CvWjCTW6jppFez2a7HaGuia1qcNKNZ6mJuNsLS0zC6xLPl%2Fwj2fQi5B2jU2y8h3H6SN1TWtx2pryNgSM6Y4GM%2BnzWmhabAe%2B4IqZe3gE%2F3Iln0AeFz%2BpHIVlYWYzOpkyk1mNbqyYu5Xynmm8VpKDPuCiqbBetqclowVnJVRT0gKzk9VEEfG44UB5DIoUkWo0vu42isSjcbxz0UB8M9F8c9FiUbj7BLLmPbOM%2B7yc%2FzFTh7eOb5yf5dlnJio5gXHQ0xIiq1tdcbKJd469Pk9tbr%2F1rDwTzXfNYyl7TR30yk2bR50SUranBYODIuMS0Ja6zgwLN6xCDZ95E9Y0plJQ7IIzkwa1rSOLXsXJ6aTX%2Bc1G%2FZoymcDsZHEcg%2F3HHLIIYcV%2FA2BwaA%2BPOkCagAAAABJRU5ErkJggg%3D%3D" alt="🇧🇷 Ler em Português (BR)"></a>
 
-![The illustrated home town, with dialogue](docs/media/village_dialogue.png)
+![The illustrated home town, with dialogue](docs/media/v0620_simon_dialogue.png)
 
 </div>
 
@@ -24,6 +24,11 @@ Explore illustrated maps, talk to the duelists of Forbidden Memories, take quest
 Journey Mode is a fan-made, just-for-fun project. I took the amazing work of the Forbidden Memories community, adapted it, and wanted to build an **RPG story** on top of the game I grew up with.
 
 The core idea: the duelists from the game's memory are **linked directly to NPCs on the map**. You walk up to Simon, Teana, Jono or Rex Raptor in an illustrated village, talk to them, and when a duel starts it is the real Forbidden Memories duel, with the real decks, the real AI and the real fusions.
+
+| | |
+|---|---|
+| ![Duel against Simon Muran](docs/media/v0620_duel_simon.png) | ![Duel against Teana](docs/media/v0620_duel_teana.png) |
+| *In the duel, Simon has the same face as on the map and in his dialogue* | *Teana, with her own face from her map art* |
 
 ## Why sprites and not 3D?
 
@@ -87,7 +92,7 @@ That is more than **250 million** possible combinations (6 × 2 × 21 × 10 × 1
 
 **Your hero walking in game**
 
-![Your hero walking in game](docs/media/chargen_en_14_in_game_walking.png)
+![Your hero walking in game](docs/media/v0620_map_hero.png)
 
 </div>
 
@@ -124,7 +129,7 @@ Every town has a shop run by Teana: buy single cards with the real game art, ope
 
 ## Play
 
-> 📥 **No compiling needed.** Grab the Windows build [**JourneyMode_v0.6.6-alpha_Windows.zip**](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.6-alpha/JourneyMode_v0.6.6-alpha_Windows.zip) from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/latest). Full guide: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
+> 📥 **No compiling needed.** Grab the Windows build [**JourneyMode_v0.6.20-alpha_Windows.zip**](https://github.com/omagodev/forbidden-memories-journey-mode/releases/download/v0.6.20-alpha/JourneyMode_v0.6.20-alpha_Windows.zip) from [Releases](https://github.com/omagodev/forbidden-memories-journey-mode/releases/tag/v0.6.20-alpha). Full guide: [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md).
 
 1. Download the latest build from [**Releases**](https://github.com/omagodev/forbidden-memories-journey-mode/releases) and extract it.
 2. Copy your `.bin` into the `game` folder, then run `JOGAR_JourneyMode.bat` (or `memories-pc.exe`).

@@ -117,3 +117,7 @@ Use `python3 mods/ow-poc/tools/smoke/fast.py` para a tabela de presets e `mods/o
 - Os quads de sprite param no texel 255 da página: a linha "para cima" do herói de 64px (v 192 + 64) voltava para 0 e aparecia em faixas. Smoke: `walk_sprites`.
 - Rostos de diálogo dos NPCs: `mods/ow-poc/tools/make_hd_faces.py` gera `assets/faces/<folha>.hface` 168x168 a partir das folhas-fonte grandes (Simon, Teana, Jono, Guarda, InsetoKaiba, Mago, rival, Rex, Bakura), com a mesma janela do preset 48x48; os demais continuam com o `.face` 48x48. Smokes: `talk_face_<nome>`.
 - Problema conhecido em aberto: o ciclo de caminhada dos NPCs usa folhas cujos quadros de passo quase não diferem do parado, então eles parecem deslizar.
+
+## Notas da v0.6.20-alpha
+
+- Rostos do painel de vida no duelo: o do adversário vem da folha dele no mapa (`.hface` 168x168 quando existe, senão o recorte 48x48; o retrato do disco só para quem não tem folha), e o do jogador é o rosto do herói criado. Um segundo espaço 168x168 fica no banco 14, x 256, y 256 (`NPC_FACE_X`), ao lado do herói em x 0, para os dois aparecerem juntos. Smokes: `duel_face_<nome>`.
