@@ -47,12 +47,6 @@ SCENARIOS = {
         preset="6 Hakim's hint (Kemet next)", debug={"teleport": [700, 530]},
         steps=[("wait", 120)] + [st for i in range(8) for st in (("snap", "walk%d" % i), ("wait", 5))],
         expect=["npc anim: 3 frame 1", "npc anim: 3 frame 3", "npc anim: 6 frame 2", "npc anim: 9 frame 4"]),
-    "rival_village": dict(
-        clean_hud=True, lang=1,
-        desc="InsetoKaiba the recurring rival in the village act: on the map, and his taunt",
-        preset="2 rumors heard (Simon next)", debug={"teleport": [720, 356]},
-        steps=[("wait", 90),  ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 90), ("snap", "talk1"), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 40), ("press", "cross"), ("wait", 240), ("snap", "talk3_macaco")],
-        expect=["talk face"]),
     "rival_beach": dict(
         clean_hud=True, lang=0,
         desc="InsetoKaiba the recurring rival in the beach act: on the map, and his taunt",
@@ -1099,4 +1093,22 @@ SCENARIOS.update({
                ("until", "feupys: restored", 1500), ("wait", 120), ("deck_has", 734), ("snap", "reloaded")],
         expect=["feupys: restored 1 owned, 1 in the deck"]),
 })
-
+SCENARIOS.update({
+    "rival_village": dict(
+        clean_hud=True, lang=1,
+        desc="InsetoKaiba in the village: first talk opens with the catchphrase, a second talk in the same place is the short line, a reload (fresh arrival) greets again",
+        preset="2 rumors heard (Simon next)", debug={"teleport": [720, 356]},
+        steps=[("wait", 90), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 240), ("snap", "talk1_catchphrase")]
+              + [("press", "cross", 3, 70)] * 16 + [("wait", 60), ("press", "cross"), ("wait", 200), ("snap", "talk2_repeat")] + [("press", "cross", 3, 70)] * 4
+              + REL + [("wait", 120), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 240), ("snap", "talk3_after_reload")],
+        expect=[("scene rv_inseto_village_first", 2), ("scene rv_inseto_village (", 1)], forbid=["sprite page collision"]),
+})
+SCENARIOS.update({
+    "rival_fair": dict(
+        clean_hud=True, lang=1,
+        desc="InsetoKaiba at the Star Fair: arrival catchphrase on the first talk, then his old taunt",
+        preset="42 fair arrival (chapter 7)", debug={"teleport": [820, 526]},
+        steps=[("wait", 90)] + [("press", "cross", 3, 45)] * 12 + [("wait", 60), ("snap", "map"), ("press", "up", 3), ("wait", 10), ("press", "cross"), ("wait", 200), ("snap", "talk1")]
+              + [("press", "cross", 3, 70)] * 10 + [("wait", 60), ("press", "cross"), ("wait", 200), ("snap", "talk2")],
+        expect=["scene rv_inseto_fair_first", "scene dk7_inseto_taunt"], forbid=["sprite page collision"]),
+})

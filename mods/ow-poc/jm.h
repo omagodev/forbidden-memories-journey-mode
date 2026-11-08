@@ -273,6 +273,7 @@ int Story_Has(const char *flag);
 int Story_Cond(const JsonNode *c);
 extern JsonNode *jm_rules;
 void Story_Set(const char *flag);
+void Story_Unset(const char *flag);
 void Story_Reset(void);
 const char *Story_Objective(void);
 const char *Story_Chapter(void);

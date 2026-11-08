@@ -4464,35 +4464,31 @@
    ]
   },
   {
-   "id": "rv_inseto_macaco",
+   "id": "rv_inseto_village_first",
    "pages": [
     {
      "speaker": "inseto",
-     "text": "FUHAHAHAHAHAHA! HAHAHAHA! HAAAHAHAHA!"
+     "text": "FUHAHAHAHAHA! HAHAHAHA! I came to see the monkey."
     },
     {
      "speaker": "atos",
-     "text": "...Who are you?"
+     "text": "...What? Who are you?"
     },
     {
      "speaker": "inseto",
-     "text": "InsetoKaiba! Future champion of the Kingdom! I came to see the monkey."
+     "text": "InsetoKaiba! The greatest duelist this sandy village has ever seen. Or ever will. HAHAHAHA!"
     },
     {
      "speaker": "inseto",
-     "text": "They said some village kid thinks he's a duelist. So I flew all the way here to laugh in person. FUHAHAHA!"
-    },
-    {
-     "speaker": "inseto",
-     "text": "See this? Two Kingdom star chips and a golden invitation with MY name on it. Pegasus sent it himself. Obviously."
+     "text": "I heard there's a new duelist around here. I came to check in person... and laugh in person! FUHAHAHA!"
     },
     {
      "speaker": "atos",
-     "text": "I don't have an invitation yet."
+     "text": "If you want a duel, just ask."
     },
     {
      "speaker": "inseto",
-     "text": "Of course you don't! Monkeys don't get mail! HAHAHAHAHA! See you on the island, if they let pets on the ship."
+     "text": "A duel? Here? No, no. A champion picks his stage. You'll understand soon enough. HAHAHAHAHA!"
     }
    ]
   },
@@ -4501,7 +4497,32 @@
    "pages": [
     {
      "speaker": "inseto",
-     "text": "Still here, monkey? I'm polishing my stars. Both of them. FUHAHAHAHA!"
+     "text": "Still here? I'm waiting for the right stage. It's coming. FUHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_beach_first",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHAHA! I came to see the monkey."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Made it to the beach, huh? Did you swim? Did you cry on the way?"
+    },
+    {
+     "speaker": "inseto",
+     "text": "I already secured my stars on the ship. Do the same, if you can."
+    },
+    {
+     "speaker": "atos",
+     "text": "Keep laughing. I'll catch up."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Catch up?! FUHAHAHAHAHA! I fly, and you're still tying your sandals!"
     }
    ]
   },
@@ -4510,19 +4531,24 @@
    "pages": [
     {
      "speaker": "inseto",
-     "text": "HAHAHAHA! The monkey made it to the beach! Did you swim? Did you cry?"
+     "text": "Still trying to catch up? I'm already three islands ahead in my head! HAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_forest_first",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "FUHAHAHA! I came to see the monkey."
     },
     {
      "speaker": "inseto",
-     "text": "I already won stars on the boat. My invitation is framed. Yours is probably wet."
-    },
-    {
-     "speaker": "atos",
-     "text": "Keep laughing. I'll catch up."
+     "text": "Shh! I'm hunting rare bugs for my unbeatable deck..."
     },
     {
      "speaker": "inseto",
-     "text": "Catch up?! FUHAHAHAHAHA! I'm a dragonfly, you're a snail!"
+     "text": "Every bug in this forest bows to me. You should practice your bow. It'll save time later. HAHAHAHA!"
     }
    ]
   },
@@ -4531,11 +4557,32 @@
    "pages": [
     {
      "speaker": "inseto",
-     "text": "Shh! I'm hunting rare bugs for my unbeatable deck... oh. It's YOU. HAHAHAHA!"
+     "text": "Shh! Don't scare my beetles! ...HAHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_mountain_first",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "FUHAHAHAHA! I came to see the monkey."
     },
     {
      "speaker": "inseto",
-     "text": "Every bug in this forest bows to me. You should too. Practice now, it'll save time later."
+     "text": "The air is thin up here. Just like your defense!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "I came up by helicopter. Ten minutes. Then I napped on a pile of stars."
+    },
+    {
+     "speaker": "atos",
+     "text": "Your stars, or somebody else's?"
+    },
+    {
+     "speaker": "inseto",
+     "text": "Every star becomes MINE eventually! HAHAHAHAHA!"
     }
    ]
   },
@@ -4544,19 +4591,20 @@
    "pages": [
     {
      "speaker": "inseto",
-     "text": "FUHAHAHA! Up here the air is thin, monkey. Like your deck!"
+     "text": "Still climbing? I've napped twice already. HAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_meadow_first",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHAHAHA! I came to see the monkey."
     },
     {
      "speaker": "inseto",
-     "text": "I climbed in my helicopter. Ten minutes. Then I took a nap on a pile of stars."
-    },
-    {
-     "speaker": "atos",
-     "text": "Your stars, or somebody else's?"
-    },
-    {
-     "speaker": "inseto",
-     "text": "All stars are MY stars eventually! HAHAHAHAHA!"
+     "text": "Lost in the maze? I got out hours ago. I have a map. And talent. Mostly talent."
     }
    ]
   },
@@ -4565,11 +4613,32 @@
    "pages": [
     {
      "speaker": "inseto",
-     "text": "Lost in the maze, monkey? I left it hours ago. I have a map. And talent. Mostly talent."
+     "text": "Follow the sound of my laughter, maybe you'll find the exit! HAHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_desert_first",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "FUHAHAHA! I came to see the monkey."
     },
     {
      "speaker": "inseto",
-     "text": "HAHAHAHAHA! Follow the sound of my laughter, maybe you'll find the exit!"
+     "text": "Sand everywhere and STILL you come after me. Respect. A little."
+    },
+    {
+     "speaker": "inseto",
+     "text": "My invitation takes me straight to the castle. The gate will be my stage."
+    },
+    {
+     "speaker": "atos",
+     "text": "See you at the gate."
+    },
+    {
+     "speaker": "inseto",
+     "text": "At the gate, I take your stars! HAHAHAHAHA!"
     }
    ]
   },
@@ -4578,19 +4647,49 @@
    "pages": [
     {
      "speaker": "inseto",
-     "text": "Sand everywhere and STILL you crawl after me. Respect. A little. FUHAHAHA!"
+     "text": "The gate, remember. Start practicing your losing face. HAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_fair_first",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HAHAHAHAHA! I came to see the monkey."
     },
     {
      "speaker": "inseto",
-     "text": "My invitation lets me into the castle, monkey. Yours lets you watch from the fence."
+     "text": "A dragonfly lands where it wants. Later I land on your stars."
     },
     {
      "speaker": "atos",
-     "text": "We'll see at the gate."
+     "text": "InsetoKaiba. Loud as ever."
     },
     {
      "speaker": "inseto",
-     "text": "At the gate, I take your stars and frame them next to my invitation! HAHAHAHAHA!"
+     "text": "The castle gate will be mine. Bring ten stars so the loss hurts more. FUHAHAHA!"
+    }
+   ]
+  },
+  {
+   "id": "rv_inseto_hall_first",
+   "pages": [
+    {
+     "speaker": "inseto",
+     "text": "HA... HAHA! I came to see the monkey."
+    },
+    {
+     "speaker": "inseto",
+     "text": "Fine. FINE. You beat me at the gate. A fluke! A glitch! A bug in the system!"
+    },
+    {
+     "speaker": "inseto",
+     "text": "I'm only here to laugh when Pegasus beats you. FU... FUHAHA... ha."
+    },
+    {
+     "speaker": "inseto",
+     "text": "...Don't lose, you hear me? Only I get to beat you."
     }
    ]
   },
@@ -4599,15 +4698,7 @@
    "pages": [
     {
      "speaker": "inseto",
-     "text": "Fine. FINE. You beat me at the gate. A fluke! A glitch! A bug in the system!"
-    },
-    {
-     "speaker": "inseto",
-     "text": "I'm only standing here so I can laugh when Pegasus beats you. FU... FUHAHA... ha."
-    },
-    {
-     "speaker": "inseto",
-     "text": "...Don't lose, monkey. Only I get to beat you."
+     "text": "Go on. And don't lose. Only I get to beat you. HAHA... ha."
     }
    ]
   }

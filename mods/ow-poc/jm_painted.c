@@ -558,7 +558,9 @@ int Paint_AnchorArea(const char *name)
 }
 const char *Paint_AreaId(void) { return parea[paint_area == AREA_ARENA ? arena_from : paint_area].name; }
 int Paint_SaveArea(void) { int a = paint_area == AREA_ARENA ? arena_from : paint_area; return KINGDOM_ZONE(a) ? a : 0; }
-void Paint_SetArea(int a) { paint_area = a >= 0 && a < AREA_COUNT && a != AREA_ARENA ? a : 0; arena_from = paint_area; }
+/* a new place: InsetoKaiba greets the hero with his catchphrase again on the first talk there (journey.json "inseto_here") */
+static void area_changed(void) { Story_Unset("inseto_here"); }
+void Paint_SetArea(int a) { area_changed();   /* a new game or a loaded save: a fresh arrival */ paint_area = a >= 0 && a < AREA_COUNT && a != AREA_ARENA ? a : 0; arena_from = paint_area; }
 int Paint_Area(void) { return paint_area; }
 int paint_area_now(void) { return paint_area; }
 int Paint_Anchor(const char *name, float *x, float *y)
@@ -1338,7 +1340,7 @@ void Paint_Warp(const char *area_name, const char *anchor)
     memset(ptalk, 0, sizeof(ptalk));
     pt_x = x; pt_y = y; face = a == AREA_ARENA ? 3 : 0; walking = 0;
     if (a == AREA_ARENA && paint_area != AREA_ARENA) arena_from = paint_area;
-    if (a != paint_area) { paint_area = a; Paint_Enter(); fade_in = 30; }
+    if (a != paint_area) { paint_area = a; area_changed(); Paint_Enter(); fade_in = 30; }
     else Paint_Enter_Scroll();
     LOG("painted: now in the %s at %d,%d", parea[paint_area].name, (int)x, (int)y);
 }
@@ -1367,6 +1369,7 @@ void Paint_GoAnchor(const char *anchor)
     int a = Paint_AnchorArea(anchor);
     if (a < 0 || !Paint_Anchor(anchor, &x, &y)) return;
     if (a != paint_area) {
+        if (paint_area != a) area_changed();
         paint_area = a;
         if (loaded) Paint_Enter();
     }

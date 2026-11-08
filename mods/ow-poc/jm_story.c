@@ -88,6 +88,15 @@ void Story_Set(const char *flag)
     else if (b >= 0) jm.flags |= 1u << b;
 }
 
+/* a flag that lasts only while the hero stays in one place (jm_painted.c clears "inseto_here" when the area changes) */
+void Story_Unset(const char *flag)
+{
+    int b = Story_FlagBit(flag);
+    if (b >= 64) jm.kflags2 &= ~(1u << (b - 64));
+    else if (b >= 32) jm.kflags &= ~(1u << (b - 32));
+    else if (b >= 0) jm.flags &= ~(1u << b);
+}
+
 void Story_Reset(void)
 {
     memset(&jm, 0, sizeof(jm));

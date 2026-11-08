@@ -67,7 +67,8 @@
   "heishin_won",
   "pegasus_won",
   "wish_festival",
-  "inseto_macaco"
+  "inseto_macaco",
+  "inseto_here"
  ],
  "areas": [
   {
@@ -3191,6 +3192,20 @@
    "talk": [
     {
      "when": {
+      "stage_ge": 28,
+      "lacks": [
+       "inseto_here"
+      ]
+     },
+     "scene": "rv_inseto_fair_first",
+     "effects": {
+      "flags": [
+       "inseto_here"
+      ]
+     }
+    },
+    {
+     "when": {
       "stage_ge": 28
      },
      "scene": "dk7_inseto_taunt"
@@ -3558,13 +3573,13 @@
       "stage_ge": 1,
       "stage_lt": 6,
       "lacks": [
-       "inseto_macaco"
+       "inseto_here"
       ]
      },
-     "scene": "rv_inseto_macaco",
+     "scene": "rv_inseto_village_first",
      "effects": {
       "flags": [
-       "inseto_macaco"
+       "inseto_here"
       ]
      }
     },
@@ -3597,6 +3612,21 @@
     {
      "when": {
       "stage_ge": 10,
+      "stage_lt": 13,
+      "lacks": [
+       "inseto_here"
+      ]
+     },
+     "scene": "rv_inseto_beach_first",
+     "effects": {
+      "flags": [
+       "inseto_here"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 10,
       "stage_lt": 13
      },
      "scene": "rv_inseto_beach"
@@ -3620,6 +3650,21 @@
    "mesh": "Suit_Male",
    "anchor": "kingdom_forest.inseto_spot",
    "talk": [
+    {
+     "when": {
+      "stage_ge": 13,
+      "stage_lt": 17,
+      "lacks": [
+       "inseto_here"
+      ]
+     },
+     "scene": "rv_inseto_forest_first",
+     "effects": {
+      "flags": [
+       "inseto_here"
+      ]
+     }
+    },
     {
      "when": {
       "stage_ge": 13,
@@ -3649,6 +3694,21 @@
     {
      "when": {
       "stage_ge": 17,
+      "stage_lt": 22,
+      "lacks": [
+       "inseto_here"
+      ]
+     },
+     "scene": "rv_inseto_mountain_first",
+     "effects": {
+      "flags": [
+       "inseto_here"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 17,
       "stage_lt": 22
      },
      "scene": "rv_inseto_mountain"
@@ -3672,6 +3732,21 @@
    "mesh": "Suit_Male",
    "anchor": "kingdom_meadow.inseto_spot",
    "talk": [
+    {
+     "when": {
+      "stage_ge": 22,
+      "stage_lt": 25,
+      "lacks": [
+       "inseto_here"
+      ]
+     },
+     "scene": "rv_inseto_meadow_first",
+     "effects": {
+      "flags": [
+       "inseto_here"
+      ]
+     }
+    },
     {
      "when": {
       "stage_ge": 22,
@@ -3701,6 +3776,21 @@
     {
      "when": {
       "stage_ge": 25,
+      "stage_lt": 28,
+      "lacks": [
+       "inseto_here"
+      ]
+     },
+     "scene": "rv_inseto_desert_first",
+     "effects": {
+      "flags": [
+       "inseto_here"
+      ]
+     }
+    },
+    {
+     "when": {
+      "stage_ge": 25,
       "stage_lt": 28
      },
      "scene": "rv_inseto_desert"
@@ -3724,6 +3814,21 @@
    "mesh": "Suit_Male",
    "anchor": "castle_hall.inseto_spot",
    "talk": [
+    {
+     "when": {
+      "stage_ge": 33,
+      "stage_lt": 35,
+      "lacks": [
+       "inseto_here"
+      ]
+     },
+     "scene": "rv_inseto_hall_first",
+     "effects": {
+      "flags": [
+       "inseto_here"
+      ]
+     }
+    },
     {
      "when": {
       "stage_ge": 33,
